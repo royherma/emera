@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-13T11:34:50.870Z",
+  "updated": "2026-11-13T11:57:28.942Z",
   "title": "Emera",
   "goal": "Emera. Where humanity comes together - you post, share the link, invite people",
   "phases": [
@@ -163,6 +163,12 @@
       "sub": "Nov 16-20. Done when: 4 handles, DMCA number, your profile live",
       "tasks": [
         {
+          "id": "m0-connect",
+          "text": "Connect your Claude to Emera and bring your posts over",
+          "who": "roy",
+          "review": "connect-ai"
+        },
+        {
           "id": "a8",
           "text": "Claim @emerasocial: TikTok, YouTube, Instagram, Bluesky (your logins)",
           "who": "roy",
@@ -218,6 +224,17 @@
           "text": "Intro to one creator group",
           "who": "roy",
           "review": "creatororgs"
+        },
+        {
+          "id": "m1-mcp",
+          "text": "Connect Claude/ChatGPT (MCP), import from Bluesky + feeds, auto-post",
+          "who": "claude",
+          "done": true
+        },
+        {
+          "id": "m1-connect-screen",
+          "text": "App screen: connect an AI app, import, auto-post switch",
+          "who": "claude"
         }
       ]
     },
@@ -1148,6 +1165,12 @@
       "state": "done",
       "note": "live: emera.social/costs, linked in every footer",
       "owner": "claude 5916c143"
+    },
+    {
+      "name": "Connect + import",
+      "state": "done",
+      "note": "MCP + OAuth on api.emera.social, Bluesky + feeds, auto-post every 15 min, ebfe6fb",
+      "owner": "claude fd627ece"
     }
   ],
   "links": [
@@ -1228,6 +1251,39 @@
     ]
   ],
   "review": [
+    {
+      "id": "connect-ai",
+      "kind": "do",
+      "when": "now",
+      "title": "Connect your Claude to Emera",
+      "why": "Live on api.emera.social. Claude can import your old posts and auto-post new ones from Bluesky, Mastodon, Pixelfed or any feed.",
+      "task": "m0-connect",
+      "links": [
+        [
+          "claude.ai connectors",
+          "https://claude.ai/settings/connectors"
+        ]
+      ],
+      "list": [
+        "claude.ai: Settings, Connectors, Add custom connector, paste https://api.emera.social/mcp (Claude Code is already set up: type /mcp, pick emera, Authenticate)",
+        "Enter your email, type the 6-digit code, tap Allow",
+        "Ask: import my last 10 posts from @you.bsky.social to Emera and auto-post new ones"
+      ],
+      "rec": "Start with Bluesky or your Mastodon link; Instagram does not let other apps read posts",
+      "options": [
+        {
+          "id": "done",
+          "label": "Done",
+          "primary": true
+        },
+        {
+          "id": "later",
+          "label": "Later"
+        }
+      ],
+      "answer": null,
+      "text": null
+    },
     {
       "id": "handles",
       "kind": "do",

@@ -149,6 +149,14 @@ Rules and every number: `docs/mission/funding-rules.md`. Constants live in `apps
 | POST | `/v1/admin/fund/sponsorships` | admin | `{ sponsorName, sponsorUrl?, contactEmail?, amountCents, months: ["YYYY-MM"], status?: "paid"\|"pledged" }` | `201 { sponsorships: [sponsorship] }` - amount split equally across `months`, leftover cent on the earliest; 409 `month_closed` if a month is already closed |
 | POST | `/v1/admin/fund/sponsorships/:id/refund` | admin | - | `{ sponsorship }` |
 | POST | `/v1/admin/fund/close` | admin | `{ month }` | `{ statement }` - safe to run twice (returns the frozen one); 400 `month_open` if the month has not ended |
+| POST | `/v1/fund/checkout` | - | `{ sponsorName, contactEmail, monthlyCents, months?: 1-12, sponsorUrl?, line?: max 80 }` | `201 { url }` - Stripe Checkout (promotion codes on); 503 `payments_off` without Stripe config or when the key is not the `STRIPE_ACCOUNT_ID` account; every start is saved in `fund_checkouts` |
+| GET | `/v1/fund/checkout/:sessionId` | - | - | `{ paid: false }` or `{ paid: true, sponsorName, amountCents, months, banner }` - for the thank-you note on the fund page |
+| POST | `/v1/stripe/webhook` | Stripe signature | Stripe event | `{ received, result }` - books `checkout.session.completed` (paid or 100% off), marks `checkout.session.expired` as left, refunds on full `charge.refunded`; ignores events without `metadata.project = "emera"` |
+| GET | `/v1/admin/fund/sponsors` | admin | - | `{ sponsors: [{ id, name, url, line, banner, email, paid_cents }] }` |
+| POST | `/v1/admin/fund/sponsors/:id/banner` | admin | `{ banner: "approved"\|"rejected"\|"pending" }` | `{ id, banner }` |
+| GET | `/v1/admin/fund/checkouts` | admin | - | `{ checkouts: [...] }` - started, paid, expired, with promo code and discount |
+
+`GET /v1/fund` also returns `banners: [{ name, url, line }]` (approved sponsors paid for this month, biggest first) and `feedCards: { on, posts, needed, every }` (in-feed sponsor cards only when `on`).
 
 Admin auth = `Authorization: Bearer <FUND_ADMIN_KEY>` (a wrangler secret; dev default `dev-fund-admin`). Wrong or missing key is 404, not 401.
 
@@ -161,3 +169,26 @@ Admin auth = `Authorization: Bearer <FUND_ADMIN_KEY>` (a wrangler secret; dev de
 `sponsorship` = `{ id, sponsorName, sponsorUrl, month, amountCents, status: "pledged"|"paid"|"refunded", createdAt }`. Only `paid` counts toward the pool; `pledged` shows on the fund page as pledged. `contactEmail` is never returned.
 
 `statement` = `monthSummary` plus `{ rulesVersion, sponsorships: [sponsorship], refunds: [sponsorship], shares: [{ handle, seconds, sharePpm, amountCents }], carryOutCents }`. `refunds` = sponsorships from an already-closed month refunded out of this one (their `month` is the month they were booked to); `sponsoredCents` is paid minus those refunds. `shares` biggest first; `handle` is `null` for creators who asked not to be named. `sha256` is over the canonical JSON of the statement without `sha256` and `closedAt`, keys sorted, so anyone can re-check it. Open-month statements are live estimates with `sha256: null`.
+
+## Connect an AI app, import, auto-post
+
+`/mcp` is an MCP server (Streamable HTTP, stateless JSON-RPC, protocol `2025-11-25` back to `2024-11-05`). Add `https://api.emera.social/mcp` as a connector in claude.ai, ChatGPT, Claude Code or Cursor; the app signs in with OAuth 2.1 (dynamic client registration + PKCE S256) and the person approves with an email code on `/oauth/authorize`. Access tokens are `sessions` rows with `client_id` set (30 days), refresh tokens rotate (1 year). Tools: `whoami`, `preview_import`, `import_posts`, `auto_post`, `list_connections`, `create_post`, `list_my_posts`.
+
+| Method | Path | Body | Returns |
+| --- | --- | --- | --- |
+| GET | `/.well-known/oauth-protected-resource` | - | `{ resource, authorization_servers }` |
+| GET | `/.well-known/oauth-authorization-server` | - | OAuth metadata |
+| POST | `/oauth/register` | `{ client_name, redirect_uris }` | `201 { client_id, ... }` public client, no secret |
+| GET | `/oauth/authorize` | query: `response_type=code, client_id, redirect_uri, code_challenge, code_challenge_method=S256, state` | sign-in + Allow page |
+| POST | `/oauth/token` | form: `authorization_code` or `refresh_token` grant | `{ access_token, refresh_token, expires_in }` |
+| POST | `/mcp` | JSON-RPC | `401` + `WWW-Authenticate: Bearer resource_metadata=...` without a token |
+| POST | `/v1/import/preview` | `{ from, limit? }` | `{ source, items: [{ id, url, date, caption, photos, videos, thumb, onEmera }] }` |
+| POST | `/v1/import` | `{ from, limit?, only?, autoPost? }` | `{ imported: [{ item, post }], skipped: [{ item, why }] }` |
+| GET | `/v1/sources` | - | `{ sources: [source] }` |
+| POST | `/v1/sources` | `{ from, autoPost?, rules? }` | `{ source }` turns auto-post on (default) or off; `rules` = `{ media: any\|photos\|videos, tag? }` |
+| DELETE | `/v1/sources/:id` | - | `{ ok: true }` |
+| GET | `/v1/connectors` | - | `{ connectors: [{ id, name, example }], locked: [{ name, why }] }` |
+
+`from` is a Bluesky handle (`@name.bsky.social`, a `bsky.app/profile/` link or a did), a Mastodon profile link (`/@name` gets `.rss`), or any RSS/Atom feed or page that links one. Instagram, TikTok, X and Facebook links return 422 `source_locked` with what to do instead. Only items with photos or videos come over; captions keep up to 2200 characters, dates keep the original time. Each source item is imported once per person (`imported_items`). Up to 25 posts per import call.
+
+`source` = `{ id, from, kind, label, autoPost, rules, since, lastChecked, lastError }`. Each place to import from is a connector, one file in `apps/api/src/connectors/`; see `docs/connectors.md`. `POST /v1/import` takes `only: [itemId]` from the preview to bring over just those. A cron every 15 minutes reads the 10 newest items of each auto-post source and posts those made after `since` (the moment auto-post was turned on).
