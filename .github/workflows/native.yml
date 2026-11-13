@@ -2,9 +2,14 @@ name: Native apps
 
 on:
   workflow_dispatch:
+    inputs:
+      platform:
+        type: choice
+        options: [ios, android, both]
+        default: ios
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: native-${{ github.ref }}
@@ -12,6 +17,7 @@ concurrency:
 
 jobs:
   ios:
+    if: inputs.platform != 'android'
     runs-on: macos-26
     timeout-minutes: 90
     steps:
@@ -27,6 +33,12 @@ jobs:
         run: |
           CI=1 npx expo prebuild -p ios --clean --no-install
           cd ios && pod install
+      - name: Reuse the last iOS build
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: apps/mobile/ios/build
+          key: ios-build-${{ hashFiles('apps/mobile/package-lock.json', 'apps/mobile/app.json', 'apps/mobile/app.config.js') }}-${{ github.sha }}
+          restore-keys: ios-build-${{ hashFiles('apps/mobile/package-lock.json', 'apps/mobile/app.json', 'apps/mobile/app.config.js') }}-
       - name: Pick a simulator
         id: sim
         run: |
@@ -44,6 +56,8 @@ jobs:
           curl -fsSL https://get.maestro.mobile.dev | bash
           xcrun simctl install "${{ steps.sim.outputs.udid }}" apps/mobile/ios/build/Build/Products/Release-iphonesimulator/Emera.app
           mkdir -p shots/ios
+          GH_TOKEN=${{ github.token }} .github/scripts/stream-shots.sh "$GITHUB_WORKSPACE/shots" ios &
+          trap 'touch "$GITHUB_WORKSPACE/shots/.done"; wait' EXIT
           ~/.maestro/bin/maestro --device "${{ steps.sim.outputs.udid }}" test --test-output-dir "$GITHUB_WORKSPACE/shots/ios" --debug-output "$GITHUB_WORKSPACE/shots/ios-debug" --flatten-debug-output "$GITHUB_WORKSPACE/apps/mobile/e2e/walk.yaml"
       - if: always()
         run: find ~/Library/Logs/DiagnosticReports -name 'Emera*' -exec cp {} shots/ \; 2>/dev/null || true
@@ -54,6 +68,7 @@ jobs:
           path: shots
 
   android:
+    if: inputs.platform != 'ios'
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
