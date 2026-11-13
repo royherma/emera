@@ -14,24 +14,27 @@ Expo (iOS, Android, web) in `apps/mobile`, a marketing site in `apps/site`, a Cl
 
 Primary: creators of every kind who put work out in public: video makers, illustrators, musicians, designers, people who make physical things. They post from a phone, check it between work sessions, and share a link to it. They are worried that AI and reposters copy anything they make, and they are tired of platforms that hide how the feed works.
 
-Secondary: people who follow creators because they want real work from real people, not bot-fed noise.
+Also primary: people sharing what is happening around them: news from where they stand, local updates, events, a street festival, a flood on their road. They need people to trust that the moment is real and that they were the ones who shared it.
+
+Secondary: people who follow creators and local voices because they want real work and real news from real people, not bot-fed noise or AI fakes.
 
 Tertiary: press, grant funders and open-source contributors, who read the marketing site to judge whether the nonprofit means it.
 
 ## Product Purpose
 
-Emera is an open-source, nonprofit network for everyone who makes things. The name is from the Greek hemera, "day, daylight": your work out in the open. Tagline: **Where humanity comes together.** Domain: emera.social.
+Emera is an open-source, nonprofit network for everyone who makes things and everyone who shares what is happening. The name is from the Greek hemera, "day, daylight": your work out in the open. Tagline: **Where humanity comes together.** Domain: emera.social.
 
 Success in v1: a creator signs up with an Emera account, posts a piece of work, sees a proof-of-maker badge on it, and understands within one screen that the work is protected and that real people see it.
 
 ## Positioning
 
-Four things a neighboring network cannot truthfully copy, because its business depends on the opposite:
+Five things a neighboring network cannot truthfully copy, because its business depends on the opposite:
 
 1. **Proof of who made it.** Every post carries provenance (signed at upload, original credited on every copy), real people are marked, bots must declare themselves.
 2. **Protected everywhere.** Upload once; we watch other platforms for copies and file the takedowns for the creator. Legal escalation is part of the promise.
-3. **An open algorithm.** The default feed's ranking is open source, every boost is logged with its reason, users pick their own feeds.
-4. **You own your account.** AT Protocol: leave with your followers and posts at any time. Creators are paid (tips, subscriptions, licensing; surplus is given back each quarter).
+3. **Real, not fake.** The same proof that protects a maker tells a viewer a moment is real: who posted it, when, the original every copy points back to, and whether a person or a bot posted it. The badge never claims more than was checked: no fact-checking promise, no "100% real" seal.
+4. **An open algorithm.** The default feed's ranking is open source, every boost is logged with its reason, users pick their own feeds.
+5. **You own your account.** AT Protocol: leave with your followers and posts at any time. Creators are paid (tips, subscriptions, licensing; surplus is given back each quarter).
 
 Tone is welcoming, never a rival pitch. It is not "screw Instagram"; it is a place to express and share.
 

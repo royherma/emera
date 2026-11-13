@@ -33,16 +33,63 @@
       }
     ],
     "table": {
-      "cols": ["", "Emera", "Cara", "Bluesky", "Pixelfed"],
+      "cols": [
+        "",
+        "Emera",
+        "Cara",
+        "Bluesky",
+        "Pixelfed"
+      ],
       "rows": [
-        ["Who runs it", "Nonprofit", "Cara Project, Inc., founder and volunteers", "Public benefit corporation", "Open-source project; each server run by its own community"],
-        ["Open source", "Code open source", "Confirm on cara.app", "App source under MIT", "AGPL-3.0"],
-        ["Generative AI stance", "Not covered on this page", "Filters AI images from portfolios, NoAI tags", "Says it does not train generative AI on user content", "Confirm on pixelfed.org"],
-        ["Feeds", "Pick your feeds, with a 'Why you are seeing this' reason", "Customizable home feed, custom Explore tabs", "Over 40,000 feeds to choose from", "Chronological timelines"],
-        ["Provenance on posts", "Signed C2PA record on every post", "Not described on its listing", "Not described on its FAQ", "Not described on its repository"],
-        ["Account portability", "Move your account with followers to another host", "Confirm on cara.app", "Change servers, keep username, friends and posts", "Federated; confirm migration on pixelfed.org"],
-        ["Takedown help", "Report a copy, Emera helps you file, steps on your dashboard", "Confirm in its help center", "Confirm in its help center", "Confirm with your server's admins"],
-        ["Apps", "New network", "iOS app and website", "Web, iOS, Android", "Official and third-party iOS and Android apps"]
+        [
+          "Who runs it",
+          "Nonprofit",
+          "Cara Project, Inc., founder and volunteers",
+          "Public benefit corporation",
+          "Open-source project; each server run by its own community"
+        ],
+        [
+          "Open source",
+          "Code open source",
+          "Check cara.app",
+          "App source under MIT",
+          "AGPL-3.0"
+        ],
+        [
+          "Feeds",
+          "Pick your feeds, with a 'Why you are seeing this' reason",
+          "Customizable home feed, custom Explore tabs",
+          "Over 40,000 feeds to choose from",
+          "Chronological timelines"
+        ],
+        [
+          "Provenance on posts",
+          "Signed C2PA record on every post",
+          "Not described on its listing",
+          "Not described on its FAQ",
+          "Not described on its repository"
+        ],
+        [
+          "Account portability",
+          "Move your account with followers to another host",
+          "Check cara.app",
+          "Change servers, keep username, friends and posts",
+          "Federated; confirm migration on pixelfed.org"
+        ],
+        [
+          "Takedown help",
+          "Report a copy, Emera helps you file, steps on your dashboard",
+          "Check its help center",
+          "Check its help center",
+          "Check your server's admins"
+        ],
+        [
+          "Apps",
+          "New network",
+          "iOS app and website",
+          "Web, iOS, Android",
+          "Official and third-party iOS and Android apps"
+        ]
       ]
     },
     "they_win": [
@@ -70,18 +117,49 @@
       }
     ],
     "sources": [
-      { "label": "Cara: Art & Social on the App Store", "url": "https://apps.apple.com/ms/app/id6450934458" },
-      { "label": "Cara (app) on Wikipedia", "url": "https://en.wikipedia.org/wiki/Cara_(app)" },
-      { "label": "Bluesky FAQ", "url": "https://bsky.social/about/faq" },
-      { "label": "Bluesky social-app repository (MIT)", "url": "https://github.com/bluesky-social/social-app" },
-      { "label": "TechCrunch on Bluesky and generative AI", "url": "https://techcrunch.com/2024/11/15/unlike-x-bluesky-says-it-wont-train-ai-on-your-posts/" },
-      { "label": "Pixelfed repository (AGPL-3.0)", "url": "https://github.com/pixelfed/pixelfed" },
-      { "label": "Pixelfed on Wikipedia", "url": "https://en.wikipedia.org/wiki/Pixelfed" },
-      { "label": "Flashes for Bluesky on the App Store", "url": "https://apps.apple.com/us/app/flashes-for-bluesky/id6741443033" },
-      { "label": "80.lv on ArtStation AI declarations and filters", "url": "https://80.lv/articles/artstation-adds-ai-declarations-default-ai-filtering-for-artwork/" }
+      {
+        "label": "Cara: Art & Social on the App Store",
+        "url": "https://apps.apple.com/ms/app/id6450934458"
+      },
+      {
+        "label": "Cara (app) on Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cara_(app)"
+      },
+      {
+        "label": "Bluesky FAQ",
+        "url": "https://bsky.social/about/faq"
+      },
+      {
+        "label": "Bluesky social-app repository (MIT)",
+        "url": "https://github.com/bluesky-social/social-app"
+      },
+      {
+        "label": "TechCrunch on Bluesky and generative AI",
+        "url": "https://techcrunch.com/2024/11/15/unlike-x-bluesky-says-it-wont-train-ai-on-your-posts/"
+      },
+      {
+        "label": "Pixelfed repository (AGPL-3.0)",
+        "url": "https://github.com/pixelfed/pixelfed"
+      },
+      {
+        "label": "Pixelfed on Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Pixelfed"
+      },
+      {
+        "label": "Flashes for Bluesky on the App Store",
+        "url": "https://apps.apple.com/us/app/flashes-for-bluesky/id6741443033"
+      },
+      {
+        "label": "80.lv on ArtStation AI declarations and filters",
+        "url": "https://80.lv/articles/artstation-adds-ai-declarations-default-ai-filtering-for-artwork/"
+      }
     ],
     "checked": "2026-11-13",
-    "related": ["emera-vs-cara", "emera-vs-bluesky", "how-to-prevent-people-from-stealing-your-art-online"]
+    "related": [
+      "emera-vs-cara",
+      "emera-vs-bluesky",
+      "how-to-prevent-people-from-stealing-your-art-online"
+    ]
   },
   {
     "slug": "open-source-instagram-alternative",
@@ -109,15 +187,55 @@
       }
     ],
     "table": {
-      "cols": ["", "Emera", "Pixelfed", "Bluesky and Flashes"],
+      "cols": [
+        "",
+        "Emera",
+        "Pixelfed",
+        "Bluesky and Flashes"
+      ],
       "rows": [
-        ["Code", "Open source", "AGPL-3.0", "Bluesky app under MIT; Flashes codebase not found"],
-        ["Run by", "Nonprofit", "Open-source project; servers run by many communities", "Bluesky: public benefit corporation; Flashes: Birdsong Apps GmbH"],
-        ["Protocol", "AT Protocol", "ActivityPub (fediverse)", "AT Protocol"],
-        ["Feeds", "Pick your feeds, with a 'Why you are seeing this' reason", "Chronological timelines", "Over 40,000 feeds to choose from"],
-        ["Provenance on posts", "Signed C2PA record on every post", "Not described on its repository", "Not described on its FAQ"],
-        ["Moving your account", "Move it with your followers to another host", "Federated; confirm migration on pixelfed.org", "Change servers, keep username, friends and posts"],
-        ["Apps", "New network", "Official and third-party iOS and Android apps", "Bluesky on web, iOS, Android; Flashes on Apple devices"]
+        [
+          "Code",
+          "Open source",
+          "AGPL-3.0",
+          "Bluesky app under MIT; Flashes codebase not found"
+        ],
+        [
+          "Run by",
+          "Nonprofit",
+          "Open-source project; servers run by many communities",
+          "Bluesky: public benefit corporation; Flashes: Birdsong Apps GmbH"
+        ],
+        [
+          "Protocol",
+          "AT Protocol",
+          "ActivityPub (fediverse)",
+          "AT Protocol"
+        ],
+        [
+          "Feeds",
+          "Pick your feeds, with a 'Why you are seeing this' reason",
+          "Chronological timelines",
+          "Over 40,000 feeds to choose from"
+        ],
+        [
+          "Provenance on posts",
+          "Signed C2PA record on every post",
+          "Not described on its repository",
+          "Not described on its FAQ"
+        ],
+        [
+          "Moving your account",
+          "Move it with your followers to another host",
+          "Federated; confirm migration on pixelfed.org",
+          "Change servers, keep username, friends and posts"
+        ],
+        [
+          "Apps",
+          "New network",
+          "Official and third-party iOS and Android apps",
+          "Bluesky on web, iOS, Android; Flashes on Apple devices"
+        ]
       ]
     },
     "they_win": [
@@ -144,14 +262,33 @@
       }
     ],
     "sources": [
-      { "label": "Pixelfed repository (AGPL-3.0)", "url": "https://github.com/pixelfed/pixelfed" },
-      { "label": "Pixelfed on Wikipedia", "url": "https://en.wikipedia.org/wiki/Pixelfed" },
-      { "label": "Bluesky social-app repository (MIT)", "url": "https://github.com/bluesky-social/social-app" },
-      { "label": "Bluesky FAQ", "url": "https://bsky.social/about/faq" },
-      { "label": "Flashes for Bluesky on the App Store", "url": "https://apps.apple.com/us/app/flashes-for-bluesky/id6741443033" }
+      {
+        "label": "Pixelfed repository (AGPL-3.0)",
+        "url": "https://github.com/pixelfed/pixelfed"
+      },
+      {
+        "label": "Pixelfed on Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Pixelfed"
+      },
+      {
+        "label": "Bluesky social-app repository (MIT)",
+        "url": "https://github.com/bluesky-social/social-app"
+      },
+      {
+        "label": "Bluesky FAQ",
+        "url": "https://bsky.social/about/faq"
+      },
+      {
+        "label": "Flashes for Bluesky on the App Store",
+        "url": "https://apps.apple.com/us/app/flashes-for-bluesky/id6741443033"
+      }
     ],
     "checked": "2026-11-13",
-    "related": ["emera-vs-bluesky", "instagram-alternative-for-artists", "social-media-without-algorithm"]
+    "related": [
+      "emera-vs-bluesky",
+      "instagram-alternative-for-artists",
+      "social-media-without-algorithm"
+    ]
   },
   {
     "slug": "emera-vs-cara",
@@ -175,17 +312,52 @@
       }
     ],
     "table": {
-      "cols": ["", "Emera", "Cara"],
+      "cols": [
+        "",
+        "Emera",
+        "Cara"
+      ],
       "rows": [
-        ["Who runs it", "Nonprofit", "Cara Project, Inc.; founder with volunteers"],
-        ["Open source", "Code open source", "Confirm on cara.app"],
-        ["Generative AI stance", "Not covered on this page", "AI detector filters AI images from portfolios; NoAI tags"],
-        ["Feeds", "Pick your feeds, with a 'Why you are seeing this' reason", "Customizable home feed and custom Explore tabs"],
-        ["Provenance on posts", "Signed C2PA record on every post", "Not described on its listing"],
-        ["Account portability", "Move your account with followers to another host", "Confirm on cara.app"],
-        ["Takedown help", "Report a copy, Emera helps you file, steps on your dashboard", "Confirm in its help center"],
-        ["Portfolio and jobs", "Profile grid of your work", "Portfolio features and job listings"],
-        ["Apps", "New network", "iOS app and website"]
+        [
+          "Who runs it",
+          "Nonprofit",
+          "Cara Project, Inc.; founder with volunteers"
+        ],
+        [
+          "Open source",
+          "Code open source",
+          "Check cara.app"
+        ],
+        [
+          "Feeds",
+          "Pick your feeds, with a 'Why you are seeing this' reason",
+          "Customizable home feed and custom Explore tabs"
+        ],
+        [
+          "Provenance on posts",
+          "Signed C2PA record on every post",
+          "Not described on its listing"
+        ],
+        [
+          "Account portability",
+          "Move your account with followers to another host",
+          "Check cara.app"
+        ],
+        [
+          "Takedown help",
+          "Report a copy, Emera helps you file, steps on your dashboard",
+          "Check its help center"
+        ],
+        [
+          "Portfolio and jobs",
+          "Profile grid of your work",
+          "Portfolio features and job listings"
+        ],
+        [
+          "Apps",
+          "New network",
+          "iOS app and website"
+        ]
       ]
     },
     "they_win": [
@@ -213,11 +385,21 @@
       }
     ],
     "sources": [
-      { "label": "Cara: Art & Social on the App Store", "url": "https://apps.apple.com/ms/app/id6450934458" },
-      { "label": "Cara (app) on Wikipedia", "url": "https://en.wikipedia.org/wiki/Cara_(app)" }
+      {
+        "label": "Cara: Art & Social on the App Store",
+        "url": "https://apps.apple.com/ms/app/id6450934458"
+      },
+      {
+        "label": "Cara (app) on Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cara_(app)"
+      }
     ],
     "checked": "2026-11-13",
-    "related": ["instagram-alternative-for-artists", "how-to-prevent-people-from-stealing-your-art-online", "what-are-content-credentials"]
+    "related": [
+      "instagram-alternative-for-artists",
+      "how-to-prevent-people-from-stealing-your-art-online",
+      "what-are-content-credentials"
+    ]
   },
   {
     "slug": "emera-vs-bluesky",
@@ -241,17 +423,52 @@
       }
     ],
     "table": {
-      "cols": ["", "Emera", "Bluesky"],
+      "cols": [
+        "",
+        "Emera",
+        "Bluesky"
+      ],
       "rows": [
-        ["Protocol", "AT Protocol", "AT Protocol"],
-        ["Who runs it", "Nonprofit", "Bluesky Social, a public benefit corporation"],
-        ["Open source", "Code open source", "App source under MIT; protocol is an open-source framework"],
-        ["Feeds", "Pick your feeds, with a 'Why you are seeing this' reason", "Anyone can build a feed; over 40,000 to choose from"],
-        ["Provenance on posts", "Signed C2PA record on every post", "Not described on its FAQ"],
-        ["Account portability", "Move your account with followers to another host", "Change servers, keep username, friends and posts"],
-        ["Takedown help", "Report a copy, Emera helps you file, steps on your dashboard", "Confirm in its help center"],
-        ["Generative AI stance", "Not covered on this page", "Says it does not train generative AI on user content"],
-        ["Apps", "New network", "Web, iOS, Android"]
+        [
+          "Protocol",
+          "AT Protocol",
+          "AT Protocol"
+        ],
+        [
+          "Who runs it",
+          "Nonprofit",
+          "Bluesky Social, a public benefit corporation"
+        ],
+        [
+          "Open source",
+          "Code open source",
+          "App source under MIT; protocol is an open-source framework"
+        ],
+        [
+          "Feeds",
+          "Pick your feeds, with a 'Why you are seeing this' reason",
+          "Anyone can build a feed; over 40,000 to choose from"
+        ],
+        [
+          "Provenance on posts",
+          "Signed C2PA record on every post",
+          "Not described on its FAQ"
+        ],
+        [
+          "Account portability",
+          "Move your account with followers to another host",
+          "Change servers, keep username, friends and posts"
+        ],
+        [
+          "Takedown help",
+          "Report a copy, Emera helps you file, steps on your dashboard",
+          "Check its help center"
+        ],
+        [
+          "Apps",
+          "New network",
+          "Web, iOS, Android"
+        ]
       ]
     },
     "they_win": [
@@ -279,12 +496,28 @@
       }
     ],
     "sources": [
-      { "label": "Bluesky FAQ", "url": "https://bsky.social/about/faq" },
-      { "label": "Bluesky social-app repository (MIT)", "url": "https://github.com/bluesky-social/social-app" },
-      { "label": "TechCrunch on Bluesky and generative AI", "url": "https://techcrunch.com/2024/11/15/unlike-x-bluesky-says-it-wont-train-ai-on-your-posts/" },
-      { "label": "Bluesky Terms of Service", "url": "https://bsky.social/about/support/tos" }
+      {
+        "label": "Bluesky FAQ",
+        "url": "https://bsky.social/about/faq"
+      },
+      {
+        "label": "Bluesky social-app repository (MIT)",
+        "url": "https://github.com/bluesky-social/social-app"
+      },
+      {
+        "label": "TechCrunch on Bluesky and generative AI",
+        "url": "https://techcrunch.com/2024/11/15/unlike-x-bluesky-says-it-wont-train-ai-on-your-posts/"
+      },
+      {
+        "label": "Bluesky Terms of Service",
+        "url": "https://bsky.social/about/support/tos"
+      }
     ],
     "checked": "2026-11-13",
-    "related": ["open-source-instagram-alternative", "social-media-without-algorithm", "instagram-alternative-for-artists"]
+    "related": [
+      "open-source-instagram-alternative",
+      "social-media-without-algorithm",
+      "instagram-alternative-for-artists"
+    ]
   }
 ]

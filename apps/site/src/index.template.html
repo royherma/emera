@@ -9,6 +9,7 @@
 <meta name="theme-color" content="#0c0a09" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
 <link rel="canonical" href="https://{{domain}}/">
+<script type="application/ld+json">{{ld}}</script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{{name}}">
 <meta property="og:title" content="{{name}}: every post signed by the person who was there">
@@ -253,6 +254,11 @@ footer p{max-width:34em;font-size:1rem;color:rgba(241,231,216,.8)}
 footer a.gh{font-weight:600;text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(241,231,216,.4)}
 footer a.gh:hover{text-decoration-color:var(--sun2)}
 .fine{margin-top:14px;font-size:.85rem;color:rgba(241,231,216,.55)}
+.guides{width:100%;border-top:1px solid rgba(255,235,210,.12);padding-top:20px;font-size:.9rem}
+.guides .gl{font-weight:600;color:rgba(241,231,216,.6);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+.guides ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:10px}
+.guides a{color:rgba(241,231,216,.85);text-decoration:none}
+.guides a:hover{color:var(--sun2)}
 .credits{width:100%;border-top:1px solid rgba(255,235,210,.12);padding-top:20px;font-size:.8rem;color:rgba(241,231,216,.6)}
 .credits summary{cursor:pointer;font-weight:600}
 .credits ul{margin-top:12px;columns:2;column-gap:32px;list-style:none}
@@ -400,6 +406,7 @@ footer a.gh:hover{text-decoration-color:var(--sun2)}
       <p class="fine">{{name}} comes from hemera, the Greek word for day.</p>
     </div>
     <p>{{name}} is open source and run as a nonprofit. The code is public and so is the algorithm. <a class="gh" href="{{github}}" rel="noopener">Read it on GitHub</a></p>
+    <nav class="guides" aria-label="Guides"><div class="gl">Guides</div><ul>{{guides}}</ul></nav>
     <details class="credits">
       <summary>Image credits</summary>
       <ul>{{credits}}</ul>

@@ -15,7 +15,11 @@ export const pages = [...load("answers.json"), ...load("compare.json")].map((p) 
 const bySlug = new Map(pages.map((p) => [p.slug, p]));
 
 const SAFE_TAGS = /<(?!\/?(p|ul|ol|li|strong|em|a)(\s+href="[^"]*"(\s+rel="[^"]*")?)?\s*>)[^>]*>/gi;
-const clean = (html) => String(html).replace(SAFE_TAGS, "").replace(/<a href="(https?:[^"]+)">/g, '<a href="$1" rel="noopener">');
+const clean = (html) =>
+  String(html)
+    .replace(SAFE_TAGS, "")
+    .replace(/<a href="(https?:[^"]+)">/g, '<a href="$1" rel="noopener">')
+    .replace(/<a href="\/(?:answers\/|compare\/)?([a-z0-9-]+)\/?">/g, (m, s) => (bySlug.has(s) ? `<a href="${bySlug.get(s).path}">` : m));
 
 const mark = `<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc24a"/><stop offset="1" stop-color="#ff6a2b"/></linearGradient></defs><circle cx="50" cy="50" r="46" fill="currentColor"/><path d="M4 50a46 46 0 0 1 92 0z" fill="url(#sg)"/><path d="M0 50h100" stroke="var(--bg,#fbf5ea)" stroke-width="6"/></svg>`;
 

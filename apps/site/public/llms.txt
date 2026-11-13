@@ -12,4 +12,14 @@
 
 ## Answers
 
-
+- [How to tell if a photo is AI generated](https://emera.social/answers/how-to-tell-if-a-photo-is-ai-generated/): No single check proves a photo is real or AI. Here are the checks that work today: source, credentials, reverse search, and what to look for.
+- [How to tell if a video is real or fake](https://emera.social/answers/how-to-tell-if-a-video-is-real-or-fake/): No one check proves a video is real. Fact-checker steps for news clips, event footage and deepfakes: source, keyframe search, context, credentials.
+- [How to prevent people from stealing your art online](https://emera.social/answers/how-to-prevent-people-from-stealing-your-art-online/): You cannot stop all copying, but you can make theft harder and easier to prove: sizes, credits, records, registration, and protection tools.
+- [What to do if someone steals your artwork](https://emera.social/answers/what-to-do-if-someone-steals-your-artwork/): Step by step if your art was copied: gather proof, contact the person, file a takedown with the platform, and when to talk to a lawyer.
+- [How to file a DMCA takedown on Instagram](https://emera.social/answers/how-to-file-a-dmca-takedown-on-instagram/): Use Instagram's Copyright Report Form, not the in-app Report button. What to prepare, what the notice needs, and what happens after.
+- [What are content credentials](https://emera.social/answers/what-are-content-credentials/): Content Credentials (C2PA) are a signed record of where a file came from and how it was edited. How to check one, and what they cannot prove.
+- [Is there social media without an algorithm](https://emera.social/answers/social-media-without-algorithm/): Yes, partly. Chronological feeds on Instagram, Bluesky and Mastodon, plus open algorithms you choose. What each option really gives you.
+- [The best Instagram alternatives for artists](https://emera.social/compare/instagram-alternative-for-artists/): A fair look at Cara, Bluesky, Pixelfed, ArtStation, Behance and Emera: what each does well, who runs it and how they treat AI.
+- [Open source Instagram alternatives](https://emera.social/compare/open-source-instagram-alternative/): Pixelfed, Bluesky photo apps and Emera compared: licenses, who runs them, how feeds work and how to move your account.
+- [Emera vs Cara](https://emera.social/compare/emera-vs-cara/): Cara is a live artist community with AI filtering; Emera is a new nonprofit network with signed posts. How they differ and who each suits.
+- [Emera vs Bluesky](https://emera.social/compare/emera-vs-bluesky/): Emera and Bluesky both run on AT Protocol. Compare who runs them, feeds, portability and what Emera adds for people who make things.

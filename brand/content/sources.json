@@ -524,17 +524,17 @@
   },
   {
    "file": "lanterns.jpg",
-   "kind": "Local news",
+   "kind": "Events",
    "emera_creator": "Mei Lin",
    "emera_handle": "meilin.reports.emera.social",
    "invented_persona": true,
-   "title": "Pingxi Sky Lantern Festival 2014 in Taiwan",
-   "original_creator": "Jirka Matousek",
+   "title": "Labyrinth of Light",
+   "original_creator": "Visible Hand",
    "license": "BY",
    "license_version": "2.0",
    "license_url": "https://creativecommons.org/licenses/by/2.0/",
-   "landing_url": "https://www.flickr.com/photos/28415633@N00/12431208905",
-   "image_url": "https://live.staticflickr.com/7420/12431208905_637787b11e_b.jpg",
+   "landing_url": "https://www.flickr.com/photos/18844496@N00/3143149443",
+   "image_url": "https://live.staticflickr.com/3096/3143149443_58e83e8e7d_b.jpg",
    "fetched_from": "image_url",
    "via": "Openverse API"
   }
