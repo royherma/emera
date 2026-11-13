@@ -191,7 +191,7 @@ export function ProfileView({ handle, own, tabs, back, onInvite }: { handle: str
                 action={own ? <Button label="Post something" icon="plus" onPress={() => router.push("/upload")} /> : undefined}
               />
             ) : (
-              <SquareGrid posts={shown} width={column} />
+              <SquareGrid posts={shown} width={column} from={`@${handle}`} cursor={group === "all" ? data.cursor : null} />
             )}
           </>
         )}
