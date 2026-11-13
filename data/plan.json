@@ -544,58 +544,108 @@
     },
     {
       "id": "lit-mark",
-      "q": "Light the e: all 8, each with a match flame at the tip",
-      "why": "Round 1 (1-4) and round 2 (5-8) side by side, every one now burns like a match. Top: day, bottom: night, sidebar logo and app icon.",
+      "q": "Light the e: every version so far",
+      "why": "You picked R3 Big flame (8:28 PM) and I'm shipping it. Here is every version so far; click another to switch.",
       "options": [
         {
-          "id": "ember",
-          "label": "1 Ember tail",
-          "img": "brand/logo/lit/ember.png"
+          "id": "r1-ember",
+          "label": "R1 Ember tail",
+          "img": "brand/logo/lit/r1-ember.png"
         },
         {
-          "id": "match",
-          "label": "2 Lit match",
-          "img": "brand/logo/lit/match.png"
+          "id": "r1-match",
+          "label": "R1 Lit match",
+          "img": "brand/logo/lit/r1-match.png"
         },
         {
-          "id": "burn",
-          "label": "3 Burning down",
-          "img": "brand/logo/lit/burn.png"
+          "id": "r1-burn",
+          "label": "R1 Burning down",
+          "img": "brand/logo/lit/r1-burn.png"
         },
         {
-          "id": "sunset",
-          "label": "4 All sun",
-          "img": "brand/logo/lit/sunset.png"
+          "id": "r1-sunset",
+          "label": "R1 All sun",
+          "img": "brand/logo/lit/r1-sunset.png"
         },
         {
-          "id": "along",
-          "label": "5 Just the tip",
-          "img": "brand/logo/lit/along.png"
+          "id": "r2-along",
+          "label": "R2 Just the tip",
+          "img": "brand/logo/lit/r2-along.png"
         },
         {
-          "id": "glow",
-          "label": "6 Tip + glow",
-          "img": "brand/logo/lit/glow.png",
-          "note": "the flame sits on a glowing tip, reads at sidebar size"
+          "id": "r2-glow",
+          "label": "R2 Tip + glow",
+          "img": "brand/logo/lit/r2-glow.png"
         },
         {
-          "id": "long",
-          "label": "7 Longer ember",
-          "img": "brand/logo/lit/long.png"
+          "id": "r2-long",
+          "label": "R2 Longer ember",
+          "img": "brand/logo/lit/r2-long.png"
         },
         {
-          "id": "flame",
-          "label": "8 Big flame",
-          "img": "brand/logo/lit/flame.png"
+          "id": "r2-edge",
+          "label": "R2 Straight edge",
+          "img": "brand/logo/lit/r2-edge.png"
+        },
+        {
+          "id": "r2-below",
+          "label": "R2 From below",
+          "img": "brand/logo/lit/r2-below.png"
+        },
+        {
+          "id": "r2-flame",
+          "label": "R2 Small flame",
+          "img": "brand/logo/lit/r2-flame.png"
+        },
+        {
+          "id": "r3-ember",
+          "label": "R3 Ember tail",
+          "img": "brand/logo/lit/r3-ember.png"
+        },
+        {
+          "id": "r3-match",
+          "label": "R3 Lit match",
+          "img": "brand/logo/lit/r3-match.png"
+        },
+        {
+          "id": "r3-burn",
+          "label": "R3 Burning down",
+          "img": "brand/logo/lit/r3-burn.png"
+        },
+        {
+          "id": "r3-sunset",
+          "label": "R3 All sun",
+          "img": "brand/logo/lit/r3-sunset.png"
+        },
+        {
+          "id": "r3-along",
+          "label": "R3 Just the tip",
+          "img": "brand/logo/lit/r3-along.png"
+        },
+        {
+          "id": "r3-glow",
+          "label": "R3 Tip + glow",
+          "img": "brand/logo/lit/r3-glow.png"
+        },
+        {
+          "id": "r3-long",
+          "label": "R3 Longer ember",
+          "img": "brand/logo/lit/r3-long.png"
+        },
+        {
+          "id": "r3-flame",
+          "label": "R3 Big flame",
+          "img": "brand/logo/lit/r3-flame.png",
+          "note": "your pick, shipping now"
         },
         {
           "id": "ink",
           "label": "Keep it ink"
         }
       ],
-      "mine": "glow",
+      "mine": "r3-flame",
       "big": true,
-      "note": "Round 1 in git 8b746e4, round 2 c2d0478; Roy 20:10: bigger flames, keep all, flame on each"
+      "note": "Roy 20:28 Bangkok picked 8 Big flame (DECISION lit-mark flame) = r3-flame; all 18 versions kept"
     }
   ],
   "names": {
