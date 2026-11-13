@@ -15,15 +15,26 @@ const lin = (x1, y1, x2, y2) => (id, stops) => `<linearGradient id="${id}" gradi
 const rad = (cx, cy, r) => (id, stops) => `<radialGradient id="${id}" gradientUnits="userSpaceOnUse" cx="${cx}" cy="${cy}" r="${r}">${stops}</radialGradient>`;
 const ROUND1 = lin(120, 200, 560, 400);
 
+const R1 = [
+  { id: "ember", label: "Ember tail", grad: ROUND1, whole: true, stops: (ink) => [[0, ink], [0.5, ink], [0.72, RED], [0.86, SUN], [1, HOT]] },
+  { id: "match", label: "Lit match", grad: ROUND1, whole: true, stops: (ink) => [[0, ink], [0.7, ink], [0.84, SUN], [1, HOT]], spill: true },
+  { id: "burn", label: "Burning down", grad: ROUND1, whole: true, stops: (ink) => [[0, ink], [0.3, ink], [0.55, RED], [0.8, SUN], [1, HOT]] },
+  { id: "sunset", label: "All sun", grad: ROUND1, whole: true, stops: () => [[0, RED], [0.5, SUN], [1, HOT]] },
+];
+const TIPS = { along: { label: "Just the tip", grad: lin(470, 430, ...TIP), stops: () => [[0, RED], [0.45, SUN], [1, HOT]] },
+  glow: { label: "Tip + glow", grad: rad(566, 326, 120), stops: () => [[0, HOT], [0.35, SUN], [0.75, RED], [1, RED]], spill: true },
+  long: { label: "Longer ember", grad: lin(360, 470, ...TIP), stops: (ink) => [[0, ink], [0.25, RED], [0.6, SUN], [1, HOT]], from: 330 },
+  edge: { label: "Straight edge", grad: lin(470, 0, 576, 0), stops: () => [[0, RED], [0.5, SUN], [1, HOT]] },
+  below: { label: "From below", grad: lin(520, 300, 545, 430), stops: (ink) => [[0, ink], [0.35, RED], [0.7, SUN], [1, HOT]] } };
+const tip = (k, extra) => ({ id: k, ...TIPS[k], ...extra });
+
 export const options = [
-  { id: "ember", label: "1 Ember tail", grad: ROUND1, whole: true, stops: (ink) => [[0, ink], [0.5, ink], [0.72, RED], [0.86, SUN], [1, HOT]] },
-  { id: "match", label: "2 Lit match", grad: ROUND1, whole: true, stops: (ink) => [[0, ink], [0.7, ink], [0.84, SUN], [1, HOT]], spill: true },
-  { id: "burn", label: "3 Burning down", grad: ROUND1, whole: true, stops: (ink) => [[0, ink], [0.3, ink], [0.55, RED], [0.8, SUN], [1, HOT]] },
-  { id: "sunset", label: "4 All sun", grad: ROUND1, whole: true, stops: () => [[0, RED], [0.5, SUN], [1, HOT]] },
-  { id: "along", label: "5 Just the tip", grad: lin(470, 430, ...TIP), stops: () => [[0, RED], [0.45, SUN], [1, HOT]] },
-  { id: "glow", label: "6 Tip + glow", grad: rad(566, 326, 120), stops: () => [[0, HOT], [0.35, SUN], [0.75, RED], [1, RED]], spill: true },
-  { id: "long", label: "7 Longer ember", grad: lin(360, 470, ...TIP), stops: (ink) => [[0, ink], [0.25, RED], [0.6, SUN], [1, HOT]], from: 330 },
-  { id: "flame", label: "8 Big flame", grad: lin(470, 430, ...TIP), stops: () => [[0, RED], [0.45, SUN], [1, HOT]], flame: 1.85 },
+  ...R1.map((o) => ({ ...o, id: `r1-${o.id}`, label: `R1 ${o.label}`, noFlame: true })),
+  ...["along", "glow", "long", "edge", "below"].map((k) => ({ ...tip(k), id: `r2-${k}`, label: `R2 ${TIPS[k].label}`, noFlame: true })),
+  { ...tip("along"), id: "r2-flame", label: "R2 Small flame", flame: 0.8 },
+  ...R1.map((o) => ({ ...o, id: `r3-${o.id}`, label: `R3 ${o.label}` })),
+  ...["along", "glow", "long"].map((k) => ({ ...tip(k), id: `r3-${k}`, label: `R3 ${TIPS[k].label}` })),
+  { ...tip("along"), id: "r3-flame", label: "R3 Big flame", flame: 1.85 },
 ];
 
 const FLAME = "M548 332C534 300 552 266 572 240C586 222 594 200 596 178C622 208 640 246 634 282C630 310 608 330 584 338C570 342 556 340 548 332Z";
@@ -35,9 +46,9 @@ export function litMark(o, ink, size) {
   const stops = o.stops(ink).map(([at, c]) => `<stop offset="${at}" stop-color="${ink === CREAM && c === RED ? SUN : c}"/>`).join("");
   const from = o.from ?? 445;
   const f = o.flame ?? 1.35;
-  const flame = `<ellipse cx="566" cy="328" rx="34" ry="22" transform="rotate(-38 566 328)" fill="${HOT}" opacity=".85" filter="url(#${id}s)"/><g transform="translate(560 334) scale(${f}) translate(-566 -336)">
+  const flame = o.noFlame ? "" : `<ellipse cx="566" cy="328" rx="34" ry="22" transform="rotate(-38 566 328)" fill="${HOT}" opacity=".85" filter="url(#${id}s)"/><g transform="translate(560 334) scale(${f}) translate(-566 -336)">
 <path d="${FLAME}" fill="${SUN}" opacity=".55" filter="url(#${id}b)"/><path d="${FLAME}" fill="url(#${id}fl)"/><path d="${CORE_PATH}" fill="url(#${id}co)"/></g>`;
-  return `<svg style="overflow:visible" width="${size}" height="${size}" viewBox="-40 -80 720 720" xmlns="http://www.w3.org/2000/svg"><defs>${o.grad(`${id}g`, stops)}
+  return `<svg style="overflow:visible" width="${size}" height="${size}" viewBox="${o.noFlame ? "0 0 600 600" : "-40 -80 720 720"}" xmlns="http://www.w3.org/2000/svg"><defs>${o.grad(`${id}g`, stops)}
 <linearGradient id="${id}t" gradientUnits="userSpaceOnUse" x1="${from}" y1="0" x2="${from + 50}" y2="0"><stop offset="0" stop-color="#000"/><stop offset="1" stop-color="#fff"/></linearGradient>
 <mask id="${id}c"><rect x="0" y="${o.from ? 318 : 290}" width="600" height="310" fill="url(#${id}t)"/></mask>
 <mask id="${id}m"><g fill="#fff">${inner}</g></mask>
