@@ -14,6 +14,7 @@ import { searchRoutes } from './search';
 import { profileRoutes } from './profile';
 import { flagRoutes } from './flags';
 import { chatRoutes } from './chat';
+import { liveSocket } from './live';
 import { pages, notFoundPage } from './pages';
 import { cardRoutes } from './card';
 import { embedRoutes } from './embed';
@@ -73,7 +74,7 @@ useApp(app.fetch);
 export default Sentry.withSentry(
   (env: Env) => ({ dsn: env.SENTRY_DSN, environment: env.ENVIRONMENT, tracesSampleRate: 0.1 }),
   {
-    fetch: app.fetch,
+    fetch: (req: Request, env: Env, ctx?: ExecutionContext) => (new URL(req.url).pathname === '/v1/chat/live' && req.method === 'GET' ? liveSocket(req, env) : app.fetch(req, env, ctx)),
     async scheduled(_event: ScheduledController, env: Env) {
       console.log('auto-import', JSON.stringify(await runAutoImports(env, 'https://internal.emera')));
     },
@@ -90,3 +91,5 @@ export default Sentry.withSentry(
     },
   } satisfies ExportedHandler<Env, VideoJob>,
 );
+
+export { ChatLive } from './live';
