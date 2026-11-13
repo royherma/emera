@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Text, View } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { AuthShell } from "@/components/AuthShell";
@@ -6,6 +6,7 @@ import { Banner, Button, Field } from "@/components/ui";
 import { api } from "@/lib/api";
 import { MOCK } from "@/lib/config";
 import { MOCK_INVITE_CODE } from "@/lib/mock";
+import { pendingSignup } from "@/lib/signup";
 import { space, type } from "@/lib/theme";
 import { useTheme } from "@/state/theme";
 import { ApiError } from "@/lib/types";
@@ -20,6 +21,8 @@ export default function SignIn() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const autoSent = useRef(false);
+
   const submit = async () => {
     const clean = email.trim().toLowerCase();
     setBusy(true);
@@ -27,6 +30,7 @@ export default function SignIn() {
     try {
       const code = invite.trim();
       await api.authStart(clean, code || undefined);
+      pendingSignup.email = clean;
       router.push({ pathname: "/code", params: code ? { email: clean, invite: code } : { email: clean } });
     } catch (e) {
       if (e instanceof ApiError && /^invite_/.test(e.code)) setNeedsInvite(true);
@@ -35,6 +39,12 @@ export default function SignIn() {
       setBusy(false);
     }
   };
+
+  useEffect(() => {
+    if (autoSent.current || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(linkEmail)) return;
+    autoSent.current = true;
+    void submit();
+  }, []);
 
   return (
     <AuthShell title="Welcome in" lead="Enter your email and we'll send you a 6-digit code. No password to remember.">

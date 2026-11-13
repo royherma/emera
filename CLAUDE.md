@@ -47,6 +47,15 @@ Several sessions and their sub-agents work on this repo at once. The shared-work
 - Mockups and demos use only content we're allowed to use: Roy's own work, or CC0/CC BY/public-domain images from Openverse with credit kept in `brand/content/sources.json`. Never scraped Instagram or other unlicensed work. A creator-protection network can't demo with stolen art.
 - Invented demo creators get invented names and handles that belong to no real person.
 
+## Keep it simple (Roy, 2026-11-13)
+
+Every screen, flow and feature starts from: what is the fewest steps and words a first-time person needs? Cut the rest.
+- **One screen, one ask.** No optional fields on sign-up; fill what we can guess (handle from name or email) and let people change it later.
+- **Never ask twice.** Anything a person already typed (email on the landing page, a code from the link) carries forward; no second click to repeat it.
+- **Plain words a non-creator gets.** "Your name", not "Your name or studio". No jargon, no niche words.
+- **Delete before you add.** A new field, setting, step or screen needs a reason Roy would agree with; "nice to have" is not one.
+- Before shipping a flow, count the taps from landing page to first post and write the number in the commit. Lower is the goal.
+
 ## Copy rules
 
 Headings never end in a period. No em dashes. Avoid "unlock", "elevate" and "seamless", "whether you're A or B", and padded lists of three. Never describe a feature as unbuilt or "coming soon" in shipped copy; that goes to Roy.
