@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-13T07:51:50.666Z",
+  "updated": "2026-11-13T07:59:09.250Z",
   "title": "Emera",
   "goal": "Emera. Where humanity comes together - you post, share the link, invite people",
   "phases": [
@@ -46,8 +46,9 @@
         },
         {
           "id": "a6",
-          "text": "DESIGN.md + logo files + app icon",
-          "who": "claude"
+          "text": "Logo: Dry brush e, app icon, favicons, live on site + app",
+          "who": "claude",
+          "done": true
         },
         {
           "id": "a7",
@@ -960,8 +961,9 @@
     },
     {
       "name": "Logo + icon",
-      "state": "running",
-      "note": "Signature round 2: reads more like an e"
+      "state": "done",
+      "note": "Dry brush e live on emera.social + app.emera.social",
+      "owner": "claude f52ddabf"
     },
     {
       "name": "App in Twilight",
@@ -1309,7 +1311,12 @@
           "README on GitHub",
           "https://github.com/royherma/emera#where-we-are"
         ]
-      ]
+      ],
+      "done": {
+        "at": "2026-11-13T07:58:23.993Z",
+        "ref": "https://github.com/royherma/emera/issues",
+        "note": "8 issues posted, #1-#8"
+      }
     },
     {
       "id": "dmca",
@@ -1541,7 +1548,12 @@
       "answer": "good",
       "text": null,
       "owner": "claude d44a53f4",
-      "at": "2026-11-13T07:55:23.739Z"
+      "at": "2026-11-13T07:55:23.739Z",
+      "done": {
+        "at": "2026-11-13T07:58:23.993Z",
+        "ref": "feedback.jsonl 07:55:23",
+        "note": "Roy looked: good"
+      }
     }
   ],
   "reviewDone": [
@@ -1560,6 +1572,10 @@
     [
       "Repo public",
       "github.com/royherma/emera 200"
+    ],
+    [
+      "Logo picked: 1 Dry brush",
+      "live on emera.social"
     ]
   ]
 }
