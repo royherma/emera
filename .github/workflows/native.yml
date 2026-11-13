@@ -2,6 +2,11 @@ name: Native apps
 
 on:
   workflow_dispatch:
+    inputs:
+      platform:
+        type: choice
+        options: [ios, android, both]
+        default: ios
 
 permissions:
   contents: read
@@ -12,6 +17,7 @@ concurrency:
 
 jobs:
   ios:
+    if: inputs.platform != 'android'
     runs-on: macos-26
     timeout-minutes: 90
     steps:
@@ -54,6 +60,7 @@ jobs:
           path: shots
 
   android:
+    if: inputs.platform != 'ios'
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
