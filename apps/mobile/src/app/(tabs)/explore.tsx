@@ -3,10 +3,10 @@ import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { Screen } from "@/components/Screen";
 import { Bento, GridSkeleton } from "@/components/Grid";
 import { Icon } from "@/components/Icon";
-import { Chip, EmptyState, ErrorState, Pulse } from "@/components/ui";
+import { Chip, EmptyState, ErrorState } from "@/components/ui";
 import { api } from "@/lib/api";
 import { useLayout } from "@/lib/layout";
-import { alpha, creatorColors, radius, space, type } from "@/lib/theme";
+import { creatorColors, radius, space, type } from "@/lib/theme";
 import { useResource } from "@/state/resource";
 import { useTheme } from "@/state/theme";
 

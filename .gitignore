@@ -5,3 +5,5 @@ node_modules/
 .wrangler/
 .claude/deploy-lock.json
 .dev.vars
+deploy/app/dist*
+.worktrees/
