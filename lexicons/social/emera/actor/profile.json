@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "social.emera.actor.profile",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Emera profile extras. Name, bio and avatar stay in app.bsky.actor.profile so other AT Protocol apps still show them.",
+      "key": "literal:self",
+      "record": {
+        "type": "object",
+        "properties": {
+          "craft": { "type": "array", "maxLength": 8, "items": { "type": "string", "maxLength": 64 }, "description": "What this person makes: photography, illustration, video, tattoo, ceramics." },
+          "links": { "type": "array", "maxLength": 8, "items": { "type": "string", "format": "uri" } },
+          "defaultLicense": { "type": "ref", "ref": "social.emera.defs#license" },
+          "copyWatch": { "type": "ref", "ref": "#copyWatch" },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    },
+    "copyWatch": {
+      "type": "object",
+      "description": "The creator's written authorization for Emera to look for copies of their work elsewhere and file takedown notices in their name.",
+      "required": ["enabled", "grantedAt"],
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "grantedAt": { "type": "string", "format": "datetime" },
+        "termsVersion": { "type": "string", "maxLength": 32 },
+        "legalName": { "type": "string", "maxLength": 200, "description": "Name used as the copyright owner on notices." },
+        "autoFile": { "type": "string", "knownValues": ["ask-each-time", "auto"], "maxLength": 16 }
+      }
+    }
+  }
+}

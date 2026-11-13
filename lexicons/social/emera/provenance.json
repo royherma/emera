@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "social.emera.provenance",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Proof that this account uploaded these exact bytes at this time. One per post. The full C2PA manifest stays embedded in the file and in R2; this record carries what search and verifiers need.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["subject", "items", "signedAt"],
+        "properties": {
+          "subject": { "type": "ref", "ref": "com.atproto.repo.strongRef", "description": "The social.emera.post this proof is about." },
+          "items": { "type": "array", "minLength": 1, "maxLength": 10, "items": { "type": "ref", "ref": "#item" } },
+          "signedAt": { "type": "string", "format": "datetime" },
+          "signer": { "type": "string", "maxLength": 256, "description": "Certificate subject that signed the C2PA manifest." },
+          "claimGenerator": { "type": "string", "maxLength": 128 }
+        }
+      }
+    },
+    "item": {
+      "type": "object",
+      "required": ["sha256"],
+      "properties": {
+        "blob": { "type": "cid-link" },
+        "sha256": { "type": "string", "minLength": 64, "maxLength": 64, "description": "Hex SHA-256 of the original uploaded bytes." },
+        "pdq": { "type": "string", "minLength": 64, "maxLength": 64, "description": "Hex PDQ hash (256 bits) of the image, or of the poster frame for video." },
+        "frameHashes": { "type": "array", "maxLength": 600, "items": { "type": "string", "minLength": 64, "maxLength": 64 }, "description": "Video only: PDQ hash of one frame per second." },
+        "c2pa": { "type": "ref", "ref": "#c2paSummary" },
+        "origin": { "type": "string", "knownValues": ["captured", "edited", "ai-generated", "unknown"], "maxLength": 32 }
+      }
+    },
+    "c2paSummary": {
+      "type": "object",
+      "required": ["state"],
+      "properties": {
+        "state": { "type": "string", "knownValues": ["none", "valid", "trusted", "invalid"], "maxLength": 16 },
+        "incomingIssuer": { "type": "string", "maxLength": 256, "description": "Issuer of a credential the file arrived with, for example a camera maker." },
+        "manifestSha256": { "type": "string", "maxLength": 64 }
+      }
+    }
+  }
+}

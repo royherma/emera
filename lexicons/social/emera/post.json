@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "social.emera.post",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A post of images or one video. Lives in the author's repo.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["media", "createdAt"],
+        "properties": {
+          "text": { "type": "string", "maxGraphemes": 2200, "maxLength": 22000 },
+          "media": {
+            "type": "union",
+            "refs": ["#images", "#videoMedia"]
+          },
+          "license": { "type": "ref", "ref": "social.emera.defs#license" },
+          "provenance": { "type": "ref", "ref": "com.atproto.repo.strongRef", "description": "The social.emera.provenance record for this post's media." },
+          "langs": { "type": "array", "maxLength": 3, "items": { "type": "string", "format": "language" } },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    },
+    "images": {
+      "type": "object",
+      "required": ["images"],
+      "properties": {
+        "images": { "type": "array", "minLength": 1, "maxLength": 10, "items": { "type": "ref", "ref": "social.emera.defs#image" } }
+      }
+    },
+    "videoMedia": {
+      "type": "object",
+      "required": ["video"],
+      "properties": {
+        "video": { "type": "ref", "ref": "social.emera.defs#video" }
+      }
+    }
+  }
+}

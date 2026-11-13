@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "social.emera.defs",
+  "defs": {
+    "image": {
+      "type": "object",
+      "required": ["image", "alt"],
+      "properties": {
+        "image": { "type": "blob", "accept": ["image/jpeg", "image/png", "image/webp"], "maxSize": 26214400 },
+        "alt": { "type": "string", "maxGraphemes": 1000, "maxLength": 10000 },
+        "aspectRatio": { "type": "ref", "ref": "#aspectRatio" },
+        "pdq": { "type": "string", "maxLength": 64, "description": "PDQ perceptual hash, 64 hex characters, computed by the server at upload." }
+      }
+    },
+    "video": {
+      "type": "object",
+      "required": ["video"],
+      "properties": {
+        "video": { "type": "blob", "accept": ["video/mp4", "video/quicktime"], "maxSize": 209715200 },
+        "alt": { "type": "string", "maxGraphemes": 1000, "maxLength": 10000 },
+        "poster": { "type": "blob", "accept": ["image/jpeg", "image/webp"], "maxSize": 2097152 },
+        "durationMs": { "type": "integer", "minimum": 0 },
+        "aspectRatio": { "type": "ref", "ref": "#aspectRatio" }
+      }
+    },
+    "aspectRatio": {
+      "type": "object",
+      "required": ["width", "height"],
+      "properties": {
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "license": {
+      "type": "string",
+      "knownValues": ["all-rights-reserved", "cc-by", "cc-by-nc", "cc-by-nd", "cc-by-nc-nd", "cc-by-sa", "cc0"],
+      "maxLength": 64
+    }
+  }
+}

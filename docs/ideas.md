@@ -11,3 +11,4 @@ New angles Roy adds go here first, dated, in his words where possible. Fold into
 - **Not photographers - every creator.** (Roy, 10:49 on the plan page) AI copies video, designs and the physical world now, not just photos. Be more ambitious: it's for anyone whose creative work gets stolen.
 - **Decisions Roy clicked (10:48-10:49):** sign in with our own accounts (not Bluesky login), build the phone app + web together, keep media in our own storage (R2) from day 1.
 - **Name round 1 rejected:** "cringe", "old school". He wants epic, iconic, modern, like recent launches, and a name that stands for expression, honesty, truth and creators.
+- **Positioning (Roy, 11:00):** "Emera. Where humanity comes together." Bought emera.social.
