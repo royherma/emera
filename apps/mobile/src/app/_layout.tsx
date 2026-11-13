@@ -73,6 +73,7 @@ function Routes() {
               <Stack.Screen name="chat" options={{ animation: "slide_from_right" }} />
               <Stack.Screen name="messages/index" options={{ animation: "slide_from_right" }} />
               <Stack.Screen name="messages/[id]" options={{ animation: "slide_from_right" }} />
+              <Stack.Screen name="connect" options={{ animation: "slide_from_right" }} />
             </Stack.Protected>
           </Stack>
         </View>

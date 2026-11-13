@@ -146,12 +146,13 @@ Search needs no sign-in. `q` is 1 to 100 characters (`bad_query`), `type` defaul
 | GET | `/oauth/authorize` | query: `response_type=code, client_id, redirect_uri, code_challenge, code_challenge_method=S256, state` | sign-in + Allow page |
 | POST | `/oauth/token` | form: `authorization_code` or `refresh_token` grant | `{ access_token, refresh_token, expires_in }` |
 | POST | `/mcp` | JSON-RPC | `401` + `WWW-Authenticate: Bearer resource_metadata=...` without a token |
-| POST | `/v1/import/preview` | `{ from, limit? }` | `{ source, items: [{ id, url, date, caption, photos, videos, onEmera }] }` |
+| POST | `/v1/import/preview` | `{ from, limit? }` | `{ source, items: [{ id, url, date, caption, photos, videos, thumb, onEmera }] }` |
 | POST | `/v1/import` | `{ from, limit?, only?, autoPost? }` | `{ imported: [{ item, post }], skipped: [{ item, why }] }` |
 | GET | `/v1/sources` | - | `{ sources: [source] }` |
-| POST | `/v1/sources` | `{ from, autoPost? }` | `{ source }` turns auto-post on (default) or off |
+| POST | `/v1/sources` | `{ from, autoPost?, rules? }` | `{ source }` turns auto-post on (default) or off; `rules` = `{ media: any\|photos\|videos, tag? }` |
 | DELETE | `/v1/sources/:id` | - | `{ ok: true }` |
+| GET | `/v1/connectors` | - | `{ connectors: [{ id, name, example }], locked: [{ name, why }] }` |
 
 `from` is a Bluesky handle (`@name.bsky.social`, a `bsky.app/profile/` link or a did), a Mastodon profile link (`/@name` gets `.rss`), or any RSS/Atom feed or page that links one. Instagram, TikTok, X and Facebook links return 422 `source_locked` with what to do instead. Only items with photos or videos come over; captions keep up to 2200 characters, dates keep the original time. Each source item is imported once per person (`imported_items`). Up to 25 posts per import call.
 
-`source` = `{ id, from, label, autoPost, since, lastChecked, lastError }`. A cron every 15 minutes reads the 10 newest items of each auto-post source and posts those made after `since` (the moment auto-post was turned on).
+`source` = `{ id, from, kind, label, autoPost, rules, since, lastChecked, lastError }`. Each place to import from is a connector, one file in `apps/api/src/connectors/`; see `docs/connectors.md`. `POST /v1/import` takes `only: [itemId]` from the preview to bring over just those. A cron every 15 minutes reads the 10 newest items of each auto-post source and posts those made after `since` (the moment auto-post was turned on).
