@@ -37,8 +37,8 @@
         "INVITES_REQUIRED": "false",
         "PUBLIC_ORIGIN": "",
         "FUNDING": "on",
-        "STRIPE_ACCOUNT_ID": "acct_1TqRrs2cbiVEsA2f",
-        "STRIPE_SPONSOR_PRODUCT": "prod_VcXslLcZqrRZk1",
+        "STRIPE_ACCOUNT_ID": "acct_1UbIhCKHBWaOwymS",
+        "STRIPE_SPONSOR_PRODUCT": "prod_VcXsDVeaSNHptM",
         "FUND_PAGE_URL": "https://emera-site-staging.techguyver1337.workers.dev/fund/"
       },
       "triggers": { "crons": ["*/15 * * * *", "0 1 3 * *"] },
