@@ -1,6 +1,6 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import app from '../src/index';
-import { makePoster, posterKey, runVideoJob, shrinkVideo, videoNeedsShrink } from '../src/media';
+import { makePoster, parts, posterKey, runVideoJob, shrinkVideo, videoNeedsShrink } from '../src/media';
 import { hmacHex } from '../src/crypto';
 import { Client, makeEnv } from './helpers';
 
@@ -26,7 +26,7 @@ function mp4(width: number, height: number, seconds: number, rotated = false, fi
   tk.setUint32(m + 36, width * 65536);
   tk.setUint32(m + 40, height * 65536);
   const ftyp = box('ftyp', new TextEncoder().encode('isom\0\0\0\0isom'));
-  const mdat = box('mdat', new Uint8Array(filler).map((_, i) => (i * 7) % 251));
+  const mdat = box('mdat', new Uint8Array(filler).fill(7));
   const moov = box('moov', box('mvhd', mvhd), box('trak', box('tkhd', tkhd)));
   const out = new Uint8Array(ftyp.length + mdat.length + moov.length);
   out.set(ftyp); out.set(mdat, ftyp.length); out.set(moov, ftyp.length + mdat.length);
@@ -34,6 +34,7 @@ function mp4(width: number, height: number, seconds: number, rotated = false, fi
 }
 
 describe('video size', () => {
+  it('cuts real uploads into 50 MiB parts, under the 100 MiB Cloudflare body cap', () => expect(parts.size).toBe(50 * 1024 * 1024));
   it('reads width, height and length from the file, and turns phone-held clips upright', async () => {
     const c = new Client();
     await c.signIn('clip@example.test');
@@ -132,5 +133,65 @@ describe('video length', () => {
     const early = await c.json('POST', '/v1/uploads', { contentType: 'video/mp4', bytes: 5000, seconds: 900 });
     expect(early.status).toBe(413);
     expect(early.body.error.code).toBe('too_long');
+  });
+});
+
+describe('video in parts', () => {
+  const PART_SIZE = 5 * 1024 * 1024;
+  beforeAll(() => { parts.size = PART_SIZE; });
+  afterAll(() => { parts.size = 50 * 1024 * 1024; });
+  const sha = async (b: Uint8Array) => Buffer.from(await crypto.subtle.digest('SHA-256', b)).toString('hex');
+
+  it('takes a video bigger than one part as R2 multipart parts and signs the whole file', async () => {
+    const send = vi.fn(async () => {});
+    const c = new Client(makeEnv({ VIDEO_JOBS: { send } as any }));
+    await c.signIn('long@example.test');
+    await c.withHandle('long');
+    const file = mp4(1080, 1920, 590, false, PART_SIZE + 4096);
+    const init = await c.json('POST', '/v1/uploads', { contentType: 'video/mp4', bytes: file.length, seconds: 590 });
+    expect(init.body).toMatchObject({ partSize: PART_SIZE, partCount: 2 });
+    const path = new URL(init.body.uploadUrl).pathname;
+
+    expect((await c.call('PUT', path, undefined, file.subarray(0, 1024))).status).toBe(409);
+    const short = await c.call('PUT', `${path}/parts/1`, undefined, file.subarray(0, 1024));
+    expect([short.status, ((await short.json()) as any).error.code]).toEqual([400, 'bad_part_size']);
+    const one = await c.call('PUT', `${path}/parts/1`, undefined, file.subarray(0, PART_SIZE));
+    expect(one.status).toBe(200);
+    const missing = await c.json('POST', `${path}/complete`, { parts: [await one.json()] });
+    expect([missing.status, missing.body.error.code]).toEqual([400, 'bad_parts']);
+
+    const up = await c.uploadParts(path, file, PART_SIZE);
+    expect(up.status).toBe(200);
+    expect(up.body.media).toMatchObject({ kind: 'video', width: 1080, height: 1920, sha256: await sha(file) });
+    expect(send).toHaveBeenCalledWith({ mediaId: up.body.media.id, shrink: false });
+    const row = await c.env.DB.prepare('SELECT * FROM media WHERE id = ?').bind(up.body.media.id).first<any>();
+    expect(row).toMatchObject({ bytes: file.length, multipart_id: null, source_sha256: row.sha256 });
+    expect(row.signature).toBe(await hmacHex(c.env.PROOF_SECRET, `${row.sha256}.${new Date(row.signed_at).toISOString()}.long`));
+    const head = await app.fetch(new Request(up.body.media.url, { method: 'HEAD' }), c.env);
+    expect(head.headers.get('content-length')).toBe(String(file.length));
+    expect((await c.json('POST', `${path}/complete`, { parts: [] })).status).toBe(409);
+  });
+
+  it('refuses a video over 10 minutes or not a video at all, sent in parts', async () => {
+    const c = new Client();
+    await c.signIn('parts@example.test');
+    await c.withHandle('parts');
+    const long = await c.upload(mp4(1080, 1920, 601, false, PART_SIZE + 10), 'video/mp4');
+    expect([long.status, long.body.error.code]).toEqual([413, 'too_long']);
+    expect(await c.env.DB.prepare("SELECT COUNT(*) AS n FROM media WHERE user_id = (SELECT id FROM users WHERE handle = 'parts')").first('n')).toBe(0);
+
+    const junk = new Uint8Array(PART_SIZE + 10).fill(1);
+    const bad = await c.upload(junk, 'video/mp4');
+    expect([bad.status, bad.body.error.code]).toEqual([415, 'bad_file']);
+  });
+
+  it('caps videos at 2 GB and keeps one-request videos under one part', async () => {
+    const c = new Client();
+    await c.signIn('cap@example.test');
+    await c.withHandle('cap');
+    const big = await c.json('POST', '/v1/uploads', { contentType: 'video/mp4', bytes: 2048 * 1024 * 1024 + 1 });
+    expect([big.status, big.body.error.code]).toEqual([413, 'too_large']);
+    const small = await c.json('POST', '/v1/uploads', { contentType: 'video/mp4', bytes: 1000 });
+    expect(small.body.partSize).toBeUndefined();
   });
 });
