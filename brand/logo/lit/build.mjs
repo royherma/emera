@@ -10,6 +10,7 @@ const { chromium } = await import(process.env.PLAYWRIGHT_CORE_MJS || path.join(R
 const INK = "#2a1d14", CREAM = "#fbf3e8", DAY = "#fbf5ea", NIGHT = "#0c0a09";
 const HOT = "#ffd25a", SUN = "#ff8a2b", RED = "#e8461e", CORE = "#fff4c2";
 const TIP = [576, 318];
+const PICK = "r3-flame";
 
 const lin = (x1, y1, x2, y2) => (id, stops) => `<linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}">${stops}</linearGradient>`;
 const rad = (cx, cy, r) => (id, stops) => `<radialGradient id="${id}" gradientUnits="userSpaceOnUse" cx="${cx}" cy="${cy}" r="${r}">${stops}</radialGradient>`;
@@ -41,8 +42,7 @@ const FLAME = "M548 332C534 300 552 266 572 240C586 222 594 200 596 178C622 208 
 const CORE_PATH = "M562 330C556 312 566 292 580 276C588 266 594 254 596 242C610 262 616 284 610 302C606 318 594 328 580 332C572 334 566 334 562 330Z";
 
 let n = 0;
-export function litMark(o, ink, size) {
-  const id = `l${n++}`;
+export function litMark(o, ink, size, id = `l${n++}`) {
   const stops = o.stops(ink).map(([at, c]) => `<stop offset="${at}" stop-color="${ink === CREAM && c === RED ? SUN : c}"/>`).join("");
   const from = o.from ?? 445;
   const f = o.flame ?? 1.35;
@@ -51,7 +51,7 @@ export function litMark(o, ink, size) {
   return `<svg style="overflow:visible" width="${size}" height="${size}" viewBox="${o.noFlame ? "0 0 600 600" : "-40 -80 720 720"}" xmlns="http://www.w3.org/2000/svg"><defs>${o.grad(`${id}g`, stops)}
 <linearGradient id="${id}t" gradientUnits="userSpaceOnUse" x1="${from}" y1="0" x2="${from + 50}" y2="0"><stop offset="0" stop-color="#000"/><stop offset="1" stop-color="#fff"/></linearGradient>
 <mask id="${id}c"><rect x="0" y="${o.from ? 318 : 290}" width="600" height="310" fill="url(#${id}t)"/></mask>
-<mask id="${id}m"><g fill="#fff">${inner}</g></mask>
+<mask id="${id}m"><g fill="#fff">${o.markInner ?? inner}</g></mask>
 <linearGradient id="${id}fl" gradientUnits="userSpaceOnUse" x1="560" y1="336" x2="600" y2="180"><stop offset="0" stop-color="${RED}"/><stop offset=".45" stop-color="${SUN}"/><stop offset="1" stop-color="${HOT}"/></linearGradient>
 <linearGradient id="${id}co" gradientUnits="userSpaceOnUse" x1="570" y1="332" x2="596" y2="242"><stop offset="0" stop-color="${HOT}"/><stop offset="1" stop-color="${CORE}"/></linearGradient>
 <filter id="${id}b" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="22"/></filter><filter id="${id}s" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="9"/></filter></defs>
@@ -78,5 +78,11 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     fs.writeFileSync(path.join(HERE, `${o.id}.svg`), litMark(o, INK, 600));
   }
   await browser.close();
-  console.log("wrote", options.map((o) => o.id).join(", "));
+  const pick = options.find((o) => o.id === PICK);
+  fs.writeFileSync(path.join(ROOT, "brand/logo/final/mark-lit.svg"), litMark(pick, INK, 600, "eml").replace(/ style="overflow:visible" width="600" height="600"/, ""));
+  fs.writeFileSync(path.join(ROOT, "brand/logo/final/mark-lit-white.svg"), litMark(pick, CREAM, 600, "emd").replace(/ style="overflow:visible" width="600" height="600"/, ""));
+  fs.writeFileSync(path.join(ROOT, "brand/logo/final/mark-lit-symbol.svg"), litMark(pick, "currentColor", 600, "ems").replace(/ style="overflow:visible" width="600" height="600"/, ""));
+  const tpl = litMark({ ...pick, markInner: "__MARK__" }, "__INK__", 600, "__ID__").replace(/ style="overflow:visible" width="600" height="600"/, "");
+  fs.writeFileSync(path.join(ROOT, "apps/mobile/src/lib/markLit.ts"), `export const markLitViewBox = ${JSON.stringify(tpl.match(/viewBox="([^"]+)"/)[1])};\nexport const markLitTemplate = ${JSON.stringify(tpl.replace(/\n/g, ""))};\n`);
+  console.log("wrote", options.map((o) => o.id).join(", "), "and the picked", PICK);
 }
