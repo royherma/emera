@@ -1482,6 +1482,47 @@
         "ref": "feedback.jsonl 07:55:23",
         "note": "Roy looked: good"
       }
+    },
+    {
+      "id": "issues-2",
+      "kind": "approve",
+      "when": "this week",
+      "title": "Post 11 small issues for contributors",
+      "why": "Smaller first jobs next to the 8 big projects; nothing here is core work.",
+      "list": [
+        "Replay D1 migrations from empty in CI",
+        "Add a pre-commit hook for typecheck and format",
+        "Add unit tests for the mobile lib folder",
+        "Per-post share card image for /p/:id",
+        "oEmbed endpoint and embed page for posts",
+        "RSS and Atom feeds for creators and the global feed",
+        "Make the web build an installable PWA",
+        "Golden test files for social.emera lexicons",
+        "Public cost page spec and first version",
+        "Fresh-machine test of CONTRIBUTING.md",
+        "Digital-frame mode for smart displays and spare tablets"
+      ],
+      "options": [
+        {
+          "id": "yes",
+          "label": "Post all 11",
+          "primary": true
+        },
+        {
+          "id": "no",
+          "label": "Not yet"
+        }
+      ],
+      "links": [
+        [
+          "Drafts with full text",
+          "https://github.com/royherma/emera/blob/main/docs/help-wanted.json"
+        ],
+        [
+          "Posted issues",
+          "https://github.com/royherma/emera/issues"
+        ]
+      ]
     }
   ],
   "reviewDone": [
