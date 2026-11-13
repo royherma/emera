@@ -3,8 +3,25 @@
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "ios": { "supportsTablet": true, "infoPlist": { "ITSAppUsesNonExemptEncryption": false } },
-    "web": { "bundler": "metro", "output": "single" },
-    "plugins": ["expo-router", "expo-image", "expo-secure-store", "expo-font", "expo-splash-screen", "expo-video"]
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/icon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-image",
+      "expo-secure-store",
+      "expo-font",
+      "expo-splash-screen",
+      "expo-video"
+    ],
+    "icon": "./assets/icon.png"
   }
 }

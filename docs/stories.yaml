@@ -64,18 +64,22 @@
       screen: /upload
     - say: Pick a photo and upload the bytes
       screen: /upload
+      state: picked
       endpoint: POST /v1/uploads
       expect: [auth, "table:media"]
     - say: The file is stored and signed
       screen: /upload
+      state: posting
       endpoint: PUT /v1/uploads/:id
       expect: [r2, "table:media"]
     - say: Publish the post with a caption
       screen: /upload
+      state: posting
       endpoint: POST /v1/posts
       expect: ["table:posts"]
     - say: Land on the new post
       screen: /p/:id
+      state: published
       endpoint: GET /v1/posts/:id
 
 - id: post-video
@@ -85,16 +89,20 @@
   steps:
     - say: Pick a video in the upload tab
       screen: /upload
+      state: picked
       endpoint: POST /v1/uploads
     - say: Upload the video file
       screen: /upload
+      state: posting
       endpoint: PUT /v1/uploads/:id
       expect: [r2]
     - say: Publish it
       screen: /upload
+      state: posting
       endpoint: POST /v1/posts
     - say: Watch it play from our storage
       screen: /p/:id
+      state: published
       endpoint: GET /media/:key
       server: true
       expect: [r2, public]

@@ -159,7 +159,8 @@ createServer((req, res) => {
   if (url.pathname === '/api/feedback' && req.method === 'POST') { feedback(req, res); return; }
   if (url.pathname === '/api/atlas/shots') {
     if (req.method === 'POST') {
-      const started = startShots('Roy', 'Capture button on the Atlas page');
+      const by = (url.searchParams.get('by') || 'Capture button').slice(0, 40);
+      const started = startShots(by, url.searchParams.get('why')?.slice(0, 120) || 'Capture now on the Atlas page');
       res.writeHead(started ? 202 : 409, { 'Content-Type': 'application/json' }).end(JSON.stringify(shotsState()));
       return;
     }
