@@ -82,6 +82,17 @@ export class ApiError extends Error {
   }
 }
 
+export interface Sponsor {
+  name: string;
+  url: string | null;
+  line: string | null;
+}
+
+export interface FundCards {
+  banners: Sponsor[];
+  feedCards: { on: boolean; posts: number; needed: number; every: number };
+}
+
 export interface Backend {
   authStart(email: string, invite?: string): Promise<void>;
   authVerify(email: string, code: string): Promise<{ token: string; user: User; isNew: boolean }>;
@@ -117,5 +128,6 @@ export interface Backend {
   markNotificationsRead(ids?: string[]): Promise<number>;
   search(q: string, kind: SearchKind, cursor?: string | null): Promise<{ users: User[]; posts: Post[]; cursor: string | null }>;
   updateProfile(input: { displayName?: string; bio?: string; links?: string[]; avatarMediaId?: string | null }): Promise<User>;
+  fund(): Promise<FundCards | null>;
   flag(input: { targetType: "post" | "user"; targetId: string; reason: FlagReason; note: string }): Promise<void>;
 }

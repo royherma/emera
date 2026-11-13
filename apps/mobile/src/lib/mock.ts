@@ -468,6 +468,10 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
     const own = targetType === "post" ? posts.find((p) => p.id === targetId)?.author.id === me.id : targetId === me.id;
     if (own) throw new ApiError("own_content", "You cannot report your own posts or account.");
   },
+  fund: async () => ({
+    banners: [{ name: "Quillfern Paper", url: null, line: "Paper for people who draw" }],
+    feedCards: { on: false, posts: 0, needed: 0, every: 8 },
+  }),
 };
 
 const pending: Media[] = [];
