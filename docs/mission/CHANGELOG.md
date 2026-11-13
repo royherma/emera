@@ -2,6 +2,11 @@
 
 Format: `MAJOR.MINOR.PATCH`. Major: a value added, retired, or a "never" changed. Minor: a commitment added, removed or changed. Patch: wording only, same meaning. Every entry names who proposed it, the vote or board decision, and the real decision that prompted it. Rules: `how-values-change.md`.
 
+## 1.2.0 - 2026-11-13
+
+- Added "In one line": Emera is the open source social network. Every public surface (README, site, store text) opens with it, then dials down to the longer mission.
+- Proposed and decided by: the founder ("one liner everybody understands and from there we dial down").
+
 ## 1.1.0 - 2026-11-13
 
 - Added "Why Emera exists": the founder's own words on why this has to be built now (creators unfairly ripped off, a solvable problem, AI makes the protection buildable, reward work that brings humanity together).

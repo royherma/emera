@@ -56,7 +56,8 @@ function sessions(visits) {
     const at = toMs(v.created_at);
     if (!s) out.set(key, { visitor: key, first: at, last: at, pages: [v.path], place: place(v), device: device(v.ua), source: source(v), network: v.network, lang: v.lang });
     else {
-      s.last = at;
+      s.last = Math.max(s.last, at);
+      s.first = Math.min(s.first, at);
       if (s.pages.length < 30) s.pages.push(v.path);
     }
   }

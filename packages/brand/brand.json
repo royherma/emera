@@ -2,6 +2,7 @@
   "name": "Emera",
   "codeName": false,
   "tagline": "Where humanity comes together",
+  "line": "The open source social network",
   "nsidAuthority": "social.emera",
   "webOrigin": "http://agora-api.localhost:5036",
   "colors": {

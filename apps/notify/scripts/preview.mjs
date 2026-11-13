@@ -31,6 +31,10 @@ API_DB.raw.prepare("INSERT INTO users (id, email, handle, created_at) VALUES ('t
 const env = { ENVIRONMENT: "dev", ADMIN_KEY: "preview", SITE_URL: "", SITE_DB, API_DB, STATE: { get: async () => null, put: async () => {} } };
 const port = Number(process.argv[2] || 5041);
 createServer(async (req, res) => {
+  if (req.url.split("?")[0].replace(/\/$/, "") === "/ledger") {
+    res.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+    return res.end(readFileSync(here + "../site/public/ledger/index.html"));
+  }
   const headers = new Headers(Object.entries(req.headers).filter(([, v]) => typeof v === "string"));
   const r = await worker.fetch(new Request(`http://localhost:${port}${req.url}`, { headers }), env);
   res.writeHead(r.status, Object.fromEntries(r.headers));

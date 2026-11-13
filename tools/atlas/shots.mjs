@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 import { execSync, spawnSync } from 'node:child_process';
-import { createReadStream, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { appendFileSync, createReadStream, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { createRequire } from 'node:module';
 import { tmpdir } from 'node:os';
 import { dirname, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { codeHash } from './codehash.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..');
 const R = (...p) => join(root, ...p);
@@ -17,6 +18,12 @@ const VIEWPORTS = { phone: { width: 390, height: 844 }, desktop: { width: 1440, 
 const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.ttf': 'font/ttf', '.woff2': 'font/woff2', '.map': 'application/json' };
 const slugOf = (s) => (s.surface === 'site' ? 'site-' : '') + (s.route === '/' ? 'home' : s.route.replace(/^\//, '').replace(/[/:]+/g, '-'));
 const log = (m) => console.log(`SHOTS ${m}`);
+const BY = process.env.ATLAS_SHOTS_BY || 'terminal';
+const WHY = process.env.ATLAS_SHOTS_WHY || 'run by hand';
+const T0 = Date.now();
+const phases = [];
+let lap = T0;
+const phase = (name) => { const now = Date.now(); phases.push({ name, ms: now - lap }); lap = now; log(`done ${name} in ${((now - T0) / 1000).toFixed(1)}s`); };
 const git = () => {
   const run = (c) => { try { return execSync(c, { cwd: root, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim(); } catch { return ''; } };
   return { sha: run('git rev-parse --short HEAD') || 'none', dirty: !!run('git status --porcelain -- apps/mobile/src apps/site/public') };
@@ -67,9 +74,18 @@ async function go(page, path) {
 async function run() {
   const tmp = mkdtempSync(join(tmpdir(), 'atlas-shots-'));
   const dist = join(tmp, 'web');
-  let appServer, siteServer;
+  let appServer, siteServer, index;
+  const hash = codeHash(root);
+  const g0 = git();
+  const runsFile = R('data/atlas-shots/runs.jsonl');
+  const record = (extra) => {
+    mkdirSync(dirname(runsFile), { recursive: true });
+    appendFileSync(runsFile, JSON.stringify({ startedAt: new Date(T0).toISOString(), ms: Date.now() - T0, by: BY, why: WHY, sha: g0.sha, dirty: g0.dirty, codeHash: hash, phases, ...extra }) + '\n');
+  };
+  log(`start by ${BY}: ${WHY}`);
   try {
     exportApp(dist);
+    phase('export web build');
     const bundle = bundleText(dist);
     const themeSwitch = /settings\.theme/.test(bundle);
     const themes = themeSwitch ? ['day', 'night'] : ['day'];
@@ -87,7 +103,7 @@ async function run() {
 
     const out = R('data/atlas-shots');
     mkdirSync(out, { recursive: true });
-    const index = { capturedAt: new Date().toISOString(), git: git(), themeSwitch, viewports: VIEWPORTS, themes, params: {}, screens: {}, shell, failed: [] };
+    index = { capturedAt: new Date().toISOString(), git: g0, codeHash: hash, by: BY, why: WHY, themeSwitch, viewports: VIEWPORTS, themes, params: {}, screens: {}, shell, failed: [] };
     const entryFor = (s) => (index.screens[`${s.surface}:${s.route}`] ??= { key: `${s.surface}:${s.route}`, slug: slugOf(s), route: s.route, surface: s.surface, access: s.access, shots: {}, states: [] });
     const byRoute = (r) => targets.find((s) => s.surface === 'app' && s.route === r);
 
@@ -166,11 +182,11 @@ async function run() {
         if (handle) await snap(handle);
         await input('Your name').fill('Visitor Test');
         await input('yourhandle').fill(facts.taken);
-        await click(/finish/i);
+        await click(/^(start|finish)$/i);
         await settle(page, 1200);
         if (handle) await snap(handle, 'error', 'a handle that is taken');
         await input('yourhandle').fill('visitor_test');
-        await click(/finish/i);
+        await click(/^(start|finish)$/i);
         await settle(page, 2000);
       });
 
@@ -223,17 +239,23 @@ async function run() {
         await snap(rep, 'error', 'a link that is not a link');
       });
       await ctx.close();
-      log(`captured ${tag}`);
+      phase(tag);
     }
     await browser.close();
 
     let count = 0;
     for (const e of Object.values(index.screens)) { count += Object.keys(e.shots).length + e.states.length; e.shots = Object.fromEntries(Object.entries(e.shots).sort()); }
     index.count = count;
+    index.ms = Date.now() - T0;
+    index.phases = phases;
     index.missing = targets.filter((s) => !Object.keys(index.screens[`${s.surface}:${s.route}`]?.shots ?? {}).length).map((s) => `${s.surface}:${s.route}`);
     writeFileSync(join(out, 'index.json'), JSON.stringify(index, null, 1) + '\n');
-    log(`${count} images, ${Object.keys(index.screens).length} screens, ${index.missing.length} without a capture, ${index.failed.length} failed steps`);
+    log(`${count} images, ${Object.keys(index.screens).length} screens, ${index.missing.length} without a capture, ${index.failed.length} failed steps, took ${(index.ms / 1000).toFixed(1)}s`);
+    record({ ok: true, images: count, screens: Object.keys(index.screens).length, missing: index.missing, failed: index.failed });
     spawnSync('node', [R('tools/atlas/build.mjs')], { stdio: 'inherit' });
+  } catch (e) {
+    record({ ok: false, error: String(e.message ?? e).split('\n').slice(0, 3).join(' ').slice(0, 300) });
+    throw e;
   } finally {
     appServer?.close();
     siteServer?.close();
