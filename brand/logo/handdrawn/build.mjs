@@ -57,7 +57,7 @@ const withEntry = (t) => (t < 0.12 ? 0.45 + (t / 0.12) * 0.45 : gentle(t))
 
 const VERSIONS = [
   { id: '01', slug: '01-your-sketch', name: 'Your sketch', note: 'Your stroke, cleaned only enough to read at app-icon size', trace: ROY, press: gentle, wobble: 0.7, sw: 12.5, seed: 7 },
-  { id: '02', slug: '02-sketch-sun', name: 'Sketch + sun', note: 'Your stroke, with the sun where the pen lifts off', trace: ROY, press: gentle, wobble: 0.7, sw: 12.5, seed: 7, sun: 'eye' },
+  { id: '02', slug: '02-sketch-sun', name: 'Sketch + sun', note: 'Your stroke, starting from a sun in the eye of the e', trace: ROY, press: gentle, wobble: 0.7, sw: 12.5, seed: 7, sun: 'eye' },
   { id: '03', slug: '03-brush', name: 'Brush', note: 'Faster and looser, thin where the pen lands and lifts', trace: ROY, press: brush, wobble: 1.4, sw: 13.5, seed: 21 },
   { id: '04', slug: '04-signed', name: 'Signed', note: 'Your stroke with the lead-in from the first Signature', trace: [...ENTRY, ...ROY.slice(0)], press: withEntry, wobble: 0.7, sw: 12, seed: 7 },
 ]
