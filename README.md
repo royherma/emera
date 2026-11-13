@@ -25,8 +25,14 @@ So we are fixing it together, in the open. Emera is a place to share what you cr
 
 <table>
   <tr>
+    <td colspan="2" valign="top">
+      <h3>🛡️ Protected here and everywhere</h3>
+      Upload once. We scan the web for copies of what you post, file the takedown on whatever platform they turn up, and when a takedown is not enough, our agents take the legal steps with you. Found a copy yourself? Report it from any post.
+    </td>
+  </tr>
+  <tr>
     <td width="50%" valign="top">
-      <h3>🛡️ Proof of who made it</h3>
+      <h3>✍️ Proof of who made it</h3>
       Every post carries a signed record of its maker. The badge says exactly what was checked, nothing more.
     </td>
     <td width="50%" valign="top">
@@ -44,10 +50,17 @@ So we are fixing it together, in the open. Emera is a place to share what you cr
       Your posts and followers go with you, any time, to any AT Protocol app.
     </td>
   </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🗒️ Community notes</h3>
+      Anyone can add context to a post. A note shows once people who usually disagree both rate it helpful.
+    </td>
+    <td width="50%" valign="top">
+      <h3>🙋 Moderators who care</h3>
+      Every report reaches a real person, and you hear back what was done and why.
+    </td>
+  </tr>
 </table>
-
-> [!TIP]
-> **Someone copied your work?** Report it from any post. We help file the takedown, and every report trains the copy matching that comes next.
 
 ## 🚀 Join in four steps
 
@@ -90,9 +103,9 @@ flowchart LR
 | | Milestone | Target | Progress | Exit test |
 | :-: | --- | --- | --- | --- |
 | 🌅 | **M0** Live on emera.social | Nov 16, 2026 | ![4 of 8](https://img.shields.io/badge/4%2F8-50%25-ff8a2b) | emera.social, app and API live |
-| 🌱 | **M1** First 100 creators | Dec 31, 2026 | ![3 of 6](https://img.shields.io/badge/3%2F6-50%25-ff8a2b) | 100 creators, 40 reports, half of notices end in removal in 14 days |
-| 🌍 | **M2** 1,000 creators | Mid-Feb 2027 | ![0 of 6](https://img.shields.io/badge/0%2F6-next-c9b8a4) | 35% still posting after 30 days, 5 outside contributors merged |
-| ☀️ | **M3 + M4** 10K, then 100K creators | 2027 | ![0 of 4](https://img.shields.io/badge/0%2F4-next-c9b8a4) | Creators paid, copy matching for everyone |
+| 🌱 | **M1** First 100 creators | Dec 31, 2026 | ![3 of 7](https://img.shields.io/badge/3%2F7-43%25-ff8a2b) | 100 creators, 40 reports, half of notices end in removal in 14 days |
+| 🌍 | **M2** 1,000 creators | Mid-Feb 2027 | ![0 of 7](https://img.shields.io/badge/0%2F7-next-c9b8a4) | 35% still posting after 30 days, 5 outside contributors merged |
+| ☀️ | **M3 + M4** 10K, then 100K creators | 2027 | ![0 of 6](https://img.shields.io/badge/0%2F6-next-c9b8a4) | Creators paid, copy matching for everyone |
 
 Dates are targets, not limits: the sooner one lands, the sooner the next one starts.
 
@@ -120,6 +133,7 @@ Dates are targets, not limits: the sooner one lands, the sooner the next one sta
 - ✅ Bring your old posts over (`tools/import`)
 - ⬜ Takedown notice builder: the creator confirms, we send it
 - ⬜ Ops page to file and track every report
+- ⬜ Moderators answer every report with what was done and why
 - ⬜ Abuse and CSAM basics
 
 </details>
@@ -131,6 +145,7 @@ Dates are targets, not limits: the sooner one lands, the sooner the next one sta
 - ⬜ Passkeys
 - ⬜ Creator dashboard: your reports, outcomes, receipts
 - ⬜ Open feeds with "why this post"
+- ⬜ Community notes, shown when people who usually disagree both rate a note helpful
 - ⬜ Public cost page and donations
 - ⬜ Contributor program with bounties
 
@@ -143,6 +158,8 @@ Dates are targets, not limits: the sooner one lands, the sooner the next one sta
 - ⬜ Tips and Premium, money paid to creators
 - ⬜ Video on our own streaming
 - ⬜ Scanning for everyone, platform integrations, board elections
+- ⬜ Takedowns filed for you on the platforms where copies turn up
+- ⬜ Agents that take the legal steps with you when a takedown is not enough
 
 </details>
 
