@@ -2,6 +2,14 @@
 
 Every milestone that closes adds its learnings here, and anything stale gets corrected or struck in the same commit. One entry per trap: what bit us, how to spot it, the fix. Newest first. Each entry is dated and says where it was learned.
 
+## 2026-11-13 - Media shrink: photos to WebP, 4K video to 1080p
+
+- **Uploads used to keep the camera's GPS.** An iPhone HEIC carried its latitude and `/media/*` served it to anyone. Photos now go through the Images binding (2048 px WebP q82), which drops EXIF/GPS. Spot a regression: `curl -s <media url> | grep -c -a GPS` must print 0.
+- **The Images binding takes at most 20 MB in.** Photo cap is 20 MB (was 25). If the binding errors (free plan stops at 5,000 transforms a month with error 9422) the original is stored and logged `image shrink failed`.
+- **The Media binding (video) has no local mode and caps at 100 MB in, 60 s out, 2000 px.** A longer clip would come back cut to 60 s, so only clips up to 60 s and under 100 MB are queued; longer 4K clips stay as uploaded. It took ~50 s for 10-26 s of 4K, too slow for the upload request, hence the `emera-video-<env>` queue. The binding is only in staging/prod config; tests pass a fake.
+- **`/media/:key` rejected any key with a dash**, so the `<id>-1080.mp4` copy 404ed. The pattern allows one `-suffix` now.
+- **The video swap changes the URL.** `<id>.mov` is deleted once `<id>-1080.mp4` is stored (about a minute after upload). Anything that saved the old URL string gets a 404; read `media.url` again.
+
 ## 2026-11-13 - Ops visibility: Slack, /admin, /ledger
 
 - **Staging and production shared one Slack channel, so test runs looked like real signups.** Non-production notify now posts nothing unless `SLACK_NON_PROD=1`. Spot it: `curl https://emera-notify-staging.techguyver1337.workers.dev/health` says `"silent":true`.
