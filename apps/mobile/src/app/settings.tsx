@@ -94,6 +94,12 @@ export default function Settings() {
       </Section>
 
       <View style={{ height: 1, backgroundColor: c.hair }} />
+      <Section title="Privacy">
+        <Text style={[type.body, { color: c.ink2 }]}>See who you have blocked or muted, and undo it any time.</Text>
+        <Button label="Blocked and muted" icon="shield" kind="secondary" onPress={() => router.push("/blocked")} style={{ alignSelf: "flex-start" }} />
+      </Section>
+
+      <View style={{ height: 1, backgroundColor: c.hair }} />
       <Section title="Account">
         <Button label="Sign out" icon="logout" kind="secondary" onPress={signOut} style={{ alignSelf: "flex-start" }} />
       </Section>

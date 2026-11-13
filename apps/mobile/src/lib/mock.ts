@@ -1,6 +1,6 @@
 import brand from "./brand";
 import { PUBLIC_ORIGIN } from "./config";
-import { ApiError, Backend, Media, PickedFile, Post, User } from "./types";
+import { ApiError, Backend, FeedMode, Media, PickedFile, Post, User, UserPage } from "./types";
 import { HANDLE_RE } from "./format";
 
 const wait = (ms = 280) => new Promise((r) => setTimeout(r, ms + Math.random() * 220));
@@ -93,6 +93,42 @@ const current = (): User => {
   return user;
 };
 
+const edges = new Set<string>([
+  "mina>jonas_w", "mina>tamsin", "mina>koji", "jonas_w>mina", "tamsin>mina", "tamsin>noor", "koji>mina", "koji>noor",
+  "ila_makes>mina", "ila_makes>jonas_w", "odd_type>tamsin", "noor>koji", "bram>jonas_w", "bram>ila_makes",
+]);
+const blocked = new Set<string>();
+const muted = new Set<string>();
+const handleOf = (u: User) => u.handle;
+const pairOf = (a: string, b: string) => `${a}>${b}`;
+
+const decorate = (u: User): User => {
+  const me = token ? [...users.values()].find((x) => x.id === sessions.get(token!))?.handle : undefined;
+  const all = [...edges];
+  const base = { ...u, followers: all.filter((e) => e.endsWith(`>${u.handle}`)).length, following: all.filter((e) => e.startsWith(`${u.handle}>`)).length };
+  return me ? { ...base, viewer: { following: edges.has(pairOf(me, u.handle)), blocked: blocked.has(u.handle), muted: muted.has(u.handle) } } : base;
+};
+
+const meHandle = () => current().handle;
+
+const find = (handle: string): User => {
+  const user = users.get(handle.toLowerCase());
+  if (!user) throw new ApiError("not_found", `Nobody here goes by @${handle}.`);
+  return user;
+};
+
+const target = (handle: string): User => {
+  const user = find(handle);
+  if (user.handle === meHandle()) throw new ApiError("self", "You cannot do that to yourself.");
+  return user;
+};
+
+const pageOf = (handles: string[], cursor?: string | null): UserPage => {
+  const start = cursor ? Number(cursor) : 0;
+  const list = handles.slice(start, start + 20).map((h) => decorate(users.get(h)!));
+  return { users: list, cursor: start + 20 < handles.length ? String(start + 20) : null };
+};
+
 const sorted = () => [...posts].sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
 
 export const mock: Backend & { _setToken: (t: string | null) => void } = {
@@ -142,9 +178,14 @@ export const mock: Backend & { _setToken: (t: string | null) => void } = {
     if (token) sessions.delete(token);
     token = null;
   },
-  async feed(cursor) {
+  async feed(cursor, mode?: FeedMode) {
     await wait();
-    const all = sorted();
+    const me = token && sessions.has(token) ? meHandle() : null;
+    const all = sorted().filter((p) => {
+      const h = handleOf(p.author);
+      if (me && (blocked.has(h) || muted.has(h))) return false;
+      return mode === "following" ? !!me && edges.has(pairOf(me, h)) : true;
+    });
     const start = cursor ? Number(cursor) : 0;
     const page = all.slice(start, start + 20);
     return { posts: page, cursor: start + 20 < all.length ? String(start + 20) : null };
@@ -166,7 +207,7 @@ export const mock: Backend & { _setToken: (t: string | null) => void } = {
     await wait();
     const user = users.get(handle.toLowerCase());
     if (!user) throw new ApiError("not_found", `Nobody here goes by @${handle}.`);
-    return { user, posts: sorted().filter((p) => p.author.handle === user.handle), cursor: null };
+    return { user: decorate(user), posts: sorted().filter((p) => p.author.handle === user.handle), cursor: null };
   },
   async uploadMedia(file: PickedFile) {
     await wait(500);
@@ -193,6 +234,63 @@ export const mock: Backend & { _setToken: (t: string | null) => void } = {
   async report({ url }) {
     await wait();
     if (!/^https?:\/\/\S+\.\S+/.test(url)) throw new ApiError("bad_url", "Paste the full link, starting with https://");
+  },
+  async follow(handle) {
+    await wait(160);
+    const user = target(handle);
+    if (blocked.has(user.handle)) throw new ApiError("blocked", "Unblock this account to follow it.");
+    edges.add(pairOf(meHandle(), user.handle));
+    return decorate(user);
+  },
+  async unfollow(handle) {
+    await wait(160);
+    const user = target(handle);
+    edges.delete(pairOf(meHandle(), user.handle));
+    return decorate(user);
+  },
+  async followers(handle, cursor) {
+    await wait();
+    const user = find(handle);
+    return pageOf([...edges].filter((e) => e.endsWith(`>${user.handle}`)).map((e) => e.split(">")[0]).filter((h) => !blocked.has(h) && users.has(h)), cursor);
+  },
+  async following(handle, cursor) {
+    await wait();
+    const user = find(handle);
+    return pageOf([...edges].filter((e) => e.startsWith(`${user.handle}>`)).map((e) => e.split(">")[1]).filter((h) => !blocked.has(h) && users.has(h)), cursor);
+  },
+  async block(handle) {
+    await wait(160);
+    const user = target(handle);
+    blocked.add(user.handle);
+    edges.delete(pairOf(meHandle(), user.handle));
+    edges.delete(pairOf(user.handle, meHandle()));
+    return decorate(user);
+  },
+  async unblock(handle) {
+    await wait(160);
+    const user = target(handle);
+    blocked.delete(user.handle);
+    return decorate(user);
+  },
+  async mute(handle) {
+    await wait(160);
+    const user = target(handle);
+    muted.add(user.handle);
+    return decorate(user);
+  },
+  async unmute(handle) {
+    await wait(160);
+    const user = target(handle);
+    muted.delete(user.handle);
+    return decorate(user);
+  },
+  async blocks(cursor) {
+    await wait();
+    return pageOf([...blocked], cursor);
+  },
+  async mutes(cursor) {
+    await wait();
+    return pageOf([...muted], cursor);
   },
 };
 

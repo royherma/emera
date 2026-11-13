@@ -330,7 +330,7 @@ features:
     platforms: {instagram: yes, tiktok: yes, youtube: yes, pinterest: yes, bluesky: yes, cara: yes, pixelfed: yes, vsco: yes}
     emera:
       twist: "Chronological by default, ranking is opt-in"
-      maps_to: {screens: ["/feed"], endpoints: [], stories: []}
+      maps_to: {screens: ["/feed"], endpoints: ["GET /v1/feed"], stories: []}
       help_wanted: true
       effort: M
   - id: explore-browse
@@ -498,7 +498,7 @@ features:
     platforms: {instagram: yes, tiktok: yes, youtube: yes, pinterest: yes, bluesky: yes, cara: yes, pixelfed: yes, vsco: yes}
     emera:
       twist: "Following stays with you if you move hosts"
-      maps_to: {screens: [], endpoints: [], stories: []}
+      maps_to: {screens: ["/u/:handle", "/followers/:handle", "/following/:handle"], endpoints: ["POST /v1/follows/:handle", "DELETE /v1/follows/:handle", "GET /v1/users/:handle/followers", "GET /v1/users/:handle/following"], stories: []}
       help_wanted: true
       effort: M
   - id: like
@@ -832,8 +832,8 @@ features:
     why_core: "Safety before growth"
     platforms: {instagram: yes, tiktok: yes, youtube: yes, pinterest: yes, bluesky: yes, cara: yes, pixelfed: yes, vsco: yes}
     emera:
-      twist: ""
-      maps_to: {screens: [], endpoints: [], stories: []}
+      twist: "Blocked and muted accounts stay hidden in every feed and list, and one screen shows who they are"
+      maps_to: {screens: ["/u/:handle", "/blocked"], endpoints: ["POST /v1/blocks/:handle", "DELETE /v1/blocks/:handle", "POST /v1/mutes/:handle", "DELETE /v1/mutes/:handle", "GET /v1/me/blocks", "GET /v1/me/mutes"], stories: []}
       help_wanted: true
       effort: S
   - id: report-content

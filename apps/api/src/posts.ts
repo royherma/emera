@@ -3,7 +3,8 @@ import type { AppEnv, UserRow } from './env';
 import { requireAuth, requireHandle } from './auth';
 import { fail, readJson } from './http';
 import { newId } from './crypto';
-import { decodeCursor, encodeCursor, loadPosts, userJson, type PostRow } from './serialize';
+import { feedFilter, viewerOf } from './viewer';
+import { decodeCursor, encodeCursor, loadPosts, usersJson, type PostRow } from './serialize';
 
 const PAGE = 24;
 
@@ -12,12 +13,15 @@ function pageLimit(raw: string | undefined) {
   return Number.isInteger(n) && n > 0 ? Math.min(n, 50) : PAGE;
 }
 
-export async function pagePosts(c: Parameters<typeof loadPosts>[0], opts: { userId?: string; cursor?: string; limit?: number }) {
+export async function pagePosts(c: Parameters<typeof loadPosts>[0], opts: { userId?: string; cursor?: string; limit?: number; viewerId?: string | null; mode?: 'all' | 'following' }) {
   const limit = opts.limit ?? PAGE;
   const cur = decodeCursor(opts.cursor);
   const where: string[] = [];
   const args: (string | number)[] = [];
   if (opts.userId) { where.push('user_id = ?'); args.push(opts.userId); }
+  const filter = feedFilter(opts.viewerId ?? null, opts.mode ?? 'all');
+  where.push(...filter.where);
+  args.push(...filter.args);
   if (cur) { where.push('(created_at < ? OR (created_at = ? AND id < ?))'); args.push(cur.at, cur.at, cur.id); }
   const sql = `SELECT * FROM posts ${where.length ? 'WHERE ' + where.join(' AND ') : ''} ORDER BY created_at DESC, id DESC LIMIT ?`;
   const rows = (await c.env.DB.prepare(sql).bind(...args, limit + 1).all<PostRow>()).results;
@@ -78,10 +82,19 @@ postRoutes.delete('/v1/posts/:id', requireAuth, async (c) => {
 postRoutes.get('/v1/users/:handle', async (c) => {
   const user = await c.env.DB.prepare('SELECT * FROM users WHERE handle = ?').bind(c.req.param('handle').toLowerCase()).first<UserRow>();
   if (!user) throw fail(404, 'not_found', 'No such user.');
+  const viewer = await viewerOf(c);
+  if (viewer && viewer.id !== user.id) {
+    const blockedMe = await c.env.DB.prepare('SELECT 1 AS x FROM blocks WHERE blocker_id = ? AND blocked_id = ?').bind(user.id, viewer.id).first();
+    if (blockedMe) throw fail(404, 'not_found', 'No such user.');
+  }
   const page = await pagePosts(c, { userId: user.id, cursor: c.req.query('cursor'), limit: pageLimit(c.req.query('limit')) });
-  return c.json({ user: userJson(user), ...page });
+  return c.json({ user: (await usersJson(c, [user]))[0], ...page });
 });
 
 postRoutes.get('/v1/feed', async (c) => {
-  return c.json(await pagePosts(c, { cursor: c.req.query('cursor'), limit: pageLimit(c.req.query('limit')) }));
+  const mode = c.req.query('mode') ?? 'all';
+  if (mode !== 'all' && mode !== 'following') throw fail(400, 'bad_mode', 'Mode must be all or following.');
+  const viewer = await viewerOf(c);
+  if (mode === 'following' && !viewer) throw fail(401, 'unauthorized', 'Sign in first.');
+  return c.json(await pagePosts(c, { cursor: c.req.query('cursor'), limit: pageLimit(c.req.query('limit')), viewerId: viewer?.id, mode }));
 });

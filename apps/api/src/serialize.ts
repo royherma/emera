@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { AppEnv, UserRow } from './env';
 import { originOf, siteOrigin } from './http';
+import { socialFor, viewerOf, type SocialInfo } from './viewer';
 
 export type MediaRow = {
   id: string; user_id: string; kind: string; content_type: string; width: number; height: number;
@@ -11,8 +12,14 @@ export type PostRow = { id: string; user_id: string; caption: string; created_at
 
 export const iso = (ms: number) => new Date(ms).toISOString();
 
-export function userJson(u: UserRow) {
-  return { id: u.id, handle: u.handle, displayName: u.display_name, bio: u.bio, avatarUrl: u.avatar_url, createdAt: iso(u.created_at) };
+export function userJson(u: UserRow, social?: SocialInfo) {
+  return { id: u.id, handle: u.handle, displayName: u.display_name, bio: u.bio, avatarUrl: u.avatar_url, createdAt: iso(u.created_at), ...social };
+}
+
+export async function usersJson(c: Context<AppEnv>, rows: UserRow[]) {
+  const viewer = await viewerOf(c);
+  const info = await socialFor(c, rows.map((r) => r.id), viewer?.id);
+  return rows.map((u) => userJson(u, info.get(u.id)));
 }
 
 export function mediaJson(origin: string, m: MediaRow) {
@@ -42,9 +49,11 @@ export async function loadPosts(c: Context<AppEnv>, rows: PostRow[]) {
   const ids = rows.map((r) => r.id);
   const userIds = [...new Set(rows.map((r) => r.user_id))];
   const uph = userIds.map(() => '?').join(',');
-  const [media, users] = await Promise.all([
+  const viewer = await viewerOf(c);
+  const [media, users, info] = await Promise.all([
     c.env.DB.prepare(`SELECT * FROM media WHERE post_id IN (${ph}) ORDER BY position`).bind(...ids).all<MediaRow>(),
     c.env.DB.prepare(`SELECT * FROM users WHERE id IN (${uph})`).bind(...userIds).all<UserRow>(),
+    socialFor(c, userIds, viewer?.id),
   ]);
   const byPost = new Map<string, ReturnType<typeof mediaJson>[]>();
   for (const m of media.results) {
@@ -52,7 +61,7 @@ export async function loadPosts(c: Context<AppEnv>, rows: PostRow[]) {
     list.push(mediaJson(origin, m));
     byPost.set(m.post_id!, list);
   }
-  const byUser = new Map(users.results.map((u) => [u.id, userJson(u)]));
+  const byUser = new Map(users.results.map((u) => [u.id, userJson(u, info.get(u.id))]));
   return rows.map((p) => ({
     id: p.id,
     author: byUser.get(p.user_id)!,
