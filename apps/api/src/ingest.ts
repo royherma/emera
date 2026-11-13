@@ -108,7 +108,7 @@ async function readFeed(spec: string, limit: number): Promise<Item[]> {
     body = await res.text();
     spec = next;
   }
-  return parseFeed(body, spec).slice(0, limit);
+  return parseFeed(body, spec).filter((i) => i.media.length).slice(0, limit);
 }
 
 async function pdsOf(did: string): Promise<string | null> {
