@@ -115,7 +115,11 @@ async function api(method, path, { token, json, body, type } = {}) {
   if (json) headers["Content-Type"] = "application/json";
   if (type) headers["Content-Type"] = type;
   const url = path.startsWith("http") ? path : env.api + path;
-  const res = await fetch(url, { method, headers, body: json ? JSON.stringify(json) : body });
+  let res;
+  for (let tries = 1; ; tries++) {
+    try { res = await fetch(url, { method, headers, body: json ? JSON.stringify(json) : body }); break; }
+    catch (e) { if (tries >= 4) throw e; await new Promise((r) => setTimeout(r, 500 * tries)); }
+  }
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(`${method} ${path} -> ${res.status} ${JSON.stringify(data)}`);
   return data;

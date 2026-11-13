@@ -31,6 +31,8 @@ Run the pieces (full list in [README.md](README.md#run-it-locally)):
 
 The app runs on mock data unless `EXPO_PUBLIC_API_URL` points at an API. You never need a Cloudflare login for local work: wrangler uses a local D1 and R2.
 
+Want a full-looking network instead of an empty one? With the API running, `npm run demo -- on local` adds 27 demo creators, 30 posts (photos and carousels from `brand/content/`), follows, likes and comments through the real API. `npm run demo -- off local` removes all of it and leaves your own accounts alone; `status` counts both. Demo accounts use `demo.<handle>@example.com`. Add `?demo=1` to the app URL for the in-browser fake data that needs no API at all.
+
 ## Pick an issue
 
 1. Open the [help-wanted list](docs/help-wanted.json) or the issues labeled `good first issue` and `help wanted`.

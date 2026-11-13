@@ -92,6 +92,8 @@ Ports were claimed with `ports claim`: agora 5035 (dashboard), agora-api 5036, a
 | Staging | https://emera-api-staging.techguyver1337.workers.dev | https://emera-site-staging.techguyver1337.workers.dev | D1 `emera-staging`, `emera-site-staging`; R2 `emera-media-staging` |
 | Production | https://api.emera.social (live; app at https://app.emera.social) | https://emera.social, https://www.emera.social | D1 `emera-prod`, `emera-site`; R2 `emera-media-prod` |
 
+Staging carries demo content (27 invented creators, 30 posts): `npm run demo -- on|off|status staging` (or `local`). It goes through the real API, deletes only `demo.*@example.com` accounts, and refuses production.
+
 Cloudflare account `db9eee5d30dc91c467044f8746e45206` (wrangler OAuth, no token needed). Secrets (`PROOF_SECRET`, `SEED_INVITE_CODE`) are set with `wrangler secret put --env <env>`, never in `wrangler.jsonc`. Seed invite codes are in `.claude/artifacts/seed-invites.txt` (gitignored).
 
 ## Deploying
