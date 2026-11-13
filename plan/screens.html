@@ -5,33 +5,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Phone screens</title>
 <style>
-:root{--bg:#f6f0e6;--card:#fffaf2;--ink:#2a1f17;--mute:#8a7b6c;--line:#e7dccb;--a:#ff8a1f;--ok:#2f8f5b;--bad:#c4412b;--slot:#efe6d8}
-*{box-sizing:border-box}html,body{margin:0;height:100%}
-body{background:var(--bg);color:var(--ink);font:14px/1.35 -apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;display:flex;flex-direction:column;min-height:100vh}
-header{display:flex;align-items:center;gap:16px;padding:14px 22px 10px;flex-wrap:wrap}
+:root{--bg:#f6f0e6;--card:#fffaf2;--ink:#2a1f17;--mute:#8a7b6c;--line:#e7dccb;--a:#ff8a1f;--ok:#2f8f5b;--bad:#c4412b;--slot:#efe6d8;--h:min(calc((100vh - 236px) / 2), calc((100vw - 230px) / 11 * 2.1667))}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:14px/1.35 -apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;min-height:100vh}
+header{display:flex;align-items:center;gap:16px;padding:14px 22px 8px;flex-wrap:wrap}
 h1{font:700 22px/1 Georgia,serif;margin:0}
 .st{display:flex;align-items:center;gap:8px;font-size:13px}
 .dot{width:9px;height:9px;border-radius:50%;background:var(--mute)}.dot.run{background:var(--a);animation:pl 1.1s infinite}.dot.ok{background:var(--ok)}.dot.bad{background:var(--bad)}
 @keyframes pl{50%{opacity:.35}}
-.count{margin-left:auto;font:700 28px/1 Georgia,serif}.count small{font:400 13px/1 system-ui;color:var(--mute);margin-left:6px}
+.meta{font-size:12px;color:var(--mute)}
+.count{margin-left:auto;display:flex;gap:18px;align-items:baseline}
+.count div{font:700 26px/1 Georgia,serif}.count small{font:400 12px/1 system-ui;color:var(--mute);margin-left:5px}
+.count .bad{color:var(--bad)}
 .bar{height:6px;background:var(--slot);border-radius:6px;margin:0 22px 8px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffb347,var(--a));transition:width .6s ease}
 .runs{display:flex;gap:6px;padding:0 22px 10px;flex-wrap:wrap}
 .runs button{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 11px;font:inherit;font-size:12px;color:var(--mute);cursor:pointer}
 .runs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-.steps{font-size:12px;color:var(--mute)}
-main{flex:1;min-height:0;padding:0 22px 18px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-auto-rows:calc((100vh - 150px) / 3);gap:12px}
-.s{position:relative;display:flex;flex-direction:column;align-items:center;min-height:0}
-.ph{flex:1;min-height:0;aspect-ratio:9/19.5;max-width:100%;border-radius:16px;background:var(--slot);overflow:hidden;position:relative;border:1px solid var(--line)}
+main{display:flex;flex-wrap:wrap;gap:14px 22px;padding:0 22px 18px;align-items:flex-start}
+section{display:flex;flex-direction:column;gap:6px}
+section h2{margin:0;font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--mute);display:flex;gap:8px;align-items:center}
+section h2 em{font-style:normal;font-weight:500;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:99px;padding:1px 8px}
+section h2 em.bad{color:#fff;background:var(--bad);border-color:var(--bad)}
+.row{display:flex;gap:10px}
+.s{position:relative;display:flex;flex-direction:column;width:calc(var(--h) * .4615)}
+.ph{height:var(--h);border-radius:14px;background:var(--slot);overflow:hidden;position:relative;border:1px solid var(--line)}
 .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);background-size:220% 100%;animation:sh 1.6s infinite}
 .s.got .ph::after{display:none}
 @keyframes sh{from{background-position:120% 0}to{background-position:-120% 0}}
 .ph img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transform:scale(1.04);transition:opacity .5s ease,transform .5s ease;cursor:zoom-in;user-select:none}
 .s.got .ph img{opacity:1;transform:none}
 .s.new .ph{box-shadow:0 0 0 3px var(--a)}
-.s b{font-size:11.5px;font-weight:500;color:var(--mute);margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.s.dup .ph{box-shadow:0 0 0 3px var(--bad)}
+.num{position:absolute;top:6px;left:6px;background:rgba(42,31,23,.86);color:#fff;font:700 11px/1 ui-monospace,Menlo,monospace;padding:4px 6px;border-radius:6px;z-index:2}
+.flag{position:absolute;left:6px;right:6px;bottom:6px;background:var(--bad);color:#fff;font-size:10.5px;line-height:1.2;padding:4px 6px;border-radius:6px;z-index:2;display:none}
+.s.dup .flag,.s.src .flag{display:block}.s.src .ph{box-shadow:0 0 0 3px #e0a100}.s.src .flag{background:#e0a100;color:#2a1f17}
+.s b{font-size:11.5px;font-weight:500;color:var(--mute);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .s.got b{color:var(--ink)}
-.zoom{position:fixed;inset:0;background:rgba(20,14,10,.82);display:none;align-items:center;justify-content:center;z-index:9;cursor:zoom-out}
-.zoom.on{display:flex}.zoom img{max-height:94vh;max-width:94vw;border-radius:22px}
+.zoom{position:fixed;inset:0;background:rgba(20,14,10,.86);display:none;align-items:center;justify-content:center;gap:28px;z-index:9;cursor:zoom-out}
+.zoom.on{display:flex}
+.zoom figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:8px;color:#f3e9dc;font-size:13px}
+.zoom img{max-height:86vh;max-width:42vw;border-radius:22px;background:#3a2d24}
 .err{color:var(--bad);font-size:12px}
 </style>
 </head>
@@ -39,54 +52,122 @@ main{flex:1;min-height:0;padding:0 22px 18px;display:grid;grid-template-columns:
 <header>
   <h1>Phone screens</h1>
   <div class="st"><span class="dot" id="dot"></span><span id="state">Loading...</span></div>
-  <div class="steps" id="steps"></div>
-  <div class="count" id="count">0<small>of 0</small></div>
+  <div class="meta" id="meta"></div>
+  <div class="count"><div id="got">0<small>of 0 taken</small></div><div id="dups">0<small>look the same</small></div></div>
 </header>
 <div class="bar"><i id="bar"></i></div>
 <div class="runs" id="runs"></div>
 <main id="grid"></main>
-<div class="zoom" id="zoom"><img id="zimg" alt=""></div>
+<div class="zoom" id="zoom"></div>
 <script>
 const $ = (id) => document.getElementById(id);
 const bkk = (iso) => new Date(iso).toLocaleTimeString('en-US', { timeZone: 'Asia/Bangkok', hour: 'numeric', minute: '2-digit' });
 const mins = (a, b) => Math.max(0, Math.round(((b ? Date.parse(b) : Date.now()) - Date.parse(a)) / 60000));
+const SAME_BITS = 6, CELLS = 8 * 16;
 let pick = new URLSearchParams(location.search).get('run') || '';
-let seen = new Set(), lastRun = null;
+let seen = new Set(), lastRun = null, data = null;
+const prints = new Map();
 $('zoom').onclick = () => $('zoom').classList.remove('on');
 document.addEventListener('contextmenu', (e) => { if (e.target.tagName === 'IMG') e.preventDefault(); });
 
-function slots(names) {
-  const g = $('grid'); g.replaceChildren();
-  for (const n of names) {
-    const s = document.createElement('div'); s.className = 's'; s.dataset.name = n;
-    const ph = document.createElement('div'); ph.className = 'ph';
-    const img = document.createElement('img'); img.alt = n; img.draggable = false;
-    img.onclick = () => { if (img.src) { $('zimg').src = img.src; $('zoom').classList.add('on'); } };
-    ph.append(img); s.append(ph, Object.assign(document.createElement('b'), { textContent: n })); g.append(s);
+function printOf(img) {
+  const c = document.createElement('canvas'); c.width = 8; c.height = 16;
+  const x = c.getContext('2d', { willReadFrequently: true });
+  x.drawImage(img, 0, img.naturalHeight * 0.06, img.naturalWidth, img.naturalHeight * 0.94, 0, 0, 8, 16);
+  const px = x.getImageData(0, 0, 8, 16).data, g = [];
+  for (let i = 0; i < px.length; i += 4) g.push(px[i] * 0.3 + px[i + 1] * 0.59 + px[i + 2] * 0.11);
+  const avg = g.reduce((a, b) => a + b, 0) / g.length;
+  return g.map((v) => (v > avg ? 1 : 0));
+}
+const diff = (a, b) => a.reduce((n, v, i) => n + (v !== b[i]), 0);
+
+function checkSame() {
+  const order = data.names;
+  let n = 0; const copied = new Map();
+  for (const el of document.querySelectorAll('.s')) {
+    const me = el.dataset.name, p = prints.get(me);
+    el.classList.remove('dup', 'src');
+    if (!p) continue;
+    for (const other of order.slice(0, order.indexOf(me))) {
+      const q = prints.get(other); if (!q) continue;
+      const d = diff(p, q);
+      if (d <= SAME_BITS) {
+        el.classList.add('dup'); n++; copied.set(other, (copied.get(other) || 0) + 1);
+        el.querySelector('.flag').textContent = `Same as S${String(order.indexOf(other) + 1).padStart(2, '0')} ${other}`;
+        el.title = `Brightness print differs in ${d} of ${CELLS} cells (counted as the same at ${SAME_BITS} or fewer). The test likely never reached this screen.`;
+        break;
+      }
+    }
+    if (!el.classList.contains('dup')) el.title = 'Unique: its brightness print differs from every earlier screen by more than 6 cells.';
   }
+  for (const [name, k] of copied) { const el = document.querySelector(`.s[data-name="${name}"]`); if (!el) continue; el.classList.add('src'); el.querySelector('.flag').textContent = `${k} other screens look like this`; el.title = `${k} later screens have the same brightness print, so this one may be wrong too: check it by eye.`; }
+  $('dups').innerHTML = `<span class="${n ? 'bad' : ''}">${n}</span><small>look the same</small>`;
+  for (const sec of document.querySelectorAll('section')) {
+    const tiles = sec.querySelectorAll('.s'), got = sec.querySelectorAll('.s.got').length, bad = sec.querySelectorAll('.s.dup').length;
+    const em = sec.querySelector('h2 em');
+    em.textContent = bad ? `${bad} look the same` : `${got}/${tiles.length}`;
+    em.className = bad ? 'bad' : '';
+  }
+}
+
+function layout(d) {
+  const g = $('grid'); g.replaceChildren();
+  d.sections.forEach((sec, i) => {
+    const s = document.createElement('section');
+    const h = document.createElement('h2'); h.append(`${i + 1} · ${sec.title}`, document.createElement('em'));
+    const row = document.createElement('div'); row.className = 'row';
+    for (const n of sec.names) {
+      const el = document.createElement('div'); el.className = 's'; el.dataset.name = n;
+      const num = `S${String(d.names.indexOf(n) + 1).padStart(2, '0')}`;
+      const ph = document.createElement('div'); ph.className = 'ph';
+      const img = document.createElement('img'); img.alt = n; img.draggable = false; img.crossOrigin = 'anonymous';
+      img.onclick = () => zoom(n, num);
+      ph.append(Object.assign(document.createElement('span'), { className: 'num', textContent: num }), img, Object.assign(document.createElement('span'), { className: 'flag' }));
+      el.append(ph, Object.assign(document.createElement('b'), { textContent: n }));
+      row.append(el);
+    }
+    s.append(h, row); g.append(s);
+  });
+}
+
+function zoom(name, num) {
+  const cur = data.shots.find((x) => x.name === name), old = data.prev?.shots.find((x) => x.name === name);
+  if (!cur) return;
+  const z = $('zoom'); z.replaceChildren();
+  const fig = (src, label) => { const f = document.createElement('figure'); const i = document.createElement('img'); i.src = src; i.draggable = false; f.append(i, label); return f; };
+  const when = (id) => { const r = data.runs.find((x) => x.id === id); return r ? `${bkk(r.created)} run` : `run ${id}`; };
+  z.append(fig(cur.url, `${num} ${name} · this run (${when(data.run.id)})`));
+  if (old) z.append(fig(old.url, `${num} ${name} · before (${when(data.prev.id)})`));
+  z.classList.add('on');
 }
 
 async function tick() {
   let d;
   try { d = await (await fetch('/api/screens' + (pick ? `?run=${pick}` : ''), { cache: 'no-store' })).json(); }
-  catch (e) { $('state').textContent = 'Lost the dashboard server'; return; }
+  catch { $('state').textContent = 'Lost the dashboard server'; return; }
   if (d.error) { $('state').innerHTML = `<span class="err">${d.error}</span>`; return; }
-  if (d.run.id !== lastRun) { lastRun = d.run.id; seen = new Set(); slots(d.names); }
+  data = d;
+  if (d.run.id !== lastRun) { lastRun = d.run.id; seen = new Set(); prints.clear(); layout(d); }
   const job = d.jobs.find((j) => j.status !== 'completed') || d.jobs[0];
   const running = d.run.status !== 'completed';
   $('dot').className = 'dot ' + (running ? 'run' : d.run.conclusion === 'success' ? 'ok' : 'bad');
   $('state').textContent = running
     ? `${job ? job.name.replace('ios', 'iOS').replace('android', 'Android') : 'Starting'}: ${job?.step ? `${job.step} · ${mins(job.stepStarted)} min` : 'waiting for a computer'}`
-    : `Finished ${d.run.conclusion} at ${bkk(d.jobs.at(-1)?.completed || d.run.created)} Bangkok`;
-  $('steps').textContent = `Run started ${bkk(d.run.created)} · ${mins(d.run.created, running ? null : d.jobs.at(-1)?.completed)} min · ${d.run.branch}@${d.run.sha}`;
+    : `Finished: ${d.run.conclusion}`;
+  $('meta').textContent = `Run ${bkk(d.run.created)} Bangkok · ${mins(d.run.created, running ? null : d.jobs.at(-1)?.completed)} min · ${d.run.branch}@${d.run.sha}${d.prev ? ` · click a screen to compare with the ${bkk(d.runs.find((r) => r.id === d.prev.id)?.created ?? d.run.created)} run` : ''}`;
   const byName = new Map(d.shots.map((s) => [s.name, s]));
   const newest = d.shots.at(-1)?.name;
-  for (const el of $('grid').children) {
+  for (const el of document.querySelectorAll('.s')) {
     const s = byName.get(el.dataset.name);
     el.classList.toggle('new', running && s && s.name === newest);
-    if (s && !seen.has(s.name)) { seen.add(s.name); const img = el.querySelector('img'); img.onload = () => el.classList.add('got'); img.src = s.url; }
+    if (s && !seen.has(s.name)) {
+      seen.add(s.name);
+      const img = el.querySelector('img');
+      img.onload = () => { el.classList.add('got'); try { prints.set(s.name, printOf(img)); } catch {} checkSame(); };
+      img.src = s.url;
+    }
   }
-  $('count').innerHTML = `${byName.size}<small>of ${d.names.length} screens</small>`;
+  $('got').innerHTML = `${byName.size}<small>of ${d.names.length} taken</small>`;
   $('bar').style.width = `${(100 * byName.size) / Math.max(1, d.names.length)}%`;
   const r = $('runs'); r.replaceChildren();
   for (const x of d.runs) {
@@ -95,6 +176,7 @@ async function tick() {
     b.onclick = () => { pick = String(x.id); history.replaceState(null, '', `?run=${pick}`); tick(); };
     r.append(b);
   }
+  checkSame();
 }
 tick(); setInterval(tick, 5000);
 </script>
