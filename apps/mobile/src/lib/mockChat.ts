@@ -1,13 +1,14 @@
-import { ApiError, Backend, Channel, ChatMessage, ChatRoomRef, ChatUser, DmThread, User } from "./types";
+import { ApiError, Backend, Channel, ChatMessage, ChatRoomRef, ChatSettings, ChatUser, DmThread, Post, User } from "./types";
 
-type ChatBackend = Pick<Backend, "channels" | "roomMessages" | "sendMessage" | "deleteMessage" | "markRoomRead" | "flagMessage" | "threads" | "startThread" | "acceptThread" | "hideThread" | "dmUnread">;
-type Deps = { current: () => User; users: Map<string, User>; blocked: Set<string>; muted: Set<string> };
+type ChatBackend = Pick<Backend, "channels" | "roomMessages" | "sendMessage" | "deleteMessage" | "markRoomRead" | "flagMessage" | "threads" | "startThread" | "acceptThread" | "hideThread" | "dmUnread" | "liveUrl" | "chatSettings" | "saveChatSettings" | "dmWith" | "muteThread">;
+type Deps = { current: () => User; users: Map<string, User>; blocked: Set<string>; muted: Set<string>; postById: (id: string) => Post | null };
 type MockMsg = ChatMessage & { room: string; at: number; byMe?: boolean };
 
 const wait = (ms = 120) => new Promise((r) => setTimeout(r, ms + Math.random() * 120));
 const minutesAgo = (m: number) => Date.now() - m * 60000;
 
-export function makeMockChat({ current, users, blocked, muted }: Deps): ChatBackend {
+export function makeMockChat({ current, users, blocked, muted, postById }: Deps): ChatBackend {
+  let settings: ChatSettings = { dmFrom: "everyone", channelsHidden: false };
   const chatUser = (u: User): ChatUser => ({ id: u.id, handle: u.handle, displayName: u.displayName, avatarUrl: u.avatarUrl });
   const byHandle = (h: string) => chatUser(users.get(h)!);
   const channels: Channel[] = [
@@ -42,13 +43,14 @@ export function makeMockChat({ current, users, blocked, muted }: Deps): ChatBack
   const view = (m: MockMsg): ChatMessage => {
     const me = current();
     const mine = m.byMe || m.user.id === me.id;
-    return { id: m.id, user: mine ? chatUser(me) : m.user, body: m.deleted ? "" : m.body, createdAt: m.createdAt, mine, deleted: m.deleted };
+    const postId = m.deleted ? null : (m.postId ?? null);
+    return { id: m.id, user: mine ? chatUser(me) : m.user, body: m.deleted ? "" : m.body, createdAt: m.createdAt, mine, deleted: m.deleted, postId, post: postId ? postById(postId) : null };
   };
   const inRoom = (r: ChatRoomRef) => msgs.filter((m) => m.room === key(r)).sort((a, b) => a.at - b.at);
   const threadView = (t: DmThread): DmThread => {
     const last = inRoom({ kind: "dm", id: t.id }).pop();
     const { hidden: _h, ...rest } = t as DmThread & { hidden?: boolean };
-    return { ...rest, lastAt: last?.createdAt ?? new Date().toISOString(), last: last ? { body: last.deleted ? "" : last.body.slice(0, 80), mine: view(last).mine, deleted: last.deleted } : null };
+    return { ...rest, lastAt: last?.createdAt ?? new Date().toISOString(), last: last ? { body: last.deleted ? "" : last.body.slice(0, 80) || (last.postId ? "Sent a post" : ""), mine: view(last).mine, deleted: last.deleted } : null };
   };
   const hiddenUser = (m: MockMsg) => !!m.user.handle && (blocked.has(m.user.handle) || muted.has(m.user.handle));
 
@@ -68,14 +70,14 @@ export function makeMockChat({ current, users, blocked, muted }: Deps): ChatBack
       const last = list[list.length - 1];
       return { messages: list.map(view), before: null, latest: last ? String(last.at) : (page?.after ?? null), moderator: false, thread: thread && threadView(thread) };
     },
-    async sendMessage(room, body) {
+    async sendMessage(room, body, postId) {
       await wait();
       const me = current();
       const text = body.trim();
-      if (!text) throw new ApiError("bad_message", "Write something first.");
+      if (!text && !postId) throw new ApiError("bad_message", "Write something first.");
       if (text.length > 2000) throw new ApiError("message_too_long", "Messages can be up to 2000 characters.");
       const at = Date.now();
-      const m: MockMsg = { id: `cm_${n++}`, room: key(room), user: chatUser(me), byMe: true, body: text, createdAt: new Date(at).toISOString(), at, mine: true, deleted: false };
+      const m: MockMsg = { id: `cm_${n++}`, room: key(room), user: chatUser(me), byMe: true, body: text, postId: postId ?? null, createdAt: new Date(at).toISOString(), at, mine: true, deleted: false };
       msgs.push(m);
       const t = threads.find((x) => x.id === room.id);
       if (t) Object.assign(t, { accepted: true, hidden: false, unread: false });
@@ -103,7 +105,7 @@ export function makeMockChat({ current, users, blocked, muted }: Deps): ChatBack
         .map(threadView)
         .sort((a, b) => +new Date(b.lastAt) - +new Date(a.lastAt));
     },
-    async startThread(handle, body) {
+    async startThread(handle, body, postId) {
       await wait();
       const me = current();
       if (handle === me.handle) throw new ApiError("self", "You cannot message yourself.");
@@ -114,7 +116,7 @@ export function makeMockChat({ current, users, blocked, muted }: Deps): ChatBack
         t = { id: `dm_${handle}`, with: byHandle(handle), accepted: true, theyAccepted: false, lastAt: "", last: null, unread: false };
         threads.push(t);
       }
-      const message = await api.sendMessage({ kind: "dm", id: t.id }, body);
+      const message = await api.sendMessage({ kind: "dm", id: t.id }, body, postId);
       return { thread: threadView(t), message };
     },
     async acceptThread(id) {
@@ -129,8 +131,33 @@ export function makeMockChat({ current, users, blocked, muted }: Deps): ChatBack
     },
     async dmUnread() {
       await wait(40);
-      const open = threads.filter((t) => !t.hidden && t.unread);
+      const open = threads.filter((t) => !t.hidden && t.unread && !t.muted);
       return { inbox: open.filter((t) => t.accepted).length, requests: open.filter((t) => !t.accepted).length };
+    },
+    async liveUrl() {
+      return null;
+    },
+    async chatSettings() {
+      return { ...settings };
+    },
+    async saveChatSettings(input) {
+      await wait(60);
+      settings = { ...settings, ...input };
+      return { ...settings };
+    },
+    async dmWith(handle) {
+      await wait(60);
+      const u = users.get(handle);
+      if (!u || handle === current().handle) throw new ApiError("not_found", "No such account.");
+      const t = threads.find((x) => x.with.handle === handle && !x.hidden);
+      const blockedNow = blocked.has(handle);
+      return { user: chatUser(u), thread: t ? threadView(t) : null, canMessage: !blockedNow, reason: blockedNow ? "You can't message this account." : null };
+    },
+    async muteThread(id, isMuted) {
+      const t = threads.find((x) => x.id === id);
+      if (!t) throw new ApiError("not_found", "No such conversation.");
+      t.muted = isMuted;
+      return threadView(t);
     },
   };
   return api;

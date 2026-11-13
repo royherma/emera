@@ -3,16 +3,19 @@ import { AppState, Platform, Pressable, ScrollView, Text, TextInput, View } from
 import { useRouter } from "expo-router";
 import { Avatar } from "./Avatar";
 import { Icon } from "./Icon";
+import { MediaImage } from "./Media";
 import { type PS } from "./ui";
 import { api } from "@/lib/api";
+import { openLive } from "@/lib/live";
 import { creatorColors, font, radius, space, type } from "@/lib/theme";
 import { confirmAsk } from "@/lib/share";
-import { ApiError, type ChatMessage, type ChatPage, type ChatRoomRef } from "@/lib/types";
+import { ApiError, type ChatMessage, type ChatPage, type ChatRoomRef, type Post } from "@/lib/types";
 import { useSheet } from "@/state/sheet";
 import { useTheme } from "@/state/theme";
 import { useToast } from "@/state/toast";
 
 const POLL_MS = 3000;
+const LIVE_POLL_MS = 30000;
 
 function onScreen() {
   if (Platform.OS === "web") return typeof document === "undefined" || document.visibilityState === "visible";
@@ -61,8 +64,14 @@ export function useRoom(room: ChatRoomRef | null, onPage?: (p: ChatPage) => void
         if (alive) setLoading(false);
       }
     };
-    const poll = async () => {
-      if (!onScreen() || !ready.current) return;
+    let live = false;
+    let lastPoll = 0;
+    let busy = false;
+    const poll = async (force = false) => {
+      if (!ready.current || busy) return;
+      if (!force && (!onScreen() || (live && Date.now() - lastPoll < LIVE_POLL_MS))) return;
+      busy = true;
+      lastPoll = Date.now();
       try {
         const p = await api.roomMessages(room, { after: latest.current });
         if (!alive) return;
@@ -72,13 +81,25 @@ export function useRoom(room: ChatRoomRef | null, onPage?: (p: ChatPage) => void
           setMessages((old) => merge(old, p.messages));
           if (p.messages.some((m) => !m.mine)) void api.markRoomRead(room).catch(() => {});
         }
-      } catch {}
+      } catch {} finally {
+        busy = false;
+      }
     };
     void first();
-    const t = setInterval(poll, POLL_MS);
+    const t = setInterval(() => poll(), POLL_MS);
+    const refresh = async () => {
+      try {
+        const p = await api.roomMessages(room);
+        if (!alive) return;
+        const fresh = new Map(p.messages.map((m) => [m.id, m]));
+        setMessages((old) => merge(old.map((m) => fresh.get(m.id) ?? m), p.messages));
+      } catch {}
+    };
+    const close = openLive(room, (t) => void (t === "deleted" ? refresh() : poll(true)), (open) => (live = open));
     return () => {
       alive = false;
       clearInterval(t);
+      close();
     };
   }, [roomKey]);
 
@@ -111,8 +132,32 @@ function Line({ m, onMenu, onWho }: { m: ChatMessage; onMenu: () => void; onWho:
   );
 }
 
+function PostCard({ post, mine }: { post: Post | null; mine: boolean }) {
+  const router = useRouter();
+  const { c } = useTheme();
+  if (!post) return <Text style={[type.bodySm, { color: c.ink3, fontStyle: "italic", padding: 12 }]}>This post is gone</Text>;
+  return (
+    <Pressable accessibilityRole="link" accessibilityLabel={`Post by @${post.author.handle}`} onPress={() => router.push({ pathname: "/p/[id]", params: { id: post.id } })} style={{ width: 220, borderRadius: 18, overflow: "hidden", backgroundColor: c.surface, borderWidth: 1, borderColor: c.hair, alignSelf: mine ? "flex-end" : "flex-start" }}>
+      <Text numberOfLines={1} style={[type.meta, { color: c.ink, fontFamily: font.body.semibold, paddingHorizontal: 12, paddingVertical: 8 }]}>@{post.author.handle}</Text>
+      {post.media[0] ? <MediaImage media={post.media[0]} playSize={36} style={{ width: 220, height: post.media[0].height > 0 ? Math.min(300, (220 * post.media[0].height) / post.media[0].width) : 220, backgroundColor: c.sunk }} /> : null}
+      {post.caption ? <Text numberOfLines={1} style={[type.bodySm, { color: c.ink2, paddingHorizontal: 12, paddingVertical: 8 }]}>{post.caption}</Text> : null}
+    </Pressable>
+  );
+}
+
 function Bubble({ m, onMenu, first }: { m: ChatMessage; onMenu: () => void; first: boolean }) {
   const { c } = useTheme();
+  if (m.postId && !m.deleted)
+    return (
+      <Pressable onLongPress={onMenu} delayLongPress={350} style={{ paddingHorizontal: space[4], marginTop: first ? space[3] : 4, gap: 4 }}>
+        <PostCard post={m.post ?? null} mine={m.mine} />
+        {m.body ? (
+          <View style={{ alignSelf: m.mine ? "flex-end" : "flex-start", maxWidth: "78%", paddingHorizontal: 14, paddingVertical: 9, borderRadius: 20, backgroundColor: m.mine ? c.sun : c.sunk }}>
+            <Text style={[type.body, { color: m.mine ? c.onSun : c.ink }]}>{m.body}</Text>
+          </View>
+        ) : null}
+      </Pressable>
+    );
   return (
     <View style={{ flexDirection: "row", justifyContent: m.mine ? "flex-end" : "flex-start", paddingHorizontal: space[4], marginTop: first ? space[3] : 2 }}>
       <Pressable

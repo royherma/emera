@@ -235,6 +235,12 @@
           "id": "m1-connect-screen",
           "text": "App screen: connect an AI app, import, auto-post switch",
           "who": "claude"
+        },
+        {
+          "id": "m1-chat",
+          "text": "Messages and channels: live, sealed, hide-able, you pick who can write first",
+          "who": "claude",
+          "done": true
         }
       ]
     },
@@ -1171,6 +1177,12 @@
       "state": "done",
       "note": "MCP + OAuth on api.emera.social, Bluesky + feeds, auto-post every 15 min, ebfe6fb",
       "owner": "claude fd627ece"
+    },
+    {
+      "name": "Chat: channels + messages",
+      "state": "done",
+      "note": "live over WebSockets, requests, who can message me, mute, send a post, hide channels; tests + staging/prod e2e",
+      "owner": "claude 210f629d"
     }
   ],
   "links": [
