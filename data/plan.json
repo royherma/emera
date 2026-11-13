@@ -1032,6 +1032,12 @@
       "state": "done",
       "note": "live on app.emera.social",
       "owner": "claude 87493f70"
+    },
+    {
+      "name": "Native iOS + Android",
+      "state": "running",
+      "note": "Run #7 failed, 0 screenshots: Maestro rejects ${OUT}/ paths (walk.yaml:6); Android stuck before welcome",
+      "owner": "native-run-7 check"
     }
   ],
   "links": [

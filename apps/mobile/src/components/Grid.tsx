@@ -9,6 +9,7 @@ import { usePostMenu } from "./postMenu";
 import { creatorColors, elevation, radius, space, type } from "@/lib/theme";
 import { timeAgo } from "@/lib/format";
 import { feedBox } from "@/lib/mediaBox";
+import { rememberList, type ListSource } from "@/lib/postList";
 import { useTheme } from "@/state/theme";
 import type { Post } from "@/lib/types";
 
@@ -59,13 +60,20 @@ export function PostRow({ post, width, onDeleted }: { post: Post; width: number;
   );
 }
 
-export function PostTile({ post, w, h, radiusPx = radius.tile }: { post: Post; w: number; h: number; radiusPx?: number }) {
+type GridList = { from: ListSource; posts: Post[]; cursor?: string | null };
+
+export function PostTile({ post, w, h, radiusPx = radius.tile, list }: { post: Post; w: number; h: number; radiusPx?: number; list?: GridList }) {
   const router = useRouter();
+  const open = () => {
+    if (!list) return router.push({ pathname: "/p/[id]", params: { id: post.id } });
+    rememberList(list.from, list.posts, list.cursor ?? null);
+    router.push({ pathname: "/posts/[id]", params: { id: post.id, from: list.from } });
+  };
   return (
     <Pressable
       accessibilityRole="link"
       accessibilityLabel={`Post by ${post.author.displayName}`}
-      onPress={() => router.push({ pathname: "/p/[id]", params: { id: post.id } })}
+      onPress={open}
       style={({ hovered, pressed }: PS) => ({ width: w, height: h, borderRadius: radiusPx, overflow: "hidden", transform: [{ scale: pressed ? 0.98 : hovered ? 1.01 : 1 }] })}
     >
       <MediaImage media={post.media[0]} style={{ flex: 1 }} playSize={0} />
@@ -83,18 +91,18 @@ export function PostTile({ post, w, h, radiusPx = radius.tile }: { post: Post; w
   );
 }
 
-export function SquareGrid({ posts, width, gap = 3 }: { posts: Post[]; width: number; gap?: number }) {
+export function SquareGrid({ posts, width, gap = 3, from, cursor }: { posts: Post[]; width: number; gap?: number; from?: ListSource; cursor?: string | null }) {
   const w = Math.floor((width - gap * 2) / 3);
   return (
     <View style={{ flexDirection: "row", flexWrap: "wrap", gap }}>
       {posts.map((p) => (
-        <PostTile key={p.id} post={p} w={w} h={Math.round((w * 4) / 3)} radiusPx={radius.tile - 4} />
+        <PostTile key={p.id} post={p} w={w} h={Math.round((w * 4) / 3)} radiusPx={radius.tile - 4} list={from && { from, posts, cursor }} />
       ))}
     </View>
   );
 }
 
-export function Bento({ posts, width, gap = 5 }: { posts: Post[]; width: number; gap?: number }) {
+export function Bento({ posts, width, gap = 5, from, cursor }: { posts: Post[]; width: number; gap?: number; from?: ListSource; cursor?: string | null }) {
   const cell = (width - gap * 2) / 3;
   const unit = cell * 1.02;
   const slots = [
@@ -119,7 +127,7 @@ export function Bento({ posts, width, gap = 5 }: { posts: Post[]; width: number;
     <View style={{ width, height: rows * unit + Math.max(0, rows - 1) * gap }}>
       {tiles.map((t) => (
         <View key={t.post.id} style={{ position: "absolute", left: t.x * (cell + gap), top: t.y * (unit + gap) }}>
-          <PostTile post={t.post} w={t.w * cell + (t.w - 1) * gap} h={t.h * unit + (t.h - 1) * gap} radiusPx={16} />
+          <PostTile post={t.post} w={t.w * cell + (t.w - 1) * gap} h={t.h * unit + (t.h - 1) * gap} radiusPx={16} list={from && { from, posts, cursor }} />
         </View>
       ))}
     </View>

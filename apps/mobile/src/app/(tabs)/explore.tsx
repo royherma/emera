@@ -75,7 +75,7 @@ export default function Explore() {
         ) : shown.length === 0 ? (
           <EmptyState icon="search" title="Nothing matches" body="Try another word, or clear a filter." />
         ) : (
-          <Bento posts={shown} width={column} />
+          <Bento posts={shown} width={column} from="explore" cursor={filtering ? null : data.cursor} />
         )}
       </View>
     </Screen>
