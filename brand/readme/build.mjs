@@ -43,7 +43,7 @@ await page.evaluate(({ srcs }) => {
   document.documentElement.classList.add('og');
   document.body.classList.remove('night');
   document.body.classList.add('og');
-  document.querySelector('.tag').textContent = 'Every post carries proof of who made it';
+  document.querySelector('.tag').textContent = "AI broke the internet, let's fix it";
   srcs.forEach((s, i) => { document.getElementById('s' + (i + 1)).src = s; });
 }, { srcs: themes.light.screens.map((s) => dataUri(path.join(shots, s + '.png'))) });
 await page.waitForFunction(() => [...document.images].every((i) => i.complete && i.naturalWidth));
