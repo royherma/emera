@@ -99,6 +99,7 @@ function layout(meta: Meta, body: string, status = 200) {
     `<meta name="twitter:title" content="${esc(meta.title)}">`,
     `<meta name="twitter:description" content="${esc(meta.description)}">`,
     img ? `<meta name="twitter:image" content="${esc(img.url)}">` : '',
+    meta.extraHead ?? '',
     `<style>${CSS}</style>`,
     '<script src="/guard.js" defer></script>',
   ].filter(Boolean).join('\n');
@@ -151,7 +152,8 @@ pages.get('/', async (c) => {
   const { posts } = await pagePosts(c, { limit: 12 });
   const body = `<section class="hero"><h1 class="serif">${esc(BRAND.tagline)}</h1><p>A home for photographers, filmmakers, artists and designers. Every upload carries proof of who made it.</p></section>` +
     (posts.length ? `<div class="grid">${posts.map(tile).join('')}</div>` : '');
-  return layout({ title: `${BRAND.name} - ${BRAND.tagline}`, description: BRAND.tagline, url: siteOrigin(c) + '/', image: cover(posts.flatMap((p) => p.media)) }, body);
+  const origin = siteOrigin(c);
+  return layout({ title: `${BRAND.name} - ${BRAND.tagline}`, description: BRAND.tagline, url: origin + '/', image: cover(posts.flatMap((p) => p.media)), extraHead: `<link rel="alternate" type="application/atom+xml" title="${esc(BRAND.name)}" href="${esc(origin)}/feed.xml">` }, body);
 });
 
 pages.get('/invite/:code', async (c) => {
@@ -184,6 +186,7 @@ ${user.bio ? `<p class="bio">${esc(user.bio)}</p>` : ''}<p class="count">${total
     url: `${origin}/@${handle}`,
     image: cover(posts.flatMap((p) => p.media)),
     type: 'profile',
+    extraHead: `<link rel="alternate" type="application/atom+xml" title="${esc(`${user.display_name || handle} on ${BRAND.name}`)}" href="${esc(origin)}/@${esc(handle)}/feed.xml">`,
   }, body);
 });
 
@@ -209,8 +212,9 @@ ${post.caption ? `<p class="caption">${esc(post.caption)}</p>` : ''}<p class="da
     title: snippet ? `${snippet} - ${name} on ${BRAND.name}` : `A post by ${name} on ${BRAND.name}`,
     description: post.caption ? trim(post.caption.replace(/\s+/g, ' '), 200) : `Shared by @${a.handle} on ${BRAND.name}. ${BRAND.tagline}`,
     url: post.url,
-    image: cover(post.media),
+    image: { url: `${post.url}/card.png`, width: 1200, height: 630 },
     video: post.media.find((m) => m.kind === 'video'),
     type: 'article',
+    extraHead: `<link rel="alternate" type="application/json+oembed" href="${esc(`${siteOrigin(c)}/oembed?format=json&url=${encodeURIComponent(post.url)}`)}" title="${esc(`${name} on ${BRAND.name}`)}">`,
   }, body);
 });

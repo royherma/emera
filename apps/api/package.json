@@ -14,6 +14,7 @@
     "smoke": "bash scripts/smoke.sh"
   },
   "dependencies": {
+    "@resvg/resvg-wasm": "2.6.2",
     "@sentry/cloudflare": "^11.12.0",
     "hono": "^4.13.18"
   },

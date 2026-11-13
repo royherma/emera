@@ -14,6 +14,9 @@ import { searchRoutes } from './search';
 import { profileRoutes } from './profile';
 import { flagRoutes } from './flags';
 import { pages, notFoundPage } from './pages';
+import { cardRoutes } from './card';
+import { embedRoutes } from './embed';
+import { feedRoutes } from './feeds';
 
 const app = new Hono<AppEnv>();
 
@@ -39,6 +42,9 @@ app.route('/', notificationRoutes);
 app.route('/', searchRoutes);
 app.route('/', profileRoutes);
 app.route('/', flagRoutes);
+app.route('/', cardRoutes);
+app.route('/', embedRoutes);
+app.route('/', feedRoutes);
 app.route('/', pages);
 
 app.onError((err, c) => {

@@ -78,7 +78,12 @@ Lists and feeds hide accounts that are blocked in either direction with the view
 | Path | What |
 | --- | --- |
 | `/@:handle` | Profile grid, with `og:` tags so a shared link shows a preview |
-| `/p/:id` | One post, big, with `og:image` set to its first media |
+| `/p/:id` | One post, big, with `og:image` set to its share card, `twitter:card=summary_large_image` and an oEmbed `<link rel="alternate">` |
+| `/p/:id/card.png` | 1200x630 PNG share card: the post's first photo (or video poster), maker name and handle, a proof line in words. Cached 1 h in the browser, 1 day at the edge. 404 for an unknown post |
+| `/oembed?url=` | oEmbed 1.0 JSON (`type: "rich"`, iframe `html`, `thumbnail_url` = the card) for a `/p/:id` link on `emera.social`, `www.`, `api.`, `app.` or the request host. 400 with no or a malformed `url`, 404 for a non-Emera link or unknown post, 501 for `format=xml`. `maxwidth` (240 to 550) and `maxheight` shrink the iframe |
+| `/embed/:id` | Small iframe-safe page for one post (first media, name, caption, link back to `/p/:id`); no download controls; any site may frame it |
+| `/@:handle/feed.xml` | Atom feed of that creator's 50 newest posts, one `rel="enclosure"` link per file. 404 for an unknown handle |
+| `/feed.xml` | Atom feed of the 50 newest posts from everyone |
 
 ## Invites
 
