@@ -1421,7 +1421,15 @@
           "App Privacy page",
           "https://appstoreconnect.apple.com/apps/6834311747/distribution/privacy"
         ]
-      ]
+      ],
+      "answer": "done",
+      "text": "Roy in terminal 9:26 PM: done, published",
+      "at": "2026-11-13T14:26:59.877Z",
+      "done": {
+        "at": "2026-11-13T14:27:34.585Z",
+        "ref": "review submission 3c2f646f",
+        "note": "Submitted to Apple 9:27 PM Bangkok: version 1.0 build 1 Waiting for Review"
+      }
     },
     {
       "id": "ios-submit",
