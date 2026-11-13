@@ -1,0 +1,15 @@
+- generic [ref=e148]:
+  - generic [ref=e149]:
+    - generic [ref=e150]: Emera
+    - button "Home" [ref=e157] [cursor=pointer]
+    - button "Explore" [ref=e161] [cursor=pointer]
+    - button "Post" [ref=e165] [cursor=pointer]
+    - button "M Profile" [ref=e170] [cursor=pointer]:
+      - generic [ref=e171]: M
+      - generic [ref=e175]: Profile
+    - button "Settings" [ref=e177] [cursor=pointer]
+    - radiogroup [ref=e181]:
+      - radio "Day" [ref=e182] [cursor=pointer]
+      - radio "Night" [ref=e186] [cursor=pointer]
+      - radio "Auto" [ref=e190] [cursor=pointer]
+  - button "Search" [ref=e204] [cursor=pointer]

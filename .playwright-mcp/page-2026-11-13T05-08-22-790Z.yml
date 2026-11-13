@@ -1,0 +1,10 @@
+- generic [ref=e91]:
+  - generic [ref=e92]:
+    - button "Back" [ref=e93] [cursor=pointer]
+    - generic [ref=e96]: Emera
+  - generic [ref=e102]:
+    - generic [ref=e103]: Check your email
+    - generic [ref=e104]: We sent a 6-digit code to mina@example.test.
+  - textbox [active] [ref=e112]
+  - button "Continue" [ref=e113] [cursor=pointer]
+  - generic [ref=e116]: Send a new code

@@ -1,0 +1,44 @@
+- generic [ref=e763]:
+  - button "Back" [ref=e765] [cursor=pointer]
+  - generic [ref=e768]:
+    - generic [ref=e769]: Invite people
+    - generic [ref=e770]: Emera is invite-only right now. Make a link, send it to someone who makes things, and see who joins.
+  - generic [ref=e771]:
+    - generic [ref=e772]: PEOPLE WHO CAN USE THIS LINK
+    - generic [ref=e773]:
+      - button "Just one" [ref=e774] [cursor=pointer]
+      - button "Up to 3" [active] [ref=e777] [cursor=pointer]
+      - button "Up to 5" [ref=e779] [cursor=pointer]
+    - button "Make an invite link" [ref=e781] [cursor=pointer]
+  - generic [ref=e786]:
+    - generic [ref=e787]: Your links
+    - generic [ref=e788]:
+      - generic [ref=e789]:
+        - generic [ref=e790]:
+          - generic [ref=e791]: k3m9x2qa
+          - generic [ref=e792]: 2 of 5 used - 6d
+        - button "Share invite link" [ref=e793] [cursor=pointer]
+      - generic [ref=e796]:
+        - generic [ref=e797]:
+          - generic [ref=e798]: W
+          - generic [ref=e802]: Wren Alder
+          - generic [ref=e803]: "@wren_clay"
+        - generic [ref=e804]:
+          - generic [ref=e805]: O
+          - generic [ref=e809]: Ottoline Park
+          - generic [ref=e810]: "@ottoline"
+    - generic [ref=e811]:
+      - generic [ref=e812]:
+        - generic [ref=e813]:
+          - generic [ref=e814]: b7w4n8dz
+          - generic [ref=e815]: 1 of 1 used - Nov 2
+        - button "Share invite link" [ref=e816] [cursor=pointer]
+      - generic [ref=e820]:
+        - generic [ref=e821]: S
+        - generic [ref=e825]: Sefa Lindqvist
+        - generic [ref=e826]: "@sefa_prints"
+    - generic [ref=e828]:
+      - generic [ref=e829]:
+        - generic [ref=e830]: q2v6h5tc
+        - generic [ref=e831]: 0 of 3 used - 3h
+      - button "Share invite link" [ref=e832] [cursor=pointer]
