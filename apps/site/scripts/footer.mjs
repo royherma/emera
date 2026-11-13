@@ -9,8 +9,8 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 const SHORT = {
   "how-to-tell-if-a-photo-is-ai-generated": "Is this photo AI?",
   "how-to-tell-if-a-video-is-real-or-fake": "Is this video real?",
-  "how-to-prevent-people-from-stealing-your-art-online": "Stop art theft",
-  "what-to-do-if-someone-steals-your-artwork": "Your art was stolen",
+  "how-to-prevent-people-from-stealing-your-art-online": "Stop creative theft",
+  "what-to-do-if-someone-steals-your-artwork": "Your work was copied",
   "how-to-file-a-dmca-takedown-on-instagram": "File a takedown",
   "what-are-content-credentials": "Content credentials",
   "social-media-without-algorithm": "A feed you control",
