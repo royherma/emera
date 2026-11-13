@@ -6,6 +6,9 @@ import { auth } from './auth';
 import { mediaRoutes } from './media';
 import { postRoutes } from './posts';
 import { reportRoutes } from './reports';
+import { searchRoutes } from './search';
+import { profileRoutes } from './profile';
+import { flagRoutes } from './flags';
 import { pages, notFoundPage } from './pages';
 
 const app = new Hono<AppEnv>();
@@ -18,7 +21,7 @@ app.use('*', async (c, next) => {
   await next();
   c.res.headers.set('X-Content-Type-Options', 'nosniff');
 });
-app.use('/v1/*', cors({ origin: '*', allowHeaders: ['Authorization', 'Content-Type'], allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], maxAge: 600 }));
+app.use('/v1/*', cors({ origin: '*', allowHeaders: ['Authorization', 'Content-Type'], allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], maxAge: 600 }));
 app.use('/media/*', cors({ origin: '*', allowMethods: ['GET', 'HEAD', 'OPTIONS'] }));
 
 app.get('/health', (c) => c.json({ ok: true }));
@@ -26,6 +29,9 @@ app.route('/', auth);
 app.route('/', mediaRoutes);
 app.route('/', postRoutes);
 app.route('/', reportRoutes);
+app.route('/', searchRoutes);
+app.route('/', profileRoutes);
+app.route('/', flagRoutes);
 app.route('/', pages);
 
 app.onError((err, c) => {

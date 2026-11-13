@@ -255,8 +255,8 @@
   steps:
     - say: Open settings
       screen: /settings
-    - say: Save a new bio and avatar
-      screen: /settings
+    - say: Tap Edit profile, change the bio and avatar, save
+      screen: /edit-profile
       endpoint: PATCH /v1/me
       expect: [auth, "table:users"]
 

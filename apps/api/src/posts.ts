@@ -3,6 +3,7 @@ import type { AppEnv, UserRow } from './env';
 import { requireAuth, requireHandle } from './auth';
 import { fail, readJson } from './http';
 import { newId } from './crypto';
+import { indexPostStatement } from './search';
 import { decodeCursor, encodeCursor, loadPosts, userJson, type PostRow } from './serialize';
 
 const PAGE = 24;
@@ -39,6 +40,14 @@ postRoutes.post('/v1/posts', requireAuth, requireHandle, async (c) => {
   const caption = body.caption === undefined ? '' : body.caption;
   if (typeof caption !== 'string' || caption.length > 2200) throw fail(400, 'bad_caption', 'Captions can be up to 2200 characters.');
 
+  const altsIn = body.alt === undefined ? {} : body.alt;
+  if (!altsIn || typeof altsIn !== 'object' || Array.isArray(altsIn)) throw fail(400, 'bad_alt', 'Alt text goes in an object keyed by media id.');
+  const alts = new Map<string, string>();
+  for (const [k, v] of Object.entries(altsIn as Record<string, unknown>)) {
+    if (!mediaIds.includes(k) || typeof v !== 'string' || v.length > 1000) throw fail(400, 'bad_alt', 'Alt text can be up to 1000 characters, for a file in this post.');
+    alts.set(k, v.trim());
+  }
+
   const ph = mediaIds.map(() => '?').join(',');
   const found = await c.env.DB.prepare(
     `SELECT id FROM media WHERE id IN (${ph}) AND user_id = ? AND status = 'done' AND post_id IS NULL`,
@@ -49,7 +58,8 @@ postRoutes.post('/v1/posts', requireAuth, requireHandle, async (c) => {
   const now = Date.now();
   await c.env.DB.batch([
     c.env.DB.prepare('INSERT INTO posts (id, user_id, caption, created_at) VALUES (?, ?, ?, ?)').bind(id, me.id, caption.trim(), now),
-    ...mediaIds.map((m, i) => c.env.DB.prepare('UPDATE media SET post_id = ?, position = ? WHERE id = ?').bind(id, i, m)),
+    ...mediaIds.map((m, i) => c.env.DB.prepare('UPDATE media SET post_id = ?, position = ?, alt = ? WHERE id = ?').bind(id, i, alts.get(m) ?? '', m)),
+    indexPostStatement(c.env.DB, id, caption.trim(), mediaIds.map((m) => alts.get(m) ?? '')),
   ]);
   const row = (await c.env.DB.prepare('SELECT * FROM posts WHERE id = ?').bind(id).first<PostRow>())!;
   return c.json({ post: (await loadPosts(c, [row]))[0] }, 201);

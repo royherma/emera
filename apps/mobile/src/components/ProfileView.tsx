@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Linking, Pressable, ScrollView, Text, View } from "react-native";
 import { useRouter } from "expo-router";
+import { useSheet } from "@/state/sheet";
 import { LinearGradient } from "expo-linear-gradient";
 import { Avatar } from "./Avatar";
 import { Screen } from "./Screen";
@@ -51,6 +52,7 @@ const groupLabel: Record<Group, string> = { all: "All", image: "Photos", video: 
 export function ProfileView({ handle, own, tabs, back }: { handle: string; own?: boolean; tabs?: boolean; back?: boolean }) {
   const router = useRouter();
   const toast = useToast();
+  const sheet = useSheet();
   const { c } = useTheme();
   const { wide, column } = useLayout();
   const { data, error, loading, refreshing, reload, retry } = useResource(() => api.profile(handle), `profile:${handle}`);
@@ -85,6 +87,7 @@ export function ProfileView({ handle, own, tabs, back }: { handle: string; own?:
         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", minHeight: 44, marginBottom: space[2] }}>
           {back ? <IconButton icon="back" label="Back" onPress={() => (router.canGoBack() ? router.back() : router.replace("/feed"))} /> : <View />}
           {own && <IconButton icon="sliders" label="Settings" onPress={() => router.push("/settings")} />}
+          {!own && user && <IconButton icon="dots" label="More" onPress={() => sheet([{ label: "Report account", icon: "flag", onPress: () => router.push({ pathname: "/flag", params: { type: "user", id: user.id, name: user.handle } }) }])} />}
         </View>
         {error && !data ? (
           <ErrorState message={error} onRetry={retry} />
@@ -109,6 +112,11 @@ export function ProfileView({ handle, own, tabs, back }: { handle: string; own?:
                   <Text style={[type.title, { fontSize: 19, color: c.ink }]}>{user.displayName}</Text>
                   <Text style={[type.meta, { color: c.ink3 }]}>@{user.handle}</Text>
                   {user.bio ? <Text style={[type.bodySm, { color: c.ink, maxWidth: 420, marginTop: 2 }]}>{user.bio}</Text> : null}
+                  {user.links?.map((l) => (
+                    <Pressable key={l} accessibilityRole="link" onPress={() => void Linking.openURL(l)}>
+                      <Text numberOfLines={1} style={[type.meta, { color: c.sunInk, maxWidth: 420 }]}>{l.replace(/^https?:\/\//, "")}</Text>
+                    </Pressable>
+                  ))}
                 </>
               ) : (
                 <>
@@ -119,7 +127,10 @@ export function ProfileView({ handle, own, tabs, back }: { handle: string; own?:
             </View>
             <View style={{ flexDirection: "row", gap: space[2], marginTop: space[4] }}>
               {own ? (
-                <Button label="Share profile" icon="share" onPress={share} disabled={!user} style={{ flex: 1 }} />
+                <>
+                  <Button label="Edit profile" kind="secondary" onPress={() => router.push("/edit-profile")} disabled={!user} style={{ flex: 1 }} />
+                  <Button label="Share profile" icon="share" onPress={share} disabled={!user} style={{ flex: 1 }} />
+                </>
               ) : (
                 <>
                   <Button label={follow.on ? "Following" : "Follow"} kind={follow.on ? "secondary" : "primary"} onPress={follow.toggle} disabled={!user} style={{ flex: 1.3 }} />

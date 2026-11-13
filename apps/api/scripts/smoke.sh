@@ -88,15 +88,28 @@ cmp "$WORK/pic.png" "$WORK/back.png" && echo "ok  bytes identical"
 grep -i '^cache-control' "$WORK/h.txt"
 
 step "create a post"
-post="$(req -X POST "$BASE/v1/posts" -H "$AUTH" -H 'Content-Type: application/json' -d "{\"mediaIds\":[\"$MEDIA_ID\"],\"caption\":\"Gradient test\"}")"
+post="$(req -X POST "$BASE/v1/posts" -H "$AUTH" -H 'Content-Type: application/json' -d "{\"mediaIds\":[\"$MEDIA_ID\"],\"caption\":\"Gradient test\",\"alt\":{\"$MEDIA_ID\":\"A smooth colour gradient\"}}")"
 POST_ID="$(echo "$post" | field post.id)"
 echo "post url: $(echo "$post" | field post.url)"
 expect "caption" "$(echo "$post" | field post.caption)" "Gradient test"
+expect "alt text" "$(echo "$post" | field post.media.0.alt)" "A smooth colour gradient"
 
 step "profile JSON and feed"
 prof="$(req "$BASE/v1/users/maya")"
 expect "profile posts" "$(echo "$prof" | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>process.stdout.write(String(JSON.parse(s).posts.length)))')" "1"
 expect "feed first post" "$(req "$BASE/v1/feed" | field posts.0.id)" "$POST_ID"
+
+step "edit profile, then search finds it (FTS5 on local D1)"
+res="$(req -X PATCH "$BASE/v1/me" -H "$AUTH" -H 'Content-Type: application/json' -d '{"bio":"Gradient tinkerer in Lisbon","links":["https://maya.example"]}')"
+expect "bio" "$(echo "$res" | field user.bio)" "Gradient tinkerer in Lisbon"
+expect "people search" "$(req "$BASE/v1/search?q=lisb&type=people" | field users.0.handle)" "maya"
+expect "post search by alt" "$(req "$BASE/v1/search?q=smooth&type=posts" | field posts.0.id)" "$POST_ID"
+
+step "report the post as a different member"
+THEO_TOKEN="$(signin theo@example.test | field token)"
+req -X POST "$BASE/v1/auth/handle" -H "Authorization: Bearer $THEO_TOKEN" -H 'Content-Type: application/json' -d '{"handle":"theo","displayName":"Theo"}' >/dev/null
+flag="$(req -X POST "$BASE/v1/flags" -H "Authorization: Bearer $THEO_TOKEN" -H 'Content-Type: application/json' -d "{\"targetType\":\"post\",\"targetId\":\"$POST_ID\",\"reason\":\"spam\"}")"
+expect "flag status" "$(echo "$flag" | field flag.status)" "new"
 
 step "public pages carry og tags"
 page="$(req "$BASE/@maya")"

@@ -62,4 +62,10 @@ export const http: Backend = {
   createPost: async (input) => (await send<{ post: Post }>("POST", "/v1/posts", input)).post,
   createInvite: () => send("POST", "/v1/invites"),
   report: async (input) => void (await send("POST", "/v1/reports", input)),
+  search: async (q, kind, cursor) => {
+    const r = await send<{ users?: User[]; posts?: Post[]; cursor?: string | null }>("GET", `/v1/search?q=${encodeURIComponent(q)}&type=${kind}${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ""}`);
+    return { users: r.users ?? [], posts: r.posts ?? [], cursor: r.cursor ?? null };
+  },
+  updateProfile: async (input) => (await send<{ user: User }>("PATCH", "/v1/me", input)).user,
+  flag: async (input) => void (await send("POST", "/v1/flags", input)),
 };

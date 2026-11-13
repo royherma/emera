@@ -22,6 +22,7 @@ export default function Upload() {
   const { c } = useTheme();
   const [files, setFiles] = useState<PickedFile[]>([]);
   const [caption, setCaption] = useState("");
+  const [alts, setAlts] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -47,14 +48,19 @@ export default function Upload() {
     setError(null);
     try {
       const ids: string[] = [];
+      const alt: Record<string, string> = {};
       for (let i = 0; i < files.length; i++) {
         setBusy(files.length > 1 ? `Uploading ${i + 1} of ${files.length}` : "Uploading");
-        ids.push((await api.uploadMedia(files[i])).id);
+        const id = (await api.uploadMedia(files[i])).id;
+        ids.push(id);
+        const text = (alts[files[i].uri] ?? "").trim();
+        if (text) alt[id] = text;
       }
       setBusy("Signing and posting");
-      const created = await api.createPost({ mediaIds: ids, caption });
+      const created = await api.createPost({ mediaIds: ids, caption, alt });
       setFiles([]);
       setCaption("");
+      setAlts({});
       router.push({ pathname: "/p/[id]", params: { id: created.id } });
     } catch (e) {
       setError(e instanceof ApiError ? e.message : "Something went wrong. Try again.");
@@ -99,6 +105,30 @@ export default function Upload() {
             </Pressable>
           )}
         </ScrollView>
+      )}
+
+      {files.length > 0 && (
+        <View style={{ gap: space[3], marginTop: space[5] }}>
+          <Text style={[type.label, { color: c.ink2, textTransform: "uppercase", letterSpacing: 0.8 }]}>Description for people who can't see it</Text>
+          {files.some((f) => !(alts[f.uri] ?? "").trim()) && <Banner tone="info" text="A sentence about what is in each one helps blind and low-vision people, and makes your work easier to find." />}
+          {files.map((f, i) => (
+            <View key={f.uri + i} style={{ flexDirection: "row", alignItems: "center", gap: space[3] }}>
+              <View style={{ width: 52, height: 52, borderRadius: radius.tile - 6, overflow: "hidden", backgroundColor: c.sunk, alignItems: "center", justifyContent: "center" }}>
+                {f.kind === "image" ? <Image source={{ uri: f.uri }} style={{ width: "100%", height: "100%" }} contentFit="cover" /> : <Icon name="play" size={18} color={c.ink2} />}
+              </View>
+              <TextInput
+                value={alts[f.uri] ?? ""}
+                onChangeText={(v) => setAlts((a) => ({ ...a, [f.uri]: v }))}
+                placeholder={f.kind === "image" ? "Describe what is in this photo" : "Describe what happens in this video"}
+                placeholderTextColor={c.ink3}
+                selectionColor={c.sun}
+                maxLength={1000}
+                accessibilityLabel={`Description for item ${i + 1}`}
+                style={[{ flex: 1, height: 52, borderRadius: radius.field, backgroundColor: c.sunk, paddingHorizontal: space[4], fontFamily: type.body.fontFamily, fontSize: 15, color: c.ink }, { outlineStyle: "none" } as object]}
+              />
+            </View>
+          ))}
+        </View>
       )}
 
       <View style={{ gap: space[2], marginTop: space[5] }}>

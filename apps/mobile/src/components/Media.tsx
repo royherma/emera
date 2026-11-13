@@ -14,7 +14,7 @@ export function MediaImage({ media, style, fit = "cover", playSize = 48 }: { med
   const art = media.url.startsWith("mock:");
   return (
     <View style={[{ overflow: "hidden", backgroundColor: c.sunk }, style]}>
-      {art ? <Art seed={media.url} /> : media.kind === "video" ? <View style={{ flex: 1, backgroundColor: "#140f0b" }} /> : <Image source={{ uri: media.url }} style={{ width: "100%", height: "100%" }} contentFit={fit} transition={180} />}
+      {art ? <Art seed={media.url} /> : media.kind === "video" ? <View style={{ flex: 1, backgroundColor: "#140f0b" }} /> : <Image source={{ uri: media.url }} alt={media.alt || undefined} style={{ width: "100%", height: "100%" }} contentFit={fit} transition={180} />}
       {media.kind === "video" && (
         <View pointerEvents="none" style={{ position: "absolute", top: 0, right: 0, bottom: 0, left: 0, alignItems: "center", justifyContent: "center" }}>
           <Glass style={{ width: playSize, height: playSize, borderRadius: playSize / 2, paddingLeft: 3 }}>

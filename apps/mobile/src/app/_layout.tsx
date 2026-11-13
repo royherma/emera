@@ -52,6 +52,9 @@ function Routes() {
           <Stack.Screen name="u/[handle]" options={{ animation: "slide_from_right" }} />
           <Stack.Screen name="settings" options={{ animation: "slide_from_right" }} />
           <Stack.Screen name="report" options={{ animation: "slide_from_right" }} />
+          <Stack.Screen name="search" options={{ animation: "slide_from_right" }} />
+          <Stack.Screen name="edit-profile" options={{ animation: "slide_from_right" }} />
+          <Stack.Screen name="flag" options={{ animation: "slide_from_right" }} />
         </Stack.Protected>
       </Stack>
     </>

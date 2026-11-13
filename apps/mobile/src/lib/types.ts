@@ -3,6 +3,7 @@ export type User = {
   handle: string;
   displayName: string;
   bio: string;
+  links?: string[];
   avatarUrl: string | null;
   createdAt: string;
   category?: string;
@@ -17,11 +18,16 @@ export type Media = {
   width: number;
   height: number;
   url: string;
+  alt?: string;
   sha256: string;
   proof: Proof;
 };
 
 export type Post = { id: string; author: User; caption: string; media: Media[]; createdAt: string; url: string };
+
+export type FlagReason = "spam" | "harassment" | "hate" | "violence" | "nudity" | "self_harm" | "impersonation" | "scam" | "other";
+
+export type SearchKind = "people" | "posts";
 
 export type PickedFile = { uri: string; mimeType: string; fileSize: number; width: number; height: number; kind: "image" | "video" };
 
@@ -44,7 +50,10 @@ export interface Backend {
   deletePost(id: string): Promise<void>;
   profile(handle: string, cursor?: string | null): Promise<{ user: User; posts: Post[]; cursor: string | null }>;
   uploadMedia(file: PickedFile): Promise<Media>;
-  createPost(input: { mediaIds: string[]; caption: string }): Promise<Post>;
+  createPost(input: { mediaIds: string[]; caption: string; alt?: Record<string, string> }): Promise<Post>;
   createInvite(): Promise<{ code: string; url: string }>;
   report(input: { postId: string; url: string; note: string }): Promise<void>;
+  search(q: string, kind: SearchKind, cursor?: string | null): Promise<{ users: User[]; posts: Post[]; cursor: string | null }>;
+  updateProfile(input: { displayName?: string; bio?: string; links?: string[]; avatarMediaId?: string | null }): Promise<User>;
+  flag(input: { targetType: "post" | "user"; targetId: string; reason: FlagReason; note: string }): Promise<void>;
 }
