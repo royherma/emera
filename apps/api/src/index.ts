@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
+import * as Sentry from '@sentry/cloudflare';
 import { cors } from 'hono/cors';
-import type { AppEnv } from './env';
+import type { AppEnv, Env } from './env';
 import { ApiError } from './http';
 import { auth } from './auth';
 import { mediaRoutes } from './media';
@@ -18,7 +19,7 @@ app.use('*', async (c, next) => {
   await next();
   c.res.headers.set('X-Content-Type-Options', 'nosniff');
 });
-app.use('/v1/*', cors({ origin: '*', allowHeaders: ['Authorization', 'Content-Type'], allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], maxAge: 600 }));
+app.use('/v1/*', cors({ origin: '*', allowHeaders: ['Authorization', 'Content-Type', 'X-TG-Tester'], allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], maxAge: 600 }));
 app.use('/media/*', cors({ origin: '*', allowMethods: ['GET', 'HEAD', 'OPTIONS'] }));
 
 app.get('/health', (c) => c.json({ ok: true }));
@@ -31,6 +32,7 @@ app.route('/', pages);
 app.onError((err, c) => {
   if (err instanceof ApiError) return c.json({ error: { code: err.code, message: err.message } }, err.status as 400);
   console.error('[error]', err);
+  Sentry.captureException(err);
   return c.json({ error: { code: 'internal', message: 'Something went wrong on our side.' } }, 500);
 });
 
@@ -40,4 +42,7 @@ app.notFound((c) => {
   return notFoundPage();
 });
 
-export default app;
+export default Sentry.withSentry(
+  (env: Env) => ({ dsn: env.SENTRY_DSN, environment: env.ENVIRONMENT, tracesSampleRate: 0.1 }),
+  app,
+);

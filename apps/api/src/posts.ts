@@ -45,10 +45,16 @@ postRoutes.post('/v1/posts', requireAuth, requireHandle, async (c) => {
   ).bind(...mediaIds, me.id).all<{ id: string }>();
   if (found.results.length !== mediaIds.length) throw fail(400, 'bad_media', 'Each file must be one of your finished uploads that is not in a post yet.');
 
-  const id = newId(10);
   const now = Date.now();
+  let createdAt = now;
+  if (body.createdAt !== undefined) {
+    const t = typeof body.createdAt === 'string' ? Date.parse(body.createdAt) : NaN;
+    if (!Number.isFinite(t) || t > now || t < Date.UTC(2000, 0, 1)) throw fail(400, 'bad_date', 'createdAt must be an ISO date in the past.');
+    createdAt = t;
+  }
+  const id = newId(10);
   await c.env.DB.batch([
-    c.env.DB.prepare('INSERT INTO posts (id, user_id, caption, created_at) VALUES (?, ?, ?, ?)').bind(id, me.id, caption.trim(), now),
+    c.env.DB.prepare('INSERT INTO posts (id, user_id, caption, created_at) VALUES (?, ?, ?, ?)').bind(id, me.id, caption.trim(), createdAt),
     ...mediaIds.map((m, i) => c.env.DB.prepare('UPDATE media SET post_id = ?, position = ? WHERE id = ?').bind(id, i, m)),
   ]);
   const row = (await c.env.DB.prepare('SELECT * FROM posts WHERE id = ?').bind(id).first<PostRow>())!;

@@ -101,7 +101,7 @@ describe('my invites', () => {
     const solo = await founder.json('POST', '/v1/invites');
     expect((await founder.json('POST', '/v1/invites', { maxUses: 0 })).body.error.code).toBe('bad_max_uses');
 
-    for (const [email, handle] of [['ana@example.test', 'ana'], ['ben@example.test', 'ben']]) {
+    for (const [email, handle] of [['joiner1@example.test', 'joiner_one'], ['joiner2@example.test', 'joiner_two']]) {
       const guest = new Client(env());
       await guest.signIn(email, team.body.code);
       await guest.withHandle(handle, handle.toUpperCase());
@@ -112,7 +112,7 @@ describe('my invites', () => {
     expect(list.status).toBe(200);
     const byCode = Object.fromEntries(list.body.invites.map((i: { code: string }) => [i.code, i]));
     expect(byCode[team.body.code]).toMatchObject({ url: `${ORIGIN}/invite/${team.body.code}`, uses: 3, maxUses: 3 });
-    expect(byCode[team.body.code].joined).toEqual([{ handle: 'ana', displayName: 'ANA' }, { handle: 'ben', displayName: 'BEN' }]);
+    expect(byCode[team.body.code].joined).toEqual([{ handle: 'joiner_one', displayName: 'JOINER_ONE' }, { handle: 'joiner_two', displayName: 'JOINER_TWO' }]);
     expect(byCode[solo.body.code]).toMatchObject({ uses: 0, maxUses: 1, joined: [] });
 
     const other = new Client(env());

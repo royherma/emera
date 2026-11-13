@@ -90,6 +90,7 @@ auth.post('/v1/auth/verify', async (c) => {
   const isNew = !user;
   if (!user) {
     let invitedBy: string | null = null;
+    let usedCode: string | null = null;
     if (c.env.INVITES_REQUIRED === 'true') {
       const inv = row.invite_code ?? '';
       if (inv === c.env.SEED_INVITE_CODE.toLowerCase() && c.env.SEED_INVITE_CODE) {
@@ -97,11 +98,12 @@ auth.post('/v1/auth/verify', async (c) => {
       } else {
         const claimed = await c.env.DB.prepare('UPDATE invites SET uses = uses + 1 WHERE code = ? AND uses < max_uses').bind(inv).run();
         if (!claimed.meta.changes) throw fail(403, 'invite_invalid', 'That invite is not valid or was already used.');
+        usedCode = inv;
         invitedBy = (await c.env.DB.prepare('SELECT created_by FROM invites WHERE code = ?').bind(inv).first<{ created_by: string | null }>())?.created_by ?? null;
       }
     }
     const id = newId(12);
-    await c.env.DB.prepare('INSERT INTO users (id, email, invited_by, created_at) VALUES (?, ?, ?, ?)').bind(id, email, invitedBy, now).run();
+    await c.env.DB.prepare('INSERT INTO users (id, email, invited_by, invite_code, created_at) VALUES (?, ?, ?, ?, ?)').bind(id, email, invitedBy, usedCode, now).run();
     user = (await c.env.DB.prepare('SELECT * FROM users WHERE id = ?').bind(id).first<UserRow>())!;
   }
 
@@ -137,14 +139,45 @@ auth.post('/v1/auth/logout', requireAuth, async (c) => {
   return c.json({ ok: true });
 });
 
+const MAX_INVITES = 20;
+const MAX_USES_LIMIT = 10;
+
 auth.post('/v1/invites', requireAuth, requireHandle, async (c) => {
   const me = c.get('user');
+  const body = await readJson(c).catch(() => ({} as Record<string, unknown>));
+  const maxUses = body.maxUses === undefined ? 1 : Number(body.maxUses);
+  if (!Number.isInteger(maxUses) || maxUses < 1 || maxUses > MAX_USES_LIMIT) throw fail(400, 'bad_max_uses', `An invite can be used 1 to ${MAX_USES_LIMIT} times.`);
+  const total = await c.env.DB.prepare('SELECT COUNT(*) AS n FROM invites WHERE created_by = ?').bind(me.id).first<{ n: number }>();
+  if ((total?.n ?? 0) >= MAX_INVITES) throw fail(409, 'invite_limit', `You have made ${MAX_INVITES} invites, the most one person can have.`);
   const today = await c.env.DB.prepare('SELECT COUNT(*) AS n FROM invites WHERE created_by = ? AND created_at > ?')
     .bind(me.id, Date.now() - 86_400_000).first<{ n: number }>();
   if ((today?.n ?? 0) >= 10) throw fail(429, 'too_many_invites', 'You can make 10 invites a day.');
   const code = newInviteCode();
-  await c.env.DB.prepare('INSERT INTO invites (code, created_by, created_at) VALUES (?, ?, ?)').bind(code, me.id, Date.now()).run();
+  const now = Date.now();
+  await c.env.DB.prepare('INSERT INTO invites (code, created_by, max_uses, created_at) VALUES (?, ?, ?, ?)').bind(code, me.id, maxUses, now).run();
   return c.json({ code, url: `${siteOrigin(c)}/invite/${code}` });
+});
+
+auth.get('/v1/invites', requireAuth, requireHandle, async (c) => {
+  const me = c.get('user');
+  const rows = (await c.env.DB.prepare('SELECT code, uses, max_uses, created_at FROM invites WHERE created_by = ? ORDER BY created_at DESC, code DESC')
+    .bind(me.id).all<{ code: string; uses: number; max_uses: number; created_at: number }>()).results;
+  const joined = (await c.env.DB.prepare(
+    `SELECT u.invite_code, u.handle, u.display_name FROM users u JOIN invites i ON i.code = u.invite_code
+     WHERE i.created_by = ? AND u.handle IS NOT NULL ORDER BY u.created_at ASC`,
+  ).bind(me.id).all<{ invite_code: string; handle: string; display_name: string }>()).results;
+  const origin = siteOrigin(c);
+  return c.json({
+    invites: rows.map((r) => ({
+      code: r.code,
+      url: `${origin}/invite/${r.code}`,
+      uses: r.uses,
+      maxUses: r.max_uses,
+      createdAt: new Date(r.created_at).toISOString(),
+      joined: joined.filter((j) => j.invite_code === r.code).map((j) => ({ handle: j.handle, displayName: j.display_name })),
+    })),
+    limit: MAX_INVITES,
+  });
 });
 
 auth.get('/v1/invites/:code', async (c) => {

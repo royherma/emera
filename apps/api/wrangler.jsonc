@@ -23,6 +23,7 @@
       "name": "emera-api-staging",
       "vars": {
         "ENVIRONMENT": "staging",
+        "SENTRY_DSN": "https://f1c13fe2a5084a5d09919d7c213ee80d@o4512099364503552.ingest.us.sentry.io/4512422700449792",
         "INVITES_REQUIRED": "false",
         "PUBLIC_ORIGIN": ""
       },
@@ -35,6 +36,7 @@
       "name": "emera-api-production",
       "vars": {
         "ENVIRONMENT": "production",
+        "SENTRY_DSN": "https://f1c13fe2a5084a5d09919d7c213ee80d@o4512099364503552.ingest.us.sentry.io/4512422700449792",
         "INVITES_REQUIRED": "false",
         "PUBLIC_ORIGIN": "https://emera.social"
       },
