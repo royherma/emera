@@ -16,6 +16,11 @@ export type Env = {
   RESEND_API_KEY?: string;
   MAIL_FROM?: string;
   REPORTS_TO?: string;
+  SIGNIN_LIMIT?: RateLimit;
+  WRITE_LIMIT?: RateLimit;
+  POSTS_PER_DAY?: string;
+  UPLOADS_PER_DAY?: string;
+  SIGNIN_EMAILS_PER_DAY?: string;
 };
 
 export type UserRow = {

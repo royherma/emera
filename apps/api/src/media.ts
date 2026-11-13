@@ -7,6 +7,7 @@ import { looksLikeVideo, readImageInfo } from './imageSize';
 import { mediaJson, type MediaRow } from './serialize';
 import { readVideoInfo, readVideoInfoFrom, type VideoInfo } from './videoInfo';
 import { makeCaptions } from './captions';
+import { capDailyUploads } from './limits';
 
 const MB = 1024 * 1024;
 const TYPES: Record<string, { kind: 'image' | 'video'; ext: string; max: number }> = {
@@ -110,6 +111,7 @@ export async function runVideoJob(env: Env, job: VideoJob) {
 export const mediaRoutes = new Hono<AppEnv>();
 
 mediaRoutes.post('/v1/uploads', requireAuth, requireHandle, async (c) => {
+  await capDailyUploads(c.env, c.get('user').id);
   const body = await readJson(c);
   const declared = typeof body.contentType === 'string' ? body.contentType.trim().toLowerCase() : '';
   const contentType = ALIASES[declared] ?? declared;
