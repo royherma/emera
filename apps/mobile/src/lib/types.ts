@@ -25,6 +25,7 @@ export type Media = {
   height: number;
   url: string;
   posterUrl?: string | null;
+  captionsUrl?: string | null;
   alt?: string;
   sha256: string;
   proof: Proof;
