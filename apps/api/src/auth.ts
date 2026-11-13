@@ -3,7 +3,7 @@ import type { MiddlewareHandler } from 'hono';
 import type { AppEnv, UserRow } from './env';
 import { fail, siteOrigin, readJson } from './http';
 import { hmacHex, newInviteCode, newSixDigitCode, newToken, newId, sha256Hex } from './crypto';
-import { delivery, sendCode } from './mail';
+import { deliveryFor, sendCode } from './mail';
 import { userJson } from './serialize';
 
 const CODE_TTL_MS = 10 * 60_000;
@@ -46,7 +46,7 @@ auth.post('/v1/auth/start', async (c) => {
   const body = await readJson(c);
   const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
   if (!EMAIL_RE.test(email) || email.length > 254) throw fail(400, 'bad_email', 'Enter a valid email address.');
-  if (delivery === 'log' && c.env.ENVIRONMENT === 'production') throw fail(503, 'email_not_configured', 'Sign-in email is not set up yet.');
+  if (deliveryFor(c.env) === 'log' && c.env.ENVIRONMENT === 'production') throw fail(503, 'email_not_configured', 'Sign-in email is not set up yet.');
 
   const existing = await c.env.DB.prepare('SELECT id FROM users WHERE email = ?').bind(email).first();
   let invite: string | null = null;
@@ -65,7 +65,7 @@ auth.post('/v1/auth/start', async (c) => {
   const code = newSixDigitCode();
   await c.env.DB.prepare('INSERT INTO login_codes (email, code_hash, invite_code, expires_at, created_at) VALUES (?, ?, ?, ?, ?)')
     .bind(email, await hmacHex(c.env.PROOF_SECRET, `code:${email}:${code}`), invite, now + CODE_TTL_MS, now).run();
-  await sendCode(email, code);
+  await sendCode(c.env, email, code);
   return c.json({ ok: true });
 });
 

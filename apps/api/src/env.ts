@@ -6,6 +6,8 @@ export type Env = {
   SEED_INVITE_CODE: string;
   PROOF_SECRET: string;
   PUBLIC_ORIGIN: string;
+  RESEND_API_KEY?: string;
+  MAIL_FROM?: string;
 };
 
 export type UserRow = {
