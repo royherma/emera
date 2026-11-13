@@ -1231,26 +1231,14 @@
     {
       "id": "handles",
       "kind": "do",
-      "when": "now",
-      "title": "Claim @emerasocial on 4 apps",
-      "why": "Free today; handles get taken. Every launch post needs them.",
+      "when": "now, 10 min",
+      "title": "Claim @emerasocial on 3 apps",
+      "why": "Sign up with social@emera.social, on your phone, right handle first time. Codes also show in Slack #emera-events.",
       "task": "a8",
       "links": [
         [
-          "TikTok",
-          "https://www.tiktok.com/signup"
-        ],
-        [
           "YouTube",
           "https://www.youtube.com/create_channel"
-        ],
-        [
-          "Instagram",
-          "https://www.instagram.com/accounts/emailsignup/"
-        ],
-        [
-          "Bluesky",
-          "https://bsky.app"
         ]
       ],
       "options": [
@@ -1266,7 +1254,14 @@
       ],
       "answer": null,
       "text": null,
-      "at": null
+      "at": null,
+      "list": [
+        "Instagram app: your profile, tap your name at the top, Add account, Create new account, username emerasocial, email social@emera.social",
+        "TikTok app: sign up with email social@emera.social, username emerasocial (TikTok locks a rename for 30 days, so type it right)",
+        "YouTube: button above, signed in as techguyver1337, Create a channel, name Emera, handle @emerasocial (a second channel on your Google account, no new signup)",
+        "Bluesky: skip it, I set it up as @emera.social (our own domain, nobody can take it); I ask you for one text code later",
+        "First 2 days: add photo + bio, no links, no mass follows"
+      ]
     },
     {
       "id": "profile",
