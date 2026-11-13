@@ -1,5 +1,5 @@
 {
-  "updated": "11:06 AM Bangkok",
+  "updated": "11:07 AM Bangkok",
   "title": "Emera",
   "goal": "Emera. Where humanity comes together - you post, share the link, invite people",
   "phases": [
@@ -86,15 +86,20 @@
         },
         {
           "id": "b5",
-          "text": "AT Protocol plan + proof-of-maker test",
+          "text": "AT Protocol plan + proof test (signing works; crops need a 2nd matcher)",
           "who": "claude",
-          "running": true
+          "done": true
         },
         {
           "id": "b6",
           "text": "Landing page + early list (deployed, emera.social waiting on registry)",
           "who": "claude",
           "done": true
+        },
+        {
+          "id": "b7",
+          "text": "Copy matcher that survives crops + flips",
+          "who": "claude"
         }
       ]
     },
