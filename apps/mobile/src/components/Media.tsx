@@ -97,6 +97,10 @@ function LivePlayer({ media, fit, controls, onPlaying }: { media: Media; fit: "c
     p.play();
   });
   const { isPlaying } = useEvent(player, "playingChange", { isPlaying: player.playing });
+  const { status } = useEvent(player, "statusChange", { status: player.status });
+  useEffect(() => {
+    if (status === "readyToPlay") player.play();
+  }, [player, status]);
   useEffect(() => onPlaying(isPlaying), [isPlaying, onPlaying]);
   useEffect(() => {
     player.muted = !sound;
