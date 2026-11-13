@@ -159,11 +159,20 @@ async function copyApi(request, env, url) {
   return json({ ok: true, drafts: n?.n ?? 0 });
 }
 
+const SIGNED_IN = /(?:^|;\s*)em_in=1(?:;|$)/;
+
+function app(request, env, url) {
+  if (env.APP) return env.APP.fetch(request);
+  if (env.APP_ORIGIN) return fetch(new Request(env.APP_ORIGIN.replace(/\/$/, "") + url.pathname + url.search, request));
+  return new Response("Not found", { status: 404 });
+}
+
 async function page(request, env, ctx, url) {
   const plain = new Request(request);
   plain.headers.delete("if-none-match");
   plain.headers.delete("if-modified-since");
   let res = await env.ASSETS.fetch(plain);
+  if (res.status === 404 && (request.method === "GET" || request.method === "HEAD")) return app(request, env, url);
   const isDoc = request.method === "GET" && res.status === 200 && (res.headers.get("content-type") || "").includes("text/html");
   if (isDoc) res = fundRewrite(res, env, url);
   if (!isDoc || !env.DB) return res;
@@ -307,6 +316,8 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const { pathname } = url;
+    if (url.hostname === "app.emera.social") return Response.redirect(`https://emera.social${pathname}${url.search}`, 301);
+    if (pathname === "/" && SIGNED_IN.test(request.headers.get("cookie") || "")) return app(request, env, url);
     if (pathname === "/admin" || pathname.startsWith("/admin/") || pathname === "/api/ledger") return ops(request, env);
     if (pathname === "/api/early") {
       if (request.method === "POST") return signup(request, env);
