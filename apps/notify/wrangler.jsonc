@@ -3,14 +3,14 @@
   "name": "emera-notify-dev",
   "main": "src/worker.js",
   "compatibility_date": "2026-11-01",
-  "vars": { "ENVIRONMENT": "dev", "SLACK_CHANNEL": "C0CHFF8S47K", "API_URL": "http://agora-api.localhost:5036" },
+  "vars": { "ENVIRONMENT": "dev", "SLACK_CHANNEL": "C0CHFF8S47K", "API_URL": "http://agora-api.localhost:5036", "SITE_URL": "http://agora-site.localhost:5038" },
   "kv_namespaces": [{ "binding": "STATE", "id": "local-dev" }],
   "env": {
     "staging": {
       "name": "emera-notify-staging",
       "workers_dev": true,
-      "triggers": { "crons": ["* * * * *"] },
-      "vars": { "ENVIRONMENT": "staging", "SLACK_CHANNEL": "C0CHFF8S47K", "API_URL": "https://emera-api-staging.techguyver1337.workers.dev" },
+      "triggers": { "crons": ["* * * * *", "0 2 * * *"] },
+      "vars": { "ENVIRONMENT": "staging", "SLACK_CHANNEL": "C0CHFF8S47K", "API_URL": "https://emera-api-staging.techguyver1337.workers.dev", "SITE_URL": "https://emera-site-staging.techguyver1337.workers.dev" },
       "kv_namespaces": [{ "binding": "STATE", "id": "4668f31e6b434f3cabb3f374e3bf1045" }],
       "d1_databases": [
         { "binding": "SITE_DB", "database_name": "emera-site-staging", "database_id": "55193bab-c903-4f35-b059-93df0b37c3b6" },
@@ -20,8 +20,8 @@
     "production": {
       "name": "emera-notify",
       "workers_dev": true,
-      "triggers": { "crons": ["* * * * *"] },
-      "vars": { "ENVIRONMENT": "production", "SLACK_CHANNEL": "C0CHFF8S47K", "API_URL": "https://api.emera.social" },
+      "triggers": { "crons": ["* * * * *", "0 2 * * *"] },
+      "vars": { "ENVIRONMENT": "production", "SLACK_CHANNEL": "C0CHFF8S47K", "API_URL": "https://api.emera.social", "SITE_URL": "https://emera.social" },
       "kv_namespaces": [{ "binding": "STATE", "id": "b100b61d3afc43af94262792e314735a" }],
       "d1_databases": [
         { "binding": "SITE_DB", "database_name": "emera-site", "database_id": "daae3f49-ca5f-4d42-ac1e-4281701c86c1" },
