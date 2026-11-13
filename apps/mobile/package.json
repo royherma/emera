@@ -9,7 +9,9 @@
     "ios": "expo run:ios",
     "android": "expo run:android",
     "typecheck": "tsc --noEmit",
-    "check": "tsc --noEmit && expo export --platform web"
+    "check": "tsc --noEmit && expo export --platform web && node scripts/pwa.mjs dist",
+    "test": "vitest run",
+    "pwa": "node scripts/pwa.mjs dist"
   },
   "dependencies": {
     "@expo-google-fonts/dm-sans": "^0.4.2",
@@ -42,6 +44,7 @@
   },
   "devDependencies": {
     "@types/react": "~19.3.0",
-    "typescript": "~6.0.3"
+    "typescript": "~6.0.3",
+    "vitest": "^5.1.0"
   }
 }
