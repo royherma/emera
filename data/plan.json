@@ -1394,6 +1394,36 @@
   ],
   "review": [
     {
+      "id": "ios-privacy",
+      "kind": "do",
+      "when": "now, 5 min",
+      "title": "Answer App Privacy in App Store Connect (last blocker for submit)",
+      "why": "Apple has no API for these answers (404), so they need your login. Exact answers below, read from the code: no analytics or tracking in the app.",
+      "list": [
+        "Open the link, Get Started, Yes we collect data",
+        "Tick: Contact Info > Name, Email Address; User Content > Photos or Videos, Emails or Text Messages, Other User Content; Identifiers > User ID",
+        "For each one: App Functionality only; Linked to the user: Yes; Used for tracking: No",
+        "Publish, then press Done here: I submit for review by myself"
+      ],
+      "options": [
+        {
+          "id": "done",
+          "label": "Done, published",
+          "primary": true
+        },
+        {
+          "id": "later",
+          "label": "Later"
+        }
+      ],
+      "links": [
+        [
+          "App Privacy page",
+          "https://appstoreconnect.apple.com/apps/6834311747/distribution/privacy"
+        ]
+      ]
+    },
+    {
       "id": "ios-submit",
       "kind": "approve",
       "when": "tonight",
@@ -1426,7 +1456,15 @@
           "https://appstoreconnect.apple.com/apps/6834311747"
         ]
       ],
-      "mine": "Submit: nothing on the listing is missing"
+      "mine": "Submit: nothing on the listing is missing",
+      "answer": "yes",
+      "text": null,
+      "at": "2026-11-13T14:19:54.083Z",
+      "done": {
+        "at": "2026-11-13T14:21:34.184Z",
+        "ref": "review submission 3c2f646f",
+        "note": "You said yes 9:19 PM. Price set to Free + content rights saved; Apple still needs the App Privacy answers (card above), then I submit automatically."
+      }
     },
     {
       "id": "email-leak",
