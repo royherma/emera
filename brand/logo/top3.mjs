@@ -1,12 +1,13 @@
 import fs from 'node:fs'
+import path from 'node:path'
 import { createRequire } from 'node:module'
 import { COL, marks, iconSvg, lockup, faviconSvg } from './lib.mjs'
 import { concepts } from './concepts.mjs'
 
-const require = createRequire('~/Desktop/Development/techguyver-side-projects/creators-of-today/package.json')
-const { chromium } = require('playwright-core')
-const HERE = '~/Desktop/Development/techguyver-side-projects/agora/brand/logo'
-const ART = '~/Desktop/Development/techguyver-side-projects/agora/.claude/artifacts/brand'
+const require = createRequire(import.meta.url)
+const { chromium } = require(process.env.PLAYWRIGHT_CORE || 'playwright-core')
+const HERE = import.meta.dirname
+const ART = path.join(import.meta.dirname, '../../.claude/artifacts/brand')
 
 const top = concepts.filter((c) => c.top3)
 const mk = (c, size, color, bg, u) => `<svg viewBox="0 0 100 100" width="${size}" height="${size}" color="${color}" style="--bg:${bg};flex:none">${marks[c.mark](u)}</svg>`

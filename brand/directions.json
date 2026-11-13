@@ -4,7 +4,7 @@
     "name": "Daylight",
     "line": "Emera is the sunrise, not the startup: your work out in the open, warm and human, with a name that literally means daylight.",
     "html": "brand/directions/daylight.html",
-    "png": "~/Desktop/Development/techguyver-side-projects/agora/.claude/artifacts/brand/daylight.png",
+    "png": ".claude/artifacts/brand/daylight.png",
     "palette": {
       "paper": "oklch(97.5% 0.014 85)",
       "sand": "oklch(93% 0.032 80)",
@@ -24,7 +24,7 @@
     "name": "Signal",
     "line": "Emera says it out loud: honest by default, in type you cannot scroll past.",
     "html": "brand/directions/signal.html",
-    "png": "~/Desktop/Development/techguyver-side-projects/agora/.claude/artifacts/brand/signal.png",
+    "png": ".claude/artifacts/brand/signal.png",
     "palette": {
       "white": "oklch(98.5% 0.003 100)",
       "fog": "oklch(90% 0.004 270)",
@@ -43,7 +43,7 @@
     "name": "Seal",
     "line": "Emera signs its work: the maker's mark that proves who made each post is the brand itself, and two circles coming together is the whole idea.",
     "html": "brand/directions/seal.html",
-    "png": "~/Desktop/Development/techguyver-side-projects/agora/.claude/artifacts/brand/seal.png",
+    "png": ".claude/artifacts/brand/seal.png",
     "palette": {
       "bone": "oklch(95.5% 0.014 105)",
       "paper": "oklch(90% 0.022 105)",

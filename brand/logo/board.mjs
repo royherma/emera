@@ -1,12 +1,13 @@
 import fs from 'node:fs'
+import path from 'node:path'
 import { createRequire } from 'node:module'
 import { COL, marks, iconSvg, lockup } from './lib.mjs'
 import { concepts } from './concepts.mjs'
 
-const require = createRequire('~/Desktop/Development/techguyver-side-projects/creators-of-today/package.json')
-const { chromium } = require('playwright-core')
-const HERE = '~/Desktop/Development/techguyver-side-projects/agora/brand/logo'
-const ART = '~/Desktop/Development/techguyver-side-projects/agora/.claude/artifacts/brand'
+const require = createRequire(import.meta.url)
+const { chromium } = require(process.env.PLAYWRIGHT_CORE || 'playwright-core')
+const HERE = import.meta.dirname
+const ART = path.join(import.meta.dirname, '../../.claude/artifacts/brand')
 
 const mk = (c, size, color, bg, u) => `<svg viewBox="0 0 100 100" width="${size}" height="${size}" color="${color}" style="--bg:${bg}">${marks[c.mark](u)}</svg>`
 const icon = (c, u) => iconSvg(c.mark, 'light', c.icon).replace('width="1024" height="1024"', 'width="92" height="92"').replace(/id="sq"/, `id="sq${u}"`).replace('url(#sq)', `url(#sq${u})`).replace(/id="(\w)(i\w+)"/g, `id="$1$2${u}"`).replace(/url\(#(\w)(i\w+)\)/g, `url(#$1$2${u})`)

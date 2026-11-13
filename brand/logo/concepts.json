@@ -1,98 +1,166 @@
-[
-  {
-    "id": "01",
-    "name": "Rise",
-    "idea": "The e is a horizon: a sun comes up through the bar.",
-    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/01-rise",
-    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/01-rise/icon-1024.png",
-    "top3": false
-  },
-  {
-    "id": "02",
-    "name": "Signature",
-    "idea": "One unbroken stroke, an e signed by hand, closed with a sun.",
-    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/02-signature",
-    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/02-signature/icon-1024.png",
-    "top3": true
-  },
-  {
-    "id": "03",
-    "name": "Aperture",
-    "idea": "Six blades open on a sun; each colour is someone’s work.",
-    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/03-aperture",
-    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/03-aperture/icon-1024.png",
-    "top3": false
-  },
-  {
-    "id": "04",
-    "name": "Dusk",
-    "idea": "Day and night overlap, and the overlap is dusk.",
-    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/04-dusk",
-    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/04-dusk/icon-1024.png",
-    "top3": false
-  },
-  {
-    "id": "05",
-    "name": "Gathering",
-    "idea": "Four colours close around one sun, like hands around the day.",
-    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/05-gathering",
-    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/05-gathering/icon-1024.png",
-    "top3": false
-  },
-  {
-    "id": "06",
-    "name": "Epsilon",
-    "idea": "Greek epsilon as two bowls: day above, night below.",
-    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/06-epsilon",
-    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/06-epsilon/icon-1024.png",
-    "top3": true
-  },
-  {
-    "id": "07",
-    "name": "People",
-    "idea": "An e made of people, every dot a different colour, one sun.",
-    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/07-people",
-    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/07-people/icon-1024.png",
-    "top3": false
-  },
-  {
-    "id": "08",
-    "name": "Window",
-    "idea": "An arched window onto sunrise: your work, out in the open.",
-    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/08-window",
-    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/08-window/icon-1024.png",
-    "top3": false
-  },
-  {
-    "id": "09",
-    "name": "Crowd",
-    "idea": "Three arches, three heights, the sun in the middle.",
-    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/09-crowd",
-    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/09-crowd/icon-1024.png",
-    "top3": false
-  },
-  {
-    "id": "10",
-    "name": "Switch",
-    "idea": "The day and night switch, caught mid slide.",
-    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/10-switch",
-    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/10-switch/icon-1024.png",
-    "top3": false
-  },
-  {
-    "id": "11",
-    "name": "Twin tone",
-    "idea": "One bold e, sun above the bar, night below.",
-    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/11-twin",
-    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/11-twin/icon-1024.png",
-    "top3": true
-  },
-  {
-    "id": "12",
-    "name": "Eclipse",
-    "idea": "Night in front, sun behind: the e is the light that gets through.",
-    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/12-eclipse",
-    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/12-eclipse/icon-1024.png",
-    "top3": false
-  }
-]
+{
+  "concepts": [
+    {
+      "id": "01",
+      "name": "Rise",
+      "idea": "The e is a horizon: a sun comes up through the bar.",
+      "dir": "brand/logo/concepts/01-rise",
+      "icon": "brand/logo/concepts/01-rise/icon-1024.png",
+      "top3": false
+    },
+    {
+      "id": "02",
+      "name": "Signature",
+      "idea": "One unbroken stroke, an e signed by hand, closed with a sun.",
+      "dir": "brand/logo/concepts/02-signature",
+      "icon": "brand/logo/concepts/02-signature/icon-1024.png",
+      "top3": true
+    },
+    {
+      "id": "03",
+      "name": "Aperture",
+      "idea": "Six blades open on a sun; each colour is someone’s work.",
+      "dir": "brand/logo/concepts/03-aperture",
+      "icon": "brand/logo/concepts/03-aperture/icon-1024.png",
+      "top3": false
+    },
+    {
+      "id": "04",
+      "name": "Dusk",
+      "idea": "Day and night overlap, and the overlap is dusk.",
+      "dir": "brand/logo/concepts/04-dusk",
+      "icon": "brand/logo/concepts/04-dusk/icon-1024.png",
+      "top3": false
+    },
+    {
+      "id": "05",
+      "name": "Gathering",
+      "idea": "Four colours close around one sun, like hands around the day.",
+      "dir": "brand/logo/concepts/05-gathering",
+      "icon": "brand/logo/concepts/05-gathering/icon-1024.png",
+      "top3": false
+    },
+    {
+      "id": "06",
+      "name": "Epsilon",
+      "idea": "Greek epsilon as two bowls: day above, night below.",
+      "dir": "brand/logo/concepts/06-epsilon",
+      "icon": "brand/logo/concepts/06-epsilon/icon-1024.png",
+      "top3": true
+    },
+    {
+      "id": "07",
+      "name": "People",
+      "idea": "An e made of people, every dot a different colour, one sun.",
+      "dir": "brand/logo/concepts/07-people",
+      "icon": "brand/logo/concepts/07-people/icon-1024.png",
+      "top3": false
+    },
+    {
+      "id": "08",
+      "name": "Window",
+      "idea": "An arched window onto sunrise: your work, out in the open.",
+      "dir": "brand/logo/concepts/08-window",
+      "icon": "brand/logo/concepts/08-window/icon-1024.png",
+      "top3": false
+    },
+    {
+      "id": "09",
+      "name": "Crowd",
+      "idea": "Three arches, three heights, the sun in the middle.",
+      "dir": "brand/logo/concepts/09-crowd",
+      "icon": "brand/logo/concepts/09-crowd/icon-1024.png",
+      "top3": false
+    },
+    {
+      "id": "10",
+      "name": "Switch",
+      "idea": "The day and night switch, caught mid slide.",
+      "dir": "brand/logo/concepts/10-switch",
+      "icon": "brand/logo/concepts/10-switch/icon-1024.png",
+      "top3": false
+    },
+    {
+      "id": "11",
+      "name": "Twin tone",
+      "idea": "One bold e, sun above the bar, night below.",
+      "dir": "brand/logo/concepts/11-twin",
+      "icon": "brand/logo/concepts/11-twin/icon-1024.png",
+      "top3": true
+    },
+    {
+      "id": "12",
+      "name": "Eclipse",
+      "idea": "Night in front, sun behind: the e is the light that gets through.",
+      "dir": "brand/logo/concepts/12-eclipse",
+      "icon": "brand/logo/concepts/12-eclipse/icon-1024.png",
+      "top3": false
+    }
+  ],
+  "signature": [
+    {
+      "id": "01",
+      "name": "Calm",
+      "idea": "Current stroke, curve relaxed",
+      "dir": "brand/logo/signature/01-calm",
+      "icon": "brand/logo/signature/01-calm/icon-1024.png",
+      "top3": false
+    },
+    {
+      "id": "02",
+      "name": "Clear bar",
+      "idea": "Short tail, open counter",
+      "dir": "brand/logo/signature/02-clear-bar",
+      "icon": "brand/logo/signature/02-clear-bar/icon-1024.png",
+      "top3": true
+    },
+    {
+      "id": "03",
+      "name": "Long tail",
+      "idea": "Flowing exit, mid weight",
+      "dir": "brand/logo/signature/03-long-tail",
+      "icon": "brand/logo/signature/03-long-tail/icon-1024.png",
+      "top3": false
+    },
+    {
+      "id": "04",
+      "name": "Dip",
+      "idea": "Tail dips, sun caps the stroke",
+      "dir": "brand/logo/signature/04-dip",
+      "icon": "brand/logo/signature/04-dip/icon-1024.png",
+      "top3": true
+    },
+    {
+      "id": "05",
+      "name": "Cap sun",
+      "idea": "The sun is the terminal",
+      "dir": "brand/logo/signature/05-cap-sun",
+      "icon": "brand/logo/signature/05-cap-sun/icon-1024.png",
+      "top3": false
+    },
+    {
+      "id": "06",
+      "name": "Bar sun",
+      "idea": "Sun rests on the bar",
+      "dir": "brand/logo/signature/06-bar-sun",
+      "icon": "brand/logo/signature/06-bar-sun/icon-1024.png",
+      "top3": true
+    },
+    {
+      "id": "07",
+      "name": "Heavy",
+      "idea": "Bold for small sizes",
+      "dir": "brand/logo/signature/07-heavy",
+      "icon": "brand/logo/signature/07-heavy/icon-1024.png",
+      "top3": false
+    },
+    {
+      "id": "08",
+      "name": "Slant",
+      "idea": "Whole e tipped like a signature",
+      "dir": "brand/logo/signature/08-slant",
+      "icon": "brand/logo/signature/08-slant/icon-1024.png",
+      "top3": false
+    }
+  ]
+}

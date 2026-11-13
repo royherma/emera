@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..');
 const R = (...p) => join(root, ...p);
 const PORT = 5040;
-const PW = '~/Desktop/Development/techguyver-side-projects/creators-of-today/node_modules/playwright-core';
+const PW = process.env.PLAYWRIGHT_CORE || 'playwright-core';
 const { chromium } = createRequire(import.meta.url)(PW);
 
 const VIEWPORTS = { phone: { width: 390, height: 844 }, desktop: { width: 1440, height: 900 } };

@@ -4,11 +4,11 @@ import { createRequire } from 'node:module'
 import { COL, markSvg, iconSvg, faviconSvg, lockup } from './lib.mjs'
 import { concepts } from './concepts.mjs'
 
-const require = createRequire('~/Desktop/Development/techguyver-side-projects/creators-of-today/package.json')
-const { chromium } = require('playwright-core')
+const require = createRequire(import.meta.url)
+const { chromium } = require(process.env.PLAYWRIGHT_CORE || 'playwright-core')
 
-const HERE = '~/Desktop/Development/techguyver-side-projects/agora/brand/logo'
-const ART = '~/Desktop/Development/techguyver-side-projects/agora/.claude/artifacts/brand'
+const HERE = import.meta.dirname
+const ART = path.join(import.meta.dirname, '../../.claude/artifacts/brand')
 fs.mkdirSync(ART, { recursive: true })
 
 const browser = await chromium.launch()

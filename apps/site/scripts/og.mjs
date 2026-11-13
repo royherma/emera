@@ -3,9 +3,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const require = createRequire(import.meta.url);
-const { chromium } = require(
-  "~/Desktop/Development/techguyver-side-projects/creators-of-today/node_modules/playwright-core"
-);
+const { chromium } = require(process.env.PLAYWRIGHT_CORE || "playwright-core");
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const url = process.argv[2] || "http://localhost:5038/";
 
