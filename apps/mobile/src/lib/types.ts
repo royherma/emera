@@ -23,6 +23,15 @@ export type Media = {
 
 export type Post = { id: string; author: User; caption: string; media: Media[]; createdAt: string; url: string };
 
+export type Invite = {
+  code: string;
+  url: string;
+  uses: number;
+  maxUses: number;
+  createdAt: string;
+  joined: { handle: string; displayName: string }[];
+};
+
 export type PickedFile = { uri: string; mimeType: string; fileSize: number; width: number; height: number; kind: "image" | "video" };
 
 export class ApiError extends Error {
@@ -45,6 +54,7 @@ export interface Backend {
   profile(handle: string, cursor?: string | null): Promise<{ user: User; posts: Post[]; cursor: string | null }>;
   uploadMedia(file: PickedFile): Promise<Media>;
   createPost(input: { mediaIds: string[]; caption: string }): Promise<Post>;
-  createInvite(): Promise<{ code: string; url: string }>;
+  listInvites(): Promise<{ invites: Invite[]; limit: number }>;
+  createInvite(maxUses?: number): Promise<{ code: string; url: string }>;
   report(input: { postId: string; url: string; note: string }): Promise<void>;
 }

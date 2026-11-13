@@ -1,0 +1,52 @@
+[
+  {
+    "media": [
+      {
+        "uri": "media/posts/202501/red.png",
+        "creation_timestamp": 1634564885,
+        "title": "First solid red"
+      }
+    ]
+  },
+  {
+    "media": [
+      {
+        "uri": "media/posts/202501/green.png",
+        "creation_timestamp": 1629985612
+      },
+      {
+        "uri": "media/posts/202501/blue.png",
+        "creation_timestamp": 1629985613
+      }
+    ],
+    "title": "Carousel of two cafÃ© colors â",
+    "creation_timestamp": 1629985612
+  },
+  {
+    "media": [
+      {
+        "uri": "media/posts/202501/gold.png",
+        "creation_timestamp": 1700000000,
+        "title": "Gold, no post-level date"
+      }
+    ]
+  },
+  {
+    "media": [
+      {
+        "uri": "media/posts/202501/clip.gif",
+        "creation_timestamp": 1700000100,
+        "title": "A gif"
+      }
+    ]
+  },
+  {
+    "media": [
+      {
+        "uri": "media/posts/202501/gone.png",
+        "creation_timestamp": 1700000200,
+        "title": "File missing"
+      }
+    ]
+  }
+]

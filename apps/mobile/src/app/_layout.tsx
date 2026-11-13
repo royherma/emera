@@ -52,6 +52,7 @@ function Routes() {
           <Stack.Screen name="u/[handle]" options={{ animation: "slide_from_right" }} />
           <Stack.Screen name="settings" options={{ animation: "slide_from_right" }} />
           <Stack.Screen name="report" options={{ animation: "slide_from_right" }} />
+          <Stack.Screen name="invites" options={{ animation: "slide_from_right" }} />
         </Stack.Protected>
       </Stack>
     </>

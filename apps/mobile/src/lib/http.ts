@@ -60,6 +60,7 @@ export const http: Backend = {
     return json.media as Media;
   },
   createPost: async (input) => (await send<{ post: Post }>("POST", "/v1/posts", input)).post,
-  createInvite: () => send("POST", "/v1/invites"),
+  listInvites: () => send("GET", "/v1/invites"),
+  createInvite: (maxUses) => send("POST", "/v1/invites", maxUses ? { maxUses } : {}),
   report: async (input) => void (await send("POST", "/v1/reports", input)),
 };

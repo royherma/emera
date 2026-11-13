@@ -1,6 +1,6 @@
 import brand from "./brand";
 import { PUBLIC_ORIGIN } from "./config";
-import { ApiError, Backend, Media, PickedFile, Post, User } from "./types";
+import { ApiError, Backend, Invite, Media, PickedFile, Post, User } from "./types";
 import { HANDLE_RE } from "./format";
 
 const wait = (ms = 280) => new Promise((r) => setTimeout(r, ms + Math.random() * 220));
@@ -83,6 +83,12 @@ posts[0].media.push(makeMedia("mina", 1600, 2000, "image", "mock:art/p_100c", po
 const sessions = new Map<string, string>();
 const emails = new Map<string, string>();
 const invites = new Map<string, string>([[MOCK_INVITE_CODE, "mina"]]);
+const MOCK_INVITE_LIMIT = 20;
+const mockInvites: Invite[] = [
+  { code: "k3m9x2qa", url: `${PUBLIC_ORIGIN}/invite/k3m9x2qa`, uses: 2, maxUses: 5, createdAt: iso(60 * 24 * 6), joined: [{ handle: "wren_clay", displayName: "Wren Alder" }, { handle: "ottoline", displayName: "Ottoline Park" }] },
+  { code: "b7w4n8dz", url: `${PUBLIC_ORIGIN}/invite/b7w4n8dz`, uses: 1, maxUses: 1, createdAt: iso(60 * 24 * 11), joined: [{ handle: "sefa_prints", displayName: "Sefa Lindqvist" }] },
+  { code: "q2v6h5tc", url: `${PUBLIC_ORIGIN}/invite/q2v6h5tc`, uses: 0, maxUses: 3, createdAt: iso(60 * 3), joined: [] },
+];
 let token: string | null = null;
 let counter = 1000;
 
@@ -183,12 +189,20 @@ export const mock: Backend & { _setToken: (t: string | null) => void } = {
     posts.unshift(post);
     return post;
   },
-  async createInvite() {
+  async listInvites() {
+    await wait();
+    current();
+    return { invites: [...mockInvites], limit: MOCK_INVITE_LIMIT };
+  },
+  async createInvite(maxUses = 1) {
     await wait();
     const me = current();
-    const code = hex(8).toUpperCase();
-    invites.set(code, me.handle);
-    return { code, url: `${PUBLIC_ORIGIN}/join/${code}` };
+    if (mockInvites.length >= MOCK_INVITE_LIMIT) throw new ApiError("invite_limit", `You have made ${MOCK_INVITE_LIMIT} invites, the most one person can have.`);
+    const code = hex(8);
+    invites.set(code.toUpperCase(), me.handle);
+    const url = `${PUBLIC_ORIGIN}/invite/${code}`;
+    mockInvites.unshift({ code, url, uses: 0, maxUses, createdAt: new Date().toISOString(), joined: [] });
+    return { code, url };
   },
   async report({ url }) {
     await wait();

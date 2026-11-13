@@ -48,7 +48,7 @@ type Group = "all" | "image" | "video" | "series";
 const groupOf = (p: Post): Group => (p.media.length > 1 ? "series" : p.media[0].kind === "video" ? "video" : "image");
 const groupLabel: Record<Group, string> = { all: "All", image: "Photos", video: "Films", series: "Series" };
 
-export function ProfileView({ handle, own, tabs, back }: { handle: string; own?: boolean; tabs?: boolean; back?: boolean }) {
+export function ProfileView({ handle, own, tabs, back, onInvite }: { handle: string; own?: boolean; tabs?: boolean; back?: boolean; onInvite?: () => void }) {
   const router = useRouter();
   const toast = useToast();
   const { c } = useTheme();
@@ -84,7 +84,12 @@ export function ProfileView({ handle, own, tabs, back }: { handle: string; own?:
         <LinearGradient pointerEvents="none" colors={[alpha(colors.from, 0.22), alpha(colors.to, 0)]} style={{ position: "absolute", left: -48, right: -48, top: -80, height: 260 }} />
         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", minHeight: 44, marginBottom: space[2] }}>
           {back ? <IconButton icon="back" label="Back" onPress={() => (router.canGoBack() ? router.back() : router.replace("/feed"))} /> : <View />}
-          {own && <IconButton icon="sliders" label="Settings" onPress={() => router.push("/settings")} />}
+          {own && (
+            <View style={{ flexDirection: "row", gap: space[2] }}>
+              {onInvite && <IconButton icon="userplus" label="Invite people" onPress={onInvite} />}
+              <IconButton icon="sliders" label="Settings" onPress={() => router.push("/settings")} />
+            </View>
+          )}
         </View>
         {error && !data ? (
           <ErrorState message={error} onRetry={retry} />
