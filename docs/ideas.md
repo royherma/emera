@@ -12,3 +12,5 @@ New angles Roy adds go here first, dated, in his words where possible. Fold into
 - **Decisions Roy clicked (10:48-10:49):** sign in with our own accounts (not Bluesky login), build the phone app + web together, keep media in our own storage (R2) from day 1.
 - **Name round 1 rejected:** "cringe", "old school". He wants epic, iconic, modern, like recent launches, and a name that stands for expression, honesty, truth and creators.
 - **Positioning (Roy, 11:00):** "Emera. Where humanity comes together." Bought emera.social.
+- **Protection v1 is manual (Roy, 11:11).** No automatic copy-watch yet. Creators report copies they find, we help with the takedown, and each report becomes a row in a dataset that later trains automatic matching. That's a later milestone.
+- **Real content in mockups, all creators (Roy, 11:10).** Not only Roy's own work. Show a thriving network of every kind of creator. Decision: use open-licensed images (Openverse CC0/CC BY) plus Roy's own, never scraped Instagram, because a protection network can't demo with unlicensed work.

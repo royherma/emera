@@ -1,0 +1,86 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-11-13",
+  "mission": "Make Emera the open home where humanity's creative work lives: every piece signed by its maker, protected wherever we can see it, shown by rules anyone can read, and paid back to the people who made it.",
+  "vision": "In 2036, a song, a drawing or a film posted on Emera carries a signed record of who made it, and that record is the first thing a fan, a court or a newsroom checks. Hundreds of millions of people make a living or a community there, because copies are found and taken down for them, payouts arrive every quarter, and the code that ranks their work is public. Emera is run by the people who use it and owned by no company, and because any member can pick up their account and leave, the network has to keep earning them.",
+  "values": [
+    {
+      "id": "proof",
+      "name": "Proof over promise",
+      "line": "Every post shows who made it and what was checked, no more than that.",
+      "commitments": [
+        "Sign every upload with the maker's identity and a timestamp (C2PA content credentials), and credit the original on every copy we find.",
+        "Write every badge as the exact check behind it (\"attested device\", \"trusted account\", \"verified human\"). A badge we cannot explain in one sentence does not ship.",
+        "Publish match accuracy for provenance and copy-watch every quarter, including the misses."
+      ],
+      "never": "we will never show a badge, score or label we cannot explain."
+    },
+    {
+      "id": "real-people",
+      "name": "Real people",
+      "line": "People are marked, bots are named, and a bought following is worth nothing.",
+      "commitments": [
+        "Rate-limit new accounts by trust tier, and weight every like and follow by the giver's tier, so farm accounts count close to zero.",
+        "Require automated accounts to declare themselves, and label any that do not.",
+        "Give the \"verified human\" mark to anyone who passes the check, at the same price for everyone: free."
+      ],
+      "never": "we will never sell verification or let money buy a badge."
+    },
+    {
+      "id": "protected",
+      "name": "Protected everywhere",
+      "line": "Upload once and we watch for copies and file the takedown for you.",
+      "commitments": [
+        "File takedowns for creators at no charge wherever we can see a copy, and show every match and every filing, with its outcome, on the creator's dashboard.",
+        "Attach licensing terms to every post, so a copy is a copy of the terms too.",
+        "Fund legal escalation for creators out of a named line in the public budget."
+      ],
+      "never": "we will never claim protection we cannot deliver. The dashboard lists what we can and cannot watch."
+    },
+    {
+      "id": "open",
+      "name": "Open by default",
+      "line": "If a decision moves your work, you can read the rule and the reason.",
+      "commitments": [
+        "Publish the default feed's ranking code, and log every boost it gives a post with the reason.",
+        "Log every takedown and label publicly with its reason and an appeal path.",
+        "Keep the books audited and public, with a live page of what running Emera costs this month."
+      ],
+      "never": "we will never rank, hide or remove a post for a reason we cannot show the person it affects."
+    },
+    {
+      "id": "own-it",
+      "name": "You own it",
+      "line": "Your account, your followers and your work are yours, and you can leave with all of them.",
+      "commitments": [
+        "Build on the AT Protocol so an account can move to another host with its posts and followers.",
+        "Take only the license needed to show your work, and say it in two sentences.",
+        "Ship export and move as launch features, not roadmap items."
+      ],
+      "never": "we will never claim ownership of what you make or hold your followers hostage."
+    },
+    {
+      "id": "paid",
+      "name": "Paid, not harvested",
+      "line": "Emera earns by serving creators, never by selling their attention.",
+      "commitments": [
+        "Run no ads and sell no member data.",
+        "Cap our fee on tips, subscriptions and licensing at 5%, keep 12 months of costs in reserve, and give the surplus back every quarter, split by a yearly member vote.",
+        "License member work to a third party, including AI model builders, only per creator, by opt-in, with the creator paid."
+      ],
+      "never": "we will never sell your attention, data or work without your yes."
+    },
+    {
+      "id": "welcome",
+      "name": "Welcome first",
+      "line": "A first post and a thousandth post get the same welcome, and nobody has to be against anyone to belong.",
+      "commitments": [
+        "Ship nothing that needs protocol knowledge to use, and test every release on someone who has never posted.",
+        "Meet WCAG AA, honor system text size and Reduce Motion, and prompt for captions and alt text on every post.",
+        "Write the rules in plain words, translate them for our largest communities, and keep public copy free of attacks on any platform or group."
+      ],
+      "never": "we will never build growth on outrage or on naming an enemy."
+    }
+  ],
+  "manifesto": "Every day, people make something and put it out in the open. A song, a drawing, a film, a chair, a recipe. That is how humanity talks to itself.\n\nToday that work gets copied in seconds, credited to no one, and buried by feeds nobody can read. We think that can change.\n\nEmera is a nonprofit network built in the open, for everyone who makes things. Every post is signed by the person who made it. Real people are marked and bots say what they are. When someone copies your work, we find it where we can see it and file the takedown for you. The code that ranks your post is public, and so is the reason it was shown.\n\nYou own your account. You can leave any day and take your followers with you. When the network earns more than it costs to run, the surplus goes back to the people who made it worth visiting.\n\nWe do not need an enemy to exist. We need a place where a first post and a thousandth post get the same welcome, where truth is a mark you can check, and where making things is a way to live.\n\nEmera comes from hemera, the Greek word for day. Put your work out in the daylight.\n\nWhere humanity comes together."
+}

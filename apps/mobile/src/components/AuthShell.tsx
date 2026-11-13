@@ -13,7 +13,7 @@ export function AuthShell({ title, lead, children, back = true }: { title: strin
       <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: "center", paddingTop: insets.top + space[4], paddingBottom: insets.bottom + space[6], paddingHorizontal: space[4] }} keyboardShouldPersistTaps="handled">
         <View style={{ width: "100%", maxWidth: 440, flex: 1, gap: space[6] }}>
           <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", minHeight: 44 }}>
-            {back ? <IconButton icon="back" label="Back" onPress={() => (router.canGoBack() ? router.back() : router.replace("/welcome"))} /> : <View />}
+            {back ? <IconButton icon="back" label="Back" onPress={() => (router.canGoBack() ? router.back() : router.replace("/welcome"))} /> : <View style={{ width: 42 }} />}
             <Wordmark size={26} />
             <View style={{ width: 42 }} />
           </View>

@@ -9,11 +9,11 @@ import { colors, font, radius } from "@/lib/theme";
 import { useAuth } from "@/state/auth";
 import type { Post } from "@/lib/types";
 
-export function ProofBadge({ handle, compact = false }: { handle: string; compact?: boolean }) {
+export function ProofBadge({ handle, compact = false, short = false }: { handle: string; compact?: boolean; short?: boolean }) {
   return (
     <View style={{ flexDirection: "row", alignItems: "center", gap: 5, alignSelf: "flex-start", backgroundColor: "rgba(255,255,255,0.94)", paddingVertical: compact ? 3 : 5, paddingHorizontal: compact ? 7 : 10, borderRadius: radius.pill }}>
       <Icon name="shield" size={compact ? 12 : 14} color={colors.accent2} strokeWidth={2.2} />
-      <Text style={{ fontFamily: font.semibold, fontSize: compact ? 11 : 12, color: colors.accent2 }}>Signed by @{handle}</Text>
+      <Text style={{ fontFamily: font.semibold, fontSize: compact ? 11 : 12, color: colors.accent2 }}>{short ? "Signed" : `Signed by @${handle}`}</Text>
     </View>
   );
 }
@@ -41,7 +41,7 @@ export function PostTile({ post, width, aspect, showAuthor = true }: { post: Pos
       )}
       {own && (
         <View style={{ position: "absolute", top: 8, left: 8 }}>
-          <ProofBadge handle={post.author.handle} compact />
+          <ProofBadge handle={post.author.handle} compact short={width < 190} />
         </View>
       )}
       {showAuthor && (
