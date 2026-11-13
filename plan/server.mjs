@@ -16,7 +16,11 @@ const readPlan = () => JSON.parse(readFileSync(planFile, 'utf8'));
 const task = (plan, id) => plan.phases.flatMap((p) => p.tasks).find((t) => t.id === id);
 const nowPhase = (plan) => plan.phases.find((p) => p.id !== 'later' && p.tasks.some((t) => !t.done));
 const apply = {
-  'task-toggle': (plan, f) => { task(plan, f.id).done = f.done; },
+  'task-toggle': (plan, f) => {
+    const t = task(plan, f.id); t.done = f.done;
+    const r = t.review && plan.review?.find((x) => x.id === t.review);
+    if (r) Object.assign(r, f.done ? { answer: 'done', at: new Date().toISOString() } : { answer: null, at: null });
+  },
   'task-edit': (plan, f) => { task(plan, f.id).text = f.text; },
   'task-add': (plan, f) => {
     const phase = plan.phases.find((p) => p.id === f.phase);
@@ -47,7 +51,15 @@ const apply = {
     const r = plan.review.find((x) => x.id === f.id);
     Object.assign(r, { answer: f.answer ?? null, text: 'text' in f ? f.text : r.text, at: f.answer ? new Date().toISOString() : null });
     const t = r.task && task(plan, r.task);
-    if (t && r.kind === 'do') t.done = f.answer === 'done';
+    for (const x of [t, ...plan.phases.flatMap((p) => p.tasks).filter((y) => y.review === r.id)]) if (x && r.kind === 'do') x.done = f.answer === 'done';
+    const now = nowPhase(plan);
+    const linked = now?.tasks.find((x) => x.review === r.id && !x.done);
+    if (f.answer === 'later' && linked) {
+      const next = plan.phases[plan.phases.indexOf(now) + 1] ?? now;
+      now.tasks.splice(now.tasks.indexOf(linked), 1);
+      next.tasks.unshift(linked);
+      f.movedTo = next.id;
+    }
   },
   note: (plan, f) => { plan.inbox = [...(plan.inbox ?? []), { at: new Date().toISOString(), text: f.text }]; },
 };

@@ -264,7 +264,7 @@
       "tasks": [
         {
           "id": "b7",
-          "text": "Later: automatic copy matching, trained on the reports",
+          "text": "Automatic copy matching, trained on the reports",
           "who": "claude"
         }
       ]
@@ -1263,9 +1263,9 @@
           "label": "Later"
         }
       ],
-      "answer": "later",
+      "answer": null,
       "text": null,
-      "at": "2026-11-13T07:43:07.608Z"
+      "at": null
     },
     {
       "id": "profile",
