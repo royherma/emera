@@ -6,11 +6,11 @@ import { requireAuth } from './auth';
 import { newId, sha256Hex } from './crypto';
 import { iso, loadPosts, type PostRow } from './serialize';
 import {
-  CLOSE_DAY, CREATOR_CAP_S, CREATOR_SHARE, HEARTBEAT_MAX_S, MIN_VIEWER_AGE_H, PHOTO_CAP_S, RULES_VERSION, VIDEO_CAP_S, rulesJson,
+  CLOSE_DAY, CREATOR_CAP_S, FEED_CARD_EVERY, FEED_CARD_MIN_POSTS, CREATOR_SHARE, HEARTBEAT_MAX_S, MIN_VIEWER_AGE_H, PHOTO_CAP_S, RULES_VERSION, VIDEO_CAP_S, rulesJson,
 } from './fundRules';
 
-const MONTH_RE = /^\d{4}-(0[1-9]|1[0-2])$/;
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const MONTH_RE = /^\d{4}-(0[1-9]|1[0-2])$/;
+export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_MONTHS_PER_SPONSORSHIP = 36;
 const HISTORY_LIMIT = 24;
 
@@ -183,12 +183,12 @@ export async function runFundCron(env: Env, now = Date.now()) {
 
 const notFound = () => fail(404, 'not_found', 'No such endpoint.');
 
-const fundOn: MiddlewareHandler<AppEnv> = async (c, next) => {
+export const fundOn: MiddlewareHandler<AppEnv> = async (c, next) => {
   if (!fundingOn(c.env)) throw notFound();
   await next();
 };
 
-const fundAdmin: MiddlewareHandler<AppEnv> = async (c, next) => {
+export const fundAdmin: MiddlewareHandler<AppEnv> = async (c, next) => {
   const key = c.env.FUND_ADMIN_KEY ?? '';
   const header = c.req.header('Authorization') ?? '';
   const given = header.startsWith('Bearer ') ? header.slice(7).trim() : '';
@@ -248,8 +248,15 @@ fundRoutes.get('/v1/fund', fundOn, async (c) => {
      WHERE sponsored_cents != 0 OR carry_in_cents != 0 OR carry_out_cents != 0 OR total_seconds != 0
      ORDER BY month DESC LIMIT ?`,
   ).bind(HISTORY_LIMIT).all<FrozenRow>()).results;
+  const banners = (await db.prepare(
+    `SELECT p.name, p.url, p.line, SUM(s.amount_cents) AS cents FROM sponsors p JOIN sponsorships s ON s.sponsor_id = p.id
+     WHERE p.banner = 'approved' AND s.status = 'paid' AND s.month = ? GROUP BY p.id ORDER BY cents DESC, p.name LIMIT 20`,
+  ).bind(statement.month).all<{ name: string; url: string | null; line: string | null }>()).results;
+  const posts = (await db.prepare('SELECT COUNT(*) AS n FROM posts').first<{ n: number }>())?.n ?? 0;
   return c.json({
     rules: rulesJson(),
+    banners: banners.map(({ name, url, line }) => ({ name, url, line })),
+    feedCards: { on: posts >= FEED_CARD_MIN_POSTS, posts, needed: FEED_CARD_MIN_POSTS, every: FEED_CARD_EVERY },
     month: summaryOf(statement),
     sponsors: [...bySponsor.values()].sort((a, b) => b.amountCents - a.amountCents || a.name.localeCompare(b.name)),
     history: history.map((r) => summaryOf(frozenStatement(r))),
@@ -298,20 +305,67 @@ fundRoutes.get('/v1/me/earnings', fundOn, requireAuth, async (c) => {
   });
 });
 
+export type Booking = {
+  name: string; url: string | null; email: string | null; line?: string | null; amountCents: number; months: string[];
+  status: 'paid' | 'pledged'; stripeSession?: string; paymentIntent?: string | null;
+};
+
+export function cleanUrl(v: unknown): string | null {
+  if (v === undefined || v === null || v === '') return null;
+  try {
+    const raw = String(v).trim();
+    const u = new URL(/^https?:\/\//i.test(raw) ? raw : `https://${raw}`);
+    if ((u.protocol !== 'https:' && u.protocol !== 'http:') || !u.hostname.includes('.')) throw new Error();
+    return u.toString();
+  } catch {
+    throw fail(400, 'bad_url', 'Sponsor link must look like acme.com or https://acme.com.');
+  }
+}
+
+export async function bookSponsorship(db: D1Database, b: Booking) {
+  const ph = b.months.map(() => '?').join(',');
+  const closed = await db.prepare(`SELECT month FROM fund_months WHERE month IN (${ph}) LIMIT 1`).bind(...b.months).first<{ month: string }>();
+  if (closed) throw fail(409, 'month_closed', `${closed.month} is closed. Book it to an open month.`);
+
+  const now = Date.now();
+  let sponsor = await db.prepare('SELECT id FROM sponsors WHERE name = ?').bind(b.name).first<{ id: string }>();
+  if (sponsor) {
+    if (b.url) await db.prepare('UPDATE sponsors SET url = ? WHERE id = ?').bind(b.url, sponsor.id).run();
+    if (b.email) await db.prepare('UPDATE sponsors SET contact_email = ? WHERE id = ?').bind(b.email, sponsor.id).run();
+    if (b.line) await db.prepare(`UPDATE sponsors SET line = ?, banner = 'pending' WHERE id = ? AND (line IS NULL OR line != ?)`).bind(b.line, sponsor.id, b.line).run();
+  } else {
+    sponsor = { id: newId(12) };
+    await db.prepare('INSERT INTO sponsors (id, name, url, contact_email, line, created_at) VALUES (?, ?, ?, ?, ?, ?)')
+      .bind(sponsor.id, b.name, b.url, b.email, b.line ?? null, now).run();
+  }
+  const each = Math.floor(b.amountCents / b.months.length);
+  const ids = b.months.map(() => newId(12));
+  await db.batch(b.months.map((m, i) => db.prepare(
+    `INSERT INTO sponsorships (id, sponsor_id, month, amount_cents, status, created_at, paid_at, stripe_session, stripe_payment_intent)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+  ).bind(ids[i], sponsor!.id, m, i === 0 ? b.amountCents - each * (b.months.length - 1) : each, b.status, now,
+    b.status === 'paid' ? now : null, b.stripeSession ?? null, b.paymentIntent ?? null)));
+  const rows = (await db.prepare(`${SPONSORSHIP_SELECT} WHERE s.id IN (${ph}) ORDER BY s.month`).bind(...ids).all<SponsorshipRow>()).results;
+  return { sponsorId: sponsor!.id, sponsorships: rows.map(sponsorshipJson) };
+}
+
+export async function refundSponsorship(db: D1Database, id: string) {
+  const row = await db.prepare(`${SPONSORSHIP_SELECT} WHERE s.id = ?`).bind(id).first<SponsorshipRow>();
+  if (!row) throw fail(404, 'not_found', 'No such sponsorship.');
+  if (row.status !== 'refunded') {
+    const now = Date.now();
+    const afterClose = row.status === 'paid' && (await frozenRow(db, row.month)) ? monthOf(now) : null;
+    await db.prepare(`UPDATE sponsorships SET status = 'refunded', refunded_at = ?, refund_month = ? WHERE id = ? AND status != 'refunded'`)
+      .bind(now, afterClose, id).run();
+  }
+  return sponsorshipJson((await db.prepare(`${SPONSORSHIP_SELECT} WHERE s.id = ?`).bind(id).first<SponsorshipRow>())!);
+}
+
 fundRoutes.post('/v1/admin/fund/sponsorships', fundOn, fundAdmin, async (c) => {
   const body = await readJson(c);
   const name = typeof body.sponsorName === 'string' ? body.sponsorName.trim() : '';
   if (name.length < 1 || name.length > 80) throw fail(400, 'bad_sponsor_name', 'Sponsor name must be 1 to 80 characters.');
-  let url: string | null = null;
-  if (body.sponsorUrl !== undefined && body.sponsorUrl !== null && body.sponsorUrl !== '') {
-    try {
-      const u = new URL(String(body.sponsorUrl));
-      if (u.protocol !== 'https:' && u.protocol !== 'http:') throw new Error();
-      url = u.toString();
-    } catch {
-      throw fail(400, 'bad_url', 'Sponsor link must start with https://.');
-    }
-  }
+  const url = cleanUrl(body.sponsorUrl);
   const email = typeof body.contactEmail === 'string' && body.contactEmail.trim() ? body.contactEmail.trim().toLowerCase() : null;
   if (email && !EMAIL_RE.test(email)) throw fail(400, 'bad_email', 'Enter a valid contact email.');
   const amount = body.amountCents;
@@ -324,43 +378,12 @@ fundRoutes.post('/v1/admin/fund/sponsorships', fundOn, fundAdmin, async (c) => {
   }
   const status = body.status === undefined ? 'paid' : body.status;
   if (status !== 'paid' && status !== 'pledged') throw fail(400, 'bad_status', 'Status must be paid or pledged.');
-
-  const db = c.env.DB;
-  const ph = months.map(() => '?').join(',');
-  const closed = await db.prepare(`SELECT month FROM fund_months WHERE month IN (${ph}) LIMIT 1`).bind(...months).first<{ month: string }>();
-  if (closed) throw fail(409, 'month_closed', `${closed.month} is closed. Book it to an open month.`);
-
-  const now = Date.now();
-  let sponsor = await db.prepare('SELECT id FROM sponsors WHERE name = ?').bind(name).first<{ id: string }>();
-  if (sponsor) {
-    if (url) await db.prepare('UPDATE sponsors SET url = ? WHERE id = ?').bind(url, sponsor.id).run();
-    if (email) await db.prepare('UPDATE sponsors SET contact_email = ? WHERE id = ?').bind(email, sponsor.id).run();
-  } else {
-    sponsor = { id: newId(12) };
-    await db.prepare('INSERT INTO sponsors (id, name, url, contact_email, created_at) VALUES (?, ?, ?, ?, ?)').bind(sponsor.id, name, url, email, now).run();
-  }
-  const each = Math.floor(amount / months.length);
-  const ids = months.map(() => newId(12));
-  await db.batch(months.map((m, i) => db.prepare(
-    'INSERT INTO sponsorships (id, sponsor_id, month, amount_cents, status, created_at, paid_at) VALUES (?, ?, ?, ?, ?, ?, ?)',
-  ).bind(ids[i], sponsor!.id, m, i === 0 ? amount - each * (months.length - 1) : each, status, now, status === 'paid' ? now : null)));
-  const rows = (await db.prepare(`${SPONSORSHIP_SELECT} WHERE s.id IN (${ph}) ORDER BY s.month`).bind(...ids).all<SponsorshipRow>()).results;
-  return c.json({ sponsorships: rows.map(sponsorshipJson) }, 201);
+  const booked = await bookSponsorship(c.env.DB, { name, url, email, amountCents: amount, months: months as string[], status });
+  return c.json({ sponsorships: booked.sponsorships }, 201);
 });
 
 fundRoutes.post('/v1/admin/fund/sponsorships/:id/refund', fundOn, fundAdmin, async (c) => {
-  const db = c.env.DB;
-  const id = c.req.param('id');
-  const row = await db.prepare(`${SPONSORSHIP_SELECT} WHERE s.id = ?`).bind(id).first<SponsorshipRow>();
-  if (!row) throw fail(404, 'not_found', 'No such sponsorship.');
-  if (row.status !== 'refunded') {
-    const now = Date.now();
-    const afterClose = row.status === 'paid' && (await frozenRow(db, row.month)) ? monthOf(now) : null;
-    await db.prepare(`UPDATE sponsorships SET status = 'refunded', refunded_at = ?, refund_month = ? WHERE id = ? AND status != 'refunded'`)
-      .bind(now, afterClose, id).run();
-  }
-  const updated = (await db.prepare(`${SPONSORSHIP_SELECT} WHERE s.id = ?`).bind(id).first<SponsorshipRow>())!;
-  return c.json({ sponsorship: sponsorshipJson(updated) });
+  return c.json({ sponsorship: await refundSponsorship(c.env.DB, c.req.param('id')) });
 });
 
 fundRoutes.post('/v1/admin/fund/close', fundOn, fundAdmin, async (c) => {
