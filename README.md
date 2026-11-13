@@ -9,18 +9,9 @@
 
 <br>
 
-[![CI](https://github.com/royherma/emera/actions/workflows/ci.yml/badge.svg)](https://github.com/royherma/emera/actions/workflows/ci.yml)
-[![Native apps](https://github.com/royherma/emera/actions/workflows/native.yml/badge.svg)](https://github.com/royherma/emera/actions/workflows/native.yml)
-[![License](https://img.shields.io/badge/license-MIT%20%2B%20AGPL--3.0-ff8a2b)](#license)
-[![AT Protocol](https://img.shields.io/badge/built%20on-AT%20Protocol-0085ff)](https://atproto.com)
-[![Nonprofit](https://img.shields.io/badge/run%20as-a%20nonprofit-2a1d14)](docs/mission/mission.md)
-[![PRs welcome](https://img.shields.io/badge/PRs-welcome-ffc24a)](CONTRIBUTING.md)
+[![CI](https://github.com/royherma/emera/actions/workflows/ci.yml/badge.svg)](https://github.com/royherma/emera/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/license-MIT%20%2B%20AGPL--3.0-ff8a2b)](#license) [![AT Protocol](https://img.shields.io/badge/built%20on-AT%20Protocol-0085ff)](https://atproto.com) [![Nonprofit](https://img.shields.io/badge/run%20as-a%20nonprofit-2a1d14)](docs/mission/mission.md) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ffc24a)](CONTRIBUTING.md)
 
-**[🌐 Website](https://emera.social)** &nbsp;·&nbsp;
-**[📱 Open the app](https://app.emera.social)** &nbsp;·&nbsp;
-**[🧭 Mission](docs/mission/mission.md)** &nbsp;·&nbsp;
-**[🗺️ Roadmap](#roadmap)** &nbsp;·&nbsp;
-**[🙌 Contribute](#contribute)**
+**[🌐 Website](https://emera.social)** &nbsp;·&nbsp; **[📱 Open the app](https://app.emera.social)** &nbsp;·&nbsp; **[🧭 Mission](docs/mission/mission.md)** &nbsp;·&nbsp; **[🗺️ Roadmap](#roadmap)** &nbsp;·&nbsp; **[🙌 Contribute](#contribute)**
 
 </div>
 
@@ -77,12 +68,12 @@ flowchart LR
 
 | | Milestone | Target | Progress | Exit test |
 | :-: | --- | --- | --- | --- |
-| 🌅 | **M0** Live on emera.social | Nov 16, 2026 | 🟧🟧🟧🟧🟨⬜⬜⬜ 4/8 | Site, app and API live |
-| 🌱 | **M1** First 100 creators | Dec 31, 2026 | 🟧🟧🟧⬜⬜⬜ 3/6 | 100 creators, 40 reports, half of notices end in removal in 14 days |
-| 🌍 | **M2** 1,000 creators | Mid-Feb 2027 | ⬜⬜⬜⬜⬜⬜ 0/6 | 35% still posting after 30 days, 5 outside contributors merged |
-| ☀️ | **M3 + M4** 10K, then 100K creators | 2027 | ⬜⬜⬜⬜ 0/4 | Creators paid, copy matching for everyone |
+| 🌅 | **M0** Live on emera.social | Nov 16, 2026 | ![4 of 8](https://img.shields.io/badge/4%2F8-50%25-ff8a2b) | emera.social, app and API live |
+| 🌱 | **M1** First 100 creators | Dec 31, 2026 | ![3 of 6](https://img.shields.io/badge/3%2F6-50%25-ff8a2b) | 100 creators, 40 reports, half of notices end in removal in 14 days |
+| 🌍 | **M2** 1,000 creators | Mid-Feb 2027 | ![0 of 6](https://img.shields.io/badge/0%2F6-next-c9b8a4) | 35% still posting after 30 days, 5 outside contributors merged |
+| ☀️ | **M3 + M4** 10K, then 100K creators | 2027 | ![0 of 4](https://img.shields.io/badge/0%2F4-next-c9b8a4) | Creators paid, copy matching for everyone |
 
-<sub>🟧 done · 🟨 in progress · ⬜ next. Full plan with costs and risks in [docs/master-plan.md](docs/master-plan.md).</sub>
+<sub>Open a milestone for its items: ✅ done · 🟡 in progress · ⬜ next. Full plan with costs and risks in [docs/master-plan.md](docs/master-plan.md).</sub>
 
 <details>
 <summary><b>🌅 M0 · Live on emera.social</b></summary>
