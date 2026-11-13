@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Emera Daylight with real content</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+--paper:oklch(97.5% 0.014 85);
+--sand:oklch(93% 0.032 80);
+--dawn:oklch(85% 0.11 78);
+--sun:oklch(74% 0.17 55);
+--rose:oklch(74% 0.11 20);
+--proof:oklch(48% 0.1 160);
+--ink:oklch(25% 0.045 40);
+--display:'Bricolage Grotesque',system-ui,sans-serif;--body:'Figtree',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html,body{background:var(--sand);color:var(--ink);font-family:var(--body);font-size:14px;-webkit-font-smoothing:antialiased}
+body{min-width:1320px;min-height:860px;height:100vh;display:grid;grid-template-rows:48px 1fr 44px;padding:0 28px;gap:0}
+::selection{background:var(--sun);color:var(--ink)}
+.ic{width:22px;height:22px;display:block}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.bar h2{font:700 15px var(--display);letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.bar h2 em{font-style:normal;background:var(--ink);color:var(--paper);padding:3px 10px;border-radius:99px;font:600 12px var(--body)}
+.bar p{font-size:14px;max-width:760px;text-align:right;color:oklch(38% 0.04 40)}
+.stage{display:grid;grid-template-columns:1fr 296px 348px;gap:22px;min-height:0;padding-bottom:14px}
+.hero{position:relative;border-radius:28px;overflow:hidden;background:linear-gradient(180deg,var(--paper) 0%,oklch(95% 0.05 85) 48%,oklch(88% 0.09 68) 100%);display:flex;flex-direction:column}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:22px 30px;position:relative;z-index:3}
+.logo{display:flex;align-items:center;gap:8px;font:800 26px var(--display);letter-spacing:-.04em}
+.nav ul{display:flex;gap:26px;list-style:none;padding:0;font-weight:500;font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:99px;padding:14px 24px;font:600 15px var(--body);background:var(--ink);color:var(--paper);cursor:pointer;transition:transform .2s cubic-bezier(.2,.8,.2,1),background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+.btn.sun{background:var(--sun);color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn.sm{padding:9px 16px;font-size:13px}
+.copy{position:relative;z-index:3;padding:14px 38px 0;max-width:640px}
+.copy h1{font:700 70px/.96 var(--display);letter-spacing:-.045em;text-wrap:balance}
+.copy p{font-size:18px;line-height:1.45;margin:20px 0 26px;max-width:470px;color:oklch(33% 0.045 40)}
+.copy .cta{display:flex;gap:12px}
+.sunwrap{position:absolute;right:-70px;top:100px;width:540px;height:540px;z-index:1}
+.sunwrap svg{width:100%;height:100%}
+.skyline{position:absolute;left:0;right:0;bottom:0;height:208px;z-index:2;display:flex;align-items:flex-end;gap:14px;padding:0 30px}
+.skyline div{border-radius:18px 18px 0 0;overflow:hidden;flex:none;box-shadow:0 -8px 24px oklch(40% 0.1 40 / .18)}
+.phone{align-self:center;width:296px;height:628px;border-radius:46px;background:var(--ink);padding:9px;box-shadow:0 30px 50px -20px oklch(40% 0.1 40 / .45)}
+.scr{height:100%;border-radius:38px;background:var(--paper);overflow:hidden;position:relative;display:flex;flex-direction:column}
+.sb{display:flex;justify-content:space-between;padding:12px 22px 4px;font:600 13px var(--body)}
+.island{position:absolute;left:50%;top:8px;width:84px;height:24px;background:var(--ink);border-radius:20px;transform:translateX(-50%)}
+.cover{height:92px;margin:6px 10px 0;border-radius:24px;overflow:hidden;position:relative}
+.prof{padding:0 18px;margin-top:-34px;position:relative}
+.av{width:72px;height:72px;border-radius:50%;overflow:hidden;border:4px solid var(--paper);background:var(--sand)}
+.name{font:700 22px var(--display);letter-spacing:-.03em;margin-top:8px;display:flex;align-items:center;gap:6px}
+.vh{display:inline-flex;align-items:center;gap:4px;background:oklch(93% 0.05 160);color:var(--proof);border-radius:99px;padding:3px 9px 3px 6px;font:600 11px var(--body);white-space:nowrap}
+.vh .ic{width:14px;height:14px}
+.handle{display:flex;align-items:center;gap:8px;color:oklch(45% 0.04 40);font-size:13px;margin-top:1px}
+.bio{font-size:13px;line-height:1.4;margin:8px 0 12px}
+.stats{display:flex;gap:18px;font-size:12px;color:oklch(42% 0.04 40);margin-bottom:12px}
+.stats b{display:block;font:700 17px var(--display);color:var(--ink);letter-spacing:-.02em}
+.acts{display:flex;gap:8px;margin-bottom:14px}
+.acts .btn{flex:1;justify-content:center}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:0 10px;flex:1;min-height:0;grid-template-rows:repeat(2,1fr)}
+.grid div{border-radius:12px;overflow:hidden}
+.tabs{display:flex;justify-content:space-around;padding:10px 6px 22px;margin-top:10px;border-top:1px solid oklch(90% 0.02 80);background:oklch(98% 0.01 85 / .9)}
+.tabs .ic{color:oklch(50% 0.04 40)}
+.tabs .on .ic{color:var(--ink);stroke-width:2.2}
+.card{align-self:center;background:var(--paper);border-radius:30px;padding:14px 14px 16px;box-shadow:0 30px 50px -24px oklch(40% 0.1 40 / .4)}
+.who{display:flex;align-items:center;gap:10px;padding:2px 4px 12px}
+.who .av{width:38px;height:38px;border-width:0}
+.who b{font:700 15px var(--display);letter-spacing:-.02em;display:block}
+.who span{font-size:12px;color:oklch(45% 0.04 40)}
+.who .btn{margin-left:auto}
+.pic{height:318px;border-radius:22px;overflow:hidden;position:relative}
+.proof{position:absolute;left:10px;bottom:10px;right:10px;display:flex;align-items:center;gap:10px;background:oklch(97.5% 0.014 85 / .94);backdrop-filter:blur(10px);border-radius:16px;padding:9px 12px 9px 9px}
+.proof .seal{width:34px;height:34px;border-radius:50%;background:var(--proof);color:var(--paper);display:grid;place-items:center;flex:none}
+.proof .seal .ic{width:18px;height:18px}
+.proof b{display:block;font-size:13px;font-weight:700}
+.proof span{font-size:11.5px;color:oklch(40% 0.04 40)}
+.meta{display:flex;align-items:center;gap:16px;padding:12px 4px 6px}
+.meta .ic{width:24px;height:24px}
+.meta .push{margin-left:auto}
+.cap{padding:0 4px;font-size:13.5px;line-height:1.4}
+.why{margin:10px 4px 0;font-size:12px;color:oklch(42% 0.04 40);display:flex;align-items:center;gap:6px}
+.why:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sun)}
+.foot{display:grid;grid-template-columns:1fr 440px;gap:22px;align-items:center;border-top:1.5px solid var(--ink);padding-top:2px}
+.sws{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.sw i{display:block;height:44px;border-radius:12px;box-shadow:inset 0 0 0 1px oklch(25% 0.045 40 / .12);margin-bottom:6px}
+.sw b{display:block;font-size:12px}
+.sw span{font-size:10.5px;color:oklch(40% 0.04 40);font-variant-numeric:tabular-nums}
+.type{display:flex;gap:26px;align-items:center}
+.type .aa{font:700 54px/1 var(--display);letter-spacing:-.05em}
+.type .bb{font:500 54px/1 var(--body)}
+.type p{font-size:12px;line-height:1.45;color:oklch(35% 0.04 40)}
+.type p b{display:block;font-size:13px;color:var(--ink)}
+
+img{width:100%;height:100%;object-fit:cover;display:block}
+.tile{position:relative}
+.tag{position:absolute;left:8px;top:8px;background:oklch(97.5% 0.014 85 / .92);color:var(--ink);border-radius:99px;padding:3px 9px;font:600 11px var(--body);backdrop-filter:blur(8px);z-index:2}
+.skyline div img{height:100%}
+.skyline .tag{font-size:10.5px;left:6px;top:6px;padding:2px 8px}
+.sunpic{position:absolute;right:26px;top:96px;width:292px;height:292px;z-index:1;border-radius:50%}
+.sunpic .halo1,.sunpic .halo2{position:absolute;border-radius:50%;inset:0}
+.sunpic .halo1{inset:-52px;background:oklch(85% 0.11 78);opacity:.38}
+.sunpic .halo2{inset:-26px;background:oklch(82% 0.13 70);opacity:.6}
+.sunpic .disc{position:absolute;inset:0;border-radius:50%;overflow:hidden;box-shadow:0 0 0 6px var(--sun)}
+.chip{position:absolute;z-index:3;display:flex;align-items:center;gap:7px;background:oklch(97.5% 0.014 85 / .95);border-radius:99px;padding:6px 12px 6px 6px;font:600 12px var(--body);box-shadow:0 10px 24px -10px oklch(40% 0.1 40 / .45)}
+.chip .seal{width:22px;height:22px;border-radius:50%;background:var(--proof);color:var(--paper);display:grid;place-items:center}
+.chip .seal .ic{width:13px;height:13px}
+.copy h1{font-size:60px;max-width:500px}
+.copy p{font-size:17px;margin:16px 0 22px;max-width:430px}
+.copy .cta{margin-bottom:0}
+.count{display:flex;gap:22px;margin-top:20px;font-size:12px;color:oklch(38% 0.04 40)}
+.count b{display:block;font:700 20px var(--display);letter-spacing:-.02em;color:var(--ink)}
+.av img{border-radius:50%}
+.grid div{position:relative}
+.stage{grid-template-columns:1fr 296px 348px}
+.pic{height:318px}
+.handle{flex-wrap:wrap;row-gap:4px}
+.card .pic.wide{height:196px}
+.card .cm{padding:8px 4px 0;font-size:12.5px;line-height:1.4;display:grid;gap:4px}
+.strip{border-top:1.5px solid var(--ink);padding-top:10px;display:grid;grid-template-rows:20px 1fr;gap:8px;min-height:0;padding-bottom:12px}
+.strip h3{font:700 14px var(--display);letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.strip h3 span{font:500 12px var(--body);color:oklch(40% 0.04 40)}
+.row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;min-height:0}
+.fc{position:relative;border-radius:18px;overflow:hidden;min-height:0;background:var(--sand)}
+.fc .who2{position:absolute;left:0;right:0;bottom:0;padding:22px 10px 8px;background:linear-gradient(transparent,oklch(18% 0.04 40 / .92));color:var(--paper);display:flex;align-items:center;gap:6px;font:600 12px var(--body)}
+.fc .who2 .ic{width:14px;height:14px;color:oklch(86% 0.12 160);flex:none}
+.fc .who2 small{display:block;font:400 10px var(--body);opacity:.86}
+.credit{position:absolute;right:8px;top:8px;z-index:2;font:500 9.5px var(--body);color:var(--paper);background:oklch(20% 0.04 40 / .6);padding:2px 7px;border-radius:99px}
+.name{font-size:21px}
+.stats{gap:16px}
+.phone.big{width:100%;height:100%;max-height:724px;border-radius:52px;padding:10px}
+.phone.big .scr{border-radius:43px}
+.three{display:grid;grid-template-columns:repeat(3,340px);justify-content:center;gap:56px;min-height:0;padding:6px 0 12px}
+.three .phone{width:340px;height:100%;align-self:stretch}
+.cap2{display:grid;grid-template-columns:repeat(3,340px);justify-content:center;gap:56px;align-items:center;font-size:13px;color:oklch(35% 0.04 40);text-align:center}
+.cap2 b{font:700 15px var(--display);color:var(--ink);display:block;margin-bottom:1px}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:6px 18px 8px}
+.topbar .logo{font-size:22px}
+.stories{display:flex;gap:12px;padding:4px 14px 10px;overflow:hidden}
+.st{flex:none;width:56px;text-align:center;font-size:10.5px}
+.st i{display:block;width:56px;height:56px;border-radius:50%;padding:2.5px;background:conic-gradient(var(--sun),var(--rose),var(--dawn),var(--sun));margin-bottom:3px}
+.st i span{display:block;width:100%;height:100%;border-radius:50%;overflow:hidden;border:2px solid var(--paper)}
+.fpost{padding:0 12px 10px}
+.fpost .pic{height:236px}
+.fpost .who{padding-bottom:8px}
+.fpost .meta{padding:9px 4px 3px}
+.fpost .cap{font-size:12.5px}
+.feedscr{flex:1;min-height:0;overflow:hidden}
+.back{display:flex;align-items:center;gap:6px;padding:4px 14px 6px;font:700 15px var(--display)}
+.detail .pic{height:262px;border-radius:24px;margin:0 12px}
+.pbox{margin:10px 12px 0;border-radius:20px;background:oklch(94% 0.04 160);padding:10px 12px;display:flex;gap:10px;align-items:flex-start}
+.pbox .seal{width:34px;height:34px;flex:none;border-radius:50%;background:var(--proof);color:var(--paper);display:grid;place-items:center}
+.pbox .seal .ic{width:19px;height:19px}
+.pbox b{font-size:13px;display:block}
+.pbox span{font-size:11.5px;line-height:1.35;color:oklch(32% 0.05 160)}
+.pbox em{display:inline-block;font-style:normal;margin-top:4px;font-size:10.5px;font-weight:600;color:var(--proof)}
+.comments{padding:8px 16px 0;font-size:12px;line-height:1.4;display:grid;gap:5px}
+.comments b{font-weight:700}
+.tipbar{display:flex;gap:8px;padding:10px 12px 0}
+.tipbar .btn{flex:1;justify-content:center}
+.gc{grid-template-rows:repeat(3,1fr)}
+.more{display:grid;place-items:center;background:var(--sand);font:700 18px var(--display);color:var(--ink)}
+</style></head><body><div class="bar"><h2><em>Direction 1</em>Daylight, three screens</h2><p>The same app with real work from many makers. Feed, profile, post detail.</p></div>
+<div class="three"><section class="phone big" aria-label="Feed"><div class="scr feedscr-wrap"><span class="island"></span><div class="sb"><span>9:41</span><span></span></div>
+<div class="topbar"><div class="logo"><svg width="26" height="26" viewBox="0 0 100 100" fill="none" aria-label="Emera mark"><path d="M16 52a34 34 0 0 1 68 0z" fill="var(--sun)"/><path d="M16 52h68" stroke="var(--ink)" stroke-width="9" stroke-linecap="round"/><path d="M16 52a34 34 0 0 0 62 19" stroke="var(--ink)" stroke-width="9" stroke-linecap="round"/></svg>emera</div><span style="display:flex;gap:12px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 1.5h-15z"/><path d="M10 21h4"/></svg></span></div>
+<div class="stories"><div class="st"><i><span><img src="../content/tg-photo-1.jpg" alt="" style="object-position:46% 20%"></span></i>You</div><div class="st"><i><span><img src="../content/ceramics.jpg" alt="" style="object-position:50% 50%"></span></i>Ama</div><div class="st"><i><span><img src="../content/kimono.jpg" alt="" style="object-position:50% 30%"></span></i>Haru</div><div class="st"><i><span><img src="../content/swirl3d.jpg" alt="" style="object-position:50% 50%"></span></i>Mika</div><div class="st"><i><span><img src="../content/sourdough.jpg" alt="" style="object-position:50% 50%"></span></i>Marisol</div><div class="st"><i><span><img src="../content/mural.jpg" alt="" style="object-position:50% 50%"></span></i>Kofi</div></div>
+<div class="feedscr"><div class="fpost"><div class="who"><div class="av"><img src="../content/ceramics.jpg" alt="" style="object-position:50% 45%"></div><div><b>Ama Ceramics</b><span>Ceramics, 2 hours ago</span></div><button class="btn sm ghost">Follow</button></div><div class="pic"><img src="../content/ceramics.jpg" alt="" style="object-position:50% 45%"><span class="tag">Ceramics</span><div class="proof"><span class="seal"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5 19 6v5.5c0 4.2-2.8 7.2-7 9-4.2-1.8-7-4.8-7-9V6z"/><path d="m8.8 12 2.4 2.4 4-4.4"/></svg></span><div><b>Made by Ama Ceramics, a verified human</b><span>Signed 13 Nov 2026 &middot; Original</span></div></div></div><div class="meta"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-8l-4 3.5V16H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M9.5 10.2c0-1 1-1.7 2.5-1.7s2.5.7 2.5 1.6-1 1.4-2.5 1.7-2.5.7-2.5 1.7 1 1.6 2.5 1.6 2.5-.7 2.5-1.7"/></svg><span class="push"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4m0 0L8 8m4-4 4 4"/><path d="M5 12v7h14v-7"/></svg></span></div><div class="cap"><b>ama</b> Wheel night. Stoneware, cone 6, 14 cm tall.</div></div>
+<div class="fpost"><div class="who"><div class="av"><img src="../content/yarn.jpg" alt="" style="object-position:50% 50%"></div><div><b>Wren Fiber Co</b><span>Textile craft, 5 hours ago</span></div><button class="btn sm ghost">Follow</button></div><div class="pic"><img src="../content/yarn.jpg" alt="" style="object-position:50% 50%"><span class="tag">Textile</span><span class="credit">meknits, CC BY</span><div class="proof"><span class="seal"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5 19 6v5.5c0 4.2-2.8 7.2-7 9-4.2-1.8-7-4.8-7-9V6z"/><path d="m8.8 12 2.4 2.4 4-4.4"/></svg></span><div><b>Made by Wren Fiber Co, a verified human</b><span>Signed 13 Nov 2026 &middot; Original</span></div></div></div><div class="meta"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-8l-4 3.5V16H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M9.5 10.2c0-1 1-1.7 2.5-1.7s2.5.7 2.5 1.6-1 1.4-2.5 1.7-2.5.7-2.5 1.7 1 1.6 2.5 1.6 2.5-.7 2.5-1.7"/></svg><span class="push"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4m0 0L8 8m4-4 4 4"/><path d="M5 12v7h14v-7"/></svg></span></div><div class="cap"><b>wren</b> Dyed in one pot. Colourway name: Tide Pool.</div></div></div>
+<div class="tabs"><span class="on"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1z"/></svg></span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg></span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"/><path d="M12 8.5v7M8.5 12h7"/></svg></span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 1.5h-15z"/><path d="M10 21h4"/></svg></span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c.8-3.6 3.8-5.5 7.5-5.5s6.7 1.9 7.5 5.5"/></svg></span></div></div></section><section class="phone big" aria-label="Profile"><div class="scr"><span class="island"></span><div class="sb"><span>9:41</span><span></span></div>
+<div class="cover" style="height:104px"><img src="../content/tg-art-3.jpg" alt="" style="object-position:50% 50%"></div>
+<div class="prof"><div class="av"><img src="../content/tg-photo-1.jpg" alt="" style="object-position:46% 20%"></div><div class="name">TechGuyver</div>
+<div class="handle">@techguyver.emera.social <span class="vh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Verified human</span></div>
+<div class="bio">I make tools, films and music with AI. Every piece here is signed by me.</div>
+<div class="stats"><div><b>112</b>works</div><div><b>8.4k</b>followers</div><div><b>17</b>copies removed</div></div>
+<div class="acts"><button class="btn sm">Follow</button><button class="btn sm ghost">Tip</button></div></div>
+<div class="grid gc"><div><img src="../content/tg-photo-1.jpg" alt="" style="object-position:50% 25%"></div><div><img src="../content/tg-thumb-1.jpg" alt="" style="object-position:88% 40%"></div><div><img src="../content/tg-art-1.jpg" alt="" style="object-position:50% 50%"></div><div><img src="../content/tg-art-2.jpg" alt="" style="object-position:50% 50%"></div><div><img src="../content/tg-photo-2.jpg" alt="" style="object-position:50% 25%"></div><div><img src="../content/tg-thumb-3.jpg" alt="" style="object-position:72% 40%"></div><div><img src="../content/tg-art-3.jpg" alt="" style="object-position:50% 50%"></div><div><img src="../content/tg-thumb-2.jpg" alt="" style="object-position:75% 40%"></div><div class="more">+104</div></div>
+<div class="tabs"><span class="on"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1z"/></svg></span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg></span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"/><path d="M12 8.5v7M8.5 12h7"/></svg></span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 1.5h-15z"/><path d="M10 21h4"/></svg></span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c.8-3.6 3.8-5.5 7.5-5.5s6.7 1.9 7.5 5.5"/></svg></span></div></div></section><section class="phone big" aria-label="Post detail"><div class="scr detail"><span class="island"></span><div class="sb"><span>9:41</span><span></span></div>
+<div class="back"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>Post</div>
+<div class="who" style="padding:2px 16px 10px"><div class="av"><img src="../content/ceramics.jpg" style="object-position:50% 45%" alt=""></div><div><b>Ama Ceramics</b><span>@ama.emera.social</span></div><button class="btn sm ghost">Follow</button></div>
+<div class="pic"><img src="../content/ceramics.jpg" alt="Hands shaping clay on a wheel" style="object-position:50% 45%"><span class="tag">Ceramics</span></div>
+<div class="pbox"><span class="seal"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5 19 6v5.5c0 4.2-2.8 7.2-7 9-4.2-1.8-7-4.8-7-9V6z"/><path d="m8.8 12 2.4 2.4 4-4.4"/></svg></span><div><b>Made by Ama Ceramics, a verified human</b><span>Signed 13 Nov 2026, 08:41. Original, no copies found elsewhere.</span><br><em>Protected on 14 platforms</em></div></div>
+<div class="meta" style="padding:10px 16px 2px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-8l-4 3.5V16H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M9.5 10.2c0-1 1-1.7 2.5-1.7s2.5.7 2.5 1.6-1 1.4-2.5 1.7-2.5.7-2.5 1.7 1 1.6 2.5 1.6 2.5-.7 2.5-1.7"/></svg><span class="push"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4m0 0L8 8m4-4 4 4"/><path d="M5 12v7h14v-7"/></svg></span></div>
+<div class="cap" style="padding:0 16px"><b>ama</b> Wheel night. Stoneware, cone 6, 14 cm tall.</div>
+<div class="comments"><div><b>kofi.walls</b> That curve on the shoulder.</div><div><b>haru.atelier</b> Need this glaze for a sash.</div></div>
+<div class="tipbar"><button class="btn sm sun">Tip Ama</button><button class="btn sm ghost">Save</button></div>
+<div class="why" style="margin:10px 16px 0">Shown because you follow Ama</div></div></section></div>
+<div class="cap2"><div><b>Feed</b>Every medium in one place</div><div><b>Profile</b>A real grid, a verified human</div><div><b>Post</b>Proof of the maker on every piece</div></div>
+</body></html>
