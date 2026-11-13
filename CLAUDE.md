@@ -8,6 +8,20 @@ Own git repo inside `techguyver-side-projects`, not a monorepo member. GitHub: `
 
 This file is the one rulebook for Claude Code, Codex and delegated agents. `AGENTS.md` only points here. When delegating, give the agent the checkout, the task, the paths it owns, and the validation commands, and tell it to read this file first. Two agents never own the same folder at the same time. A delegated agent's report is a claim: re-run its checks before ticking its step.
 
+## Working in parallel
+
+Several sessions and their sub-agents work on this repo at once. The shared-work board (the `mm-coord` command your session-start note prints) is how they see each other. Speed comes from never doing the same thing twice and never editing the same lines at once.
+
+1. **Look first.** `npm run agents` prints live sessions, every claim, each worktree's changed files, files changed in more than one place, and the next free migration number. Work someone has claimed is theirs.
+2. **Claim before the first edit.** `claim {work:"<feature-slug>", title, acceptance}`, with the paths you own in the first `update` note. A claim expires after 5 minutes without an `update`, so send one at every step (`state:"working"`, a short note). Finish with `state:"complete"` and the commit SHA in `refs`, or `released` if you drop it.
+3. **A feature gets its own worktree** (`isolation: "worktree"` for sub-agents, `EnterWorktree` for a session). On `main`, only the session that merges edits shared files. A second session working straight on `main` touches only the paths it claimed.
+4. **One merger.** The session that started the feature agents merges their branches into `main` one at a time, runs `npm --prefix apps/api test` and `npm --prefix apps/mobile run check` after each, and the rest rebase. After a merge, remove the worktree (`npm run agents` marks it "merged, safe to remove").
+5. **Shared files take additions only**: `apps/api/src/index.ts`, `serialize.ts`, `apps/mobile/src/lib/{types,http,mock}.ts`, `_layout.tsx`, `docs/api-contract.md`, `docs/features.yaml`, `data/plan.json`. Add your lines; never reorder, reformat or rewrite someone else's.
+6. **Migrations**: claim `migration-NNNN` (the number `npm run agents` prints) before creating `apps/api/migrations/NNNN_*.sql`.
+7. **Need a change in someone else's paths?** `send` it to the owner with a stable `key`; don't edit it yourself. Answer handoffs with `ack`.
+8. **`data/plan.json` workstreams**: update only your own row, and add `"owner": "<session label>"` to it.
+9. **Deploys are one at a time** through `.claude/deploy-lock.json`; check it before you start.
+
 ## Read first
 
 | What | Where |
@@ -25,6 +39,7 @@ This file is the one rulebook for Claude Code, Codex and delegated agents. `AGEN
 ## Product rules
 
 - **Every creator, not one niche.** Video, art, photos, music, design, crafts, the physical things people make. Never "for photographers".
+- **News and events too** (Roy, 2026-11-13): people sharing what is happening (local news, updates, events) belong here as much as makers. The proof on a post doubles as "is this real or fake": say only what was checked (who posted, when, original, person or bot), never "fact-checked" or "guaranteed real".
 - Welcoming, never anti-Instagram or anti-anyone. Problem/fix tables stay internal.
 - **Protection v1 is manual** (Roy, 2026-11-13): a creator reports a copy they found, we help file the takedown, and every report goes into a dataset that later trains automatic matching. Automatic scanning of other platforms is a later milestone. Don't build it now and don't promise it in copy.
 - Every ranking or enforcement decision must be explainable to the person it affects.
@@ -63,6 +78,16 @@ Cloudflare account `db9eee5d30dc91c467044f8746e45206` (wrangler OAuth, no token 
 ## Deploying
 
 Prelaunch with no real users: **deploy without asking**, staging first and then production, and verify each URL with curl (status pasted). Write `.claude/deploy-lock.json` around every deploy (`~/.claude/reference/rules/deploy-lock.md`). Remote D1 migrations first: `npx wrangler d1 migrations apply DB --env <env> --remote`. This expires the day real creators post; after that, production deploys get a review step.
+
+**Deploy from a commit, never the working tree.** Other agents' half-done code sits in the working tree; build from `git archive HEAD` (or a clean worktree at the merge commit). Only the session holding the `merge-and-deploy` or ops claim deploys.
+
+## Closing a milestone
+
+When a dashboard milestone (`data/plan.json` phase) hits 100% or a workstream lands:
+1. Add its traps to `docs/gotchas.md`: dated, one entry per trap (what bit us, how to spot it, the fix).
+2. Re-read CLAUDE.md, README.md, `docs/api-contract.md`, `docs/master-plan.md` and the dashboard rows it touches; fix or strike anything stale in the same commit.
+3. Re-run `npm run atlas` and `npm run atlas:shots` so the map is current.
+4. Tag a GitHub release `m<N>-<slug>`.
 
 ## Publishing (open source)
 
