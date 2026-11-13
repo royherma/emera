@@ -50,6 +50,8 @@ export function IndexChip({ index, total }: { index: number; total: number }) {
 
 const web = Platform.OS === "web";
 const full = { position: "absolute", top: 0, right: 0, bottom: 0, left: 0 } as const;
+// expo-video on web hands this style to a raw <video>, which ignores insets and keeps its file size without width/height.
+const fill = { ...full, width: "100%", height: "100%" } as const;
 
 function VideoStill({ media, fit }: { media: Media; fit: "cover" | "contain" }) {
   if (media.posterUrl) return <Image source={{ uri: media.posterUrl }} alt={media.alt || undefined} style={{ width: "100%", height: "100%" }} contentFit={fit} transition={180} />;
@@ -105,7 +107,7 @@ function LivePlayer({ media, fit, controls, onPlaying }: { media: Media; fit: "c
   useEffect(() => {
     player.muted = !sound;
   }, [player, sound]);
-  return <VideoView player={player} style={[full, { opacity: isPlaying ? 1 : 0 }]} nativeControls={controls} contentFit={fit} />;
+  return <VideoView player={player} style={[fill, { opacity: isPlaying ? 1 : 0 }]} nativeControls={controls} contentFit={fit} />;
 }
 
 function SoundButton() {
@@ -141,7 +143,7 @@ export function VideoPreview({ uri, style }: { uri: string; style?: StyleProp<Vi
     p.loop = true;
     p.play();
   });
-  return <VideoView player={player} style={[{ backgroundColor: "#000" }, style]} nativeControls={false} contentFit="cover" />;
+  return <VideoView player={player} style={[{ backgroundColor: "#000", width: "100%", height: "100%" }, style]} nativeControls={false} contentFit="cover" />;
 }
 
 export function MediaFull({ media, style }: { media: Media; style?: StyleProp<ViewStyle> }) {

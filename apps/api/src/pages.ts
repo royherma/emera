@@ -17,7 +17,17 @@ export const esc = (s: unknown) =>
 
 const trim = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s);
 const day = (isoDate: string) => new Date(isoDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
-const firstImage = (media: Media[]) => media.find((m) => m.kind === 'image');
+type Still = { url: string; width: number; height: number };
+const still = (m: Media | undefined): Still | undefined => {
+  if (!m) return undefined;
+  const url = m.kind === 'image' ? m.url : m.posterUrl;
+  return url ? { url, width: m.width, height: m.height } : undefined;
+};
+const cover = (media: Media[]) => still(media.find((m) => m.kind === 'image')) ?? media.map(still).find(Boolean);
+const fitted = (m: Media) => {
+  const r = m.width && m.height ? m.width / m.height : 0.8;
+  return `aspect-ratio:${m.width || 4}/${m.height || 5};width:min(100%,calc((100svh - 150px) * ${r.toFixed(4)}))`;
+};
 
 const CSS = `
 :root{--bg:${colors.bg};--ink:${colors.ink};--accent:${colors.accent};--accent2:${colors.accent2};--line:color-mix(in srgb,var(--ink) 14%,transparent);--soft:color-mix(in srgb,var(--ink) 62%,var(--bg))}
@@ -46,7 +56,7 @@ h1{margin:0;font-size:28px;line-height:1.15;letter-spacing:-.02em}
 .tile .play{position:absolute;inset:0;display:grid;place-items:center;font-size:34px;color:var(--bg);background:var(--ink)}
 .empty{color:var(--soft);text-align:center;padding:48px 0}
 .post{max-width:720px;margin:0 auto}
-.post .media{display:block;width:100%;height:auto;border-radius:12px;background:color-mix(in srgb,var(--ink) 8%,var(--bg));margin-bottom:12px}
+.post .media{display:block;height:auto;max-width:100%;margin:0 auto 12px;border-radius:12px;background:#140f0b;object-fit:contain}
 .author{display:flex;gap:12px;align-items:center;text-decoration:none;margin:20px 0 12px}
 .author b{display:block;line-height:1.2}
 .author span{color:var(--soft);font-size:14px}
@@ -63,7 +73,7 @@ footer{max-width:935px;margin:0 auto;padding:24px 16px 40px;color:var(--soft);fo
 @media(max-width:520px){.profile{gap:16px}.avatar{width:72px;height:72px;font-size:30px}h1{font-size:22px}}
 `;
 
-type Meta = { title: string; description: string; url: string; image?: Media; video?: Media; type?: string; extraHead?: string };
+type Meta = { title: string; description: string; url: string; image?: Still; video?: Media; type?: string; extraHead?: string };
 
 function layout(meta: Meta, body: string, status = 200) {
   const img = meta.image;
@@ -82,7 +92,7 @@ function layout(meta: Meta, body: string, status = 200) {
     `<meta property="og:url" content="${esc(meta.url)}">`,
     img ? `<meta property="og:image" content="${esc(img.url)}">` : '',
     img ? `<meta property="og:image:width" content="${img.width}"><meta property="og:image:height" content="${img.height}">` : '',
-    meta.video ? `<meta property="og:video" content="${esc(meta.video.url)}"><meta property="og:video:type" content="${esc(meta.video.contentType)}">` : '',
+    meta.video ? `<meta property="og:video" content="${esc(meta.video.url)}"><meta property="og:video:type" content="${esc(meta.video.contentType)}"><meta property="og:video:width" content="${meta.video.width}"><meta property="og:video:height" content="${meta.video.height}">` : '',
     `<meta name="twitter:card" content="${img ? 'summary_large_image' : 'summary'}">`,
     `<meta name="twitter:title" content="${esc(meta.title)}">`,
     `<meta name="twitter:description" content="${esc(meta.description)}">`,
@@ -112,8 +122,9 @@ const initial = (name: string) => esc((name.trim()[0] ?? '?').toUpperCase());
 function tile(p: Post) {
   const m = p.media[0];
   const label = esc(trim(p.caption || `Post by @${p.author.handle}`, 80));
-  const inner = m?.kind === 'image'
-    ? `<img src="${esc(m.url)}" width="${m.width}" height="${m.height}" alt="${m.alt ? esc(trim(m.alt, 120)) : label}" loading="lazy">`
+  const pic = still(m);
+  const inner = pic
+    ? `<img src="${esc(pic.url)}" width="${pic.width}" height="${pic.height}" alt="${m.alt ? esc(trim(m.alt, 120)) : label}" loading="lazy">${m.kind === 'video' ? '<span class="badge">▶</span>' : ''}`
     : `<span class="play">▶</span>`;
   const badge = p.media.length > 1 ? `<span class="badge">${p.media.length}</span>` : '';
   return `<a class="tile" href="/p/${esc(p.id)}">${inner}${badge}</a>`;
@@ -133,7 +144,7 @@ pages.get('/', async (c) => {
   const { posts } = await pagePosts(c, { limit: 12 });
   const body = `<section class="hero"><h1 class="serif">${esc(BRAND.tagline)}</h1><p>A home for photographers, filmmakers, artists and designers. Every upload carries proof of who made it.</p></section>` +
     (posts.length ? `<div class="grid">${posts.map(tile).join('')}</div>` : '');
-  return layout({ title: `${BRAND.name} - ${BRAND.tagline}`, description: BRAND.tagline, url: siteOrigin(c) + '/', image: firstImage(posts.flatMap((p) => p.media)) }, body);
+  return layout({ title: `${BRAND.name} - ${BRAND.tagline}`, description: BRAND.tagline, url: siteOrigin(c) + '/', image: cover(posts.flatMap((p) => p.media)) }, body);
 });
 
 pages.get('/invite/:code', async (c) => {
@@ -164,7 +175,7 @@ ${user.bio ? `<p class="bio">${esc(user.bio)}</p>` : ''}<p class="count">${total
     title: `${user.display_name || handle} (@${handle}) on ${BRAND.name}`,
     description: user.bio ? trim(user.bio, 200) : `${total} ${total === 1 ? 'post' : 'posts'} by @${handle} on ${BRAND.name}. ${BRAND.tagline}`,
     url: `${origin}/@${handle}`,
-    image: firstImage(posts.flatMap((p) => p.media)),
+    image: cover(posts.flatMap((p) => p.media)),
     type: 'profile',
   }, body);
 });
@@ -177,21 +188,21 @@ pages.get('/p/:id', async (c) => {
   const name = a.displayName || a.handle!;
   const first = post.media[0];
   const mediaHtml = post.media.map((m) => m.kind === 'image'
-    ? `<img class="media" src="${esc(m.url)}" width="${m.width}" height="${m.height}" alt="${esc(m.alt || trim(post.caption || `Photo by @${a.handle}`, 120))}">`
-    : `<video class="media" src="${esc(m.url)}"${m.alt ? ` aria-label="${esc(m.alt)}"` : ''} controls playsinline preload="metadata"></video>`).join('');
+    ? `<img class="media" src="${esc(m.url)}" width="${m.width}" height="${m.height}" style="${fitted(m)}" alt="${esc(m.alt || trim(post.caption || `Photo by @${a.handle}`, 120))}">`
+    : `<video class="media" src="${esc(m.url)}"${m.posterUrl ? ` poster="${esc(m.posterUrl)}"` : ''} width="${m.width}" height="${m.height}" style="${fitted(m)}"${m.alt ? ` aria-label="${esc(m.alt)}"` : ''} controls playsinline preload="metadata"></video>`).join('');
   const proof = first?.proof;
   const proofHtml = proof?.sha256
     ? `<div class="proof"><strong>Proof of origin.</strong> Uploaded by @${esc(proof.signer)} on ${esc(day(proof.signedAt!))}, signed by ${esc(BRAND.name)}.<br><code>sha256 ${esc(proof.sha256)}</code></div>`
     : '';
   const body = `<article class="post">${mediaHtml}
-<a class="author" href="/@${esc(a.handle)}"><span class="avatar sm serif">${initial(name)}</span><div><b>${esc(name)}</b><span>@${esc(a.handle)}</span></div></a>
+<a class="author" href="/@${esc(a.handle)}"><span class="avatar sm serif">${a.avatarUrl ? `<img src="${esc(a.avatarUrl)}" alt="">` : initial(name)}</span><div><b>${esc(name)}</b><span>@${esc(a.handle)}</span></div></a>
 ${post.caption ? `<p class="caption">${esc(post.caption)}</p>` : ''}<p class="date">${esc(day(post.createdAt))}</p>${proofHtml}</article>`;
   const snippet = post.caption ? trim(post.caption.replace(/\s+/g, ' '), 90) : '';
   return layout({
     title: snippet ? `${snippet} - ${name} on ${BRAND.name}` : `A post by ${name} on ${BRAND.name}`,
     description: post.caption ? trim(post.caption.replace(/\s+/g, ' '), 200) : `Shared by @${a.handle} on ${BRAND.name}. ${BRAND.tagline}`,
     url: post.url,
-    image: firstImage(post.media),
+    image: cover(post.media),
     video: post.media.find((m) => m.kind === 'video'),
     type: 'article',
   }, body);

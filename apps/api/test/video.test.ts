@@ -106,6 +106,13 @@ describe('video size', () => {
     expect(served.headers.get('content-type')).toBe('image/jpeg');
     expect(new Uint8Array(await served.arrayBuffer())).toEqual(jpg);
 
+    const page = await (await app.fetch(new Request(post.body.post.url.replace(/^https?:\/\/[^/]+/, new URL(media.url).origin)), env)).text();
+    expect(page).toContain(`<meta property="og:image" content="${media.posterUrl}">`);
+    expect(page).toContain('<meta property="og:video:width" content="1080"><meta property="og:video:height" content="1920">');
+    expect(page).toContain('summary_large_image');
+    expect(page).toContain(`poster="${media.posterUrl}"`);
+    expect(page).toMatch(/aspect-ratio:1080\/1920;width:min\(100%,calc\(\(100svh - 150px\) \* 0\.5625\)\)/);
+
     await c.json('DELETE', `/v1/posts/${post.body.post.id}`);
     expect(await env.MEDIA.head(posterKey(id))).toBeNull();
   });

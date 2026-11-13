@@ -8,10 +8,10 @@ import { CategoryTag, Glass, IconButton, Pulse, type PS } from "./ui";
 import { usePostMenu } from "./postMenu";
 import { creatorColors, elevation, radius, space, type } from "@/lib/theme";
 import { timeAgo } from "@/lib/format";
+import { feedBox } from "@/lib/mediaBox";
 import { useTheme } from "@/state/theme";
 import type { Post } from "@/lib/types";
 
-const clamp = (n: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, n));
 const web = typeof document !== "undefined";
 
 export function PostRow({ post, width, onDeleted }: { post: Post; width: number; onDeleted?: (id: string) => void }) {
@@ -19,7 +19,7 @@ export function PostRow({ post, width, onDeleted }: { post: Post; width: number;
   const { c } = useTheme();
   const menu = usePostMenu(onDeleted);
   const m = post.media[0];
-  const h = Math.round(width / clamp(m.width && m.height ? m.width / m.height : 0.8, 0.8, 1.91));
+  const h = feedBox(m, width).height;
   const open = () => router.push({ pathname: "/p/[id]", params: { id: post.id } });
   const tag = post.author.category;
   return (

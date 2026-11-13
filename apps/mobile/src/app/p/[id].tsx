@@ -12,6 +12,7 @@ import { usePostMenu } from "@/components/postMenu";
 import { api } from "@/lib/api";
 import { fullDate, shortHash, timeAgo } from "@/lib/format";
 import { useLayout } from "@/lib/layout";
+import { FULL, aspect, fitBox } from "@/lib/mediaBox";
 import { alpha, creatorColors, elevation, radius, space, type } from "@/lib/theme";
 import { useResource } from "@/state/resource";
 import { useTheme } from "@/state/theme";
@@ -29,11 +30,7 @@ export default function PostDetail() {
   const menu = usePostMenu(back);
 
   const first = post?.media[0];
-  const ratio = first?.width && first.height ? Math.min(1.8, Math.max(0.56, first.width / first.height)) : 0.8;
-  const roomH = wide ? height - 100 : height - 200;
-  const roomW = wide ? inner - 360 - space[6] : inner;
-  const mediaW = Math.round(Math.min(roomW, roomH * ratio));
-  const mediaH = Math.round(Math.min(mediaW / ratio, roomH));
+  const { width: mediaW, height: mediaH } = fitBox(aspect(first, FULL), { width: wide ? inner - 360 - space[6] : inner, height: wide ? height - 100 : height - 200 });
   const proof = first?.proof;
 
   return (
