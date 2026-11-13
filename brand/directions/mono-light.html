@@ -21,11 +21,11 @@ nav a:hover{color:var(--white)}
 .j{font:500 13px var(--sans);background:var(--white);color:var(--black);padding:10px 20px;border-radius:99px;text-decoration:none}
 .stage{position:relative;display:grid;grid-template-columns:500px 262px 262px 1fr;gap:34px;padding:8px 48px 18px;min-height:0}
 .shade{position:absolute;inset:0;z-index:5;pointer-events:none;backdrop-filter:grayscale(1) brightness(.34);-webkit-backdrop-filter:grayscale(1) brightness(.34);
--webkit-mask-image:linear-gradient(104deg,#000 0,#000 calc(var(--bx) - 16%),transparent calc(var(--bx) - 3%),transparent calc(var(--bx) + 14%),#000 calc(var(--bx) + 28%)),radial-gradient(circle at var(--px) var(--py),transparent 0,transparent 80px,#000 190px);
-mask-image:linear-gradient(104deg,#000 0,#000 calc(var(--bx) - 16%),transparent calc(var(--bx) - 3%),transparent calc(var(--bx) + 14%),#000 calc(var(--bx) + 28%)),radial-gradient(circle at var(--px) var(--py),transparent 0,transparent 80px,#000 190px);
+-webkit-mask-image:linear-gradient(104deg,#000 0,#000 calc(var(--bx) - 24%),transparent calc(var(--bx) - 8%),transparent calc(var(--bx) + 16%),#000 calc(var(--bx) + 32%)),radial-gradient(circle at var(--px) var(--py),transparent 0,transparent 80px,#000 190px);
+mask-image:linear-gradient(104deg,#000 0,#000 calc(var(--bx) - 24%),transparent calc(var(--bx) - 8%),transparent calc(var(--bx) + 16%),#000 calc(var(--bx) + 32%)),radial-gradient(circle at var(--px) var(--py),transparent 0,transparent 80px,#000 190px);
 -webkit-mask-composite:source-in;mask-composite:intersect}
 .stage,.shade{--bx:-30%;animation:sweep 16s ease-in-out infinite alternate}
-.freeze .stage,.freeze .shade{animation:none;--bx:30%}
+.freeze .stage,.freeze .shade{animation:none;--bx:28%}
 @keyframes sweep{from{--bx:-24%}to{--bx:118%}}
 .hero{display:flex;flex-direction:column;min-height:0}
 h1{font:200 47px/1.14 var(--disp);letter-spacing:-.045em;margin-top:16px}
@@ -99,7 +99,7 @@ footer{position:relative;z-index:6;border-top:1px solid #333;display:grid;grid-t
 .tk i{display:block;width:50px;height:46px;border-radius:3px;box-shadow:inset 0 0 0 1px #777;margin-bottom:6px}
 .tk span{font-size:9.5px;color:var(--grey);line-height:1.35;display:block}
 .tk p{font-size:11px;line-height:1.5;color:#c9c9c9;border-left:1px solid #fff;padding-left:12px;margin-left:6px}
-@media (prefers-reduced-motion:reduce){.stage,.shade{animation:none;--bx:30%}}
+@media (prefers-reduced-motion:reduce){.stage,.shade{animation:none;--bx:28%}}
 </style></head>
 <body>
 <nav><div class="logo"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#sun"/></svg><span>emera</span></div>

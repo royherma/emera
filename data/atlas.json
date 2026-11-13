@@ -1,0 +1,4116 @@
+{
+ "builtAt": "2026-11-13T04:29:29.922Z",
+ "git": {
+  "sha": "e84b10c",
+  "dirty": true,
+  "branch": "main"
+ },
+ "summary": {
+  "screens": 13,
+  "endpoints": 23,
+  "tables": 7,
+  "lexicons": 4,
+  "stories": 18,
+  "edges": 76,
+  "coverage": 87,
+  "stepsBuilt": 47,
+  "stepsCounted": 55
+ },
+ "screens": [
+  {
+   "surface": "app",
+   "route": "/code",
+   "file": "apps/mobile/src/app/(auth)/code.tsx",
+   "group": "auth",
+   "shell": false,
+   "access": "signed out",
+   "notes": [
+    {
+     "platform": "ios",
+     "text": "keyboard-avoiding padding"
+    }
+   ],
+   "apiCalls": [
+    "authVerify",
+    "authStart"
+   ],
+   "nav": [
+    "/handle"
+   ]
+  },
+  {
+   "surface": "app",
+   "route": "/handle",
+   "file": "apps/mobile/src/app/(auth)/handle.tsx",
+   "group": "auth",
+   "shell": false,
+   "access": "signed out",
+   "notes": [
+    {
+     "platform": "ios",
+     "text": "keyboard-avoiding padding"
+    }
+   ],
+   "apiCalls": [
+    "setHandle"
+   ],
+   "nav": []
+  },
+  {
+   "surface": "app",
+   "route": "/sign-in",
+   "file": "apps/mobile/src/app/(auth)/sign-in.tsx",
+   "group": "auth",
+   "shell": false,
+   "access": "signed out",
+   "notes": [
+    {
+     "platform": "ios",
+     "text": "keyboard-avoiding padding"
+    }
+   ],
+   "apiCalls": [
+    "authStart"
+   ],
+   "nav": [
+    "/code"
+   ]
+  },
+  {
+   "surface": "app",
+   "route": "/welcome",
+   "file": "apps/mobile/src/app/(auth)/welcome.tsx",
+   "group": "auth",
+   "shell": false,
+   "access": "signed out",
+   "notes": [
+    {
+     "platform": "web",
+     "text": "wide layout at >= 900px"
+    }
+   ],
+   "apiCalls": [],
+   "nav": [
+    "/handle",
+    "/sign-in"
+   ]
+  },
+  {
+   "surface": "app",
+   "route": "/feed",
+   "file": "apps/mobile/src/app/(tabs)/feed.tsx",
+   "group": "tabs",
+   "shell": false,
+   "access": "signed in",
+   "notes": [
+    {
+     "platform": "web",
+     "text": "wide layout at >= 900px, tabs become a left sidebar"
+    }
+   ],
+   "apiCalls": [
+    "feed"
+   ],
+   "nav": [
+    "/upload"
+   ]
+  },
+  {
+   "surface": "app",
+   "route": "/me",
+   "file": "apps/mobile/src/app/(tabs)/me.tsx",
+   "group": "tabs",
+   "shell": false,
+   "access": "signed in",
+   "notes": [
+    {
+     "platform": "web",
+     "text": "wide layout at >= 900px, tabs become a left sidebar"
+    },
+    {
+     "platform": "web",
+     "text": "share copies the link"
+    },
+    {
+     "platform": "ios",
+     "text": "share opens the native share sheet"
+    },
+    {
+     "platform": "android",
+     "text": "share opens the native share sheet"
+    }
+   ],
+   "apiCalls": [
+    "profile"
+   ],
+   "nav": []
+  },
+  {
+   "surface": "app",
+   "route": "/upload",
+   "file": "apps/mobile/src/app/(tabs)/upload.tsx",
+   "group": "tabs",
+   "shell": false,
+   "access": "signed in",
+   "notes": [
+    {
+     "platform": "web",
+     "text": "wide layout at >= 900px, tabs become a left sidebar"
+    }
+   ],
+   "apiCalls": [
+    "uploadMedia",
+    "createPost"
+   ],
+   "nav": [
+    "/p/:id"
+   ]
+  },
+  {
+   "surface": "app",
+   "route": "shell",
+   "file": "apps/mobile/src/app/_layout.tsx",
+   "group": null,
+   "shell": true,
+   "access": "always",
+   "notes": [],
+   "apiCalls": [
+    "me",
+    "logout"
+   ],
+   "nav": []
+  },
+  {
+   "surface": "app",
+   "route": "/",
+   "file": "apps/mobile/src/app/index.tsx",
+   "group": null,
+   "shell": false,
+   "access": "any",
+   "notes": [],
+   "apiCalls": [],
+   "nav": []
+  },
+  {
+   "surface": "app",
+   "route": "/p/:id",
+   "file": "apps/mobile/src/app/p/[id].tsx",
+   "group": null,
+   "shell": false,
+   "access": "signed in",
+   "notes": [
+    {
+     "platform": "web",
+     "text": "wide layout at >= 900px"
+    },
+    {
+     "platform": "web",
+     "text": "share copies the link"
+    },
+    {
+     "platform": "ios",
+     "text": "share opens the native share sheet"
+    },
+    {
+     "platform": "android",
+     "text": "share opens the native share sheet"
+    }
+   ],
+   "apiCalls": [
+    "post",
+    "deletePost"
+   ],
+   "nav": [
+    "/feed",
+    "/u/:handle"
+   ]
+  },
+  {
+   "surface": "app",
+   "route": "/settings",
+   "file": "apps/mobile/src/app/settings.tsx",
+   "group": null,
+   "shell": false,
+   "access": "signed in",
+   "notes": [
+    {
+     "platform": "web",
+     "text": "wide layout at >= 900px"
+    },
+    {
+     "platform": "web",
+     "text": "share copies the link"
+    },
+    {
+     "platform": "ios",
+     "text": "share opens the native share sheet"
+    },
+    {
+     "platform": "android",
+     "text": "share opens the native share sheet"
+    }
+   ],
+   "apiCalls": [
+    "createInvite",
+    "logout"
+   ],
+   "nav": [
+    "/me"
+   ]
+  },
+  {
+   "surface": "app",
+   "route": "/u/:handle",
+   "file": "apps/mobile/src/app/u/[handle].tsx",
+   "group": null,
+   "shell": false,
+   "access": "signed in",
+   "notes": [
+    {
+     "platform": "web",
+     "text": "wide layout at >= 900px"
+    },
+    {
+     "platform": "web",
+     "text": "share copies the link"
+    },
+    {
+     "platform": "ios",
+     "text": "share opens the native share sheet"
+    },
+    {
+     "platform": "android",
+     "text": "share opens the native share sheet"
+    }
+   ],
+   "apiCalls": [
+    "profile"
+   ],
+   "nav": []
+  },
+  {
+   "surface": "site",
+   "route": "/",
+   "file": "apps/site/src/index.template.html",
+   "group": null,
+   "shell": false,
+   "access": "public",
+   "notes": [
+    {
+     "platform": "browser",
+     "text": "plain HTML, any browser"
+    }
+   ],
+   "apiCalls": [],
+   "siteCalls": [
+    "POST /api/early",
+    "GET /api/early/count"
+   ],
+   "nav": []
+  }
+ ],
+ "endpoints": [
+  {
+   "method": "POST",
+   "path": "/v1/auth/start",
+   "file": "apps/api/src/auth.ts",
+   "line": 45,
+   "kind": "api",
+   "auth": false,
+   "needsHandle": false,
+   "reads": [
+    "users",
+    "invites"
+   ],
+   "writes": [
+    "login_codes"
+   ],
+   "tables": [
+    "users",
+    "login_codes",
+    "invites"
+   ],
+   "r2": [],
+   "bodyFields": [
+    "email",
+    "invite"
+   ],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "POST",
+   "path": "/v1/auth/verify",
+   "file": "apps/api/src/auth.ts",
+   "line": 72,
+   "kind": "api",
+   "auth": false,
+   "needsHandle": false,
+   "reads": [],
+   "writes": [
+    "users",
+    "sessions",
+    "login_codes",
+    "invites"
+   ],
+   "tables": [
+    "login_codes",
+    "users",
+    "invites",
+    "sessions"
+   ],
+   "r2": [],
+   "bodyFields": [
+    "email",
+    "code"
+   ],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "POST",
+   "path": "/v1/auth/handle",
+   "file": "apps/api/src/auth.ts",
+   "line": 114,
+   "kind": "api",
+   "auth": true,
+   "needsHandle": false,
+   "reads": [],
+   "writes": [
+    "users"
+   ],
+   "tables": [
+    "users"
+   ],
+   "r2": [],
+   "bodyFields": [
+    "handle",
+    "displayName"
+   ],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "GET",
+   "path": "/v1/me",
+   "file": "apps/api/src/auth.ts",
+   "line": 132,
+   "kind": "api",
+   "auth": true,
+   "needsHandle": false,
+   "reads": [],
+   "writes": [],
+   "tables": [],
+   "r2": [],
+   "bodyFields": [],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "POST",
+   "path": "/v1/auth/logout",
+   "file": "apps/api/src/auth.ts",
+   "line": 134,
+   "kind": "api",
+   "auth": true,
+   "needsHandle": false,
+   "reads": [],
+   "writes": [
+    "sessions"
+   ],
+   "tables": [
+    "sessions"
+   ],
+   "r2": [],
+   "bodyFields": [],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "POST",
+   "path": "/v1/invites",
+   "file": "apps/api/src/auth.ts",
+   "line": 140,
+   "kind": "api",
+   "auth": true,
+   "needsHandle": true,
+   "reads": [],
+   "writes": [
+    "invites"
+   ],
+   "tables": [
+    "invites"
+   ],
+   "r2": [],
+   "bodyFields": [],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "GET",
+   "path": "/v1/invites/:code",
+   "file": "apps/api/src/auth.ts",
+   "line": 150,
+   "kind": "api",
+   "auth": false,
+   "needsHandle": false,
+   "reads": [
+    "invites",
+    "users"
+   ],
+   "writes": [],
+   "tables": [
+    "invites",
+    "users"
+   ],
+   "r2": [],
+   "bodyFields": [],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "GET",
+   "path": "/health",
+   "file": "apps/api/src/index.ts",
+   "line": 23,
+   "kind": "page",
+   "auth": false,
+   "needsHandle": false,
+   "reads": [],
+   "writes": [],
+   "tables": [],
+   "r2": [],
+   "bodyFields": [],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "POST",
+   "path": "/v1/uploads",
+   "file": "apps/api/src/media.ts",
+   "line": 22,
+   "kind": "api",
+   "auth": true,
+   "needsHandle": true,
+   "reads": [],
+   "writes": [
+    "media"
+   ],
+   "tables": [
+    "media"
+   ],
+   "r2": [],
+   "bodyFields": [
+    "contentType",
+    "bytes"
+   ],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "PUT",
+   "path": "/v1/uploads/:id",
+   "file": "apps/api/src/media.ts",
+   "line": 39,
+   "kind": "api",
+   "auth": true,
+   "needsHandle": false,
+   "reads": [],
+   "writes": [
+    "media"
+   ],
+   "tables": [
+    "media"
+   ],
+   "r2": [
+    "put",
+    "delete"
+   ],
+   "bodyFields": [],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "GET",
+   "path": "/media/:key",
+   "file": "apps/api/src/media.ts",
+   "line": 107,
+   "kind": "page",
+   "auth": false,
+   "needsHandle": false,
+   "reads": [],
+   "writes": [],
+   "tables": [],
+   "r2": [
+    "head",
+    "get"
+   ],
+   "bodyFields": [],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "HEAD",
+   "path": "/media/:key",
+   "file": "apps/api/src/media.ts",
+   "line": 107,
+   "kind": "page",
+   "auth": false,
+   "needsHandle": false,
+   "reads": [],
+   "writes": [],
+   "tables": [],
+   "r2": [
+    "head",
+    "get"
+   ],
+   "bodyFields": [],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "GET",
+   "path": "/",
+   "file": "apps/api/src/pages.ts",
+   "line": 132,
+   "kind": "page",
+   "auth": false,
+   "needsHandle": false,
+   "reads": [
+    "posts",
+    "media",
+    "users"
+   ],
+   "writes": [],
+   "tables": [
+    "posts",
+    "media",
+    "users"
+   ],
+   "r2": [],
+   "bodyFields": [],
+   "og": true,
+   "twitter": true,
+   "app": "api"
+  },
+  {
+   "method": "GET",
+   "path": "/invite/:code",
+   "file": "apps/api/src/pages.ts",
+   "line": 139,
+   "kind": "page",
+   "auth": false,
+   "needsHandle": false,
+   "reads": [
+    "invites",
+    "users"
+   ],
+   "writes": [],
+   "tables": [
+    "invites",
+    "users"
+   ],
+   "r2": [],
+   "bodyFields": [],
+   "og": true,
+   "twitter": true,
+   "app": "api"
+  },
+  {
+   "method": "GET",
+   "path": "/@:handle",
+   "file": "apps/api/src/pages.ts",
+   "line": 150,
+   "kind": "page",
+   "auth": false,
+   "needsHandle": false,
+   "reads": [
+    "users",
+    "posts",
+    "media"
+   ],
+   "writes": [],
+   "tables": [
+    "users",
+    "posts",
+    "media"
+   ],
+   "r2": [],
+   "bodyFields": [],
+   "og": true,
+   "twitter": true,
+   "app": "api"
+  },
+  {
+   "method": "GET",
+   "path": "/p/:id",
+   "file": "apps/api/src/pages.ts",
+   "line": 172,
+   "kind": "page",
+   "auth": false,
+   "needsHandle": false,
+   "reads": [
+    "posts",
+    "media",
+    "users"
+   ],
+   "writes": [],
+   "tables": [
+    "posts",
+    "media",
+    "users"
+   ],
+   "r2": [],
+   "bodyFields": [],
+   "og": true,
+   "twitter": true,
+   "app": "api"
+  },
+  {
+   "method": "POST",
+   "path": "/v1/posts",
+   "file": "apps/api/src/posts.ts",
+   "line": 31,
+   "kind": "api",
+   "auth": true,
+   "needsHandle": true,
+   "reads": [
+    "users"
+   ],
+   "writes": [
+    "posts",
+    "media"
+   ],
+   "tables": [
+    "media",
+    "posts",
+    "users"
+   ],
+   "r2": [],
+   "bodyFields": [
+    "mediaIds",
+    "caption"
+   ],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "GET",
+   "path": "/v1/posts/:id",
+   "file": "apps/api/src/posts.ts",
+   "line": 58,
+   "kind": "api",
+   "auth": false,
+   "needsHandle": false,
+   "reads": [
+    "posts",
+    "media",
+    "users"
+   ],
+   "writes": [],
+   "tables": [
+    "posts",
+    "media",
+    "users"
+   ],
+   "r2": [],
+   "bodyFields": [],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "DELETE",
+   "path": "/v1/posts/:id",
+   "file": "apps/api/src/posts.ts",
+   "line": 64,
+   "kind": "api",
+   "auth": true,
+   "needsHandle": false,
+   "reads": [],
+   "writes": [
+    "media",
+    "posts"
+   ],
+   "tables": [
+    "posts",
+    "media"
+   ],
+   "r2": [
+    "delete"
+   ],
+   "bodyFields": [],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "GET",
+   "path": "/v1/users/:handle",
+   "file": "apps/api/src/posts.ts",
+   "line": 78,
+   "kind": "api",
+   "auth": false,
+   "needsHandle": false,
+   "reads": [
+    "users",
+    "posts",
+    "media"
+   ],
+   "writes": [],
+   "tables": [
+    "users",
+    "posts",
+    "media"
+   ],
+   "r2": [],
+   "bodyFields": [],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "GET",
+   "path": "/v1/feed",
+   "file": "apps/api/src/posts.ts",
+   "line": 85,
+   "kind": "api",
+   "auth": false,
+   "needsHandle": false,
+   "reads": [
+    "posts",
+    "media",
+    "users"
+   ],
+   "writes": [],
+   "tables": [
+    "posts",
+    "media",
+    "users"
+   ],
+   "r2": [],
+   "bodyFields": [],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "POST",
+   "path": "/api/early",
+   "file": "apps/site/src/worker.js",
+   "line": 47,
+   "kind": "api",
+   "auth": false,
+   "needsHandle": false,
+   "reads": [],
+   "writes": [
+    "early_access"
+   ],
+   "tables": [
+    "early_access"
+   ],
+   "r2": [],
+   "bodyFields": [
+    "website",
+    "email",
+    "source",
+    "referrer"
+   ],
+   "og": false,
+   "twitter": false,
+   "app": "site"
+  },
+  {
+   "method": "GET",
+   "path": "/api/early/count",
+   "file": "apps/site/src/worker.js",
+   "line": 51,
+   "kind": "api",
+   "auth": false,
+   "needsHandle": false,
+   "reads": [
+    "early_access"
+   ],
+   "writes": [],
+   "tables": [
+    "early_access"
+   ],
+   "r2": [],
+   "bodyFields": [],
+   "og": false,
+   "twitter": false,
+   "app": "site"
+  }
+ ],
+ "tables": [
+  {
+   "name": "users",
+   "db": "emera-api DB",
+   "app": "api",
+   "file": "apps/api/migrations/0001_init.sql",
+   "line": 1,
+   "columns": [
+    {
+     "name": "id",
+     "type": "TEXT",
+     "pk": true,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "email",
+     "type": "TEXT",
+     "pk": false,
+     "unique": true,
+     "fk": null
+    },
+    {
+     "name": "handle",
+     "type": "TEXT",
+     "pk": false,
+     "unique": true,
+     "fk": null
+    },
+    {
+     "name": "display_name",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "bio",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "avatar_url",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "invited_by",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "created_at",
+     "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    }
+   ]
+  },
+  {
+   "name": "login_codes",
+   "db": "emera-api DB",
+   "app": "api",
+   "file": "apps/api/migrations/0001_init.sql",
+   "line": 12,
+   "columns": [
+    {
+     "name": "id",
+     "type": "INTEGER",
+     "pk": true,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "email",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "code_hash",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "invite_code",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "attempts",
+     "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "expires_at",
+     "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "created_at",
+     "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    }
+   ]
+  },
+  {
+   "name": "sessions",
+   "db": "emera-api DB",
+   "app": "api",
+   "file": "apps/api/migrations/0001_init.sql",
+   "line": 23,
+   "columns": [
+    {
+     "name": "token_hash",
+     "type": "TEXT",
+     "pk": true,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "user_id",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": "users"
+    },
+    {
+     "name": "created_at",
+     "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "expires_at",
+     "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    }
+   ]
+  },
+  {
+   "name": "invites",
+   "db": "emera-api DB",
+   "app": "api",
+   "file": "apps/api/migrations/0001_init.sql",
+   "line": 31,
+   "columns": [
+    {
+     "name": "code",
+     "type": "TEXT",
+     "pk": true,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "created_by",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": "users"
+    },
+    {
+     "name": "uses",
+     "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "max_uses",
+     "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "created_at",
+     "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    }
+   ]
+  },
+  {
+   "name": "posts",
+   "db": "emera-api DB",
+   "app": "api",
+   "file": "apps/api/migrations/0001_init.sql",
+   "line": 39,
+   "columns": [
+    {
+     "name": "id",
+     "type": "TEXT",
+     "pk": true,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "user_id",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": "users"
+    },
+    {
+     "name": "caption",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "created_at",
+     "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    }
+   ]
+  },
+  {
+   "name": "media",
+   "db": "emera-api DB",
+   "app": "api",
+   "file": "apps/api/migrations/0001_init.sql",
+   "line": 48,
+   "columns": [
+    {
+     "name": "id",
+     "type": "TEXT",
+     "pk": true,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "user_id",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": "users"
+    },
+    {
+     "name": "kind",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "content_type",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "declared_bytes",
+     "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "status",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "width",
+     "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "height",
+     "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "bytes",
+     "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "sha256",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "r2_key",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "signed_at",
+     "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "signer",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "signature",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "post_id",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": "posts"
+    },
+    {
+     "name": "position",
+     "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "created_at",
+     "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    }
+   ]
+  },
+  {
+   "name": "early_access",
+   "db": "emera-site DB",
+   "app": "site",
+   "file": "apps/site/migrations/0001_early_access.sql",
+   "line": 1,
+   "columns": [
+    {
+     "name": "id",
+     "type": "INTEGER",
+     "pk": true,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "email",
+     "type": "TEXT",
+     "pk": false,
+     "unique": true,
+     "fk": null
+    },
+    {
+     "name": "created_at",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "source",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "referrer",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    }
+   ]
+  }
+ ],
+ "lexicons": [
+  {
+   "id": "social.emera.actor.profile",
+   "file": "lexicons/social/emera/actor/profile.json",
+   "type": "record",
+   "description": "Emera profile extras. Name, bio and avatar stay in app.bsky.actor.profile so other AT Protocol apps still show them.",
+   "fields": [
+    "craft",
+    "links",
+    "defaultLicense",
+    "copyWatch",
+    "createdAt",
+    "enabled",
+    "grantedAt",
+    "termsVersion",
+    "legalName",
+    "autoFile"
+   ],
+   "refs": [
+    "social.emera.defs"
+   ]
+  },
+  {
+   "id": "social.emera.defs",
+   "file": "lexicons/social/emera/defs.json",
+   "type": "defs",
+   "description": "",
+   "fields": [
+    "image",
+    "alt",
+    "aspectRatio",
+    "pdq",
+    "video",
+    "poster",
+    "durationMs",
+    "width",
+    "height"
+   ],
+   "refs": []
+  },
+  {
+   "id": "social.emera.post",
+   "file": "lexicons/social/emera/post.json",
+   "type": "record",
+   "description": "A post of images or one video. Lives in the author's repo.",
+   "fields": [
+    "text",
+    "media",
+    "license",
+    "provenance",
+    "langs",
+    "createdAt",
+    "images",
+    "video"
+   ],
+   "refs": [
+    "social.emera.defs",
+    "com.atproto.repo.strongRef"
+   ]
+  },
+  {
+   "id": "social.emera.provenance",
+   "file": "lexicons/social/emera/provenance.json",
+   "type": "record",
+   "description": "Proof that this account uploaded these exact bytes at this time. One per post. The full C2PA manifest stays embedded in the file and in R2; this record carries what search and verifiers need.",
+   "fields": [
+    "subject",
+    "items",
+    "signedAt",
+    "signer",
+    "claimGenerator",
+    "blob",
+    "sha256",
+    "pdq",
+    "frameHashes",
+    "c2pa",
+    "origin",
+    "state",
+    "incomingIssuer",
+    "manifestSha256"
+   ],
+   "refs": [
+    "com.atproto.repo.strongRef"
+   ]
+  }
+ ],
+ "client": {
+  "authStart": {
+   "name": "authStart",
+   "calls": [
+    {
+     "method": "POST",
+     "path": "/v1/auth/start"
+    }
+   ],
+   "fields": [
+    "email"
+   ],
+   "mock": true,
+   "file": "apps/mobile/src/lib/http.ts",
+   "line": 28
+  },
+  "authVerify": {
+   "name": "authVerify",
+   "calls": [
+    {
+     "method": "POST",
+     "path": "/v1/auth/verify"
+    }
+   ],
+   "fields": [
+    "email",
+    "code"
+   ],
+   "mock": true,
+   "file": "apps/mobile/src/lib/http.ts",
+   "line": 29
+  },
+  "setHandle": {
+   "name": "setHandle",
+   "calls": [
+    {
+     "method": "POST",
+     "path": "/v1/auth/handle"
+    }
+   ],
+   "fields": [
+    "handle",
+    "displayName",
+    "inviteCode"
+   ],
+   "mock": true,
+   "file": "apps/mobile/src/lib/http.ts",
+   "line": 30
+  },
+  "me": {
+   "name": "me",
+   "calls": [
+    {
+     "method": "GET",
+     "path": "/v1/me"
+    }
+   ],
+   "fields": [],
+   "mock": true,
+   "file": "apps/mobile/src/lib/http.ts",
+   "line": 31
+  },
+  "logout": {
+   "name": "logout",
+   "calls": [
+    {
+     "method": "POST",
+     "path": "/v1/auth/logout"
+    }
+   ],
+   "fields": [],
+   "mock": true,
+   "file": "apps/mobile/src/lib/http.ts",
+   "line": 32
+  },
+  "feed": {
+   "name": "feed",
+   "calls": [
+    {
+     "method": "GET",
+     "path": "/v1/feed"
+    }
+   ],
+   "fields": [],
+   "mock": true,
+   "file": "apps/mobile/src/lib/http.ts",
+   "line": 33
+  },
+  "post": {
+   "name": "post",
+   "calls": [
+    {
+     "method": "GET",
+     "path": "/v1/posts/:id"
+    }
+   ],
+   "fields": [],
+   "mock": true,
+   "file": "apps/mobile/src/lib/http.ts",
+   "line": 37
+  },
+  "deletePost": {
+   "name": "deletePost",
+   "calls": [
+    {
+     "method": "DELETE",
+     "path": "/v1/posts/:id"
+    }
+   ],
+   "fields": [],
+   "mock": true,
+   "file": "apps/mobile/src/lib/http.ts",
+   "line": 38
+  },
+  "profile": {
+   "name": "profile",
+   "calls": [
+    {
+     "method": "GET",
+     "path": "/v1/users/:handle"
+    }
+   ],
+   "fields": [],
+   "mock": true,
+   "file": "apps/mobile/src/lib/http.ts",
+   "line": 39
+  },
+  "uploadMedia": {
+   "name": "uploadMedia",
+   "calls": [
+    {
+     "method": "POST",
+     "path": "/v1/uploads"
+    },
+    {
+     "method": "PUT",
+     "path": "/v1/uploads/:id"
+    }
+   ],
+   "fields": [
+    "contentType",
+    "bytes"
+   ],
+   "mock": true,
+   "file": "apps/mobile/src/lib/http.ts",
+   "line": 43
+  },
+  "createPost": {
+   "name": "createPost",
+   "calls": [
+    {
+     "method": "POST",
+     "path": "/v1/posts"
+    }
+   ],
+   "fields": [
+    "mediaIds",
+    "caption"
+   ],
+   "mock": true,
+   "file": "apps/mobile/src/lib/http.ts",
+   "line": 62
+  },
+  "createInvite": {
+   "name": "createInvite",
+   "calls": [
+    {
+     "method": "POST",
+     "path": "/v1/invites"
+    }
+   ],
+   "fields": [],
+   "mock": true,
+   "file": "apps/mobile/src/lib/http.ts",
+   "line": 63
+  }
+ },
+ "environments": [
+  {
+   "env": "local",
+   "deployed": true,
+   "services": [
+    {
+     "app": "api",
+     "urls": [
+      "http://agora-api.localhost:5036"
+     ],
+     "note": null,
+     "worker": "emera-api",
+     "d1": "emera-dev",
+     "r2": [
+      "emera-media-dev"
+     ],
+     "routes": [],
+     "invitesRequired": "false"
+    },
+    {
+     "app": "site",
+     "urls": [
+      "http://agora-site.localhost:5038"
+     ],
+     "note": null,
+     "worker": "emera-site",
+     "d1": "emera-site-local",
+     "r2": [],
+     "routes": [],
+     "invitesRequired": null
+    }
+   ],
+   "data": "wrangler local D1/R2 under each app's `.wrangler/` (gitignored)",
+   "appWeb": []
+  },
+  {
+   "env": "staging",
+   "deployed": true,
+   "services": [
+    {
+     "app": "api",
+     "urls": [
+      "https://emera-api-staging.techguyver1337.workers.dev"
+     ],
+     "note": null,
+     "worker": "emera-api-staging",
+     "d1": "emera-staging",
+     "r2": [
+      "emera-media-staging"
+     ],
+     "routes": [],
+     "invitesRequired": "true"
+    },
+    {
+     "app": "site",
+     "urls": [
+      "https://emera-site-staging.techguyver1337.workers.dev"
+     ],
+     "note": null,
+     "worker": "emera-site-staging",
+     "d1": "emera-site-staging",
+     "r2": [],
+     "routes": [],
+     "invitesRequired": null
+    }
+   ],
+   "data": "D1 `emera-staging`, `emera-site-staging`; R2 `emera-media-staging`",
+   "appWeb": []
+  },
+  {
+   "env": "production",
+   "deployed": false,
+   "services": [
+    {
+     "app": "api",
+     "urls": [
+      "https://api.emera.social"
+     ],
+     "note": "not deployed yet: sign-in email isn't wired",
+     "worker": "emera-api-production",
+     "d1": "emera-prod",
+     "r2": [
+      "emera-media-prod"
+     ],
+     "routes": [
+      "api.emera.social",
+      "emera.social/@*",
+      "emera.social/p/*",
+      "emera.social/media/*"
+     ],
+     "invitesRequired": "true"
+    },
+    {
+     "app": "site",
+     "urls": [
+      "https://emera.social",
+      "https://www.emera.social"
+     ],
+     "note": null,
+     "worker": "emera-site",
+     "d1": "emera-site",
+     "r2": [],
+     "routes": [
+      "emera.social",
+      "www.emera.social"
+     ],
+     "invitesRequired": null
+    }
+   ],
+   "data": "D1 `emera-prod`, `emera-site`; R2 `emera-media-prod`",
+   "appWeb": []
+  }
+ ],
+ "edges": [
+  {
+   "from": "screen:app:/code",
+   "to": "ep:POST /v1/auth/verify",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/code",
+   "to": "ep:POST /v1/auth/start",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/code",
+   "to": "screen:app:/handle",
+   "kind": "navigates"
+  },
+  {
+   "from": "screen:app:/handle",
+   "to": "ep:POST /v1/auth/handle",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/sign-in",
+   "to": "ep:POST /v1/auth/start",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/sign-in",
+   "to": "screen:app:/code",
+   "kind": "navigates"
+  },
+  {
+   "from": "screen:app:/welcome",
+   "to": "screen:app:/handle",
+   "kind": "navigates"
+  },
+  {
+   "from": "screen:app:/welcome",
+   "to": "screen:app:/sign-in",
+   "kind": "navigates"
+  },
+  {
+   "from": "screen:app:/feed",
+   "to": "ep:GET /v1/feed",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/feed",
+   "to": "screen:app:/upload",
+   "kind": "navigates"
+  },
+  {
+   "from": "screen:app:/me",
+   "to": "ep:GET /v1/users/:handle",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/upload",
+   "to": "ep:POST /v1/uploads",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/upload",
+   "to": "ep:PUT /v1/uploads/:id",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/upload",
+   "to": "ep:POST /v1/posts",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/upload",
+   "to": "screen:app:/p/:id",
+   "kind": "navigates"
+  },
+  {
+   "from": "screen:app:shell",
+   "to": "ep:GET /v1/me",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:shell",
+   "to": "ep:POST /v1/auth/logout",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/p/:id",
+   "to": "ep:GET /v1/posts/:id",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/p/:id",
+   "to": "ep:DELETE /v1/posts/:id",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/p/:id",
+   "to": "screen:app:/feed",
+   "kind": "navigates"
+  },
+  {
+   "from": "screen:app:/p/:id",
+   "to": "screen:app:/u/:handle",
+   "kind": "navigates"
+  },
+  {
+   "from": "screen:app:/settings",
+   "to": "ep:POST /v1/invites",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/settings",
+   "to": "ep:POST /v1/auth/logout",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/settings",
+   "to": "screen:app:/me",
+   "kind": "navigates"
+  },
+  {
+   "from": "screen:app:/u/:handle",
+   "to": "ep:GET /v1/users/:handle",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:site:/",
+   "to": "ep:POST /api/early",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:site:/",
+   "to": "ep:GET /api/early/count",
+   "kind": "calls"
+  },
+  {
+   "from": "ep:POST /v1/auth/start",
+   "to": "table:users",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:POST /v1/auth/start",
+   "to": "table:invites",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:POST /v1/auth/start",
+   "to": "table:login_codes",
+   "kind": "writes"
+  },
+  {
+   "from": "ep:POST /v1/auth/verify",
+   "to": "table:users",
+   "kind": "writes"
+  },
+  {
+   "from": "ep:POST /v1/auth/verify",
+   "to": "table:sessions",
+   "kind": "writes"
+  },
+  {
+   "from": "ep:POST /v1/auth/verify",
+   "to": "table:login_codes",
+   "kind": "writes"
+  },
+  {
+   "from": "ep:POST /v1/auth/verify",
+   "to": "table:invites",
+   "kind": "writes"
+  },
+  {
+   "from": "ep:POST /v1/auth/handle",
+   "to": "table:users",
+   "kind": "writes"
+  },
+  {
+   "from": "ep:POST /v1/auth/logout",
+   "to": "table:sessions",
+   "kind": "writes"
+  },
+  {
+   "from": "ep:POST /v1/invites",
+   "to": "table:invites",
+   "kind": "writes"
+  },
+  {
+   "from": "ep:GET /v1/invites/:code",
+   "to": "table:invites",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /v1/invites/:code",
+   "to": "table:users",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:POST /v1/uploads",
+   "to": "table:media",
+   "kind": "writes"
+  },
+  {
+   "from": "ep:PUT /v1/uploads/:id",
+   "to": "table:media",
+   "kind": "writes"
+  },
+  {
+   "from": "ep:PUT /v1/uploads/:id",
+   "to": "r2:MEDIA",
+   "kind": "writes"
+  },
+  {
+   "from": "ep:GET /media/:key",
+   "to": "r2:MEDIA",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:HEAD /media/:key",
+   "to": "r2:MEDIA",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /",
+   "to": "table:posts",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /",
+   "to": "table:media",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /",
+   "to": "table:users",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /invite/:code",
+   "to": "table:invites",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /invite/:code",
+   "to": "table:users",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /@:handle",
+   "to": "table:users",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /@:handle",
+   "to": "table:posts",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /@:handle",
+   "to": "table:media",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /p/:id",
+   "to": "table:posts",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /p/:id",
+   "to": "table:media",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /p/:id",
+   "to": "table:users",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:POST /v1/posts",
+   "to": "table:users",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:POST /v1/posts",
+   "to": "table:posts",
+   "kind": "writes"
+  },
+  {
+   "from": "ep:POST /v1/posts",
+   "to": "table:media",
+   "kind": "writes"
+  },
+  {
+   "from": "ep:GET /v1/posts/:id",
+   "to": "table:posts",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /v1/posts/:id",
+   "to": "table:media",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /v1/posts/:id",
+   "to": "table:users",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:DELETE /v1/posts/:id",
+   "to": "table:media",
+   "kind": "writes"
+  },
+  {
+   "from": "ep:DELETE /v1/posts/:id",
+   "to": "table:posts",
+   "kind": "writes"
+  },
+  {
+   "from": "ep:DELETE /v1/posts/:id",
+   "to": "r2:MEDIA",
+   "kind": "writes"
+  },
+  {
+   "from": "ep:GET /v1/users/:handle",
+   "to": "table:users",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /v1/users/:handle",
+   "to": "table:posts",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /v1/users/:handle",
+   "to": "table:media",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /v1/feed",
+   "to": "table:posts",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /v1/feed",
+   "to": "table:media",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /v1/feed",
+   "to": "table:users",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:POST /api/early",
+   "to": "table:early_access",
+   "kind": "writes"
+  },
+  {
+   "from": "ep:GET /api/early/count",
+   "to": "table:early_access",
+   "kind": "reads"
+  },
+  {
+   "from": "table:posts",
+   "to": "lex:social.emera.post",
+   "kind": "mirrors"
+  },
+  {
+   "from": "table:media",
+   "to": "lex:social.emera.provenance",
+   "kind": "mirrors"
+  },
+  {
+   "from": "lex:social.emera.actor.profile",
+   "to": "lex:social.emera.defs",
+   "kind": "refs"
+  },
+  {
+   "from": "lex:social.emera.post",
+   "to": "lex:social.emera.defs",
+   "kind": "refs"
+  }
+ ],
+ "stories": [
+  {
+   "id": "join-with-invite",
+   "title": "Join with an invite",
+   "actor": "invited friend",
+   "goal": "Get an account using a friend's invite code",
+   "planned": false,
+   "note": null,
+   "platforms": [
+    "ios",
+    "android",
+    "web"
+   ],
+   "steps": [
+    {
+     "say": "Open the invite link a friend sent",
+     "endpoint": "GET /invite/:code",
+     "expect": [
+      "public",
+      "table:invites"
+     ],
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ],
+     "i": 0,
+     "status": "built",
+     "screenState": null,
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "invites",
+       "users"
+      ],
+      "r2": []
+     }
+    },
+    {
+     "say": "See the welcome screen",
+     "screen": "/welcome",
+     "i": 1,
+     "status": "built",
+     "screenState": "ok",
+     "epState": null,
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Enter email, with the invite code",
+     "screen": "/sign-in",
+     "endpoint": "POST /v1/auth/start",
+     "expect": [
+      "sends:invite",
+      "table:login_codes"
+     ],
+     "i": 2,
+     "status": "partial",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [
+      "missing: invite sent by the app and read by the API"
+     ],
+     "data": {
+      "tables": [
+       "users",
+       "login_codes",
+       "invites"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Type the 6-digit code from the email",
+     "screen": "/code",
+     "endpoint": "POST /v1/auth/verify",
+     "expect": [
+      "table:sessions",
+      "table:users"
+     ],
+     "i": 3,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "login_codes",
+       "users",
+       "invites",
+       "sessions"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Land on the handle step",
+     "screen": "/handle",
+     "i": 4,
+     "status": "built",
+     "screenState": "ok",
+     "epState": null,
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    }
+   ],
+   "coverage": 90,
+   "built": 4,
+   "counted": 5
+  },
+  {
+   "id": "sign-in-again",
+   "title": "Sign in again",
+   "actor": "creator",
+   "goal": "Come back to my account on a new session",
+   "planned": false,
+   "note": null,
+   "platforms": [
+    "ios",
+    "android",
+    "web"
+   ],
+   "steps": [
+    {
+     "say": "Tap I have an account",
+     "screen": "/welcome",
+     "i": 0,
+     "status": "built",
+     "screenState": "ok",
+     "epState": null,
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Enter email",
+     "screen": "/sign-in",
+     "endpoint": "POST /v1/auth/start",
+     "i": 1,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "users",
+       "login_codes",
+       "invites"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Enter the code",
+     "screen": "/code",
+     "endpoint": "POST /v1/auth/verify",
+     "expect": [
+      "table:sessions"
+     ],
+     "i": 2,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "login_codes",
+       "users",
+       "invites",
+       "sessions"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "The app restores my session on the next launch",
+     "screen": "shell",
+     "endpoint": "GET /v1/me",
+     "expect": [
+      "auth"
+     ],
+     "i": 3,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "See the feed",
+     "screen": "/feed",
+     "endpoint": "GET /v1/feed",
+     "i": 4,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "posts",
+       "media",
+       "users"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    }
+   ],
+   "coverage": 100,
+   "built": 5,
+   "counted": 5
+  },
+  {
+   "id": "pick-handle",
+   "title": "Pick a handle",
+   "actor": "creator",
+   "goal": "Claim @handle and a display name",
+   "planned": false,
+   "note": null,
+   "platforms": [
+    "ios",
+    "android",
+    "web"
+   ],
+   "steps": [
+    {
+     "say": "Choose a handle and display name",
+     "screen": "/handle",
+     "endpoint": "POST /v1/auth/handle",
+     "expect": [
+      "auth",
+      "table:users"
+     ],
+     "i": 0,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "users"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Public profile exists at the handle",
+     "endpoint": "GET /@:handle",
+     "expect": [
+      "public"
+     ],
+     "i": 1,
+     "status": "built",
+     "screenState": null,
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "users",
+       "posts",
+       "media"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    }
+   ],
+   "coverage": 100,
+   "built": 2,
+   "counted": 2
+  },
+  {
+   "id": "post-photo",
+   "title": "Post a photo",
+   "actor": "creator",
+   "goal": "Share a photo, signed with my name",
+   "planned": false,
+   "note": null,
+   "platforms": [
+    "ios",
+    "android",
+    "web"
+   ],
+   "steps": [
+    {
+     "say": "Open the upload tab",
+     "screen": "/upload",
+     "i": 0,
+     "status": "built",
+     "screenState": "ok",
+     "epState": null,
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Pick a photo and upload the bytes",
+     "screen": "/upload",
+     "endpoint": "POST /v1/uploads",
+     "expect": [
+      "auth",
+      "table:media"
+     ],
+     "i": 1,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "media"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "The file is stored and signed",
+     "screen": "/upload",
+     "endpoint": "PUT /v1/uploads/:id",
+     "expect": [
+      "r2",
+      "table:media"
+     ],
+     "i": 2,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "media"
+      ],
+      "r2": [
+       "put",
+       "delete"
+      ]
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Publish the post with a caption",
+     "screen": "/upload",
+     "endpoint": "POST /v1/posts",
+     "expect": [
+      "table:posts"
+     ],
+     "i": 3,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "media",
+       "posts",
+       "users"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Land on the new post",
+     "screen": "/p/:id",
+     "endpoint": "GET /v1/posts/:id",
+     "i": 4,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "posts",
+       "media",
+       "users"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    }
+   ],
+   "coverage": 100,
+   "built": 5,
+   "counted": 5
+  },
+  {
+   "id": "post-video",
+   "title": "Post a video",
+   "actor": "creator",
+   "goal": "Share a film or clip",
+   "planned": false,
+   "note": null,
+   "platforms": [
+    "ios",
+    "android",
+    "web"
+   ],
+   "steps": [
+    {
+     "say": "Pick a video in the upload tab",
+     "screen": "/upload",
+     "endpoint": "POST /v1/uploads",
+     "i": 0,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "media"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Upload the video file",
+     "screen": "/upload",
+     "endpoint": "PUT /v1/uploads/:id",
+     "expect": [
+      "r2"
+     ],
+     "i": 1,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "media"
+      ],
+      "r2": [
+       "put",
+       "delete"
+      ]
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Publish it",
+     "screen": "/upload",
+     "endpoint": "POST /v1/posts",
+     "i": 2,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "media",
+       "posts",
+       "users"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Watch it play from our storage",
+     "screen": "/p/:id",
+     "endpoint": "GET /media/:key",
+     "server": true,
+     "expect": [
+      "r2",
+      "public"
+     ],
+     "i": 3,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": [
+       "head",
+       "get"
+      ]
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    }
+   ],
+   "coverage": 100,
+   "built": 4,
+   "counted": 4
+  },
+  {
+   "id": "see-proof-of-maker",
+   "title": "See my proof of maker",
+   "actor": "creator",
+   "goal": "See that my post carries who made it and when",
+   "planned": false,
+   "note": null,
+   "platforms": [
+    "ios",
+    "android",
+    "web"
+   ],
+   "steps": [
+    {
+     "say": "Open one of my posts",
+     "screen": "/p/:id",
+     "endpoint": "GET /v1/posts/:id",
+     "i": 0,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "posts",
+       "media",
+       "users"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "The post shows who signed it and when",
+     "screen": "/p/:id",
+     "expect": [
+      "shows:proof",
+      "shows:fingerprint"
+     ],
+     "i": 1,
+     "status": "built",
+     "screenState": "ok",
+     "epState": null,
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Anyone can see the same proof on the public page",
+     "endpoint": "GET /p/:id",
+     "expect": [
+      "contains:proof"
+     ],
+     "i": 2,
+     "status": "built",
+     "screenState": null,
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "posts",
+       "media",
+       "users"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    }
+   ],
+   "coverage": 100,
+   "built": 3,
+   "counted": 3
+  },
+  {
+   "id": "share-profile-link",
+   "title": "Share my profile link",
+   "actor": "creator",
+   "goal": "Send my profile to a friend",
+   "planned": false,
+   "note": null,
+   "platforms": [
+    "ios",
+    "android",
+    "web"
+   ],
+   "steps": [
+    {
+     "say": "Open my profile",
+     "screen": "/me",
+     "endpoint": "GET /v1/users/:handle",
+     "i": 0,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "users",
+       "posts",
+       "media"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Tap Share profile",
+     "screen": "/me",
+     "platforms": [
+      "ios",
+      "android"
+     ],
+     "i": 1,
+     "status": "built",
+     "screenState": "ok",
+     "epState": null,
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     }
+    },
+    {
+     "say": "Tap Share profile, the link is copied",
+     "screen": "/me",
+     "platforms": [
+      "web"
+     ],
+     "i": 2,
+     "status": "built",
+     "screenState": "ok",
+     "epState": null,
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     }
+    },
+    {
+     "say": "The link opens a public page",
+     "endpoint": "GET /@:handle",
+     "expect": [
+      "public"
+     ],
+     "i": 3,
+     "status": "built",
+     "screenState": null,
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "users",
+       "posts",
+       "media"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    }
+   ],
+   "coverage": 100,
+   "built": 4,
+   "counted": 4
+  },
+  {
+   "id": "link-preview",
+   "title": "A shared link previews well",
+   "actor": "visitor",
+   "goal": "See a picture and a title when a link lands on X or iMessage",
+   "planned": false,
+   "note": null,
+   "platforms": [
+    "browser"
+   ],
+   "steps": [
+    {
+     "say": "A profile link is pasted into X or iMessage",
+     "endpoint": "GET /@:handle",
+     "expect": [
+      "og"
+     ],
+     "platforms": [
+      "browser"
+     ],
+     "i": 0,
+     "status": "built",
+     "screenState": null,
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "users",
+       "posts",
+       "media"
+      ],
+      "r2": []
+     }
+    },
+    {
+     "say": "A post link is pasted",
+     "endpoint": "GET /p/:id",
+     "expect": [
+      "og"
+     ],
+     "platforms": [
+      "browser"
+     ],
+     "i": 1,
+     "status": "built",
+     "screenState": null,
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "posts",
+       "media",
+       "users"
+      ],
+      "r2": []
+     }
+    },
+    {
+     "say": "The image is fetched from storage",
+     "endpoint": "GET /media/:key",
+     "server": true,
+     "expect": [
+      "public"
+     ],
+     "platforms": [
+      "browser"
+     ],
+     "i": 2,
+     "status": "built",
+     "screenState": null,
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": [
+       "head",
+       "get"
+      ]
+     }
+    }
+   ],
+   "coverage": 100,
+   "built": 3,
+   "counted": 3
+  },
+  {
+   "id": "visitor-opens-profile",
+   "title": "Visitor opens a profile without an account",
+   "actor": "visitor",
+   "goal": "Look at a creator's work with no sign-up",
+   "planned": false,
+   "note": null,
+   "platforms": [
+    "browser"
+   ],
+   "steps": [
+    {
+     "say": "Open emera.social/@handle",
+     "endpoint": "GET /@:handle",
+     "expect": [
+      "public",
+      "table:posts"
+     ],
+     "platforms": [
+      "browser"
+     ],
+     "i": 0,
+     "status": "built",
+     "screenState": null,
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "users",
+       "posts",
+       "media"
+      ],
+      "r2": []
+     }
+    },
+    {
+     "say": "Open one post",
+     "endpoint": "GET /p/:id",
+     "expect": [
+      "public"
+     ],
+     "platforms": [
+      "browser"
+     ],
+     "i": 1,
+     "status": "built",
+     "screenState": null,
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "posts",
+       "media",
+       "users"
+      ],
+      "r2": []
+     }
+    },
+    {
+     "say": "The home page shows recent work",
+     "endpoint": "GET /",
+     "expect": [
+      "public"
+     ],
+     "platforms": [
+      "browser"
+     ],
+     "i": 2,
+     "status": "built",
+     "screenState": null,
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "posts",
+       "media",
+       "users"
+      ],
+      "r2": []
+     }
+    }
+   ],
+   "coverage": 100,
+   "built": 3,
+   "counted": 3
+  },
+  {
+   "id": "invite-a-friend",
+   "title": "Invite a friend",
+   "actor": "creator",
+   "goal": "Make an invite link and send it",
+   "planned": false,
+   "note": null,
+   "platforms": [
+    "ios",
+    "android",
+    "web"
+   ],
+   "steps": [
+    {
+     "say": "Open settings",
+     "screen": "/settings",
+     "i": 0,
+     "status": "built",
+     "screenState": "ok",
+     "epState": null,
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Make an invite",
+     "screen": "/settings",
+     "endpoint": "POST /v1/invites",
+     "expect": [
+      "auth",
+      "table:invites"
+     ],
+     "i": 1,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "invites"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Share the link",
+     "screen": "/settings",
+     "i": 2,
+     "status": "built",
+     "screenState": "ok",
+     "epState": null,
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Friend checks the code is valid",
+     "endpoint": "GET /v1/invites/:code",
+     "expect": [
+      "public"
+     ],
+     "i": 3,
+     "status": "built",
+     "screenState": null,
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "invites",
+       "users"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    }
+   ],
+   "coverage": 100,
+   "built": 4,
+   "counted": 4
+  },
+  {
+   "id": "report-a-copy",
+   "title": "Report a copy of my work",
+   "actor": "creator",
+   "goal": "Tell Emera someone copied my work, so we help file the takedown",
+   "planned": true,
+   "note": "Manual protection v1, not built yet",
+   "platforms": [
+    "ios",
+    "android",
+    "web"
+   ],
+   "steps": [
+    {
+     "say": "Open my post and tap Report a copy",
+     "screen": "/report",
+     "i": 0,
+     "status": "missing",
+     "screenState": "missing",
+     "epState": null,
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Paste the link where the copy lives",
+     "screen": "/report",
+     "endpoint": "POST /v1/reports",
+     "expect": [
+      "table:reports",
+      "auth"
+     ],
+     "i": 1,
+     "status": "missing",
+     "screenState": "missing",
+     "epState": "missing",
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Emera team reads the report",
+     "screen": "/admin/reports",
+     "endpoint": "GET /v1/admin/reports",
+     "i": 2,
+     "status": "missing",
+     "screenState": "missing",
+     "epState": "missing",
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Emera team files the takedown",
+     "human": true,
+     "i": 3,
+     "status": "human",
+     "screenState": null,
+     "epState": null,
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    }
+   ],
+   "coverage": 0,
+   "built": 0,
+   "counted": 3
+  },
+  {
+   "id": "export-account",
+   "title": "Export my account",
+   "actor": "creator",
+   "goal": "Download everything I posted",
+   "planned": false,
+   "note": null,
+   "platforms": [
+    "ios",
+    "android",
+    "web"
+   ],
+   "steps": [
+    {
+     "say": "Open settings",
+     "screen": "/settings",
+     "i": 0,
+     "status": "built",
+     "screenState": "ok",
+     "epState": null,
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Ask for an export",
+     "screen": "/settings",
+     "endpoint": "GET /v1/me/export",
+     "expect": [
+      "auth"
+     ],
+     "i": 1,
+     "status": "partial",
+     "screenState": "ok",
+     "epState": "missing",
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    }
+   ],
+   "coverage": 75,
+   "built": 1,
+   "counted": 2
+  },
+  {
+   "id": "delete-post",
+   "title": "Delete a post",
+   "actor": "creator",
+   "goal": "Remove a post and its files",
+   "planned": false,
+   "note": null,
+   "platforms": [
+    "ios",
+    "android",
+    "web"
+   ],
+   "steps": [
+    {
+     "say": "Open my post",
+     "screen": "/p/:id",
+     "endpoint": "GET /v1/posts/:id",
+     "i": 0,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "posts",
+       "media",
+       "users"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Confirm delete",
+     "screen": "/p/:id",
+     "endpoint": "DELETE /v1/posts/:id",
+     "expect": [
+      "auth",
+      "r2",
+      "table:posts",
+      "table:media"
+     ],
+     "i": 1,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "posts",
+       "media"
+      ],
+      "r2": [
+       "delete"
+      ]
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    }
+   ],
+   "coverage": 100,
+   "built": 2,
+   "counted": 2
+  },
+  {
+   "id": "join-early-list",
+   "title": "Join the early list",
+   "actor": "visitor",
+   "goal": "Leave an email on emera.social",
+   "planned": false,
+   "note": null,
+   "platforms": [
+    "browser"
+   ],
+   "steps": [
+    {
+     "say": "Open emera.social",
+     "site": "/",
+     "platforms": [
+      "browser"
+     ],
+     "i": 0,
+     "status": "built",
+     "screenState": "ok",
+     "epState": null,
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     }
+    },
+    {
+     "say": "Type an email and submit",
+     "site": "/",
+     "endpoint": "POST /api/early",
+     "expect": [
+      "table:early_access",
+      "public"
+     ],
+     "platforms": [
+      "browser"
+     ],
+     "i": 1,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "early_access"
+      ],
+      "r2": []
+     }
+    },
+    {
+     "say": "See how many are on the list",
+     "site": "/",
+     "endpoint": "GET /api/early/count",
+     "platforms": [
+      "browser"
+     ],
+     "i": 2,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "early_access"
+      ],
+      "r2": []
+     }
+    }
+   ],
+   "coverage": 100,
+   "built": 3,
+   "counted": 3
+  },
+  {
+   "id": "edit-profile",
+   "title": "Edit my profile",
+   "actor": "creator",
+   "goal": "Change bio and avatar",
+   "planned": false,
+   "note": null,
+   "platforms": [
+    "ios",
+    "android",
+    "web"
+   ],
+   "steps": [
+    {
+     "say": "Open settings",
+     "screen": "/settings",
+     "i": 0,
+     "status": "built",
+     "screenState": "ok",
+     "epState": null,
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Save a new bio and avatar",
+     "screen": "/settings",
+     "endpoint": "PATCH /v1/me",
+     "expect": [
+      "auth",
+      "table:users"
+     ],
+     "i": 1,
+     "status": "partial",
+     "screenState": "ok",
+     "epState": "missing",
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    }
+   ],
+   "coverage": 75,
+   "built": 1,
+   "counted": 2
+  },
+  {
+   "id": "sign-out",
+   "title": "Sign out",
+   "actor": "creator",
+   "goal": "End my session on this device",
+   "planned": false,
+   "note": null,
+   "platforms": [
+    "ios",
+    "android",
+    "web"
+   ],
+   "steps": [
+    {
+     "say": "Tap sign out",
+     "screen": "/settings",
+     "endpoint": "POST /v1/auth/logout",
+     "expect": [
+      "table:sessions"
+     ],
+     "i": 0,
+     "status": "built",
+     "screenState": "ok",
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "sessions"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    }
+   ],
+   "coverage": 100,
+   "built": 1,
+   "counted": 1
+  },
+  {
+   "id": "team-early-list",
+   "title": "Emera team reads the early list",
+   "actor": "Emera team",
+   "goal": "See who signed up and how many",
+   "planned": false,
+   "note": null,
+   "platforms": [
+    "ios",
+    "android",
+    "web"
+   ],
+   "steps": [
+    {
+     "say": "Check the count",
+     "endpoint": "GET /api/early/count",
+     "i": 0,
+     "status": "built",
+     "screenState": null,
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "early_access"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Open the signups",
+     "endpoint": "GET /api/early/list",
+     "expect": [
+      "auth"
+     ],
+     "i": 1,
+     "status": "missing",
+     "screenState": null,
+     "epState": "missing",
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    }
+   ],
+   "coverage": 50,
+   "built": 1,
+   "counted": 2
+  },
+  {
+   "id": "team-seed-invites",
+   "title": "Emera team seeds the first creators",
+   "actor": "Emera team",
+   "goal": "Hand out invite codes to the first 25 creators",
+   "planned": false,
+   "note": null,
+   "platforms": [
+    "ios",
+    "android",
+    "web"
+   ],
+   "steps": [
+    {
+     "say": "Set the seed code as a secret",
+     "human": true,
+     "i": 0,
+     "status": "human",
+     "screenState": null,
+     "epState": null,
+     "problems": [],
+     "data": {
+      "tables": [],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Creators check the seed code works",
+     "endpoint": "GET /v1/invites/:code",
+     "i": 1,
+     "status": "built",
+     "screenState": null,
+     "epState": "ok",
+     "problems": [],
+     "data": {
+      "tables": [
+       "invites",
+       "users"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    },
+    {
+     "say": "Seed code signs a creator up",
+     "endpoint": "POST /v1/auth/start",
+     "expect": [
+      "sends:invite"
+     ],
+     "i": 2,
+     "status": "partial",
+     "screenState": null,
+     "epState": "ok",
+     "problems": [
+      "missing: invite sent by the app and read by the API"
+     ],
+     "data": {
+      "tables": [
+       "users",
+       "login_codes",
+       "invites"
+      ],
+      "r2": []
+     },
+     "platforms": [
+      "ios",
+      "android",
+      "web"
+     ]
+    }
+   ],
+   "coverage": 75,
+   "built": 1,
+   "counted": 2
+  }
+ ],
+ "missing": [
+  {
+   "key": "expect:POST /v1/auth/start:sends:invite",
+   "kind": "detail",
+   "label": "invite sent by the app and read by the API on POST /v1/auth/start",
+   "stories": [
+    "join-with-invite",
+    "team-seed-invites"
+   ],
+   "steps": [
+    "join-with-invite#2",
+    "team-seed-invites#2"
+   ],
+   "blocks": 2
+  },
+  {
+   "key": "endpoint:GET /api/early/list",
+   "kind": "endpoint",
+   "label": "endpoint GET /api/early/list",
+   "stories": [
+    "team-early-list"
+   ],
+   "steps": [
+    "team-early-list#1"
+   ],
+   "blocks": 1
+  },
+  {
+   "key": "endpoint:GET /v1/admin/reports",
+   "kind": "endpoint",
+   "label": "endpoint GET /v1/admin/reports",
+   "stories": [
+    "report-a-copy"
+   ],
+   "steps": [
+    "report-a-copy#2"
+   ],
+   "blocks": 1
+  },
+  {
+   "key": "endpoint:GET /v1/me/export",
+   "kind": "endpoint",
+   "label": "endpoint GET /v1/me/export",
+   "stories": [
+    "export-account"
+   ],
+   "steps": [
+    "export-account#1"
+   ],
+   "blocks": 1
+  },
+  {
+   "key": "endpoint:PATCH /v1/me",
+   "kind": "endpoint",
+   "label": "endpoint PATCH /v1/me",
+   "stories": [
+    "edit-profile"
+   ],
+   "steps": [
+    "edit-profile#1"
+   ],
+   "blocks": 1
+  },
+  {
+   "key": "endpoint:POST /v1/reports",
+   "kind": "endpoint",
+   "label": "endpoint POST /v1/reports",
+   "stories": [
+    "report-a-copy"
+   ],
+   "steps": [
+    "report-a-copy#1"
+   ],
+   "blocks": 1
+  },
+  {
+   "key": "screen:app:/admin/reports",
+   "kind": "screen",
+   "label": "screen /admin/reports",
+   "stories": [
+    "report-a-copy"
+   ],
+   "steps": [
+    "report-a-copy#2"
+   ],
+   "blocks": 1
+  },
+  {
+   "key": "screen:app:/report",
+   "kind": "screen",
+   "label": "screen /report",
+   "stories": [
+    "report-a-copy"
+   ],
+   "steps": [
+    "report-a-copy#0",
+    "report-a-copy#1"
+   ],
+   "blocks": 1
+  }
+ ],
+ "drift": [
+  {
+   "method": "authStart",
+   "endpoint": "POST /v1/auth/start",
+   "sentButIgnored": [],
+   "readButNeverSent": [
+    "invite"
+   ],
+   "file": "apps/mobile/src/lib/http.ts",
+   "line": 28
+  },
+  {
+   "method": "setHandle",
+   "endpoint": "POST /v1/auth/handle",
+   "sentButIgnored": [
+    "inviteCode"
+   ],
+   "readButNeverSent": [],
+   "file": "apps/mobile/src/lib/http.ts",
+   "line": 30
+  }
+ ],
+ "unmapped": {
+  "endpoints": [
+   "GET /health",
+   "HEAD /media/:key"
+  ],
+  "screens": [
+   "/",
+   "/u/:handle"
+  ],
+  "tables": []
+ },
+ "platforms": {
+  "updated": "2026-11-13",
+  "statusKey": {
+   "live": "running for real users",
+   "in code": "built in the repo, not shipped to users",
+   "planned": "decided, not started",
+   "idea": "worth doing, not decided"
+  },
+  "exposureScale": "1 to 5, creator exposure if shipped",
+  "items": [
+   {
+    "id": "ios",
+    "group": "Phones",
+    "name": "iOS",
+    "status": "in code",
+    "path": "Expo app in apps/mobile (expo run:ios); TestFlight then App Store",
+    "effort": "M",
+    "exposure": 5,
+    "why": "Where most creators post from; the main app",
+    "outsiders": "partial",
+    "note": "Mock data only; needs API sign-in wired and Apple developer account"
+   },
+   {
+    "id": "android",
+    "group": "Phones",
+    "name": "Android",
+    "status": "in code",
+    "path": "Same Expo codebase (expo run:android); Play internal track then production",
+    "effort": "M",
+    "exposure": 5,
+    "why": "Largest phone base worldwide, strongest outside the US",
+    "outsiders": "partial",
+    "note": "Mock data only; needs release signing"
+   },
+   {
+    "id": "web",
+    "group": "Web",
+    "name": "Desktop and mobile web",
+    "status": "live",
+    "path": "Expo web export (apps/mobile) plus server-rendered /@handle and /p/:id pages from apps/api",
+    "effort": "S",
+    "exposure": 5,
+    "why": "Every link works with no install, so every share reaches a person",
+    "outsiders": "yes",
+    "note": "Public pages on staging; emera.social serves the landing page and early list"
+   },
+   {
+    "id": "pwa",
+    "group": "Web",
+    "name": "PWA (installable web app)",
+    "status": "idea",
+    "path": "Web manifest, service worker and icons on the Expo web build; add to home screen on iOS, Android and desktop Chrome",
+    "effort": "S",
+    "exposure": 4,
+    "why": "Installable on every screen that has a browser, with no store review",
+    "outsiders": "yes"
+   },
+   {
+    "id": "macos",
+    "group": "Desktop apps",
+    "name": "macOS",
+    "status": "idea",
+    "path": "PWA first; later Expo with react-native-macos or an Electron/Tauri shell around the web build",
+    "effort": "M",
+    "exposure": 2,
+    "why": "Desktop creators review work here; the PWA covers most need",
+    "outsiders": "yes"
+   },
+   {
+    "id": "windows",
+    "group": "Desktop apps",
+    "name": "Windows",
+    "status": "idea",
+    "path": "PWA first; later react-native-windows or a Tauri shell around the web build",
+    "effort": "M",
+    "exposure": 2,
+    "why": "Large creator base on Windows; the PWA covers most need",
+    "outsiders": "yes"
+   },
+   {
+    "id": "linux",
+    "group": "Desktop apps",
+    "name": "Linux",
+    "status": "idea",
+    "path": "PWA or a Tauri/Electron shell around the web build (AppImage, Flatpak)",
+    "effort": "M",
+    "exposure": 1,
+    "why": "Small audience, but a good first contribution from outsiders",
+    "outsiders": "yes"
+   },
+   {
+    "id": "ipad",
+    "group": "Tablets",
+    "name": "iPad",
+    "status": "in code",
+    "path": "Same Expo iOS build with supportsTablet and a wide layout (two-column feed)",
+    "effort": "S",
+    "exposure": 3,
+    "why": "Creators sketch, edit and browse here; one flag plus layout work",
+    "outsiders": "yes",
+    "note": "Needs responsive layout pass"
+   },
+   {
+    "id": "android-tablet",
+    "group": "Tablets",
+    "name": "Android tablets",
+    "status": "in code",
+    "path": "Same Expo Android build with large-screen layouts and foldable support",
+    "effort": "S",
+    "exposure": 2,
+    "why": "Free once the iPad layout exists",
+    "outsiders": "yes"
+   },
+   {
+    "id": "tvos",
+    "group": "TV",
+    "name": "Apple TV (tvOS)",
+    "status": "idea",
+    "path": "react-native-tvos (Expo supports it through the TV config plugin): one codebase with a focus-based layout and expo-video HLS playback",
+    "effort": "L",
+    "exposure": 4,
+    "why": "Premium living-room screen; the founder asked for smart TVs",
+    "outsiders": "yes",
+    "note": "Needs a remote-first UI: focus rings, no text entry, sign-in by phone code"
+   },
+   {
+    "id": "android-tv",
+    "group": "TV",
+    "name": "Android TV and Google TV",
+    "status": "idea",
+    "path": "react-native-tvos Android TV target; same build as Fire TV",
+    "effort": "L",
+    "exposure": 4,
+    "why": "Largest TV platform by device count outside Apple; one build also feeds Fire TV",
+    "outsiders": "yes",
+    "note": "Needs leanback launcher entry and banner asset"
+   },
+   {
+    "id": "fire-tv",
+    "group": "TV",
+    "name": "Amazon Fire TV",
+    "status": "idea",
+    "path": "Same Android TV APK from react-native-tvos, submitted to the Amazon Appstore",
+    "effort": "M",
+    "exposure": 4,
+    "why": "Cheap sticks put it in many homes; adds only a store listing once Android TV exists",
+    "outsiders": "yes",
+    "note": "Fire OS ships its own player quirks; test on a Fire Stick"
+   },
+   {
+    "id": "roku",
+    "group": "TV",
+    "name": "Roku",
+    "status": "idea",
+    "path": "Native SceneGraph channel in BrightScript/SceneGraph XML that reads a public JSON feed from apps/api (no React Native on Roku); a Direct Publisher feed is the cheapest start",
+    "effort": "L",
+    "exposure": 4,
+    "why": "Roku is the top US streaming platform by share; creators reach a lean-back audience",
+    "outsiders": "yes",
+    "note": "Separate codebase; ideal for an outside contributor who knows Roku"
+   },
+   {
+    "id": "tizen",
+    "group": "TV",
+    "name": "Samsung TV (Tizen)",
+    "status": "idea",
+    "path": "Packaged web app (Tizen Studio) wrapping the web build with spatial-navigation key handling",
+    "effort": "M",
+    "exposure": 3,
+    "why": "Largest TV brand worldwide; the web build is reused",
+    "outsiders": "yes",
+    "note": "Needs a TV-safe web layout and a Samsung seller account"
+   },
+   {
+    "id": "webos",
+    "group": "TV",
+    "name": "LG TV (webOS)",
+    "status": "idea",
+    "path": "Packaged web app (webOS Studio) wrapping the same TV web layout as Tizen",
+    "effort": "M",
+    "exposure": 3,
+    "why": "Second-largest TV brand; shares the Tizen work",
+    "outsiders": "yes",
+    "note": "Needs LG Seller Lounge account"
+   },
+   {
+    "id": "watchos",
+    "group": "Watch",
+    "name": "Apple Watch (watchOS)",
+    "status": "idea",
+    "path": "Small native SwiftUI companion: notifications for new followers and report status; no feed",
+    "effort": "M",
+    "exposure": 1,
+    "why": "Low exposure for creators; useful for alerts only",
+    "outsiders": "yes"
+   },
+   {
+    "id": "wearos",
+    "group": "Watch",
+    "name": "Wear OS",
+    "status": "idea",
+    "path": "Small native Kotlin companion for alerts, same scope as watchOS",
+    "effort": "M",
+    "exposure": 1,
+    "why": "Low exposure; alerts only",
+    "outsiders": "yes"
+   },
+   {
+    "id": "carplay",
+    "group": "Cars",
+    "name": "CarPlay and Android Auto",
+    "status": "idea",
+    "path": "Audio-only: Apple and Google restrict driving apps to audio, navigation, messaging and a few categories, so only a music or podcast post type would fit",
+    "effort": "L",
+    "exposure": 1,
+    "why": "Only makes sense for audio creators once audio posts exist",
+    "outsiders": "partial",
+    "note": "Skip until audio posts ship"
+   },
+   {
+    "id": "visionos",
+    "group": "VR and AR",
+    "name": "Apple Vision Pro",
+    "status": "idea",
+    "path": "Run the iPad app in compatibility mode first; native visionOS (SwiftUI/RealityKit) only for a gallery view",
+    "effort": "M",
+    "exposure": 1,
+    "why": "Early adopters and press; works as an iPad app on day one",
+    "outsiders": "yes"
+   },
+   {
+    "id": "quest",
+    "group": "VR and AR",
+    "name": "Meta Quest",
+    "status": "idea",
+    "path": "Web app in the Quest Browser (PWA); a native Horizon app is not worth it yet",
+    "effort": "S",
+    "exposure": 1,
+    "why": "The web build already works in the headset browser",
+    "outsiders": "yes"
+   },
+   {
+    "id": "ext-share",
+    "group": "In-browser",
+    "name": "Browser extension (save and share)",
+    "status": "idea",
+    "path": "WebExtension (Chrome, Firefox, Safari): \"Post this to Emera\" and \"Report a copy of this\" on any page",
+    "effort": "M",
+    "exposure": 3,
+    "why": "Puts the report-a-copy flow where creators find copies",
+    "outsiders": "yes"
+   },
+   {
+    "id": "share-cards",
+    "group": "In-browser",
+    "name": "Share cards (Open Graph, Twitter Card)",
+    "status": "in code",
+    "path": "apps/api renders /@handle and /p/:id with og: tags; add generated card images (title, maker badge) via a Worker image route",
+    "effort": "S",
+    "exposure": 5,
+    "why": "Every link pasted into X, iMessage, Slack and Discord shows the work and the maker",
+    "outsiders": "yes",
+    "note": "Pages exist; per-post card image still to build"
+   },
+   {
+    "id": "oembed",
+    "group": "In-browser",
+    "name": "oEmbed and embeds",
+    "status": "idea",
+    "path": "/oembed endpoint returning JSON for /p/:id plus an iframe embed page, like bskyembed in bluesky-social/social-app",
+    "effort": "M",
+    "exposure": 4,
+    "why": "Blogs, newsletters and Notion embed the post, each one a backlink",
+    "outsiders": "yes"
+   },
+   {
+    "id": "rss",
+    "group": "Feeds",
+    "name": "RSS and Atom per creator",
+    "status": "idea",
+    "path": "/@handle/feed.xml and /feed.xml from apps/api, with media enclosures",
+    "effort": "S",
+    "exposure": 4,
+    "why": "Readers, podcast apps and automations follow creators with no account",
+    "outsiders": "yes"
+   },
+   {
+    "id": "email-digest",
+    "group": "Feeds",
+    "name": "Email digests",
+    "status": "idea",
+    "path": "Weekly Resend digest of followed creators, built from the same feed query; opt-in",
+    "effort": "M",
+    "exposure": 3,
+    "why": "Reaches people who never open an app; early list already collects emails",
+    "outsiders": "yes"
+   },
+   {
+    "id": "atproto-clients",
+    "group": "AT Protocol",
+    "name": "Other AT Protocol clients",
+    "status": "idea",
+    "path": "Publish social.emera.* lexicons and a docs page; clients read posts through the PDS and AppView APIs",
+    "effort": "M",
+    "exposure": 3,
+    "why": "Instant reach into the existing AT Protocol app ecosystem",
+    "outsiders": "yes",
+    "note": "Depends on stage A/B of the own-PDS plan in docs/architecture.md"
+   },
+   {
+    "id": "bluesky-show",
+    "group": "AT Protocol",
+    "name": "Posts visible in Bluesky",
+    "status": "idea",
+    "path": "Write a companion app.bsky.feed.post (image and link card back to Emera) beside each social.emera.post, opt-in per creator",
+    "effort": "M",
+    "exposure": 5,
+    "why": "Bluesky has the audience today; every post carries a link back",
+    "outsiders": "yes",
+    "note": "Design needs a check on how a custom record and the Bluesky record stay in sync [inferred]"
+   },
+   {
+    "id": "feedgen",
+    "group": "AT Protocol",
+    "name": "Feed generator",
+    "status": "idea",
+    "path": "Feed generator from bluesky-social/feed-generator that serves \"Emera creators\" as a custom feed inside Bluesky",
+    "effort": "M",
+    "exposure": 3,
+    "why": "Pinned feeds in Bluesky bring followers without an install",
+    "outsiders": "yes"
+   },
+   {
+    "id": "mcp",
+    "group": "Assistants",
+    "name": "MCP server and assistant apps",
+    "status": "idea",
+    "path": "Read-only MCP server over the public API (search creators, read a post, start a report); a ChatGPT app can wrap the same API",
+    "effort": "M",
+    "exposure": 2,
+    "why": "Assistants can answer \"who made this\" with a link to the proof",
+    "outsiders": "yes"
+   },
+   {
+    "id": "smart-display",
+    "group": "Assistants",
+    "name": "Smart displays (Echo Show, Nest Hub)",
+    "status": "idea",
+    "path": "Web app in the display browser or a Fire TV-style app; digital-frame mode of a creator feed",
+    "effort": "S",
+    "exposure": 1,
+    "why": "Ambient showcase for visual artists; low priority",
+    "outsiders": "yes"
+   }
+  ]
+ }
+}
