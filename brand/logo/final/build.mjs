@@ -13,7 +13,7 @@ const icon = (mode, mark, rounded = true) => {
   const bg = mode === 'dark' ? COL.ink : COL.cream
   const fg = mode === 'dark' ? COL.cream : COL.ink
   const shape = rounded ? `<path d="${squirclePath(1024)}" fill="${bg}"/>` : `<rect width="1024" height="1024" fill="${bg}"/>`
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">${shape}<svg x="72" y="92" width="880" height="880" viewBox="${vb(mark)}" color="${fg}">${inner(mark)}</svg></svg>`
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">${shape}<svg x="62" y="92" width="900" height="900" viewBox="${vb(mark)}" color="${fg}">${inner(mark)}</svg></svg>`
 }
 const favicon = (mode) => {
   const bg = mode === 'dark' ? COL.ink : COL.cream
@@ -32,7 +32,7 @@ const jobs = [
   ['favicon-16.png', favicon('light'), 16],
   ['pwa-192.png', icon('light', full, false), 192],
   ['pwa-512.png', icon('light', full, false), 512],
-  ['pwa-maskable-512.png', icon('light', full, false).replace('x="72" y="92" width="880" height="880"', 'x="222" y="232" width="580" height="580"'), 512],
+  ['pwa-maskable-512.png', icon('light', full, false).replace('x="62" y="92" width="900" height="900"', 'x="222" y="232" width="580" height="580"'), 512],
 ]
 const browser = await chromium.launch({ executablePath: process.env.CHROME_HEADLESS || undefined })
 const page = await browser.newPage()

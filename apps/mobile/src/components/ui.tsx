@@ -29,7 +29,7 @@ export function Wordmark({ size = 22 }: { size?: number }) {
   const { c } = useTheme();
   return (
     <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
-      <Mark size={size * 1.52} />
+      <Mark size={size * 1.6} />
       <Text style={{ fontFamily: font.display.semibold, fontSize: size, lineHeight: size * 1.2, color: c.ink, letterSpacing: -size * 0.045 }}>{brand.name}</Text>
     </View>
   );
