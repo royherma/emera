@@ -58,7 +58,7 @@ h2 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;mar
 .task span{flex:1;outline:none;font-size:11.5px;line-height:1.25}
 .task i{font-style:normal;font-size:9.5px;font-weight:700;border-radius:4px;padding:0 4px;white-space:nowrap;margin-top:2px}
 .task i.roy{background:#fde6c8;color:#8a5212}.task i.claude{background:#e5ecf7;color:#36527f}
-.brands{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.bd{border:1px solid var(--line);border-radius:12px;background:var(--soft);display:flex;flex-direction:column;overflow:hidden}.bd .img{height:150px;background:linear-gradient(110deg,#efe9dd 30%,#f8f4ec 50%,#efe9dd 70%);background-size:200% 100%;animation:sh 1.6s linear infinite;display:grid;place-items:center;color:var(--mute);font-size:12px;font-weight:600}.bd .img img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;cursor:zoom-in}.bd.has .img{animation:none;background:#fff}.bd .meta{padding:8px 10px;display:flex;gap:8px;align-items:center}.bd .meta b{font-size:13px}.bd .meta span{font-size:11px;color:var(--mute);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bd .meta button{border:1px solid var(--line);background:#fff;border-radius:6px;font:600 11px Inter,system-ui,sans-serif;padding:3px 10px;cursor:pointer}.bd.keep{box-shadow:0 0 0 2px var(--a2)}.bd.keep .meta button{background:var(--a2);color:#fff}@keyframes sh{to{background-position:-200% 0}}
+.brands{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.bd{border:1px solid var(--line);border-radius:12px;background:var(--soft);display:flex;flex-direction:column;overflow:hidden}.bd .img{flex:0 0 auto}.bd .img{height:118px;background:linear-gradient(110deg,#efe9dd 30%,#f8f4ec 50%,#efe9dd 70%);background-size:200% 100%;animation:sh 1.6s linear infinite;display:grid;place-items:center;color:var(--mute);font-size:12px;font-weight:600}.bd .img img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;cursor:zoom-in}.bd.has .img{animation:none;background:#fff}.bd .meta{padding:8px 10px;display:flex;gap:8px;align-items:center}.bd .meta b{font-size:13px}.bd .meta span{font-size:11px;color:var(--mute);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bd .meta button{border:1px solid var(--line);background:#fff;border-radius:6px;font:600 11px Inter,system-ui,sans-serif;padding:3px 10px;cursor:pointer}.bd.keep{box-shadow:0 0 0 2px var(--a2)}.bd.keep .meta button{background:var(--a2);color:#fff}@keyframes sh{to{background-position:-200% 0}}
 .task i.run{background:#e7f3ec;color:var(--a2);animation:pl 1.4s ease-in-out infinite}@keyframes pl{50%{opacity:.45}}
 .task.done span{text-decoration:line-through;color:var(--mute)}
 .add{border:1px dashed var(--line);background:none;color:var(--mute);border-radius:8px;padding:4px 7px;font:500 11.5px Inter,system-ui,sans-serif;cursor:pointer;text-align:left}
@@ -66,6 +66,10 @@ h2 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;mar
 .tell{display:flex;gap:8px}
 .tell input{flex:1;border:1px solid var(--line);border-radius:9px;padding:8px 10px;font:inherit;background:#fff}
 .tell button{border:0;border-radius:9px;background:var(--a);color:#fff;font:600 12.5px Inter,system-ui,sans-serif;padding:0 14px;cursor:pointer}
+.tabs{display:flex;gap:4px;margin-bottom:8px}.tabs button{border:1px solid var(--line);background:#fff;border-radius:7px;padding:4px 10px;font:700 11px Inter,system-ui,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);cursor:pointer}.tabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}.tabs button b{background:var(--a);color:#fff;border-radius:9px;padding:0 5px;margin-left:4px}
+.ws{display:flex;gap:6px;padding:0 20px 10px;flex-wrap:nowrap;overflow:hidden}.ws div{flex:1;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:5px 8px;font-size:11px;line-height:1.2}.ws div b{display:flex;align-items:center;gap:5px;font-size:11.5px}.ws div b i{width:7px;height:7px;border-radius:50%;background:var(--a2);flex:0 0 auto}.ws div.running b i{background:var(--a);animation:pl 1.2s infinite}.ws div span{color:var(--mute);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mis p{font:600 14px/1.35 Fraunces,Georgia,serif;margin-bottom:8px}.mis .v{border-top:1px solid var(--line);padding:5px 0}.mis .v b{font-size:12.5px}.mis .v span{display:block;font-size:11.5px;color:var(--mute)}.ask{border:1px solid var(--line);border-radius:9px;padding:7px 9px;margin-bottom:6px;background:var(--soft)}.ask b{font-size:12.5px;display:flex;gap:6px}.ask b i{font-style:normal;margin-left:auto;font-size:10px;color:var(--a);text-transform:uppercase;font-weight:700}.ask span{font-size:11.5px;color:var(--mute)}
+.ph h3 .pct{flex:1;height:5px;border-radius:5px;background:var(--line);overflow:hidden;margin:0 4px}.ph h3 .pct b{display:block;height:100%;background:var(--a2)}
 .toast{position:fixed;right:20px;bottom:20px;background:var(--ink);color:#fff;padding:8px 14px;border-radius:10px;font-weight:600;opacity:0;transition:.2s;pointer-events:none}
 .toast.on{opacity:1}
 .empty{color:var(--mute);font-size:12px;padding:6px 0}
@@ -78,11 +82,14 @@ h2 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;mar
   <div class="goal"><span>Goal</span><div id="goal"></div></div>
   <div class="prog"><i><b id="bar"></b></i><span id="count"></span><span id="upd"></span></div>
 </header>
+<div class="ws" id="ws"></div>
 <main>
   <div class="col">
     <section class="card" style="flex:1;overflow:auto">
-      <h2>Decisions <em>my pick is marked, click yours</em></h2>
+      <div class="tabs" id="tabs"></div>
       <div id="decs"><div class="empty">Filling in...</div></div>
+      <div id="mission" hidden></div>
+      <div id="asks" hidden></div>
     </section>
     <section class="card">
       <h2>Tell Claude</h2>
@@ -113,9 +120,20 @@ function render() {
   $('upd').textContent = `Updated ${plan.updated}`;
   const tasks = plan.phases.flatMap((p) => p.tasks);
   const done = tasks.filter((t) => t.done).length;
-  $('count').textContent = `${done} / ${tasks.length} done`;
+  $('count').textContent = `${Math.round((100 * done) / Math.max(1, tasks.length))}% · ${done} / ${tasks.length} steps`;
   $('bar').style.width = tasks.length ? `${(100 * done) / tasks.length}%` : '0';
 
+  const tabs = [['decs', 'Decisions'], ['mission', 'Mission'], ['asks', 'Needs you', (plan.asks ?? []).length]];
+  window.tab ??= 'decs';
+  const tb = $('tabs'); tb.replaceChildren();
+  for (const [id, label, n] of tabs) { const b = el('button', id === window.tab ? 'on' : '', label); if (n) b.append(el('b', '', n)); b.onclick = () => { window.tab = id; render(); }; tb.append(b); }
+  for (const [id] of tabs) $(id).hidden = id !== window.tab;
+  const ws = $('ws'); ws.replaceChildren();
+  for (const w of plan.workstreams ?? []) { const d = el('div', w.state); const b = el('b', ''); b.append(el('i'), w.name); d.append(b, el('span', '', w.state === 'running' ? `agent working: ${w.note}` : w.note)); ws.append(d); }
+  const mi = $('mission'); mi.replaceChildren(); mi.className = 'mis';
+  if (plan.mission) { mi.append(el('p', '', plan.mission.mission)); for (const v of plan.mission.values) { const d = el('div', 'v'); d.append(el('b', '', v.name), el('span', '', v.line)); mi.append(d); } mi.append(el('div', 'why', `v${plan.mission.version} · improves by community vote, see docs/mission`)); }
+  const as = $('asks'); as.replaceChildren();
+  for (const a of plan.asks ?? []) { const d = el('div', 'ask'); const b = el('b', '', a.title); b.append(el('i', '', a.when)); d.append(b, el('span', '', a.why)); as.append(d); }
   const decs = $('decs'); decs.replaceChildren();
   if (!plan.decisions.length) decs.append(el('div', 'empty', 'Filling in...'));
   for (const d of plan.decisions) {
@@ -171,7 +189,7 @@ function render() {
       const card = el('div', `bd ${b.png ? 'has' : ''} ${b.vote ?? ''}`);
       const img = el('div', 'img', b.png ? null : 'Drawing...');
       if (b.png) { const im = el('img'); im.src = `/file/${b.png}?v=${plan.updated}`; im.onclick = () => window.open(`/file/${b.html}`, '_blank'); img.append(im); }
-      const meta = el('div', 'meta'); meta.append(el('b', '', b.name), el('span', '', b.line ?? ''));
+      const meta = el('div', 'meta'); meta.append(el('b', '', b.name), el('span', ''));
       if (b.png) { const k = el('button', '', b.vote === 'keep' ? 'Picked' : 'Pick this'); k.onclick = () => { for (const o of plan.brand.items) o.vote = o === b && b.vote !== 'keep' ? 'keep' : null; render(); send({ kind: 'brand-vote', id: b.id, name: b.name, vote: b.vote }, `${b.name}: ${b.vote ?? 'cleared'}`); }; meta.append(k); }
       card.append(img, meta); bs.append(card);
     }
@@ -179,7 +197,8 @@ function render() {
   const phases = $('phases'); phases.replaceChildren();
   for (const p of plan.phases) {
     const box = el('div', 'ph');
-    const h = el('h3', '', p.title); h.append(el('small', '', `${p.tasks.filter((t) => t.done).length}/${p.tasks.length}`));
+    const dn = p.tasks.filter((t) => t.done).length; const pc = p.tasks.length ? Math.round((100 * dn) / p.tasks.length) : 0;
+    const h = el('h3', '', p.title); const bar = el('span', 'pct'); const fill = el('b'); fill.style.width = `${pc}%`; bar.append(fill); h.append(bar, el('small', '', `${pc}%`));
     box.append(h, el('div', 'sub', p.sub));
     for (const t of p.tasks) {
       const row = el('label', `task ${t.done ? 'done' : ''}`);

@@ -1,5 +1,5 @@
 {
-  "updated": "11:07 AM Bangkok",
+  "updated": "11:13 AM Bangkok",
   "title": "Emera",
   "goal": "Emera. Where humanity comes together - you post, share the link, invite people",
   "phases": [
@@ -29,6 +29,12 @@
         {
           "id": "a4",
           "text": "3 brand directions: logo, color, type",
+          "who": "claude",
+          "done": true
+        },
+        {
+          "id": "a4b",
+          "text": "Mission + 7 values v1.0.0",
           "who": "claude",
           "done": true
         },
@@ -80,9 +86,9 @@
         },
         {
           "id": "b4",
-          "text": "App: iOS, Android, web from one codebase",
+          "text": "App: iOS, Android, web (check passes, mock data)",
           "who": "claude",
-          "running": true
+          "done": true
         },
         {
           "id": "b5",
@@ -98,7 +104,7 @@
         },
         {
           "id": "b7",
-          "text": "Copy matcher that survives crops + flips",
+          "text": "Later: automatic copy matching, trained on the reports",
           "who": "claude"
         }
       ]
@@ -158,7 +164,7 @@
         },
         {
           "id": "d4",
-          "text": "Copy watch v1: find your work elsewhere",
+          "text": "Report a copy: creators flag it, we help file the takedown, it goes in the dataset",
           "who": "claude"
         },
         {
@@ -767,5 +773,108 @@
         "html": "brand/directions/seal.html"
       }
     ]
-  }
+  },
+  "mission": {
+    "version": "1.0.0",
+    "mission": "Make Emera the open home where humanity's creative work lives: every piece signed by its maker, protected wherever we can see it, shown by rules anyone can read, and paid back to the people who made it.",
+    "values": [
+      {
+        "name": "Proof over promise",
+        "line": "Every post shows who made it and what was checked, no more than that."
+      },
+      {
+        "name": "Real people",
+        "line": "People are marked, bots are named, and a bought following is worth nothing."
+      },
+      {
+        "name": "Protected everywhere",
+        "line": "Upload once and we watch for copies and file the takedown for you."
+      },
+      {
+        "name": "Open by default",
+        "line": "If a decision moves your work, you can read the rule and the reason."
+      },
+      {
+        "name": "You own it",
+        "line": "Your account, your followers and your work are yours, and you can leave with all of them."
+      },
+      {
+        "name": "Paid, not harvested",
+        "line": "Emera earns by serving creators, never by selling their attention."
+      },
+      {
+        "name": "Welcome first",
+        "line": "A first post and a thousandth post get the same welcome, and nobody has to be against anyone to belong."
+      }
+    ]
+  },
+  "workstreams": [
+    {
+      "name": "API",
+      "state": "done",
+      "note": "11 tests + smoke pass, on staging"
+    },
+    {
+      "name": "App",
+      "state": "done",
+      "note": "iOS/Android/web, check passes, mock data"
+    },
+    {
+      "name": "Landing",
+      "state": "done",
+      "note": "emera.social, waiting on registry"
+    },
+    {
+      "name": "Architecture",
+      "state": "done",
+      "note": "AT Protocol plan + proof test"
+    },
+    {
+      "name": "Brand",
+      "state": "done",
+      "note": "3 directions + PRODUCT.md"
+    },
+    {
+      "name": "Mission",
+      "state": "done",
+      "note": "v1.0.0, 7 values"
+    },
+    {
+      "name": "Real-content mockup",
+      "state": "running",
+      "note": "Daylight with real creators"
+    },
+    {
+      "name": "Master plan",
+      "state": "running",
+      "note": "milestones + your asks"
+    },
+    {
+      "name": "Launch",
+      "state": "running",
+      "note": "first 1,000 creators"
+    }
+  ],
+  "asks": [
+    {
+      "title": "Pick the brand direction",
+      "why": "You lean Daylight; mockup with real creators coming",
+      "when": "now"
+    },
+    {
+      "title": "Claim @emerasocial handles",
+      "why": "TikTok, YouTube, Instagram, Bluesky are free today",
+      "when": "now"
+    },
+    {
+      "title": "Paid reach: allowed or never?",
+      "why": "One-pager allows labeled paid posts; values say never",
+      "when": "this week"
+    },
+    {
+      "title": "Check Canada + EU trademark by hand",
+      "why": "CIPO blocked our search; one EU mark to read",
+      "when": "this week"
+    }
+  ]
 }
