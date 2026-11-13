@@ -1,12 +1,13 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { ActivityIndicator, Animated, Platform, Pressable, PressableStateCallbackType, StyleProp, Text, TextInput, TextInputProps, View, ViewStyle } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import Svg, { Path } from "react-native-svg";
+import Svg, { Path, SvgXml } from "react-native-svg";
 import { Icon, IconName } from "./Icon";
 import brand from "@/lib/brand";
 import { alpha, elevation, font, radius, size as sizes, space, sun, type } from "@/lib/theme";
 import { useTheme } from "@/state/theme";
-import { markPath, markTransform, markViewBox } from "@/lib/markPath";
+import { markPath, markTransform } from "@/lib/markPath";
+import { markLitTemplate } from "@/lib/markLit";
 
 export type PS = PressableStateCallbackType & { hovered?: boolean };
 
@@ -14,20 +15,21 @@ export const sunGradient = [sun.sunHigh, sun.sun] as const;
 const web = Platform.OS === "web";
 const shadow = (v: string) => ({ boxShadow: v }) as object;
 
+const markShape = `<path transform="${markTransform}" d="${markPath}"/>`;
+let markSeq = 0;
+
 export function Mark({ size = 28 }: { size?: number }) {
   const { c } = useTheme();
-  return (
-    <Svg width={size} height={size} viewBox={markViewBox}>
-      <Path transform={markTransform} d={markPath} fill={c.ink} />
-    </Svg>
-  );
+  const id = useRef(`em${markSeq++}`).current;
+  const xml = useMemo(() => markLitTemplate.replaceAll("__ID__", id).replace("__INK__", c.ink).replace("__MARK__", markShape), [id, c.ink]);
+  return <SvgXml xml={xml} width={size} height={size} />;
 }
 
 export function Wordmark({ size = 22 }: { size?: number }) {
   const { c } = useTheme();
   return (
-    <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-      <Mark size={size * 1.27} />
+    <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+      <Mark size={size * 1.52} />
       <Text style={{ fontFamily: font.display.semibold, fontSize: size, lineHeight: size * 1.2, color: c.ink, letterSpacing: -size * 0.045 }}>{brand.name}</Text>
     </View>
   );
