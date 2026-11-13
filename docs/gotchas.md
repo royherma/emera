@@ -4,6 +4,7 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 
 ## 2026-11-13 - Fund: which Stripe account
 
+- **A new Stripe account turns on Managed Payments by default**, and then every Checkout fails with "the product tax code is missing" (our API shows `stripe_error` 502). We sell sponsorships ourselves, so checkout sends `managed_payments[enabled]=false`. Spot it: the Stripe request log in Workbench for the failed `POST /v1/checkout/sessions`.
 - **The shared Techguyver live Stripe account shows "RobotJobsHQ" to buyers.** Sponsors paying Emera through it would see RobotJobsHQ on the checkout and their card statement. Emera gets its own account; the API refuses to open a checkout when the key's account id is not `STRIPE_ACCOUNT_ID`. Spot it: `curl -s -u "$KEY:" https://api.stripe.com/v1/account` must name Emera (or the LLC sandbox in test mode).
 ## 2026-11-13 - Build time: a new app builds in under 10 minutes
 

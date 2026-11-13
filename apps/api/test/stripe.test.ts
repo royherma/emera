@@ -70,6 +70,7 @@ describe('sponsor checkout', () => {
     expect(b.get('metadata[sponsor_url]')).toBe('https://quillfern.test/');
     expect(b.get('success_url')).toBe('https://site.test/fund/?paid={CHECKOUT_SESSION_ID}#sponsor');
     expect(b.get('allow_promotion_codes')).toBe('true');
+    expect(b.get('managed_payments[enabled]')).toBe('false');
     const row = await db.prepare('SELECT status, monthly_cents, months FROM fund_checkouts WHERE session_id = ?').bind('cs_test_1').first();
     expect(row).toEqual({ status: 'started', monthly_cents: 2500, months: 3 });
   });
