@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "privacy",
+    "title": "Privacy",
+    "description": "What Emera keeps, who else handles it, and how to get a copy or have it deleted. In plain words.",
+    "short": "We keep what it takes to run your account and show what you post. We never sell it, there are no ad trackers, and you can ask us to delete all of it.",
+    "updated": "2026-11-13",
+    "sections": [
+      { "h": "When you join", "html": "<p>Your email address, the page you joined from and the site that sent you there. We use it to send your sign-in code and to tell you when there is news.</p>" },
+      { "h": "When you have an account", "html": "<ul><li>Your email, name, handle, bio, photo and links</li><li>What you post: photos, videos, captions and image descriptions, plus the proof attached to each upload (who shared it, when, and a fingerprint of the file)</li><li>Your likes, comments, follows, blocks, mutes and reports</li><li>The sign-in codes we email you and the sessions that keep you signed in</li></ul>" },
+      { "h": "When you visit", "html": "<p>The page you opened, the site that linked you here, your rough location from your connection (country, region and city), your browser and your language. One cookie, <strong>em_v</strong>, holds a random ID so we can count return visits. It lasts up to a year and is never used for ads.</p>" },
+      { "h": "What is public", "html": "<p>Everything you post, and your name, handle, bio, photo and links. The proof on a post shows who shared it and when. Your email address is never shown to anyone.</p>" },
+      { "h": "Who else handles it", "html": "<ul><li><strong>Cloudflare</strong> hosts the site, the app and your files, and counts page views</li><li><strong>Resend</strong> sends our emails, including sign-in codes</li><li><strong>Google Fonts</strong> serves the typefaces on this site and sees your IP address when a page loads</li></ul><p>No ad networks. We never sell or rent what we keep.</p>" },
+      { "h": "Get a copy or delete it", "html": "<p>Email <a href=\"mailto:hello@emera.social\">hello@emera.social</a> from the address on your account and say what you want: a copy of your data, your account deleted, or your email taken off the early list. We answer within 30 days. Deleted posts and accounts leave our backups within 30 days.</p>" },
+      { "h": "Changes", "html": "<p>The date at the top changes when this page does. If a change affects what we keep or who sees it, we email members first.</p>" }
+    ]
+  },
+  {
+    "slug": "terms",
+    "title": "Terms",
+    "description": "The rules for using Emera: what you own, what you let us do, what is not allowed, and how we act when something breaks the rules.",
+    "short": "You own what you create and let us show it on Emera. Be a real person, post only what you made or may share, and treat people well.",
+    "updated": "2026-11-13",
+    "sections": [
+      { "h": "Who can join", "html": "<p>You need to be 13 or older, or older if the law where you live says so. One person per account. An account run by software must be labeled as automated.</p>" },
+      { "h": "What you post stays yours", "html": "<p>You keep every right to what you create. By posting it you give Emera a free, worldwide permission to store it, copy it, resize it and show it, only so the service works, for as long as it is on Emera. Delete a post and we stop showing it.</p>" },
+      { "h": "What is not allowed", "html": "<ul><li>Posting what someone else made as your own, or without their permission</li><li>Pretending to be another person or organization</li><li>Removing or faking the proof on a post</li><li>Spam, scams and harmful software</li><li>Threats, harassment, sexual content involving minors, or anything else that is illegal where you or the people you reach live</li></ul>" },
+      { "h": "When someone copies you", "html": "<p>Report the copy from the post in the app, or email <a href=\"mailto:hello@emera.social\">hello@emera.social</a> with a link to your original, a link to the copy, and a line saying you made it. We take copies down here and help you file takedowns elsewhere.</p>" },
+      { "h": "When we act", "html": "<p>We may remove a post or close an account that breaks these rules. When we do, we tell you which rule and why, and you can ask us to look again.</p>" },
+      { "h": "Emera as it is", "html": "<p>We work to keep Emera running and your files safe, but we cannot promise it never goes down or never loses data. As far as the law allows, we are not responsible for indirect losses from using it. You can stop using Emera at any time.</p>" },
+      { "h": "Changes", "html": "<p>The date at the top changes when these terms do. We email members before a change that affects them, and using Emera after that means you accept it.</p>" }
+    ]
+  }
+]

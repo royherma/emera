@@ -1,0 +1,26 @@
+[
+  {
+    "id": "01",
+    "name": "Your sketch",
+    "note": "Your stroke, cleaned only enough to read at app-icon size",
+    "dir": "brand/logo/handdrawn/01-your-sketch"
+  },
+  {
+    "id": "02",
+    "name": "Sketch + sun",
+    "note": "Your stroke, with the sun where the pen lifts off",
+    "dir": "brand/logo/handdrawn/02-sketch-sun"
+  },
+  {
+    "id": "03",
+    "name": "Brush",
+    "note": "Faster and looser, thin where the pen lands and lifts",
+    "dir": "brand/logo/handdrawn/03-brush"
+  },
+  {
+    "id": "04",
+    "name": "Signed",
+    "note": "Your stroke with the lead-in from the first Signature",
+    "dir": "brand/logo/handdrawn/04-signed"
+  }
+]

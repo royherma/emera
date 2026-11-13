@@ -127,7 +127,7 @@ async function threadFor(env, visitor) {
 }
 
 async function sendVisit(env, r) {
-  if (r.bot || r.tester || !r.visitor) return;
+  if (r.bot || r.tester || !r.visitor) return false;
   const prior = await env.SITE_DB.prepare("SELECT COUNT(*) AS n, MAX(created_at) AS last FROM visits WHERE visitor = ? AND id < ? AND bot = 0").bind(r.visitor, r.id).first();
   const thread = await threadFor(env, r.visitor);
   const at = toMs(r.created_at);
@@ -265,9 +265,9 @@ export async function poll(env, now = Date.now()) {
       const { results } = await db.prepare(f.sql).bind(Number(saved)).all();
       for (const r of results) {
         if (f.ready && !f.ready(r, now)) break;
-        await f.send(env, r);
+        const posted = await f.send(env, r);
         await env.STATE.put(`cursor:${f.key}`, String(r.cursor));
-        sent[f.key] = (sent[f.key] || 0) + 1;
+        if (posted !== false) sent[f.key] = (sent[f.key] || 0) + 1;
       }
     } catch (e) {
       console.log(`[poll:${f.key}]`, String(e));
