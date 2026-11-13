@@ -7,7 +7,7 @@ import { Banner, Button, EmptyState, ErrorState, IconButton, Pulse } from "@/com
 import { api } from "@/lib/api";
 import { timeAgo } from "@/lib/format";
 import { shareLink } from "@/lib/share";
-import { alpha, radius, space, type } from "@/lib/theme";
+import { radius, space, type } from "@/lib/theme";
 import { ApiError, type Invite } from "@/lib/types";
 import { useResource } from "@/state/resource";
 import { useTheme } from "@/state/theme";
