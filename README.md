@@ -19,48 +19,17 @@
 
 ## ✨ Why Emera
 
-Manipulation, bots and fakes reach more people than ever, and the feeds reward them. Making things and finding real ones has turned slow and wasteful: you scroll past noise, you can't tell what is real, and when your work gets copied no one helps. The platforms we have are not fixing it.
+AI is flooding the internet. Fakes, bots and copies are drowning out real people, and the feeds reward them. Emera is the open source social network built to fix that, run as a nonprofit, in the open.
 
-So we are fixing it together, in the open. Emera is a place to share what you create and what helps each other, where **anyone can check** who made a post, why the feed shows it, and what the rules are. Every line of code is public, it runs as a nonprofit, and it sits on the [AT Protocol](https://atproto.com), so no one can quietly change the rules on you.
+| The problem | How Emera fixes it |
+| --- | --- |
+| 🫗 **AI slop**<br>Machine-made filler buries what people actually make | Posts are signed by the person who made them, the verified human mark is free, and the ranking code is public, so filler can't game its way to the top |
+| 🖐️ **Creative theft**<br>Copies spread faster than credit, and the maker hears last | Upload once. We scan the web for copies, file the takedown wherever they turn up, and take the legal steps with you when that is not enough |
+| 🎭 **Fakes**<br>A fake photo, video or voice takes seconds and looks real | Every post carries a signed record of who shared it and when, and the badge says only what was checked. Community notes add context once people who usually disagree both rate them helpful |
+| 🤖 **Bots and spam**<br>Bot crowds, bought followers and machine-written replies talk louder than people | People are marked as people, bots say what they are, and every report reaches a real moderator who tells you what was done and why |
+| 🎯 **Manipulation**<br>A hidden ranking decides who gets seen and rewards what divides | Every boost comes with a reason you can read. Built on the [AT Protocol](https://atproto.com), so your account and followers leave with you if the rules ever change |
 
-<table>
-  <tr>
-    <td colspan="2" valign="top">
-      <h3>🛡️ Protected here and everywhere</h3>
-      Upload once. We scan the web for copies of what you post, file the takedown on whatever platform they turn up, and when a takedown is not enough, our agents take the legal steps with you. Found a copy yourself? Report it from any post.
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <h3>✍️ Proof of who made it</h3>
-      Every post carries a signed record of its maker. The badge says exactly what was checked, nothing more.
-    </td>
-    <td width="50%" valign="top">
-      <h3>🧑‍🤝‍🧑 Real people</h3>
-      People are marked as people. Automated accounts say so, out loud.
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <h3>🔍 An open algorithm</h3>
-      The ranking code is public, and every boost has a reason you can read.
-    </td>
-    <td width="50%" valign="top">
-      <h3>🔑 You own your account</h3>
-      Your posts and followers go with you, any time, to any AT Protocol app.
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <h3>🗒️ Community notes</h3>
-      Anyone can add context to a post. A note shows once people who usually disagree both rate it helpful.
-    </td>
-    <td width="50%" valign="top">
-      <h3>🙋 Moderators who care</h3>
-      Every report reaches a real person, and you hear back what was done and why.
-    </td>
-  </tr>
-</table>
+Every line of code is public, so anyone can check we keep these promises.
 
 ## 🚀 Join in four steps
 
