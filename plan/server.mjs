@@ -30,9 +30,15 @@ const apply = {
 
 const clients = new Set();
 let ping;
-const changed = () => { clearTimeout(ping); ping = setTimeout(() => { for (const c of clients) c.write('data: reload\n\n'); }, 120); };
+const notify = (msg) => () => { clearTimeout(ping); ping = setTimeout(() => { for (const c of clients) c.write(`data: ${msg}\n\n`); }, 120); };
+const changed = notify('reload');
 watch(planFile, changed);
 watch(pageFile, changed);
+const atlasFile = join(root, 'data/atlas.json');
+const atlasPage = join(root, 'plan/atlas.html');
+const watchIfThere = (f, fn) => { if (existsSync(f)) watch(f, fn); };
+watchIfThere(atlasFile, notify('atlas'));
+watchIfThere(atlasPage, notify('atlas-page'));
 
 function feedback(req, res) {
   let body = '';
@@ -54,6 +60,14 @@ createServer((req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   if (url.pathname === '/plan.json') {
     res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }).end(readFileSync(planFile));
+    return;
+  }
+  if (url.pathname === '/atlas.json') {
+    res.writeHead(existsSync(atlasFile) ? 200 : 404, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }).end(existsSync(atlasFile) ? readFileSync(atlasFile) : '{}');
+    return;
+  }
+  if (url.pathname === '/atlas') {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' }).end(readFileSync(atlasPage));
     return;
   }
   if (url.pathname === '/events') {

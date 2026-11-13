@@ -1,0 +1,295 @@
+- id: join-with-invite
+  title: Join with an invite
+  actor: invited friend
+  goal: Get an account using a friend's invite code
+  steps:
+    - say: Open the invite link a friend sent
+      endpoint: GET /invite/:code
+      expect: [public, "table:invites"]
+      platforms: [ios, android, web]
+    - say: See the welcome screen
+      screen: /welcome
+    - say: Enter email, with the invite code
+      screen: /sign-in
+      endpoint: POST /v1/auth/start
+      expect: ["sends:invite", "table:login_codes"]
+    - say: Type the 6-digit code from the email
+      screen: /code
+      endpoint: POST /v1/auth/verify
+      expect: ["table:sessions", "table:users"]
+    - say: Land on the handle step
+      screen: /handle
+
+- id: sign-in-again
+  title: Sign in again
+  actor: creator
+  goal: Come back to my account on a new session
+  steps:
+    - say: Tap I have an account
+      screen: /welcome
+    - say: Enter email
+      screen: /sign-in
+      endpoint: POST /v1/auth/start
+    - say: Enter the code
+      screen: /code
+      endpoint: POST /v1/auth/verify
+      expect: ["table:sessions"]
+    - say: The app restores my session on the next launch
+      screen: shell
+      endpoint: GET /v1/me
+      expect: [auth]
+    - say: See the feed
+      screen: /feed
+      endpoint: GET /v1/feed
+
+- id: pick-handle
+  title: Pick a handle
+  actor: creator
+  goal: Claim @handle and a display name
+  steps:
+    - say: Choose a handle and display name
+      screen: /handle
+      endpoint: POST /v1/auth/handle
+      expect: [auth, "table:users"]
+    - say: Public profile exists at the handle
+      endpoint: GET /@:handle
+      expect: [public]
+
+- id: post-photo
+  title: Post a photo
+  actor: creator
+  goal: Share a photo, signed with my name
+  steps:
+    - say: Open the upload tab
+      screen: /upload
+    - say: Pick a photo and upload the bytes
+      screen: /upload
+      endpoint: POST /v1/uploads
+      expect: [auth, "table:media"]
+    - say: The file is stored and signed
+      screen: /upload
+      endpoint: PUT /v1/uploads/:id
+      expect: [r2, "table:media"]
+    - say: Publish the post with a caption
+      screen: /upload
+      endpoint: POST /v1/posts
+      expect: ["table:posts"]
+    - say: Land on the new post
+      screen: /p/:id
+      endpoint: GET /v1/posts/:id
+
+- id: post-video
+  title: Post a video
+  actor: creator
+  goal: Share a film or clip
+  steps:
+    - say: Pick a video in the upload tab
+      screen: /upload
+      endpoint: POST /v1/uploads
+    - say: Upload the video file
+      screen: /upload
+      endpoint: PUT /v1/uploads/:id
+      expect: [r2]
+    - say: Publish it
+      screen: /upload
+      endpoint: POST /v1/posts
+    - say: Watch it play from our storage
+      screen: /p/:id
+      endpoint: GET /media/:key
+      server: true
+      expect: [r2, public]
+
+- id: see-proof-of-maker
+  title: See my proof of maker
+  actor: creator
+  goal: See that my post carries who made it and when
+  steps:
+    - say: Open one of my posts
+      screen: /p/:id
+      endpoint: GET /v1/posts/:id
+    - say: The post shows who signed it and when
+      screen: /p/:id
+      expect: ["shows:proof", "shows:fingerprint"]
+    - say: Anyone can see the same proof on the public page
+      endpoint: GET /p/:id
+      expect: ["contains:proof"]
+
+- id: share-profile-link
+  title: Share my profile link
+  actor: creator
+  goal: Send my profile to a friend
+  steps:
+    - say: Open my profile
+      screen: /me
+      endpoint: GET /v1/users/:handle
+    - say: Tap Share profile
+      screen: /me
+      platforms: [ios, android]
+    - say: Tap Share profile, the link is copied
+      screen: /me
+      platforms: [web]
+    - say: The link opens a public page
+      endpoint: GET /@:handle
+      expect: [public]
+
+- id: link-preview
+  title: A shared link previews well
+  actor: visitor
+  goal: See a picture and a title when a link lands on X or iMessage
+  steps:
+    - say: A profile link is pasted into X or iMessage
+      endpoint: GET /@:handle
+      expect: [og]
+      platforms: [browser]
+    - say: A post link is pasted
+      endpoint: GET /p/:id
+      expect: [og]
+      platforms: [browser]
+    - say: The image is fetched from storage
+      endpoint: GET /media/:key
+      server: true
+      expect: [public]
+      platforms: [browser]
+
+- id: visitor-opens-profile
+  title: Visitor opens a profile without an account
+  actor: visitor
+  goal: Look at a creator's work with no sign-up
+  steps:
+    - say: Open emera.social/@handle
+      endpoint: GET /@:handle
+      expect: [public, "table:posts"]
+      platforms: [browser]
+    - say: Open one post
+      endpoint: GET /p/:id
+      expect: [public]
+      platforms: [browser]
+    - say: The home page shows recent work
+      endpoint: GET /
+      expect: [public]
+      platforms: [browser]
+
+- id: invite-a-friend
+  title: Invite a friend
+  actor: creator
+  goal: Make an invite link and send it
+  steps:
+    - say: Open settings
+      screen: /settings
+    - say: Make an invite
+      screen: /settings
+      endpoint: POST /v1/invites
+      expect: [auth, "table:invites"]
+    - say: Share the link
+      screen: /settings
+    - say: Friend checks the code is valid
+      endpoint: GET /v1/invites/:code
+      expect: [public]
+
+- id: report-a-copy
+  title: Report a copy of my work
+  actor: creator
+  goal: Tell Emera someone copied my work, so we help file the takedown
+  planned: true
+  note: Manual protection v1, not built yet
+  steps:
+    - say: Open my post and tap Report a copy
+      screen: /report
+    - say: Paste the link where the copy lives
+      screen: /report
+      endpoint: POST /v1/reports
+      expect: ["table:reports", auth]
+    - say: Emera team reads the report
+      screen: /admin/reports
+      endpoint: GET /v1/admin/reports
+    - say: Emera team files the takedown
+      human: true
+
+- id: export-account
+  title: Export my account
+  actor: creator
+  goal: Download everything I posted
+  steps:
+    - say: Open settings
+      screen: /settings
+    - say: Ask for an export
+      screen: /settings
+      endpoint: GET /v1/me/export
+      expect: [auth]
+
+- id: delete-post
+  title: Delete a post
+  actor: creator
+  goal: Remove a post and its files
+  steps:
+    - say: Open my post
+      screen: /p/:id
+      endpoint: GET /v1/posts/:id
+    - say: Confirm delete
+      screen: /p/:id
+      endpoint: DELETE /v1/posts/:id
+      expect: [auth, r2, "table:posts", "table:media"]
+
+- id: join-early-list
+  title: Join the early list
+  actor: visitor
+  goal: Leave an email on emera.social
+  steps:
+    - say: Open emera.social
+      site: /
+      platforms: [browser]
+    - say: Type an email and submit
+      site: /
+      endpoint: POST /api/early
+      expect: ["table:early_access", public]
+      platforms: [browser]
+    - say: See how many are on the list
+      site: /
+      endpoint: GET /api/early/count
+      platforms: [browser]
+
+- id: edit-profile
+  title: Edit my profile
+  actor: creator
+  goal: Change bio and avatar
+  steps:
+    - say: Open settings
+      screen: /settings
+    - say: Save a new bio and avatar
+      screen: /settings
+      endpoint: PATCH /v1/me
+      expect: [auth, "table:users"]
+
+- id: sign-out
+  title: Sign out
+  actor: creator
+  goal: End my session on this device
+  steps:
+    - say: Tap sign out
+      screen: /settings
+      endpoint: POST /v1/auth/logout
+      expect: ["table:sessions"]
+
+- id: team-early-list
+  title: Emera team reads the early list
+  actor: Emera team
+  goal: See who signed up and how many
+  steps:
+    - say: Check the count
+      endpoint: GET /api/early/count
+    - say: Open the signups
+      endpoint: GET /api/early/list
+      expect: [auth]
+
+- id: team-seed-invites
+  title: Emera team seeds the first creators
+  actor: Emera team
+  goal: Hand out invite codes to the first 25 creators
+  steps:
+    - say: Set the seed code as a secret
+      human: true
+    - say: Creators check the seed code works
+      endpoint: GET /v1/invites/:code
+    - say: Seed code signs a creator up
+      endpoint: POST /v1/auth/start
+      expect: ["sends:invite"]

@@ -1,7 +1,7 @@
 {
- "builtAt": "2026-11-13T04:29:29.922Z",
+ "builtAt": "2026-11-13T04:29:39.959Z",
  "git": {
-  "sha": "e84b10c",
+  "sha": "d21ee15",
   "dirty": true,
   "branch": "main"
  },
@@ -1566,7 +1566,9 @@
     }
    ],
    "data": "wrangler local D1/R2 under each app's `.wrangler/` (gitignored)",
-   "appWeb": []
+   "appWeb": [
+    "http://agora-app.localhost:5037"
+   ]
   },
   {
    "env": "staging",
