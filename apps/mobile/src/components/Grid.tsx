@@ -10,6 +10,7 @@ import { creatorColors, elevation, radius, space, type } from "@/lib/theme";
 import { timeAgo } from "@/lib/format";
 import { feedBox } from "@/lib/mediaBox";
 import { rememberList, type ListSource } from "@/lib/postList";
+import { useLayout } from "@/lib/layout";
 import { useTheme } from "@/state/theme";
 import type { Post } from "@/lib/types";
 
@@ -19,8 +20,9 @@ export function PostRow({ post, width, onDeleted }: { post: Post; width: number;
   const router = useRouter();
   const { c } = useTheme();
   const menu = usePostMenu(onDeleted);
+  const { height: screenH, wide } = useLayout();
   const m = post.media[0];
-  const h = feedBox(m, width).height;
+  const box = feedBox(m, width, Math.max(320, screenH - (wide ? 170 : 230)));
   const open = () => router.push({ pathname: "/p/[id]", params: { id: post.id } });
   const tag = post.author.category;
   return (
@@ -35,7 +37,7 @@ export function PostRow({ post, width, onDeleted }: { post: Post; width: number;
         </Pressable>
         <IconButton icon="dots" label="More" filled={false} tint={c.ink2} onPress={() => menu(post)} />
       </View>
-      <Pressable accessibilityRole="link" accessibilityLabel={`Open post by ${post.author.displayName}`} onPress={open} style={({ pressed }: PS) => [{ width, height: h, borderRadius: radius.media, overflow: "hidden", transform: [{ scale: pressed ? 0.992 : 1 }] }, web ? ({ boxShadow: elevation.media } as object) : null]}>
+      <Pressable accessibilityRole="link" accessibilityLabel={`Open post by ${post.author.displayName}`} onPress={open} style={({ pressed }: PS) => [{ width: box.width, height: box.height, alignSelf: "center", borderRadius: radius.media, overflow: "hidden", transform: [{ scale: pressed ? 0.992 : 1 }] }, web ? ({ boxShadow: elevation.media } as object) : null]}>
         {m.kind === "video" ? <InlineVideo media={m} style={{ flex: 1 }} /> : <MediaImage media={m} style={{ flex: 1 }} playSize={56} />}
         <View style={{ position: "absolute", left: 10, top: 10 }}>
           <SignedMark />
