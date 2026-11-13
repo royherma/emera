@@ -40,7 +40,10 @@ export type UserRow = {
   avatar_url: string | null;
   invited_by: string | null;
   created_at: number;
+  role?: Role | null;
 };
+
+export type Role = 'admin' | 'mod' | 'creator';
 
 export type Vars = { user: UserRow };
 export type AppEnv = { Bindings: Env; Variables: Vars };
