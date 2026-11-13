@@ -47,6 +47,7 @@ const seeds: Seed[] = [
   ["odd_type", "Specimen sheet, first proof.", 3, 4, 5000],
   ["mina", "Blue hour from the ferry.", 1, 1, 6100],
   ["tamsin", "Cover study for a children's book.", 4, 5, 7200],
+  ["koji", "Rooftop at dusk, one take on the phone.", 9, 16, 30, "video"],
 ];
 
 let mediaCounter = 0;
