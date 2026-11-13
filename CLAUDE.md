@@ -57,6 +57,7 @@ Headings never end in a period. No em dashes. Avoid "unlock", "elevate" and "sea
 | `apps/api` | Hono Worker: accounts, R2 uploads, posts, public `/@handle` + `/p/:id` pages | `npm --prefix apps/api run dev` (:5036) | `npm --prefix apps/api test`, `npm --prefix apps/api run smoke` (:5039) |
 | `apps/mobile` | Expo app, iOS + Android + web, mock mode when `EXPO_PUBLIC_API_URL` is unset | `npm --prefix apps/mobile run web` (:5037) | `npm --prefix apps/mobile run check` |
 | `apps/site` | emera.social landing + early list (Worker + D1) | `npx wrangler dev --local --port 5038` in `apps/site` | screenshots in `.claude/artifacts/site-shots/` |
+| `apps/notify` | Slack #emera-events (`C0CHFF8S47K`): cron polls both D1s each minute (early list, accounts, posts, reports, flags), `/github` takes the signed repo webhook (forks, stars, issues, PRs) | `npm --prefix apps/notify run deploy:production` | `npm --prefix apps/notify test` |
 | `packages/brand` | name, tagline, colors, NSID - the only place the brand is written | - | - |
 | `lexicons/` | AT Protocol lexicons `social.emera.*` | `npm --prefix spikes/provenance run lexicons` | - |
 | `spikes/provenance` | C2PA sign/verify + PDQ copy matching | `npm --prefix spikes/provenance run demo` | prints PASS |

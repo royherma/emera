@@ -111,6 +111,14 @@ const FEEDS = [
     text: (r, n, env) => `:rotating_light: *Copy reported*  ·  @${esc(r.handle)} found ${link(r.copy_url, "a copy")} of ${link(`${env.API_URL}/p/${r.post_id}`, "their post")}${r.note ? `\n>${esc(r.note).slice(0, 500)}` : ""}  ·  ${n} open`,
     total: "SELECT COUNT(*) AS n FROM reports WHERE status = 'new'",
   },
+  {
+    key: "flags",
+    db: "API_DB",
+    sql: "SELECT f.created_at AS cursor, f.target_type, f.target_id, f.reason, f.note, u.handle FROM flags f JOIN users u ON u.id = f.reporter_user_id WHERE f.created_at > ? ORDER BY f.created_at LIMIT 20",
+    max: "SELECT COALESCE(MAX(created_at), 0) AS m FROM flags",
+    text: (r, n) => `:triangular_flag_on_post: *Flagged ${esc(r.target_type)}*  ·  ${esc(r.reason)}  ·  ${esc(r.target_id)} by @${esc(r.handle)}${r.note ? `\n>${esc(r.note).slice(0, 500)}` : ""}  ·  ${n} open`,
+    total: "SELECT COUNT(*) AS n FROM flags WHERE status = 'new'",
+  },
 ];
 
 export async function poll(env) {
