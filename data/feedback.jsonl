@@ -23,3 +23,8 @@
 {"at":"2026-11-13T11:29:27.912Z","kind":"review","id":"issues-2","answer":"no","text":"Not posting them - we build them ourselves (Roy, 18:28)"}
 {"at":"2026-11-13T11:29:27.949Z","kind":"review","id":"stripe-emera","answer":"later","text":"Roy handles this in another session"}
 {"at":"2026-11-13T11:32:45.000Z","kind":"review","id":"stripe-emera","answer":"done","text":"Emera account acct_1UbIhCKHBWaOwymS made in the Techguyver Labs org; CLI authorized for its test mode (Roy, 18:32)"}
+{"at":"2026-11-13T11:37:18.115Z","kind":"task-move","id":"m2-feeds","phase":"later","index":1,"text":"Open feeds with \"why this post\"","from":"m2"}
+{"at":"2026-11-13T11:37:22.332Z","kind":"task-move","id":"m2-feeds","phase":"m2","index":4,"by":"claude test undo"}
+{"at":"2026-11-13T11:38:50.206Z","kind":"review","id":"handles","answer":"later","by":"claude test","movedTo":"m1"}
+{"at":"2026-11-13T11:38:50.728Z","kind":"task-move","id":"a8","phase":"m0","index":0,"by":"claude test undo"}
+{"at":"2026-11-13T11:44:24.793Z","kind":"review","id":"dmca","title":"Register the DMCA agent ($6)","answer":"done","text":null}
