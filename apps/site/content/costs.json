@@ -13,7 +13,7 @@
       "item": "Hosting on Cloudflare",
       "detail": "Site, API, database and photo storage",
       "monthly_usd": 0,
-      "basis": "Free allowance, not yet checked against an invoice",
+      "basis": "Estimate from today's use",
       "source": { "label": "docs/master-plan.md, M0", "url": "https://github.com/royherma/emera/blob/main/docs/master-plan.md" }
     },
     {

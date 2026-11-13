@@ -16,11 +16,11 @@ export const costsShort = `Emera is a nonprofit built in the open, so the money 
 export function costsBody() {
   const m = costs.model;
   const rows = costs.lines
-    .map((l) => `<tr><th scope="row">${esc(l.item)}<small>${esc(l.detail)}</small></th><td class="n">${usd(l.monthly_usd)}</td><td>${esc(l.basis)}</td><td>${src(l.source)}</td></tr>`)
+    .map((l) => `<tr><th scope="row">${esc(l.item)}<small>${esc(l.detail)}</small></th><td class="n">${usd(l.monthly_usd)}</td><td>${esc(l.basis)}<small>${src(l.source)}</small></td></tr>`)
     .join("");
   const model = `<div class="tw sm"><table><thead><tr>${m.cols.map((c) => `<th scope="col">${esc(c)}</th>`).join("")}</tr></thead><tbody>${m.rows.map((r) => `<tr><th scope="row">${esc(r[0])}</th>${r.slice(1).map((c) => `<td class="n">${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
   return `<h2>${esc(monthName(costs.month))}</h2>
-<div class="tw"><table><thead><tr><th scope="col">Bill</th><th scope="col">A month</th><th scope="col">How we know</th><th scope="col">Source</th></tr></thead><tbody>${rows}<tr class="tot"><th scope="row">Total</th><td class="n">${usd(total)}</td><td></td><td></td></tr></tbody></table></div>
+<div class="tw sm"><table><thead><tr><th scope="col">Bill</th><th scope="col">A month</th><th scope="col">How we know</th></tr></thead><tbody>${rows}<tr class="tot"><th scope="row">Total</th><td class="n">${usd(total)}</td><td></td></tr></tbody></table></div>
 <h2>Who pays</h2>
 <p>${esc(costs.paidBy.who)}, the company that started Emera, pays every bill above (${src(costs.paidBy.source)}). When the network earns more than it costs to run, the surplus goes back to the people who made it worth visiting.</p>
 <p class="live">Accounts on Emera right now: <b data-accounts>...</b>, counted in the <a href="/ledger">open ledger</a>.</p>
@@ -36,5 +36,5 @@ export const costsCss = `td.n{font-variant-numeric:tabular-nums;white-space:nowr
 .sm table{min-width:0}
 .sm th,.sm td{padding:10px 8px}
 tr.tot th,tr.tot td{font-weight:700;background:var(--bg2)}
-th small{display:block;margin-top:2px;font-weight:400;font-size:.85rem;color:var(--ink3)}
+th small,td small{display:block;margin-top:2px;font-weight:400;font-size:.85rem;color:var(--ink3)}
 .body .src{margin-top:12px}`;
