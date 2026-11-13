@@ -442,6 +442,7 @@ function loadShots(screens) {
     s.shots = e?.shots ?? {};
     s.states = e?.states ?? [];
     s.slug = e?.slug ?? null;
+    s.forwardsTo = e?.forwardsTo ?? null;
   }
   const now = codeHash(root);
   const missing = screens.filter((s) => !s.shell && !Object.keys(s.shots).length).map((s) => `${s.surface}:${s.route}`);
