@@ -645,7 +645,13 @@
       ],
       "mine": "r3-flame",
       "big": true,
-      "note": "Roy 20:28 Bangkok picked 8 Big flame (DECISION lit-mark flame) = r3-flame; all 18 versions kept"
+      "note": "Roy 20:28 Bangkok picked 8 Big flame (DECISION lit-mark flame) = r3-flame; all 18 versions kept",
+      "pick": "r3-flame",
+      "done": {
+        "at": "2026-11-13T13:45:00Z",
+        "ref": "a2deb3f",
+        "note": "live: app logo, app icon, favicons, emera.social, brand page"
+      }
     }
   ],
   "names": {
