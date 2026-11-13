@@ -3,7 +3,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { screens, sprite, usedWork } from "./screens.mjs";
 import { pages, writePages } from "./pages.mjs";
-import { footer, footerCss } from "./footer.mjs";
+import { footer, footerCss, starButton } from "./footer.mjs";
 import { tagAll } from "./tag.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -29,6 +29,7 @@ const vars = {
   github: GITHUB_URL,
   sprite,
   footerCss,
+  star: starButton(GITHUB_URL),
   footer: footer({ pages, mark: '<svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg>', github: GITHUB_URL, year: new Date().getFullYear() }),
   ld: JSON.stringify([
     { "@context": "https://schema.org", "@type": "Organization", name: brand.name, url: `https://${brand.domain}/`, logo: `https://${brand.domain}/assets/og.png`, description: "Open-source, nonprofit social network for people who make things and people sharing what is happening, with proof of who posted on every post." },
