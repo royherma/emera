@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Emera Daylight on Black</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=Unbounded:wght@200;300;500&display=swap" rel="stylesheet">
+<style>
+@property --bx{syntax:'<percentage>';inherits:true;initial-value:-30%}
+:root{--black:#000;--white:#fff;--grey:#858585;--deep:#1b1b1b;--disp:'Unbounded',system-ui,sans-serif;--sans:'DM Sans',system-ui,sans-serif;--px:-400px;--py:-400px}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--black);color:var(--white);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body{width:1512px;height:860px;overflow:hidden;display:grid;grid-template-rows:64px 1fr 128px}
+img{display:block;width:100%;height:100%;object-fit:cover}
+::selection{background:var(--white);color:var(--black)}
+.up{position:relative;z-index:6}
+nav{display:flex;align-items:center;justify-content:space-between;padding:0 48px;position:relative;z-index:6}
+.logo{display:flex;align-items:center;gap:12px;font:300 22px/1 var(--disp);letter-spacing:-.02em}
+.logo svg{width:26px;height:26px}
+nav ul{display:flex;gap:34px;list-style:none;font-size:13px;color:#cfcfcf}
+nav a{color:inherit;text-decoration:none}
+nav a:hover{color:var(--white)}
+.j{font:500 13px var(--sans);background:var(--white);color:var(--black);padding:10px 20px;border-radius:99px;text-decoration:none}
+.stage{position:relative;display:grid;grid-template-columns:500px 262px 262px 1fr;gap:34px;padding:8px 48px 18px;min-height:0}
+.shade{position:absolute;inset:0;z-index:5;pointer-events:none;backdrop-filter:grayscale(1) brightness(.34);-webkit-backdrop-filter:grayscale(1) brightness(.34);
+-webkit-mask-image:linear-gradient(104deg,#000 0,#000 calc(var(--bx) - 16%),transparent calc(var(--bx) - 3%),transparent calc(var(--bx) + 14%),#000 calc(var(--bx) + 28%)),radial-gradient(circle at var(--px) var(--py),transparent 0,transparent 80px,#000 190px);
+mask-image:linear-gradient(104deg,#000 0,#000 calc(var(--bx) - 16%),transparent calc(var(--bx) - 3%),transparent calc(var(--bx) + 14%),#000 calc(var(--bx) + 28%)),radial-gradient(circle at var(--px) var(--py),transparent 0,transparent 80px,#000 190px);
+-webkit-mask-composite:source-in;mask-composite:intersect}
+.stage,.shade{--bx:-30%;animation:sweep 16s ease-in-out infinite alternate}
+.freeze .stage,.freeze .shade{animation:none;--bx:30%}
+@keyframes sweep{from{--bx:-24%}to{--bx:118%}}
+.hero{display:flex;flex-direction:column;min-height:0}
+h1{font:200 47px/1.14 var(--disp);letter-spacing:-.045em;margin-top:16px}
+h1 b{font-weight:500}
+.sub{font-size:15px;line-height:1.5;color:#d4d4d4;max-width:420px;margin-top:18px}
+.cta{display:flex;gap:12px;margin-top:20px}
+.b{font:500 13px var(--sans);padding:13px 22px;border-radius:99px;border:1px solid var(--white);background:var(--white);color:var(--black);cursor:pointer;transition:background .25s,color .25s}
+.b.o{background:transparent;color:var(--white)}
+.b:hover{background:transparent;color:var(--white)}
+.b.o:hover{background:var(--white);color:var(--black)}
+.b:focus-visible{outline:2px solid var(--white);outline-offset:3px}
+.tiles{margin-top:auto;display:flex;align-items:flex-end;gap:12px;height:340px}
+.tiles figure{position:relative;flex:none}
+.tiles figure img{border-radius:3px}
+.tiles figcaption{position:absolute;left:8px;bottom:7px;font-size:10px;font-weight:500;z-index:6;letter-spacing:.02em}
+.tiles small{display:block;font-size:9px;color:var(--grey);margin-top:6px}
+.col{display:flex;flex-direction:column;align-items:center;gap:10px;min-height:0}
+.lab{font-size:11px;color:var(--grey);letter-spacing:.04em;align-self:flex-start}
+.lab b{color:var(--white);font-weight:500;margin-right:8px}
+.phone{position:relative;width:262px;height:612px;border-radius:40px;padding:8px;background:var(--black)}
+.phone:after{content:"";position:absolute;inset:0;border:1px solid #666;border-radius:inherit;z-index:7;pointer-events:none}
+.scr{height:100%;border-radius:32px;background:#050505;overflow:hidden;display:flex;flex-direction:column;position:relative}
+.sb{display:flex;justify-content:space-between;padding:13px 22px 0;font-size:11px;font-weight:700;position:relative;z-index:6}
+.tb{display:flex;justify-content:space-between;align-items:center;padding:10px 16px 8px;position:relative;z-index:6}
+.tb .logo{font-size:15px;gap:7px}.tb .logo svg{width:17px;height:17px}
+.tb small{font-size:10px;color:var(--grey)}.tb small b{color:var(--white);font-weight:500}
+.feed{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:10px;padding:0 10px}
+.fp{display:flex;flex-direction:column;gap:7px}
+.fp .im{height:246px;border-radius:14px;overflow:hidden}
+.fp.fl{flex:1;min-height:0}.fp.fl .im{height:100%}
+.rec{padding:0 4px;font-size:10.5px;line-height:1.45;position:relative;z-index:6;display:flex;gap:8px;align-items:flex-start}
+.rec svg{width:15px;height:15px;flex:none;margin-top:1px}
+.rec b{font-weight:500;display:block;font-size:11.5px}
+.rec span{color:#b5b5b5;display:block}
+.rec .cr{font-size:9px;color:var(--grey)}
+.tabs{display:flex;justify-content:space-around;padding:11px 0 16px;position:relative;z-index:6;background:#050505}
+.tabs svg{width:21px;height:21px;stroke:#777;fill:none;stroke-width:1.4}
+.tabs .on svg{stroke:var(--white)}
+.pf{padding:6px 18px 0;position:relative;z-index:6}
+.pf .av{width:64px;height:64px;border-radius:50%;overflow:hidden;margin-bottom:10px;box-shadow:0 0 0 2px #000,0 0 0 3px #fff}
+.pf h2{font:300 25px/1 var(--disp);letter-spacing:-.04em}
+.pf .h{font-size:12px;color:var(--grey);margin:6px 0 9px}
+.v{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;border:1px solid #777;border-radius:99px;padding:3px 10px 3px 6px}
+.v svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:1.8}
+.pf p{font-size:12.5px;line-height:1.5;margin:11px 0 12px;color:#e0e0e0}
+.pf .row{display:flex;gap:8px;margin-bottom:12px}
+.pf .row .b{padding:9px 18px;font-size:12px;flex:1}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:0 10px;flex:1;min-height:0;grid-template-rows:repeat(2,1fr);overflow:hidden}
+.pg div{border-radius:6px;overflow:hidden}
+.post{position:relative;display:flex;flex-direction:column;gap:10px;min-height:0}
+.post .pic{height:346px;border-radius:4px;overflow:hidden}
+.post .box{position:relative;z-index:6;border:1px solid #888;border-radius:4px;padding:12px 14px;display:flex;gap:11px;align-items:flex-start;background:rgba(0,0,0,.72)}
+.post .box svg{width:26px;height:26px;flex:none}
+.post .box b{display:block;font-size:14px;font-weight:500;line-height:1.3}
+.post .box span{display:block;font-size:12px;color:#cfcfcf;margin-top:3px}
+.post .who{position:relative;z-index:6;display:flex;align-items:center;gap:10px;font-size:12px;color:#cfcfcf}
+.post .who i{width:32px;height:32px;border-radius:50%;overflow:hidden;display:block;flex:none}
+.post .who b{color:#fff;font-weight:500;display:block;font-size:13px}
+.post .cr{position:relative;z-index:6;font-size:10px;color:var(--grey)}
+.post .rp{position:relative;z-index:6;font-size:12px;color:#cfcfcf;border-top:1px solid #444;padding-top:10px;margin-top:auto}
+.post .rp a{color:#fff;text-underline-offset:4px}
+footer{position:relative;z-index:6;border-top:1px solid #333;display:grid;grid-template-columns:440px 1fr 560px;align-items:center;padding:0 48px;gap:30px}
+.mk{display:flex;align-items:center;gap:18px}
+.mk svg{width:62px;height:62px}
+.mk .wm{font:200 46px/1 var(--disp);letter-spacing:-.05em}
+.tp{display:flex;align-items:center;gap:26px}
+.tp .a{font:200 54px/1 var(--disp);letter-spacing:-.06em}
+.tp .c{font:300 54px/1 var(--sans);letter-spacing:-.03em}
+.tp p{font-size:11.5px;line-height:1.5;color:#c9c9c9}.tp p b{display:block;color:#fff;font-weight:500}
+.tk{display:flex;gap:10px;align-items:flex-start}
+.tk i{display:block;width:50px;height:46px;border-radius:3px;box-shadow:inset 0 0 0 1px #777;margin-bottom:6px}
+.tk span{font-size:9.5px;color:var(--grey);line-height:1.35;display:block}
+.tk p{font-size:11px;line-height:1.5;color:#c9c9c9;border-left:1px solid #fff;padding-left:12px;margin-left:6px}
+@media (prefers-reduced-motion:reduce){.stage,.shade{animation:none;--bx:30%}}
+</style></head>
+<body>
+<nav><div class="logo"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#sun"/></svg><span>emera</span></div>
+<ul><li><a href="#">How it works</a></li><li><a href="#">Open algorithm</a></li><li><a href="#">Report a copy</a></li></ul><a class="j" href="#">Join Emera</a></nav>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><g id="sun"><circle cx="32" cy="32" r="30" fill="none" stroke="#fff" stroke-width="1.6"/><path d="M32 32a30 30 0 0 1 0 0" /><path d="M2 32h60" stroke="#fff" stroke-width="1.6"/><path d="M32 32h0" /><path d="M2 32a30 30 0 0 0 60 0z" fill="#fff"/><path d="M9 21h46M15 12h34M22 5h20" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></g></defs></svg>
+
+<main class="stage" id="stage">
+<section class="hero">
+<h1 class="up">Where <b>humanity</b><br>comes together</h1>
+<p class="sub up">An open, nonprofit home for everything people make. Every piece is signed by its maker, so the work is seen as theirs.</p>
+<div class="cta up"><button class="b">Claim your handle</button><button class="b o">See how it works</button></div>
+<div class="tiles">
+<figure style="width:118px"><img src="../content/ceramics.jpg" alt="Hands on a pottery wheel" style="height:224px;object-position:46% 50%"></figure>
+<figure style="width:104px"><img src="../content/kimono.jpg" alt="Embroidered kimono" style="height:340px;object-position:50% 40%"></figure>
+<figure style="width:118px"><img src="../content/swirl3d.jpg" alt="Orange abstract 3D swirl" style="height:190px"></figure>
+<figure style="width:118px"><img src="../content/strawberry.jpg" alt="Strawberries and daisies" style="height:280px;object-position:30% 50%"></figure>
+</div>
+</section>
+
+<section class="col">
+<div class="lab up"><b>Feed</b>For you</div>
+<div class="phone"><div class="scr">
+<div class="sb"><span>9:41</span><span></span></div>
+<div class="tb"><div class="logo"><svg viewBox="0 0 64 64"><use href="#sun"/></svg><span>emera</span></div><small>Following <b>/ For you</b></small></div>
+<div class="feed">
+<div class="fp"><div class="im"><img src="../content/balletfeet.jpg" alt="Dancer tying a shoe on stairs" style="object-position:50% 60%"></div>
+<div class="rec"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12.3 2.8 2.8 5-5.6"/></svg><div><b>Made by Ines Moves, a verified human</b><span>Signed 13 Nov 2026 · Original</span></div></div></div>
+<div class="fp fl"><div class="im"><img src="../content/pyramids3d.jpg" alt="Yellow and blue 3D pyramids"></div></div>
+</div>
+<div class="tabs"><span class="on"><svg viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9H4z"/></svg></span><span><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg></span><span><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 2h-15z"/></svg></span><span><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1-4 4-6 8-6s7 2 8 6"/></svg></span></div>
+</div></div>
+</section>
+
+<section class="col">
+<div class="lab up"><b>Profile</b>@techguyver</div>
+<div class="phone"><div class="scr">
+<div class="sb"><span>9:41</span><span></span></div>
+<div class="tb"><div class="logo"><svg viewBox="0 0 64 64"><use href="#sun"/></svg><span>emera</span></div><small>Profile</small></div>
+<div class="pf">
+<div class="av"><img src="../content/tg-photo-1.jpg" alt="" style="object-position:46% 22%"></div>
+<h2>TechGuyver</h2>
+<div class="h">@techguyver.emera.social</div>
+<span class="v"><svg viewBox="0 0 12 12"><path d="m2 6.5 2.6 2.6L10 3.4"/></svg>Verified human</span>
+<p>I make tools, films and music with AI. Every piece here is signed by me.</p>
+<div class="row"><button class="b">Follow</button><button class="b o">Tip</button></div>
+</div>
+<div class="pg"><div><img src="../content/tg-photo-1.jpg" alt="" style="object-position:50% 25%"></div><div><img src="../content/tg-art-1.jpg" alt=""></div><div><img src="../content/tg-thumb-1.jpg" alt="" style="object-position:88% 40%"></div><div><img src="../content/tg-art-2.jpg" alt=""></div><div><img src="../content/tg-photo-2.jpg" alt="" style="object-position:50% 25%"></div><div><img src="../content/tg-thumb-3.jpg" alt="" style="object-position:72% 40%"></div></div>
+<div class="tabs"><span><svg viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9H4z"/></svg></span><span><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg></span><span><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 2h-15z"/></svg></span><span class="on"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1-4 4-6 8-6s7 2 8 6"/></svg></span></div>
+</div></div>
+</section>
+
+<section class="post">
+<div class="lab up"><b>Post</b>With proof</div>
+<div class="who"><i><img src="../content/tg-photo-1.jpg" alt="" style="object-position:46% 22%"></i><div><b>Wren Fiber Co</b>wren.fiber.emera.social</div></div>
+<div class="pic"><img src="../content/yarn.jpg" alt="Hand dyed yarn cake" style="object-position:50% 50%"></div>
+<div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="m8 12.3 2.8 2.8 5-5.6"/></svg><div><b>Made by Wren Fiber Co, a verified human</b><span>Signed 13 Nov 2026 · Original</span></div></div>
+<div class="cr">Photo: meknits, CC BY 2.0. Shown as example work.</div>
+<div class="rp">Found a copy elsewhere? <a href="#">Report it</a> and we help take it down.</div>
+</section>
+<div class="shade" aria-hidden="true"></div>
+</main>
+
+<footer>
+<div class="mk"><svg viewBox="0 0 64 64" aria-label="Emera mark"><use href="#sun"/></svg><div class="wm">emera</div></div>
+<div class="tp"><div class="a">Aa</div><div class="c">Aa</div><p><b>Unbounded and DM Sans</b>A wide, thin display face that reads like a horizon, and a calm sans for everything else.</p></div>
+<div class="tk"><div><i style="background:#000"></i><span>Black<br>#000000</span></div><div><i style="background:#fff"></i><span>White<br>#FFFFFF</span></div><div><i style="background:#858585"></i><span>Grey<br>#858585</span></div><div><i style="background:#1b1b1b"></i><span>Deep<br>#1B1B1B</span></div><p>No accent hue. Light is the accent: a beam of daylight turns the work from grey to its own color.</p></div>
+</footer>
+<script>
+const s=document.getElementById('stage');
+s.addEventListener('pointermove',e=>{const r=s.getBoundingClientRect();s.style.setProperty('--px',(e.clientX-r.left)+'px');s.style.setProperty('--py',(e.clientY-r.top)+'px')});
+s.addEventListener('pointerleave',()=>{s.style.setProperty('--px','-400px');s.style.setProperty('--py','-400px')});
+</script>
+</body></html>
