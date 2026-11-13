@@ -1,5 +1,5 @@
 {
-  "updated": "11:19 AM Bangkok",
+  "updated": "11:21 AM Bangkok",
   "title": "Emera",
   "goal": "Emera. Where humanity comes together - you post, share the link, invite people",
   "phases": [
@@ -853,6 +853,11 @@
       "name": "Launch",
       "state": "done",
       "note": "Dec 15 launch, 3,700 list target, 10 video ideas"
+    },
+    {
+      "name": "Black + white",
+      "state": "running",
+      "note": "3 monochrome directions, the work is the only color"
     }
   ],
   "asks": [
