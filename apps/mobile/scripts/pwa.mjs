@@ -49,7 +49,7 @@ let html = readFileSync(indexPath, "utf8");
 const assets = [...html.matchAll(/(?:src|href)="(\/[^"]+\.(?:js|css|ico|png))"/g)].map((m) => m[1]);
 const walk = (dir) => readdirSync(join(dist, dir), { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(`${dir}/${e.name}`) : [`/${dir}/${e.name}`]));
 const chunks = walk("_expo/static");
-const shell = [...new Set(["/", "/offline.html", "/manifest.webmanifest", ...icons.map(([f]) => `/pwa/${f}`), ...assets, ...chunks])];
+const shell = [...new Set(["/", "/offline", "/manifest.webmanifest", ...icons.map(([f]) => `/pwa/${f}`), ...assets, ...chunks])];
 const version = createHash("sha256").update(html + JSON.stringify(manifest) + shell.join()).digest("hex").slice(0, 12);
 
 writeFileSync(
@@ -77,7 +77,7 @@ self.addEventListener("fetch", (e) => {
   if (req.method !== "GET" || url.origin !== location.origin) return;
   if (req.mode === "navigate") {
     e.respondWith(
-      fetch(req).catch(() => caches.match("/").then((r) => r || caches.match("/offline.html"))),
+      fetch(req).catch(() => caches.match("/").then((r) => r || caches.match("/offline"))),
     );
     return;
   }
