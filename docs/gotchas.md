@@ -46,3 +46,9 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 - **expo-video on web ignores `player.play()` inside the `useVideoPlayer` setup.** No `<video>` is mounted yet, so nothing plays and the feed shows a paused clip at 0 s. Spot it: `document.querySelector('video').paused` stays true. Fix: call `play()` when `statusChange` reports `readyToPlay` (`Media.tsx` `LivePlayer`).
 - **An SVG icon inside a gradient button vanishes on web.** The absolutely positioned `LinearGradient` paints over the unpositioned `<svg>`; text survives because RN-web Text is positioned. Fix: wrap the icon in a `View` (`ui.tsx` `Button`).
 - **Posters come from the same queue job as the 1080p shrink, for every video.** Files of 100 MB or more get no poster (Media Transformations input cap); the web app then shows the video's own first frame. Videos posted before 0008 need a backfill: ffmpeg frame at 1 s, `wrangler r2 object put`, set `media.poster_key`.
+
+## 2026-11-13 - Post media sizing
+
+- **expo-video on web draws a portrait clip at its full file size (1080x1920) and shows only the top-left corner.** `VideoView` hands its RN style straight to a raw `<video>`, and a `<video>` does not stretch to `top/right/bottom/left: 0` the way a `View` does. Spot it: `document.querySelector('video').getBoundingClientRect()` is bigger than its box. Fix: always give it `width: "100%", height: "100%"` (`Media.tsx` `fill`).
+- **Media box sizes come from one place: `apps/mobile/src/lib/mediaBox.ts`.** Feed crops to 4:5 through 1.91:1. The post screen shows the whole frame fitted to the window. Do not write `width / height` math in a screen again.
+- **A video post's link preview needs the poster as `og:image`.** With only `og:video`, chat apps showed a bare text card. `pages.ts` `cover()` falls back to the first video's poster and adds `og:video:width/height`.
