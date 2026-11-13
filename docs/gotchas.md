@@ -22,6 +22,7 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 - **An account was announced before it had a handle.** The users feed now waits until a handle is set or 10 minutes pass, and stops the batch there so no later account skips ahead of it.
 - **The site worker now runs before assets for every page** (`run_worker_first` in `apps/site/wrangler.jsonc`) to log visits server-side. A site deploy needs migration `0002_visits.sql` applied first, and the `OPS` service binding needs `emera-notify` deployed in the same env.
 - **Gmail files mail sent to hello@/dmca@ as spam.** Both routing rules now go to the `emera-notify` Worker, which posts sender + subject to #emera-events and then forwards to `MAIL_FORWARD_TO` (secret). A Slack ping with no inbox copy means look in spam. Spot a broken forward: the Slack post says `forward failed`.
+- **2026-11-13: a new Email Routing rule bounces (550 5.1.1) for 2-4 minutes after it is created.** Test from Gmail, not Resend: one Resend bounce puts the address on Resend's suppression list and every later send says `suppressed`. `social@emera.social` (signup address for our social accounts) hit both.
 - **The site build needs `brand/` next to `apps/site`.** A `git archive` of only `apps/` fails `scripts/build.mjs`; deploy then ships the committed `public/`, which is what you want, but archive `brand` too if you rebuild.
 
 ## 2026-11-13 - M0: first deploys, open sign-up
