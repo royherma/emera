@@ -12,7 +12,7 @@
 body{background:var(--bg);color:var(--ink);font:13px/1.35 Inter,system-ui,sans-serif;height:100vh;display:flex;flex-direction:column}
 button,input{font-family:inherit}
 .serif{font-family:Fraunces,Georgia,serif}
-header{display:flex;align-items:center;gap:20px;padding:10px 20px 8px}
+header{display:flex;align-items:center;gap:20px;padding:8px 20px 6px}
 header h1{font-size:24px;font-weight:600;line-height:1}
 header h1 small{display:block;font:500 11px Inter,system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-top:4px}
 .goal{flex:1;font-size:15px;font-weight:600}
@@ -58,7 +58,7 @@ h2 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;mar
 .task span{flex:1;outline:none;font-size:11.5px;line-height:1.25}
 .task i{font-style:normal;font-size:9.5px;font-weight:700;border-radius:4px;padding:0 4px;white-space:nowrap;margin-top:2px}
 .task i.roy{background:#fde6c8;color:#8a5212}.task i.claude{background:#e5ecf7;color:#36527f}
-.brands{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.bd{border:1px solid var(--line);border-radius:12px;background:var(--soft);display:flex;flex-direction:column;overflow:hidden}.bd .img{flex:0 0 auto}.bd .img{height:118px;background:linear-gradient(110deg,#efe9dd 30%,#f8f4ec 50%,#efe9dd 70%);background-size:200% 100%;animation:sh 1.6s linear infinite;display:grid;place-items:center;color:var(--mute);font-size:12px;font-weight:600}.bd .img img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;cursor:zoom-in}.bd.has .img{animation:none;background:#fff}.bd .meta{padding:8px 10px;display:flex;gap:8px;align-items:center}.bd .meta b{font-size:13px}.bd .meta span{font-size:11px;color:var(--mute);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bd .meta button{border:1px solid var(--line);background:#fff;border-radius:6px;font:600 11px Inter,system-ui,sans-serif;padding:3px 10px;cursor:pointer}.bd.keep{box-shadow:0 0 0 2px var(--a2)}.bd.keep .meta button{background:var(--a2);color:#fff}@keyframes sh{to{background-position:-200% 0}}
+.brands{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.bd{border:1px solid var(--line);border-radius:12px;background:var(--soft);display:flex;flex-direction:column;overflow:hidden}.bd .img{flex:0 0 auto}.bd .img{height:100px;background:linear-gradient(110deg,#efe9dd 30%,#f8f4ec 50%,#efe9dd 70%);background-size:200% 100%;animation:sh 1.6s linear infinite;display:grid;place-items:center;color:var(--mute);font-size:12px;font-weight:600}.bd .img img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;cursor:zoom-in}.bd.has .img{animation:none;background:#fff}.bd .meta{padding:8px 10px;display:flex;gap:8px;align-items:center}.bd .meta b{font-size:13px}.bd .meta span{font-size:11px;color:var(--mute);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bd .meta button{border:1px solid var(--line);background:#fff;border-radius:6px;font:600 11px Inter,system-ui,sans-serif;padding:3px 10px;cursor:pointer}.bd.keep{box-shadow:0 0 0 2px var(--a2)}.bd.keep .meta button{background:var(--a2);color:#fff}@keyframes sh{to{background-position:-200% 0}}
 .task i.run{background:#e7f3ec;color:var(--a2);animation:pl 1.4s ease-in-out infinite}@keyframes pl{50%{opacity:.45}}
 .task.done span{text-decoration:line-through;color:var(--mute)}
 .add{border:1px dashed var(--line);background:none;color:var(--mute);border-radius:8px;padding:4px 7px;font:500 11.5px Inter,system-ui,sans-serif;cursor:pointer;text-align:left}
@@ -70,6 +70,7 @@ h2 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;mar
 .ws{display:flex;gap:6px;padding:0 20px 10px;flex-wrap:nowrap;overflow:hidden}.ws div{flex:1;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:5px 8px;font-size:11px;line-height:1.2}.ws div b{display:flex;align-items:center;gap:5px;font-size:11.5px}.ws div b i{width:7px;height:7px;border-radius:50%;background:var(--a2);flex:0 0 auto}.ws div.running b i{background:var(--a);animation:pl 1.2s infinite}.ws div span{color:var(--mute);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mis p{font:600 14px/1.35 Fraunces,Georgia,serif;margin-bottom:8px}.mis .v{border-top:1px solid var(--line);padding:5px 0}.mis .v b{font-size:12.5px}.mis .v span{display:block;font-size:11.5px;color:var(--mute)}.ask{border:1px solid var(--line);border-radius:9px;padding:7px 9px;margin-bottom:6px;background:var(--soft)}.ask b{font-size:12.5px;display:flex;gap:6px}.ask b i{font-style:normal;margin-left:auto;font-size:10px;color:var(--a);text-transform:uppercase;font-weight:700}.ask span{font-size:11.5px;color:var(--mute)}
 .ph h3 .pct{flex:1;height:5px;border-radius:5px;background:var(--line);overflow:hidden;margin:0 4px}.ph h3 .pct b{display:block;height:100%;background:var(--a2)}
+.lk{display:flex;gap:4px;padding:0 20px 8px;flex-wrap:nowrap;overflow:hidden;align-items:center}.lk em{font-style:normal;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin:0 2px 0 8px}.lk em:first-child{margin-left:0}.lk a{font-size:11.5px;font-weight:600;color:var(--ink);text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 9px;white-space:nowrap}.lk a:hover{border-color:var(--ink)}
 .toast{position:fixed;right:20px;bottom:20px;background:var(--ink);color:#fff;padding:8px 14px;border-radius:10px;font-weight:600;opacity:0;transition:.2s;pointer-events:none}
 .toast.on{opacity:1}
 .empty{color:var(--mute);font-size:12px;padding:6px 0}
@@ -82,6 +83,7 @@ h2 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;mar
   <div class="goal"><span>Goal</span><div id="goal"></div></div>
   <div class="prog"><i><b id="bar"></b></i><span id="count"></span><span id="upd"></span></div>
 </header>
+<div class="lk" id="lk"></div>
 <div class="ws" id="ws"></div>
 <main>
   <div class="col">
@@ -128,6 +130,8 @@ function render() {
   const tb = $('tabs'); tb.replaceChildren();
   for (const [id, label, n] of tabs) { const b = el('button', id === window.tab ? 'on' : '', label); if (n) b.append(el('b', '', n)); b.onclick = () => { window.tab = id; render(); }; tb.append(b); }
   for (const [id] of tabs) $(id).hidden = id !== window.tab;
+  const lk = $('lk'); lk.replaceChildren(); let lastG;
+  for (const [g, label, url] of plan.links ?? []) { if (g !== lastG) { lk.append(el('em', '', g)); lastG = g; } const a = el('a', '', label); a.href = url; a.target = '_blank'; a.rel = 'noopener'; lk.append(a); }
   const ws = $('ws'); ws.replaceChildren();
   for (const w of plan.workstreams ?? []) { const d = el('div', w.state); const b = el('b', ''); b.append(el('i'), w.name); d.append(b, el('span', '', w.state === 'running' ? `agent working: ${w.note}` : w.note)); ws.append(d); }
   const mi = $('mission'); mi.replaceChildren(); mi.className = 'mis';

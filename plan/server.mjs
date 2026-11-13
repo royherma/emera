@@ -79,8 +79,8 @@ createServer((req, res) => {
   }
   if (url.pathname === '/api/feedback' && req.method === 'POST') { feedback(req, res); return; }
   const file = url.pathname.startsWith('/file/') && join(root, decodeURIComponent(url.pathname.slice(6)));
-  if (file && /^(\.claude\/artifacts|brand)\//.test(decodeURIComponent(url.pathname.slice(6))) && !file.includes('..') && existsSync(file)) {
-    const type = { '.png': 'image/png', '.html': 'text/html; charset=utf-8', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg' }[extname(file)] || 'application/octet-stream';
+  if (file && /^(\.claude\/artifacts|brand|docs)\/|^README\.md$|^CONTRIBUTING\.md$/.test(decodeURIComponent(url.pathname.slice(6))) && !file.includes('..') && existsSync(file)) {
+    const type = { '.png': 'image/png', '.html': 'text/html; charset=utf-8', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.md': 'text/plain; charset=utf-8', '.json': 'application/json' }[extname(file)] || 'application/octet-stream';
     res.writeHead(200, { 'Content-Type': type, 'Cache-Control': 'no-store' }).end(readFileSync(file));
     return;
   }
