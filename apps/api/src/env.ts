@@ -1,6 +1,7 @@
 export type Env = {
   DB: D1Database;
   MEDIA: R2Bucket;
+  IMAGES?: ImagesBinding;
   ENVIRONMENT: string;
   INVITES_REQUIRED: string;
   SEED_INVITE_CODE: string;

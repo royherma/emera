@@ -8,14 +8,31 @@ import { mediaJson, type MediaRow } from './serialize';
 
 const MB = 1024 * 1024;
 const TYPES: Record<string, { kind: 'image' | 'video'; ext: string; max: number }> = {
-  'image/jpeg': { kind: 'image', ext: 'jpg', max: 25 * MB },
-  'image/png': { kind: 'image', ext: 'png', max: 25 * MB },
-  'image/webp': { kind: 'image', ext: 'webp', max: 25 * MB },
-  'image/heic': { kind: 'image', ext: 'heic', max: 25 * MB },
+  'image/jpeg': { kind: 'image', ext: 'jpg', max: 20 * MB },
+  'image/png': { kind: 'image', ext: 'png', max: 20 * MB },
+  'image/webp': { kind: 'image', ext: 'webp', max: 20 * MB },
+  'image/heic': { kind: 'image', ext: 'heic', max: 20 * MB },
   'video/mp4': { kind: 'video', ext: 'mp4', max: 200 * MB },
   'video/quicktime': { kind: 'video', ext: 'mov', max: 200 * MB },
 };
 const ALIASES: Record<string, string> = { 'image/jpg': 'image/jpeg', 'image/heif': 'image/heic' };
+
+export const IMAGE_MAX_EDGE = 2048;
+const IMAGE_QUALITY = 82;
+
+async function shrinkImage(images: ImagesBinding | undefined, buf: Uint8Array): Promise<Uint8Array | null> {
+  if (!images) return null;
+  try {
+    const out = await images
+      .input(new Blob([buf]).stream())
+      .transform({ width: IMAGE_MAX_EDGE, height: IMAGE_MAX_EDGE, fit: 'scale-down' })
+      .output({ format: 'image/webp', quality: IMAGE_QUALITY });
+    return new Uint8Array(await out.response().arrayBuffer());
+  } catch (e) {
+    console.warn('image shrink failed, storing original', e instanceof Error ? e.message : e);
+    return null;
+  }
+}
 
 export const mediaRoutes = new Hono<AppEnv>();
 
@@ -53,15 +70,25 @@ mediaRoutes.put('/v1/uploads/:id', requireAuth, async (c) => {
   let width = 0;
   let height = 0;
 
+  let sourceSha256: string | null = null;
+  let sourceBytes: number | null = null;
+  let key = row.r2_key;
+  let storedType = row.content_type;
+
   if (spec.kind === 'image') {
     const buf = new Uint8Array(await c.req.arrayBuffer());
     if (!buf.length || buf.length > spec.max) throw fail(413, 'too_large', 'That file is too big.');
     const info = readImageInfo(buf);
     if (!info || info.contentType !== row.content_type) throw fail(415, 'bad_file', 'That file is not a valid image of the type you declared.');
-    ({ width, height } = info);
-    size = buf.length;
-    sha256 = toHex(await crypto.subtle.digest('SHA-256', buf));
-    await c.env.MEDIA.put(row.r2_key, buf, { httpMetadata: { contentType: row.content_type } });
+    sourceSha256 = toHex(await crypto.subtle.digest('SHA-256', buf));
+    sourceBytes = buf.length;
+    const small = await shrinkImage(c.env.IMAGES, buf);
+    const out = small ?? buf;
+    ({ width, height } = (small && readImageInfo(small)) || info);
+    if (small) { key = `${row.id}.webp`; storedType = 'image/webp'; }
+    size = out.length;
+    sha256 = toHex(await crypto.subtle.digest('SHA-256', out));
+    await c.env.MEDIA.put(key, out, { httpMetadata: { contentType: storedType } });
   } else {
     if (!Number.isFinite(length) || length <= 0) throw fail(411, 'length_required', 'Videos need a Content-Length header.');
     let first = true;
@@ -98,8 +125,9 @@ mediaRoutes.put('/v1/uploads/:id', requireAuth, async (c) => {
   const signer = me.handle!;
   const signature = await hmacHex(c.env.PROOF_SECRET, `${sha256}.${new Date(signedAt).toISOString()}.${signer}`);
   await c.env.DB.prepare(
-    `UPDATE media SET status = 'done', width = ?, height = ?, bytes = ?, sha256 = ?, signed_at = ?, signer = ?, signature = ? WHERE id = ?`,
-  ).bind(width, height, size, sha256, signedAt, signer, signature, row.id).run();
+    `UPDATE media SET status = 'done', width = ?, height = ?, bytes = ?, sha256 = ?, signed_at = ?, signer = ?, signature = ?,
+       r2_key = ?, content_type = ?, source_sha256 = ?, source_bytes = ? WHERE id = ?`,
+  ).bind(width, height, size, sha256, signedAt, signer, signature, key, storedType, sourceSha256, sourceBytes, row.id).run();
   const done = (await c.env.DB.prepare('SELECT * FROM media WHERE id = ?').bind(row.id).first<MediaRow>())!;
   return c.json({ media: mediaJson(originOf(c), done) });
 });

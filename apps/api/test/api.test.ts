@@ -141,29 +141,32 @@ describe('uploads, posts, profiles, pages', () => {
     const c = new Client();
     await c.signIn('ana@example.test');
     await c.withHandle('ana', 'Ana <Lens>');
-    const png = pngBytes(64, 48);
+    const png = pngBytes(3000, 1500);
 
     const up = await c.upload(png);
     expect(up.status).toBe(200);
     const media = up.body.media;
-    expect(media).toMatchObject({ kind: 'image', contentType: 'image/png', width: 64, height: 48 });
-    expect(media.sha256).toMatch(/^[0-9a-f]{64}$/);
-    const digest = Buffer.from(await crypto.subtle.digest('SHA-256', png)).toString('hex');
+    expect(media).toMatchObject({ kind: 'image', contentType: 'image/webp', width: 2048, height: 1024 });
+    expect(media.url).toMatch(/\.webp$/);
+    const sourceDigest = Buffer.from(await crypto.subtle.digest('SHA-256', png)).toString('hex');
+    const stored = new Uint8Array(await (await app.fetch(new Request(media.url), c.env)).arrayBuffer());
+    expect(stored.length).toBeLessThan(png.length);
+    const digest = Buffer.from(await crypto.subtle.digest('SHA-256', stored)).toString('hex');
     expect(media.sha256).toBe(digest);
-    expect(media.proof).toMatchObject({ sha256: digest, signer: 'ana', alg: 'hmac-sha256' });
+    expect(media.proof).toMatchObject({ sha256: digest, sourceSha256: sourceDigest, signer: 'ana', alg: 'hmac-sha256' });
     expect(media.proof.signature).toMatch(/^[0-9a-f]{64}$/);
     expect(Date.parse(media.proof.signedAt)).toBeGreaterThan(0);
 
     const back = await app.fetch(new Request(media.url), c.env);
     expect(back.status).toBe(200);
-    expect(back.headers.get('content-type')).toBe('image/png');
+    expect(back.headers.get('content-type')).toBe('image/webp');
     expect(back.headers.get('cache-control')).toContain('immutable');
-    expect(new Uint8Array(await back.arrayBuffer())).toEqual(png);
+    expect(new Uint8Array(await back.arrayBuffer())).toEqual(stored);
     const ranged = await app.fetch(new Request(media.url, { headers: { Range: 'bytes=0-7' } }), c.env);
     expect(ranged.status).toBe(206);
     expect((await ranged.arrayBuffer()).byteLength).toBe(8);
 
-    const again = await c.call('PUT', new URL(media.url).pathname.replace('/media/', '/v1/uploads/').replace(/\.png$/, ''), undefined, png);
+    const again = await c.call('PUT', new URL(media.url).pathname.replace('/media/', '/v1/uploads/').replace(/\.webp$/, ''), undefined, png);
     expect(again.status).toBe(409);
 
     const post = await c.json('POST', '/v1/posts', { mediaIds: [media.id], caption: 'First light <b>over</b> the bay' });
@@ -222,7 +225,7 @@ describe('uploads, posts, profiles, pages', () => {
     const fake = await c.upload(new TextEncoder().encode('not an image at all'), 'image/png');
     expect(fake.status).toBe(415);
     expect((await c.json('POST', '/v1/uploads', { contentType: 'application/pdf', bytes: 5 })).status).toBe(415);
-    expect((await c.json('POST', '/v1/uploads', { contentType: 'image/png', bytes: 26 * 1024 * 1024 })).status).toBe(413);
+    expect((await c.json('POST', '/v1/uploads', { contentType: 'image/png', bytes: 21 * 1024 * 1024 })).status).toBe(413);
   });
 
   it('streams a video into storage with its sha256', async () => {
