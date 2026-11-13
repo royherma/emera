@@ -1,5 +1,5 @@
 {
-  "updated": "10:54 AM Bangkok",
+  "updated": "10:57 AM Bangkok",
   "title": "Plan",
   "goal": "You post your work on your own profile, share the link, and invite people",
   "phases": [
@@ -308,6 +308,26 @@
   "names": {
     "note": "Prices from Cloudflare Registrar (10:54). Name clash = existing apps/brands found.",
     "items": [
+      {
+        "id": "r2-emera",
+        "name": "Emera",
+        "group": "r2",
+        "domain": "emera.social",
+        "stance": "Your work, in daylight.",
+        "why": "Your pick. Greek hemera = day. Soft and modern. But Emera Inc., a big Canadian energy utility (TSX/NYSE: EMA), owns the search results, and the App Store has an \"Emera\" app.",
+        "check": "$32/yr \u00b7 getemera.com $11 \u00b7 name clash: serious (energy utility)",
+        "conflictWhy": "Emera Inc. energy utility, 2.5M customers; @emera.bsky.social taken"
+      },
+      {
+        "id": "r2-arengo",
+        "name": "Arengo",
+        "group": "r2",
+        "domain": "arengo.social",
+        "stance": "The people's assembly.",
+        "why": "From your tab. San Marino's assembly of the people, the original agora. No product found with the name.",
+        "check": "$32/yr \u00b7 arengo.org $8.50 \u00b7 name clash: none found",
+        "conflictWhy": "Closest: Arenago (sports booking, France), Arengu (acquired startup)"
+      },
       {
         "id": "madeby",
         "name": "madeby",
@@ -618,16 +638,6 @@
         "conflictWhy": "No creator/AI product found by that name; App Store has small apps (Firsthand: To-Do Cards, First Hand: Secret Shopper, Firsthand for Business)"
       },
       {
-        "id": "r2-credit",
-        "name": "Credit",
-        "group": "r2",
-        "domain": "credit.art",
-        "stance": "Credit where it's due.",
-        "why": "Every piece carries its maker. Bold, but the money meaning competes.",
-        "check": "$10,000 first yr \u00b7 name clash: serious",
-        "conflictWhy": "Credit scores/cards own the word (Experian, Credit Karma, Capital One CreditWise, Credit Sesame); no creator product by the name"
-      },
-      {
         "id": "r2-honestly",
         "name": "Honestly",
         "group": "r2",
@@ -706,16 +716,6 @@
         "why": "Many makers, one place. Lifts everyone, not a few.",
         "check": "$910 first yr, then $70 \u00b7 name clash: serious",
         "conflictWhy": "Chorus - The Future is Fandom (fan platform for artists, same space); Chorus Network (music distribution app); Chorus by ZoomInfo; Chorus nonprofit for civic creators (wearechorus.com, nonprofit + creators overlap)"
-      },
-      {
-        "id": "r2-witness",
-        "name": "Witness",
-        "group": "r2",
-        "domain": "witness.art",
-        "stance": "Seen, credited, proven.",
-        "why": "We witness who made it first. Heavier tone.",
-        "check": "$5,000 first yr \u00b7 name clash: serious",
-        "conflictWhy": "WITNESS (witness.org, human rights nonprofit, leading voice on media provenance/C2PA); Witness app by Reel Human signs photos/videos at capture (direct overlap); Witness: Camera Beyond Reach"
       }
     ],
     "groups": [
