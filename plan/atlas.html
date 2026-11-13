@@ -179,12 +179,39 @@ ul.l li{margin:2px 0}
 .mp .mono{font-size:12px;word-break:break-all}
 .ok{font-size:11px}
 .wait{padding:40px 24px;color:var(--mute);font:14px var(--mono)}
+#cap{display:flex;align-items:center;gap:10px;font:12px var(--mono);color:var(--mute);margin-left:auto;white-space:nowrap}
+#cap .go,#runs .go{font:600 12px var(--font);border:1px solid var(--fg);background:var(--fg);color:var(--bg);padding:4px 12px;border-radius:99px;cursor:pointer}
+#cap .go:disabled,#runs .go:disabled{opacity:.4;cursor:default}
+#cap a{color:inherit;cursor:pointer;text-decoration:underline dotted}
+.prog{width:120px;height:6px;border:1px solid var(--fg);position:relative;display:inline-block;vertical-align:middle}
+.prog i{position:absolute;inset:0 auto 0 0;background:var(--fg);transition:width .9s linear}
+#stamp{margin-left:0}
+#runs.on{display:grid;grid-template-columns:360px 1fr}
+#runs>section{padding:16px 20px;overflow:auto;border-right:1px solid var(--line)}
+#runs>section:last-child{border-right:0}
+#runs h3{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}
+#runs .big{font:600 34px var(--mono)}
+#runs .log{font:11px/1.55 var(--mono);background:var(--soft);border:1px solid var(--line);padding:8px 10px;max-height:300px;overflow:auto;white-space:pre-wrap}
+#runs .ph{display:grid;grid-template-columns:1fr 60px;font:12px/1.7 var(--mono)}
+#runs .ph span:nth-child(2n){text-align:right}
+#runs .miss{display:grid;gap:8px;font-size:12px}
+#runs .miss b{font:600 12px var(--mono)}
+#runs table{border-collapse:collapse;width:100%;font-size:12px}
+#runs th{font:11px var(--mono);text-transform:uppercase;color:var(--mute);text-align:left;padding:4px 8px;border-bottom:1px solid var(--fg)}
+#runs td{padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+#runs td.n{font-family:var(--mono);text-align:right;white-space:nowrap}
+#runs tr.bad td{color:var(--red)}
+#runs .chart{display:flex;align-items:flex-end;gap:3px;height:90px;border-bottom:1px solid var(--fg);margin:0 0 14px}
+#runs .chart i{flex:1;max-width:26px;background:var(--fg);min-height:2px}
+#runs .chart i.bad{background:var(--red)}
+#runs .chart i.cur{background:repeating-linear-gradient(45deg,var(--fg) 0 3px,transparent 3px 6px)}
 </style>
 </head>
 <body>
 <header>
   <b>ATLAS</b>
   <nav id="nav"></nav>
+  <span id="cap"></span>
   <span id="stamp"></span>
 </header>
 <section class="tab" id="stories"><div id="list"></div><div id="flow"></div></section>
@@ -192,10 +219,11 @@ ul.l li{margin:2px 0}
 <section class="tab" id="feats"><div id="fmain"></div><div id="fside"></div></section>
 <section class="tab" id="system"><div id="sysgraph"></div><div id="envs"></div></section>
 <section class="tab" id="cover"></section>
+<section class="tab" id="runs"><section id="runnow"></section><section id="runlist"></section></section>
 <section class="tab" id="plat"></section>
 <div id="lb"></div>
 <script>
-const TABS = [['stories', 'Stories'], ['screens', 'Screens'], ['feats', 'Features'], ['system', 'System'], ['cover', 'Coverage'], ['plat', 'Platforms']];
+const TABS = [['stories', 'Stories'], ['screens', 'Screens'], ['feats', 'Features'], ['system', 'System'], ['cover', 'Coverage'], ['plat', 'Platforms'], ['runs', 'Captures']];
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const store = { get: (k, d) => { try { return localStorage.getItem(k) ?? d; } catch { return d; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
@@ -213,7 +241,7 @@ function show() {
 
 function stamp() {
   const t = new Date(A.builtAt).toLocaleString('en-US', { timeZone: 'Asia/Bangkok', hour: 'numeric', minute: '2-digit', month: 'short', day: 'numeric' });
-  $('stamp').textContent = `built from commit ${A.git.sha}${A.git.dirty ? '+edits' : ''} at ${t} Bangkok`;
+  $('stamp').textContent = `map ${A.git.sha}${A.git.dirty ? '+edits' : ''} ${t}`;
 }
 
 function renderList() {
@@ -229,13 +257,15 @@ function stepBox(kind, label, state, problems) {
 const normRoute = (r) => String(r ?? '').replace(/\[(\w+)\]/g, ':$1');
 const scrOf = (surface, route) => A.screens.find((x) => x.surface === surface && x.route === normRoute(route));
 const shotUrl = (path) => `/file/${path}?v=${encodeURIComponent(A.shots?.capturedAt ?? '')}`;
-function shotOf(s, v = 'phone') {
+function shotOf(s, v = 'phone', state = null) {
   if (!s?.shots) return null;
-  return s.shots[`${v}-${th}`] ?? s.shots[`${v}-day`] ?? null;
+  const st = state && (s.states ?? []).filter((x) => x.name === state);
+  const hit = st?.length && (st.find((x) => x.tag === `${v}-${th}`) ?? st.find((x) => x.tag === `${v}-day`));
+  return hit?.file ?? s.shots[`${v}-${th}`] ?? s.shots[`${v}-day`] ?? null;
 }
-const thumb = (s, v = 'phone', cls = 'thumb') => {
-  const p = shotOf(s, v);
-  return p ? `<img class="${cls}" loading="lazy" src="${shotUrl(p)}" data-lb="${esc(s.surface + ':' + s.route)}" alt="">` : `<div class="nocap">no capture</div>`;
+const thumb = (s, v = 'phone', cls = 'thumb', state = null) => {
+  const p = shotOf(s, v, state);
+  return p ? `<img class="${cls}" loading="lazy" src="${shotUrl(p)}" data-lb="${esc(s.surface + ':' + s.route)}" ${state ? `data-lbs="${esc(state)}"` : ''} alt="">` : `<div class="nocap">no capture yet</div>`;
 };
 
 function renderFlow() {
@@ -253,19 +283,19 @@ function renderFlow() {
   const rows = steps.map((st, k) => {
     const sc = st.screen ?? st.site;
     const scrObj = sc && scrOf(st.site ? 'site' : 'app', sc);
-    const scrCell = sc ? `<div class="cell"><div class="box scr ${st.screenState === 'missing' ? 'miss' : ''}">${scrObj ? thumb(scrObj) : '<div class="nocap">missing</div>'}<div class="lab">${esc((st.site ? 'site ' : '') + sc)}</div></div></div>` : '<div></div>';
+    const scrCell = sc ? `<div class="cell"><div class="box scr ${st.screenState === 'missing' ? 'miss' : ''}">${scrObj ? thumb(scrObj, 'phone', 'thumb', st.state) : '<div class="nocap">not built</div>'}<div class="lab">${esc((st.site ? 'site ' : '') + sc)}${scrObj?.forwardsTo ? `<div class="mute" style="font-size:11px">goes on to ${esc(scrObj.forwardsTo)}</div>` : ''}${st.state ? `<div class="mute" style="font-size:11px">${esc(st.state)}</div>` : ''}</div></div></div>` : '<div></div>';
     const epCell = st.endpoint ? `<div class="cell ${sc ? 'arrow' : ''} ${st.epState === 'missing' ? 'm' : ''}">${stepBox('e', st.endpoint, st.epState, st.problems)}${st.problems.map((p) => `<div class="prob">${esc(p)}</div>`).join('')}</div>` : `<div class="cell">${st.status === 'human' ? '<div class="box human">by hand</div>' : st.problems.map((p) => `<div class="prob">${esc(p)}</div>`).join('')}</div>`;
     const data = [...st.data.tables.map((t) => `<div class="box data">${esc(t)}</div>`), ...st.data.r2.length ? ['<div class="box data">R2 media</div>'] : []].join('');
     return `<div class="step"><div class="n ${st.status === 'missing' ? 'red' : ''}">${k + 1}</div><div class="say">${esc(st.say)}</div>${scrCell}${epCell}<div class="cell ${data ? 'arrow' : ''}">${data}</div></div>`;
   }).join('');
-  $('flow').innerHTML = `<h2>${esc(s.title)} <span class="mono">${s.coverage}%</span></h2><div class="sub">${esc(s.actor)}: ${esc(s.goal)}</div>${s.note ? `<div class="flag">${esc(s.note)}</div>` : ''}<div class="pills">${pills}</div>${[...notes.keys()].length ? `<div class="note" style="margin-bottom:8px">${[...notes.keys()].map(esc).join(' &middot; ')}</div>` : ''}<div class="head"><span></span><span>Step</span><span>Screen</span><span>Endpoint</span><span>Data</span></div>${rows}`;
+  $('flow').innerHTML = `<h2>${esc(s.title)} <span class="mono">${s.coverage}%</span></h2><div class="sub">${esc(s.actor)}: ${esc(s.goal)}</div>${s.note ? `<div class="flag">${esc(s.note)}</div>` : ''}<div class="pills">${pills}${plat === 'ios' || plat === 'android' ? '<span class="mute" style="font-size:12px;align-self:center">pictures are the web build</span>' : ''}</div>${[...notes.keys()].length ? `<div class="note" style="margin-bottom:8px">${[...notes.keys()].map(esc).join(' &middot; ')}</div>` : ''}<div class="head"><span></span><span>Step</span><span>Screen</span><span>Endpoint</span><span>Data</span></div>${rows}`;
   $('flow').querySelectorAll('.pills button').forEach((b) => b.onclick = () => { plat = b.dataset.p; store.set('atlas.plat', plat); renderFlow(); });
   bindLb($('flow'));
 }
 
 
 let lbKey = null, lbState = null;
-function bindLb(root) { root.querySelectorAll('[data-lb]').forEach((el) => el.onclick = (e) => { e.stopPropagation(); openLb(el.dataset.lb); }); }
+function bindLb(root) { root.querySelectorAll('[data-lb]').forEach((el) => el.onclick = (e) => { e.stopPropagation(); openLb(el.dataset.lb, el.dataset.lbs); }); }
 function storiesUsing(s) {
   return A.stories.filter((st) => st.steps.some((x) => (x.site ? 'site' : 'app') === s.surface && normRoute(x.screen ?? x.site) === s.route));
 }
@@ -306,8 +336,8 @@ function renderScreens() {
   if (!themes.includes(th)) th = 'day';
   const when = sh ? new Date(sh.capturedAt).toLocaleString('en-US', { timeZone: 'Asia/Bangkok', hour: 'numeric', minute: '2-digit', month: 'short', day: 'numeric' }) : '';
   const info = sh
-    ? `${sh.count} images from commit ${esc(sh.git?.sha)}${sh.git?.dirty ? '+edits' : ''} at ${when} Bangkok${sh.stale ? ' <span class="red">- the code has moved since, run node tools/atlas/shots.mjs</span>' : ''}${sh.themeSwitch ? '' : ' - day only, the app has no theme switch'}`
-    : '<span class="red">no captures yet, run node tools/atlas/shots.mjs</span>';
+    ? `${sh.count} images from commit ${esc(sh.git?.sha)}${sh.git?.dirty ? '+edits' : ''} at ${when} Bangkok${sh.stale ? ' <span class="red">- the code has moved since, a new run starts by itself</span>' : ''}${sh.themeSwitch ? '' : ' - day only, the app has no theme switch'}`
+    : '<span class="red">no captures yet, press Capture now</span>';
   const pills = (items, cur, key, dis = () => false) => `<div class="pills">${items.map((x) => `<button data-${key}="${x}" ${dis(x) ? 'disabled' : ''} class="${x === cur ? 'on' : ''}">${x}</button>`).join('')}</div>`;
   const cards = list.map((s) => {
     const us = storiesUsing(s), calls = callsOf(s);
@@ -452,8 +482,78 @@ function renderPlat() {
   $('plat').innerHTML = `<div class="top"><b>${n('live')} of ${list.length} live</b><div class="leg">${order.map((k) => `<span title="${esc(key[label[k]] ?? '')}"><i class="sw ${cls(k)}"></i>${label[k]} ${n(k)}</span>`).join('')}</div></div><div class="groups">${[...groups].map(([g, ps]) => `<div><div class="grp mute">${esc(g)}</div>${ps.map((p) => `<div class="card ${cls(p.st)}" title="${esc([p.path, p.note].filter(Boolean).join(' - '))}"><b>${esc(p.name ?? p.id)} <em>${esc(label[p.st] ?? p.st)}</em></b><small>${esc(p.why ?? p.note ?? '')}</small></div>`).join('')}</div>`).join('')}</div>`;
 }
 
+const bkk = (iso, withDay = false) => new Date(iso).toLocaleString('en-US', { timeZone: 'Asia/Bangkok', hour: 'numeric', minute: '2-digit', ...(withDay ? { month: 'short', day: 'numeric' } : {}) });
+const secs = (ms) => ms == null ? '-' : ms < 60000 ? `${Math.round(ms / 1000)} s` : `${Math.floor(ms / 60000)} m ${Math.round((ms % 60000) / 1000)} s`;
+let S = null, tick;
+async function loadShots() {
+  try { S = await (await fetch('/api/atlas/shots', { cache: 'no-store' })).json(); } catch { S = null; }
+  renderCap(); renderRuns();
+  clearInterval(tick);
+  if (S?.running) tick = setInterval(() => { S.elapsedMs += 1000; renderCap(); renderRunNow(); }, 1000);
+}
+async function capture() {
+  const r = await fetch('/api/atlas/shots', { method: 'POST' });
+  S = await r.json();
+  loadShots();
+}
+function typical() {
+  const ok = (A?.shots?.runs ?? []).filter((r) => r.ok).map((r) => r.ms);
+  return ok.length ? ok.sort((a, b) => a - b)[Math.floor(ok.length / 2)] : S?.lastMs ?? null;
+}
+function renderCap() {
+  const sh = A?.shots;
+  if (S?.running) {
+    const est = typical(), pct = est ? Math.min(98, (S.elapsedMs / est) * 100) : 50;
+    const step = S.lines.at(-1)?.text ?? 'starting';
+    $('cap').innerHTML = `<span>capturing ${secs(S.elapsedMs)}${est ? ` of ~${secs(est)}` : ''}</span><span class="prog"><i style="width:${pct}%"></i></span><a data-go-runs>${esc(step.slice(0, 48))}</a>`;
+  } else {
+    const ago = sh ? bkk(sh.capturedAt) : null;
+    const state = !sh ? '<span class="red">no pictures yet</span>' : sh.stale ? `<span class="red">pictures older than the code</span>` : `pictures current`;
+    $('cap').innerHTML = `<a data-go-runs>${state}${sh ? ` - ${ago}, ${secs(sh.ms)}, ${esc(sh.by ?? 'terminal')}` : ''}</a><button class="go" id="capgo">Capture now</button>`;
+    $('capgo').onclick = capture;
+  }
+  $('cap').querySelectorAll('[data-go-runs]').forEach((a) => a.onclick = () => { tab = 'runs'; store.set('atlas.tab', tab); history.replaceState(null, '', '#runs'); show(); });
+}
+function missGroups(sh) {
+  const m = new Map();
+  for (const f of sh.failed ?? []) {
+    const [, what, tag] = f.what.match(/^(.*) \(([^)]+)\)$/) ?? [null, f.what, ''];
+    const k = what + '|' + f.why;
+    if (!m.has(k)) m.set(k, { what, why: f.why, tags: [], n: 0 });
+    const g = m.get(k); g.tags.push(tag); g.n++;
+  }
+  for (const x of sh.missing ?? []) if (![...m.values()].some((g) => x.endsWith(':' + g.what))) m.set(x, { what: x, why: 'no step in the capture script reaches it', tags: [], n: 0 });
+  return [...m.values()];
+}
+function renderRunNow() {
+  const sh = A?.shots;
+  const est = typical();
+  let html;
+  if (S?.running) {
+    html = `<h3>Capturing now</h3><div class="big">${secs(S.elapsedMs)}</div><div class="mute" style="margin:2px 0 10px">usually ~${secs(est)} - started ${bkk(S.startedAt)} by ${esc(S.by)}<br>${esc(S.why)}</div><div class="log">${S.lines.map((l) => esc(l.text)).join('\n') || 'starting'}</div>`;
+  } else {
+    const p = sh?.phases ?? [];
+    html = `<h3>Pictures</h3>${sh ? `<div class="big">${sh.count}</div><div class="mute" style="margin:2px 0 10px">images of ${Object.keys(A.screens.filter((s) => !s.shell)).length} screens, 2 sizes x ${sh.themes?.length ?? 1} themes, from the web build<br>${bkk(sh.capturedAt, true)} Bangkok, took ${secs(sh.ms)}<br>by ${esc(sh.by ?? 'terminal')}: ${esc(sh.why ?? 'run by hand')}</div>` : '<div class="red">none yet</div>'}
+    ${sh?.stale ? `<div class="red" style="margin-bottom:10px">The app code changed after these were taken. A new run starts by itself 90 s after the last edit, or press Capture now.</div>` : sh ? '<div style="margin-bottom:10px">Matches the code now. Edits to the app start a new run by itself 90 s after the last change.</div>' : ''}
+    <button class="go" id="capgo2">Capture now</button>
+    ${p.length ? `<h3 style="margin-top:18px">Where the time went</h3><div class="ph">${p.map((x) => `<span>${esc(x.name)}</span><span>${secs(x.ms)}</span>`).join('')}</div>` : ''}
+    ${sh?.failed?.length || sh?.missing?.length ? `<h3 style="margin-top:18px">Not captured, and why</h3><div class="miss">${missGroups(sh).map((g) => `<div><b class="red">${esc(g.what)}</b> <span class="mute">${g.n > 1 ? `${g.n} sizes` : esc(g.tags[0] ?? '')}</span><div class="mute">${esc(g.why)}</div></div>`).join('')}</div>` : ''}`;
+  }
+  $('runnow').innerHTML = html;
+  $('capgo2')?.addEventListener('click', capture);
+}
+function renderRuns() {
+  if (!A) return;
+  renderRunNow();
+  const runs = [...(A.shots?.runs ?? [])].reverse();
+  const max = Math.max(1, ...runs.map((r) => r.ms), S?.running ? S.elapsedMs : 0);
+  const bars = [...runs].reverse().map((r) => `<i class="${r.ok ? '' : 'bad'}" style="height:${(r.ms / max) * 100}%" title="${esc(bkk(r.startedAt, true))} - ${secs(r.ms)} - ${esc(r.by)}"></i>`).join('') + (S?.running ? `<i class="cur" style="height:${(S.elapsedMs / max) * 100}%" title="running"></i>` : '');
+  $('runlist').innerHTML = `<h3>Every run, newest first - bar height is how long it took</h3>${runs.length ? `<div class="chart">${bars}</div>` : ''}
+  <table><tr><th>When</th><th>Who</th><th>Why</th><th>Code</th><th>Took</th><th>Images</th><th>Missed</th></tr>${runs.map((r) => `<tr class="${r.ok ? '' : 'bad'}"><td class="n">${esc(bkk(r.startedAt, true))}</td><td>${esc(r.by)}</td><td>${esc(r.why)}${r.error ? `<div>${esc(r.error)}</div>` : ''}</td><td class="n">${esc(r.sha)}${r.dirty ? '+edits' : ''}</td><td class="n" title="${esc((r.phases ?? []).map((p) => `${p.name} ${secs(p.ms)}`).join(', '))}">${secs(r.ms)}</td><td class="n">${r.images ?? '-'}</td><td class="n" title="${esc([...(r.missing ?? []), ...(r.failed ?? []).map((f) => f.what)].join('\n'))}">${r.ok ? (r.missing?.length ?? 0) + (r.failed?.length ?? 0) : 'failed'}</td></tr>`).join('') || '<tr><td colspan="7" class="mute">No runs recorded yet</td></tr>'}</table>`;
+}
+
 function renderAll() {
-  stamp(); renderList(); renderFlow(); renderScreens(); renderFeats(); renderSystem(); renderCover(); renderPlat(); show();
+  stamp(); renderList(); renderFlow(); renderScreens(); renderFeats(); renderSystem(); renderCover(); renderPlat(); renderCap(); renderRuns(); show();
 }
 
 async function load() {
@@ -464,9 +564,9 @@ async function load() {
   renderAll();
 }
 addEventListener('hashchange', () => { const h = location.hash.slice(1); if (TABS.some(([k]) => k === h)) { tab = h; show(); } });
-load();
+load().then(loadShots);
 const es = new EventSource('/events');
-es.onmessage = (e) => { if (e.data === 'atlas') load(); else if (e.data === 'atlas-page') location.reload(); };
+es.onmessage = (e) => { if (e.data === 'atlas') load(); else if (e.data === 'shots') loadShots(); else if (e.data === 'atlas-page') location.reload(); };
 </script>
 </body>
 </html>
