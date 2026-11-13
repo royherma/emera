@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { Client, ORIGIN, makeEnv, pngBytes } from './helpers';
 import { bskyItems, parseFeed, parseFrom, runAutoImports, setNet } from '../src/ingest';
+import { cleanRules, passes } from '../src/connectors';
 
 const FEED = (items: { guid: string; date: string; text: string; img: string }[]) => `<?xml version="1.0"?><rss xmlns:media="http://search.yahoo.com/mrss/"><channel><title>t</title>
 ${items.map((i) => `<item><guid>${i.guid}</guid><link>https://pix.test/p/${i.guid}</link><pubDate>${i.date}</pubDate><description>&lt;p&gt;${i.text} &amp;amp; more&lt;/p&gt;</description><media:content url="${i.img}" type="image/png" medium="image"/></item>`).join('')}
@@ -51,7 +52,7 @@ describe('sources', () => {
     expect(parseFrom('https://bsky.app/profile/Roy.Example.com')).toMatchObject({ kind: 'bluesky', spec: 'roy.example.com' });
     expect(parseFrom('roy.bsky.social').kind).toBe('bluesky');
     expect(parseFrom('example.com')).toMatchObject({ kind: 'feed', spec: 'https://example.com/' });
-    expect(parseFrom('https://mastodon.social/@roy').spec).toBe('https://mastodon.social/@roy.rss');
+    expect(parseFrom('https://mastodon.social/@roy')).toMatchObject({ kind: 'mastodon', spec: 'https://mastodon.social/@roy.rss', label: 'mastodon.social/@roy' });
     expect(() => parseFrom('https://www.instagram.com/roy/')).toThrow(/Instagram/);
   });
 
@@ -71,6 +72,23 @@ describe('sources', () => {
     expect(items.map((i) => i.url)).toEqual(['https://bsky.app/profile/roy.bsky.social/post/1', 'https://bsky.app/profile/roy.bsky.social/post/2']);
     expect(items[0].media[0]).toEqual({ url: 'https://cdn.bsky.app/x.jpg', type: 'image', alt: 'a pot' });
     expect(items[1].media[0].url).toBe('https://pds.test/xrpc/com.atproto.sync.getBlob?did=did%3Aplc%3Ame&cid=bafy');
+  });
+});
+
+describe('rules and connectors', () => {
+  const item = (caption: string, types: ('image' | 'video')[]) => ({ id: 'x', url: '', caption, createdAt: null, media: types.map((type) => ({ url: 'https://a.test/f', type, alt: '' })) });
+  it('filters by media kind and hashtag, and rejects bad tags', () => {
+    expect(passes(item('new pot #ceramics', ['image']), cleanRules({ media: 'photos', tag: '#Ceramics' }))).toBe(true);
+    expect(passes(item('new pot #ceramicsclub', ['image']), cleanRules({ tag: 'ceramics' }))).toBe(false);
+    expect(passes(item('reel #ceramics', ['video']), cleanRules({ media: 'photos' }))).toBe(false);
+    expect(passes(item('reel', ['video']), cleanRules({ media: 'videos' }))).toBe(true);
+    expect(cleanRules({ media: 'junk' })).toEqual({ media: 'any' });
+    expect(() => cleanRules({ tag: 'two words' })).toThrow(/hashtag/);
+  });
+  it('lists the connectors and the platforms that block reading', async () => {
+    const r = await new Client().json('GET', '/v1/connectors');
+    expect(r.body.connectors.map((c: any) => c.id)).toEqual(['bluesky', 'mastodon', 'feed']);
+    expect(r.body.locked.map((l: any) => l.name)).toContain('Instagram');
   });
 });
 
@@ -140,18 +158,19 @@ describe('connect an AI app with OAuth, then import over MCP', () => {
     await c.signIn('auto@example.test');
     await c.withHandle('autouser', 'Auto User');
     feedXml = FEED([{ guid: 'old', date: 'Mon, 02 Nov 2026 08:00:00 GMT', text: 'Old one', img: 'https://pix.test/img/o.png' }]);
-    const on = await c.json('POST', '/v1/sources', { from: 'https://pix.test/feed?u=auto' });
-    expect(on.body.source.autoPost).toBe(true);
+    const on = await c.json('POST', '/v1/sources', { from: 'https://pix.test/feed?u=auto', rules: { tag: 'emera' } });
+    expect(on.body.source).toMatchObject({ autoPost: true, rules: { media: 'any', tag: 'emera' } });
     const env = makeEnv();
     await env.DB.prepare("UPDATE sources SET since = ? WHERE spec LIKE '%u=auto'").bind(Date.now() - 10 * 60_000).run();
     feedXml = FEED([
       { guid: 'old', date: 'Mon, 02 Nov 2026 08:00:00 GMT', text: 'Old one', img: 'https://pix.test/img/o.png' },
-      { guid: 'new', date: new Date(Date.now() - 60_000).toUTCString(), text: 'New one', img: 'https://pix.test/img/n.png' },
+      { guid: 'new', date: new Date(Date.now() - 60_000).toUTCString(), text: 'New one #emera', img: 'https://pix.test/img/n.png' },
+      { guid: 'untagged', date: new Date(Date.now() - 30_000).toUTCString(), text: 'Not for Emera', img: 'https://pix.test/img/u.png' },
     ]);
     const report = await runAutoImports(env, 'https://internal.emera');
     expect(report.find((r) => r.source.includes('pix.test'))).toMatchObject({ imported: 1 });
     const profile = await c.json('GET', '/v1/users/autouser');
-    expect(profile.body.posts.map((p: any) => p.caption)).toEqual(['New one & more']);
+    expect(profile.body.posts.map((p: any) => p.caption)).toEqual(['New one #emera & more']);
     expect((await runAutoImports(env, 'https://internal.emera')).find((r) => r.source.includes('pix.test'))).toMatchObject({ imported: 0 });
     const list = await c.json('GET', '/v1/sources');
     expect(list.body.sources[0]).toMatchObject({ autoPost: true, lastError: null });

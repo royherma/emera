@@ -4,151 +4,19 @@ import { requireAuth, requireHandle } from './auth';
 import { fail, originOf, readJson } from './http';
 import { newId, newToken, sha256Hex } from './crypto';
 
-export type Media = { url: string; type: 'image' | 'video' | null; alt: string };
-export type Item = { id: string; url: string; caption: string; createdAt: string | null; media: Media[] };
-export type Source = { kind: 'bluesky' | 'feed'; spec: string; label: string };
+export { setNet, parseFeed, bskyItems, parseFrom, readSource, decode } from './connectors';
+import { connectorList, cleanRules, fromOf, parseFrom, passes, readSource, type Item, type Media, type Rules, type Source } from './connectors';
+import { net, typeOf, UA } from './connectors/types';
+export type { Item, Media, Source } from './connectors';
 
 type AppFetch = (req: Request, env: Env) => Response | Promise<Response>;
 let appFetch: AppFetch | null = null;
 export const useApp = (f: AppFetch) => { appFetch = f; };
 
-let net: typeof fetch = (input, init) => fetch(input, init);
-export const setNet = (f: typeof fetch) => { net = f; };
-
-const UA = { 'User-Agent': 'EmeraImporter/1.0 (+https://emera.social)' };
-const BSKY = 'https://public.api.bsky.app/xrpc';
 const MAX_POSTS = 25;
 const VIDEO_BUFFER_MAX = 90 * 1024 * 1024;
 const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/heic'];
 const VIDEO_TYPES = ['video/mp4', 'video/quicktime'];
-
-const LOCKED: [RegExp, string][] = [
-  [/(^|\.)instagram\.com$/, 'Instagram does not share posts with other apps. Download your data from Instagram and bring the zip in with the Emera importer.'],
-  [/(^|\.)tiktok\.com$/, 'TikTok does not share posts with other apps. Download your data from TikTok and bring the videos in one by one.'],
-  [/(^|\.)(x|twitter)\.com$/, 'X does not share posts with other apps for free.'],
-  [/(^|\.)facebook\.com$/, 'Facebook does not share posts with other apps.'],
-];
-
-export function parseFrom(raw: string): Source {
-  const s = raw.trim();
-  if (!s) throw fail(400, 'bad_source', 'Say where to import from: a Bluesky handle or a link to your feed or profile.');
-  const bsky = /^(?:https?:\/\/(?:www\.)?bsky\.app\/profile\/)?@?((?:did:plc:[a-z0-9]+)|(?:[a-z0-9-]+\.)+[a-z]{2,})\/?$/i.exec(s);
-  if (bsky && (/bsky\.app/i.test(s) || /^@|^did:/i.test(s) || /\.bsky\.social\/?$/i.test(s))) return { kind: 'bluesky', spec: bsky[1].toLowerCase(), label: `@${bsky[1].toLowerCase()} on Bluesky` };
-  let url: URL;
-  try { url = new URL(/^https?:\/\//i.test(s) ? s : `https://${s}`); } catch { throw fail(400, 'bad_source', 'That is not a link or a Bluesky handle.'); }
-  if (url.protocol !== 'https:' && url.protocol !== 'http:') throw fail(400, 'bad_source', 'Use an https link.');
-  for (const [re, why] of LOCKED) if (re.test(url.hostname)) throw fail(422, 'source_locked', why);
-  if (/^\/@[^/]+\/?$/.test(url.pathname) && !url.pathname.endsWith('.rss')) url.pathname = url.pathname.replace(/\/?$/, '.rss');
-  return { kind: 'feed', spec: url.toString(), label: url.hostname + url.pathname.replace(/\/$/, '') };
-}
-
-async function getJson(url: string): Promise<any> {
-  const res = await net(url, { headers: UA });
-  if (!res.ok) throw fail(502, 'source_failed', `The source answered ${res.status}.`);
-  return res.json();
-}
-
-const entities: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
-export const decode = (s: string) => s
-  .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
-  .replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, e: string) => e[0] === '#' ? String.fromCodePoint(e[1] === 'x' || e[1] === 'X' ? parseInt(e.slice(2), 16) : Number(e.slice(1))) : entities[e.toLowerCase()] ?? m);
-const textOf = (html: string) => decode(decode(html)
-  .replace(/<br\s*\/?>/gi, '\n').replace(/<\/p>\s*<p[^>]*>/gi, '\n\n').replace(/<[^>]+>/g, ''))
-  .replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
-const tag = (block: string, name: string) => { const m = new RegExp(`<${name}(?:\\s[^>]*)?>([\\s\\S]*?)</${name}>`, 'i').exec(block); return m ? m[1] : ''; };
-const attr = (t: string, name: string) => { const m = new RegExp(`\\s${name}\\s*=\\s*("([^"]*)"|'([^']*)')`, 'i').exec(t); return m ? decode(m[2] ?? m[3]) : ''; };
-
-function typeOf(url: string, declared = ''): Media['type'] {
-  const d = declared.toLowerCase();
-  if (d.startsWith('image') || d === 'image') return 'image';
-  if (d.startsWith('video') || d === 'video') return 'video';
-  const ext = new URL(url).pathname.split('.').pop()?.toLowerCase() ?? '';
-  if (['jpg', 'jpeg', 'png', 'webp', 'heic'].includes(ext)) return 'image';
-  if (['mp4', 'mov', 'm4v'].includes(ext)) return 'video';
-  return null;
-}
-
-export function parseFeed(xml: string, base: string): Item[] {
-  const blocks = xml.match(/<item[\s>][\s\S]*?<\/item>/gi) ?? xml.match(/<entry[\s>][\s\S]*?<\/entry>/gi) ?? [];
-  return blocks.map((b) => {
-    const abs = (u: string) => { try { return new URL(u, base).toString(); } catch { return ''; } };
-    const linkTag = /<link\b[^>]*rel=["']alternate["'][^>]*>/i.exec(b)?.[0] ?? /<link\b[^>]*href=[^>]*>/i.exec(b)?.[0] ?? '';
-    const link = abs(decode(tag(b, 'link').trim()) || attr(linkTag, 'href'));
-    const body = tag(b, 'content:encoded') || tag(b, 'description') || tag(b, 'content') || tag(b, 'summary');
-    const title = textOf(tag(b, 'title'));
-    const text = textOf(body);
-    const media: Media[] = [];
-    const seen = new Set<string>();
-    const add = (u: string, t: string, alt = '') => { const url = abs(u); if (!url || seen.has(url)) return; seen.add(url); media.push({ url, type: typeOf(url, t), alt }); };
-    for (const m of b.match(/<media:content\b[^>]*>/gi) ?? []) add(attr(m, 'url'), attr(m, 'type') || attr(m, 'medium'), textOf(tag(b, 'media:description')));
-    for (const m of b.match(/<enclosure\b[^>]*>/gi) ?? []) add(attr(m, 'url'), attr(m, 'type'));
-    for (const m of decode(body).match(/<img\b[^>]*>/gi) ?? []) add(attr(m, 'src'), 'image', attr(m, 'alt'));
-    const date = tag(b, 'pubDate') || tag(b, 'published') || tag(b, 'updated') || tag(b, 'dc:date');
-    const t = Date.parse(decode(date).trim());
-    return {
-      id: `feed:${decode(tag(b, 'guid') || tag(b, 'id')).trim() || link}`,
-      url: link,
-      caption: (text && title && !text.startsWith(title) ? `${title}\n\n${text}` : text || title).slice(0, 2200),
-      createdAt: Number.isFinite(t) ? new Date(t).toISOString() : null,
-      media: media.filter((m) => m.type).slice(0, 10),
-    };
-  });
-}
-
-async function readFeed(spec: string, limit: number): Promise<Item[]> {
-  let res = await net(spec, { headers: { ...UA, Accept: 'application/rss+xml, application/atom+xml, application/xml, text/xml, text/html' } });
-  if (!res.ok) throw fail(502, 'source_failed', `That link answered ${res.status}.`);
-  let body = await res.text();
-  if (!/<(rss|feed|rdf:RDF)[\s>]/i.test(body)) {
-    const alt = (body.match(/<link\b[^>]*>/gi) ?? []).find((l) => /rel=["']?alternate/i.test(l) && /(rss|atom)\+xml/i.test(l));
-    if (!alt) throw fail(422, 'no_feed', 'That page has no feed to read. Paste your RSS or Atom feed link instead.');
-    const next = new URL(attr(alt, 'href'), spec).toString();
-    res = await net(next, { headers: UA });
-    if (!res.ok) throw fail(502, 'source_failed', `The feed answered ${res.status}.`);
-    body = await res.text();
-    spec = next;
-  }
-  return parseFeed(body, spec).filter((i) => i.media.length).slice(0, limit);
-}
-
-async function pdsOf(did: string): Promise<string | null> {
-  if (!did.startsWith('did:plc:')) return null;
-  const doc = await getJson(`https://plc.directory/${did}`).catch(() => null);
-  return doc?.service?.find((s: any) => s.type === 'AtprotoPersonalDataServer')?.serviceEndpoint ?? null;
-}
-
-export function bskyItems(feed: any[], did: string, pds: string | null): Item[] {
-  const out: Item[] = [];
-  for (const f of feed) {
-    const p = f.post;
-    if (f.reason || !p || p.author?.did !== did) continue;
-    const e = p.embed?.$type === 'app.bsky.embed.recordWithMedia#view' ? p.embed.media : p.embed;
-    const media: Media[] = [];
-    if (e?.$type === 'app.bsky.embed.images#view') for (const im of e.images ?? []) media.push({ url: im.fullsize, type: 'image', alt: im.alt ?? '' });
-    if (e?.$type === 'app.bsky.embed.video#view' && pds && e.cid) media.push({ url: `${pds.replace(/\/$/, '')}/xrpc/com.atproto.sync.getBlob?did=${encodeURIComponent(did)}&cid=${e.cid}`, type: 'video', alt: e.alt ?? '' });
-    if (!media.length) continue;
-    const rkey = String(p.uri).split('/').pop();
-    out.push({ id: `bsky:${p.uri}`, url: `https://bsky.app/profile/${p.author.handle}/post/${rkey}`, caption: String(p.record?.text ?? '').slice(0, 2200), createdAt: p.record?.createdAt ?? p.indexedAt ?? null, media });
-  }
-  return out;
-}
-
-async function readBluesky(spec: string, limit: number): Promise<Item[]> {
-  const profile = await getJson(`${BSKY}/app.bsky.actor.getProfile?actor=${encodeURIComponent(spec)}`).catch(() => null);
-  if (!profile?.did) throw fail(404, 'source_not_found', `No Bluesky account called ${spec}.`);
-  const pds = await pdsOf(profile.did);
-  const items: Item[] = [];
-  let cursor = '';
-  for (let page = 0; page < 5 && items.length < limit; page++) {
-    const r = await getJson(`${BSKY}/app.bsky.feed.getAuthorFeed?actor=${profile.did}&filter=posts_with_media&limit=50${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ''}`);
-    items.push(...bskyItems(r.feed ?? [], profile.did, pds));
-    if (!r.cursor) break;
-    cursor = r.cursor;
-  }
-  return items.slice(0, limit);
-}
-
-export const readSource = (s: Source, limit: number) => (s.kind === 'bluesky' ? readBluesky(s.spec, limit) : readFeed(s.spec, limit));
 
 async function alreadyImported(env: Env, userId: string, ids: string[]): Promise<Map<string, string>> {
   if (!ids.length) return new Map();
@@ -217,7 +85,7 @@ export async function importItems(env: Env, origin: string, token: string, user:
 
 export async function previewItems(env: Env, userId: string, items: Item[]) {
   const done = await alreadyImported(env, userId, items.map((i) => i.id));
-  return items.map((i) => ({ id: i.id, url: i.url, date: i.createdAt, caption: i.caption.slice(0, 200), photos: i.media.filter((m) => m.type === 'image').length, videos: i.media.filter((m) => m.type === 'video').length, onEmera: done.get(i.id) ?? null }));
+  return items.map((i) => ({ id: i.id, url: i.url, date: i.createdAt, caption: i.caption.slice(0, 200), photos: i.media.filter((m) => m.type === 'image').length, videos: i.media.filter((m) => m.type === 'video').length, thumb: i.media.find((m) => m.type === 'image')?.url ?? null, onEmera: done.get(i.id) ?? null }));
 }
 
 export async function postFromUrls(env: Env, origin: string, token: string, urls: string[], caption: string, createdAt?: string) {
@@ -233,15 +101,16 @@ export async function postFromUrls(env: Env, origin: string, token: string, urls
   return (await api('POST', '/v1/posts', { mediaIds: ids, caption, ...(createdAt ? { createdAt } : {}) })).post;
 }
 
-export type SourceRow = { id: string; user_id: string; kind: Source['kind']; spec: string; label: string; auto: number; since: number; last_checked: number | null; last_error: string | null; created_at: number };
-export const sourceJson = (s: SourceRow) => ({ id: s.id, from: s.kind === 'bluesky' ? `@${s.spec}` : s.spec, label: s.label, autoPost: !!s.auto, since: new Date(s.since).toISOString(), lastChecked: s.last_checked ? new Date(s.last_checked).toISOString() : null, lastError: s.last_error });
+export type SourceRow = { id: string; user_id: string; kind: string; spec: string; label: string; auto: number; rules: string | null; since: number; last_checked: number | null; last_error: string | null; created_at: number };
+export const rulesOf = (s: SourceRow): Rules => { try { return cleanRules(JSON.parse(s.rules ?? '{}')); } catch { return { media: 'any' }; } };
+export const sourceJson = (s: SourceRow) => ({ id: s.id, from: fromOf(s), kind: s.kind, label: s.label, autoPost: !!s.auto, rules: rulesOf(s), since: new Date(s.since).toISOString(), lastChecked: s.last_checked ? new Date(s.last_checked).toISOString() : null, lastError: s.last_error });
 
-export async function setAuto(env: Env, userId: string, source: Source, on: boolean): Promise<SourceRow> {
+export async function setAuto(env: Env, userId: string, source: Source, on: boolean, rules?: Rules): Promise<SourceRow> {
   const now = Date.now();
   await env.DB.prepare(
-    `INSERT INTO sources (id, user_id, kind, spec, label, auto, since, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-     ON CONFLICT (user_id, kind, spec) DO UPDATE SET auto = excluded.auto, since = CASE WHEN excluded.auto = 1 AND sources.auto = 0 THEN excluded.since ELSE sources.since END, last_error = NULL`,
-  ).bind(newId(10), userId, source.kind, source.spec, source.label, on ? 1 : 0, now, now).run();
+    `INSERT INTO sources (id, user_id, kind, spec, label, auto, rules, since, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+     ON CONFLICT (user_id, kind, spec) DO UPDATE SET auto = excluded.auto, rules = COALESCE(excluded.rules, sources.rules), since = CASE WHEN excluded.auto = 1 AND sources.auto = 0 THEN excluded.since ELSE sources.since END, last_error = NULL`,
+  ).bind(newId(10), userId, source.kind, source.spec, source.label, on ? 1 : 0, rules ? JSON.stringify(rules) : null, now, now).run();
   return (await env.DB.prepare('SELECT * FROM sources WHERE user_id = ? AND kind = ? AND spec = ?').bind(userId, source.kind, source.spec).first<SourceRow>())!;
 }
 
@@ -258,7 +127,7 @@ export async function runAutoImports(env: Env, origin: string, max = 40) {
     const now = Date.now();
     await env.DB.prepare('INSERT INTO sessions (token_hash, user_id, created_at, expires_at, client_id) VALUES (?, ?, ?, ?, ?)').bind(await sha256Hex(token), user.id, now, now + 10 * 60_000, 'auto-import').run();
     try {
-      const items = (await readSource(s, 10)).filter((i) => i.createdAt && Date.parse(i.createdAt) > s.since);
+      const items = (await readSource(s, 10)).filter((i) => i.createdAt && Date.parse(i.createdAt) > s.since && passes(i, rulesOf(s)));
       const r = await importItems(env, origin, token, user, s, items);
       await env.DB.prepare('UPDATE sources SET last_checked = ?, last_error = NULL WHERE id = ?').bind(now, s.id).run();
       report.push({ source: s.label, imported: r.imported.length });
@@ -278,11 +147,13 @@ const limitOf = (v: unknown, def: number, max: number) => Math.max(1, Math.min(m
 
 export const ingestRoutes = new Hono<AppEnv>();
 
+ingestRoutes.get('/v1/connectors', (c) => c.json(connectorList()));
+
 ingestRoutes.post('/v1/import/preview', requireAuth, async (c) => {
   const body = await readJson(c);
   const source = parseFrom(String(body.from ?? ''));
   const items = await readSource(source, limitOf(body.limit, 12, 50));
-  return c.json({ source: { from: source.kind === 'bluesky' ? `@${source.spec}` : source.spec, label: source.label }, items: await previewItems(c.env, c.get('user').id, items) });
+  return c.json({ source: { from: fromOf(source), kind: source.kind, label: source.label }, items: await previewItems(c.env, c.get('user').id, items) });
 });
 
 ingestRoutes.post('/v1/import', requireAuth, requireHandle, async (c) => {
@@ -292,7 +163,7 @@ ingestRoutes.post('/v1/import', requireAuth, requireHandle, async (c) => {
   let items = await readSource(source, only ? 50 : limitOf(body.limit, 10, MAX_POSTS));
   if (only) items = items.filter((i) => only.has(i.id));
   const r = await importItems(c.env, originOf(c), bearer(c.req.header('Authorization')), c.get('user'), source, items);
-  if (body.autoPost === true) await setAuto(c.env, c.get('user').id, source, true);
+  if (body.autoPost === true) await setAuto(c.env, c.get('user').id, source, true, body.rules === undefined ? undefined : cleanRules(body.rules));
   return c.json(r);
 });
 
@@ -302,7 +173,8 @@ ingestRoutes.post('/v1/sources', requireAuth, requireHandle, async (c) => {
   const body = await readJson(c);
   const source = parseFrom(String(body.from ?? ''));
   if (body.autoPost !== false) await readSource(source, 1);
-  return c.json({ source: sourceJson(await setAuto(c.env, c.get('user').id, source, body.autoPost !== false)) });
+  const rules = body.rules === undefined ? undefined : cleanRules(body.rules);
+  return c.json({ source: sourceJson(await setAuto(c.env, c.get('user').id, source, body.autoPost !== false, rules)) });
 });
 
 ingestRoutes.delete('/v1/sources/:id', requireAuth, async (c) => {

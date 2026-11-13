@@ -95,6 +95,12 @@ export default function Settings() {
       </Section>
 
       <View style={{ height: 1, backgroundColor: c.hair }} />
+      <Section title="Bring your posts">
+        <Text style={[type.body, { color: c.ink2 }]}>Bring posts over from Bluesky, Mastodon, Pixelfed or your blog, and keep new ones coming.</Text>
+        <Button label="Bring your posts" icon="layers" kind="secondary" onPress={() => router.push("/connect")} style={{ alignSelf: "flex-start" }} />
+      </Section>
+
+      <View style={{ height: 1, backgroundColor: c.hair }} />
       <Section title="Privacy">
         <Text style={[type.body, { color: c.ink2 }]}>See who you have blocked or muted, and undo it any time.</Text>
         <Button label="Blocked and muted" icon="shield" kind="secondary" onPress={() => router.push("/blocked")} style={{ alignSelf: "flex-start" }} />
