@@ -314,7 +314,7 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
       <div class="navr">
         <button class="theme" type="button" onclick="__emeraTheme()" aria-label="Switch between day and night"><span class="d"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sun"/></svg></span><span class="n"><svg class="ic" viewBox="0 0 24 24"><use href="#i-moon"/></svg></span></button>
         {{star}}
-        <a class="pill" href="https://app.emera.social/sign-in">Open Emera</a>
+        <a class="pill" href="/sign-in">Open Emera</a>
       </div>
     </nav>
     <div class="hero-grid">
@@ -484,7 +484,7 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
         .then(function(x){
           if(x.ok&&x.j.ok){
             note.textContent="Opening Emera...";note.classList.add("ok");
-            location.href="https://app.emera.social/sign-in?email="+encodeURIComponent(email);
+            location.href="/sign-in?email="+encodeURIComponent(email);
           }else{note.textContent=msgs[x.j&&x.j.error]||msgs.fail;note.classList.add("err")}
         })
         .catch(function(){note.textContent=msgs.fail;note.classList.add("err")})
