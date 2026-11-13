@@ -58,8 +58,14 @@ async function uploadMedia(api, token, m, state, postKey) {
   });
   const body = readFileSync(m.path);
   const url = new URL(slot.uploadUrl);
-  const put = await call(api, token, url.pathname, { method: 'PUT', headers: { 'Content-Type': m.contentType }, body });
-  return put.media.id;
+  if (!slot.partSize) return (await call(api, token, url.pathname, { method: 'PUT', headers: { 'Content-Type': m.contentType }, body })).media.id;
+  const parts = [];
+  for (let n = 1; n <= slot.partCount; n++) {
+    const chunk = body.subarray((n - 1) * slot.partSize, n * slot.partSize);
+    parts.push(await call(api, token, `${url.pathname}/parts/${n}`, { method: 'PUT', headers: { 'Content-Type': m.contentType }, body: chunk }));
+  }
+  const done = await call(api, token, `${url.pathname}/complete`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ parts }) });
+  return done.media.id;
 }
 
 async function main() {

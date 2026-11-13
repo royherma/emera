@@ -92,7 +92,7 @@ export interface Backend {
   post(id: string): Promise<Post>;
   deletePost(id: string): Promise<void>;
   profile(handle: string, cursor?: string | null): Promise<{ user: User; posts: Post[]; cursor: string | null }>;
-  uploadMedia(file: PickedFile): Promise<Media>;
+  uploadMedia(file: PickedFile, onProgress?: (share: number) => void): Promise<Media>;
   createPost(input: { mediaIds: string[]; caption: string; alt?: Record<string, string> }): Promise<Post>;
   listInvites(): Promise<{ invites: Invite[]; limit: number }>;
   createInvite(maxUses?: number): Promise<{ code: string; url: string }>;

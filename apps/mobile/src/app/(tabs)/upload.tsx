@@ -38,8 +38,8 @@ export default function Upload() {
         setError(`${a.fileName ?? "That video"} is too long. Videos can be up to 10 minutes.`);
         continue;
       }
-      if (fileSize > (kind === "video" ? 100 : 20) * MB) {
-        setError(`${a.fileName ?? "That file"} is too big. Photos can be up to 20 MB and videos up to 100 MB.`);
+      if (fileSize > (kind === "video" ? 2048 : 20) * MB) {
+        setError(`${a.fileName ?? "That file"} is too big. Photos can be up to 20 MB and videos up to 2 GB.`);
         continue;
       }
       next.push({ uri: a.uri, mimeType, fileSize, width: a.width, height: a.height, kind, seconds });
@@ -52,8 +52,9 @@ export default function Upload() {
     try {
       const ids: string[] = [];
       for (let i = 0; i < files.length; i++) {
-        setBusy(files.length > 1 ? `Uploading ${i + 1} of ${files.length}` : "Uploading");
-        ids.push((await api.uploadMedia(files[i])).id);
+        const label = files.length > 1 ? `Uploading ${i + 1} of ${files.length}` : "Uploading";
+        setBusy(label);
+        ids.push((await api.uploadMedia(files[i], (share) => setBusy(`${label} · ${Math.round(share * 100)}%`))).id);
       }
       setBusy("Signing and posting");
       const created = await api.createPost({ mediaIds: ids, caption });

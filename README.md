@@ -62,7 +62,7 @@ So we are fixing it together, in the open. Emera is a place to share what you cr
 | | Format | What works today |
 | :-: | --- | --- |
 | 🖼️ | **Photos** | JPEG, PNG, WebP, HEIC up to 20 MB. Stored sharp at up to 2048 px |
-| 🎬 | **Video** | MP4 and MOV up to 10 minutes and 100 MB, portrait or landscape. 4K clips up to 60 s are turned into 1080p for smooth playback |
+| 🎬 | **Video** | MP4 and MOV up to 10 minutes and 2 GB, portrait or landscape. 4K clips up to 60 s are turned into 1080p for smooth playback |
 | 🎠 | **Carousels** | Up to 10 photos and videos in one post, swipe through |
 | ✍️ | **Caption** | Up to 2,200 characters, one per post |
 | 💬 | **Comments** | Up to 500 characters each |
