@@ -113,6 +113,71 @@ ul.l li{margin:2px 0}
 .s-planned{border-style:dashed;background:var(--bg)}
 .s-idea{border-color:var(--line);color:var(--mute);background:var(--bg)}
 .sw.s-live{background:var(--fg)}.sw.s-in-code{background:var(--soft);border-width:2px}.sw.s-planned{border-style:dashed}.sw.s-idea{border-color:var(--line)}
+.box.scr{display:flex;gap:8px;align-items:flex-start;min-height:93px}
+.box.scr .lab{padding-top:2px;min-width:0}
+.thumb{display:block;border:1px solid var(--fg);background:var(--soft);object-fit:cover;object-position:top;cursor:zoom-in}
+.nocap{display:grid;place-items:center;border:1px dashed var(--red);color:var(--red);font:9px/1.1 var(--mono);text-align:center;flex:none}
+.box.scr .thumb,.box.scr .nocap{width:40px;height:87px;flex:none}
+#screens.on{display:block}
+.bar2{display:flex;align-items:center;gap:18px;padding:8px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:3;flex-wrap:wrap}
+.bar2 .pills{margin:0}
+.bar2 .pills button:disabled{opacity:.35;cursor:default}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:10px 12px;padding:12px 20px 20px;align-items:start}
+.sgrid.wide{grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+.sc{border:1px solid var(--line);padding:6px;cursor:pointer;min-width:0}
+.sc:hover{border-color:var(--fg)}
+.sc .pic{width:100%;aspect-ratio:390/844;border:1px solid var(--fg);background:var(--soft);display:block;object-fit:cover;object-position:top}
+.sgrid.wide .sc .pic{aspect-ratio:1440/900}
+.sc .nocap{width:100%;aspect-ratio:390/844}
+.sgrid.wide .sc .nocap{aspect-ratio:1440/900}
+.sc .r{font:600 12px var(--mono);margin-top:5px;word-break:break-all}
+.sc .m{font-size:11px;color:var(--mute);line-height:1.3;margin-top:2px}
+.sc .m b{color:var(--fg);font-weight:600}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:20;display:none;grid-template-columns:1fr 320px;gap:0;color:#fff}
+#lb.on{display:grid}
+#lb .stage{display:grid;place-items:center;padding:20px;min-height:0;min-width:0}
+#lb .stage img{max-width:100%;max-height:calc(100vh - 40px);object-fit:contain;background:#fff;border:1px solid #fff}
+#lb aside{background:var(--bg);color:var(--fg);padding:16px;overflow:auto;border-left:1px solid var(--fg)}
+#lb aside h3{margin:0 0 4px;font:600 15px var(--mono);word-break:break-all}
+#lb .chips{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0}
+#lb .chips button{font:11px var(--font);border:1px solid var(--fg);background:var(--bg);color:var(--fg);padding:2px 9px;border-radius:99px;cursor:pointer}
+#lb .chips button.on{background:var(--fg);color:var(--bg)}
+#lb .x{float:right;font:12px var(--mono);border:1px solid var(--fg);background:var(--bg);color:var(--fg);cursor:pointer;padding:2px 8px}
+#feats.on{display:grid;grid-template-columns:1fr 380px}
+#fmain{overflow:auto;height:calc(100vh - 45px);min-height:640px}
+#fside{border-left:1px solid var(--line);padding:14px 16px;overflow:auto;height:calc(100vh - 45px);min-height:640px;font-size:13px}
+.ftop{display:flex;align-items:baseline;gap:22px;padding:10px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.ftop .big{font-size:56px}
+.ftop .cap{font-size:12px;color:var(--mute);line-height:1.5}
+.ftop .grow{flex:1}
+.fgrid{display:grid;align-items:center}
+.fh,.fr{display:grid;grid-template-columns:minmax(220px,1.6fr) repeat(var(--np),68px) 130px;gap:0 6px;padding:4px 20px;align-items:center}
+.fh{font:10px var(--mono);color:var(--mute);text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--fg);position:sticky;top:0;background:var(--bg);z-index:2;padding-top:6px;padding-bottom:6px}
+.fh span:not(:first-child),.fr .pc{text-align:center}
+.fr{border-bottom:1px solid var(--line);cursor:pointer;min-height:30px}
+.fr:hover{background:var(--soft)}
+.fr.on{background:var(--fg);color:var(--bg)}
+.fr .nm{font-size:13px;display:flex;gap:6px;align-items:baseline;min-width:0}
+.fr .nm em{font:normal 9px var(--mono);border:1px solid currentColor;padding:0 4px;opacity:.7;flex:none}
+.fr .nm i{font:normal 10px var(--mono);color:var(--red);flex:none}
+.fr.on .nm i{color:var(--bg)}
+.garea{padding:10px 20px 3px;font:600 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;background:var(--soft);border-bottom:1px solid var(--line)}
+.dot{display:inline-block;width:12px;height:12px;border:1px solid currentColor;border-radius:50%;vertical-align:-2px}
+.dot.yes{background:currentColor}
+.dot.partial{background:linear-gradient(90deg,currentColor 50%,transparent 50%)}
+.est{font:11px var(--mono);border:1px solid var(--fg);padding:1px 7px;text-align:center;display:inline-block}
+.est.built{background:var(--fg);color:var(--bg)}
+.est.partial{border-style:dashed}
+.est.nb{border:1px dashed var(--red);color:var(--red)}
+.fr.on .est{border-color:var(--bg)}
+.fr.on .est.built{background:var(--bg);color:var(--fg)}
+.fr.on .est.nb{color:var(--bg);border-color:var(--bg)}
+#fside h2{margin:0 0 4px;font-size:18px}
+#fside h4{margin:14px 0 5px;font:600 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}
+.mp{display:flex;gap:8px;align-items:flex-start;margin:0 0 6px}
+.mp .thumb,.mp .nocap{width:46px;height:99px;flex:none}
+.mp .mono{font-size:12px;word-break:break-all}
+.ok{font-size:11px}
 .wait{padding:40px 24px;color:var(--mute);font:14px var(--mono)}
 </style>
 </head>
@@ -123,15 +188,18 @@ ul.l li{margin:2px 0}
   <span id="stamp"></span>
 </header>
 <section class="tab" id="stories"><div id="list"></div><div id="flow"></div></section>
+<section class="tab" id="screens"></section>
+<section class="tab" id="feats"><div id="fmain"></div><div id="fside"></div></section>
 <section class="tab" id="system"><div id="sysgraph"></div><div id="envs"></div></section>
 <section class="tab" id="cover"></section>
 <section class="tab" id="plat"></section>
+<div id="lb"></div>
 <script>
-const TABS = [['stories', 'Stories'], ['system', 'System'], ['cover', 'Coverage'], ['plat', 'Platforms']];
+const TABS = [['stories', 'Stories'], ['screens', 'Screens'], ['feats', 'Features'], ['system', 'System'], ['cover', 'Coverage'], ['plat', 'Platforms']];
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const store = { get: (k, d) => { try { return localStorage.getItem(k) ?? d; } catch { return d; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
-let A = null, tab = store.get('atlas.tab', 'stories'), sel = store.get('atlas.story', ''), plat = store.get('atlas.plat', 'all');
+let A = null, tab = store.get('atlas.tab', 'stories'), sel = store.get('atlas.story', ''), plat = store.get('atlas.plat', 'all'), vp = store.get('atlas.vp', 'phone'), th = store.get('atlas.th', 'day'), ftier = store.get('atlas.ftier', 'core'), fhelp = store.get('atlas.fhelp', '') === '1', fsel = '';
 if (location.hash.slice(1)) tab = location.hash.slice(1);
 
 function nav() {
@@ -158,6 +226,18 @@ function stepBox(kind, label, state, problems) {
   return `<div class="box ${c}">${esc(label)}</div>`;
 }
 
+const normRoute = (r) => String(r ?? '').replace(/\[(\w+)\]/g, ':$1');
+const scrOf = (surface, route) => A.screens.find((x) => x.surface === surface && x.route === normRoute(route));
+const shotUrl = (path) => `/file/${path}?v=${encodeURIComponent(A.shots?.capturedAt ?? '')}`;
+function shotOf(s, v = 'phone') {
+  if (!s?.shots) return null;
+  return s.shots[`${v}-${th}`] ?? s.shots[`${v}-day`] ?? null;
+}
+const thumb = (s, v = 'phone', cls = 'thumb') => {
+  const p = shotOf(s, v);
+  return p ? `<img class="${cls}" loading="lazy" src="${shotUrl(p)}" data-lb="${esc(s.surface + ':' + s.route)}" alt="">` : `<div class="nocap">no capture</div>`;
+};
+
 function renderFlow() {
   const s = A.stories.find((x) => x.id === sel) || A.stories[0];
   sel = s.id;
@@ -172,13 +252,110 @@ function renderFlow() {
   }
   const rows = steps.map((st, k) => {
     const sc = st.screen ?? st.site;
-    const scrCell = sc ? `<div class="cell">${stepBox('s', (st.site ? 'site ' : '') + sc, st.screenState)}</div>` : '<div></div>';
+    const scrObj = sc && scrOf(st.site ? 'site' : 'app', sc);
+    const scrCell = sc ? `<div class="cell"><div class="box scr ${st.screenState === 'missing' ? 'miss' : ''}">${scrObj ? thumb(scrObj) : '<div class="nocap">missing</div>'}<div class="lab">${esc((st.site ? 'site ' : '') + sc)}</div></div></div>` : '<div></div>';
     const epCell = st.endpoint ? `<div class="cell ${sc ? 'arrow' : ''} ${st.epState === 'missing' ? 'm' : ''}">${stepBox('e', st.endpoint, st.epState, st.problems)}${st.problems.map((p) => `<div class="prob">${esc(p)}</div>`).join('')}</div>` : `<div class="cell">${st.status === 'human' ? '<div class="box human">by hand</div>' : st.problems.map((p) => `<div class="prob">${esc(p)}</div>`).join('')}</div>`;
     const data = [...st.data.tables.map((t) => `<div class="box data">${esc(t)}</div>`), ...st.data.r2.length ? ['<div class="box data">R2 media</div>'] : []].join('');
     return `<div class="step"><div class="n ${st.status === 'missing' ? 'red' : ''}">${k + 1}</div><div class="say">${esc(st.say)}</div>${scrCell}${epCell}<div class="cell ${data ? 'arrow' : ''}">${data}</div></div>`;
   }).join('');
   $('flow').innerHTML = `<h2>${esc(s.title)} <span class="mono">${s.coverage}%</span></h2><div class="sub">${esc(s.actor)}: ${esc(s.goal)}</div>${s.note ? `<div class="flag">${esc(s.note)}</div>` : ''}<div class="pills">${pills}</div>${[...notes.keys()].length ? `<div class="note" style="margin-bottom:8px">${[...notes.keys()].map(esc).join(' &middot; ')}</div>` : ''}<div class="head"><span></span><span>Step</span><span>Screen</span><span>Endpoint</span><span>Data</span></div>${rows}`;
   $('flow').querySelectorAll('.pills button').forEach((b) => b.onclick = () => { plat = b.dataset.p; store.set('atlas.plat', plat); renderFlow(); });
+  bindLb($('flow'));
+}
+
+
+let lbKey = null, lbState = null;
+function bindLb(root) { root.querySelectorAll('[data-lb]').forEach((el) => el.onclick = (e) => { e.stopPropagation(); openLb(el.dataset.lb); }); }
+function storiesUsing(s) {
+  return A.stories.filter((st) => st.steps.some((x) => (x.site ? 'site' : 'app') === s.surface && normRoute(x.screen ?? x.site) === s.route));
+}
+function callsOf(s) {
+  const id = `screen:${s.surface}:${s.route}`;
+  return [...new Set(A.edges.filter((e) => e.from === id && e.kind === 'calls').map((e) => e.to.slice(3)))];
+}
+function openLb(key, state) {
+  const s = A.screens.find((x) => `${x.surface}:${x.route}` === key);
+  if (!s) return;
+  lbKey = key; lbState = state ?? null;
+  const tag = `${vp}-${th}`;
+  const states = (s.states ?? []).filter((x) => x.tag === tag);
+  const base = s.shots?.[tag] ?? s.shots?.[`${vp}-day`] ?? s.shots?.['phone-day'] ?? null;
+  const cur = lbState ? states.find((x) => x.name === lbState)?.file ?? base : base;
+  const us = storiesUsing(s), calls = callsOf(s);
+  $('lb').innerHTML = `<div class="stage" id="lbstage">${cur ? `<img src="${shotUrl(cur)}" alt="">` : '<div class="wait">no capture</div>'}</div>
+  <aside><button class="x" id="lbx">close</button><h3>${esc(s.surface === 'site' ? 'site ' : '')}${esc(s.route)}</h3><div class="mute">${esc(s.access)}</div>
+  <div class="chips"><button data-s="" class="${lbState ? '' : 'on'}">screen</button>${states.map((x) => `<button data-s="${esc(x.name)}" class="${lbState === x.name ? 'on' : ''}" title="${esc(x.note ?? '')}">${esc(x.name)}</button>`).join('')}</div>
+  <div class="chips">${['phone', 'desktop'].map((v) => `<button data-v="${v}" class="${v === vp ? 'on' : ''}">${v}</button>`).join('')}${(A.shots?.themes ?? ['day']).map((t) => `<button data-t="${t}" class="${t === th ? 'on' : ''}">${t}</button>`).join('')}</div>
+  <h4 class="mute" style="font:600 11px var(--mono);text-transform:uppercase;margin:12px 0 4px">Stories</h4><div>${us.map((x) => esc(x.title)).join('<br>') || '<span class="mute">none</span>'}</div>
+  <h4 class="mute" style="font:600 11px var(--mono);text-transform:uppercase;margin:12px 0 4px">Calls</h4><div class="mono" style="font-size:12px">${calls.map(esc).join('<br>') || '<span class="mute">nothing</span>'}</div>
+  <div class="mute" style="margin-top:12px;font-size:11px">${s.file ? esc(s.file) : ''}</div></aside>`;
+  $('lb').classList.add('on');
+  $('lbx').onclick = closeLb;
+  $('lbstage').onclick = closeLb;
+  $('lb').querySelectorAll('[data-s]').forEach((b) => b.onclick = () => openLb(key, b.dataset.s || null));
+  $('lb').querySelectorAll('[data-v]').forEach((b) => b.onclick = () => { vp = b.dataset.v; store.set('atlas.vp', vp); openLb(key, null); renderScreens(); });
+  $('lb').querySelectorAll('[data-t]').forEach((b) => b.onclick = () => { th = b.dataset.t; store.set('atlas.th', th); openLb(key, lbState); renderScreens(); renderFlow(); });
+}
+function closeLb() { lbKey = null; $('lb').classList.remove('on'); }
+addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+
+function renderScreens() {
+  const sh = A.shots;
+  const list = A.screens.filter((s) => !s.shell);
+  const themes = sh?.themes ?? ['day'];
+  if (!themes.includes(th)) th = 'day';
+  const when = sh ? new Date(sh.capturedAt).toLocaleString('en-US', { timeZone: 'Asia/Bangkok', hour: 'numeric', minute: '2-digit', month: 'short', day: 'numeric' }) : '';
+  const info = sh
+    ? `${sh.count} images from commit ${esc(sh.git?.sha)}${sh.git?.dirty ? '+edits' : ''} at ${when} Bangkok${sh.stale ? ' <span class="red">- the code has moved since, run node tools/atlas/shots.mjs</span>' : ''}${sh.themeSwitch ? '' : ' - day only, the app has no theme switch'}`
+    : '<span class="red">no captures yet, run node tools/atlas/shots.mjs</span>';
+  const pills = (items, cur, key, dis = () => false) => `<div class="pills">${items.map((x) => `<button data-${key}="${x}" ${dis(x) ? 'disabled' : ''} class="${x === cur ? 'on' : ''}">${x}</button>`).join('')}</div>`;
+  const cards = list.map((s) => {
+    const us = storiesUsing(s), calls = callsOf(s);
+    const key = `${s.surface}:${s.route}`;
+    const p = shotOf(s, vp);
+    const pic = p ? `<img class="pic" loading="lazy" src="${shotUrl(p)}" alt="">` : `<div class="nocap">no capture</div>`;
+    return `<div class="sc" data-lb="${esc(key)}">${pic}<div class="r">${s.surface === 'site' ? 'site ' : ''}${esc(s.route)}</div><div class="m">${esc(s.access)}${s.states?.length ? ` - ${new Set(s.states.map((x) => x.name)).size} states` : ''}</div><div class="m"><b>${us.length}</b> ${us.length === 1 ? 'story' : 'stories'}${us.length ? ': ' + esc(us.slice(0, 2).map((x) => x.title).join(', ')) + (us.length > 2 ? ` +${us.length - 2}` : '') : ''}</div><div class="m mono">${calls.length ? esc(calls.slice(0, 2).join(' | ')) + (calls.length > 2 ? ` +${calls.length - 2}` : '') : 'no endpoint'}</div></div>`;
+  }).join('');
+  $('screens').innerHTML = `<div class="bar2">${pills(['phone', 'desktop'], vp, 'v')}${pills(themes.length > 1 ? ['day', 'night'] : ['day', 'night'], th, 't', (x) => !themes.includes(x))}<span class="mute" style="font-size:12px">${info}</span></div><div class="sgrid ${vp === 'desktop' ? 'wide' : ''}">${cards}</div>`;
+  $('screens').querySelectorAll('[data-v]').forEach((b) => b.onclick = () => { vp = b.dataset.v; store.set('atlas.vp', vp); renderScreens(); });
+  $('screens').querySelectorAll('[data-t]').forEach((b) => b.onclick = () => { if (b.disabled) return; th = b.dataset.t; store.set('atlas.th', th); renderScreens(); renderFlow(); });
+  bindLb($('screens'));
+}
+
+const pname = (p) => (typeof p === 'string' ? p : p.name ?? p.id);
+const pid = (p) => (typeof p === 'string' ? p : p.id ?? p.name);
+function renderFeats() {
+  const F = A.features;
+  const set = (html) => { $('fmain').innerHTML = html; $('fside').innerHTML = ''; };
+  if (!F) { set('<div class="wait">waiting for docs/features.yaml</div>'); return; }
+  if (F.error) { set(`<div class="wait red">${esc(F.error)}</div>`); return; }
+  const c = F.coverage;
+  const tiers = ['core', 'next', 'later', 'unique', 'all'];
+  let rows = F.items.filter((f) => (ftier === 'all' || f.tier === ftier) && (!fhelp || f.emera?.help_wanted));
+  const tierRank = { core: 0, next: 1, later: 2, unique: 3 };
+  const areas = [...new Set(rows.map((f) => f.area ?? 'Other'))];
+  const np = F.platforms.length;
+  const dot = (v) => `<span class="dot ${v === 'yes' ? 'yes' : v === 'partial' ? 'partial' : ''}" title="${esc(v ?? 'no')}"></span>`;
+  const est = (f) => `<span class="est ${f.status === 'built' ? 'built' : f.status === 'partial' ? 'partial' : 'nb'}">${esc(f.status)}</span>`;
+  const body = areas.map((a) => `<div class="garea">${esc(a)}</div>` + rows.filter((f) => (f.area ?? 'Other') === a).sort((x, y) => (tierRank[x.tier] ?? 9) - (tierRank[y.tier] ?? 9)).map((f) => `<div class="fr ${f.id === fsel ? 'on' : ''}" data-id="${esc(f.id)}"><div class="nm"><span>${esc(f.name)}</span>${ftier === 'all' ? `<em>${esc(f.tier)}</em>` : ''}${f.emera?.help_wanted ? '<i>help wanted</i>' : ''}</div>${F.platforms.map((p) => `<div class="pc">${dot(f.platforms?.[pid(p)])}</div>`).join('')}<div>${est(f)}</div></div>`).join('')).join('');
+  $('fmain').innerHTML = `<div class="ftop"><div><div class="big">${c.core}%</div></div><div class="cap">core coverage<br>${c.coreCounts.built} built, ${c.coreCounts.partial} partial, ${c.coreCounts.missing} not built, of ${c.coreCounts.total} core features<br>all tiers ${c.all}% across ${c.allCounts.total}</div><span class="grow"></span><div class="pills" style="margin:0">${tiers.map((t) => `<button data-t="${t}" class="${t === ftier ? 'on' : ''}">${t}</button>`).join('')}<button data-h="1" class="${fhelp ? 'on' : ''}">help wanted</button></div></div>
+  <div class="fh" style="--np:${np}"><span>Feature</span>${F.platforms.map((p) => `<span>${esc(pname(p))}</span>`).join('')}<span>Emera</span></div>
+  <div style="--np:${np}">${body || '<div class="wait">no features match</div>'}</div>`;
+  $('fmain').querySelectorAll('.fr').forEach((r) => r.onclick = () => { fsel = r.dataset.id; renderFeats(); });
+  $('fmain').querySelectorAll('[data-t]').forEach((b) => b.onclick = () => { ftier = b.dataset.t; store.set('atlas.ftier', ftier); renderFeats(); });
+  $('fmain').querySelector('[data-h]').onclick = () => { fhelp = !fhelp; store.set('atlas.fhelp', fhelp ? '1' : ''); renderFeats(); };
+  const f = F.items.find((x) => x.id === fsel);
+  if (!f) { $('fside').innerHTML = '<div class="mute">Click a feature to see how Emera does it and which screens it maps to.</div>'; return; }
+  const m = f.mapped;
+  const scrs = m.screens.map((x) => { const s = A.screens.find((y) => `${y.surface}:${y.route}` === x.key); return `<div class="mp">${s ? thumb(s) : '<div class="nocap">no screen</div>'}<div><div class="mono">${esc(x.ref)}</div><div class="ok ${x.ok ? 'mute' : 'red'}">${x.ok ? 'in the code' : 'not built'}</div></div></div>`; }).join('');
+  $('fside').innerHTML = `<h2>${esc(f.name)}</h2><div class="mute">${esc(f.area ?? '')} - ${esc(f.tier)} - ${est(f)}${f.emera?.effort ? ` - effort ${esc(f.emera.effort)}` : ''}</div>
+  ${f.usage ? `<h4>Usage</h4><div>${esc(f.usage)}</div>` : ''}
+  <h4>Emera twist</h4><div>${esc(f.emera?.twist ?? '-')}</div>
+  ${f.emera?.help_wanted ? `<h4>Help wanted</h4><div>${esc(f.emera.help_wanted)}</div>` : ''}
+  <h4>Screens</h4>${scrs || '<div class="mute">none mapped</div>'}
+  <h4>Endpoints</h4>${m.endpoints.map((x) => `<div class="mono ${x.ok ? '' : 'red'}" style="font-size:12px">${esc(x.ref)}${x.ok ? '' : ' - not built'}</div>`).join('') || '<div class="mute">none mapped</div>'}
+  <h4>Stories</h4>${m.stories.map((x) => `<div class="${x.ok ? '' : 'red'}" style="font-size:12px">${esc(x.ref)}${x.ok ? '' : ' - no such story'}</div>`).join('') || '<div class="mute">none mapped</div>'}`;
+  bindLb($('fside'));
 }
 
 function layout() {
@@ -256,6 +433,7 @@ function renderCover() {
   <section><h3>Build next, most stories blocked first</h3>${A.missing.map((m) => `<div class="mrow"><div class="c">${m.blocks}</div><div>${esc(m.label)}<small>${m.stories.map((id) => esc(A.stories.find((x) => x.id === id)?.title ?? id)).join(', ')}</small></div></div>`).join('') || '<div class="mute">Nothing missing</div>'}</section>
   <section><h3>Stories, lowest first</h3>${sorted.map((x) => `<div class="brow"><span>${esc(x.title)}</span><div class="bar"><i style="width:${x.coverage}%"></i></div><span>${x.coverage}%</span></div>`).join('')}
   ${A.drift.length ? `<h3 style="margin-top:16px">App and API disagree</h3><ul class="l">${A.drift.map((d) => `<li><span class="mono">${esc(d.endpoint)}</span>${d.readButNeverSent.length ? ` API reads <b>${esc(d.readButNeverSent.join(', '))}</b>, app never sends it` : ''}${d.sentButIgnored.length ? ` app sends <b>${esc(d.sentButIgnored.join(', '))}</b>, API ignores it` : ''}</li>`).join('')}</ul>` : ''}
+  <h3 style="margin-top:16px">Screens with no capture</h3><ul class="l mono">${A.shots ? (A.shots.missing.map((x) => `<li class="red">${esc(x)}</li>`).join('') || '<li>none, every screen is captured</li>') : '<li class="red">no captures yet</li>'}${(A.shots?.failed ?? []).map((x) => `<li class="mute">${esc(x.what)}: ${esc(x.why)}</li>`).join('')}</ul>
   <h3 style="margin-top:16px">Built, in no story</h3><ul class="l mono">${[...A.unmapped.endpoints, ...A.unmapped.screens.map((x) => 'screen ' + x), ...A.unmapped.tables.map((x) => 'table ' + x)].map((x) => `<li>${esc(x)}</li>`).join('') || '<li>none</li>'}</ul></section>`;
 }
 
@@ -275,7 +453,7 @@ function renderPlat() {
 }
 
 function renderAll() {
-  stamp(); renderList(); renderFlow(); renderSystem(); renderCover(); renderPlat(); show();
+  stamp(); renderList(); renderFlow(); renderScreens(); renderFeats(); renderSystem(); renderCover(); renderPlat(); show();
 }
 
 async function load() {

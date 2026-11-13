@@ -6,6 +6,7 @@
     "plan": "node plan/server.mjs",
     "api": "npm --prefix apps/api run dev",
     "app": "npm --prefix apps/mobile run web",
-    "atlas": "node tools/atlas/build.mjs --watch"
+    "atlas": "node tools/atlas/build.mjs --watch",
+    "atlas:shots": "node tools/atlas/shots.mjs"
   }
 }

@@ -1,7 +1,7 @@
 {
- "builtAt": "2026-11-13T04:54:01.633Z",
+ "builtAt": "2026-11-13T04:56:20.823Z",
  "git": {
-  "sha": "51294ab",
+  "sha": "b3101aa",
   "dirty": true,
   "branch": "main"
  },
@@ -1686,7 +1686,7 @@
       "emera-media-staging"
      ],
      "routes": [],
-     "invitesRequired": "true"
+     "invitesRequired": "false"
     },
     {
      "app": "site",
@@ -1725,7 +1725,7 @@
       "emera.social/p/*",
       "emera.social/media/*"
      ],
-     "invitesRequired": "true"
+     "invitesRequired": "false"
     },
     {
      "app": "site",

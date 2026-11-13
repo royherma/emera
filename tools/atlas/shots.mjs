@@ -84,7 +84,6 @@ async function run() {
     const facts = mockFacts();
     const targets = atlas.screens.filter((s) => !s.shell);
     const shell = atlas.screens.filter((s) => s.shell).map((s) => ({ key: `${s.surface}:${s.route}`, route: s.route, reason: 'no screen of its own, it wraps every route' }));
-    const fills = { ...facts, resolved: {} };
 
     const out = R('data/atlas-shots');
     mkdirSync(out, { recursive: true });
@@ -111,6 +110,14 @@ async function run() {
       };
       const attempt = async (label, fn) => {
         try { await fn(); } catch (err) { index.failed.push({ what: `${label} (${tag})`, why: String(err.message ?? err).split('\n')[0].slice(0, 160) }); log(`FAILED ${label} (${tag}): ${String(err.message ?? err).split('\n')[0]}`); }
+      };
+      const dismiss = async () => {
+        await page.getByText('Cancel', { exact: true }).first().click({ timeout: 1500 }).catch(() => {});
+        await settle(page, 600);
+        if (await page.getByText('Cancel', { exact: true }).first().isVisible().catch(() => false)) {
+          await page.mouse.click(4, 4);
+          await settle(page, 600);
+        }
       };
       const input = (ph) => page.getByPlaceholder(ph, { exact: false }).first();
       const click = (name) => page.getByRole('button', { name }).first().click({ timeout: 4000 });
@@ -187,8 +194,7 @@ async function run() {
         await page.getByRole('button', { name: 'More' }).first().click({ timeout: 4000 });
         await settle(page, 700);
         await snap(feed, 'post-menu', 'the "..." menu on a post');
-        await page.keyboard.press('Escape');
-        await page.getByLabel('Close').first().click({ timeout: 1500 }).catch(() => {});
+        await dismiss();
       });
       for (const [route, path, label] of [['/explore', '/explore'], ['/me', '/me'], ['/settings', '/settings']]) {
         const s = byRoute(route);
@@ -203,7 +209,7 @@ async function run() {
         await page.getByRole('button', { name: 'More' }).first().click({ timeout: 4000 });
         await settle(page, 700);
         await snap(post, 'post-menu', 'the "..." menu open');
-        await page.getByLabel('Close').first().click({ timeout: 1500 }).catch(() => {});
+        await dismiss();
       });
       const prof = byRoute('/u/:handle');
       if (prof) await attempt('/u/:handle', async () => { await go(page, `/u/${postHandle}`); await snap(prof); });
@@ -221,7 +227,6 @@ async function run() {
     }
     await browser.close();
 
-    fills.resolved = index.params;
     let count = 0;
     for (const e of Object.values(index.screens)) { count += Object.keys(e.shots).length + e.states.length; e.shots = Object.fromEntries(Object.entries(e.shots).sort()); }
     index.count = count;

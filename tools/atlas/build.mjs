@@ -448,9 +448,10 @@ function loadShots(screens) {
 }
 
 function features(atlas, stories) {
-  if (!existsSync(R('docs/features.yaml'))) return null;
+  const file = process.env.ATLAS_FEATURES || R('docs/features.yaml');
+  if (!existsSync(file)) return null;
   let raw;
-  try { raw = YAML.parse(read('docs/features.yaml')); } catch (e) { return { error: `docs/features.yaml is not valid YAML: ${String(e.message).split('\n')[0]}` }; }
+  try { raw = YAML.parse(readFileSync(file, 'utf8')); } catch (e) { return { error: `docs/features.yaml is not valid YAML: ${String(e.message).split('\n')[0]}` }; }
   const scr = new Map(atlas.screens.map((s) => [`${s.surface}:${s.route}`, s]));
   const eps = new Set(atlas.endpoints.map((e) => `${e.method} ${e.path}`));
   const sto = new Set(stories.map((s) => s.id));
