@@ -1,0 +1,99 @@
+name: Native apps
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["apps/mobile/**", "packages/brand/**", ".github/workflows/native.yml"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: native-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ios:
+    runs-on: macos-26
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/mobile/package-lock.json
+      - run: npm --prefix apps/mobile ci
+      - name: Prebuild and pods
+        working-directory: apps/mobile
+        run: |
+          CI=1 npx expo prebuild -p ios --clean --no-install
+          cd ios && pod install
+      - name: Pick a simulator
+        id: sim
+        run: |
+          udid=$(xcrun simctl list devices available -j | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; print(next(x["udid"] for k in sorted(d, reverse=True) if "iOS" in k for x in d[k] if x["name"].startswith("iPhone")))')
+          echo "udid=$udid" >> "$GITHUB_OUTPUT"
+          xcrun simctl boot "$udid"
+      - name: Build
+        working-directory: apps/mobile/ios
+        run: |
+          set -o pipefail
+          xcodebuild -workspace Emera.xcworkspace -scheme Emera -configuration Release -sdk iphonesimulator \
+            -destination "id=${{ steps.sim.outputs.udid }}" -derivedDataPath build CODE_SIGNING_ALLOWED=NO | tail -40
+      - name: Install and walk every screen
+        run: |
+          curl -fsSL https://get.maestro.mobile.dev | bash
+          xcrun simctl install "${{ steps.sim.outputs.udid }}" apps/mobile/ios/build/Build/Products/Release-iphonesimulator/Emera.app
+          mkdir -p shots/ios && cd shots/ios
+          ~/.maestro/bin/maestro --device "${{ steps.sim.outputs.udid }}" test "$GITHUB_WORKSPACE/apps/mobile/e2e/walk.yaml"
+      - if: always()
+        run: find ~/Library/Logs/DiagnosticReports -name 'Emera*' -exec cp {} shots/ \; 2>/dev/null || true
+      - if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ios-screens
+          path: shots
+
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/mobile/package-lock.json
+      - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: npm --prefix apps/mobile ci
+      - name: Build APK
+        working-directory: apps/mobile
+        run: |
+          CI=1 npx expo prebuild -p android --clean --no-install
+          cd android && ./gradlew assembleRelease --no-daemon -PreactNativeArchitectures=x86_64
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
+      - run: curl -fsSL https://get.maestro.mobile.dev | bash
+      - name: Install and walk every screen
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
+        with:
+          api-level: 35
+          arch: x86_64
+          target: google_apis
+          profile: pixel_7
+          disable-animations: true
+          script: |
+            adb install -r apps/mobile/android/app/build/outputs/apk/release/app-release.apk
+            mkdir -p shots/android && cd shots/android && ~/.maestro/bin/maestro test "$GITHUB_WORKSPACE/apps/mobile/e2e/walk.yaml"
+      - if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: android-screens
+          path: shots
