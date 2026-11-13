@@ -141,7 +141,7 @@ Rules and every number: `docs/mission/funding-rules.md`. Constants live in `apps
 | GET | `/v1/fund` | - | - | `{ rules, month: monthSummary, sponsors: [sponsor], history: [monthSummary] }` - `month` is the open month, `history` closed months newest first (max 24) |
 | GET | `/v1/fund/months/:month` | - | - | `{ statement }` - 404 if the month has no money and no watch time |
 | GET | `/v1/me/earnings` | user | - | `{ rules, thisMonth: { month, seconds, totalSeconds, sharePpm, estimateCents }, months: [{ month, seconds, sharePpm, amountCents }], balanceCents, topPosts: [{ post, seconds }] }` - `topPosts` = your 5 most-watched posts this month |
-| POST | `/v1/admin/fund/sponsorships` | admin | `{ sponsorName, sponsorUrl?, contactEmail?, amountCents, months: ["YYYY-MM"], status?: "paid"\|"pledged" }` | `201 { sponsorships: [sponsorship] }` - amount split equally across `months`, leftover cent on the first |
+| POST | `/v1/admin/fund/sponsorships` | admin | `{ sponsorName, sponsorUrl?, contactEmail?, amountCents, months: ["YYYY-MM"], status?: "paid"\|"pledged" }` | `201 { sponsorships: [sponsorship] }` - amount split equally across `months`, leftover cent on the earliest; 409 `month_closed` if a month is already closed |
 | POST | `/v1/admin/fund/sponsorships/:id/refund` | admin | - | `{ sponsorship }` |
 | POST | `/v1/admin/fund/close` | admin | `{ month }` | `{ statement }` - safe to run twice (returns the frozen one); 400 `month_open` if the month has not ended |
 
@@ -155,4 +155,4 @@ Admin auth = `Authorization: Bearer <FUND_ADMIN_KEY>` (a wrangler secret; dev de
 
 `sponsorship` = `{ id, sponsorName, sponsorUrl, month, amountCents, status: "pledged"|"paid"|"refunded", createdAt }`. Only `paid` counts toward the pool; `pledged` shows on the fund page as pledged. `contactEmail` is never returned.
 
-`statement` = `monthSummary` plus `{ rulesVersion, sponsorships: [sponsorship], shares: [{ handle, seconds, sharePpm, amountCents }], carryOutCents }`. `shares` biggest first; `handle` is `null` for creators who asked not to be named. `sha256` is over the canonical JSON of the statement without `sha256` and `closedAt`, keys sorted, so anyone can re-check it. Open-month statements are live estimates with `sha256: null`.
+`statement` = `monthSummary` plus `{ rulesVersion, sponsorships: [sponsorship], refunds: [sponsorship], shares: [{ handle, seconds, sharePpm, amountCents }], carryOutCents }`. `refunds` = sponsorships from an already-closed month refunded out of this one (their `month` is the month they were booked to); `sponsoredCents` is paid minus those refunds. `shares` biggest first; `handle` is `null` for creators who asked not to be named. `sha256` is over the canonical JSON of the statement without `sha256` and `closedAt`, keys sorted, so anyone can re-check it. Open-month statements are live estimates with `sha256: null`.

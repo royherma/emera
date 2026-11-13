@@ -13,6 +13,8 @@ export type Env = {
   RESEND_API_KEY?: string;
   MAIL_FROM?: string;
   REPORTS_TO?: string;
+  FUNDING?: string;
+  FUND_ADMIN_KEY?: string;
 };
 
 export type UserRow = {
