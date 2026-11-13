@@ -90,7 +90,7 @@ Ports were claimed with `ports claim`: agora 5035 (dashboard), agora-api 5036, a
 | --- | --- | --- | --- |
 | Local | http://agora-api.localhost:5036 | http://agora-site.localhost:5038 | wrangler local D1/R2 under each app's `.wrangler/` (gitignored) |
 | Staging | https://emera-api-staging.techguyver1337.workers.dev | https://emera-site-staging.techguyver1337.workers.dev | D1 `emera-staging`, `emera-site-staging`; R2 `emera-media-staging` |
-| Production | https://api.emera.social (live; app at https://app.emera.social) | https://emera.social, https://www.emera.social | D1 `emera-prod`, `emera-site`; R2 `emera-media-prod` |
+| Production | https://api.emera.social (live) | https://emera.social is site AND app (site pages first, anything else goes to the `emera-app` worker; `/` is the app when cookie `em_in=1`); app.emera.social 301s there | D1 `emera-prod`, `emera-site`; R2 `emera-media-prod` |
 
 Staging carries demo content (27 invented creators, 30 posts): `npm run demo -- on|off|status staging` (or `local`). It goes through the real API, deletes only `demo.*@example.com` accounts, and refuses production.
 

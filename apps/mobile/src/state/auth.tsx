@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { Platform } from "react-native";
 import { api, setToken } from "@/lib/api";
 import { DEMO, MOCK } from "@/lib/config";
 import { mock } from "@/lib/mock";
@@ -15,6 +16,12 @@ type Ctx = {
 };
 
 const AuthCtx = createContext<Ctx | null>(null);
+
+// The site worker reads em_in to serve the app instead of the landing page at "/".
+function markSignedIn(on: boolean) {
+  if (Platform.OS !== "web" || typeof document === "undefined") return;
+  document.cookie = on ? "em_in=1; Path=/; Max-Age=31536000; SameSite=Lax" : "em_in=; Path=/; Max-Age=0; SameSite=Lax";
+}
 const KEY = "session.token";
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -52,6 +59,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     })();
   }, [apply, drop]);
+
+  useEffect(() => {
+    if (status !== "loading") markSignedIn(status !== "out");
+  }, [status]);
 
   const value = useMemo<Ctx>(
     () => ({

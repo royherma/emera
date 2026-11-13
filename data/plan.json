@@ -1759,6 +1759,38 @@
           "https://github.com/royherma/emera/blob/main/docs/mission/funding-rules.md"
         ]
       ]
+    },
+    {
+      "id": "posts-per-day",
+      "kind": "pick",
+      "when": "any time, 10 s",
+      "title": "How many new posts can one account share a day?",
+      "why": "Keeps the feed clean while we are small. Bringing your old posts over doesn't count. I picked 10; changing it is one setting, no code.",
+      "options": [
+        {
+          "id": "5",
+          "label": "5 a day"
+        },
+        {
+          "id": "10",
+          "label": "10 a day",
+          "primary": true
+        },
+        {
+          "id": "25",
+          "label": "25 a day"
+        },
+        {
+          "id": "50",
+          "label": "50 a day"
+        }
+      ],
+      "links": [
+        [
+          "Limits in the API contract",
+          "https://github.com/royherma/emera/blob/main/docs/api-contract.md#limits"
+        ]
+      ]
     }
   ],
   "reviewDone": [
