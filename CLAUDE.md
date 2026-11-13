@@ -130,7 +130,7 @@ Emera takes money only through its **own Stripe account, named Emera**. Never th
 
 ## App Store
 
-iOS app record made 2026-11-13 under Techguyver Labs, LLC: app id `6834311747` (https://appstoreconnect.apple.com/apps/6834311747), bundle `social.emera` (bundle id resource `6R42978HR4`), SKU `emera-ios`, name "Emera - OS Social Network". API access: `~/Desktop/Development/ShowAndTell/bin/asc` (see `~/.claude/reference/rules/apple-asc-auth.md`).
+iOS app record made 2026-11-13 under Techguyver Labs, LLC: app id `6834311747` (https://appstoreconnect.apple.com/apps/6834311747), bundle `social.emera` (bundle id resource `6R42978HR4`), SKU `emera-ios`, name "Emera - OS Social Network". API access: `~/Desktop/Development/ShowAndTell/bin/asc` (see `~/.claude/reference/rules/apple-asc-auth.md`). Version 1.0 build 1 (commit 4eae5b7) submitted 2026-11-13 9:27 PM Bangkok, releases by itself on approval. Builds: `apps/mobile/scripts/ios-release.sh`. App Privacy answers have no API; they are set on the website.
 
 ## One home per kind of thing
 
