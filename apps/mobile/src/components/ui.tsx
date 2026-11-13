@@ -1,11 +1,12 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Animated, Platform, Pressable, PressableStateCallbackType, StyleProp, Text, TextInput, TextInputProps, View, ViewStyle } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import Svg, { Circle, Defs, LinearGradient as SvgGradient, Path, Stop } from "react-native-svg";
+import Svg, { Path } from "react-native-svg";
 import { Icon, IconName } from "./Icon";
 import brand from "@/lib/brand";
 import { alpha, elevation, font, radius, size as sizes, space, sun, type } from "@/lib/theme";
 import { useTheme } from "@/state/theme";
+import { markPath, markTransform, markViewBox } from "@/lib/markPath";
 
 export type PS = PressableStateCallbackType & { hovered?: boolean };
 
@@ -16,17 +17,8 @@ const shadow = (v: string) => ({ boxShadow: v }) as object;
 export function Mark({ size = 28 }: { size?: number }) {
   const { c } = useTheme();
   return (
-    <Svg width={size} height={size} viewBox="0 0 100 100">
-      <Defs>
-        <SvgGradient id="mk" x1="0" y1="0" x2="0" y2="1">
-          <Stop offset="0" stopColor={sun.sunHigh} />
-          <Stop offset="1" stopColor="#ff6a2b" />
-        </SvgGradient>
-      </Defs>
-      <Circle cx={50} cy={50} r={38} fill="none" stroke={c.ink} strokeWidth={5} />
-      <Path d="M12 50a38 38 0 0 1 76 0z" fill="url(#mk)" />
-      <Path d="M12 50a38 38 0 0 0 76 0z" fill={c.ink} />
-      <Path d="M8 50h84" stroke={c.ink} strokeWidth={5} strokeLinecap="round" />
+    <Svg width={size} height={size} viewBox={markViewBox}>
+      <Path transform={markTransform} d={markPath} fill={c.ink} />
     </Svg>
   );
 }
