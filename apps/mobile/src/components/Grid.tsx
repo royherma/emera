@@ -22,13 +22,16 @@ export function useFeedColumn() {
   return feedColumn(column, height, wide ? 350 : 300);
 }
 
-export function PostRow({ post, width, onDeleted }: { post: Post; width: number; onDeleted?: (id: string) => void }) {
+export function PostRow({ post, width, onDeleted, list }: { post: Post; width: number; onDeleted?: (id: string) => void; list?: GridList }) {
   const router = useRouter();
   const { c } = useTheme();
   const menu = usePostMenu(onDeleted);
   const m = post.media[0];
   const box = feedBox(m, width);
-  const open = () => router.push({ pathname: "/p/[id]", params: { id: post.id } });
+  const open = () => {
+    if (list) rememberList(list.from, list.posts, list.cursor ?? null);
+    router.push({ pathname: "/p/[id]", params: list ? { id: post.id, from: list.from } : { id: post.id } });
+  };
   const tag = post.author.category;
   return (
     <View style={{ width, gap: space[2] }}>

@@ -243,6 +243,11 @@
           "text": "Messages and channels: live, sealed, hide-able, you pick who can write first",
           "who": "claude",
           "done": true
+        },
+        {
+          "id": "m1-ig-connector",
+          "text": "Instagram connector: creators sign in with Instagram (professional accounts) and bring reels over; needs Meta app review for people other than you",
+          "who": "claude"
         }
       ]
     },
@@ -1191,6 +1196,12 @@
       "state": "done",
       "note": "emera.social/connect: pick posts, auto-post rules, connector files, 5f82d94",
       "owner": "claude fd627ece"
+    },
+    {
+      "name": "Your 10 Instagram reels on Emera",
+      "state": "done",
+      "note": "10 latest reels on emera.social/@techguyver with original dates, read with the comment-dm Instagram token",
+      "owner": "claude fd627ece"
     }
   ],
   "links": [
@@ -1271,6 +1282,36 @@
     ]
   ],
   "review": [
+    {
+      "id": "email-leak",
+      "kind": "approve",
+      "when": "today",
+      "title": "Your personal email is in one public commit",
+      "why": "Commit 2b7b45c (an idle autocommit, 2:34 PM today) lists you as committer with your gmail. It is on GitHub now; 261 other commits are clean.",
+      "list": [
+        "Fix: rewrite that one commit to Techguyver Labs and force-push main",
+        "Every session must re-sync its branch after; I do it when the board shows no live claims",
+        "Also blocks pushing new branches until fixed (oss scan)"
+      ],
+      "options": [
+        {
+          "id": "yes",
+          "label": "Rewrite + force-push",
+          "primary": true
+        },
+        {
+          "id": "no",
+          "label": "Leave it"
+        }
+      ],
+      "links": [
+        [
+          "The commit",
+          "https://github.com/royherma/emera/commit/2b7b45c"
+        ]
+      ],
+      "mine": "Rewrite tonight when no agent is mid-merge"
+    },
     {
       "id": "connect-ai",
       "kind": "do",

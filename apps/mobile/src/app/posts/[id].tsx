@@ -123,7 +123,7 @@ export default function PostScroll() {
                 }
               }}
             >
-              <PostRow post={p} width={column} onDeleted={drop} />
+              <PostRow post={p} width={column} onDeleted={drop} list={{ from, posts: list.posts, cursor: list.cursor }} />
             </View>
           ))
         )}
