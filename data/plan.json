@@ -170,20 +170,6 @@
           "done": true
         },
         {
-          "id": "a8",
-          "text": "Claim @emerasocial: TikTok, YouTube, Instagram, Bluesky (your logins)",
-          "who": "roy",
-          "done": false,
-          "review": "handles"
-        },
-        {
-          "id": "c4",
-          "text": "Your profile + first 10 posts",
-          "who": "roy",
-          "done": false,
-          "review": "profile"
-        },
-        {
           "id": "m0-dmca",
           "text": "Register the DMCA agent ($6)",
           "who": "roy",
@@ -203,6 +189,20 @@
       "title": "M1 · First 100 creators",
       "sub": "By Dec 31. Done when: 100 creators with 3+ posts, 40 copy reports",
       "tasks": [
+        {
+          "id": "c4",
+          "text": "Your profile + first 10 posts",
+          "who": "roy",
+          "done": false,
+          "review": "profile"
+        },
+        {
+          "id": "a8",
+          "text": "Claim @emerasocial: TikTok, YouTube, Instagram, Bluesky (your logins)",
+          "who": "roy",
+          "done": false,
+          "review": "handles"
+        },
         {
           "id": "d5",
           "text": "Invite your first 20 creators",
@@ -544,28 +544,48 @@
     },
     {
       "id": "lit-mark",
-      "q": "Light the e, round 2: fire only at the tip",
-      "why": "You liked round 1 but want the fire only at the end of the e, like a match. Top: day, bottom: night, sidebar logo at real size and the app icon.",
+      "q": "Light the e: all 8, each with a match flame at the tip",
+      "why": "Round 1 (1-4) and round 2 (5-8) side by side, every one now burns like a match. Top: day, bottom: night, sidebar logo and app icon.",
       "options": [
         {
+          "id": "ember",
+          "label": "1 Ember tail",
+          "img": "brand/logo/lit/ember.png"
+        },
+        {
+          "id": "match",
+          "label": "2 Lit match",
+          "img": "brand/logo/lit/match.png"
+        },
+        {
+          "id": "burn",
+          "label": "3 Burning down",
+          "img": "brand/logo/lit/burn.png"
+        },
+        {
+          "id": "sunset",
+          "label": "4 All sun",
+          "img": "brand/logo/lit/sunset.png"
+        },
+        {
           "id": "along",
-          "label": "1 Just the tip",
+          "label": "5 Just the tip",
           "img": "brand/logo/lit/along.png"
         },
         {
           "id": "glow",
-          "label": "2 Tip + glow",
+          "label": "6 Tip + glow",
           "img": "brand/logo/lit/glow.png",
-          "note": "most like a lit match, still reads at sidebar size"
+          "note": "the flame sits on a glowing tip, reads at sidebar size"
         },
         {
           "id": "long",
-          "label": "3 Longer ember",
+          "label": "7 Longer ember",
           "img": "brand/logo/lit/long.png"
         },
         {
           "id": "flame",
-          "label": "4 Flame at the tip",
+          "label": "8 Big flame",
           "img": "brand/logo/lit/flame.png"
         },
         {
@@ -575,7 +595,7 @@
       ],
       "mine": "glow",
       "big": true,
-      "note": "Round 1 (ember, match, burn, all sun) in git 8b746e4; Roy 20:04: pretty good, fire only at the tip"
+      "note": "Round 1 in git 8b746e4, round 2 c2d0478; Roy 20:10: bigger flames, keep all, flame on each"
     }
   ],
   "names": {
@@ -1345,7 +1365,10 @@
           "https://github.com/royherma/emera/commit/2b7b45c"
         ]
       ],
-      "mine": "Rewrite tonight when no agent is mid-merge"
+      "mine": "Rewrite tonight when no agent is mid-merge",
+      "answer": "yes",
+      "text": null,
+      "at": "2026-11-13T13:10:45.113Z"
     },
     {
       "id": "connect-ai",
@@ -1414,9 +1437,9 @@
           "label": "Later"
         }
       ],
-      "answer": null,
+      "answer": "later",
       "text": null,
-      "at": null,
+      "at": "2026-11-13T13:10:49.183Z",
       "list": [
         "Instagram app: your profile, tap your name at the top, Add account, Create new account, username emerasocial, email social@emera.social",
         "TikTok app: sign up with email social@emera.social, username emerasocial (TikTok locks a rename for 30 days, so type it right)",
@@ -1451,7 +1474,7 @@
       ],
       "answer": "later",
       "text": null,
-      "at": "2026-11-13T07:43:50.585Z"
+      "at": "2026-11-13T13:10:53.292Z"
     },
     {
       "id": "founding20",
