@@ -2,8 +2,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { COL, squirclePath } from '../lib.mjs'
 
-const PW = process.env.PLAYWRIGHT_CORE_MJS || '~/Desktop/Development/tg-openstudio/openscreen-fork/node_modules/playwright-core/index.mjs'
-const EXE = process.env.CHROME_HEADLESS || '~/Library/Caches/ms-playwright/chromium_headless_shell-1252/chrome-headless-shell-mac-arm64/chrome-headless-shell'
+const PW = process.env.PLAYWRIGHT_CORE_MJS || 'playwright-core'
+const EXE = process.env.CHROME_HEADLESS || undefined
 const HERE = import.meta.dirname
 const f = (n) => +n.toFixed(2)
 
