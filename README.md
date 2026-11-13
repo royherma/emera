@@ -27,7 +27,8 @@ AI is flooding the internet. Fakes, bots and copies are drowning out real people
 | 🖐️ **Creative theft**<br>Copies spread faster than credit, and the maker hears last | Upload once. We scan the web for copies, file the takedown wherever they turn up, and take the legal steps with you when that is not enough |
 | 🎭 **Fakes**<br>A fake photo, video or voice takes seconds and looks real | Every post carries a signed record of who shared it and when, and the badge says only what was checked. Community notes add context once people who usually disagree both rate them helpful |
 | 🤖 **Bots and spam**<br>Bot crowds, bought followers and machine-written replies talk louder than people | People are marked as people, bots say what they are, and every report reaches a real moderator who tells you what was done and why |
-| 🎯 **Manipulation**<br>A hidden ranking decides who gets seen and rewards what divides | Every boost comes with a reason you can read. Built on the [AT Protocol](https://atproto.com), so your account and followers leave with you if the rules ever change |
+| 💸 **Pay to win**<br>Whoever pays the most gets seen, and nobody shows what was bought or quietly tested | Reach can't be bought. No ads and no paid boosts in the feed, and every post you see comes with the reason it is there |
+| 🎯 **Manipulation**<br>A hidden ranking decides who gets seen and rewards what divides | The ranking code is public, so anyone can check it. Built on the [AT Protocol](https://atproto.com), so your account and followers leave with you if the rules ever change |
 
 Every line of code is public, so anyone can check we keep these promises.
 
