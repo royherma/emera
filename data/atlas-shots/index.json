@@ -1,12 +1,12 @@
 {
- "capturedAt": "2026-11-13T12:28:38.911Z",
+ "capturedAt": "2026-11-13T12:43:09.279Z",
  "git": {
-  "sha": "2118164",
+  "sha": "ac8d914",
   "dirty": false
  },
- "codeHash": "591e56eaafdc",
+ "codeHash": "8b7dd078eddf",
  "by": "auto",
- "why": "app code changed: app/p/[id].tsx, components/ChatRoom.tsx, components/Grid.tsx +6 more",
+ "why": "app code changed: site/public/answers/how-to-file-a-dmca-takedown-on-instagram/index.html, site/public/answers/how-to-prevent-people-from-stealing-your-art-online/index.html, site/public/answers/how-to-tell-if-a-photo-is-ai-generated/index.html +64 more",
  "themeSwitch": true,
  "viewports": {
   "phone": {
@@ -56,15 +56,7 @@
    "why": "/v1/posts 429 {\"error\":{\"code\":\"daily_posts\",\"message\":\"You can share 5 posts a day. Try again tomorrow.\"}}"
   },
   {
-   "what": "site (phone-day)",
-   "why": "page.waitForTimeout: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/ (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "site (phone-night)",
+   "what": "site (desktop-night)",
    "why": "page.waitForTimeout: Target page, context or browser has been closed"
   },
   {
@@ -72,15 +64,15 @@
    "why": "page.waitForTimeout: Target page, context or browser has been closed"
   },
   {
-   "what": "site (desktop-night)",
+   "what": "site (phone-night)",
    "why": "page.waitForTimeout: Target page, context or browser has been closed"
   },
   {
-   "what": "/welcome (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
+   "what": "site (phone-day)",
+   "why": "page.waitForTimeout: Target page, context or browser has been closed"
   },
   {
-   "what": "/ (phone-night)",
+   "what": "/ (desktop-night)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
@@ -88,487 +80,7 @@
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/ (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/invite/:code (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/welcome (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/welcome (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/welcome (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/sign-in (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/code (phone-day)",
-   "why": "landed on /welcome, not /code"
-  },
-  {
-   "what": "/handle (phone-day)",
-   "why": "landed on /welcome, not /handle"
-  },
-  {
-   "what": "/invite/:code (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/invite/:code (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/invite/:code (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "read a real post and handle from the feed (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/sign-in (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/code (phone-night)",
-   "why": "landed on /welcome, not /code"
-  },
-  {
-   "what": "/handle (phone-night)",
-   "why": "landed on /welcome, not /handle"
-  },
-  {
-   "what": "/sign-in (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/code (desktop-day)",
-   "why": "landed on /welcome, not /code"
-  },
-  {
-   "what": "/handle (desktop-day)",
-   "why": "landed on /welcome, not /handle"
-  },
-  {
-   "what": "/sign-in (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/code (desktop-night)",
-   "why": "landed on /welcome, not /code"
-  },
-  {
-   "what": "/handle (desktop-night)",
-   "why": "landed on /welcome, not /handle"
-  },
-  {
-   "what": "/feed (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "read a real post and handle from the feed (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "read a real post and handle from the feed (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "read a real post and handle from the feed (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/me copied (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/feed (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/feed (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/feed (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/explore (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/me copied (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/me copied (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/me copied (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/me (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/explore (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/explore (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/explore (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/settings (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/me (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/me (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/me (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/upload (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/settings (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/settings (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/settings (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/p/:id (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/upload (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/upload (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/upload (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/u/:handle (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/p/:id (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/p/:id (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/p/:id (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/report (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/u/:handle (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/u/:handle (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/u/:handle (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/code (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/report (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/report (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/report (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/handle (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/code (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/code (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/code (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/sign-in (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/handle (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/handle (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/handle (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/welcome (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/sign-in (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/sign-in (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/sign-in (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/explore (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/welcome (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/welcome (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/welcome (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/feed (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/explore (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/explore (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/explore (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/me (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/feed (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/feed (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/feed (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/upload (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/me (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/me (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/me (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/blocked (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/upload (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/upload (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/upload (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/chat (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/blocked (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/blocked (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/blocked (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/comments/:id (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/chat (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/chat (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/chat (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/connect (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/comments/:id (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/comments/:id (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/comments/:id (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/edit-profile (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/connect (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/connect (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/connect (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/flag (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/edit-profile (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/edit-profile (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/edit-profile (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/followers/:handle (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/flag (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/flag (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/flag (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/following/:handle (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/followers/:handle (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/followers/:handle (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/followers/:handle (desktop-night)",
+   "what": "/ (phone-night)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
@@ -576,43 +88,19 @@
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/following/:handle (phone-night)",
+   "what": "/welcome (desktop-night)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/following/:handle (desktop-day)",
+   "what": "/welcome (desktop-day)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/following/:handle (desktop-night)",
+   "what": "/welcome (phone-night)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/invite/:code (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/ (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/ (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/ (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/invites (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/invite/:code (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/invite/:code (desktop-day)",
+   "what": "/welcome (phone-day)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
@@ -620,159 +108,143 @@
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/messages/:id (phone-day)",
+   "what": "/invite/:code (desktop-day)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/invites (phone-night)",
+   "what": "/invite/:code (phone-night)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/invites (desktop-day)",
+   "what": "/invite/:code (phone-day)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/invites (desktop-night)",
+   "what": "/sign-in (desktop-night)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/messages/compose (phone-day)",
+   "what": "/code (desktop-night)",
+   "why": "landed on /welcome, not /code"
+  },
+  {
+   "what": "/handle (desktop-night)",
+   "why": "landed on /welcome, not /handle"
+  },
+  {
+   "what": "/sign-in (desktop-day)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/messages/:id (phone-night)",
+   "what": "/code (desktop-day)",
+   "why": "landed on /welcome, not /code"
+  },
+  {
+   "what": "/handle (desktop-day)",
+   "why": "landed on /welcome, not /handle"
+  },
+  {
+   "what": "/sign-in (phone-night)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/messages/:id (desktop-day)",
+   "what": "/code (phone-night)",
+   "why": "landed on /welcome, not /code"
+  },
+  {
+   "what": "/handle (phone-night)",
+   "why": "landed on /welcome, not /handle"
+  },
+  {
+   "what": "/sign-in (phone-day)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/messages/:id (desktop-night)",
+   "what": "/code (phone-day)",
+   "why": "landed on /welcome, not /code"
+  },
+  {
+   "what": "/handle (phone-day)",
+   "why": "landed on /welcome, not /handle"
+  },
+  {
+   "what": "read a real post and handle from the feed (desktop-night)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/messages (phone-day)",
+   "what": "read a real post and handle from the feed (desktop-day)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/messages/compose (phone-night)",
+   "what": "read a real post and handle from the feed (phone-night)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/messages/compose (desktop-day)",
+   "what": "read a real post and handle from the feed (phone-day)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/messages/compose (desktop-night)",
+   "what": "/feed (desktop-night)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/notifications (phone-day)",
+   "what": "/feed (desktop-day)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/messages (phone-night)",
+   "what": "/feed (phone-night)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/messages (desktop-day)",
+   "what": "/feed (phone-day)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/messages (desktop-night)",
+   "what": "/me copied (desktop-night)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/p/:id (phone-day)",
+   "what": "/me copied (desktop-day)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/notifications (phone-night)",
+   "what": "/me copied (phone-night)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/notifications (desktop-day)",
+   "what": "/me copied (phone-day)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/notifications (desktop-night)",
+   "what": "/explore (desktop-night)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/posts/:id (phone-day)",
+   "what": "/explore (desktop-day)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/p/:id (phone-night)",
+   "what": "/explore (phone-night)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/p/:id (desktop-day)",
+   "what": "/explore (phone-day)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/p/:id (desktop-night)",
+   "what": "/me (desktop-night)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/report (phone-day)",
+   "what": "/me (desktop-day)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/posts/:id (phone-night)",
+   "what": "/me (phone-night)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/posts/:id (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/posts/:id (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/search (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/report (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/report (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/report (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/settings (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/search (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/search (desktop-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/search (desktop-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/u/:handle (phone-day)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/settings (phone-night)",
-   "why": "page.evaluate: Target page, context or browser has been closed"
-  },
-  {
-   "what": "/settings (desktop-day)",
+   "what": "/me (phone-day)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
@@ -780,7 +252,51 @@
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
-   "what": "/u/:handle (phone-night)",
+   "what": "/settings (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/settings (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/settings (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/upload (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/upload (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/upload (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/upload (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/p/:id (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/p/:id (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/p/:id (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/p/:id (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/u/:handle (desktop-night)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
@@ -788,41 +304,525 @@
    "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
+   "what": "/u/:handle (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/u/:handle (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/report (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/report (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/report (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/report (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/code (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/code (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/code (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/code (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/handle (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/handle (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/handle (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/handle (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/sign-in (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/sign-in (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/sign-in (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/sign-in (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/welcome (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/welcome (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/welcome (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/welcome (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/explore (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/explore (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/explore (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/explore (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/feed (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/feed (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/feed (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/feed (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/me (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/me (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/me (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/me (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/upload (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/upload (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/upload (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/upload (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/blocked (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/blocked (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/blocked (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/blocked (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/chat (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/chat (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/chat (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/chat (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/comments/:id (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/comments/:id (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/comments/:id (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/comments/:id (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/connect (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/connect (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/connect (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/connect (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/edit-profile (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/edit-profile (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/edit-profile (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/edit-profile (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/flag (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/flag (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/flag (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/flag (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/followers/:handle (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/followers/:handle (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/followers/:handle (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/followers/:handle (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/following/:handle (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/following/:handle (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/following/:handle (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/following/:handle (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/ (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/ (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/ (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/ (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invite/:code (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invite/:code (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invite/:code (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invite/:code (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invites (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invites (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invites (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invites (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages/:id (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages/:id (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages/:id (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages/:id (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages/compose (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages/compose (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages/compose (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages/compose (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/notifications (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/notifications (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/notifications (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/notifications (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/p/:id (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/p/:id (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/p/:id (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/p/:id (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/posts/:id (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/posts/:id (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/posts/:id (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/posts/:id (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/report (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/report (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/report (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/report (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/search (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/search (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/search (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/search (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/settings (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/settings (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/settings (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/settings (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
    "what": "/u/:handle (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/u/:handle (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/u/:handle (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/u/:handle (phone-day)",
    "why": "page.evaluate: Target page, context or browser has been closed"
   }
  ],
  "pages": {},
  "count": 0,
- "ms": 11887,
+ "ms": 12221,
  "phases": [
   {
    "name": "export web build",
-   "ms": 2447
+   "ms": 2835
   },
   {
    "name": "desktop-day",
-   "ms": 9323
+   "ms": 9287
   },
   {
    "name": "desktop-night",
-   "ms": 9323
+   "ms": 9286
   },
   {
    "name": "phone-day",
-   "ms": 9322
+   "ms": 9287
   },
   {
    "name": "phone-night",
-   "ms": 9323
+   "ms": 9287
   },
   {
    "name": "web pages from the api",
-   "ms": 9272
+   "ms": 9230
   },
   {
    "name": "all captures (in parallel)",
-   "ms": 9440
+   "ms": 9386
   }
  ],
  "missing": [

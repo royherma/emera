@@ -1283,6 +1283,36 @@
   ],
   "review": [
     {
+      "id": "email-leak",
+      "kind": "approve",
+      "when": "today",
+      "title": "Your personal email is in one public commit",
+      "why": "Commit 2b7b45c (an idle autocommit, 2:34 PM today) lists you as committer with your gmail. It is on GitHub now; 261 other commits are clean.",
+      "list": [
+        "Fix: rewrite that one commit to Techguyver Labs and force-push main",
+        "Every session must re-sync its branch after; I do it when the board shows no live claims",
+        "Also blocks pushing new branches until fixed (oss scan)"
+      ],
+      "options": [
+        {
+          "id": "yes",
+          "label": "Rewrite + force-push",
+          "primary": true
+        },
+        {
+          "id": "no",
+          "label": "Leave it"
+        }
+      ],
+      "links": [
+        [
+          "The commit",
+          "https://github.com/royherma/emera/commit/2b7b45c"
+        ]
+      ],
+      "mine": "Rewrite tonight when no agent is mid-merge"
+    },
+    {
       "id": "connect-ai",
       "kind": "do",
       "when": "now",
