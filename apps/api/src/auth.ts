@@ -5,6 +5,7 @@ import { fail, siteOrigin, readJson } from './http';
 import { hmacHex, newInviteCode, newSixDigitCode, newToken, newId, sha256Hex } from './crypto';
 import { deliveryFor, sendCode } from './mail';
 import { userJson } from './serialize';
+import { capSigninEmails } from './limits';
 
 const CODE_TTL_MS = 10 * 60_000;
 const SESSION_TTL_MS = 30 * 86_400_000;
@@ -62,6 +63,7 @@ auth.post('/v1/auth/start', async (c) => {
     .bind(email, now - 3_600_000).first<{ n: number }>();
   if ((recent?.n ?? 0) >= MAX_CODES_PER_HOUR) throw fail(429, 'too_many_codes', 'Too many codes requested. Try again in an hour.');
 
+  await capSigninEmails(c.env);
   const code = newSixDigitCode();
   await c.env.DB.prepare('INSERT INTO login_codes (email, code_hash, invite_code, expires_at, created_at) VALUES (?, ?, ?, ?, ?)')
     .bind(email, await hmacHex(c.env.PROOF_SECRET, `code:${email}:${code}`), invite, now + CODE_TTL_MS, now).run();

@@ -22,6 +22,7 @@ import { feedRoutes } from './feeds';
 import { ingestRoutes, runAutoImports, useApp } from './ingest';
 import { oauthRoutes } from './oauth';
 import { mcpRoutes } from './mcp';
+import { writeLimits } from './limits';
 
 const app = new Hono<AppEnv>();
 
@@ -35,6 +36,8 @@ app.use('*', async (c, next) => {
 });
 app.use('/v1/*', cors({ origin: '*', allowHeaders: ['Authorization', 'Content-Type', 'X-TG-Tester'], allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], maxAge: 600 }));
 app.use('/media/*', cors({ origin: '*', allowMethods: ['GET', 'HEAD', 'OPTIONS'] }));
+
+app.use('*', writeLimits);
 
 app.get('/health', (c) => c.json({ ok: true }));
 app.route('/', auth);
