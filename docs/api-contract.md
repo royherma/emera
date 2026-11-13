@@ -156,3 +156,37 @@ Search needs no sign-in. `q` is 1 to 100 characters (`bad_query`), `type` defaul
 `from` is a Bluesky handle (`@name.bsky.social`, a `bsky.app/profile/` link or a did), a Mastodon profile link (`/@name` gets `.rss`), or any RSS/Atom feed or page that links one. Instagram, TikTok, X and Facebook links return 422 `source_locked` with what to do instead. Only items with photos or videos come over; captions keep up to 2200 characters, dates keep the original time. Each source item is imported once per person (`imported_items`). Up to 25 posts per import call.
 
 `source` = `{ id, from, kind, label, autoPost, rules, since, lastChecked, lastError }`. Each place to import from is a connector, one file in `apps/api/src/connectors/`; see `docs/connectors.md`. `POST /v1/import` takes `only: [itemId]` from the preview to bring over just those. A cron every 15 minutes reads the 10 newest items of each auto-post source and posts those made after `since` (the moment auto-post was turned on).
+
+## Chat: channels and messages
+
+Design and rules: `docs/chat.md`. Everything needs sign-in; sending needs a handle. 20 messages a minute per person across all chat (429 `too_fast`), bodies 1 to 2000 characters (`bad_message`, `message_too_long`).
+
+| Method | Path | Body | Returns |
+| --- | --- | --- | --- |
+| GET | `/v1/channels` | - | `{ channels: [channel] }` |
+| GET | `/v1/channels/:id/messages?after=&before=` | - | `{ channel, messages: [message], before, latest, moderator }` |
+| POST | `/v1/channels/:id/messages` | `{ body }` | `201 { message }`; slow mode is 429 `slow_mode` |
+| DELETE | `/v1/channels/:id/messages/:mid` | - | `{ ok: true }` own message, or any if you moderate the channel |
+| POST | `/v1/channels/:id/read` | - | `{ ok: true }` |
+| GET | `/v1/dms?box=inbox\|requests` | - | `{ threads: [thread] }` newest first, 50 max |
+| GET | `/v1/dms/unread` | - | `{ inbox, requests }` threads with unread messages; muted threads don't count |
+| GET | `/v1/dms/with/:handle` | - | `{ user, thread \| null, canMessage, reason \| null }` |
+| POST | `/v1/dms` | `{ handle, body?, postId? }` | `201 { thread, message }` opens or reuses the one thread between two people |
+| GET | `/v1/dms/:id/messages?after=&before=` | - | `{ thread, messages, before, latest }` |
+| POST | `/v1/dms/:id/messages` | `{ body?, postId? }` | `201 { message }` |
+| DELETE | `/v1/dms/:id/messages/:mid` | - | `{ ok: true }` own messages only |
+| POST | `/v1/dms/:id/read` | - | `{ ok: true }` |
+| POST | `/v1/dms/:id/accept` | - | `{ thread }` moves a request to the inbox |
+| POST | `/v1/dms/:id/mute` | `{ muted: boolean }` | `{ thread }` |
+| DELETE | `/v1/dms/:id` | - | `{ ok: true }` hides it for you; they keep their copy |
+| GET | `/v1/chat/settings` | - | `{ settings: { dmFrom, channelsHidden } }` |
+| PUT | `/v1/chat/settings` | any of `{ dmFrom: "everyone"\|"following"\|"nobody", channelsHidden }` | `{ settings }` |
+| POST | `/v1/chat/flags` | `{ kind: "channel"\|"dm", messageId, reason, note? }` | `201 { ok, duplicate: false }` |
+| POST | `/v1/chat/live` | `{ kind: "channel"\|"dm"\|"me", id? }` | `{ path, room }` a WebSocket path with a 60 s ticket |
+| GET (WebSocket) | `/v1/chat/live?ticket=` | - | `101`; then `{ t: "new"\|"deleted", room }` per change, `pong` for `ping` |
+
+`message` = `{ id, user: { id, handle, displayName, avatarUrl }, body, createdAt, mine, deleted, postId, post: post \| null }`. A message must have words, a `postId`, or both; a post that no longer exists is 404 `not_found` on send and `post: null` later.
+
+`thread` = `{ id, with, accepted, theyAccepted, muted, lastAt, last: { body, mine, deleted } \| null, unread }`. A message from someone the recipient doesn't follow is a request (`accepted: false` for them); the sender can send 3 until it's accepted (403 `request_pending`). `dmFrom` decides who can start a request: `following` lets only people you follow in, `nobody` stops every new conversation (403 `cant_message` with the reason). Existing accepted conversations keep working. Blocks hide the thread both ways and the error never says who blocked whom.
+
+Paging: `latest` is the cursor for `?after=` (new messages, oldest first); `before` is for older history (50 per page). The live socket never carries message text, only that something changed; the app then calls `?after=latest`. `kind: "me"` is your own room: it pings whenever someone messages you, for the unread badge.
