@@ -1,11 +1,10 @@
 {
-  "plugins": [
-    "expo-router",
-    "expo-image",
-    "expo-secure-store",
-    "expo-status-bar",
-    "expo-font",
-    "expo-splash-screen",
-    "expo-video"
-  ]
+  "expo": {
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "ios": { "supportsTablet": true, "infoPlist": { "ITSAppUsesNonExemptEncryption": false } },
+    "web": { "bundler": "metro", "output": "single" },
+    "plugins": ["expo-router", "expo-image", "expo-secure-store", "expo-font", "expo-splash-screen", "expo-video"]
+  }
 }

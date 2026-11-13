@@ -19,6 +19,10 @@ Idea stage. Roy said go (2026-11-13): build toward his live profile. Buying a do
 | Name search | `docs/naming.md` |
 | Plan page (steps, decisions, names) | http://agora.localhost:5035 - `npm run plan`, data in `data/plan.json`, clicks in `data/feedback.jsonl` |
 
+## Domain
+
+`emera.social`, bought 2026-11-13 on Cloudflare Registrar, account db9eee5d30dc91c467044f8746e45206, zone 89f5419a484e8cc56995a5fe4d68773d. It expires 2027-11-13 and **auto-renew is OFF**. getemera.com was not bought (Roy chose only .social).
+
 ## Rules
 
 - Public copy is welcoming, never "screw Instagram". Problem/fix tables are internal.
