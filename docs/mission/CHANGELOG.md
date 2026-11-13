@@ -2,6 +2,12 @@
 
 Format: `MAJOR.MINOR.PATCH`. Major: a value added, retired, or a "never" changed. Minor: a commitment added, removed or changed. Patch: wording only, same meaning. Every entry names who proposed it, the vote or board decision, and the real decision that prompted it. Rules: `how-values-change.md`.
 
+## 1.3.0 - 2026-11-13
+
+- "Why Emera exists" now opens with AI: it is breaking the internet for creators and everyone else, and it is also what lets us build the fix. Emera is for every human being, not one kind of creator. Founder's second quote added.
+- Public mission line changed to "A fair, authentic place on the internet for every human being, where the people are real, what you share keeps your name on it, and the rules are written where everyone can read them."
+- Proposed and decided by: the founder.
+
 ## 1.2.0 - 2026-11-13
 
 - Added "In one line": Emera is the open source social network. Every public surface (README, site, store text) opens with it, then dials down to the longer mission.

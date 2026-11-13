@@ -4,9 +4,9 @@
 
 ## The open source social network
 
-Every line of code is public, the algorithm is public, and it is run as a nonprofit, so no one can quietly change the rules on you. What you create keeps your name on it and the people are real.
+AI is breaking the internet. Fake photos, cloned voices, bot crowds and stolen work spread faster than anyone can check them, and real people get drowned out. The same AI lets us build the fix, so we are building it.
 
-Emera is for everyone who creates (video, art, photos, music, design, the things people make with their hands) and everyone sharing what is happening around them. It runs on the [AT Protocol](https://atproto.com), so your account and your followers are yours. Where humanity comes together.
+Emera is a fair, honest place for every human being to share and talk. The people are real, every post carries proof of who shared it, and what you make keeps your name on it. Every line of code and the algorithm are public, and it is run as a nonprofit, so no one can quietly change the rules on you. It runs on the [AT Protocol](https://atproto.com), so your account and your followers are yours. Where humanity comes together.
 
 Four things we build for:
 
