@@ -1,5 +1,5 @@
 import { API_URL } from "./config";
-import { ApiError, Backend, Media, PickedFile, Post, User } from "./types";
+import { ApiError, Backend, Comment, Media, Notification, PickedFile, Post, User } from "./types";
 
 let token: string | null = null;
 export const setToken = (t: string | null) => {
@@ -62,4 +62,18 @@ export const http: Backend = {
   createPost: async (input) => (await send<{ post: Post }>("POST", "/v1/posts", input)).post,
   createInvite: () => send("POST", "/v1/invites"),
   report: async (input) => void (await send("POST", "/v1/reports", input)),
+  like: (postId) => send("POST", `/v1/posts/${encodeURIComponent(postId)}/like`),
+  unlike: (postId) => send("DELETE", `/v1/posts/${encodeURIComponent(postId)}/like`),
+  comments: async (postId, cursor) => {
+    const r = await send<{ comments: Comment[]; cursor?: string | null; total: number }>("GET", `/v1/posts/${encodeURIComponent(postId)}/comments${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`);
+    return { comments: r.comments, cursor: r.cursor ?? null, total: r.total };
+  },
+  addComment: async ({ postId, body, parentId }) => (await send<{ comment: Comment }>("POST", `/v1/posts/${encodeURIComponent(postId)}/comments`, { body, parentId })).comment,
+  deleteComment: async (id) => void (await send("DELETE", `/v1/comments/${encodeURIComponent(id)}`)),
+  notifications: async (cursor) => {
+    const r = await send<{ notifications: Notification[]; cursor?: string | null; unread: number }>("GET", `/v1/notifications${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`);
+    return { notifications: r.notifications, cursor: r.cursor ?? null, unread: r.unread };
+  },
+  unreadCount: async () => (await send<{ unread: number }>("GET", "/v1/notifications/unread-count")).unread,
+  markNotificationsRead: async (ids) => (await send<{ unread: number }>("POST", "/v1/notifications/read", ids ? { ids } : {})).unread,
 };

@@ -3,6 +3,7 @@ import { Platform, Pressable, ScrollView, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Avatar } from "@/components/Avatar";
+import { EngageBar } from "@/components/Engage";
 import { Icon } from "@/components/Icon";
 import { IndexChip, MediaFull, SignedMark } from "@/components/Media";
 import { Screen } from "@/components/Screen";
@@ -94,6 +95,14 @@ export default function PostDetail() {
                   </View>
                 </Pressable>
                 {post.caption ? <Text style={[type.title, { fontFamily: type.body.fontFamily, fontSize: 17, lineHeight: 25, letterSpacing: 0, color: c.ink }]}>{post.caption}</Text> : null}
+                <View style={{ gap: space[1] }}>
+                  <EngageBar post={post} />
+                  {post.commentCount > 0 && (
+                    <Pressable accessibilityRole="link" onPress={() => router.push({ pathname: "/comments/[id]", params: { id: post.id } })} hitSlop={6}>
+                      <Text style={[type.bodySm, { color: c.ink2 }]}>View all {post.commentCount} {post.commentCount === 1 ? "comment" : "comments"}</Text>
+                    </Pressable>
+                  )}
+                </View>
                 {post.author.category ? <CategoryTag label={post.author.category} color={creatorColors(post.author.handle).from} /> : null}
                 {proof && (
                   <View

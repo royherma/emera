@@ -49,6 +49,8 @@ function Routes() {
         <Stack.Protected guard={status === "in"}>
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="p/[id]" options={{ animation: "slide_from_right" }} />
+          <Stack.Screen name="comments/[id]" options={{ animation: "slide_from_right" }} />
+          <Stack.Screen name="notifications" options={{ animation: "slide_from_right" }} />
           <Stack.Screen name="u/[handle]" options={{ animation: "slide_from_right" }} />
           <Stack.Screen name="settings" options={{ animation: "slide_from_right" }} />
           <Stack.Screen name="report" options={{ animation: "slide_from_right" }} />

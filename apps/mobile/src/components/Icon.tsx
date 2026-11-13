@@ -24,12 +24,15 @@ const paths = {
   moon: "M19 14.5A7.5 7.5 0 0 1 9.5 5 7.5 7.5 0 1 0 19 14.5z",
   flag: "M5.5 21V4M5.5 4.5h11l-2.2 3.8 2.2 3.8h-11",
   auto: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 3v18",
+  heart: "M12 20.5S3.5 15.4 3.5 9.2A4.7 4.7 0 0 1 12 6.6a4.7 4.7 0 0 1 8.5 2.6c0 6.2-8.5 11.3-8.5 11.3z",
+  bell: "M6 17V11a6 6 0 0 1 12 0v6l1.5 2h-15zM10 21a2 2 0 0 0 4 0",
+  send: "M4 12l16-8-6 16-2.5-6.5z",
   chat: "M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-8.5L6 20v-4H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z",
 } as const;
 
 export type IconName = keyof typeof paths | "dots" | "play";
 
-export function Icon({ name, size = 22, color = "#000", strokeWidth = 1.7 }: { name: IconName; size?: number; color?: string; strokeWidth?: number }) {
+export function Icon({ name, size = 22, color = "#000", strokeWidth = 1.7, fill = "none" }: { name: IconName; size?: number; color?: string; strokeWidth?: number; fill?: string }) {
   let body: React.ReactNode;
   if (name === "dots") {
     body = (
@@ -42,7 +45,7 @@ export function Icon({ name, size = 22, color = "#000", strokeWidth = 1.7 }: { n
   } else if (name === "play") {
     body = <Path d="M8.5 6v12l10-6z" fill={color} stroke={color} strokeWidth={1.5} strokeLinejoin="round" />;
   } else {
-    body = <Path d={paths[name]} stroke={color} strokeWidth={strokeWidth} fill="none" strokeLinecap="round" strokeLinejoin="round" />;
+    body = <Path d={paths[name]} stroke={color} strokeWidth={strokeWidth} fill={fill} strokeLinecap="round" strokeLinejoin="round" />;
   }
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24">

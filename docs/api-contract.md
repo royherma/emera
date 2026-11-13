@@ -56,3 +56,22 @@ Limits v0: images up to 25 MB (jpeg, png, webp, heic), video up to 200 MB (mp4, 
 | GET | `/v1/invites/:code` | - | `{ valid, invitedBy }` |
 
 Sign-up needs an invite code while invites are on (`INVITES_REQUIRED=true`).
+
+## Likes, comments, notifications
+
+Post JSON also carries `likeCount`, `commentCount` and `viewer: { liked }` (`liked` is false when the request has no sign-in).
+
+| Method | Path | Body | Returns |
+| --- | --- | --- | --- |
+| POST | `/v1/posts/:id/like` | - | `{ liked: true, likeCount }` - safe to repeat |
+| DELETE | `/v1/posts/:id/like` | - | `{ liked: false, likeCount }` |
+| GET | `/v1/posts/:id/comments` | - | `{ comments: [comment], cursor, total }` - top-level comments oldest first, each with its `replies` (oldest first); `?cursor=&limit=` pages, `total` counts replies too |
+| POST | `/v1/posts/:id/comments` | `{ body, parentId? }` | `{ comment }` (201) |
+| DELETE | `/v1/comments/:id` | - | `{ ok: true }` - the commenter or the post author; replies go with it |
+| GET | `/v1/notifications` | - | `{ notifications: [notification], cursor, unread }` newest first, `?cursor=&limit=` pages |
+| GET | `/v1/notifications/unread-count` | - | `{ unread }` |
+| POST | `/v1/notifications/read` | `{ ids? }` | `{ ok: true, unread }` - no `ids` marks everything read |
+
+`comment` = `{ id, postId, parentId, author: user, body, createdAt, replies: [comment] }`. `body` is 1 to 500 characters after trimming. `parentId` must be a top-level comment on the same post, so threads are one level deep (`bad_parent` otherwise). More than 10 comments in a minute from one person returns 429 `slow_down`. Errors: `bad_comment`, `comment_too_long`, `bad_parent`.
+
+`notification` = `{ id, kind: "like"|"comment"|"reply"|"follow", actor: user, count, postId, thumbUrl, commentId, preview, createdAt, read }`. Likes on the same post fold into one unread notification (`count` grows, `actor` is the latest person). Nobody is notified of their own actions. `follow` notifications are created by the follow endpoints through `notify()` in `apps/api/src/notifications.ts`.

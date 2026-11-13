@@ -1,6 +1,6 @@
 import brand from "./brand";
 import { PUBLIC_ORIGIN } from "./config";
-import { ApiError, Backend, Media, PickedFile, Post, User } from "./types";
+import { ApiError, Backend, Comment, Media, Notification, PickedFile, Post, User } from "./types";
 import { HANDLE_RE } from "./format";
 
 const wait = (ms = 280) => new Promise((r) => setTimeout(r, ms + Math.random() * 220));
@@ -74,6 +74,9 @@ const posts: Post[] = seeds.map(([handle, caption, w, h, ago, kind], i) => {
     caption,
     createdAt,
     url: `${PUBLIC_ORIGIN}/p/${id}`,
+    likeCount: 0,
+    commentCount: 0,
+    viewer: { liked: false },
     media: [makeMedia(handle, w * 400, h * 400, kind ?? "image", `mock:art/${id}`, createdAt)],
   };
 });
@@ -91,6 +94,68 @@ const current = (): User => {
   const user = [...users.values()].find((u) => u.id === id);
   if (!user) throw new ApiError("unauthorized", "Please sign in again.");
   return user;
+};
+
+const likes = new Map<string, Set<string>>();
+const comments: { id: string; postId: string; parentId: string | null; userId: string; body: string; createdAt: string }[] = [];
+const notes: { id: string; kind: Notification["kind"]; actor: string; count: number; postId: string | null; commentId: string | null; createdAt: string; read: boolean }[] = [];
+const COMMENT_MAX = 500;
+
+const seedLikes: [number, string[]][] = [
+  [0, ["jonas_w", "tamsin", "koji", "noor", "bram"]],
+  [2, ["mina", "ila_makes"]],
+  [3, ["mina", "noor", "odd_type"]],
+  [4, ["koji"]],
+];
+for (const [i, who] of seedLikes) likes.set(posts[i].id, new Set(who.map((h) => users.get(h)!.id)));
+const seedComments: [number, string, string, number][] = [
+  [0, "jonas_w", "That blue is unreal. What time did you set out?", 90],
+  [0, "mina", "Left at five, the light lasted about twenty minutes.", 60],
+  [0, "tamsin", "Saving this for a colour study.", 40],
+  [2, "koji", "The window light is doing so much here.", 100],
+];
+seedComments.forEach(([i, handle, body, ago], n) => {
+  comments.push({ id: `c_${n + 1}`, postId: posts[i].id, parentId: n === 1 ? "c_1" : null, userId: users.get(handle)!.id, body, createdAt: iso(ago) });
+});
+
+const view = (p: Post): Post => {
+  const me = token ? sessions.get(token) : undefined;
+  return { ...p, likeCount: likes.get(p.id)?.size ?? 0, commentCount: comments.filter((c) => c.postId === p.id).length, viewer: { liked: !!me && !!likes.get(p.id)?.has(me) } };
+};
+
+const userById = (id: string) => [...users.values()].find((u) => u.id === id)!;
+const commentView = (c: (typeof comments)[number]): Comment => ({
+  id: c.id,
+  postId: c.postId,
+  parentId: c.parentId,
+  author: userById(c.userId),
+  body: c.body,
+  createdAt: c.createdAt,
+  replies: comments.filter((r) => r.parentId === c.id).map((r) => ({ ...commentView(r), replies: [] })),
+});
+
+const pushNote = (kind: Notification["kind"], actor: string, postId: string | null, commentId: string | null, ago: number, count = 1) => {
+  notes.push({ id: `n_${notes.length + 1}`, kind, actor, count, postId, commentId, createdAt: iso(ago), read: false });
+};
+pushNote("like", "jonas_w", posts[0].id, null, 12, 3);
+pushNote("comment", "tamsin", posts[0].id, "c_3", 35);
+pushNote("reply", "mina", posts[0].id, "c_2", 70);
+pushNote("follow", "koji", null, null, 300);
+
+const noteView = (n: (typeof notes)[number]): Notification => {
+  const post = n.postId ? posts.find((p) => p.id === n.postId) : undefined;
+  return {
+    id: n.id,
+    kind: n.kind,
+    actor: users.get(n.actor)!,
+    count: n.count,
+    postId: n.postId,
+    thumbUrl: post ? post.media[0].url : null,
+    commentId: n.commentId,
+    preview: n.commentId ? (comments.find((c) => c.id === n.commentId)?.body ?? null) : null,
+    createdAt: n.createdAt,
+    read: n.read,
+  };
 };
 
 const sorted = () => [...posts].sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
@@ -146,14 +211,14 @@ export const mock: Backend & { _setToken: (t: string | null) => void } = {
     await wait();
     const all = sorted();
     const start = cursor ? Number(cursor) : 0;
-    const page = all.slice(start, start + 20);
+    const page = all.slice(start, start + 20).map(view);
     return { posts: page, cursor: start + 20 < all.length ? String(start + 20) : null };
   },
   async post(id) {
     await wait(150);
     const p = posts.find((x) => x.id === id);
     if (!p) throw new ApiError("not_found", "That post isn't here anymore.");
-    return p;
+    return view(p);
   },
   async deletePost(id) {
     await wait();
@@ -166,7 +231,7 @@ export const mock: Backend & { _setToken: (t: string | null) => void } = {
     await wait();
     const user = users.get(handle.toLowerCase());
     if (!user) throw new ApiError("not_found", `Nobody here goes by @${handle}.`);
-    return { user, posts: sorted().filter((p) => p.author.handle === user.handle), cursor: null };
+    return { user, posts: sorted().filter((p) => p.author.handle === user.handle).map(view), cursor: null };
   },
   async uploadMedia(file: PickedFile) {
     await wait(500);
@@ -179,9 +244,9 @@ export const mock: Backend & { _setToken: (t: string | null) => void } = {
     const id = `p_${++counter}`;
     const media = pending.filter((m) => mediaIds.includes(m.id));
     if (!media.length) throw new ApiError("bad_request", "Add at least one photo or video.");
-    const post: Post = { id, author: me, caption: caption.trim(), media, createdAt: new Date().toISOString(), url: `${PUBLIC_ORIGIN}/p/${id}` };
+    const post: Post = { id, author: me, caption: caption.trim(), media, createdAt: new Date().toISOString(), url: `${PUBLIC_ORIGIN}/p/${id}`, likeCount: 0, commentCount: 0, viewer: { liked: false } };
     posts.unshift(post);
-    return post;
+    return view(post);
   },
   async createInvite() {
     await wait();
@@ -193,6 +258,64 @@ export const mock: Backend & { _setToken: (t: string | null) => void } = {
   async report({ url }) {
     await wait();
     if (!/^https?:\/\/\S+\.\S+/.test(url)) throw new ApiError("bad_url", "Paste the full link, starting with https://");
+  },
+  async like(postId) {
+    await wait(120);
+    const me = current();
+    if (!posts.some((p) => p.id === postId)) throw new ApiError("not_found", "That post isn't here anymore.");
+    const set = likes.get(postId) ?? new Set<string>();
+    set.add(me.id);
+    likes.set(postId, set);
+    return { liked: true, likeCount: set.size };
+  },
+  async unlike(postId) {
+    await wait(120);
+    const me = current();
+    const set = likes.get(postId);
+    set?.delete(me.id);
+    return { liked: false, likeCount: set?.size ?? 0 };
+  },
+  async comments(postId) {
+    await wait();
+    const top = comments.filter((c) => c.postId === postId && !c.parentId).sort((a, b) => +new Date(a.createdAt) - +new Date(b.createdAt));
+    return { comments: top.map(commentView), cursor: null, total: comments.filter((c) => c.postId === postId).length };
+  },
+  async addComment({ postId, body, parentId }) {
+    await wait(200);
+    const me = current();
+    const text = body.trim();
+    if (!text) throw new ApiError("bad_comment", "Write something first.");
+    if (text.length > COMMENT_MAX) throw new ApiError("comment_too_long", `Comments can be up to ${COMMENT_MAX} characters.`);
+    if (!posts.some((p) => p.id === postId)) throw new ApiError("not_found", "That post isn't here anymore.");
+    const row = { id: `c_${++counter}`, postId, parentId: parentId ?? null, userId: me.id, body: text, createdAt: new Date().toISOString() };
+    comments.push(row);
+    return commentView(row);
+  },
+  async deleteComment(id) {
+    await wait(150);
+    const me = current();
+    const row = comments.find((c) => c.id === id);
+    if (!row) throw new ApiError("not_found", "No such comment.");
+    const post = posts.find((p) => p.id === row.postId);
+    if (row.userId !== me.id && post?.author.id !== me.id) throw new ApiError("forbidden", "Only the commenter or the post author can delete this comment.");
+    for (let i = comments.length - 1; i >= 0; i--) if (comments[i].id === id || comments[i].parentId === id) comments.splice(i, 1);
+  },
+  async notifications() {
+    await wait();
+    current();
+    const list = [...notes].sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
+    return { notifications: list.map(noteView), cursor: null, unread: notes.filter((n) => !n.read).length };
+  },
+  async unreadCount() {
+    await wait(80);
+    current();
+    return notes.filter((n) => !n.read).length;
+  },
+  async markNotificationsRead(ids) {
+    await wait(80);
+    current();
+    for (const n of notes) if (!ids || ids.includes(n.id)) n.read = true;
+    return notes.filter((n) => !n.read).length;
   },
 };
 

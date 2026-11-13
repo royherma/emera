@@ -5,6 +5,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Icon, IconName } from "@/components/Icon";
 import { Avatar } from "@/components/Avatar";
+import { UnreadDot } from "@/components/Engage";
+import { useRefreshUnread, useUnread } from "@/state/unread";
 import { Segmented, Wordmark, sunGradient, type PS } from "@/components/ui";
 import { elevation, radius, size, space, sun, type } from "@/lib/theme";
 import { SIDEBAR, useLayout } from "@/lib/layout";
@@ -25,6 +27,8 @@ function TabBar({ state, navigateToTab }: BottomTabBarProps) {
   const { user } = useAuth();
   const { c, scheme, mode, setMode } = useTheme();
   const activeName = state.routes[state.index]?.name;
+  const unread = useUnread();
+  useRefreshUnread(activeName);
   const go = (name: string) => {
     const r = state.routes.find((x) => x.name === name);
     if (r) navigateToTab(r.key);
@@ -59,6 +63,22 @@ function TabBar({ state, navigateToTab }: BottomTabBarProps) {
             </Pressable>
           );
         })}
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={unread ? `Notifications, ${unread} unread` : "Notifications"}
+          onPress={() => router.push("/notifications")}
+          style={({ hovered }: PS) => ({ flexDirection: "row", alignItems: "center", gap: 14, height: 48, paddingHorizontal: 12, borderRadius: radius.field, backgroundColor: hovered ? c.sunk : "transparent" })}
+        >
+          <View>
+            <Icon name="bell" size={24} color={c.ink2} />
+            {unread > 0 && (
+              <View style={{ position: "absolute", top: -2, right: -3 }}>
+                <UnreadDot />
+              </View>
+            )}
+          </View>
+          <Text style={[type.title, { fontSize: 15, color: c.ink2 }]}>Notifications</Text>
+        </Pressable>
         <View style={{ flex: 1 }} />
         <Pressable accessibilityRole="button" onPress={() => router.push("/settings")} style={({ hovered }: PS) => ({ flexDirection: "row", alignItems: "center", gap: 14, height: 44, paddingHorizontal: 12, borderRadius: radius.field, backgroundColor: hovered ? c.sunk : "transparent", marginBottom: space[2] })}>
           <Icon name="sliders" size={22} color={c.ink2} />

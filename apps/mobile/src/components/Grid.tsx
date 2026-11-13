@@ -1,6 +1,7 @@
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { Avatar } from "./Avatar";
+import { EngageBar } from "./Engage";
 import { Icon } from "./Icon";
 import { IndexChip, MediaImage, SignedMark } from "./Media";
 import { CategoryTag, Glass, IconButton, Pulse, type PS } from "./ui";
@@ -44,7 +45,8 @@ export function PostRow({ post, width, onDeleted }: { post: Post; width: number;
           </View>
         )}
       </Pressable>
-      <Pressable onPress={open} style={{ gap: 8, paddingHorizontal: 2, paddingTop: 2 }}>
+      <EngageBar post={post} />
+      <Pressable onPress={open} style={{ gap: 8, paddingHorizontal: 2 }}>
         {post.caption ? (
           <Text numberOfLines={2} style={[type.bodySm, { color: c.ink }]}>
             <Text style={{ fontFamily: type.name.fontFamily }}>{post.author.handle} </Text>

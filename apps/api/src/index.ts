@@ -5,6 +5,8 @@ import { ApiError } from './http';
 import { auth } from './auth';
 import { mediaRoutes } from './media';
 import { postRoutes } from './posts';
+import { engageRoutes } from './engage';
+import { notificationRoutes } from './notifications';
 import { pages, notFoundPage } from './pages';
 
 const app = new Hono<AppEnv>();
@@ -24,6 +26,8 @@ app.get('/health', (c) => c.json({ ok: true }));
 app.route('/', auth);
 app.route('/', mediaRoutes);
 app.route('/', postRoutes);
+app.route('/', engageRoutes);
+app.route('/', notificationRoutes);
 app.route('/', pages);
 
 app.onError((err, c) => {

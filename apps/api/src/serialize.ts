@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { AppEnv, UserRow } from './env';
 import { originOf, siteOrigin } from './http';
+import { loadEngagement } from './engagement';
 
 export type MediaRow = {
   id: string; user_id: string; kind: string; content_type: string; width: number; height: number;
@@ -42,9 +43,10 @@ export async function loadPosts(c: Context<AppEnv>, rows: PostRow[]) {
   const ids = rows.map((r) => r.id);
   const userIds = [...new Set(rows.map((r) => r.user_id))];
   const uph = userIds.map(() => '?').join(',');
-  const [media, users] = await Promise.all([
+  const [media, users, engagement] = await Promise.all([
     c.env.DB.prepare(`SELECT * FROM media WHERE post_id IN (${ph}) ORDER BY position`).bind(...ids).all<MediaRow>(),
     c.env.DB.prepare(`SELECT * FROM users WHERE id IN (${uph})`).bind(...userIds).all<UserRow>(),
+    loadEngagement(c, ids),
   ]);
   const byPost = new Map<string, ReturnType<typeof mediaJson>[]>();
   for (const m of media.results) {
@@ -60,6 +62,9 @@ export async function loadPosts(c: Context<AppEnv>, rows: PostRow[]) {
     media: byPost.get(p.id) ?? [],
     createdAt: iso(p.created_at),
     url: `${site}/p/${p.id}`,
+    likeCount: engagement.likeCount.get(p.id) ?? 0,
+    commentCount: engagement.commentCount.get(p.id) ?? 0,
+    viewer: { liked: engagement.liked.has(p.id) },
   }));
 }
 
