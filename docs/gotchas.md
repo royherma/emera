@@ -52,3 +52,9 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 - **expo-video on web draws a portrait clip at its full file size (1080x1920) and shows only the top-left corner.** `VideoView` hands its RN style straight to a raw `<video>`, and a `<video>` does not stretch to `top/right/bottom/left: 0` the way a `View` does. Spot it: `document.querySelector('video').getBoundingClientRect()` is bigger than its box. Fix: always give it `width: "100%", height: "100%"` (`Media.tsx` `fill`).
 - **Media box sizes come from one place: `apps/mobile/src/lib/mediaBox.ts`.** Feed crops to 4:5 through 1.91:1. The post screen shows the whole frame fitted to the window. Do not write `width / height` math in a screen again.
 - **A video post's link preview needs the poster as `og:image`.** With only `og:video`, chat apps showed a bare text card. `pages.ts` `cover()` falls back to the first video's poster and adds `og:video:width/height`.
+
+## 2026-11-13 - Click-to-edit site copy
+
+- **Live site text can differ from `apps/site` source.** Roy edits copy in place (`/edit?key=<ADMIN_KEY>`); edits live in the site D1 `copy` table and the worker swaps them in by `data-e` key. Before rewriting landing text, check `SELECT page, key, live FROM copy` on `emera-site` and fold any live edit into the template first.
+- **A `data-e` key is a hash of the element's tag + text at build.** Change that text in source and the key changes, so Roy's edit stops applying (the edit bar then counts it as "no longer on the page"). Fix: copy the edit into source, then delete its row.
+- **Rewritten HTML must not answer 304.** The asset ETag survives HTMLRewriter, so a returning browser kept the old copy. `page()` strips `If-None-Match` and the ETag.
