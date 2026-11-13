@@ -22,50 +22,66 @@ appId: social.emera
 - waitForAnimationToEnd: {timeout: 4000}
 - takeScreenshot: feed
 - openLink: "emera:///explore"
+- tapOn: {text: "Open", optional: true}
 - waitForAnimationToEnd: {timeout: 4000}
 - takeScreenshot: explore
 - openLink: "emera:///me"
+- tapOn: {text: "Open", optional: true}
 - waitForAnimationToEnd: {timeout: 4000}
 - takeScreenshot: me
 - openLink: "emera:///upload"
+- tapOn: {text: "Open", optional: true}
 - waitForAnimationToEnd: {timeout: 4000}
 - takeScreenshot: upload
 - openLink: "emera:///settings"
+- tapOn: {text: "Open", optional: true}
 - waitForAnimationToEnd: {timeout: 4000}
 - takeScreenshot: settings
 - openLink: "emera:///search"
+- tapOn: {text: "Open", optional: true}
 - waitForAnimationToEnd: {timeout: 4000}
 - takeScreenshot: search
 - openLink: "emera:///notifications"
+- tapOn: {text: "Open", optional: true}
 - waitForAnimationToEnd: {timeout: 4000}
 - takeScreenshot: notifications
 - openLink: "emera:///invites"
+- tapOn: {text: "Open", optional: true}
 - waitForAnimationToEnd: {timeout: 4000}
 - takeScreenshot: invites
 - openLink: "emera:///edit-profile"
+- tapOn: {text: "Open", optional: true}
 - waitForAnimationToEnd: {timeout: 4000}
 - takeScreenshot: edit-profile
 - openLink: "emera:///blocked"
+- tapOn: {text: "Open", optional: true}
 - waitForAnimationToEnd: {timeout: 4000}
 - takeScreenshot: blocked
 - openLink: "emera:///p/p_100"
+- tapOn: {text: "Open", optional: true}
 - waitForAnimationToEnd: {timeout: 4000}
 - takeScreenshot: p-p_100
 - openLink: "emera:///comments/p_100"
+- tapOn: {text: "Open", optional: true}
 - waitForAnimationToEnd: {timeout: 4000}
 - takeScreenshot: comments-p_100
 - openLink: "emera:///u/mina"
+- tapOn: {text: "Open", optional: true}
 - waitForAnimationToEnd: {timeout: 4000}
 - takeScreenshot: u-mina
 - openLink: "emera:///followers/mina"
+- tapOn: {text: "Open", optional: true}
 - waitForAnimationToEnd: {timeout: 4000}
 - takeScreenshot: followers-mina
 - openLink: "emera:///following/mina"
+- tapOn: {text: "Open", optional: true}
 - waitForAnimationToEnd: {timeout: 4000}
 - takeScreenshot: following-mina
 - openLink: "emera:///report?type=post&id=p_100"
+- tapOn: {text: "Open", optional: true}
 - waitForAnimationToEnd: {timeout: 4000}
 - takeScreenshot: report
 - openLink: "emera:///flag?type=user&id=u_1&name=mina"
+- tapOn: {text: "Open", optional: true}
 - waitForAnimationToEnd: {timeout: 4000}
 - takeScreenshot: flag
