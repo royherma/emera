@@ -213,6 +213,22 @@ async function signup(request, env) {
   return json({ ok: true, already: !added });
 }
 
+const REPO = "royherma/emera";
+
+async function stars(ctx) {
+  const cache = caches.default;
+  const key = new Request(`https://emera.social/__stars/${REPO}`);
+  const hit = await cache.match(key);
+  if (hit) return hit;
+  const gh = await fetch(`https://api.github.com/repos/${REPO}`, { headers: { "user-agent": "emera-site", accept: "application/vnd.github+json" } }).catch(() => null);
+  const data = gh?.ok ? await gh.json() : null;
+  const res = new Response(JSON.stringify({ stars: data?.stargazers_count ?? null }), {
+    headers: { "content-type": "application/json; charset=utf-8", "cache-control": `public, max-age=${data ? 900 : 60}` },
+  });
+  if (data) ctx.waitUntil(cache.put(key, res.clone()));
+  return res;
+}
+
 async function count(env) {
   const row = await env.DB.prepare("SELECT COUNT(*) AS n FROM early_access").first();
   return json({ count: row?.n ?? 0 });
@@ -232,6 +248,7 @@ export default {
       return json({ ok: false, error: "method_not_allowed" }, 405);
     }
     if (pathname === "/edit") return login(request, env, url);
+    if (pathname === "/api/stars") return stars(ctx);
     if (pathname === "/api/copy" || pathname.startsWith("/api/copy/")) return copyApi(request, env, url);
     if (pathname.startsWith("/api/")) return json({ ok: false, error: "not_found" }, 404);
     return page(request, env, ctx, url);
