@@ -4,22 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{name}} | {{tagline}}</title>
-<meta name="description" content="{{tagline}}. The open home for everything people make, with proof of who made it on every post.">
+<meta name="description" content="Share what you make and what you see, with proof of who posted it and when on every post. Open source and run as a nonprofit.">
 <meta name="theme-color" content="#fbf5ea" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0c0a09" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
 <link rel="canonical" href="https://{{domain}}/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{{name}}">
-<meta property="og:title" content="{{name}}: {{tagline}}">
-<meta property="og:description" content="Every post carries proof of who made it. Real people, an open algorithm, and help when your work is copied.">
+<meta property="og:title" content="{{name}}: every post signed by the person who was there">
+<meta property="og:description" content="Art, music, video and the news from where you stand, shared by real people you can check.">
 <meta property="og:url" content="https://{{domain}}/">
 <meta property="og:image" content="https://{{domain}}/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{name}}: {{tagline}}">
-<meta name="twitter:description" content="Every post carries proof of who made it. Real people, an open algorithm, and help when your work is copied.">
+<meta name="twitter:title" content="{{name}}: every post signed by the person who was there">
+<meta name="twitter:description" content="Art, music, video and the news from where you stand, shared by real people you can check.">
 <meta name="twitter:image" content="https://{{domain}}/assets/og.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23ffc24a'/%3E%3Cstop offset='1' stop-color='%23ff6a2b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='48' fill='%231c1a17'/%3E%3Cpath d='M2 50a48 48 0 0 1 96 0z' fill='url(%23g)'/%3E%3Cpath d='M0 50h100' stroke='%23fbf5ea' stroke-width='6'/%3E%3C/svg%3E">
 <script>
@@ -234,8 +234,10 @@ h2{font:700 clamp(2.1rem,5.2vw,4.2rem)/1.02 var(--disp);letter-spacing:-.05em;te
 .why-q{position:relative;overflow:hidden;isolation:isolate;background:#0c0a09;color:#fbf3e8;padding:clamp(72px,11vw,150px) 0}
 .why-q:before{content:"";position:absolute;z-index:-1;left:50%;bottom:-48vmin;width:90vmin;height:90vmin;margin-left:-45vmin;border-radius:50%;background:radial-gradient(circle,rgba(255,150,50,.85),rgba(255,100,30,.3) 40%,transparent 66%)}
 .why-q .lbl{font:600 .78rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:#ffc98a}
-blockquote{margin-top:22px;max-width:1040px}
-blockquote p{font:300 clamp(1.6rem,3.6vw,3rem)/1.18 var(--disp);letter-spacing:-.045em}
+.why-q .mani{margin-top:22px;max-width:15em;font:700 clamp(2.4rem,6vw,5.2rem)/.98 var(--disp);letter-spacing:-.055em;color:#fbf3e8}
+.mani-p{margin-top:26px;max-width:36em;font-size:clamp(1.05rem,1.6vw,1.3rem);line-height:1.5;color:#e6d8c6}
+blockquote{margin-top:clamp(40px,6vw,72px);max-width:900px;padding-left:22px;border-left:2px solid #ffc98a}
+blockquote p{font:300 clamp(1.25rem,2.4vw,1.9rem)/1.3 var(--disp);letter-spacing:-.03em}
 blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight:400;color:#e6d8c6;letter-spacing:-.02em;line-height:1.4;max-width:34em}
 .who-q{margin-top:28px;font-weight:600;color:#ffc98a}
 
@@ -295,7 +297,7 @@ footer a.gh:hover{text-decoration-color:var(--sun2)}
         <div class="eyebrow"><b></b>hemera, Greek for daylight</div>
         <h1>{{name}}</h1>
         <p class="tagline">{{tagline}}</p>
-        <p class="lead">The open home for everything people make: video, art, photos, music, design, craft. Every post is signed by the person who made it.</p>
+        <p class="lead">Share what you make and what you see: art, video, music, craft, and the news from where you stand. Every post carries proof of who shared it and when, so people can tell what is real.</p>
         <form class="signup" data-signup novalidate>
           <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address" required>
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -334,13 +336,13 @@ footer a.gh:hover{text-decoration-color:var(--sun2)}
         <article class="card w reveal">
           <span class="n">01</span>
           <h3>Proof of who made it</h3>
-          <p>Every post carries a signed record of its maker and the moment it was made. The badge says exactly what was checked, nothing more.</p>
+          <p>Every post carries a signed record of who shared it and the moment it went up. The badge says exactly what was checked, nothing more.</p>
           <div class="viz"><div class="pane"><div class="r"><span class="th"><img src="/assets/work/lettering.jpg" alt="" loading="lazy"></span><span><strong>Made by Nour Letters</strong><small>Signed 13 Nov 2026, original</small></span><span class="tg">Signed</span></div></div></div>
         </article>
         <article class="card w reveal">
           <span class="n">02</span>
-          <h3>Real people, clearly marked</h3>
-          <p>People are marked and bots say what they are. A bought following counts for nothing, and the verified human mark is free for everyone.</p>
+          <h3>Real people, real moments</h3>
+          <p>When news breaks, you can see who shared it, when, and whether a person or a bot posted it. The verified human mark is free for everyone.</p>
           <div class="viz"><div class="pane"><div class="r"><span class="sealc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></span><span><strong>Wren Fiber Co</strong><small>Passed the human check</small></span><span class="tg">Verified human</span></div><div class="r"><span class="sealc" style="background:var(--bg2);color:var(--ink2)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-grid"/></svg></span><span><strong>Daily Dawn Bot</strong><small>Posts on a schedule</small></span><span class="tg" style="background:var(--bg);color:var(--ink2)">Automated</span></div></div></div>
         </article>
         <article class="card reveal">
@@ -367,19 +369,20 @@ footer a.gh:hover{text-decoration-color:var(--sun2)}
 
   <section class="why-q">
     <div class="wrap">
-      <div class="lbl">Why we are building it</div>
+      <div class="lbl">Why {{name}} exists</div>
+      <h2 class="mani reveal">The internet got easy to fake. We are making it easy to trust</h2>
+      <p class="mani-p reveal">AI can copy a drawing in seconds and invent a crowd that never gathered. On {{name}}, every post shows who shared it and when, and reposts point back to the original. Makers keep the credit for their work, and everyone else can tell what is real.</p>
       <blockquote class="reveal">
-        <p>As a technologist, and as a creative, it is hard for me to see people treated unfairly, especially because I know it is something that is solvable.</p>
-        <p>We can make a thing, we can make an impact, especially now. If you dream it, it can become a reality.</p>
+        <p>There are ways to protect, ways to treat people fairly, and ways to incentivize people to create things that benefit humanity rather than push us apart.</p>
       </blockquote>
-      <div class="who-q">The founder of {{name}}</div>
+      <div class="who-q">Roy, founder of {{name}}</div>
     </div>
   </section>
 
   <section class="close" id="join">
     <div class="wrap"><div class="inner reveal">
-      <h2>Put your work out in the daylight</h2>
-      <p class="lead">Join the first creators on {{name}}. It takes a minute.<span class="count" data-count></span></p>
+      <h2>Put it out in the daylight</h2>
+      <p class="lead">Your work, your news, your next event. Join the first people on {{name}}, it takes a minute.<span class="count" data-count></span></p>
       <form class="signup" data-signup novalidate>
         <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address" required>
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">

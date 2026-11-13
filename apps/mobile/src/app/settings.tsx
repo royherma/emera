@@ -55,10 +55,11 @@ export default function Settings() {
       {user && (
         <View style={{ flexDirection: "row", alignItems: "center", gap: space[3], backgroundColor: c.surface, borderRadius: radius.card, padding: space[4], borderWidth: 1, borderColor: c.hair }}>
           <Avatar user={user} size={56} />
-          <View>
+          <View style={{ flex: 1 }}>
             <Text style={[type.title, { color: c.ink }]}>{user.displayName}</Text>
             <Text style={[type.meta, { color: c.ink3 }]}>@{user.handle}</Text>
           </View>
+          <Button label="Edit profile" kind="secondary" onPress={() => router.push("/edit-profile")} />
         </View>
       )}
 

@@ -69,7 +69,7 @@ features:
     platforms: {instagram: yes, tiktok: yes, youtube: yes, pinterest: yes, bluesky: yes, cara: yes, pixelfed: yes, vsco: yes}
     emera:
       twist: ""
-      maps_to: {screens: ["/settings"], endpoints: ["PATCH /v1/me"], stories: ["edit-profile"]}
+      maps_to: {screens: ["/edit-profile"], endpoints: ["PATCH /v1/me"], stories: ["edit-profile"]}
       help_wanted: true
       effort: S
   - id: profile-grid
@@ -151,7 +151,7 @@ features:
     platforms: {instagram: yes, tiktok: yes, youtube: yes, pinterest: partial, bluesky: yes, cara: yes, pixelfed: yes, vsco: yes}
     emera:
       twist: "Prompted on every post, a stated product commitment"
-      maps_to: {screens: [], endpoints: [], stories: []}
+      maps_to: {screens: ["/upload"], endpoints: ["POST /v1/posts"], stories: []}
       help_wanted: true
       effort: S
   - id: multi-image-post
@@ -420,7 +420,7 @@ features:
     platforms: {instagram: yes, tiktok: yes, youtube: yes, pinterest: yes, bluesky: yes, cara: yes, pixelfed: yes, vsco: yes}
     emera:
       twist: ""
-      maps_to: {screens: [], endpoints: [], stories: []}
+      maps_to: {screens: ["/search", "/explore"], endpoints: ["GET /v1/search"], stories: []}
       help_wanted: true
       effort: M
   - id: suggested-follows
@@ -845,7 +845,7 @@ features:
     platforms: {instagram: yes, tiktok: yes, youtube: yes, pinterest: yes, bluesky: yes, cara: yes, pixelfed: yes, vsco: yes}
     emera:
       twist: "Reporter sees the outcome and the reason"
-      maps_to: {screens: [], endpoints: [], stories: []}
+      maps_to: {screens: ["/flag"], endpoints: ["POST /v1/flags", "GET /v1/flags"], stories: []}
       help_wanted: true
       effort: M
   - id: composable-moderation

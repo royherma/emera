@@ -17,6 +17,7 @@ export function usePostMenu(onDeleted?: (id: string) => void) {
     const own = user?.id === post.author.id;
     const actions: SheetAction[] = [
       { label: "Report a copy", icon: "flag", onPress: () => router.push({ pathname: "/report", params: { id: post.id } }) },
+      ...(own ? [] : [{ label: "Report", icon: "flag" as const, onPress: () => router.push({ pathname: "/flag", params: { type: "post", id: post.id } }) }]),
       { label: "Share", icon: "share", onPress: async () => (await shareLink(post.url, `A post by @${post.author.handle}`)) === "copied" && toast("Link copied") },
       { label: "Copy link", icon: "link", onPress: async () => (await copyText(post.url), toast("Link copied")) },
     ];

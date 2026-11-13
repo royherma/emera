@@ -51,8 +51,8 @@ const feed = (th) => `<div class="scr ${th}">${sb}
 <div class="seg"><a class="on">Following</a><a>Open feeds</a><a>Newest</a></div>
 <div class="bl">
 ${feedPost("guitar", "Dev Rao", "devrao.plays", "4m", "Tuning the Rao family guitar before the festival. Signed live, original take.", { f: "guitar", h: 128 }, "Photo: Mel_DJ, PDM", "2.3k", "274", "184", "Music", "#ff6a5b", "#ff9a3c", "#ff4f8b")}
+${feedPost("lanterns", "Mei Lin", "meilin.reports", "9m", "Labyrinth of Light tonight. The whole square is candles, straight off my phone.", { f: "lanterns", h: 140 }, "Photo: Visible Hand, CC BY", "3.4k", "412", "889", "Events", "#3dc6c0", "#3dbcf0", "#8a7bff")}
 ${feedPost("stairs", "Lina Verdu", "lina.verdu", "12m", "Spiral stair study, Valencia. Third of a series of six.", { f: "stairs", h: 140 }, "Photo: Ian Prince, CC0", "2.1k", "253", "170", "Architecture", "#3dc6c0", "#3dbcf0", "#8a7bff")}
-${feedPost("ramen", "Marisol Bakes", "marisol.bakes", "31m", "Day 9 of the starter. Crumb shot at last.", { f: "ramen", h: 130 }, "Photo: CC0", "1.8k", "96", "61", "Food", "#ffc24a", "#ffc24a", "#ff6a2b")}
 </div>${tabs("home", "yarn")}</div>`;
 
 const swatches = ["#ffd21f", "#f2634a", "#d8201f", "#9b6bff", "#3b6ea5", "#2c9a6b", "#e0a263", "#8b5a3c", "#e8a89a", "#ffd21f"];
@@ -61,7 +61,7 @@ const tile = (f, h, n, c) => `<div class="t" style="height:${h}px">${img(f)}<spa
 const explore = (th) => `<div class="scr ${th}">${sb}
 <div class="top solo"><span class="h1">Explore</span></div>
 <div class="search">${I("search")}<span>Search makers, works, mediums</span><i>${I("sliders")}</i></div>
-<div class="chips"><a class="on"><s style="--c:#ff8a2b"></s>All</a><a><s style="--c:#ff6a5b"></s>Illustration</a><a><s style="--c:#8a7bff"></s>Film</a><a><s style="--c:#ffc24a"></s>Music</a><a><s style="--c:#3dc6c0"></s>Ceramics</a></div>
+<div class="chips"><a class="on"><s style="--c:#ff8a2b"></s>All</a><a><s style="--c:#ff6a5b"></s>Illustration</a><a><s style="--c:#8a7bff"></s>Film</a><a><s style="--c:#ffc24a"></s>Music</a><a><s style="--c:#3dc6c0"></s>News</a></div>
 <div class="sec"><b>Colors of today</b><span>From works signed since dawn</span></div>
 <div class="swr">${swatches.map((c) => `<i style="background:${c}"></i>`).join("")}</div>
 <div class="mas"><div>${tile("reddance", 128, "2.3k", "#ff6a5b")}${tile("ceramics", 94, "4.6k", "#ffc24a")}${tile("lettering", 104, "4.8k", "#ff8a2b")}</div><div>${tile("kimono", 232, "4.4k", "#ff6a5b")}${tile("swirl3d", 70, "3.4k", "#8a7bff")}${tile("balletfeet", 80, "2.9k", "#ff8a2b")}</div></div>
@@ -90,4 +90,4 @@ const post = (th) => `<div class="scr ${th}">${sb}
 
 export const screens = { feed, explore, profile, post };
 
-export const usedWork = ["guitar", "stairs", "ramen", "reddance", "ceramics", "lettering", "kimono", "swirl3d", "balletfeet", "yarn", "watercolor", "mural", "records"];
+export const usedWork = ["guitar", "lanterns", "stairs", "ramen", "reddance", "ceramics", "lettering", "kimono", "swirl3d", "balletfeet", "yarn", "watercolor", "mural", "records"];

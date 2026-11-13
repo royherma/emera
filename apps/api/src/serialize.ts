@@ -7,14 +7,23 @@ import { loadEngagement } from './engagement';
 export type MediaRow = {
   id: string; user_id: string; kind: string; content_type: string; width: number; height: number;
   sha256: string | null; r2_key: string; signed_at: number | null; signer: string | null; signature: string | null;
-  post_id: string | null; position: number;
+  post_id: string | null; position: number; alt: string;
 };
 export type PostRow = { id: string; user_id: string; caption: string; created_at: number };
 
 export const iso = (ms: number) => new Date(ms).toISOString();
 
+function parseLinks(raw: string | undefined): string[] {
+  try {
+    const v = JSON.parse(raw ?? '[]');
+    return Array.isArray(v) ? v.filter((x) => typeof x === 'string') : [];
+  } catch {
+    return [];
+  }
+}
+
 export function userJson(u: UserRow, social?: SocialInfo) {
-  return { id: u.id, handle: u.handle, displayName: u.display_name, bio: u.bio, avatarUrl: u.avatar_url, createdAt: iso(u.created_at), ...social };
+  return { id: u.id, handle: u.handle, displayName: u.display_name, bio: u.bio, links: parseLinks(u.links), avatarUrl: u.avatar_url, createdAt: iso(u.created_at), ...social };
 }
 
 export async function usersJson(c: Context<AppEnv>, rows: UserRow[]) {
@@ -30,6 +39,7 @@ export function mediaJson(origin: string, m: MediaRow) {
     contentType: m.content_type,
     width: m.width,
     height: m.height,
+    alt: m.alt ?? '',
     url: `${origin}/media/${m.r2_key}`,
     sha256: m.sha256,
     proof: {

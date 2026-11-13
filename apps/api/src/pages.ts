@@ -113,7 +113,7 @@ function tile(p: Post) {
   const m = p.media[0];
   const label = esc(trim(p.caption || `Post by @${p.author.handle}`, 80));
   const inner = m?.kind === 'image'
-    ? `<img src="${esc(m.url)}" width="${m.width}" height="${m.height}" alt="${label}" loading="lazy">`
+    ? `<img src="${esc(m.url)}" width="${m.width}" height="${m.height}" alt="${m.alt ? esc(trim(m.alt, 120)) : label}" loading="lazy">`
     : `<span class="play">▶</span>`;
   const badge = p.media.length > 1 ? `<span class="badge">${p.media.length}</span>` : '';
   return `<a class="tile" href="/p/${esc(p.id)}">${inner}${badge}</a>`;
@@ -177,8 +177,8 @@ pages.get('/p/:id', async (c) => {
   const name = a.displayName || a.handle!;
   const first = post.media[0];
   const mediaHtml = post.media.map((m) => m.kind === 'image'
-    ? `<img class="media" src="${esc(m.url)}" width="${m.width}" height="${m.height}" alt="${esc(trim(post.caption || `Photo by @${a.handle}`, 120))}">`
-    : `<video class="media" src="${esc(m.url)}" controls playsinline preload="metadata"></video>`).join('');
+    ? `<img class="media" src="${esc(m.url)}" width="${m.width}" height="${m.height}" alt="${esc(m.alt || trim(post.caption || `Photo by @${a.handle}`, 120))}">`
+    : `<video class="media" src="${esc(m.url)}"${m.alt ? ` aria-label="${esc(m.alt)}"` : ''} controls playsinline preload="metadata"></video>`).join('');
   const proof = first?.proof;
   const proofHtml = proof?.sha256
     ? `<div class="proof"><strong>Proof of origin.</strong> Uploaded by @${esc(proof.signer)} on ${esc(day(proof.signedAt!))}, signed by ${esc(BRAND.name)}.<br><code>sha256 ${esc(proof.sha256)}</code></div>`

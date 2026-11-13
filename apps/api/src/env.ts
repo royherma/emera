@@ -18,6 +18,7 @@ export type UserRow = {
   handle: string | null;
   display_name: string;
   bio: string;
+  links: string;
   avatar_url: string | null;
   invited_by: string | null;
   created_at: number;

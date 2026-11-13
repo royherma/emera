@@ -94,4 +94,10 @@ export const http: Backend = {
   },
   unreadCount: async () => (await send<{ unread: number }>("GET", "/v1/notifications/unread-count")).unread,
   markNotificationsRead: async (ids) => (await send<{ unread: number }>("POST", "/v1/notifications/read", ids ? { ids } : {})).unread,
+  search: async (q, kind, cursor) => {
+    const r = await send<{ users?: User[]; posts?: Post[]; cursor?: string | null }>("GET", `/v1/search?q=${encodeURIComponent(q)}&type=${kind}${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ""}`);
+    return { users: r.users ?? [], posts: r.posts ?? [], cursor: r.cursor ?? null };
+  },
+  updateProfile: async (input) => (await send<{ user: User }>("PATCH", "/v1/me", input)).user,
+  flag: async (input) => void (await send("POST", "/v1/flags", input)),
 };

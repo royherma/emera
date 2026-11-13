@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { useEffect, useMemo, useState } from "react";
+import { Linking, Pressable, ScrollView, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { Avatar } from "./Avatar";
@@ -27,9 +27,9 @@ const groupLabel: Record<Group, string> = { all: "All", image: "Photos", video: 
 export function ProfileView({ handle, own, tabs, back, onInvite }: { handle: string; own?: boolean; tabs?: boolean; back?: boolean; onInvite?: () => void }) {
   const router = useRouter();
   const toast = useToast();
+  const sheet = useSheet();
   const { c } = useTheme();
   const { wide, column } = useLayout();
-  const sheet = useSheet();
   const { data, error, loading, refreshing, reload, retry, setData } = useResource(() => api.profile(handle), `profile:${handle}`);
   const [busy, setBusy] = useState(false);
   const [group, setGroup] = useState<Group>("all");
@@ -81,6 +81,7 @@ export function ProfileView({ handle, own, tabs, back, onInvite }: { handle: str
             onPress: () =>
               confirmAsk(`Block @${handle}?`, "They can't follow you or see your work, and you won't see theirs.", "Block", () => void act(() => api.block(handle), `Blocked @${handle}`)),
           },
+      ...(user ? [{ label: "Report account", icon: "flag" as const, onPress: () => router.push({ pathname: "/flag", params: { type: "user", id: user.id, name: user.handle } }) }] : []),
     ]);
 
   const stat = (value: string, label: string, onPress?: () => void) => (
@@ -128,6 +129,11 @@ export function ProfileView({ handle, own, tabs, back, onInvite }: { handle: str
                   <Text style={[type.title, { fontSize: 19, color: c.ink }]}>{user.displayName}</Text>
                   <Text style={[type.meta, { color: c.ink3 }]}>@{user.handle}</Text>
                   {user.bio ? <Text style={[type.bodySm, { color: c.ink, maxWidth: 420, marginTop: 2 }]}>{user.bio}</Text> : null}
+                  {user.links?.map((l) => (
+                    <Pressable key={l} accessibilityRole="link" onPress={() => void Linking.openURL(l)}>
+                      <Text numberOfLines={1} style={[type.meta, { color: c.sunInk, maxWidth: 420 }]}>{l.replace(/^https?:\/\//, "")}</Text>
+                    </Pressable>
+                  ))}
                 </>
               ) : (
                 <>
@@ -138,7 +144,10 @@ export function ProfileView({ handle, own, tabs, back, onInvite }: { handle: str
             </View>
             <View style={{ flexDirection: "row", gap: space[2], marginTop: space[4] }}>
               {own ? (
-                <Button label="Share profile" icon="share" onPress={share} disabled={!user} style={{ flex: 1 }} />
+                <>
+                  <Button label="Edit profile" kind="secondary" onPress={() => router.push("/edit-profile")} disabled={!user} style={{ flex: 1 }} />
+                  <Button label="Share profile" icon="share" onPress={share} disabled={!user} style={{ flex: 1 }} />
+                </>
               ) : (
                 <>
                   {isBlocked ? (

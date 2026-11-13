@@ -285,11 +285,11 @@ export const mock: Backend & { _setToken: (t: string | null) => void } = {
     const me = current();
     return makeMedia(me.handle, file.width || 1200, file.height || 1200, file.kind, file.uri, new Date().toISOString(), file.mimeType);
   },
-  async createPost({ mediaIds, caption }) {
+  async createPost({ mediaIds, caption, alt }) {
     await wait();
     const me = current();
     const id = `p_${++counter}`;
-    const media = pending.filter((m) => mediaIds.includes(m.id));
+    const media = pending.filter((m) => mediaIds.includes(m.id)).map((m) => ({ ...m, alt: alt?.[m.id]?.trim() ?? "" }));
     if (!media.length) throw new ApiError("bad_request", "Add at least one photo or video.");
     const post: Post = { id, author: me, caption: caption.trim(), media, createdAt: new Date().toISOString(), url: `${PUBLIC_ORIGIN}/p/${id}`, likeCount: 0, commentCount: 0, viewer: { liked: false } };
     posts.unshift(post);
@@ -428,6 +428,35 @@ export const mock: Backend & { _setToken: (t: string | null) => void } = {
     current();
     for (const n of notes) if (!ids || ids.includes(n.id)) n.read = true;
     return notes.filter((n) => !n.read).length;
+  },
+  async search(q, kind) {
+    await wait();
+    const words = q.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? [];
+    const hit = (text: string) => words.every((w) => text.toLowerCase().split(/[^\p{L}\p{N}]+/u).some((t) => t.startsWith(w)));
+    if (!words.length) return { users: [], posts: [], cursor: null };
+    if (kind === "people") return { users: [...users.values()].filter((u) => u.handle && hit(`${u.handle} ${u.displayName} ${u.bio}`)), posts: [], cursor: null };
+    return { users: [], posts: sorted().filter((p) => hit(`${p.caption} ${p.media.map((m) => m.alt ?? "").join(" ")}`)), cursor: null };
+  },
+  async updateProfile(input) {
+    await wait();
+    const me = current();
+    if (input.displayName !== undefined && !input.displayName.trim()) throw new ApiError("bad_name", "Names can be 1 to 50 characters.");
+    if (input.bio !== undefined && input.bio.length > 280) throw new ApiError("bad_bio", "Bios can be up to 280 characters.");
+    if (input.links?.some((l) => !/^https?:\/\/\S+\.\S+/.test(l))) throw new ApiError("bad_links", "Each link must start with http:// or https://");
+    const avatar = input.avatarMediaId === undefined ? me.avatarUrl : input.avatarMediaId === null ? null : (pending.find((m) => m.id === input.avatarMediaId)?.url ?? me.avatarUrl);
+    Object.assign(me, {
+      displayName: input.displayName === undefined ? me.displayName : input.displayName.trim(),
+      bio: input.bio === undefined ? me.bio : input.bio.trim(),
+      links: input.links ?? me.links,
+      avatarUrl: avatar,
+    });
+    return me;
+  },
+  async flag({ targetType, targetId }) {
+    await wait();
+    const me = current();
+    const own = targetType === "post" ? posts.find((p) => p.id === targetId)?.author.id === me.id : targetId === me.id;
+    if (own) throw new ApiError("own_content", "You cannot report your own posts or account.");
   },
 };
 
