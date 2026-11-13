@@ -37,4 +37,19 @@ for (const [name, t] of Object.entries(themes)) {
   execFileSync('cwebp', ['-quiet', '-q', '88', png, '-o', webp]);
   console.log(name, statSync(webp).size, 'bytes');
 }
+// GitHub social preview + app share card: 1280x640 is GitHub's recommended size.
+await page.setViewportSize({ width: 1280, height: 640 });
+await page.evaluate(({ srcs }) => {
+  document.documentElement.classList.add('og');
+  document.body.classList.remove('night');
+  document.body.classList.add('og');
+  document.querySelector('.tag').textContent = 'Every post carries proof of who made it';
+  srcs.forEach((s, i) => { document.getElementById('s' + (i + 1)).src = s; });
+}, { srcs: themes.light.screens.map((s) => dataUri(path.join(shots, s + '.png'))) });
+await page.waitForFunction(() => [...document.images].every((i) => i.complete && i.naturalWidth));
+const ogPng = path.join(os.tmpdir(), 'emera-og.png');
+const og = path.join(here, 'og.jpg');
+await page.screenshot({ path: ogPng });
+execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '88', ogPng, '--out', og], { stdio: 'ignore' });
+console.log('og', statSync(og).size, 'bytes');
 await browser.close();

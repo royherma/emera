@@ -14,6 +14,7 @@
   }
   * { box-sizing: border-box; margin: 0; }
   html, body { width: 1280px; height: 560px; overflow: hidden; }
+  html.og { height: 640px; }
   body {
     background:
       radial-gradient(620px 420px at 78% 8%, var(--glow1), transparent 70%),
@@ -37,6 +38,17 @@
   .p1 { left: 8px; top: 92px; transform: rotate(-7deg); }
   .p2 { left: 196px; top: 46px; z-index: 2; width: 226px; height: 488px; }
   .p3 { left: 392px; top: 92px; transform: rotate(7deg); }
+  body.og { width: 1280px; height: 640px; }
+  body.og .left { left: 80px; width: 640px; }
+  body.og .brand svg { width: 58px; height: 58px; margin-left: -6px; }
+  body.og .brand h1 { font-size: 52px; }
+  body.og .line { font-size: 72px; line-height: 1.02; letter-spacing: -0.04em; margin-top: 30px; }
+  body.og .tag { font-size: 30px; margin-top: 22px; line-height: 1.25; max-width: 560px; }
+  body.og .chips { display: none; }
+  body.og .phones { right: -30px; width: 560px; height: 640px; }
+  body.og .p1 { left: 20px; top: 150px; }
+  body.og .p2 { left: 170px; top: 70px; width: 250px; height: 540px; }
+  body.og .p3 { left: 360px; top: 150px; }
 </style>
 </head>
 <body>
