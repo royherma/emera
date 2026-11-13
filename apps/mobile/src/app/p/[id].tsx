@@ -7,6 +7,7 @@ import { EngageBar } from "@/components/Engage";
 import { Icon } from "@/components/Icon";
 import { IndexChip, MediaFull, SignedMark } from "@/components/Media";
 import { Screen } from "@/components/Screen";
+import { Thread } from "@/components/Thread";
 import { CategoryTag, ErrorState, IconButton, Pulse, sunGradient } from "@/components/ui";
 import { usePostMenu } from "@/components/postMenu";
 import { api } from "@/lib/api";
@@ -22,7 +23,7 @@ export default function PostDetail() {
   const router = useRouter();
   const { c, scheme } = useTheme();
   const { inner, wide, height } = useLayout();
-  const { data: post, error, retry } = useResource(() => api.post(id), `post:${id}`);
+  const { data: post, error, retry, setData } = useResource(() => api.post(id), `post:${id}`);
   const [index, setIndex] = useState(0);
   const pager = useRef<any>(null);
 
@@ -94,14 +95,7 @@ export default function PostDetail() {
                   </View>
                 </Pressable>
                 {post.caption ? <Text style={[type.title, { fontFamily: type.body.fontFamily, fontSize: 17, lineHeight: 25, letterSpacing: 0, color: c.ink }]}>{post.caption}</Text> : null}
-                <View style={{ gap: space[1] }}>
-                  <EngageBar post={post} />
-                  {post.commentCount > 0 && (
-                    <Pressable accessibilityRole="link" onPress={() => router.push({ pathname: "/comments/[id]", params: { id: post.id } })} hitSlop={6}>
-                      <Text style={[type.bodySm, { color: c.ink2 }]}>View all {post.commentCount} {post.commentCount === 1 ? "comment" : "comments"}</Text>
-                    </Pressable>
-                  )}
-                </View>
+                <EngageBar post={post} />
                 {post.author.category ? <CategoryTag label={post.author.category} color={creatorColors(post.author.handle).from} /> : null}
                 {proof && (
                   <View
@@ -119,6 +113,7 @@ export default function PostDetail() {
                     </View>
                   </View>
                 )}
+                <Thread postId={post.id} inline onCount={(n) => n !== post.commentCount && setData({ ...post, commentCount: n })} />
               </>
             ) : (
               <>
