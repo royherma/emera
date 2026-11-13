@@ -6,6 +6,7 @@ import { hmacHex, newId, toHex } from './crypto';
 import { looksLikeVideo, readImageInfo } from './imageSize';
 import { mediaJson, type MediaRow } from './serialize';
 import { readVideoInfo, readVideoInfoFrom, type VideoInfo } from './videoInfo';
+import { makeCaptions } from './captions';
 
 const MB = 1024 * 1024;
 const TYPES: Record<string, { kind: 'image' | 'video'; ext: string; max: number }> = {
@@ -102,7 +103,8 @@ export type VideoJob = { mediaId: string; shrink?: boolean };
 export async function runVideoJob(env: Env, job: VideoJob) {
   const poster = await makePoster(env, job.mediaId).catch((e) => (console.warn('poster failed', job.mediaId, e instanceof Error ? e.message : e), 'failed' as const));
   const shrink = job.shrink === false ? 'skipped' : await shrinkVideo(env, job.mediaId);
-  return { poster, shrink };
+  const captions = await makeCaptions(env, job.mediaId).catch((e) => (console.warn('captions failed', job.mediaId, e instanceof Error ? e.message : e), 'failed' as const));
+  return { poster, shrink, captions };
 }
 
 export const mediaRoutes = new Hono<AppEnv>();

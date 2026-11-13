@@ -27,7 +27,7 @@ Several sessions and their sub-agents work on this repo at once. The shared-work
 | What | Where |
 | --- | --- |
 | Product (impeccable format) | `PRODUCT.md` |
-| Master plan + Roy's asks | `docs/master-plan.md`, `docs/asks.json` |
+| Master plan | `docs/master-plan.md` (what needs Roy is on the dashboard Review screen) |
 | Mission, values, manifesto (versioned) | `docs/mission/` - `values.json` feeds the dashboard |
 | Architecture, costs, risks | `docs/architecture.md` |
 | API contract (app and API both build to it) | `docs/api-contract.md` |
@@ -42,7 +42,7 @@ Several sessions and their sub-agents work on this repo at once. The shared-work
 - **News and events too** (Roy, 2026-11-13): people sharing what is happening (local news, updates, events) belong here as much as makers. The proof on a post doubles as "is this real or fake": say only what was checked (who posted, when, original, person or bot), never "fact-checked" or "guaranteed real".
 - **Lead with the mission, not "share your work"** (Roy, 2026-11-13): every public page opens with why Emera exists (creators getting ripped off, fake content, rules nobody can read, borrowed audiences) and what we do about it. Say "what you create", not "your work". Sharing is how people use Emera, never the pitch.
 - Welcoming, never anti-Instagram or anti-anyone. Public copy may name the problems, never a platform.
-- **Protection v1 is manual** (Roy, 2026-11-13): a creator reports a copy they found, we help file the takedown, and every report goes into a dataset that later trains automatic matching. Automatic scanning of other platforms is a later milestone. Don't build it now and don't promise it in copy.
+- **Protection v1 is manual** (Roy, 2026-11-13): a creator reports a copy they found, we help file the takedown, and every report goes into a dataset that later trains automatic matching. Automatic scanning of other platforms is a later milestone. Don't build it in M0-M2. README and emera.social lead with the full promise (scan for copies, takedowns on other platforms, agents taking legal steps) since Roy's go on 2026-11-13; every surface says the same words.
 - Every ranking or enforcement decision must be explainable to the person it affects.
 - Mockups and demos use only content we're allowed to use: Roy's own work, or CC0/CC BY/public-domain images from Openverse with credit kept in `brand/content/sources.json`. Never scraped Instagram or other unlicensed work. A creator-protection network can't demo with stolen art.
 - Invented demo creators get invented names and handles that belong to no real person.
@@ -92,6 +92,8 @@ Ports were claimed with `ports claim`: agora 5035 (dashboard), agora-api 5036, a
 | Staging | https://emera-api-staging.techguyver1337.workers.dev | https://emera-site-staging.techguyver1337.workers.dev | D1 `emera-staging`, `emera-site-staging`; R2 `emera-media-staging` |
 | Production | https://api.emera.social (live; app at https://app.emera.social) | https://emera.social, https://www.emera.social | D1 `emera-prod`, `emera-site`; R2 `emera-media-prod` |
 
+Staging carries demo content (27 invented creators, 30 posts): `npm run demo -- on|off|status staging` (or `local`). It goes through the real API, deletes only `demo.*@example.com` accounts, and refuses production.
+
 Cloudflare account `db9eee5d30dc91c467044f8746e45206` (wrangler OAuth, no token needed). Secrets (`PROOF_SECRET`, `SEED_INVITE_CODE`) are set with `wrangler secret put --env <env>`, never in `wrangler.jsonc`. Seed invite codes are in `.claude/artifacts/seed-invites.txt` (gitignored).
 
 ## Deploying
@@ -130,8 +132,25 @@ Emera takes money only through its **own Stripe account, named Emera**. Never th
 
 iOS app record made 2026-11-13 under Techguyver Labs, LLC: app id `6834311747` (https://appstoreconnect.apple.com/apps/6834311747), bundle `social.emera` (bundle id resource `6R42978HR4`), SKU `emera-ios`, name "Emera - OS Social Network". API access: `~/Desktop/Development/ShowAndTell/bin/asc` (see `~/.claude/reference/rules/apple-asc-auth.md`).
 
+## One home per kind of thing
+
+Never start a new checklist, tracker, asks list or review page. Add to the home below; a second copy drifts within a day (`docs/asks.json` and `plan.json` `asks` both did).
+
+| Kind of thing | Its one home |
+| --- | --- |
+| Needs Roy: a pick, a yes/no, a login, a payment, an approval | Dashboard Review screen, `data/plan.json` `review` / `decisions` |
+| Steps and milestones, % done | `data/plan.json` `phases` |
+| What each agent is doing right now | the shared-work board (`npm run agents`), one row in `data/plan.json` `workstreams` |
+| Work for outside contributors | GitHub issues on `royherma/emera`; unfiled drafts in `docs/help-wanted.json` until Roy approves them on Review |
+| Roy's raw ideas | `docs/ideas.md` |
+| Traps we hit | `docs/gotchas.md` |
+| Features, user stories, screens | `docs/features.yaml`, `docs/stories.yaml`, shown on Atlas |
+| A tool or script | a `TOOLS.md` row, served from the dashboard (:5035) |
+
+Research docs (`gap-checklist.md`, `feature-comparison.md`) are dated snapshots: their open items get copied to one of the homes above, never ticked in place.
+
 ## Roy's dashboard
 
-http://agora.localhost:5035 (`npm run plan`): milestones with % done, decisions, brand directions, the workstreams agents are running, mission, and what needs Roy. Every click lands in `data/feedback.jsonl` and prints a `DECISION` line in `.claude/artifacts/plan/server.log`. Keep `data/plan.json` current: tick a step the moment it's verified, and mark a workstream running/done when its agent starts or lands.
+http://agora.localhost:5035 (`npm run plan`): a board of phases (M0, M1, M2, Later; finished phases fold into Done) where Roy drags steps between phases, the agents working right now, a Decided list behind one button, and the Review screen for what needs him. A Review ask is linked to its step with `"review": "<id>"` on the task: ticking one ticks the other, Later moves the step out of the NOW phase. Every click lands in `data/feedback.jsonl` and prints a `DECISION` line in `.claude/artifacts/plan/server.log`. Keep `data/plan.json` current: tick a step the moment it's verified, and mark a workstream running/done when its agent starts or lands.
 
 **Anything that needs Roy goes on the Review screen, never only in the terminal** (Roy, 2026-11-13). That covers a pick, a yes/no, a thing only he can do (a login, a filing, a payment), and anything an agent added that he should approve before it goes out (issues, copy, posts). Add it to `data/plan.json` `review` (an open `decisions` entry shows up there by itself): show the thing itself (the image, the list, the exact words, the link he clicks), one-line why, your pick, and buttons. His click comes back as a `DECISION` line with `kind: "review"`; act on it, then set `done` on the item. Remove an item the moment you can prove it's already done. An answer Roy gives anywhere else (terminal, another session, a screenshot) gets written into its card the same turn, so the screen never asks him twice.

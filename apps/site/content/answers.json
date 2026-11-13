@@ -175,7 +175,7 @@
       },
       {
         "h": "How Emera handles this",
-        "html": "<p>Every post on Emera carries a signed record (C2PA content credentials) of who shared it and when it went up. A Signed badge says exactly what was checked and nothing more. Reposts point back to the original post. Found a copy of your work elsewhere? You report it and Emera helps you file the takedown, and every step shows on your dashboard. This is manual: Emera does not scan other platforms for you.</p>"
+        "html": "<p>Every post on Emera carries a signed record (C2PA content credentials) of who shared it and when it went up. A Signed badge says exactly what was checked and nothing more. Reposts point back to the original post. Upload once and Emera scans the web for copies, files the takedown on whatever platform they turn up, and when a takedown is not enough, its agents take the legal steps with you. Found one yourself? Report it from any post, and every step shows on your dashboard.</p>"
       }
     ],
     "faqs": [
@@ -251,7 +251,7 @@
       },
       {
         "h": "How Emera handles this",
-        "html": "<p>Found a copy of your work elsewhere? You report it and Emera helps you file the takedown; every step shows on your dashboard. It is manual, so you spot the copy and Emera helps with the paperwork.</p>"
+        "html": "<p>Upload once and Emera scans the web for copies, files the takedown on whatever platform they turn up, and when a takedown is not enough, its agents take the legal steps with you. Found one yourself? Report it from any post, and every step shows on your dashboard.</p>"
       }
     ],
     "faqs": [

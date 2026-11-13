@@ -2,6 +2,7 @@ import brand from "./brand";
 import { PUBLIC_ORIGIN } from "./config";
 import { ApiError, Backend, Comment, FeedMode, Invite, Media, Notification, PickedFile, Post, User, UserPage } from "./types";
 import { HANDLE_RE } from "./format";
+import { makeMockChat } from "./mockChat";
 
 const wait = (ms = 280) => new Promise((r) => setTimeout(r, ms + Math.random() * 220));
 const iso = (minutesAgo: number) => new Date(Date.now() - minutesAgo * 60000).toISOString();
@@ -206,6 +207,7 @@ const noteView = (n: (typeof notes)[number]): Notification => {
 const sorted = () => [...posts].sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
 
 export const mock: Backend & { _setToken: (t: string | null) => void; _demoSession: () => { token: string; user: User } } = {
+  ...makeMockChat({ current, users, blocked, muted }),
   _setToken: (t) => {
     token = t;
   },

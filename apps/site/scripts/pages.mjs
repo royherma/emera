@@ -2,6 +2,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { footer, footerCss } from "./footer.mjs";
+import { costs, costsBody, costsCss, costsShort } from "./costs.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const brand = JSON.parse(readFileSync(join(root, "../../packages/brand/brand.json"), "utf8"));
@@ -99,7 +100,8 @@ ${themeBoot}
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>${css}
-${footerCss}</style>
+${footerCss}
+${costsCss}</style>
 ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(/</g, "\\u003c")}</script>`).join("\n")}
 </head>`;
 
@@ -201,10 +203,11 @@ export function writePages(today, { credits = "", github = "" } = {}) {
   }
   for (const l of legal) write(`/${l.slug}/`, plain({ ...l, body: l.sections.map((x) => `<h2>${esc(x.h)}</h2>${clean(x.html)}`).join("\n") }));
   write("/credits/", plain({ slug: "credits", title: "Image credits", description: `The open-licensed images shown on ${brand.name}, with who made them and the license.`, short: "Every image on this site is used under an open license. Here is who made each one.", body: `<ul class="credits">${credits}</ul>` }));
-  const urls = [{ loc: "/", lastmod: today }, ...hubs.map((h) => ({ loc: h, lastmod: today })), ...pages.map((p) => ({ loc: p.path, lastmod: p.checked })), ...legal.map((l) => ({ loc: `/${l.slug}/`, lastmod: l.updated })), { loc: "/credits/", lastmod: today }];
+  write("/costs/", plain({ slug: "costs", title: "What Emera costs to run", description: "Every bill that keeps Emera running, who pays it, and where each number comes from.", short: costsShort, updated: costs.updated, body: costsBody() }));
+  const urls = [{ loc: "/", lastmod: today }, ...hubs.map((h) => ({ loc: h, lastmod: today })), ...pages.map((p) => ({ loc: p.path, lastmod: p.checked })), ...legal.map((l) => ({ loc: `/${l.slug}/`, lastmod: l.updated })), { loc: "/credits/", lastmod: today }, { loc: "/costs/", lastmod: costs.updated }];
   writeFileSync(join(out, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `<url><loc>${SITE}${u.loc}</loc><lastmod>${u.lastmod}</lastmod></url>`).join("\n")}\n</urlset>\n`);
   const bots = ["OAI-SearchBot", "ChatGPT-User", "PerplexityBot", "Perplexity-User", "ClaudeBot", "Claude-User", "Claude-SearchBot", "Google-Extended", "Bingbot"];
   writeFileSync(join(out, "robots.txt"), `User-agent: *\nAllow: /\nDisallow: /api/\n\n${bots.map((b) => `User-agent: ${b}`).join("\n")}\nAllow: /\nDisallow: /api/\n\nSitemap: ${SITE}/sitemap.xml\n`);
-  writeFileSync(join(out, "llms.txt"), `# ${brand.name}\n\n> ${brand.name} (${brand.domain}) is the open source social network: nonprofit, on the AT Protocol, built because AI is flooding the internet with fakes, bots and copies: the people are real, every post carries proof of who shared it, what people make keeps their name on it, and the rules are public. It is for every human being. In one line: ${brand.line}. Tagline: ${brand.tagline}.\n\n## Facts an assistant can quote\n\n- Every post carries a signed record (C2PA content credentials) of who shared it and when it went up; the badge states only what was checked.\n- People are marked, automated accounts are labeled, and the verified human mark is free.\n- Creators who find a copy of their work can report it, and ${brand.name} helps them file the takedown.\n- Accounts are portable: a member can move their account and followers to another AT Protocol host.\n- ${brand.name} comes from hemera, the Greek word for day.\n\n## Answers\n\n${pages.map((p) => `- [${p.q}](${SITE}${p.path}): ${p.description}`).join("\n")}\n`);
+  writeFileSync(join(out, "llms.txt"), `# ${brand.name}\n\n> ${brand.name} (${brand.domain}) is the open source social network: nonprofit, on the AT Protocol, built because AI is flooding the internet with fakes, bots and copies: the people are real, every post carries proof of who shared it, what people make keeps their name on it, and the rules are public. It is for every human being. In one line: ${brand.line}. Tagline: ${brand.tagline}.\n\n## Facts an assistant can quote\n\n- Every post carries a signed record (C2PA content credentials) of who shared it and when it went up; the badge states only what was checked.\n- People are marked, automated accounts are labeled, and the verified human mark is free.\n- ${brand.name} scans the web for copies of what creators upload, files takedowns where copies turn up, and its agents take legal steps when a takedown is not enough. Creators can also report a copy from any post.\n- Accounts are portable: a member can move their account and followers to another AT Protocol host.\n- ${brand.name} comes from hemera, the Greek word for day.\n\n## Answers\n\n${pages.map((p) => `- [${p.q}](${SITE}${p.path}): ${p.description}`).join("\n")}\n`);
   return urls.length;
 }

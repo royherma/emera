@@ -88,7 +88,7 @@ describe('sponsor checkout', () => {
   });
 
   it('is off without Stripe config', async () => {
-    const res = await new Client(makeEnv()).json('POST', '/v1/fund/checkout', { sponsorName: 'Q', contactEmail: 'hi@q.test', monthlyCents: 2500 });
+    const res = await new Client(makeEnv({ STRIPE_SECRET_KEY: undefined, STRIPE_ACCOUNT_ID: undefined })).json('POST', '/v1/fund/checkout', { sponsorName: 'Q', contactEmail: 'hi@q.test', monthlyCents: 2500 });
     expect(res.status).toBe(503);
   });
 });

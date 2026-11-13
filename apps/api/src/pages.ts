@@ -75,8 +75,10 @@ footer{max-width:935px;margin:0 auto;padding:24px 16px 40px;color:var(--soft);fo
 
 type Meta = { title: string; description: string; url: string; image?: Still; video?: Media; type?: string; extraHead?: string };
 
+const SHARE_CARD: Still = { url: `https://${BRAND.domain}/assets/og.png`, width: 1200, height: 630 };
+
 function layout(meta: Meta, body: string, status = 200) {
-  const img = meta.image;
+  const img = meta.image ?? SHARE_CARD;
   const full = `${meta.title}`;
   const head = [
     `<meta charset="utf-8">`,
@@ -97,6 +99,7 @@ function layout(meta: Meta, body: string, status = 200) {
     `<meta name="twitter:title" content="${esc(meta.title)}">`,
     `<meta name="twitter:description" content="${esc(meta.description)}">`,
     img ? `<meta name="twitter:image" content="${esc(img.url)}">` : '',
+    meta.extraHead ?? '',
     `<style>${CSS}</style>`,
     '<script src="/guard.js" defer></script>',
   ].filter(Boolean).join('\n');
@@ -149,7 +152,8 @@ pages.get('/', async (c) => {
   const { posts } = await pagePosts(c, { limit: 12 });
   const body = `<section class="hero"><h1 class="serif">${esc(BRAND.tagline)}</h1><p>A home for photographers, filmmakers, artists and designers. Every upload carries proof of who made it.</p></section>` +
     (posts.length ? `<div class="grid">${posts.map(tile).join('')}</div>` : '');
-  return layout({ title: `${BRAND.name} - ${BRAND.tagline}`, description: BRAND.tagline, url: siteOrigin(c) + '/', image: cover(posts.flatMap((p) => p.media)) }, body);
+  const origin = siteOrigin(c);
+  return layout({ title: `${BRAND.name} - ${BRAND.tagline}`, description: BRAND.tagline, url: origin + '/', image: cover(posts.flatMap((p) => p.media)), extraHead: `<link rel="alternate" type="application/atom+xml" title="${esc(BRAND.name)}" href="${esc(origin)}/feed.xml">` }, body);
 });
 
 pages.get('/invite/:code', async (c) => {
@@ -182,6 +186,7 @@ ${user.bio ? `<p class="bio">${esc(user.bio)}</p>` : ''}<p class="count">${total
     url: `${origin}/@${handle}`,
     image: cover(posts.flatMap((p) => p.media)),
     type: 'profile',
+    extraHead: `<link rel="alternate" type="application/atom+xml" title="${esc(`${user.display_name || handle} on ${BRAND.name}`)}" href="${esc(origin)}/@${esc(handle)}/feed.xml">`,
   }, body);
 });
 
@@ -194,7 +199,7 @@ pages.get('/p/:id', async (c) => {
   const first = post.media[0];
   const mediaHtml = post.media.map((m) => m.kind === 'image'
     ? `<img class="media" src="${esc(m.url)}" width="${m.width}" height="${m.height}" style="${fitted(m)}" draggable="false" alt="${esc(m.alt || trim(post.caption || `Photo by @${a.handle}`, 120))}">`
-    : `<video class="media" src="${esc(m.url)}"${m.posterUrl ? ` poster="${esc(m.posterUrl)}"` : ''} width="${m.width}" height="${m.height}" style="${fitted(m)}"${m.alt ? ` aria-label="${esc(m.alt)}"` : ''} controls controlslist="nodownload noplaybackrate noremoteplayback" disablepictureinpicture disableremoteplayback playsinline preload="metadata"></video>`).join('');
+    : `<video class="media" src="${esc(m.url)}"${m.posterUrl ? ` poster="${esc(m.posterUrl)}"` : ''} width="${m.width}" height="${m.height}" style="${fitted(m)}"${m.alt ? ` aria-label="${esc(m.alt)}"` : ''} controls controlslist="nodownload noplaybackrate noremoteplayback" disablepictureinpicture disableremoteplayback playsinline preload="metadata">${m.captionsUrl ? `<track kind="captions" src="${esc(m.captionsUrl)}" label="Captions">` : ''}</video>`).join('');
   const proof = first?.proof;
   const proofHtml = proof?.sha256
     ? `<div class="proof"><strong>Proof of origin.</strong> Uploaded by @${esc(proof.signer)} on ${esc(day(proof.signedAt!))}, signed by ${esc(BRAND.name)}.<br><code>sha256 ${esc(proof.sha256)}</code></div>`
@@ -207,8 +212,9 @@ ${post.caption ? `<p class="caption">${esc(post.caption)}</p>` : ''}<p class="da
     title: snippet ? `${snippet} - ${name} on ${BRAND.name}` : `A post by ${name} on ${BRAND.name}`,
     description: post.caption ? trim(post.caption.replace(/\s+/g, ' '), 200) : `Shared by @${a.handle} on ${BRAND.name}. ${BRAND.tagline}`,
     url: post.url,
-    image: cover(post.media),
+    image: { url: `${post.url}/card.png`, width: 1200, height: 630 },
     video: post.media.find((m) => m.kind === 'video'),
     type: 'article',
+    extraHead: `<link rel="alternate" type="application/json+oembed" href="${esc(`${siteOrigin(c)}/oembed?format=json&url=${encodeURIComponent(post.url)}`)}" title="${esc(`${name} on ${BRAND.name}`)}">`,
   }, body);
 });

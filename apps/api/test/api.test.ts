@@ -203,7 +203,7 @@ describe('uploads, posts, profiles, pages', () => {
     expect(html).not.toContain('Ana <Lens>');
 
     const postPage = await (await app.fetch(new Request(`${ORIGIN}/p/${post.body.post.id}`), c.env)).text();
-    expect(postPage).toContain(`og:image" content="${media.url}"`);
+    expect(postPage).toContain(`og:image" content="${ORIGIN}/p/${post.body.post.id}/card.png"`);
     expect(postPage).toContain('First light &lt;b&gt;over&lt;/b&gt; the bay');
     expect(postPage).toContain(digest);
 

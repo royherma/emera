@@ -55,7 +55,7 @@ export function footer({ pages, mark, github, year }) {
   const compare = pages.filter((p) => p.kind === "compare").map(link).join("");
   return `<footer class="ft"><div class="fw"><div class="cols">
 <div class="brandcol"><a class="fmk" href="/" aria-label="${esc(brand.name)}">${mark}${esc(brand.name.toLowerCase())}</a><p class="about">Open source and run as a nonprofit. The code is public and so is the algorithm.</p>${starButton(github)}</div>
-${col(brand.name, "", `<li><a href="/#why">Why ${esc(brand.name)}</a></li><li><a href="/#join">Create your account</a></li><li><a href="https://app.${brand.domain}/sign-in">Sign in</a></li><li data-fund><a href="/fund/">Fund</a></li><li><a href="${esc(github)}" rel="noopener">GitHub</a></li>`)}
+${col(brand.name, "", `<li><a href="/#why">Why ${esc(brand.name)}</a></li><li><a href="/#join">Create your account</a></li><li><a href="/costs/">What Emera costs</a></li><li data-fund><a href="/fund/">Fund</a></li><li><a href="https://app.${brand.domain}/sign-in">Sign in</a></li><li><a href="${esc(github)}" rel="noopener">GitHub</a></li>`)}
 ${col("Answers", "/answers/", answers)}
 ${col("Compare", "/compare/", compare)}
 ${col("Legal", "", `<li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms</a></li><li><a href="/credits/">Image credits</a></li>`)}

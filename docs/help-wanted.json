@@ -1,38 +1,9 @@
 {
   "updated": "2026-11-13",
   "filed": "2026-11-13: 8 combined projects posted as royherma/emera #1-#8",
-  "note": "Repo is public. Drafts not in #1-#8 are not filed yet.",
-  "count": 29,
+  "note": "Repo is public. #1-#8 combine 13 of these drafts. Roy 2026-11-13: the other 10 small fixes are built in-house, not posted; only Digital-frame mode (a new feature) stays a contributor draft.",
+  "count": 24,
   "issues": [
-    {
-      "title": "Add GitHub Actions CI for typecheck and tests",
-      "labels": [
-        "good first issue",
-        "help wanted",
-        "ci"
-      ],
-      "area": "`.github/workflows/`, `apps/api/package.json`, `apps/mobile/package.json`",
-      "body": "Nothing runs on pull requests yet. Run the existing checks on every PR.\n\n## Acceptance criteria\n- [ ] Workflow runs `npm --prefix apps/api run typecheck` and `npm --prefix apps/api test` on pull_request\n- [ ] Workflow runs `npm --prefix apps/mobile run check`\n- [ ] Old runs cancel when a PR gets a new push\n- [ ] Actions are pinned by commit SHA\n- [ ] Badge added to README.md\n\n## Where to look\n`.github/workflows/`, `apps/api/package.json`, `apps/mobile/package.json`"
-    },
-    {
-      "title": "Add issue forms and a pull request template",
-      "labels": [
-        "good first issue",
-        "help wanted",
-        "docs"
-      ],
-      "area": "`.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md`",
-      "body": "Issue forms keep reports complete. Model them on the Bluesky social-app forms.\n\n## Acceptance criteria\n- [ ] Bug form with steps, expected, actual, platform dropdown and an attachment field\n- [ ] Feature form with the problem it solves\n- [ ] PR template with what changed, how it was tested, screenshots\n- [ ] `config.yml` links to Discussions and the security address\n\n## Where to look\n`.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md`"
-    },
-    {
-      "title": "Add CODE_OF_CONDUCT.md and SECURITY.md",
-      "labels": [
-        "help wanted",
-        "docs"
-      ],
-      "area": "repo root",
-      "body": "Both files are required before the repo goes public. The founder supplies the contact addresses.\n\n## Acceptance criteria\n- [ ] CODE_OF_CONDUCT.md based on Contributor Covenant 2.1 with a named enforcement address\n- [ ] SECURITY.md with a private address and a response time\n- [ ] Both linked from README.md and CONTRIBUTING.md\n\n## Where to look\nrepo root"
-    },
     {
       "title": "Replay D1 migrations from empty in CI",
       "labels": [
@@ -42,7 +13,8 @@
         "api"
       ],
       "area": "`apps/api/migrations/`, `apps/site/migrations/`",
-      "body": "Catch a broken migration before it reaches staging.\n\n## Acceptance criteria\n- [ ] CI job creates a fresh local D1 and applies every file in `apps/api/migrations`\n- [ ] Same job for `apps/site/migrations`\n- [ ] Job fails when a migration errors\n\n## Where to look\n`apps/api/migrations/`, `apps/site/migrations/`"
+      "body": "Catch a broken migration before it reaches staging.\n\n## Acceptance criteria\n- [ ] CI job creates a fresh local D1 and applies every file in `apps/api/migrations`\n- [ ] Same job for `apps/site/migrations`\n- [ ] Job fails when a migration errors\n\n## Where to look\n`apps/api/migrations/`, `apps/site/migrations/`",
+      "inhouse": true
     },
     {
       "title": "Add a pre-commit hook for typecheck and format",
@@ -52,7 +24,8 @@
         "devex"
       ],
       "area": "repo root",
-      "body": "Fast local feedback keeps PRs clean.\n\n## Acceptance criteria\n- [ ] Husky or lefthook runs typecheck on staged TypeScript files\n- [ ] Hook skipped in CI\n- [ ] `.editorconfig` added\n- [ ] Documented in CONTRIBUTING.md\n\n## Where to look\nrepo root"
+      "body": "Fast local feedback keeps PRs clean.\n\n## Acceptance criteria\n- [ ] Husky or lefthook runs typecheck on staged TypeScript files\n- [ ] Hook skipped in CI\n- [ ] `.editorconfig` added\n- [ ] Documented in CONTRIBUTING.md\n\n## Where to look\nrepo root",
+      "inhouse": true
     },
     {
       "title": "Add unit tests for the mobile lib folder",
@@ -63,7 +36,8 @@
         "platform:mobile"
       ],
       "area": "`apps/mobile/src/lib`",
-      "body": "The Expo app has no unit tests; only the API has them.\n\n## Acceptance criteria\n- [ ] Test runner added to `apps/mobile` (jest-expo)\n- [ ] At least 10 tests for pure functions in `apps/mobile/src/lib`\n- [ ] `npm --prefix apps/mobile test` passes in CI\n\n## Where to look\n`apps/mobile/src/lib`"
+      "body": "The Expo app has no unit tests; only the API has them.\n\n## Acceptance criteria\n- [ ] Test runner added to `apps/mobile` (jest-expo)\n- [ ] At least 10 tests for pure functions in `apps/mobile/src/lib`\n- [ ] `npm --prefix apps/mobile test` passes in CI\n\n## Where to look\n`apps/mobile/src/lib`",
+      "inhouse": true
     },
     {
       "title": "Per-post share card image for /p/:id",
@@ -73,7 +47,8 @@
         "share"
       ],
       "area": "`apps/api/src`",
-      "body": "Links pasted into X, iMessage, Slack and Discord should show the work and its maker. The page already has og tags; add a generated card image.\n\n## Acceptance criteria\n- [ ] Route returns a 1200x630 image for a post (work, maker handle, verification line in words)\n- [ ] `og:image` and `twitter:card=summary_large_image` set on `/p/:id`\n- [ ] Cache headers set; unknown post returns 404\n- [ ] Test covers the route\n- [ ] Checked with a card validator and a Discord paste\n\n## Where to look\n`apps/api/src`"
+      "body": "Links pasted into X, iMessage, Slack and Discord should show the work and its maker. The page already has og tags; add a generated card image.\n\n## Acceptance criteria\n- [ ] Route returns a 1200x630 image for a post (work, maker handle, verification line in words)\n- [ ] `og:image` and `twitter:card=summary_large_image` set on `/p/:id`\n- [ ] Cache headers set; unknown post returns 404\n- [ ] Test covers the route\n- [ ] Checked with a card validator and a Discord paste\n\n## Where to look\n`apps/api/src`",
+      "inhouse": true
     },
     {
       "title": "oEmbed endpoint and embed page for posts",
@@ -83,7 +58,8 @@
         "share"
       ],
       "area": "`apps/api/src`",
-      "body": "Blogs and newsletters should embed a post, with a link back. Bluesky does this with its `bskyembed` service.\n\n## Acceptance criteria\n- [ ] `GET /oembed?url=` returns valid oEmbed JSON for `/p/:id` URLs\n- [ ] `/embed/:id` renders a small iframe-safe page\n- [ ] `<link rel=\"alternate\" type=\"application/json+oembed\">` on post pages\n- [ ] Tests for valid, missing and non-Emera URLs\n\n## Where to look\n`apps/api/src`"
+      "body": "Blogs and newsletters should embed a post, with a link back. Bluesky does this with its `bskyembed` service.\n\n## Acceptance criteria\n- [ ] `GET /oembed?url=` returns valid oEmbed JSON for `/p/:id` URLs\n- [ ] `/embed/:id` renders a small iframe-safe page\n- [ ] `<link rel=\"alternate\" type=\"application/json+oembed\">` on post pages\n- [ ] Tests for valid, missing and non-Emera URLs\n\n## Where to look\n`apps/api/src`",
+      "inhouse": true
     },
     {
       "title": "RSS and Atom feeds for creators and the global feed",
@@ -94,7 +70,8 @@
         "feeds"
       ],
       "area": "`apps/api/src`",
-      "body": "Readers and automations follow creators with no account.\n\n## Acceptance criteria\n- [ ] `/@handle/feed.xml` returns valid Atom with media enclosures\n- [ ] `/feed.xml` returns the 50 newest public posts\n- [ ] Feed passes an online validator\n- [ ] `<link rel=\"alternate\">` on profile pages\n- [ ] Tests added\n\n## Where to look\n`apps/api/src`"
+      "body": "Readers and automations follow creators with no account.\n\n## Acceptance criteria\n- [ ] `/@handle/feed.xml` returns valid Atom with media enclosures\n- [ ] `/feed.xml` returns the 50 newest public posts\n- [ ] Feed passes an online validator\n- [ ] `<link rel=\"alternate\">` on profile pages\n- [ ] Tests added\n\n## Where to look\n`apps/api/src`",
+      "inhouse": true
     },
     {
       "title": "Make the web build an installable PWA",
@@ -105,7 +82,8 @@
         "platform:pwa"
       ],
       "area": "`apps/mobile`",
-      "body": "The Expo web export should install to the home screen on iOS, Android and desktop.\n\n## Acceptance criteria\n- [ ] Web manifest with name, icons (192, 512, maskable), theme and background colors from `packages/brand`\n- [ ] Service worker caches the shell and shows an offline page\n- [ ] Lighthouse install check passes\n- [ ] No new native dependency\n\n## Where to look\n`apps/mobile`"
+      "body": "The Expo web export should install to the home screen on iOS, Android and desktop.\n\n## Acceptance criteria\n- [ ] Web manifest with name, icons (192, 512, maskable), theme and background colors from `packages/brand`\n- [ ] Service worker caches the shell and shows an offline page\n- [ ] Lighthouse install check passes\n- [ ] No new native dependency\n\n## Where to look\n`apps/mobile`",
+      "inhouse": true
     },
     {
       "title": "iPad and Android tablet layout",
@@ -193,7 +171,8 @@
         "tests"
       ],
       "area": "`lexicons/`, `spikes/provenance`",
-      "body": "Lexicon changes should never silently break records.\n\n## Acceptance criteria\n- [ ] Valid and invalid example records for post, profile and provenance\n- [ ] Test runs them through the validator in `spikes/provenance`\n- [ ] Runs in CI\n\n## Where to look\n`lexicons/`, `spikes/provenance`"
+      "body": "Lexicon changes should never silently break records.\n\n## Acceptance criteria\n- [ ] Valid and invalid example records for post, profile and provenance\n- [ ] Test runs them through the validator in `spikes/provenance`\n- [ ] Runs in CI\n\n## Where to look\n`lexicons/`, `spikes/provenance`",
+      "inhouse": true
     },
     {
       "title": "Translation setup with Lingui",
@@ -234,16 +213,6 @@
       "body": "Animations must stop and text must grow with system settings.\n\n## Acceptance criteria\n- [ ] Reduce Motion disables transitions and autoplay loops\n- [ ] Text scales to the largest setting without clipping on the feed and profile screens\n- [ ] Screenshots at 100% and 200%\n\n## Where to look\n`apps/mobile/src/components`"
     },
     {
-      "title": "Seed script for a full local demo",
-      "labels": [
-        "good first issue",
-        "help wanted",
-        "devex"
-      ],
-      "area": "`apps/api/scripts`",
-      "body": "New contributors should see a feed within one command.\n\n## Acceptance criteria\n- [ ] `npm run seed` creates 5 invented creators with CC0 images listed in `brand/content/sources.json`\n- [ ] Works against the local API and the app with mock mode off\n- [ ] Documented in CONTRIBUTING.md\n- [ ] No real people and no scraped images\n\n## Where to look\n`apps/api/scripts`"
-    },
-    {
       "title": "Docker image for the API",
       "labels": [
         "help wanted",
@@ -259,16 +228,8 @@
         "transparency"
       ],
       "area": "`apps/site`",
-      "body": "The mission promises a live page of what Emera costs this month.\n\n## Acceptance criteria\n- [ ] Spec in `docs/`\n- [ ] Static page reading a JSON file of monthly costs\n- [ ] Source of each line named\n\n## Where to look\n`apps/site`"
-    },
-    {
-      "title": "Privacy-first visitor counts for the landing page",
-      "labels": [
-        "help wanted",
-        "privacy"
-      ],
-      "area": "`apps/site`",
-      "body": "We need visitor numbers without cookies or personal data.\n\n## Acceptance criteria\n- [ ] Counts page views and referrers only, no IP stored\n- [ ] Published list of what is counted\n- [ ] Do Not Track honored\n\n## Where to look\n`apps/site`"
+      "body": "The mission promises a live page of what Emera costs this month.\n\n## Acceptance criteria\n- [ ] Spec in `docs/`\n- [ ] Static page reading a JSON file of monthly costs\n- [ ] Source of each line named\n\n## Where to look\n`apps/site`",
+      "inhouse": true
     },
     {
       "title": "Fresh-machine test of CONTRIBUTING.md",
@@ -278,7 +239,8 @@
         "docs"
       ],
       "area": "`CONTRIBUTING.md`",
-      "body": "The quickstart must work on a clean computer.\n\n## Acceptance criteria\n- [ ] Follow CONTRIBUTING.md on macOS, Linux or Windows (WSL) and record every error\n- [ ] Fix the doc or file issues\n- [ ] State the OS and Node version tested\n\n## Where to look\n`CONTRIBUTING.md`"
+      "body": "The quickstart must work on a clean computer.\n\n## Acceptance criteria\n- [ ] Follow CONTRIBUTING.md on macOS, Linux or Windows (WSL) and record every error\n- [ ] Fix the doc or file issues\n- [ ] State the OS and Node version tested\n\n## Where to look\n`CONTRIBUTING.md`",
+      "inhouse": true
     },
     {
       "title": "Digital-frame mode for smart displays and spare tablets",

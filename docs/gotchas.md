@@ -5,6 +5,10 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 ## 2026-11-13 - Fund: which Stripe account
 
 - **The shared Techguyver live Stripe account shows "RobotJobsHQ" to buyers.** Sponsors paying Emera through it would see RobotJobsHQ on the checkout and their card statement. Emera gets its own account; the API refuses to open a checkout when the key's account id is not `STRIPE_ACCOUNT_ID`. Spot it: `curl -s -u "$KEY:" https://api.stripe.com/v1/account` must name Emera (or the LLC sandbox in test mode).
+## 2026-11-13 - Build time: a new app builds in under 10 minutes
+
+- **The iOS build on GitHub took 57 minutes** (run 43405787939, `Build` step 10:06-11:03 UTC). `app.json` turned on `buildReactNativeFromSource` to get past one missing symbol (`RCTStatusBarAppearance`, see below), and that compiles all of React Native's C++ on every run. Never fix a crash by building a framework from source; find why the prebuilt one doesn't match (usually the `react-native` version in node_modules vs the prebuilt pod) and fix that.
+- **Any build over 10 minutes is a bug, not a wait.** Spot it: `gh run view <id> --json jobs --jq '.jobs[].steps[]|"\(.name) \(.startedAt) \(.completedAt)"'`. Check step times while it runs; don't sit on a 45-minute "it's just slow".
 
 ## 2026-11-13 - Media shrink: photos to WebP, 4K video to 1080p
 
@@ -21,6 +25,7 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 - **An account was announced before it had a handle.** The users feed now waits until a handle is set or 10 minutes pass, and stops the batch there so no later account skips ahead of it.
 - **The site worker now runs before assets for every page** (`run_worker_first` in `apps/site/wrangler.jsonc`) to log visits server-side. A site deploy needs migration `0002_visits.sql` applied first, and the `OPS` service binding needs `emera-notify` deployed in the same env.
 - **Gmail files mail sent to hello@/dmca@ as spam.** Both routing rules now go to the `emera-notify` Worker, which posts sender + subject to #emera-events and then forwards to `MAIL_FORWARD_TO` (secret). A Slack ping with no inbox copy means look in spam. Spot a broken forward: the Slack post says `forward failed`.
+- **2026-11-13: a new Email Routing rule bounces (550 5.1.1) for 2-4 minutes after it is created.** Test from Gmail, not Resend: one Resend bounce puts the address on Resend's suppression list and every later send says `suppressed`. `social@emera.social` (signup address for our social accounts) hit both.
 - **The site build needs `brand/` next to `apps/site`.** A `git archive` of only `apps/` fails `scripts/build.mjs`; deploy then ships the committed `public/`, which is what you want, but archive `brand` too if you rebuild.
 
 ## 2026-11-13 - M0: first deploys, open sign-up
@@ -67,3 +72,10 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 
 - **Cloudflare caps a request body at 100 MiB on the Free plan, and `emera.social` is on Free.** Uploads are a PUT straight to the Worker (`/v1/uploads/:id`), so the zone cap is the real file cap: 104,857,600 bytes reached the Worker, one byte more got Cloudflare's 413 before the Worker ran. Spot it: a 413 with an HTML body, not our JSON. Fix: video max is 100 MB in `media.ts` and `upload.tsx`; going bigger needs a presigned direct-to-R2 upload or a Business plan (200 MB).
 - **Video length is capped at 10 minutes (600 s).** `POST /v1/uploads` refuses `seconds > 600`; the PUT reads the length from the file and deletes the upload if it is over.
+
+## 2026-11-13 - Small fixes shipped in-house
+
+- **A Worker route with no trailing `*` does not match when the URL has a query string.** `emera.social/oembed` served `/oembed` but `/oembed?url=...` fell through to the site Worker's empty 404. Spot it: works on `api.emera.social`, empty-body 404 on `emera.social`. Fix: `emera.social/oembed*` and `emera.social/feed.xml*` in `apps/api/wrangler.jsonc`.
+- **Workers static assets redirect `/x.html` to `/x` (307).** A service worker that precaches `/offline.html` stores a redirect it cannot serve offline. Fix: `pwa.mjs` caches `/offline`.
+- **The site build reads `brand/` and `data/`, not only `apps/site`.** A deploy from `git archive HEAD apps/site` fails at `build.mjs` (ENOENT `brand/content/sources.json`) and ships the stale committed `public/`. Archive `brand docs data` too.
+- **Merging a branch that untracks `apps/site/.wrangler` deletes the local D1 files from disk.** `git rm --cached` keeps them in the branch's worktree, but the merge removes them in `main`. Back up `apps/site/.wrangler` first and copy it back.

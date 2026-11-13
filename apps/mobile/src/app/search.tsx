@@ -135,7 +135,7 @@ export default function Search() {
             ))}
           </View>
         ) : (
-          <SquareGrid posts={found!.posts} width={column} />
+          <SquareGrid posts={found!.posts} width={column} from="search" />
         )}
 
         {found?.cursor ? <Button label="Show more" kind="secondary" busy={more} onPress={loadMore} /> : null}
