@@ -23,6 +23,11 @@ export type Env = {
   STRIPE_ACCOUNT_ID?: string;
   STRIPE_SPONSOR_PRODUCT?: string;
   FUND_PAGE_URL?: string;
+  SIGNIN_LIMIT?: RateLimit;
+  WRITE_LIMIT?: RateLimit;
+  POSTS_PER_DAY?: string;
+  UPLOADS_PER_DAY?: string;
+  SIGNIN_EMAILS_PER_DAY?: string;
 };
 
 export type UserRow = {

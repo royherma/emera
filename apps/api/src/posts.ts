@@ -6,6 +6,7 @@ import { newId } from './crypto';
 import { feedFilter, viewerOf } from './viewer';
 import { indexPostStatement } from './search';
 import { decodeCursor, encodeCursor, loadPosts, userJson, usersJson, type PostRow } from './serialize';
+import { capDailyPosts } from './limits';
 
 const PAGE = 24;
 
@@ -65,6 +66,7 @@ postRoutes.post('/v1/posts', requireAuth, requireHandle, async (c) => {
     if (!Number.isFinite(t) || t > now || t < Date.UTC(2000, 0, 1)) throw fail(400, 'bad_date', 'createdAt must be an ISO date in the past.');
     createdAt = t;
   }
+  await capDailyPosts(c.env, me.id, createdAt);
   const id = newId(10);
   await c.env.DB.batch([
     c.env.DB.prepare('INSERT INTO posts (id, user_id, caption, created_at) VALUES (?, ?, ?, ?)').bind(id, me.id, caption.trim(), createdAt),
