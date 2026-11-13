@@ -165,6 +165,7 @@ async function page(request, env, ctx, url) {
   plain.headers.delete("if-modified-since");
   let res = await env.ASSETS.fetch(plain);
   const isDoc = request.method === "GET" && res.status === 200 && (res.headers.get("content-type") || "").includes("text/html");
+  if (isDoc) res = fundRewrite(res, env, url);
   if (!isDoc || !env.DB) return res;
   const admin = await isAdmin(request, env);
   res = await withCopy(res, env, url, admin);
@@ -213,6 +214,74 @@ async function signup(request, env) {
   return json({ ok: true, already: !added });
 }
 
+const fundingOn = (env) => env.FUNDING === "on";
+const FUND_PAGE = /^\/fund(\/(index\.html)?)?$/;
+
+function fundRewrite(res, env, url) {
+  if (fundingOn(env) && !FUND_PAGE.test(url.pathname)) return res;
+  const rw = fundingOn(env)
+    ? new HTMLRewriter().on("[data-api]", { element(el) { el.setAttribute("data-api", env.API_ORIGIN || ""); } })
+    : new HTMLRewriter().on("[data-fund]", { element(el) { el.remove(); } });
+  return new Response(rw.transform(res).body, res);
+}
+
+const notFound = (request, env, url) => env.ASSETS.fetch(new Request(new URL("/__not_found__/", url), { headers: request.headers }));
+
+async function sitemap(request, env) {
+  const res = await env.ASSETS.fetch(request);
+  if (fundingOn(env) || !res.ok) return res;
+  const xml = (await res.text()).replace(/<url><loc>[^<]*\/fund\/<\/loc>.*?<\/url>\n?/g, "");
+  return new Response(xml, res);
+}
+
+function dollarsToCents(v) {
+  const s = String(v ?? "").replace(/[$,\s]/g, "").replace(/(\/|per).*$/i, "");
+  if (!s) return null;
+  if (!/^\d{1,9}(\.\d{1,2})?$/.test(s)) return NaN;
+  const c = Math.round(Number(s) * 100);
+  return c >= 100 ? c : NaN;
+}
+
+function linkOf(v) {
+  const raw = clip(v, 300);
+  if (!raw) return null;
+  try {
+    const u = new URL(/^https?:\/\//i.test(raw) ? raw : `https://${raw}`);
+    return /^https?:$/.test(u.protocol) && u.hostname.includes(".") ? u.href.slice(0, 300) : NaN;
+  } catch {
+    return NaN;
+  }
+}
+
+async function sponsor(request, env) {
+  let body;
+  try {
+    body = await readBody(request);
+  } catch {
+    return json({ ok: false, error: "invalid_body" }, 400);
+  }
+  if (clip(body.website, 200)) return json({ ok: true });
+  const company = clip(body.company, 120);
+  if (!company) return json({ ok: false, error: "missing_company" }, 400);
+  const email = clip(body.email, 254)?.toLowerCase();
+  if (!email || !EMAIL.test(email)) return json({ ok: false, error: "invalid_email" }, 400);
+  const monthly = dollarsToCents(body.monthly);
+  if (Number.isNaN(monthly)) return json({ ok: false, error: "invalid_amount" }, 400);
+  const link = linkOf(body.url);
+  if (Number.isNaN(link)) return json({ ok: false, error: "invalid_url" }, 400);
+  const visitor = cookie(request, "em_v");
+  const since = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
+  const recent = await env.DB.prepare("SELECT COUNT(*) AS n FROM sponsor_interest WHERE (email = ? OR visitor = ?) AND created_at > ?").bind(email, visitor, since).first();
+  if ((recent?.n ?? 0) >= 3) return json({ ok: false, error: "too_many" }, 429);
+  const s = seen(request);
+  await env.DB.prepare(
+    "INSERT INTO sponsor_interest (created_at, company, email, monthly_cents, url, referrer, visitor, country, city, ua, tester) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+  )
+    .bind(new Date().toISOString(), company, email, monthly, link, clip(body.referrer, 500) || clip(request.headers.get("referer"), 500), visitor, s.country, s.city, s.ua, s.tester)
+    .run();
+  return json({ ok: true });
+}
+
 const REPO = "royherma/emera";
 
 async function stars(ctx) {
@@ -247,6 +316,13 @@ export default {
       if (request.method === "GET") return count(env);
       return json({ ok: false, error: "method_not_allowed" }, 405);
     }
+    if (pathname === "/api/sponsor") {
+      if (!fundingOn(env)) return json({ ok: false, error: "not_found" }, 404);
+      if (request.method === "POST") return sponsor(request, env);
+      return json({ ok: false, error: "method_not_allowed" }, 405);
+    }
+    if (FUND_PAGE.test(pathname) && !fundingOn(env)) return notFound(request, env, url);
+    if (pathname === "/sitemap.xml") return sitemap(request, env);
     if (pathname === "/edit") return login(request, env, url);
     if (pathname === "/api/stars") return stars(ctx);
     if (pathname === "/api/copy" || pathname.startsWith("/api/copy/")) return copyApi(request, env, url);
