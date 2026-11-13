@@ -541,6 +541,39 @@
       ],
       "mine": "llc",
       "pick": "llc"
+    },
+    {
+      "id": "lit-mark",
+      "q": "Light the e? Pick one for the app, site and icon",
+      "why": "Each shows the sidebar logo and app icon, day and night. Click one and I put it in the app sidebar, emera.social and the brand page.",
+      "options": [
+        {
+          "id": "ember",
+          "label": "1 Ember tail",
+          "img": "brand/logo/lit/ember.png",
+          "note": "still reads as fire at sidebar size"
+        },
+        {
+          "id": "match",
+          "label": "2 Lit match",
+          "img": "brand/logo/lit/match.png"
+        },
+        {
+          "id": "burn",
+          "label": "3 Burning down",
+          "img": "brand/logo/lit/burn.png"
+        },
+        {
+          "id": "sunset",
+          "label": "4 All sun",
+          "img": "brand/logo/lit/sunset.png"
+        },
+        {
+          "id": "ink",
+          "label": "Keep it ink"
+        }
+      ],
+      "mine": "ember"
     }
   ],
   "names": {
