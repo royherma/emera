@@ -30,20 +30,17 @@ export function litMark(o, ink, size) {
 ${o.glow ? `<g filter="url(#${id}f)"><rect width="600" height="600" fill="url(#${id}h)" mask="url(#${id}m)"/></g><g filter="url(#${id}f)" opacity=".7"><rect width="600" height="600" fill="url(#${id}h)" mask="url(#${id}m)"/></g>` : ""}${fill()}</svg>`;
 }
 
+const half = (o, ink, bg, tile) => `<div class="h" style="background:${bg};color:${ink}"><div class="lk">${litMark(o, ink, 82)}Emera</div><div class="ic" style="background:${tile}">${litMark(o, ink, 200)}</div></div>`;
 const card = (o) => `<!doctype html><html><head><link href="https://fonts.googleapis.com/css2?family=Sora:wght@600&display=block" rel="stylesheet">
-<style>body{margin:0;font-family:Sora}#c{width:1200px;height:640px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:200px 440px}
-.rail{display:flex;align-items:center;gap:10px;padding:0 56px;font:600 52px/1 Sora;letter-spacing:-.045em}
-.big{display:grid;place-items:center}.ic{width:240px;height:240px;border-radius:54px;display:grid;place-items:center}</style></head>
-<body><div id="c">
-<div class="rail" style="background:${DAY};color:${INK}">${litMark(o, INK, 84)}Emera</div>
-<div class="rail" style="background:${NIGHT};color:${CREAM}">${litMark(o, CREAM, 84)}Emera</div>
-<div class="big" style="background:${DAY}"><div class="ic" style="background:#f6f3ec;box-shadow:0 10px 40px rgba(60,35,10,.18)">${litMark(o, INK, 190)}</div></div>
-<div class="big" style="background:${NIGHT}"><div class="ic" style="background:#1c1a17">${litMark(o, CREAM, 190)}</div></div>
-</div></body></html>`;
+<style>body{margin:0}#c{width:700px;height:1000px;display:grid;grid-template-rows:1fr 1fr}
+.h{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px}
+.lk{display:flex;align-items:center;gap:10px;font:600 64px/1 Sora;letter-spacing:-.045em}
+.ic{width:250px;height:250px;border-radius:56px;display:grid;place-items:center}</style></head>
+<body><div id="c">${half(o, INK, DAY, "#f6f3ec")}${half(o, CREAM, NIGHT, "#1c1a17")}</div></body></html>`;
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const browser = await chromium.launch();
-  const page = await browser.newPage({ viewport: { width: 1200, height: 640 } });
+  const page = await browser.newPage({ viewport: { width: 700, height: 1000 } });
   for (const o of options) {
     await page.setContent(card(o), { waitUntil: "networkidle" });
     await page.evaluate(() => document.fonts.ready);

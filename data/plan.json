@@ -545,7 +545,7 @@
     {
       "id": "lit-mark",
       "q": "Light the e? Pick one for the app, site and icon",
-      "why": "Each shows the sidebar logo and app icon, day and night. Click one and I put it in the app sidebar, emera.social and the brand page.",
+      "why": "Top: day, bottom: night. Sidebar logo at real size and the app icon. Click one and I put it in the app sidebar, emera.social and the brand page.",
       "options": [
         {
           "id": "ember",
@@ -573,7 +573,8 @@
           "label": "Keep it ink"
         }
       ],
-      "mine": "ember"
+      "mine": "ember",
+      "big": true
     }
   ],
   "names": {

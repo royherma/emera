@@ -37,7 +37,7 @@ body.rv main,body.rv .ws{display:none}#review{display:none;flex:1;padding:0 20px
 .rc .imgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:8px}
 .rc .opt{border:2px solid var(--line);border-radius:12px;padding:6px;background:var(--soft);cursor:pointer;display:flex;flex-direction:column;gap:4px;align-items:center;font:600 12px Inter,system-ui,sans-serif;position:relative}
 .rc .opt:hover{border-color:var(--ink)}.rc .opt.on{border-color:var(--a2);box-shadow:0 0 0 2px var(--a2)}
-.rc .opt img{width:100%;height:150px;object-fit:contain;border-radius:8px;background:#fff}.rc .opt img.wm{height:22px}
+.rc .opt img{width:100%;height:150px;object-fit:contain;border-radius:8px;background:#fff}.rc .imgs.big .opt img{height:auto;aspect-ratio:7/10}.rc .opt img.wm{height:22px}
 .rc .opt.mine::after{content:"my pick";position:absolute;top:-8px;right:8px;font-size:9px;font-weight:700;background:var(--a);color:#fff;padding:0 5px;border-radius:4px}
 .rc .lks{display:flex;flex-wrap:wrap;gap:5px}.rc .lks a{font:600 12px Inter,system-ui,sans-serif;color:var(--ink);text-decoration:none;border:1px solid var(--ink);border-radius:8px;padding:4px 9px}.rc .lks a:hover{background:var(--ink);color:#fff}
 .rc ol{margin:0;padding-left:18px;font-size:12px;line-height:1.45}
@@ -258,14 +258,14 @@ function renderReview() {
   for (const it of items.filter((x) => !x.answered || window.showAns)) {
     const hasImg = it.dec?.options.some((o) => o.img);
     const many = (it.dec?.options.filter((o) => o.img).length ?? 0) > 6;
-    const card = el('div', `rc ${hasImg ? (many ? 'wide3 tall' : 'wide tall') : ''} ${it.list ? 'tall' : ''} ${it.answered ? 'answered' : ''}`);
+    const card = el('div', `rc ${hasImg ? (many || it.dec?.big ? 'wide3 tall' : 'wide tall') : ''} ${it.list ? 'tall' : ''} ${it.answered ? 'answered' : ''}`);
     const top = el('div', 'top'); top.append(el('i', it.kind === 'pick' || it.kind === 'decide' ? 'pick' : it.kind, TAG[it.kind] ?? it.kind), el('span', it.when === 'now' ? 'now' : '', it.when));
     card.append(top, el('b', '', it.title), el('p', '', it.why));
     if (it.dec) {
       const d = it.dec;
       const pick = (o) => { d.pick = o.id; render(); send({ kind: 'pick', id: d.id, pick: o.id, label: o.label, q: d.q }, `Picked: ${o.label}`); };
       if (hasImg) {
-        const imgs = el('div', many ? 'imgs many' : 'imgs');
+        const imgs = el('div', many ? 'imgs many' : d.big ? 'imgs big' : 'imgs');
         for (const o of d.options.filter((x) => x.img)) {
           const b = el('button', `opt ${o.id === d.mine ? 'mine' : ''} ${o.id === d.pick ? 'on' : ''}`);
           const im = el('img'); im.src = `/file/${o.img}`; im.alt = o.label; b.append(im);
