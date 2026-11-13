@@ -128,7 +128,7 @@ export function adminView(d) {
 export function ledgerView(d) {
   const users = d.users.filter((u) => !u.test);
   const posts = d.posts.filter((p) => !p.test);
-  const early = d.early.filter((e) => !e.test);
+  const early = d.early.filter((e) => !e.test).sort((a, b) => toMs(a.created_at) - toMs(b.created_at));
   const reports = d.reports.filter((r) => !r.test);
   const first = Math.min(...[...users.map((u) => u.created_at), ...early.map((e) => toMs(e.created_at))].filter(Number.isFinite), Date.now());
   const span = Math.min(365, Math.max(14, Math.ceil((Date.now() - first) / DAY) + 1));
