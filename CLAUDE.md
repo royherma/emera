@@ -59,6 +59,8 @@ Every screen, flow and feature starts from: what is the fewest steps and words a
 - **Show the content, not the chrome.** Feeds and mockups are media-first and edge to edge, with every format people use: photo, carousel, portrait video, full-screen video. One line of caption, no paragraphs.
 - **"Creative", never "art".** Labels, pages and copy say creators, creative work, what people make. Art is one kind of it.
 - **Write for late 2026.** AI fakes, cloned voices and bot crowds are everyday facts, not a coming threat.
+- **Taking part is one tap from where you read** (Roy, 2026-11-13). The comment box sits open on the post itself, never behind a "view all comments" screen; the same goes for any way to join in.
+- **Media is not one click to save.** No download menu, right-click save or drag on photos and videos, in the app and on public pages. Video sound on/off is remembered across the app and visits.
 - **Delete before you add.** A new field, setting, step or screen needs a reason Roy would agree with; "nice to have" is not one.
 - Before shipping a flow, count the taps from landing page to first post and write the number in the commit. Lower is the goal.
 

@@ -139,9 +139,10 @@ function LivePlayer({ media, fit, tapToPause, onPlaying }: { media: Media; fit: 
     player.muted = !sound;
   }, [player, sound]);
   const toggle = () => {
-    if (player.playing) player.pause();
+    const was = player.playing;
+    if (was) player.pause();
     else player.play();
-    setHeld(player.playing);
+    setHeld(was);
   };
   return (
     <>
