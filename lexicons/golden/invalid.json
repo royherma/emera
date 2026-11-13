@@ -1,0 +1,145 @@
+[
+  {
+    "nsid": "social.emera.post",
+    "name": "post without media",
+    "record": {
+      "$type": "social.emera.post",
+      "createdAt": "2026-11-13T09:30:00.000Z"
+    }
+  },
+  {
+    "nsid": "social.emera.post",
+    "name": "post without createdAt",
+    "record": {
+      "$type": "social.emera.post",
+      "media": {
+        "$type": "social.emera.post#videoMedia",
+        "video": {
+          "video": {
+            "$type": "blob",
+            "ref": {
+              "$link": "bafkreibme22gw2h7y2h7tg2fhqotaqjucnbc24deqo72b6mkl2egezxhvy"
+            },
+            "mimeType": "video/mp4",
+            "size": 10
+          }
+        }
+      }
+    }
+  },
+  {
+    "nsid": "social.emera.post",
+    "name": "image without alt",
+    "record": {
+      "$type": "social.emera.post",
+      "createdAt": "2026-11-13T09:30:00.000Z",
+      "media": {
+        "$type": "social.emera.post#images",
+        "images": [
+          {
+            "image": {
+              "$type": "blob",
+              "ref": {
+                "$link": "bafkreibme22gw2h7y2h7tg2fhqotaqjucnbc24deqo72b6mkl2egezxhvy"
+              },
+              "mimeType": "image/jpeg",
+              "size": 10
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "nsid": "social.emera.post",
+    "name": "post with a malformed date",
+    "record": {
+      "$type": "social.emera.post",
+      "createdAt": "yesterday",
+      "media": {
+        "$type": "social.emera.post#videoMedia",
+        "video": {
+          "video": {
+            "$type": "blob",
+            "ref": {
+              "$link": "bafkreibme22gw2h7y2h7tg2fhqotaqjucnbc24deqo72b6mkl2egezxhvy"
+            },
+            "mimeType": "video/mp4",
+            "size": 10
+          }
+        }
+      }
+    }
+  },
+  {
+    "nsid": "social.emera.actor.profile",
+    "name": "profile with nine crafts",
+    "record": {
+      "$type": "social.emera.actor.profile",
+      "craft": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i"
+      ]
+    }
+  },
+  {
+    "nsid": "social.emera.actor.profile",
+    "name": "copy watch without grantedAt",
+    "record": {
+      "$type": "social.emera.actor.profile",
+      "copyWatch": {
+        "enabled": true
+      }
+    }
+  },
+  {
+    "nsid": "social.emera.provenance",
+    "name": "provenance with a short sha256",
+    "record": {
+      "$type": "social.emera.provenance",
+      "subject": {
+        "uri": "at://did:plc:ewvi7nxzyoun6zhxrhs64oiz/social.emera.post/3kabc",
+        "cid": "bafkreibme22gw2h7y2h7tg2fhqotaqjucnbc24deqo72b6mkl2egezxhvy"
+      },
+      "signedAt": "2026-11-13T09:30:00.000Z",
+      "items": [
+        {
+          "sha256": "abc"
+        }
+      ]
+    }
+  },
+  {
+    "nsid": "social.emera.provenance",
+    "name": "provenance without items",
+    "record": {
+      "$type": "social.emera.provenance",
+      "subject": {
+        "uri": "at://did:plc:ewvi7nxzyoun6zhxrhs64oiz/social.emera.post/3kabc",
+        "cid": "bafkreibme22gw2h7y2h7tg2fhqotaqjucnbc24deqo72b6mkl2egezxhvy"
+      },
+      "signedAt": "2026-11-13T09:30:00.000Z",
+      "items": []
+    }
+  },
+  {
+    "nsid": "social.emera.provenance",
+    "name": "provenance without subject",
+    "record": {
+      "$type": "social.emera.provenance",
+      "signedAt": "2026-11-13T09:30:00.000Z",
+      "items": [
+        {
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ]
+    }
+  }
+]

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "demo": "node demo.js",
-    "lexicons": "node validate-lexicons.js"
+    "lexicons": "node validate-lexicons.js",
+    "golden": "node golden.js"
   },
   "keywords": [],
   "author": "",
