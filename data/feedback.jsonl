@@ -30,3 +30,7 @@
 {"at":"2026-11-13T11:44:24.793Z","kind":"review","id":"dmca","title":"Register the DMCA agent ($6)","answer":"done","text":null}
 {"at":"2026-11-13T12:10:12.000Z","kind":"review","id":"stripe-emera","answer":"reopened","text":"Card replaced: try the test sponsor flow on staging (Claude, 19:10)"}
 {"at":"2026-11-13T12:21:00.498Z","kind":"review","id":"posts-per-day","title":"How many new posts can one account share a day?","answer":"5","text":null}
+{"at":"2026-11-13T13:10:45.115Z","kind":"review","id":"email-leak","title":"Your personal email is in one public commit","answer":"yes","text":null}
+{"at":"2026-11-13T13:10:47.527Z","kind":"review","id":"handles","title":"Claim @emerasocial on 3 apps","answer":"later","text":null,"movedTo":"m1"}
+{"at":"2026-11-13T13:10:49.183Z","kind":"review","id":"handles","title":"Claim @emerasocial on 3 apps","answer":"later","text":null}
+{"at":"2026-11-13T13:10:53.293Z","kind":"review","id":"profile","title":"Post your profile + 10 works","answer":"later","text":null,"movedTo":"m1"}
