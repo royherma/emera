@@ -3,6 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "plan": "node plan/server.mjs"
+    "plan": "node plan/server.mjs",
+    "api": "npm --prefix apps/api run dev",
+    "app": "npm --prefix apps/mobile run web"
   }
 }

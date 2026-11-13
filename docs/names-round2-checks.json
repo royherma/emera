@@ -1,0 +1,134 @@
+[
+  {
+    "name": "Fair",
+    "domain": "fair.social",
+    "conflict": "serious",
+    "conflictWhy": "Generic word; near-homophone Faire (big wholesale marketplace); FairMoney; Fair VPN; Equal/other 'fair' creator networks in web search",
+    "appStore": "Fair VPN | Faire Wholesale | FairMoney | Official MN State Fair App | Fair Rides",
+    "searchHope": "No. 'fair app' is dominated by Faire, FairMoney, fairs",
+    "price": "skipped",
+    "priceHow": "Skipped on coordinator instruction (prices fetched separately via Cloudflare). Only public Porkbun base rate seen: .art $2.18 reg, .social $6.69 reg; premium not checked.",
+    "bskyHandle": "taken"
+  },
+  {
+    "name": "Firsthand",
+    "domain": "firsthand.art",
+    "conflict": "minor",
+    "conflictWhy": "No creator/AI product found by that name; App Store has small apps (Firsthand: To-Do Cards, First Hand: Secret Shopper, Firsthand for Business)",
+    "appStore": "First Hand: Secret Shopper | Firsthand: To-Do Cards | Firsthand for Business",
+    "searchHope": "Plausible: 'firsthand.art' exact match easy; 'firsthand app' has only small apps",
+    "price": "skipped",
+    "priceHow": "Skipped on coordinator instruction (prices fetched separately via Cloudflare). Only public Porkbun base rate seen: .art $2.18 reg, .social $6.69 reg; premium not checked.",
+    "bskyHandle": "taken"
+  },
+  {
+    "name": "Credit",
+    "domain": "credit.art",
+    "conflict": "serious",
+    "conflictWhy": "Credit scores/cards own the word (Experian, Credit Karma, Capital One CreditWise, Credit Sesame); no creator product by the name",
+    "appStore": "Experian Credit Score | Credit Karma | myFICO | Credit Sesame | CreditWise",
+    "searchHope": "No for 'credit app'; yes only for 'credit.art' exact",
+    "price": "skipped",
+    "priceHow": "Skipped on coordinator instruction (prices fetched separately via Cloudflare). Only public Porkbun base rate seen: .art $2.18 reg, .social $6.69 reg; premium not checked.",
+    "bskyHandle": "taken"
+  },
+  {
+    "name": "Honestly",
+    "domain": "honestly.social",
+    "conflict": "minor",
+    "conflictWhy": "Small apps: Honestly: Journal & Reflect, Honestly, Honestly Engage; Honestly analytics tool on Product Hunt; no major social/creator brand",
+    "appStore": "Honestly: Journal & Reflect | Honestly | Honestly Engage | Honestly: Conversation Cards",
+    "searchHope": "Hard for 'honestly app' (journal apps, common adverb); 'honestly.social' feasible",
+    "price": "skipped",
+    "priceHow": "Skipped on coordinator instruction (prices fetched separately via Cloudflare). Only public Porkbun base rate seen: .art $2.18 reg, .social $6.69 reg; premium not checked.",
+    "bskyHandle": "taken"
+  },
+  {
+    "name": "Sincerely",
+    "domain": "sincerely.art",
+    "conflict": "serious",
+    "conflictWhy": "Sincerely: Vent & Confess (MWM, anonymous social app, exact name); Sincerely Inc is a known photo-print/gift app company [inferred from memory, not verified this run]",
+    "appStore": "Sincerely: Vent & Confess | Yours Sincerely | Sincerely - Off My Chest",
+    "searchHope": "No for 'sincerely app'; 'sincerely.art' exact only",
+    "price": "skipped",
+    "priceHow": "Skipped on coordinator instruction (prices fetched separately via Cloudflare). Only public Porkbun base rate seen: .art $2.18 reg, .social $6.69 reg; premium not checked.",
+    "bskyHandle": "taken"
+  },
+  {
+    "name": "Sigil",
+    "domain": "sigil.art",
+    "conflict": "minor",
+    "conflictWhy": "Sigil Video (social video app) discontinued; Sigil Creator / SigilAI / Sigil Maker occult apps; Sigil EPUB editor; Project: Sigil social idea on DEV; nothing big",
+    "appStore": "Sigil Maker | SIGIL Magical GPS Action RPG | Sigil Creator | SigilAI | myGLYPH",
+    "searchHope": "Hard: many small 'sigil' apps, occult/RPG results; 'sigil.art' exact feasible",
+    "price": "skipped",
+    "priceHow": "Skipped on coordinator instruction (prices fetched separately via Cloudflare). Only public Porkbun base rate seen: .art $2.18 reg, .social $6.69 reg; premium not checked.",
+    "bskyHandle": "taken"
+  },
+  {
+    "name": "Here",
+    "domain": "here.social",
+    "conflict": "serious",
+    "conflictWhy": "HERE Technologies / HERE WeGo maps is a major brand; several apps named Here (subway, peer support, TV, puzzle); word is ungoogleable",
+    "appStore": "HERE WeGo Maps | Here by Hines | Here - Subway Arrivals | Here - Trained peer support | Here TV",
+    "searchHope": "No. 'here app' is unwinnable",
+    "price": "skipped",
+    "priceHow": "Skipped on coordinator instruction (prices fetched separately via Cloudflare). Only public Porkbun base rate seen: .art $2.18 reg, .social $6.69 reg; premium not checked.",
+    "bskyHandle": "taken"
+  },
+  {
+    "name": "Byline",
+    "domain": "byline.social",
+    "conflict": "minor",
+    "conflictWhy": "Byline Bank (large US bank, finance); Byline multiplayer writing app; Byline Times / Byline magazine; Byline: Reads; none are creator networks",
+    "appStore": "Byline: Personal & Business | Byline Bank | Byline: Multiplayer Writing | Byline: Reads, in Perspective | Bylines",
+    "searchHope": "Hard for 'byline app' (bank, writing app); 'byline.social' exact feasible",
+    "price": "skipped",
+    "priceHow": "Skipped on coordinator instruction (prices fetched separately via Cloudflare). Only public Porkbun base rate seen: .art $2.18 reg, .social $6.69 reg; premium not checked.",
+    "bskyHandle": "taken"
+  },
+  {
+    "name": "Ours",
+    "domain": "ours.art",
+    "conflict": "serious",
+    "conflictWhy": "Several exact-name photo/memory/art apps: Ours: Wedding & Event Camera, Ours: Couple Diary, Ours: Couple Widget & Art, Ours - Shared Memories; Oura near-homophone",
+    "appStore": "Ours: Wedding & Event Camera | Ours: Couple Diary | Ours | Ours: Couple Widget & Art | Ours - Shared Memories",
+    "searchHope": "No; 'ours app' is a crowd of couples/photo apps",
+    "price": "skipped",
+    "priceHow": "Skipped on coordinator instruction (prices fetched separately via Cloudflare). Only public Porkbun base rate seen: .art $2.18 reg, .social $6.69 reg; premium not checked.",
+    "bskyHandle": "taken"
+  },
+  {
+    "name": "Vow",
+    "domain": "vow.art",
+    "conflict": "minor",
+    "conflictWhy": "Many small exact-name apps (VOW habit/urge blockers, Vow Wedding AI planner, Vow Affirmations); none in creator/social space",
+    "appStore": "VOW: Block Your Urges | VOW Go | Vow - Habit & Streak Tracker | Vow App | Vow Affirmations",
+    "searchHope": "Unlikely for 'vow app' (habit + wedding apps); 'vow.art' exact feasible",
+    "price": "skipped",
+    "priceHow": "Skipped on coordinator instruction (prices fetched separately via Cloudflare). Only public Porkbun base rate seen: .art $2.18 reg, .social $6.69 reg; premium not checked.",
+    "bskyHandle": "taken"
+  },
+  {
+    "name": "Chorus",
+    "domain": "chorus.art",
+    "conflict": "serious",
+    "conflictWhy": "Chorus - The Future is Fandom (fan platform for artists, same space); Chorus Network (music distribution app); Chorus by ZoomInfo; Chorus nonprofit for civic creators (wearechorus.com, nonprofit + creators overlap)",
+    "appStore": "Chorus - The Future is Fandom | Chorus by ZoomInfo | Chorus: Songwriting Studio | Chorus Network | Chorus - Group Collab",
+    "searchHope": "No; crowded and direct overlap with creator/fan platforms and a creator nonprofit",
+    "price": "skipped",
+    "priceHow": "Skipped on coordinator instruction (prices fetched separately via Cloudflare). Only public Porkbun base rate seen: .art $2.18 reg, .social $6.69 reg; premium not checked.",
+    "bskyHandle": "taken"
+  },
+  {
+    "name": "Witness",
+    "domain": "witness.art",
+    "conflict": "serious",
+    "conflictWhy": "WITNESS (witness.org, human rights nonprofit, leading voice on media provenance/C2PA); Witness app by Reel Human signs photos/videos at capture (direct overlap); Witness: Camera Beyond Reach",
+    "appStore": "Witness: Camera Beyond Reach | The Witness | Witness App | Nx Witness Mobile | Witness: Future Self Chat",
+    "searchHope": "No; witness.org owns the provenance niche and an app does the same thing",
+    "price": "skipped",
+    "priceHow": "Skipped on coordinator instruction (prices fetched separately via Cloudflare). Only public Porkbun base rate seen: .art $2.18 reg, .social $6.69 reg; premium not checked.",
+    "bskyHandle": "taken"
+  }
+]

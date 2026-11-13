@@ -139,7 +139,8 @@ function render() {
   for (const n of plan.names.items.filter((x) => !nameGroup || (x.group ?? 'mine') === nameGroup || x.added)) {
     if (n.group === 'r2') {
       const card = el('div', `nm big ${n.vote ?? ''}`);
-      card.append(el('div', 'wm', n.name), el('div', 'dm', n.domain), el('div', 'st', n.stance), el('div', 'why', n.why));
+      card.title = `${n.why}${n.conflictWhy ? '\n\nClash: ' + n.conflictWhy : ''}`;
+      card.append(el('div', 'wm', n.name), el('div', 'dm', n.domain), el('div', 'st', n.stance));
       if (n.check) card.append(el('div', 'ph2', n.check));
       const btns = el('div', 'btns');
       for (const [v, label, cls] of [['keep', 'Keep', 'k'], ['drop', 'Drop', 'd']]) { const b = el('button', cls, label); b.onclick = () => { n.vote = n.vote === v ? null : v; render(); send({ kind: 'name-vote', id: n.id, name: n.name, vote: n.vote }, `${n.name}: ${n.vote ?? 'cleared'}`); }; btns.append(b); }

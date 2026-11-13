@@ -1,5 +1,5 @@
 {
-  "updated": "10:52 AM Bangkok",
+  "updated": "10:54 AM Bangkok",
   "title": "Plan",
   "goal": "You post your work on your own profile, share the link, and invite people",
   "phases": [
@@ -306,7 +306,7 @@
     }
   ],
   "names": {
-    "note": "Domain shown is free (checked 10:55). Prices not checked yet; checking names against existing products now.",
+    "note": "Prices from Cloudflare Registrar (10:54). Name clash = existing apps/brands found.",
     "items": [
       {
         "id": "madeby",
@@ -603,7 +603,9 @@
         "group": "r2",
         "domain": "fair.social",
         "stance": "Fair to every creator.",
-        "why": "Credit, pay and reach, all fair. One syllable, a stance."
+        "why": "Credit, pay and reach, all fair. One syllable, a stance.",
+        "check": "$99/yr (premium) \u00b7 name clash: serious",
+        "conflictWhy": "Generic word; near-homophone Faire (big wholesale marketplace); FairMoney; Fair VPN; Equal/other 'fair' creator networks in web search"
       },
       {
         "id": "r2-firsthand",
@@ -611,7 +613,9 @@
         "group": "r2",
         "domain": "firsthand.art",
         "stance": "Everything here is firsthand.",
-        "why": "Made by a human hand, the original, an honest account."
+        "why": "Made by a human hand, the original, an honest account.",
+        "check": "$410 first yr, then $70 \u00b7 name clash: minor",
+        "conflictWhy": "No creator/AI product found by that name; App Store has small apps (Firsthand: To-Do Cards, First Hand: Secret Shopper, Firsthand for Business)"
       },
       {
         "id": "r2-credit",
@@ -619,7 +623,9 @@
         "group": "r2",
         "domain": "credit.art",
         "stance": "Credit where it's due.",
-        "why": "Every piece carries its maker. Bold, but the money meaning competes."
+        "why": "Every piece carries its maker. Bold, but the money meaning competes.",
+        "check": "$10,000 first yr \u00b7 name clash: serious",
+        "conflictWhy": "Credit scores/cards own the word (Experian, Credit Karma, Capital One CreditWise, Credit Sesame); no creator product by the name"
       },
       {
         "id": "r2-honestly",
@@ -627,7 +633,9 @@
         "group": "r2",
         "domain": "honestly.social",
         "stance": "Share honestly.",
-        "why": "How friends talk. No bots, no bought reach."
+        "why": "How friends talk. No bots, no bought reach.",
+        "check": "Taken (Cloudflare check) \u00b7 name clash: minor",
+        "conflictWhy": "Small apps: Honestly: Journal & Reflect, Honestly, Honestly Engage; Honestly analytics tool on Product Hunt; no major social/creator brand"
       },
       {
         "id": "r2-sincerely",
@@ -635,7 +643,9 @@
         "group": "r2",
         "domain": "sincerely.art",
         "stance": "Every post, signed.",
-        "why": "The sign-off on a letter: warm, and it's your signature."
+        "why": "The sign-off on a letter: warm, and it's your signature.",
+        "check": "$910 first yr, then $70 \u00b7 name clash: serious",
+        "conflictWhy": "Sincerely: Vent & Confess (MWM, anonymous social app, exact name); Sincerely Inc is a known photo-print/gift app company [inferred from memory, not verified this run]"
       },
       {
         "id": "r2-sigil",
@@ -643,7 +653,9 @@
         "group": "r2",
         "domain": "sigil.art",
         "stance": "Your mark on everything you make.",
-        "why": "A maker's mark with some magic to it."
+        "why": "A maker's mark with some magic to it.",
+        "check": "$910 first yr, then $70 \u00b7 name clash: minor",
+        "conflictWhy": "Sigil Video (social video app) discontinued; Sigil Creator / SigilAI / Sigil Maker occult apps; Sigil EPUB editor; Project: Sigil social idea on DEV; nothing big"
       },
       {
         "id": "r2-here",
@@ -651,7 +663,9 @@
         "group": "r2",
         "domain": "here.social",
         "stance": "Be here, as you are.",
-        "why": "Tiny and present. Hard to search for."
+        "why": "Tiny and present. Hard to search for.",
+        "check": "Taken (Cloudflare check) \u00b7 name clash: serious",
+        "conflictWhy": "HERE Technologies / HERE WeGo maps is a major brand; several apps named Here (subway, peer support, TV, puzzle); word is ungoogleable"
       },
       {
         "id": "r2-byline",
@@ -659,7 +673,9 @@
         "group": "r2",
         "domain": "byline.social",
         "stance": "Your name stays on your work.",
-        "why": "The credit line on every story, for every medium."
+        "why": "The credit line on every story, for every medium.",
+        "check": "$32/yr \u00b7 name clash: minor",
+        "conflictWhy": "Byline Bank (large US bank, finance); Byline multiplayer writing app; Byline Times / Byline magazine; Byline: Reads; none are creator networks"
       },
       {
         "id": "r2-ours",
@@ -667,7 +683,9 @@
         "group": "r2",
         "domain": "ours.art",
         "stance": "Owned by the people on it.",
-        "why": "Nonprofit, and your work stays yours."
+        "why": "Nonprofit, and your work stays yours.",
+        "check": "$910 first yr, then $70 \u00b7 name clash: serious",
+        "conflictWhy": "Several exact-name photo/memory/art apps: Ours: Wedding & Event Camera, Ours: Couple Diary, Ours: Couple Widget & Art, Ours - Shared Memories; Oura near-homophone"
       },
       {
         "id": "r2-vow",
@@ -675,7 +693,9 @@
         "group": "r2",
         "domain": "vow.art",
         "stance": "A promise to every creator.",
-        "why": "A promise you keep: credit, protection, no tricks."
+        "why": "A promise you keep: credit, protection, no tricks.",
+        "check": "$910 first yr, then $70 \u00b7 name clash: minor",
+        "conflictWhy": "Many small exact-name apps (VOW habit/urge blockers, Vow Wedding AI planner, Vow Affirmations); none in creator/social space"
       },
       {
         "id": "r2-chorus",
@@ -683,7 +703,9 @@
         "group": "r2",
         "domain": "chorus.art",
         "stance": "Every voice, together.",
-        "why": "Many makers, one place. Lifts everyone, not a few."
+        "why": "Many makers, one place. Lifts everyone, not a few.",
+        "check": "$910 first yr, then $70 \u00b7 name clash: serious",
+        "conflictWhy": "Chorus - The Future is Fandom (fan platform for artists, same space); Chorus Network (music distribution app); Chorus by ZoomInfo; Chorus nonprofit for civic creators (wearechorus.com, nonprofit + creators overlap)"
       },
       {
         "id": "r2-witness",
@@ -691,7 +713,9 @@
         "group": "r2",
         "domain": "witness.art",
         "stance": "Seen, credited, proven.",
-        "why": "We witness who made it first. Heavier tone."
+        "why": "We witness who made it first. Heavier tone.",
+        "check": "$5,000 first yr \u00b7 name clash: serious",
+        "conflictWhy": "WITNESS (witness.org, human rights nonprofit, leading voice on media provenance/C2PA); Witness app by Reel Human signs photos/videos at capture (direct overlap); Witness: Camera Beyond Reach"
       }
     ],
     "groups": [

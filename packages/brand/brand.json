@@ -1,0 +1,8 @@
+{
+  "name": "agora",
+  "codeName": true,
+  "tagline": "Share what you make. Keep it yours.",
+  "nsidAuthority": "org.techguyverlabs.agora",
+  "webOrigin": "http://agora-api.localhost:5036",
+  "colors": { "bg": "#f6f3ec", "ink": "#1c1a17", "accent": "#e2573a", "accent2": "#2f7a5b" }
+}
