@@ -1,5 +1,7 @@
 # Emera
 
+[![CI](https://github.com/royherma/emera/actions/workflows/ci.yml/badge.svg)](https://github.com/royherma/emera/actions/workflows/ci.yml)
+
 **Where humanity comes together.**
 
 Emera is an open-source, nonprofit network for every kind of creator: video makers, illustrators, photographers, musicians, designers and people who make physical things. It runs on the [AT Protocol](https://atproto.com), so your account and your followers are yours.
@@ -111,6 +113,13 @@ Emera is built in the open and we want help, especially on the platforms we have
 
 ## License
 
-Planned: server code under AGPL-3.0 and client libraries under MIT. The LICENSE files land with the first public release. Details in [CONTRIBUTING.md](CONTRIBUTING.md#licensing).
+Two licenses, split by folder:
+
+| Folder | License |
+| --- | --- |
+| `apps/api`, `apps/site` (servers) | AGPL-3.0, see `apps/api/LICENSE` and `apps/site/LICENSE` |
+| everything else: `apps/mobile`, `packages`, `lexicons`, `spikes`, `tools` (client app and SDKs) | MIT, see `LICENSE` |
+
+The Emera name, logo and brand artwork (`brand/`) are not covered by either license. Details in [CONTRIBUTING.md](CONTRIBUTING.md#licensing).
 
 Built by Techguyver Labs for the Emera community.

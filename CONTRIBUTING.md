@@ -2,11 +2,11 @@
 
 Thank you for helping. Emera is a nonprofit network for every kind of creator, and it is better when people from outside the core team build parts of it. This guide gets you from zero to a merged pull request.
 
-Be kind. A written code of conduct is a prerequisite for going public and is tracked in [docs/help-wanted.json](docs/help-wanted.json). Until then: no harassment, assume good faith, and say what you mean plainly.
+Be kind. We follow the [Code of Conduct](CODE_OF_CONDUCT.md): no harassment, assume good faith, and say what you mean plainly.
 
 ## Found a security problem
 
-Do not open a public issue. A private reporting address is set up before the repo goes public; until then, tell the person who invited you.
+Do not open a public issue. Email oss@techguyverlabs.org, see [SECURITY.md](SECURITY.md).
 
 ## Setup
 
@@ -81,7 +81,7 @@ Strings are being moved to Lingui catalogs. Until that lands, open an issue for 
 
 ## Licensing
 
-The plan, not yet in place: server code (`apps/api`, services) under AGPL-3.0, and client libraries and SDKs under MIT. The brand name, logo and artwork are not covered by either license. LICENSE files are added before the repository goes public. By contributing you agree your work may be released under the license of the folder you changed.
+Server code (`apps/api`, `apps/site`) is AGPL-3.0. Everything else, including the client app (`apps/mobile`), packages, lexicons and tools, is MIT. The brand name, logo and artwork are not covered by either license. By contributing you agree your work may be released under the license of the folder you changed.
 
 ## Questions
 
