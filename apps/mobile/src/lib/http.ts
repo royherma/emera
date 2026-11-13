@@ -1,5 +1,5 @@
 import { API_URL } from "./config";
-import { ApiError, Backend, Channel, ChatMessage, ChatPage, ChatRoomRef, Comment, DmThread, Media, Notification, PickedFile, Post, User, UserPage } from "./types";
+import { ApiError, Backend, ImportItem, ImportSource, Channel, ChatMessage, ChatPage, ChatRoomRef, Comment, DmThread, Media, Notification, PickedFile, Post, User, UserPage } from "./types";
 
 let token: string | null = null;
 export const setToken = (t: string | null) => {
@@ -119,4 +119,16 @@ export const http: Backend = {
   acceptThread: async (id) => (await send<{ thread: DmThread }>("POST", `/v1/dms/${encodeURIComponent(id)}/accept`)).thread,
   hideThread: async (id) => void (await send("DELETE", `/v1/dms/${encodeURIComponent(id)}`)),
   dmUnread: () => send("GET", "/v1/dms/unread"),
+  importPreview: async (from) => {
+    const r = await send<{ source: { label: string }; items: ImportItem[] }>("POST", "/v1/import/preview", { from, limit: 12 });
+    return { label: r.source.label, items: r.items };
+  },
+  connectors: () => send("GET", "/v1/connectors"),
+  importPosts: async (input) => {
+    const r = await send<{ imported: unknown[]; skipped: { item: string; why: string }[] }>("POST", "/v1/import", input);
+    return { imported: r.imported.length, skipped: r.skipped };
+  },
+  sources: async () => (await send<{ sources: ImportSource[] }>("GET", "/v1/sources")).sources,
+  setSource: async (from, autoPost, rules) => (await send<{ source: ImportSource }>("POST", "/v1/sources", { from, autoPost, rules })).source,
+  removeSource: async (id) => void (await send("DELETE", `/v1/sources/${encodeURIComponent(id)}`)),
 };
