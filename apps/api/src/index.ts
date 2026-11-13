@@ -13,6 +13,7 @@ import { notificationRoutes } from './notifications';
 import { searchRoutes } from './search';
 import { profileRoutes } from './profile';
 import { flagRoutes } from './flags';
+import { chatRoutes } from './chat';
 import { pages, notFoundPage } from './pages';
 
 const app = new Hono<AppEnv>();
@@ -39,6 +40,7 @@ app.route('/', notificationRoutes);
 app.route('/', searchRoutes);
 app.route('/', profileRoutes);
 app.route('/', flagRoutes);
+app.route('/', chatRoutes);
 app.route('/', pages);
 
 app.onError((err, c) => {
