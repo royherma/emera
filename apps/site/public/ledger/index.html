@@ -92,9 +92,8 @@ if(e.type==="account")return who(e.handle)+" opened an account";
 if(e.type==="post")return who(e.handle)+' shared <a href="/p/'+encodeURIComponent(e.id)+'">a post</a>';
 if(e.type==="early")return"Someone joined the early list";
 return"A creator reported a copy of their work";}
-var label={account:"Account",post:"Post",early:"Early list",report:"Report"};
 function list(){
-document.getElementById("events").innerHTML=data.events.slice(0,shown).map(function(e){return'<li><span class="n">#'+e.n+'</span><span>'+line(e)+' <span style="color:var(--ink3);font-size:.85rem">'+label[e.type]+'</span></span><time datetime="'+new Date(e.at).toISOString()+'">'+when(e.at)+"</time></li>"}).join("")||'<li><span></span><span>The first entry lands here soon after launch</span></li>';
+document.getElementById("events").innerHTML=data.events.slice(0,shown).map(function(e){return'<li><span class="n">#'+e.n+'</span><span>'+line(e)+'</span><time datetime="'+new Date(e.at).toISOString()+'">'+when(e.at)+"</time></li>"}).join("")||'<li><span></span><span>The first entry lands here soon after launch</span></li>';
 document.getElementById("more").hidden=shown>=data.events.length;}
 function chart(){
 var svg=document.getElementById("chart"),W=svg.clientWidth||900,H=240,p={l:36,r:12,t:10,b:26},c=data.cumulative,days=data.days;
