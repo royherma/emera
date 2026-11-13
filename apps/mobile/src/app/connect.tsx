@@ -117,7 +117,7 @@ export default function Connect() {
       </View>
 
       <View style={{ gap: space[3] }}>
-        <Text style={[type.body, { color: c.ink2 }]}>Your photos, videos, captions and dates come with them.</Text>
+        <Text style={[type.body, { color: c.ink2 }]}>Your photos, videos, captions and dates come with them. We only read from there and never post anything back.</Text>
         <View style={{ flexDirection: "row", flexWrap: "wrap", gap: space[2] }}>
           {(connectors.data?.connectors ?? []).map((k) => (
             <Chip key={k.id} label={k.id === "feed" ? "Blog or feed" : k.name} onPress={() => setHint(k.example)} />
@@ -209,7 +209,7 @@ export default function Connect() {
       <View style={{ height: 1, backgroundColor: c.hair, marginVertical: space[5] }} />
       <View style={{ gap: space[3] }}>
         <Text style={[type.section, { color: c.ink }]}>Or ask Claude or ChatGPT</Text>
-        <Text style={[type.body, { color: c.ink2 }]}>Add Emera as a connector, sign in, then ask it to bring your posts over or post for you.</Text>
+        <Text style={[type.body, { color: c.ink2 }]}>Add Emera as a connector and sign in. It reads your posts from other places and posts them only to Emera.</Text>
         <View style={{ flexDirection: "row", alignItems: "center", gap: space[2], backgroundColor: c.surface, borderRadius: radius.card, borderWidth: 1, borderColor: c.hair, paddingLeft: space[3] }}>
           <Text selectable style={[type.bodySm, { color: c.ink, flex: 1 }]} numberOfLines={1}>{MCP_URL}</Text>
           <IconButton icon="copy" label="Copy connector link" onPress={async () => (await copyText(MCP_URL), toast("Connector link copied"))} filled={false} />
