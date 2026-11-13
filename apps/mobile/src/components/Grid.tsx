@@ -68,11 +68,11 @@ export function PostTile({ post, w, h, radiusPx = radius.tile }: { post: Post; w
       onPress={() => router.push({ pathname: "/p/[id]", params: { id: post.id } })}
       style={({ hovered, pressed }: PS) => ({ width: w, height: h, borderRadius: radiusPx, overflow: "hidden", transform: [{ scale: pressed ? 0.98 : hovered ? 1.01 : 1 }] })}
     >
-      <MediaImage media={post.media[0]} style={{ flex: 1 }} playSize={Math.min(44, w * 0.4)} />
-      {post.media.length > 1 && (
+      <MediaImage media={post.media[0]} style={{ flex: 1 }} playSize={0} />
+      {(post.media.length > 1 || post.media[0].kind === "video") && (
         <View style={{ position: "absolute", top: 7, right: 7 }}>
-          <Glass style={{ width: 22, height: 22, borderRadius: 11 }}>
-            <Icon name="layers" size={12} color="#fff" strokeWidth={2} />
+          <Glass style={{ width: 22, height: 22, borderRadius: 11, paddingLeft: post.media.length > 1 ? 0 : 2 }}>
+            <Icon name={post.media.length > 1 ? "layers" : "play"} size={post.media.length > 1 ? 12 : 10} color="#fff" strokeWidth={2} />
           </Glass>
         </View>
       )}
