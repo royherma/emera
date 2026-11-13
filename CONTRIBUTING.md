@@ -13,14 +13,20 @@ Do not open a public issue. Email oss@techguyverlabs.org, see [SECURITY.md](SECU
 You need Node 22 or newer and npm.
 
 ```bash
-git clone <repository-url> emera
+git clone https://github.com/royherma/emera.git
 cd emera
+npm install
 npm --prefix apps/api install
 npm --prefix apps/mobile install
 npm --prefix apps/site install
+npm --prefix spikes/provenance install
 ```
 
-Run the pieces (full list in [README.md](README.md#run-it-locally)):
+The first `npm install` has no packages to fetch. It installs the pre-commit hook (see [Pre-commit hook](#pre-commit-hook)).
+
+Tested from a fresh clone on macOS 26.7 (arm64) with Node 22.23.4 and npm 10.9.9. Linux and Windows (WSL) are untested: tell us what breaks.
+
+Run the pieces (full list in [README.md](README.md#-run-it-locally)):
 
 | What | Run | Check |
 | --- | --- | --- |
@@ -28,6 +34,10 @@ Run the pieces (full list in [README.md](README.md#run-it-locally)):
 | App on :5037 | `npm --prefix apps/mobile run web` | `npm --prefix apps/mobile run check` |
 | Site on :5038 | `npm --prefix apps/site run dev` | open it and look |
 | Provenance spike | `npm --prefix spikes/provenance run demo` | prints PASS |
+| Lexicon golden records | `npm run lexicons:golden` | prints PASS |
+| D1 migrations from empty | `npm run migrations:replay` | prints `ok` for api and site |
+
+Ports 5036 to 5039 must be free. The smoke test starts its own API on :5039 and stops it when it ends; if a run is killed halfway, stop the leftover `workerd` process before running it again.
 
 The app runs on mock data unless `EXPO_PUBLIC_API_URL` points at an API. You never need a Cloudflare login for local work: wrangler uses a local D1 and R2.
 
@@ -41,6 +51,10 @@ Want a full-looking network instead of an empty one? With the API running, `npm 
 4. Want to own a whole platform such as Roku, Apple TV or a browser extension? Read [docs/platforms.md](docs/platforms.md), then open an issue saying which one and how you will start.
 
 Labels you will see: `good first issue`, `help wanted`, `platform:<name>`, `i18n`, `accessibility`, `atproto`, `api`, `docs`, `tests`, `ci`.
+
+## Pre-commit hook
+
+`npm install` at the repo root sets `core.hooksPath` to `.githooks`. On each commit the hook typechecks `apps/api` or `apps/mobile` only when staged `.ts` or `.tsx` files live in that app, so commits without TypeScript are not slowed down. It does nothing when the `CI` environment variable is set, and skips an app whose dependencies are not installed. `git commit --no-verify` bypasses it. `.editorconfig` sets indentation, line endings and the final newline: use an editor that reads it.
 
 ## Branch and pull request flow
 
@@ -71,11 +85,12 @@ A change that alters behavior needs a test in the same pull request.
 - API: vitest in the Workers runtime, in `apps/api/test`. Run `npm --prefix apps/api test`.
 - App: `npm --prefix apps/mobile run check` runs the typecheck and a web export. A unit-test runner is an open issue; until then, add stories for new components.
 - Bug fix: add the test that fails without your fix.
-- Lexicon change: ask for sign-off before writing the implementation, then add valid and invalid example records.
+- Lexicon change: ask for sign-off before writing the implementation, then add valid and invalid example records to `lexicons/golden/valid.json` and `lexicons/golden/invalid.json` and run `npm run lexicons:golden`.
+- Migration: `npm run migrations:replay` applies every API and site migration to an empty local database. CI runs it on every pull request.
 
 ## Stories and coverage
 
-Every screen and component is meant to have stories, small isolated states such as empty, loading, error, long text and large font. A coverage map of those states is being built as `npm run atlas`. When it exists, open [docs/atlas](docs/atlas) to see which states have a story and which do not. Until then, put a new component's states in the pull request description with screenshots.
+Every screen and component is meant to have stories, small isolated states such as empty, loading, error, long text and large font. `npm --prefix tools/atlas install` then `npm run atlas` rebuilds `data/atlas.json`, the map of which screens and states have a story. `npm run plan` shows it on the dashboard at http://localhost:5035. Put a new component's states in the pull request description with screenshots.
 
 ## Translations
 
