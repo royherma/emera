@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Emera Seal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Gloock&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+--bone:oklch(95.5% 0.014 105);
+--paper:oklch(90% 0.022 105);
+--brass:oklch(78% 0.13 85);
+--seal:oklch(46% 0.1 165);
+--ember:oklch(58% 0.17 35);
+--pine:oklch(26% 0.06 165);
+--display:'Gloock',Georgia,serif;--body:'Geist',system-ui,sans-serif;--mono:'Geist Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0}
+html,body{background:var(--bone);color:var(--pine);font-family:var(--body);font-size:14px;-webkit-font-smoothing:antialiased}
+body{min-width:1320px;min-height:860px;height:100vh;display:grid;grid-template-rows:54px 1fr 108px;padding:0 28px}
+::selection{background:var(--brass);color:var(--pine)}
+.ic{width:22px;height:22px;display:block}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--pine)}
+.bar h2{font:400 18px var(--display);display:flex;align-items:center;gap:10px}
+.bar h2 em{font:500 11px var(--mono);font-style:normal;border:1px solid var(--pine);padding:3px 8px;border-radius:99px}
+.bar p{font-size:14px;text-align:right}
+.stage{display:grid;grid-template-columns:1fr 350px 296px;gap:26px;min-height:0;padding:20px 0 16px}
+.hero{display:grid;grid-template-columns:1fr 326px;grid-template-rows:auto 1fr;gap:0 26px;min-width:0}
+.nav{grid-column:1/-1;display:flex;align-items:center;gap:28px;padding-bottom:20px}
+.logo{display:flex;align-items:center;gap:10px;font:400 30px var(--display);letter-spacing:-.01em}
+.nav ul{display:flex;gap:24px;list-style:none;padding:0;margin-left:auto;font-weight:500}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:6px;padding:13px 20px;font:600 15px var(--body);background:var(--pine);color:var(--bone);cursor:pointer;transition:background .15s}
+.btn:hover{background:var(--seal)}
+.btn:focus-visible{outline:3px solid var(--brass);outline-offset:3px}
+.btn.brass{background:var(--brass);color:var(--pine)}
+.btn.brass:hover{background:oklch(84% 0.13 85)}
+.btn.ghost{background:transparent;color:var(--pine);box-shadow:inset 0 0 0 1.5px var(--pine)}
+.btn.ghost:hover{background:var(--paper)}
+.btn.sm{padding:8px 14px;font-size:13px}
+.copy{display:flex;flex-direction:column;justify-content:center;padding-right:10px}
+h1{font:400 76px/.98 var(--display);letter-spacing:-.02em;text-wrap:balance}
+.copy p{font-size:18px;line-height:1.45;margin:22px 0 26px;max-width:430px}
+.cta{display:flex;gap:12px}
+.signed{position:relative;border-radius:6px;overflow:hidden;box-shadow:0 1px 0 var(--pine),0 24px 40px -22px oklch(26% 0.06 165 / .5)}
+.signed .art{height:100%}
+.signed .stamp{position:absolute;right:12px;bottom:52px;transform:rotate(-10deg)}
+.signed .stamp svg{filter:drop-shadow(0 6px 8px oklch(26% 0.06 165 / .35))}
+.signed figcaption{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 12px;line-height:1.35;background:linear-gradient(transparent,oklch(26% 0.06 165 / .7));color:var(--bone);font:500 11.5px var(--mono)}
+.card{align-self:center;background:var(--paper);border-radius:10px;padding:14px;box-shadow:0 1px 0 var(--pine),0 24px 40px -24px oklch(26% 0.06 165 / .5)}
+.who{display:flex;align-items:center;gap:10px;padding-bottom:12px}
+.av{width:38px;height:38px;border-radius:50%;overflow:hidden;flex:none}
+.who b{font:400 18px var(--display);display:block;line-height:1.1}
+.who span{font:500 11px var(--mono)}
+.who .btn{margin-left:auto}
+.pic{height:290px;border-radius:4px;overflow:hidden;position:relative}
+.pic .seal{position:absolute;right:12px;bottom:12px}
+.cert{margin:14px 2px 6px;font:500 11.5px/1 var(--mono)}
+.cert h4{font:400 17px var(--display);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.cert dl{display:grid;gap:7px}
+.cert dl div{display:flex;align-items:baseline;gap:6px}
+.cert dt{white-space:nowrap}
+.cert dl div:after{content:"";order:1;flex:1;border-bottom:1px dotted var(--pine);transform:translateY(-3px);opacity:.6}
+.cert dd{margin:0;order:2;font-weight:600;white-space:nowrap}
+.cert dd.em{color:var(--ember)}
+.meta{display:flex;align-items:center;gap:16px;padding:12px 2px 2px;border-top:1px solid oklch(26% 0.06 165 / .25);margin-top:12px}
+.meta .ic{width:24px;height:24px}
+.meta .push{margin-left:auto;font:500 11px var(--mono)}
+.phone{align-self:center;width:296px;height:628px;border-radius:46px;background:var(--pine);padding:9px}
+.scr{height:100%;border-radius:38px;background:var(--bone);overflow:hidden;position:relative;display:flex;flex-direction:column}
+.island{position:absolute;left:50%;top:8px;width:84px;height:24px;background:var(--pine);border-radius:20px;transform:translateX(-50%)}
+.sb{display:flex;justify-content:space-between;padding:12px 22px 4px;font:600 13px var(--body)}
+.prof{padding:18px 18px 0;display:flex;gap:14px;align-items:center}
+.pav{position:relative;width:76px;height:76px;flex:none}
+.pav .av{width:76px;height:76px;border:3px solid var(--brass)}
+.pav .seal{position:absolute;right:-8px;bottom:-6px}
+.prof h3{font:400 25px/1 var(--display)}
+.prof .h{font:500 11.5px var(--mono);margin-top:5px}
+.bio{font-size:13px;line-height:1.4;padding:12px 18px 0}
+.vh{display:inline-flex;align-items:center;gap:5px;margin:10px 18px 0;font:600 11px var(--mono);background:var(--seal);color:var(--bone);border-radius:99px;padding:4px 10px 4px 7px;width:max-content}
+.vh .ic{width:13px;height:13px}
+.stats{display:flex;margin:12px 18px;border-top:1px solid var(--pine);border-bottom:1px solid var(--pine)}
+.stats div{flex:1;padding:7px 0 6px;font:500 10.5px var(--mono)}
+.stats div+div{padding-left:10px;border-left:1px solid var(--pine)}
+.stats b{display:block;font:400 22px var(--display)}
+.acts{display:flex;gap:8px;padding:0 18px 12px}
+.acts .btn{flex:1;justify-content:center}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:4px;flex:1;min-height:0;padding:0 14px}
+.grid div{border-radius:4px;overflow:hidden;position:relative}
+.grid div:after{content:"";position:absolute;right:5px;bottom:5px;width:11px;height:11px;border-radius:50%;background:var(--pine);box-shadow:inset 0 0 0 3px var(--pine),inset 0 0 0 5.5px var(--brass)}
+.tabs{display:flex;justify-content:space-around;padding:10px 6px 22px;margin-top:10px;border-top:1px solid oklch(26% 0.06 165 / .2)}
+.tabs .on{color:var(--seal)}
+.foot{display:grid;grid-template-columns:minmax(0,1fr) 430px;gap:26px;align-items:center;border-top:1px solid var(--pine)}
+.sws{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.sw i{display:block;height:44px;border-radius:6px;box-shadow:inset 0 0 0 1px oklch(26% 0.06 165 / .2);margin-bottom:6px}
+.sw b{display:block;font-size:12px}
+.sw span{font:500 10px var(--mono)}
+.type{display:flex;gap:20px;align-items:center}
+.type .aa{font:400 54px/1 var(--display)}
+.type .bb{font:500 54px/1 var(--body)}
+.type p{font-size:12px;line-height:1.45}
+.type p b{display:block;font-size:13px}
+</style></head><body>
+<div class="bar"><h2><em>Direction 3</em>Seal</h2><p>Emera signs its work: the maker's mark that proves who made each post is the brand itself, and two circles coming together is the whole idea.</p></div>
+<div class="stage">
+<section class="hero" aria-label="Landing hero">
+  <nav class="nav"><div class="logo"><svg width="36" height="36" viewBox="0 0 200 200" aria-label="Emera mark"><circle cx="100" cy="100" r="96" fill="var(--pine)"/><g transform="translate(100 100) scale(1.35)"><circle cx="-17" cy="0" r="31" fill="none" stroke="var(--bone)" stroke-width="5"/><circle cx="17" cy="0" r="31" fill="none" stroke="var(--bone)" stroke-width="5"/><path d="M0 -26.5a31 31 0 0 1 0 53 31 31 0 0 1 0 -53z" fill="var(--brass)"/></g></svg>Emera</div><ul><li>Proof</li><li>Protection</li><li>Open algorithm</li><li>Pay</li></ul><button class="btn sm">Join Emera</button></nav>
+  <div class="copy"><h1>Where humanity comes together</h1><p>Every piece on Emera carries its maker's mark. Signed by you, protected everywhere, and yours to take with you.</p><div class="cta"><button class="btn brass">Claim your handle</button><button class="btn ghost">How the mark works</button></div></div>
+  <figure class="signed" style="margin:0"><div class="art"><svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true"><rect width="400" height="500" fill="oklch(90% 0.05 150)"/><circle cx="268" cy="196" r="86" fill="oklch(78% 0.13 85)"/><path d="M0 300C70 240 140 250 210 290S340 330 400 270V500H0z" fill="oklch(46% 0.1 165)"/><path d="M0 360C90 310 170 330 250 360S350 400 400 350V500H0z" fill="oklch(26% 0.06 165)"/><path d="M0 430C100 395 190 420 270 440S360 450 400 420V500H0z" fill="oklch(58% 0.17 35)"/></svg></div><span class="stamp"><svg class="seal" width="132" height="132" viewBox="0 0 200 200" aria-label="Emera seal"><defs><path id="s0" d="M100 100m-74 0a74 74 0 1 1 148 0a74 74 0 1 1-148 0"/></defs><circle cx="100" cy="100" r="96" fill="var(--pine)"/><circle cx="100" cy="100" r="88" fill="none" stroke="var(--bone)" stroke-width="1.5"/><text font-family="Geist Mono,monospace" font-weight="600" font-size="14" letter-spacing="3.6" fill="var(--bone)"><textPath href="#s0" startOffset="0">EMERA * MADE BY A HUMAN * SIGNED * </textPath></text><circle cx="100" cy="100" r="56" fill="none" stroke="var(--bone)" stroke-width="1" opacity=".5"/><g transform="translate(100 100) scale(1)"><circle cx="-17" cy="0" r="31" fill="none" stroke="var(--bone)" stroke-width="5"/><circle cx="17" cy="0" r="31" fill="none" stroke="var(--bone)" stroke-width="5"/><path d="M0 -26.5a31 31 0 0 1 0 53 31 31 0 0 1 0 -53z" fill="var(--brass)"/></g></svg></span><figcaption>Signed by Mira Okonkwo<br>13 Nov 2026</figcaption></figure>
+</section>
+<article class="card" aria-label="Post card">
+  <div class="who"><div class="av"><svg viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true"><rect width="100" height="100" fill="oklch(78% 0.13 85)"/><path d="M14 100c2-24 16-34 36-34s34 10 36 34z" fill="oklch(46% 0.1 165)"/><circle cx="50" cy="44" r="19" fill="oklch(62% 0.08 55)"/><path d="M30 44c-2-20 12-28 24-26 12 1 20 10 16 26-4-10-10-14-20-14s-16 4-20 14z" fill="oklch(22% 0.03 30)"/></svg></div><div><b>Mira Okonkwo</b><span>2h ago</span></div><button class="btn sm ghost">Follow</button></div>
+  <div class="pic"><svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true"><rect width="400" height="500" fill="oklch(93% 0.05 85)"/><path d="M60 500V240a140 140 0 0 1 280 0V500z" fill="oklch(58% 0.17 35)"/><path d="M100 500V250a100 100 0 0 1 200 0V500z" fill="oklch(46% 0.1 165)"/><path d="M140 500V260a60 60 0 0 1 120 0V500z" fill="oklch(26% 0.06 165)"/><path d="M175 500V270a25 25 0 0 1 50 0V500z" fill="oklch(78% 0.13 85)"/></svg><span class="seal"><svg class="seal" width="84" height="84" viewBox="0 0 200 200" aria-label="Emera seal"><defs><path id="s1" d="M100 100m-74 0a74 74 0 1 1 148 0a74 74 0 1 1-148 0"/></defs><circle cx="100" cy="100" r="96" fill="var(--pine)"/><circle cx="100" cy="100" r="88" fill="none" stroke="var(--bone)" stroke-width="1.5"/><circle cx="100" cy="100" r="70" fill="none" stroke="var(--bone)" stroke-width="1" opacity=".5"/><g transform="translate(100 100) scale(1.25)"><circle cx="-17" cy="0" r="31" fill="none" stroke="var(--bone)" stroke-width="5"/><circle cx="17" cy="0" r="31" fill="none" stroke="var(--bone)" stroke-width="5"/><path d="M0 -26.5a31 31 0 0 1 0 53 31 31 0 0 1 0 -53z" fill="var(--brass)"/></g></svg></span></div>
+  <div class="cert"><h4>Proof of maker</h4><dl><div><dt>Made by</dt><dd>mira.emera.social</dd></div><div><dt>Signed</dt><dd>13 Nov 2026 09:12</dd></div><div><dt>Check</dt><dd>Verified human</dd></div><div><dt>Copies elsewhere</dt><dd class="em">2 reported</dd></div></dl></div>
+  <div class="meta"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-8l-4 3.5V16H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M9.5 10.2c0-1 1-1.7 2.5-1.7s2.5.700 2.5 1.6-1 1.4-2.5 1.7-2.5.700-2.5 1.7 1 1.6 2.5 1.6 2.5-.700 2.5-1.7"/></svg><span class="push">Shown: you follow Mira</span></div>
+</article>
+<section class="phone" aria-label="Profile screen"><div class="scr"><span class="island"></span>
+  <div class="sb"><span>9:41</span><span></span></div>
+  <div class="prof"><div class="pav"><div class="av"><svg viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true"><rect width="100" height="100" fill="oklch(78% 0.13 85)"/><path d="M14 100c2-24 16-34 36-34s34 10 36 34z" fill="oklch(46% 0.1 165)"/><circle cx="50" cy="44" r="19" fill="oklch(62% 0.08 55)"/><path d="M30 44c-2-20 12-28 24-26 12 1 20 10 16 26-4-10-10-14-20-14s-16 4-20 14z" fill="oklch(22% 0.03 30)"/></svg></div><svg class="seal" width="34" height="34" viewBox="0 0 200 200" aria-label="Emera seal"><defs><path id="s2" d="M100 100m-74 0a74 74 0 1 1 148 0a74 74 0 1 1-148 0"/></defs><circle cx="100" cy="100" r="96" fill="var(--pine)"/><circle cx="100" cy="100" r="88" fill="none" stroke="var(--bone)" stroke-width="1.5"/><circle cx="100" cy="100" r="70" fill="none" stroke="var(--bone)" stroke-width="1" opacity=".5"/><g transform="translate(100 100) scale(1.25)"><circle cx="-17" cy="0" r="31" fill="none" stroke="var(--bone)" stroke-width="5"/><circle cx="17" cy="0" r="31" fill="none" stroke="var(--bone)" stroke-width="5"/><path d="M0 -26.5a31 31 0 0 1 0 53 31 31 0 0 1 0 -53z" fill="var(--brass)"/></g></svg></div><div><h3>Mira Okonkwo</h3><div class="h">@mira.emera.social</div></div></div>
+  <span class="vh"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Verified human</span>
+  <div class="bio">Illustrator and print maker. Every piece here is signed by me.</div>
+  <div class="stats"><div><b>86</b>works</div><div><b>14k</b>followers</div><div><b>212</b>copies</div></div>
+  <div class="acts"><button class="btn sm">Follow</button><button class="btn sm ghost">Tip</button></div>
+  <div class="grid"><div><svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true"><rect width="400" height="500" fill="oklch(90% 0.05 150)"/><circle cx="268" cy="196" r="86" fill="oklch(78% 0.13 85)"/><path d="M0 300C70 240 140 250 210 290S340 330 400 270V500H0z" fill="oklch(46% 0.1 165)"/><path d="M0 360C90 310 170 330 250 360S350 400 400 350V500H0z" fill="oklch(26% 0.06 165)"/><path d="M0 430C100 395 190 420 270 440S360 450 400 420V500H0z" fill="oklch(58% 0.17 35)"/></svg></div><div><svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true"><rect width="400" height="500" fill="oklch(93% 0.05 85)"/><path d="M60 500V240a140 140 0 0 1 280 0V500z" fill="oklch(58% 0.17 35)"/><path d="M100 500V250a100 100 0 0 1 200 0V500z" fill="oklch(46% 0.1 165)"/><path d="M140 500V260a60 60 0 0 1 120 0V500z" fill="oklch(26% 0.06 165)"/><path d="M175 500V270a25 25 0 0 1 50 0V500z" fill="oklch(78% 0.13 85)"/></svg></div><div><svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true"><rect width="400" height="500" fill="oklch(26% 0.06 165)"/><circle cx="150" cy="170" r="110" fill="oklch(78% 0.13 85)"/><rect x="190" y="210" width="170" height="170" fill="oklch(95% 0.03 100)"/><path d="M60 460 200 270 340 460z" fill="oklch(46% 0.1 165)"/><circle cx="300" cy="120" r="36" fill="oklch(58% 0.17 35)"/></svg></div><div><svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true"><rect width="400" height="500" fill="oklch(84% 0.07 210)"/><circle cx="200" cy="170" r="92" fill="oklch(95% 0.03 100)"/><rect x="28" y="410" width="20" height="90" rx="10" fill="oklch(26% 0.06 165)"/><rect x="60" y="350" width="20" height="150" rx="10" fill="oklch(46% 0.1 165)"/><rect x="92" y="270" width="20" height="230" rx="10" fill="oklch(78% 0.13 85)"/><rect x="124" y="200" width="20" height="300" rx="10" fill="oklch(26% 0.06 165)"/><rect x="156" y="300" width="20" height="200" rx="10" fill="oklch(46% 0.1 165)"/><rect x="188" y="160" width="20" height="340" rx="10" fill="oklch(78% 0.13 85)"/><rect x="220" y="320" width="20" height="180" rx="10" fill="oklch(26% 0.06 165)"/><rect x="252" y="240" width="20" height="260" rx="10" fill="oklch(46% 0.1 165)"/><rect x="284" y="380" width="20" height="120" rx="10" fill="oklch(78% 0.13 85)"/><rect x="316" y="300" width="20" height="200" rx="10" fill="oklch(26% 0.06 165)"/><rect x="348" y="430" width="20" height="70" rx="10" fill="oklch(46% 0.1 165)"/></svg></div><div><svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true"><rect width="400" height="500" fill="oklch(93% 0.05 85)"/><rect y="380" width="400" height="120" fill="oklch(58% 0.17 35)"/><path d="M160 380c-40-60-30-130 22-150v-40h36v40c52 20 62 90 22 150z" fill="oklch(46% 0.1 165)"/><ellipse cx="200" cy="380" rx="70" ry="8" fill="oklch(26% 0.06 165)" opacity=".35"/><path d="M200 190C200 120 230 80 262 60" stroke="oklch(26% 0.06 165)" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="268" cy="56" r="26" fill="oklch(78% 0.13 85)"/><circle cx="150" cy="96" r="20" fill="oklch(78% 0.13 85)"/><path d="M200 190C190 140 170 120 150 106" stroke="oklch(26% 0.06 165)" stroke-width="7" fill="none" stroke-linecap="round"/></svg></div><div><svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true"><rect width="400" height="500" fill="oklch(90% 0.05 150)"/><path d="M-20 120C40 60 100 180 170 120S300 60 420 130V520H-20z" fill="oklch(78% 0.13 85)" opacity="0.55"/><path d="M-20 182C40 122 100 242 170 182S300 122 420 192V520H-20z" fill="oklch(46% 0.1 165)" opacity="0.64"/><path d="M-20 244C40 184 100 304 170 244S300 184 420 254V520H-20z" fill="oklch(26% 0.06 165)" opacity="0.73"/><path d="M-20 306C40 246 100 366 170 306S300 246 420 316V520H-20z" fill="oklch(58% 0.17 35)" opacity="0.8200000000000001"/><path d="M-20 368C40 308 100 428 170 368S300 308 420 378V520H-20z" fill="oklch(78% 0.13 85)" opacity="0.91"/><path d="M-20 430C40 370 100 490 170 430S300 370 420 440V520H-20z" fill="oklch(46% 0.1 165)" opacity="1"/></svg></div></div>
+  <div class="tabs"><span class="on"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1z"/></svg></span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg></span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"/><path d="M12 8.5v7M8.5 12h7"/></svg></span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 1.5h-15z"/><path d="M10 21h4"/></svg></span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c.8-3.6 3.8-5.5 7.5-5.5s6.7 1.9 7.5 5.5"/></svg></span></div>
+</div></section>
+</div>
+<footer class="foot"><div class="sws"><div class="sw"><i style="background:var(--bone)"></i><b>Bone</b><span>(95.5% 0.014 105)</span></div><div class="sw"><i style="background:var(--paper)"></i><b>Vellum</b><span>(90% 0.022 105)</span></div><div class="sw"><i style="background:var(--brass)"></i><b>Brass</b><span>(78% 0.13 85)</span></div><div class="sw"><i style="background:var(--seal)"></i><b>Seal</b><span>(46% 0.1 165)</span></div><div class="sw"><i style="background:var(--ember)"></i><b>Ember</b><span>(58% 0.17 35)</span></div><div class="sw"><i style="background:var(--pine)"></i><b>Pine</b><span>(26% 0.06 165)</span></div></div><div class="type"><div class="aa">Aa</div><div class="bb">Aa</div><p><b>Gloock + Geist, Geist Mono for proof</b>A sharp, confident serif for names and headlines; a quiet sans and a ledger mono for the facts.</p></div></footer>
+</body></html>

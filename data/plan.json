@@ -24,13 +24,13 @@
           "id": "a3",
           "text": "impeccable set up: PRODUCT.md",
           "who": "claude",
-          "running": true
+          "done": true
         },
         {
           "id": "a4",
           "text": "3 brand directions: logo, color, type",
           "who": "claude",
-          "running": true
+          "done": true
         },
         {
           "id": "a5",
@@ -743,22 +743,28 @@
     }
   ],
   "brand": {
-    "note": "3 directions being drawn now. Pick one, I write DESIGN.md.",
+    "note": "Click a picture to open it full size. Pick one, I write DESIGN.md.",
     "items": [
       {
-        "id": "bd1",
-        "name": "Direction 1",
-        "pending": true
+        "id": "daylight",
+        "name": "Daylight",
+        "line": "Emera is the sunrise, not the startup: your work out in the open, warm and human, with a n",
+        "png": ".claude/artifacts/brand/daylight.png",
+        "html": "brand/directions/daylight.html"
       },
       {
-        "id": "bd2",
-        "name": "Direction 2",
-        "pending": true
+        "id": "signal",
+        "name": "Signal",
+        "line": "Emera says it out loud: honest by default, in type you cannot scroll past.",
+        "png": ".claude/artifacts/brand/signal.png",
+        "html": "brand/directions/signal.html"
       },
       {
-        "id": "bd3",
-        "name": "Direction 3",
-        "pending": true
+        "id": "seal",
+        "name": "Seal",
+        "line": "Emera signs its work: the maker's mark that proves who made each post is the brand itself,",
+        "png": ".claude/artifacts/brand/seal.png",
+        "html": "brand/directions/seal.html"
       }
     ]
   }

@@ -32,7 +32,7 @@ export default function PostDetail() {
   const mediaH = Math.round(mediaW / ratio);
   const own = !!post && user?.id === post.author.id;
 
-  const back = () => (router.canGoBack() ? router.back() : router.replace("/"));
+  const back = () => (router.canGoBack() ? router.back() : router.replace("/feed"));
   const share = async () => {
     if (!post) return;
     const r = await shareLink(post.url, `A post by @${post.author.handle}`);

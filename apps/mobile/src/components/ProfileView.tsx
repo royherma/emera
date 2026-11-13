@@ -30,7 +30,7 @@ export function ProfileView({ handle, own, tabs, back }: { handle: string; own?:
     <Screen tabs={tabs} onRefresh={reload} refreshing={refreshing}>
       {back && (
         <View style={{ marginBottom: space[3], alignSelf: "flex-start" }}>
-          <IconButton icon="back" label="Back" onPress={() => (router.canGoBack() ? router.back() : router.replace("/"))} />
+          <IconButton icon="back" label="Back" onPress={() => (router.canGoBack() ? router.back() : router.replace("/feed"))} />
         </View>
       )}
       {error && !data ? (

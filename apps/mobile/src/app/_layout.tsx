@@ -20,6 +20,7 @@ function Routes() {
   if (status === "loading") return null;
   return (
     <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg }, animation: "fade" }}>
+      <Stack.Screen name="index" />
       <Stack.Protected guard={status !== "in"}>
         <Stack.Screen name="(auth)" />
       </Stack.Protected>

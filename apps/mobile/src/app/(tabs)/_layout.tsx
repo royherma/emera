@@ -11,7 +11,7 @@ import type { PS } from "@/components/ui";
 import { useAuth } from "@/state/auth";
 
 const items: { name: string; label: string; icon: IconName }[] = [
-  { name: "index", label: "Feed", icon: "grid" },
+  { name: "feed", label: "Feed", icon: "grid" },
   { name: "upload", label: "Post", icon: "plus" },
   { name: "me", label: "Profile", icon: "user" },
 ];
@@ -85,7 +85,7 @@ export default function TabsLayout() {
   const { wide } = useLayout();
   return (
     <Tabs tabBar={(p) => <TabBar {...p} />} screenOptions={{ headerShown: false, tabBarPosition: wide ? "left" : "bottom", sceneStyle: { backgroundColor: colors.bg } }}>
-      <Tabs.Screen name="index" />
+      <Tabs.Screen name="feed" />
       <Tabs.Screen name="upload" />
       <Tabs.Screen name="me" />
     </Tabs>
