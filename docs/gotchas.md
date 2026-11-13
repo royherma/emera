@@ -102,9 +102,3 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 - **Bit us:** idle autocommit pushed chat code that selects `users.role` before migration 0018 reached production; another session deployed the API from HEAD and prod chat returned 500 until 0018 was applied.
 - **Spot it:** chat or profile 500s right after a deploy; `npx wrangler d1 migrations list DB --env production --remote` lists a pending migration.
 - **Fix:** apply a new migration to staging and production remotely in the same step you write it, before the code that reads it is committed.
-
-## 2026-11-13 Chat panel said "Something went wrong" for 5 minutes
-
-- What bit us: prod API went out at 19:25 Bangkok with chat queries reading `users.role`; migration `0018_user_roles` was applied at 19:30. Every channel and DM read returned 500 in between.
-- How to spot it: `wrangler deployments list --env production` time is earlier than `d1_migrations.applied_at` for a migration the deployed code needs.
-- Fix: deploy only from a commit, and run `npm --prefix apps/api run deploy:production` (migrations first, then deploy) for every API deploy, never a bare `wrangler deploy`.
