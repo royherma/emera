@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { footer, footerCss } from "./footer.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const brand = JSON.parse(readFileSync(join(root, "../../packages/brand/brand.json"), "utf8"));
@@ -63,8 +64,10 @@ details p{margin-top:8px;color:var(--ink2)}
 .hp{position:absolute;left:-9999px}
 .note{margin-top:10px;font-size:.92rem;min-height:1.4em}
 .note.err{color:#a3240f}
-footer{margin-top:64px;padding:36px 0 44px;border-top:1px solid var(--line);font-size:.92rem;color:var(--ink2)}
-footer ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:10px}
+main{padding-bottom:64px}
+.updated{margin-top:10px;font-size:.88rem;color:var(--ink3)}
+.credits{margin-top:20px;list-style:none}
+.credits li{margin-top:10px;color:var(--ink2)}
 .checked{margin-top:22px;font-size:.82rem;color:var(--ink3)}
 @media (max-width:560px){.signup{flex-direction:column;border-radius:20px}.signup button{width:100%}}`;
 
@@ -95,7 +98,8 @@ ${themeBoot}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
-<style>${css}</style>
+<style>${css}
+${footerCss}</style>
 ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(/</g, "\\u003c")}</script>`).join("\n")}
 </head>`;
 
@@ -108,9 +112,9 @@ const joinBox = (source) => `<section class="join" id="join">
 <p class="note" data-note role="status" aria-live="polite"></p>
 </section>`;
 
-export const guideLinks = () => pages.map((p) => `<li><a href="${p.path}">${esc(p.q)}</a></li>`).join("");
-
-const foot = () => `<footer><div><a class="mk" href="/">${mark}${esc(brand.name.toLowerCase())}</a></div><p style="margin-top:12px">${esc(brand.name)} is open source and run as a nonprofit.</p><ul>${guideLinks()}</ul></footer>`;
+const ctx = { github: "", year: new Date().getFullYear() };
+const foot = () => footer({ pages, mark, github: ctx.github, year: ctx.year });
+const legal = load("legal.json");
 
 const crumbsFor = (p) => {
   const sec = p.kind === "compare" ? { name: "Compare", path: "/compare/" } : { name: "Answers", path: "/answers/" };
@@ -147,7 +151,7 @@ ${p.sources?.length ? `<h2>Sources</h2><ol class="src">${p.sources.map((s) => `<
 </div>
 ${joinBox(`${p.kind}-${p.slug}`)}
 </main>
-${foot()}</div>${signupJs}</body></html>`;
+</div>${foot()}${signupJs}</body></html>`;
 }
 
 function hub(kind, name, path, intro) {
@@ -162,10 +166,23 @@ function hub(kind, name, path, intro) {
 <h1>${esc(name)}</h1><p class="short">${esc(intro)}</p>
 <div class="rel">${list.map((p) => `<a href="${p.path}">${esc(p.q)}</a>`).join("")}</div>
 ${joinBox(`${kind}-hub`)}</main>
-${foot()}</div>${signupJs}</body></html>`;
+</div>${foot()}${signupJs}</body></html>`;
 }
 
-export function writePages(today) {
+function plain({ slug, title, description, short, updated, body }) {
+  const path = `/${slug}/`;
+  const ld = [{ "@context": "https://schema.org", "@type": "WebPage", name: `${title} | ${brand.name}`, url: `${SITE}${path}`, dateModified: updated }];
+  return `${head({ title: `${title} | ${brand.name}`, description, path, ld })}
+<body><div class="wrap">${nav}
+<main><div class="crumbs"><a href="/">${esc(brand.name)}</a></div>
+<h1>${esc(title)}</h1>${updated ? `<p class="updated">Updated ${esc(updated)}</p>` : ""}
+${short ? `<div class="short">${esc(short)}</div>` : ""}
+<div class="body">${body}</div></main>
+</div>${foot()}</body></html>`;
+}
+
+export function writePages(today, { credits = "", github = "" } = {}) {
+  ctx.github = github;
   const out = join(root, "public");
   const write = (path, html) => {
     const dir = join(out, path);
@@ -182,7 +199,9 @@ export function writePages(today) {
     write("/compare/", hub("compare", "Compare", "/compare/", `How ${brand.name} sits next to the other places people share their work, with where each one is the better pick.`));
     hubs.push("/compare/");
   }
-  const urls = [{ loc: "/", lastmod: today }, ...hubs.map((h) => ({ loc: h, lastmod: today })), ...pages.map((p) => ({ loc: p.path, lastmod: p.checked }))];
+  for (const l of legal) write(`/${l.slug}/`, plain({ ...l, body: l.sections.map((x) => `<h2>${esc(x.h)}</h2>${clean(x.html)}`).join("\n") }));
+  write("/credits/", plain({ slug: "credits", title: "Image credits", description: `The open-licensed images shown on ${brand.name}, with who made them and the license.`, short: "Every image on this site is used under an open license. Here is who made each one.", body: `<ul class="credits">${credits}</ul>` }));
+  const urls = [{ loc: "/", lastmod: today }, ...hubs.map((h) => ({ loc: h, lastmod: today })), ...pages.map((p) => ({ loc: p.path, lastmod: p.checked })), ...legal.map((l) => ({ loc: `/${l.slug}/`, lastmod: l.updated })), { loc: "/credits/", lastmod: today }];
   writeFileSync(join(out, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `<url><loc>${SITE}${u.loc}</loc><lastmod>${u.lastmod}</lastmod></url>`).join("\n")}\n</urlset>\n`);
   const bots = ["OAI-SearchBot", "ChatGPT-User", "PerplexityBot", "Perplexity-User", "ClaudeBot", "Claude-User", "Claude-SearchBot", "Google-Extended", "Bingbot"];
   writeFileSync(join(out, "robots.txt"), `User-agent: *\nAllow: /\nDisallow: /api/\n\n${bots.map((b) => `User-agent: ${b}`).join("\n")}\nAllow: /\nDisallow: /api/\n\nSitemap: ${SITE}/sitemap.xml\n`);
