@@ -1,6 +1,6 @@
 # Emera master plan
 
-Written 2026-11-13 (Bangkok). Replaces the one-pager as the plan; the one-pager stays as the idea record. Facts have a link. `[inferred]` = my reasoning, not read in a source. `[target]` = a goal, not a forecast. What the founder must do or decide is in `docs/asks.json`, ranked.
+Written 2026-11-13 (Bangkok). Replaces the one-pager as the plan; the one-pager stays as the idea record. Facts have a link. `[inferred]` = my reasoning, not read in a source. `[target]` = a goal, not a forecast. What the founder must do or decide is on the Review screen of the dashboard (`data/plan.json` `review`).
 
 **Founder decision folded in (2026-11-13):** no automatic copy-watch for now. Protection v1 is manual. A creator reports a copy they found (link + screenshot), we help file the takedown, and every report goes into a dataset that later trains and tests automatic matching. Automatic scanning is not part of M0 to M2. The ~$31k/month scan bill in `architecture.md` is out of the early milestones and comes back only when the dataset can prove a matcher works (M3 pilot, M4 at scale).
 
@@ -72,7 +72,7 @@ Each has what we build, what we prove, what it costs, the risk that kills it, an
 - Prove: the pipe works end to end on a real domain with a real inbox.
 - Cost: about $6 (DMCA agent) plus domain, already bought. Email on Resend free tier: 3,000 per month, 100 per day, see [Resend pricing](https://resend.com/pricing) (sources agree; confirm on the page). Infra: Cloudflare free tier `[inferred]`.
 - Kill risk: a signup wall or deliverability problem (codes go to spam) that blocks the first creators.
-- **Exit test:** (a) emera.social, api.emera.social and `/@roy` return HTTP 200; (b) a sign-in code reaches an outside Gmail inbox, not spam, in under 60 seconds, 3 of 3 tries; (c) @emerasocial claimed on TikTok, YouTube, Instagram and Bluesky (4 of 4); (d) DMCA agent confirmation number in hand; (e) the 6 asks ranked highest in `asks.json` answered.
+- **Exit test:** (a) emera.social, api.emera.social and `/@roy` return HTTP 200; (b) a sign-in code reaches an outside Gmail inbox, not spam, in under 60 seconds, 3 of 3 tries; (c) @emerasocial claimed on TikTok, YouTube, Instagram and Bluesky (4 of 4); (d) DMCA agent confirmation number in hand; (e) every Review card for M0 answered.
 
 ### M1 - first 100 creators (about 6 weeks, by Dec 31, 2026)
 
@@ -150,7 +150,7 @@ Corrections to the one-pager: NLnet's NGI Zero Commons Fund closed its final cal
 
 Cost-to-income by milestone (monthly): M1 about $60, covered by credits and founder; M2 about $150 plus counsel, covered by credits and founder; M3 about $4,500, needs $4,500 (grants, donations, Premium at 3% of 10,000 x $4 = $1,200); M4 about $25,000 to $45,000, needs $25,000 to $45,000 (Premium $12,000, donations $7,500, the rest grants or licensing).
 
-Who holds the money (details in `asks.json`): start under Techguyver Labs LLC (the plan page default), move to a 501(c)(3) at M2. Options: Software in the Public Interest (a 501(c)(3) that took in projects after Open Collective Foundation closed, [source](https://opencollective.com/rwf2/updates/fiscal-host-transition); fit unconfirmed), your own 501(c)(3) (months), Open Source Collective (10%, not a charity). Hack Club's HCB is for teen-led projects, so it is out ([HCB](https://help.hcb.hackclub.com/en/articles/15409923-who-can-apply-for-fiscal-sponsorship)). Warning: creator payouts through a fiscal host may be restricted `[inferred]`; ask each host before applying.
+Who holds the money (decided: `entity` in `data/plan.json`): start under Techguyver Labs LLC (the plan page default), move to a 501(c)(3) at M2. Options: Software in the Public Interest (a 501(c)(3) that took in projects after Open Collective Foundation closed, [source](https://opencollective.com/rwf2/updates/fiscal-host-transition); fit unconfirmed), your own 501(c)(3) (months), Open Source Collective (10%, not a charity). Hack Club's HCB is for teen-led projects, so it is out ([HCB](https://help.hcb.hackclub.com/en/articles/15409923-who-can-apply-for-fiscal-sponsorship)). Warning: creator payouts through a fiscal host may be restricted `[inferred]`; ask each host before applying.
 
 ## 6. The hard problems
 

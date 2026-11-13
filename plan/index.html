@@ -68,7 +68,7 @@ h2 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;mar
 .tell button{border:0;border-radius:9px;background:var(--a);color:#fff;font:600 12.5px Inter,system-ui,sans-serif;padding:0 14px;cursor:pointer}
 .tabs{display:flex;gap:4px;margin-bottom:8px}.tabs button{border:1px solid var(--line);background:#fff;border-radius:7px;padding:4px 10px;font:700 11px Inter,system-ui,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);cursor:pointer}.tabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}.tabs button b{background:var(--a);color:#fff;border-radius:9px;padding:0 5px;margin-left:4px}
 .ws{display:flex;gap:6px;padding:0 20px 10px;flex-wrap:nowrap;overflow:hidden}.ws div{flex:1;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:5px 8px;font-size:11px;line-height:1.2}.ws div b{display:flex;align-items:center;gap:5px;font-size:11.5px}.ws div b i{width:7px;height:7px;border-radius:50%;background:var(--a2);flex:0 0 auto}.ws div.running b i{background:var(--a);animation:pl 1.2s infinite}.ws div span{color:var(--mute);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mis p{font:600 14px/1.35 Fraunces,Georgia,serif;margin-bottom:8px}.mis .v{border-top:1px solid var(--line);padding:5px 0}.mis .v b{font-size:12.5px}.mis .v span{display:block;font-size:11.5px;color:var(--mute)}.ask{border:1px solid var(--line);border-radius:9px;padding:7px 9px;margin-bottom:6px;background:var(--soft)}.ask b{font-size:12.5px;display:flex;gap:6px}.ask b i{font-style:normal;margin-left:auto;font-size:10px;color:var(--a);text-transform:uppercase;font-weight:700}.ask span{font-size:11.5px;color:var(--mute)}
+.mis p{font:600 14px/1.35 Fraunces,Georgia,serif;margin-bottom:8px}.mis .v{border-top:1px solid var(--line);padding:5px 0}.mis .v b{font-size:12.5px}.mis .v span{display:block;font-size:11.5px;color:var(--mute)}
 .ph h3 .pct{flex:1;height:5px;border-radius:5px;background:var(--line);overflow:hidden;margin:0 4px}.ph h3 .pct b{display:block;height:100%;background:var(--a2)}
 .lk{display:flex;gap:4px;padding:0 20px 8px;flex-wrap:nowrap;overflow:hidden;align-items:center}.lk em{font-style:normal;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin:0 2px 0 8px}.lk em:first-child{margin-left:0}.lk a{font-size:11.5px;font-weight:600;color:var(--ink);text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 9px;white-space:nowrap}.lk a:hover{border-color:var(--ink)}
 .toast{position:fixed;right:20px;bottom:20px;background:var(--ink);color:#fff;padding:8px 14px;border-radius:10px;font-weight:600;opacity:0;transition:.2s;pointer-events:none}
@@ -119,7 +119,6 @@ body.rv main,body.rv .ws{display:none}#review{display:none;flex:1;padding:0 20px
       <div class="tabs" id="tabs"></div>
       <div id="decs"><div class="empty">Filling in...</div></div>
       <div id="mission" hidden></div>
-      <div id="asks" hidden></div>
     </section>
     <section class="card">
       <h2>Tell Claude</h2>
@@ -165,8 +164,6 @@ function render() {
   for (const w of plan.workstreams ?? []) { const d = el('div', w.state); const b = el('b', ''); b.append(el('i'), w.name); d.append(b, el('span', '', w.state === 'running' ? `agent working: ${w.note}` : w.note)); ws.append(d); }
   const mi = $('mission'); mi.replaceChildren(); mi.className = 'mis';
   if (plan.mission) { if (plan.mission.why) mi.append(el('div', 'why', `Why: ${plan.mission.why}`)); mi.append(el('p', '', plan.mission.mission)); for (const v of plan.mission.values) { const d = el('div', 'v'); d.append(el('b', '', v.name), el('span', '', v.line)); mi.append(d); } mi.append(el('div', 'why', `v${plan.mission.version} · improves by community vote, see docs/mission`)); }
-  const as = $('asks'); as.replaceChildren();
-  for (const a of plan.asks ?? []) { const d = el('div', 'ask'); const b = el('b', '', a.title); b.append(el('i', '', a.when)); d.append(b, el('span', '', a.why)); as.append(d); }
   const decs = $('decs'); decs.replaceChildren();
   if (!plan.decisions.length) decs.append(el('div', 'empty', 'Filling in...'));
   const decided = plan.decisions.filter((d) => d.pick && d.id !== 'logo');

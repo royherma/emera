@@ -1,5 +1,7 @@
 # Gap checklist: what mature repos have that Emera does not
 
+Research snapshot from 2026-11-13, not a tracker. Open work lives in GitHub issues (drafts in `docs/help-wanted.json`) and on the dashboard; LICENSE, CODE_OF_CONDUCT, SECURITY, issue templates and CI have since landed.
+
 Compared 2026-11-13 against [bluesky-social/social-app](https://github.com/bluesky-social/social-app) (Expo, MIT), [bluesky-social/atproto](https://github.com/bluesky-social/atproto), [pixelfed/pixelfed](https://github.com/pixelfed/pixelfed) (AGPL-3.0) and [mastodon/mastodon](https://github.com/mastodon/mastodon) (AGPL-3.0). File lists and labels were read with `gh api` on that date. Skylight and Flashes (AT Protocol apps) have no public source repository that we could find, so nothing is copied from them; see the note at the end.
 
 What Emera has today: API tests (`apps/api/test`, vitest in the Workers runtime), typechecks for api and mobile, a smoke script, a provenance demo. What it lacks: any CI, LICENSE, CODE_OF_CONDUCT, SECURITY policy, issue or PR templates, mobile tests, translations, and a release process.
