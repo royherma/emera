@@ -1774,20 +1774,23 @@
       "options": [
         {
           "id": "5",
-          "label": "5 a day"
+          "label": "5 a day",
+          "primary": true
         },
         {
           "id": "10",
           "label": "10 a day",
-          "primary": true
+          "primary": false
         },
         {
           "id": "25",
-          "label": "25 a day"
+          "label": "25 a day",
+          "primary": false
         },
         {
           "id": "50",
-          "label": "50 a day"
+          "label": "50 a day",
+          "primary": false
         }
       ],
       "links": [
@@ -1798,7 +1801,11 @@
       ],
       "answer": "5",
       "text": null,
-      "at": "2026-11-13T12:21:00.497Z"
+      "at": "2026-11-13T12:21:00.497Z",
+      "done": {
+        "at": "2026-11-13T12:23:23Z",
+        "note": "Roy picked 5 (terminal); live in production"
+      }
     }
   ],
   "reviewDone": [
