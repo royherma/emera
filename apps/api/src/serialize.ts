@@ -89,6 +89,7 @@ export async function loadPosts(c: Context<AppEnv>, rows: PostRow[]) {
     url: `${site}/p/${p.id}`,
     likeCount: engagement.likeCount.get(p.id) ?? 0,
     commentCount: engagement.commentCount.get(p.id) ?? 0,
+    viewCount: engagement.viewCount.get(p.id) ?? 0,
     viewer: { liked: engagement.liked.has(p.id) },
   }));
 }
