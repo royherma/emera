@@ -13,6 +13,7 @@ import { rememberList, type ListSource } from "@/lib/postList";
 import { useLayout } from "@/lib/layout";
 import { useTheme } from "@/state/theme";
 import type { Post } from "@/lib/types";
+import { RoleBadge } from "@/components/RoleBadge";
 
 const web = typeof document !== "undefined";
 
@@ -35,7 +36,10 @@ export function PostRow({ post, width, onDeleted }: { post: Post; width: number;
         <Pressable accessibilityRole="link" accessibilityLabel={`${post.author.displayName}'s profile`} onPress={() => router.push({ pathname: "/u/[handle]", params: { handle: post.author.handle } })} style={{ flex: 1, flexDirection: "row", alignItems: "center", gap: 10, minWidth: 0 }}>
           <Avatar user={post.author} size={38} />
           <View style={{ flex: 1, minWidth: 0 }}>
-            <Text numberOfLines={1} style={[type.name, { color: c.ink }]}>{post.author.displayName}</Text>
+            <View style={{ flexDirection: "row", alignItems: "center", gap: 6, minWidth: 0 }}>
+              <Text numberOfLines={1} style={[type.name, { color: c.ink, flexShrink: 1 }]}>{post.author.displayName}</Text>
+              <RoleBadge role={post.author.role} />
+            </View>
             <Text numberOfLines={1} style={[type.meta, { color: c.ink3 }]}>@{post.author.handle} · {timeAgo(post.createdAt)}</Text>
           </View>
         </Pressable>

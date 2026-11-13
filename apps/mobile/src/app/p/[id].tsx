@@ -17,6 +17,7 @@ import { FULL, aspect, fitBox } from "@/lib/mediaBox";
 import { alpha, creatorColors, elevation, radius, space, type } from "@/lib/theme";
 import { useResource } from "@/state/resource";
 import { useTheme } from "@/state/theme";
+import { RoleBadge } from "@/components/RoleBadge";
 
 export default function PostDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -90,7 +91,10 @@ export default function PostDetail() {
                 <Pressable accessibilityRole="link" onPress={() => router.push({ pathname: "/u/[handle]", params: { handle: post.author.handle } })} style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
                   <Avatar user={post.author} size={44} />
                   <View style={{ flex: 1 }}>
-                    <Text style={[type.name, { fontSize: 15, color: c.ink }]}>{post.author.displayName}</Text>
+                    <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+                      <Text style={[type.name, { fontSize: 15, color: c.ink }]}>{post.author.displayName}</Text>
+                      <RoleBadge role={post.author.role} />
+                    </View>
                     <Text style={[type.meta, { color: c.ink3 }]}>@{post.author.handle} · {timeAgo(post.createdAt)}</Text>
                   </View>
                 </Pressable>

@@ -13,6 +13,7 @@ import { ApiError, type ChatMessage, type ChatPage, type ChatRoomRef, type Post 
 import { useSheet } from "@/state/sheet";
 import { useTheme } from "@/state/theme";
 import { useToast } from "@/state/toast";
+import { RoleBadge } from "@/components/RoleBadge";
 
 const POLL_MS = 3000;
 const LIVE_POLL_MS = 30000;
@@ -118,6 +119,7 @@ function Line({ m, onMenu, onWho }: { m: ChatMessage; onMenu: () => void; onWho:
           <Text style={[type.meta, { color: c.ink3, width: 38, fontVariant: ["tabular-nums"], lineHeight: 20 }]}>{clock(m.createdAt)}</Text>
           <Text style={[type.bodySm, { flex: 1, color: c.ink, lineHeight: 20 }]}>
             <Text onPress={onWho} style={{ fontFamily: font.body.bold, color: creatorColors(nick).from }}>{nick}</Text>
+            {m.user.role ? <>{" "}<RoleBadge role={m.user.role} /></> : null}
             {"  "}
             {m.deleted ? <Text style={{ color: c.ink3, fontStyle: "italic" }}>message deleted</Text> : m.body}
           </Text>
