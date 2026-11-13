@@ -56,7 +56,7 @@ h1{margin:0;font-size:28px;line-height:1.15;letter-spacing:-.02em}
 .tile .play{position:absolute;inset:0;display:grid;place-items:center;font-size:34px;color:var(--bg);background:var(--ink)}
 .empty{color:var(--soft);text-align:center;padding:48px 0}
 .post{max-width:720px;margin:0 auto}
-.post .media{display:block;height:auto;max-width:100%;margin:0 auto 12px;border-radius:12px;background:#140f0b;object-fit:contain}
+.post .media{-webkit-user-drag:none;-webkit-touch-callout:none;user-select:none;display:block;height:auto;max-width:100%;margin:0 auto 12px;border-radius:12px;background:#140f0b;object-fit:contain}
 .author{display:flex;gap:12px;align-items:center;text-decoration:none;margin:20px 0 12px}
 .author b{display:block;line-height:1.2}
 .author span{color:var(--soft);font-size:14px}
@@ -98,6 +98,7 @@ function layout(meta: Meta, body: string, status = 200) {
     `<meta name="twitter:description" content="${esc(meta.description)}">`,
     img ? `<meta name="twitter:image" content="${esc(img.url)}">` : '',
     `<style>${CSS}</style>`,
+    '<script src="/guard.js" defer></script>',
   ].filter(Boolean).join('\n');
   const html = `<!doctype html>
 <html lang="en"><head>
@@ -112,7 +113,7 @@ ${head}
     headers: {
       'Content-Type': 'text/html; charset=utf-8',
       'Cache-Control': status === 200 ? 'public, max-age=60' : 'no-store',
-      'Content-Security-Policy': "default-src 'none'; img-src 'self' https: data:; media-src 'self' https:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'",
+      'Content-Security-Policy': "default-src 'none'; img-src 'self' https: data:; media-src 'self' https:; style-src 'unsafe-inline'; script-src 'self'; base-uri 'none'; form-action 'none'",
     },
   });
 }
@@ -139,6 +140,10 @@ export function notFoundPage(message = 'We could not find that page.') {
 }
 
 export const pages = new Hono<AppEnv>();
+
+const GUARD = `for (const t of ['contextmenu', 'dragstart']) document.addEventListener(t, (e) => { if (e.target.closest && e.target.closest('.media')) e.preventDefault(); });`;
+
+pages.get('/guard.js', () => new Response(GUARD, { headers: { 'Content-Type': 'text/javascript; charset=utf-8', 'Cache-Control': 'public, max-age=86400' } }));
 
 pages.get('/', async (c) => {
   const { posts } = await pagePosts(c, { limit: 12 });
@@ -188,8 +193,8 @@ pages.get('/p/:id', async (c) => {
   const name = a.displayName || a.handle!;
   const first = post.media[0];
   const mediaHtml = post.media.map((m) => m.kind === 'image'
-    ? `<img class="media" src="${esc(m.url)}" width="${m.width}" height="${m.height}" style="${fitted(m)}" alt="${esc(m.alt || trim(post.caption || `Photo by @${a.handle}`, 120))}">`
-    : `<video class="media" src="${esc(m.url)}"${m.posterUrl ? ` poster="${esc(m.posterUrl)}"` : ''} width="${m.width}" height="${m.height}" style="${fitted(m)}"${m.alt ? ` aria-label="${esc(m.alt)}"` : ''} controls playsinline preload="metadata"></video>`).join('');
+    ? `<img class="media" src="${esc(m.url)}" width="${m.width}" height="${m.height}" style="${fitted(m)}" draggable="false" alt="${esc(m.alt || trim(post.caption || `Photo by @${a.handle}`, 120))}">`
+    : `<video class="media" src="${esc(m.url)}"${m.posterUrl ? ` poster="${esc(m.posterUrl)}"` : ''} width="${m.width}" height="${m.height}" style="${fitted(m)}"${m.alt ? ` aria-label="${esc(m.alt)}"` : ''} controls controlslist="nodownload noplaybackrate noremoteplayback" disablepictureinpicture disableremoteplayback playsinline preload="metadata"></video>`).join('');
   const proof = first?.proof;
   const proofHtml = proof?.sha256
     ? `<div class="proof"><strong>Proof of origin.</strong> Uploaded by @${esc(proof.signer)} on ${esc(day(proof.signedAt!))}, signed by ${esc(BRAND.name)}.<br><code>sha256 ${esc(proof.sha256)}</code></div>`

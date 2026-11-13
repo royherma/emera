@@ -10,6 +10,7 @@ import { useTheme } from "@/state/theme";
 import { sun, type } from "@/lib/theme";
 import { Text } from "react-native";
 import type { Media } from "@/lib/types";
+import { storage } from "@/lib/storage";
 
 export function MediaImage({ media, style, fit = "cover", playSize = 48 }: { media: Media; style?: StyleProp<ViewStyle>; fit?: "cover" | "contain"; playSize?: number }) {
   const { c } = useTheme();
@@ -59,14 +60,39 @@ function VideoStill({ media, fit }: { media: Media; fit: "cover" | "contain" }) 
   return <View style={{ flex: 1, backgroundColor: "#140f0b" }} />;
 }
 
+const SOUND_KEY = "emera.sound";
 let soundOn = false;
+let unlocked = !web;
 const soundListeners = new Set<() => void>();
+const notify = () => soundListeners.forEach((l) => l());
+const effectiveSound = () => soundOn && unlocked;
 function setSound(on: boolean) {
   soundOn = on;
-  soundListeners.forEach((l) => l());
+  unlocked = true;
+  notify();
+  void storage.set(SOUND_KEY, on ? "on" : null);
 }
+void storage.get(SOUND_KEY).then((v) => {
+  if (v === "on") (soundOn = true), notify();
+});
 function useSound() {
-  return useSyncExternalStore((l) => (soundListeners.add(l), () => soundListeners.delete(l)), () => soundOn, () => false);
+  return useSyncExternalStore((l) => (soundListeners.add(l), () => soundListeners.delete(l)), effectiveSound, () => false);
+}
+
+if (web && typeof document !== "undefined") {
+  // Browsers refuse to autoplay with sound until the first tap or key, so a saved "sound on" waits for it.
+  const unlock = () => {
+    unlocked = true;
+    notify();
+    document.removeEventListener("pointerdown", unlock, true);
+    document.removeEventListener("keydown", unlock, true);
+  };
+  document.addEventListener("pointerdown", unlock, true);
+  document.addEventListener("keydown", unlock, true);
+  for (const t of ["contextmenu", "dragstart"]) document.addEventListener(t, (e) => (e.target as Element | null)?.closest?.("img, video") && e.preventDefault());
+  const css = document.createElement("style");
+  css.textContent = "img, video { -webkit-user-drag: none; -webkit-touch-callout: none; user-select: none; }";
+  document.head.appendChild(css);
 }
 
 export function useInView(ratio = 0.6) {
@@ -91,23 +117,46 @@ export function useInView(ratio = 0.6) {
   return [ref, inView] as const;
 }
 
-function LivePlayer({ media, fit, controls, onPlaying }: { media: Media; fit: "cover" | "contain"; controls: boolean; onPlaying: (on: boolean) => void }) {
+function LivePlayer({ media, fit, tapToPause, onPlaying }: { media: Media; fit: "cover" | "contain"; tapToPause: boolean; onPlaying: (on: boolean) => void }) {
   const sound = useSound();
+  const [started, setStarted] = useState(false);
+  const [held, setHeld] = useState(false);
   const player = useVideoPlayer(media.url, (p) => {
     p.loop = true;
-    p.muted = !soundOn;
+    p.muted = !effectiveSound();
     p.play();
   });
   const { isPlaying } = useEvent(player, "playingChange", { isPlaying: player.playing });
   const { status } = useEvent(player, "statusChange", { status: player.status });
   useEffect(() => {
-    if (status === "readyToPlay") player.play();
-  }, [player, status]);
-  useEffect(() => onPlaying(isPlaying), [isPlaying, onPlaying]);
+    if (status === "readyToPlay" && !held) player.play();
+  }, [player, status, held]);
+  useEffect(() => {
+    if (isPlaying) setStarted(true);
+    onPlaying(isPlaying);
+  }, [isPlaying, onPlaying]);
   useEffect(() => {
     player.muted = !sound;
   }, [player, sound]);
-  return <VideoView player={player} style={[fill, { opacity: isPlaying ? 1 : 0 }]} nativeControls={controls} contentFit={fit} />;
+  const toggle = () => {
+    if (player.playing) player.pause();
+    else player.play();
+    setHeld(player.playing);
+  };
+  return (
+    <>
+      <VideoView player={player} style={[fill, { opacity: started ? 1 : 0 }]} nativeControls={false} contentFit={fit} />
+      {tapToPause && (
+        <Pressable accessibilityRole="button" accessibilityLabel={isPlaying ? "Pause" : "Play"} onPress={toggle} style={[full, { alignItems: "center", justifyContent: "center" }]}>
+          {started && !isPlaying && (
+            <Glass style={{ width: 64, height: 64, borderRadius: 32, paddingLeft: 4 }}>
+              <Icon name="play" size={28} color="#fff" />
+            </Glass>
+          )}
+        </Pressable>
+      )}
+    </>
+  );
 }
 
 function SoundButton() {
@@ -121,7 +170,7 @@ function SoundButton() {
   );
 }
 
-export function InlineVideo({ media, style, fit = "cover", controls = false }: { media: Media; style?: StyleProp<ViewStyle>; fit?: "cover" | "contain"; controls?: boolean }) {
+export function InlineVideo({ media, style, fit = "cover", tapToPause = false }: { media: Media; style?: StyleProp<ViewStyle>; fit?: "cover" | "contain"; tapToPause?: boolean }) {
   const [ref, inView] = useInView();
   const [playing, setPlaying] = useState(false);
   const live = inView && !media.url.startsWith("mock:");
@@ -131,8 +180,8 @@ export function InlineVideo({ media, style, fit = "cover", controls = false }: {
   return (
     <View ref={ref} style={[{ overflow: "hidden", backgroundColor: "#140f0b" }, style]}>
       <MediaImage media={media} style={full} fit={fit} playSize={playing || live ? 0 : 56} />
-      {live && <LivePlayer media={media} fit={fit} controls={controls} onPlaying={setPlaying} />}
-      {live && !controls && <SoundButton />}
+      {live && <LivePlayer media={media} fit={fit} tapToPause={tapToPause} onPlaying={setPlaying} />}
+      {live && <SoundButton />}
     </View>
   );
 }
@@ -147,6 +196,6 @@ export function VideoPreview({ uri, style }: { uri: string; style?: StyleProp<Vi
 }
 
 export function MediaFull({ media, style }: { media: Media; style?: StyleProp<ViewStyle> }) {
-  if (media.kind === "video") return <InlineVideo media={media} style={style} fit="contain" controls />;
+  if (media.kind === "video") return <InlineVideo media={media} style={style} fit="contain" tapToPause />;
   return <MediaImage media={media} style={style} fit="contain" playSize={60} />;
 }
