@@ -1391,6 +1391,38 @@
           "label": "Later"
         }
       ]
+    },
+    {
+      "id": "legal-mail",
+      "kind": "do",
+      "when": "this week",
+      "title": "Turn on hello@emera.social, then a lawyer reads Privacy + Terms",
+      "why": "Both pages are live and tell people to email hello@emera.social, but emera.social has no mail records, so those emails bounce.",
+      "links": [
+        [
+          "Email routing",
+          "https://dash.cloudflare.com/db9eee5d30dc91c467044f8746e45206/emera.social/email/routing/overview"
+        ],
+        [
+          "Privacy",
+          "https://emera.social/privacy/"
+        ],
+        [
+          "Terms",
+          "https://emera.social/terms/"
+        ]
+      ],
+      "options": [
+        {
+          "id": "done",
+          "label": "Done",
+          "primary": true
+        },
+        {
+          "id": "later",
+          "label": "Later"
+        }
+      ]
     }
   ],
   "reviewDone": [
