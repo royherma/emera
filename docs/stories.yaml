@@ -135,6 +135,7 @@
       platforms: [ios, android]
     - say: Tap Share profile, the link is copied
       screen: /me
+      state: copied
       platforms: [web]
     - say: The link opens a public page
       endpoint: GET /@:handle
@@ -147,10 +148,12 @@
   steps:
     - say: A profile link is pasted into X or iMessage
       endpoint: GET /@:handle
+      state: preview
       expect: [og]
       platforms: [browser]
     - say: A post link is pasted
       endpoint: GET /p/:id
+      state: preview
       expect: [og]
       platforms: [browser]
     - say: The image is fetched from storage

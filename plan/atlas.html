@@ -179,6 +179,9 @@ ul.l li{margin:2px 0}
 .mp .mono{font-size:12px;word-break:break-all}
 .ok{font-size:11px}
 .wait{padding:40px 24px;color:var(--mute);font:14px var(--mono)}
+#flow .why{font-size:11px;margin-top:3px;line-height:1.3}
+#flow .why.ok{color:var(--mute)}
+#flow .nopic{font-size:11px;color:var(--mute);border:1px dashed var(--line);padding:6px 8px;width:fit-content;max-width:220px}
 #cap{display:flex;align-items:center;gap:10px;font:12px var(--mono);color:var(--mute);margin-left:auto;white-space:nowrap}
 #cap .go,#runs .go{font:600 12px var(--font);border:1px solid var(--fg);background:var(--fg);color:var(--bg);padding:4px 12px;border-radius:99px;cursor:pointer}
 #cap .go:disabled,#runs .go:disabled{opacity:.4;cursor:default}
@@ -280,15 +283,31 @@ function renderFlow() {
     const scr = sc && A.screens.find((x) => x.route === sc && x.surface === (st.site ? 'site' : 'app'));
     for (const n of scr?.notes ?? []) if (plat === 'all' || n.platform === plat || n.platform === 'all') notes.set(`${n.platform}: ${n.text}`, 1);
   }
+  const pageOf = (st) => { const m = /^GET (\/\S*)$/.exec(st.endpoint ?? ''); return m && A.shots?.pages?.[m[1]] ? { ...A.shots.pages[m[1]], surface: 'page' } : null; };
+  const why = (st) => {
+    if (st.status === 'human') return { c: 'mute', t: 'done by hand, not counted' };
+    if (st.status === 'built') return { c: 'ok', t: 'built, counts 1' };
+    if (st.status === 'partial') return { c: 'red', t: `half built, counts 0.5: ${st.problems.join('; ') || 'part of it is missing'}` };
+    return { c: 'red', t: `not built, counts 0: ${st.problems.join('; ') || [st.screenState === 'missing' && `screen ${st.screen ?? st.site}`, st.epState === 'missing' && st.endpoint].filter(Boolean).join(' and ') + ' not in the code'}` };
+  };
   const rows = steps.map((st, k) => {
     const sc = st.screen ?? st.site;
     const scrObj = sc && scrOf(st.site ? 'site' : 'app', sc);
-    const scrCell = sc ? `<div class="cell"><div class="box scr ${st.screenState === 'missing' ? 'miss' : ''}">${scrObj ? thumb(scrObj, 'phone', 'thumb', st.state) : '<div class="nocap">not built</div>'}<div class="lab">${esc((st.site ? 'site ' : '') + sc)}${scrObj?.forwardsTo ? `<div class="mute" style="font-size:11px">goes on to ${esc(scrObj.forwardsTo)}</div>` : ''}${st.state ? `<div class="mute" style="font-size:11px">${esc(st.state)}</div>` : ''}</div></div></div>` : '<div></div>';
+    const pg = !sc && pageOf(st);
+    const w = why(st);
+    const noPic = !sc && !pg ? (st.status === 'human' ? 'a person does this, nothing to picture' : st.endpoint ? 'no screen, the server answers with data' : '') : '';
+    const scrCell = pg ? `<div class="cell"><div class="box scr">${thumb(pg, 'phone', 'thumb', st.state)}<div class="lab">web page ${esc(pg.route)}${st.state ? `<div class="mute" style="font-size:11px">${esc(st.state === 'preview' ? 'link card' : st.state)}</div>` : ''}</div></div></div>`
+      : noPic ? `<div class="cell"><div class="nopic">${esc(noPic)}</div></div>`
+      : sc ? `<div class="cell"><div class="box scr ${st.screenState === 'missing' ? 'miss' : ''}">${scrObj ? thumb(scrObj, 'phone', 'thumb', st.state) : '<div class="nocap">not built</div>'}<div class="lab">${esc((st.site ? 'site ' : '') + sc)}${scrObj?.forwardsTo ? `<div class="mute" style="font-size:11px">goes on to ${esc(scrObj.forwardsTo)}</div>` : ''}${st.state ? `<div class="mute" style="font-size:11px">${esc(st.state)}</div>` : ''}</div></div></div>` : '<div></div>';
     const epCell = st.endpoint ? `<div class="cell ${sc ? 'arrow' : ''} ${st.epState === 'missing' ? 'm' : ''}">${stepBox('e', st.endpoint, st.epState, st.problems)}${st.problems.map((p) => `<div class="prob">${esc(p)}</div>`).join('')}</div>` : `<div class="cell">${st.status === 'human' ? '<div class="box human">by hand</div>' : st.problems.map((p) => `<div class="prob">${esc(p)}</div>`).join('')}</div>`;
-    const data = [...st.data.tables.map((t) => `<div class="box data">${esc(t)}</div>`), ...st.data.r2.length ? ['<div class="box data">R2 media</div>'] : []].join('');
-    return `<div class="step"><div class="n ${st.status === 'missing' ? 'red' : ''}">${k + 1}</div><div class="say">${esc(st.say)}</div>${scrCell}${epCell}<div class="cell ${data ? 'arrow' : ''}">${data}</div></div>`;
+    const dl = [...st.data.tables, ...(st.data.r2.length ? ['R2 media'] : [])];
+    const data = dl.length ? `<div class="box data" title="${esc(dl.join(', '))}">${esc(dl.slice(0, 3).join(', '))}${dl.length > 3 ? ` <span class="mute">+${dl.length - 3}</span>` : ''}</div>` : '';
+    return `<div class="step"><div class="n ${st.status === 'missing' ? 'red' : ''}">${k + 1}</div><div class="say">${esc(st.say)}<div class="why ${w.c}">${esc(w.t)}</div></div>${scrCell}${epCell}<div class="cell ${data ? 'arrow' : ''}">${data}</div></div>`;
   }).join('');
-  $('flow').innerHTML = `<h2>${esc(s.title)} <span class="mono">${s.coverage}%</span></h2><div class="sub">${esc(s.actor)}: ${esc(s.goal)}</div>${s.note ? `<div class="flag">${esc(s.note)}</div>` : ''}<div class="pills">${pills}${plat === 'ios' || plat === 'android' ? '<span class="mute" style="font-size:12px;align-self:center">pictures are the web build</span>' : ''}</div>${[...notes.keys()].length ? `<div class="note" style="margin-bottom:8px">${[...notes.keys()].map(esc).join(' &middot; ')}</div>` : ''}<div class="head"><span></span><span>Step</span><span>Screen</span><span>Endpoint</span><span>Data</span></div>${rows}`;
+  const counted = s.steps.filter((x) => x.status !== 'human');
+  const pts = counted.reduce((a, x) => a + (x.status === 'built' ? 1 : x.status === 'partial' ? 0.5 : 0), 0);
+  const human = s.steps.length - counted.length;
+  $('flow').innerHTML = `<h2>${esc(s.title)} <span class="mono">${s.coverage}%</span></h2><div class="sub">${esc(s.actor)}: ${esc(s.goal)}<br><span class="mono" style="font-size:12px">${s.coverage}% = ${pts} of ${counted.length} steps built${human ? `, ${human} done by hand not counted` : ''}</span></div>${s.note ? `<div class="flag">${esc(s.note)}</div>` : ''}<div class="pills">${pills}${plat === 'ios' || plat === 'android' ? '<span class="mute" style="font-size:12px;align-self:center">pictures are the web build</span>' : ''}</div>${[...notes.keys()].length ? `<div class="note" style="margin-bottom:8px">${[...notes.keys()].map(esc).join(' &middot; ')}</div>` : ''}<div class="head"><span></span><span>Step</span><span>Screen</span><span>Endpoint</span><span>Data</span></div>${rows}`;
   $('flow').querySelectorAll('.pills button').forEach((b) => b.onclick = () => { plat = b.dataset.p; store.set('atlas.plat', plat); renderFlow(); });
   bindLb($('flow'));
 }
@@ -304,7 +323,7 @@ function callsOf(s) {
   return [...new Set(A.edges.filter((e) => e.from === id && e.kind === 'calls').map((e) => e.to.slice(3)))];
 }
 function openLb(key, state) {
-  const s = A.screens.find((x) => `${x.surface}:${x.route}` === key);
+  const s = A.screens.find((x) => `${x.surface}:${x.route}` === key) ?? (key.startsWith('page:') && A.shots?.pages?.[key.slice(5)] ? { ...A.shots.pages[key.slice(5)], surface: 'page', access: 'public web page, no sign-in', file: 'apps/api/src/pages.ts' } : null);
   if (!s) return;
   lbKey = key; lbState = state ?? null;
   const tag = `${vp}-${th}`;

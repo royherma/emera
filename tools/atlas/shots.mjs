@@ -7,6 +7,7 @@ import { tmpdir } from 'node:os';
 import { dirname, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { codeHash } from './codehash.mjs';
+import { capturePages } from './pages.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..');
 const R = (...p) => join(root, ...p);
@@ -113,7 +114,7 @@ async function run() {
     for (const theme of themes) for (const vp of Object.keys(VIEWPORTS)) jobs.push((async () => {
       const tag = `${vp}-${theme}`;
       const tagStart = Date.now();
-      const ctx = await browser.newContext({ viewport: VIEWPORTS[vp], colorScheme: theme === 'night' ? 'dark' : 'light', deviceScaleFactor: 1, hasTouch: vp === 'phone' });
+      const ctx = await browser.newContext({ permissions: ['clipboard-read', 'clipboard-write'], viewport: VIEWPORTS[vp], colorScheme: theme === 'night' ? 'dark' : 'light', deviceScaleFactor: 1, hasTouch: vp === 'phone' });
       if (themeSwitch) await ctx.addInitScript((t) => { try { localStorage.setItem('settings.theme', t); } catch {} }, theme);
       const page = await ctx.newPage();
       page.on('pageerror', (e) => log(`page error (${tag}): ${String(e).slice(0, 120)}`));
@@ -221,6 +222,15 @@ async function run() {
         await snap(feed, 'post-menu', 'the "..." menu on a post');
         await dismiss();
       });
+      const me = byRoute('/me');
+      if (me) await attempt('/me copied', async () => {
+        await go(page, '/me');
+        await page.getByRole('button', { name: 'Share profile' }).first().click({ timeout: 4000 });
+        await page.getByText('Profile link copied').first().waitFor({ timeout: 3000 });
+        await page.waitForTimeout(700);
+        await snap(me, 'copied', 'Share profile tapped on web, the link is copied');
+        await settle(page, 2500);
+      });
       for (const [route, path, label] of [['/explore', '/explore'], ['/me', '/me'], ['/settings', '/settings']]) {
         const s = byRoute(route);
         if (s) await attempt(route, async () => { await go(page, path); await snap(s); });
@@ -279,12 +289,22 @@ async function run() {
       log(`done ${tag} in ${((Date.now() - tagStart) / 1000).toFixed(1)}s`);
     })());
     const tagPhases = [];
-    await Promise.all(jobs);
+    const webPages = (async () => {
+      const t = Date.now();
+      try {
+        const r = await capturePages({ browser, root, out, viewports: VIEWPORTS, themes, log });
+        index.pages = r.pages;
+        index.failed.push(...r.failed);
+      } catch (err) { index.pages = {}; index.failed.push({ what: 'web pages (all)', why: String(err.message ?? err).split('\n')[0].slice(0, 160) }); }
+      tagPhases.push({ name: 'web pages from the api', ms: Date.now() - t });
+    })();
+    await Promise.all([...jobs, webPages]);
     phases.push(...tagPhases.sort((a, b) => a.name.localeCompare(b.name)));
     phase('all captures (in parallel)');
     await browser.close();
 
     let count = 0;
+    for (const e of Object.values(index.pages ?? {})) count += Object.keys(e.shots).length + e.states.length;
     for (const e of Object.values(index.screens)) { count += Object.keys(e.shots).length + e.states.length; e.shots = Object.fromEntries(Object.entries(e.shots).sort()); }
     index.count = count;
     index.ms = Date.now() - T0;
