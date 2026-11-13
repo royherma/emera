@@ -108,7 +108,7 @@ describe('video size', () => {
     expect(new Uint8Array(await served.arrayBuffer())).toEqual(jpg);
 
     const page = await (await app.fetch(new Request(post.body.post.url.replace(/^https?:\/\/[^/]+/, new URL(media.url).origin)), env)).text();
-    expect(page).toContain(`<meta property="og:image" content="${media.posterUrl}">`);
+    expect(page).toContain(`<meta property="og:image" content="${post.body.post.url}/card.png">`);
     expect(page).toContain('<meta property="og:video:width" content="1080"><meta property="og:video:height" content="1920">');
     expect(page).toContain('summary_large_image');
     expect(page).toContain(`poster="${media.posterUrl}"`);
