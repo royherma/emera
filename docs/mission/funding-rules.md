@@ -1,6 +1,6 @@
 # Emera fund rules
 
-Version 1.0.0 · 2026-11-13 · changed only through [how-values-change.md](how-values-change.md). The numbers live in one file, `apps/api/src/fundRules.ts`, and every screen reads them from `GET /v1/fund`.
+Version 1.1.0 · 2026-11-13 · changed only through [how-values-change.md](how-values-change.md). The numbers live in one file, `apps/api/src/fundRules.ts`, and every screen reads them from `GET /v1/fund`.
 
 ## The deal in one line
 
@@ -11,8 +11,10 @@ Companies sponsor Emera. Every sponsor dollar is split in half: 50 cents goes to
 | Rule | Detail |
 | --- | --- |
 | Sponsors | A company or person pays an amount for a month. One payment can cover several months; it is booked to each month in equal parts. |
-| What a sponsor gets | Its name and link on the fund page and the app's fund screen, sorted by amount, and the month's statement showing where its money went. |
-| What a sponsor never gets | No ads in the feed, no boost, no say in ranking, moderation or takedowns, no badge for anyone, no viewer data. Sponsors see the same public numbers everyone sees. |
+| What a sponsor gets | Its name and link on the fund page, sorted by amount, the month's statement showing where its money went, and a one-line banner marked "Sponsor" at the top of the app feed once we approve its words. |
+| In-feed sponsor cards | Only once the network has 1,000 posts (`FEED_CARD_MIN_POSTS`), one card after every 12 posts (`FEED_CARD_EVERY`), always marked "Sponsor". Until then sponsors get the banner only, so the first sponsors fund the early network instead of crowding it. |
+| How a sponsor pays | Through Stripe on the fund page: a monthly amount (at least $10, `MIN_MONTHLY_CENTS`) times 1 to 12 months (`MAX_CHECKOUT_MONTHS`), paid once, booked to each month in equal parts. |
+| What a sponsor never gets | No boost for any post, no say in ranking, moderation or takedowns, no badge for anyone, no targeting and no viewer data. Every viewer sees the same banner and cards. Sponsors see the same public numbers everyone sees. |
 | Who can't sponsor | Anyone a creator here has an open copy report against, and anyone whose money we would have to hide. The board can refuse or return any sponsorship, and the refusal is logged on the fund page. |
 | Refunds | A refunded sponsorship comes out of the month it was booked to, before that month closes. After close, it comes out of the next open month and the statement says so. |
 
@@ -77,4 +79,4 @@ A creator can ask to be listed as "a creator" instead of their handle on public 
 
 ## 7. Changing these rules
 
-A change to a number in section 2 or 3 is a minor change (vote). A change that lets money buy reach, ranking, badges or viewer data is a "never" and cannot pass. Every version of this file stays in git, and each closed statement records the rules version it was computed under.
+A change to a number in section 2 or 3 is a minor change (vote). A change that lets money buy ranking, badges, targeting or viewer data is a "never" and cannot pass. 1.1.0 (Roy, 2026-11-13) added the marked banner and the in-feed card gate. Every version of this file stays in git, and each closed statement records the rules version it was computed under.

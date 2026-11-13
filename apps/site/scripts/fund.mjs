@@ -90,8 +90,8 @@ td a{color:var(--sunink)}
 .form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px;max-width:760px}
 .form label{display:grid;gap:6px;font-weight:600;font-size:.92rem}
 .form label small{font-weight:400;color:#7a6450}
-.form input{width:100%;border:1px solid rgba(60,35,10,.16);border-radius:14px;background:#fffaf1;padding:13px 14px;font:inherit;font-weight:400;color:#2a1d14;outline:none}
-.form input:focus{border-color:var(--sun)}
+.form input,.form select{width:100%;border:1px solid rgba(60,35,10,.16);border-radius:14px;background:#fffaf1;padding:13px 14px;font:inherit;font-weight:400;color:#2a1d14;outline:none}
+.form input:focus,.form select:focus{border-color:var(--sun)}
 .form .go{grid-column:1/-1;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .form button{padding:14px 26px;font-size:1rem}
 .form button:disabled{opacity:.6;cursor:default}
@@ -127,11 +127,18 @@ box.hidden=false}
 var api=root&&root.getAttribute("data-api");
 if(api)fetch(api+"/v1/fund").then(function(r){return r.ok?r.json():null}).then(function(d){if(!d)return;if(d.rules&&d.rules.creatorShare>0){share=d.rules.creatorShare;calc()}live(d,api)}).catch(function(){});
 var f=document.querySelector("[data-sponsor]");if(!f)return;var n=document.querySelector("[data-snote]"),b=f.querySelector("button");
-f.addEventListener("submit",function(e){e.preventDefault();n.className="note";var em=f.email.value.trim(),co=f.company.value.trim();
-if(!co){n.textContent="Add your company or your name.";n.classList.add("err");f.company.focus();return}
-if(!/^[^\\s@]+@[^\\s@.]+(\\.[^\\s@.]+)+$/.test(em)){n.textContent="That email does not look right. Check it and try again.";n.classList.add("err");f.email.focus();return}
-b.disabled=true;fetch("/api/sponsor",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({company:co,email:em,monthly:f.monthly.value,url:f.url.value,website:f.website.value,referrer:document.referrer})}).then(function(r){return r.json()}).then(function(j){if(j.ok){f.hidden=true;n.textContent="Thanks. We will email "+em+" to set up your sponsorship.";return}
-var msg={invalid_email:"That email does not look right. Check it and try again.",invalid_amount:"Put the monthly amount in dollars, like 500.",invalid_url:"That link does not look right. Try one like acme.com.",missing_company:"Add your company or your name.",too_many:"We already have your details. We will be in touch."}[j.error];if(!msg)throw 0;n.textContent=msg;n.classList.add("err")}).catch(function(){n.textContent="Something went wrong on our side. Try again in a moment.";n.classList.add("err")}).finally(function(){b.disabled=false})})
+var paid=new URLSearchParams(location.search).get("paid");
+if(paid&&api)fetch(api+"/v1/fund/checkout/"+encodeURIComponent(paid)).then(function(r){return r.json()}).then(function(j){f.hidden=true;n.className="note";n.textContent=j.paid?"Thank you, "+j.sponsorName+". "+usd(j.amountCents)+" is booked over "+j.months+(j.months===1?" month":" months")+". Your banner goes up once we check the words.":"Payment received. It shows here within a minute."}).catch(function(){});
+function err(t,el){n.textContent=t;n.classList.add("err");if(el)el.focus()}
+f.addEventListener("submit",function(e){e.preventDefault();n.className="note";var em=f.email.value.trim(),co=f.company.value.trim(),mo=Math.round(parseFloat(String(f.monthly.value).replace(/[$,\\s]/g,""))*100);
+if(!co)return err("Add your company or your name.",f.company);
+if(!/^[^\\s@]+@[^\\s@.]+(\\.[^\\s@.]+)+$/.test(em))return err("That email does not look right. Check it and try again.",f.email);
+if(!(mo>=1000))return err("Put at least $10 a month.",f.monthly);
+var body={sponsorName:co,contactEmail:em,monthlyCents:mo,months:Number(f.months.value),sponsorUrl:f.url.value.trim()||undefined,line:f.line.value.trim()||undefined};
+if(f.website.value)return;
+b.disabled=true;fetch(api+"/v1/fund/checkout",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body)}).then(function(r){return r.json().then(function(j){return{s:r.status,j:j}})}).then(function(x){if(x.j.url){location.href=x.j.url;return}
+if(x.s===503)return fetch("/api/sponsor",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({company:co,email:em,monthly:String(mo/100),url:f.url.value,referrer:document.referrer})}).then(function(){f.hidden=true;n.textContent="Thanks. We will email "+em+" to set up your sponsorship."});
+err((x.j.error&&x.j.error.message)||"Something went wrong on our side. Try again in a moment.");b.disabled=false}).catch(function(){err("Something went wrong on our side. Try again in a moment.");b.disabled=false})})
 })()</script>`;
 
 function html(github) {
@@ -214,15 +221,16 @@ ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(
 <p class="sub">Sponsors back what people create. They get their name in daylight and a statement of where every dollar went. They never get a say in what anyone sees.</p>
 <div class="deal">
 <div class="card"><h3>What a sponsor gets</h3><ul>
-<li>Your name and link on this page and the app's fund screen, sorted by amount</li>
+<li>A one-line banner marked Sponsor at the top of the app feed</li>
+<li>Your name and link on this page, sorted by amount</li>
 <li>Each month's statement showing where your money went, creator by creator</li>
 </ul></div>
 <div class="card no"><h3>What a sponsor never gets</h3><ul>
-<li>Ads in the feed or a boost for anyone</li>
-<li>A say in ranking, moderation or takedowns</li>
-<li>A badge, or any data about who watched what</li>
+<li>A boost for any post, or a say in ranking, moderation or takedowns</li>
+<li>Targeting, a badge, or any data about who watched what</li>
 </ul></div>
 </div>
+<p class="sub" data-gate>Sponsor cards between posts start once ${esc(brand.name)} has 1,000 posts, one after every 12, always marked Sponsor. Until then the first sponsors get the feed banner.</p>
 </section>
 
 <section id="live" aria-labelledby="h-live" hidden>
@@ -235,14 +243,16 @@ ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(
 
 <section id="sponsor" class="join" aria-labelledby="h-sponsor">
 <h2 id="h-sponsor">Put your name behind the people who create</h2>
-<p class="sub">Tell us who you are and we will set it up with you. Half of what you give goes to the creators people watch that month.</p>
+<p class="sub">Pick a monthly amount and how many months. You pay once through Stripe. Half goes to the creators people watch each month.</p>
 <form class="form" data-sponsor novalidate>
-<label>Company<input name="company" autocomplete="organization" maxlength="120" required></label>
+<label>Company or your name<input name="company" autocomplete="organization" maxlength="80" required></label>
 <label>Email<input type="email" name="email" autocomplete="email" maxlength="254" required></label>
-<label>Monthly amount <small>optional, in dollars</small><input name="monthly" inputmode="decimal" placeholder="$500" maxlength="12"></label>
+<label>Monthly amount <small>in dollars, at least $10</small><input name="monthly" inputmode="decimal" value="25" maxlength="9"></label>
+<label>Months<select name="months"><option value="1">1 month</option><option value="3" selected>3 months</option><option value="6">6 months</option><option value="12">12 months</option></select></label>
 <label>Link <small>optional</small><input name="url" inputmode="url" placeholder="acme.com" maxlength="300" autocomplete="url"></label>
+<label>Banner line <small>optional, shown after your name</small><input name="line" maxlength="80" placeholder="Paper for people who draw"></label>
 <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-<div class="go"><button class="pill" type="submit">Become a sponsor</button></div>
+<div class="go"><button class="pill" type="submit">Sponsor with Stripe</button></div>
 </form>
 <p class="note" data-snote role="status" aria-live="polite"></p>
 </section>
