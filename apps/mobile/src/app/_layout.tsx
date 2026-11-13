@@ -50,6 +50,9 @@ function Routes() {
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="p/[id]" options={{ animation: "slide_from_right" }} />
           <Stack.Screen name="u/[handle]" options={{ animation: "slide_from_right" }} />
+          <Stack.Screen name="followers/[handle]" options={{ animation: "slide_from_right" }} />
+          <Stack.Screen name="following/[handle]" options={{ animation: "slide_from_right" }} />
+          <Stack.Screen name="blocked" options={{ animation: "slide_from_right" }} />
           <Stack.Screen name="settings" options={{ animation: "slide_from_right" }} />
           <Stack.Screen name="report" options={{ animation: "slide_from_right" }} />
           <Stack.Screen name="invites" options={{ animation: "slide_from_right" }} />

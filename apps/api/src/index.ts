@@ -7,6 +7,7 @@ import { auth } from './auth';
 import { mediaRoutes } from './media';
 import { postRoutes } from './posts';
 import { reportRoutes } from './reports';
+import { social } from './social';
 import { pages, notFoundPage } from './pages';
 
 const app = new Hono<AppEnv>();
@@ -27,6 +28,7 @@ app.route('/', auth);
 app.route('/', mediaRoutes);
 app.route('/', postRoutes);
 app.route('/', reportRoutes);
+app.route('/', social);
 app.route('/', pages);
 
 app.onError((err, c) => {

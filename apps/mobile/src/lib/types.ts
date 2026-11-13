@@ -6,7 +6,13 @@ export type User = {
   avatarUrl: string | null;
   createdAt: string;
   category?: string;
+  followers?: number;
+  following?: number;
+  viewer?: { following: boolean; blocked: boolean; muted: boolean };
 };
+
+export type FeedMode = "all" | "following";
+export type UserPage = { users: User[]; cursor: string | null };
 
 export type Proof = { sha256: string; signedAt: string; signer: string };
 
@@ -48,7 +54,7 @@ export interface Backend {
   setHandle(input: { handle: string; displayName: string }): Promise<User>;
   me(): Promise<User>;
   logout(): Promise<void>;
-  feed(cursor?: string | null): Promise<{ posts: Post[]; cursor: string | null }>;
+  feed(cursor?: string | null, mode?: FeedMode): Promise<{ posts: Post[]; cursor: string | null }>;
   post(id: string): Promise<Post>;
   deletePost(id: string): Promise<void>;
   profile(handle: string, cursor?: string | null): Promise<{ user: User; posts: Post[]; cursor: string | null }>;
@@ -57,4 +63,14 @@ export interface Backend {
   listInvites(): Promise<{ invites: Invite[]; limit: number }>;
   createInvite(maxUses?: number): Promise<{ code: string; url: string }>;
   report(input: { postId: string; url: string; note: string }): Promise<void>;
+  follow(handle: string): Promise<User>;
+  unfollow(handle: string): Promise<User>;
+  followers(handle: string, cursor?: string | null): Promise<UserPage>;
+  following(handle: string, cursor?: string | null): Promise<UserPage>;
+  block(handle: string): Promise<User>;
+  unblock(handle: string): Promise<User>;
+  mute(handle: string): Promise<User>;
+  unmute(handle: string): Promise<User>;
+  blocks(cursor?: string | null): Promise<UserPage>;
+  mutes(cursor?: string | null): Promise<UserPage>;
 }

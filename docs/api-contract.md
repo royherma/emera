@@ -37,7 +37,7 @@ Limits v0: images up to 25 MB (jpeg, png, webp, heic), video up to 200 MB (mp4, 
 | GET | `/v1/posts/:id` | - | `{ post }` |
 | DELETE | `/v1/posts/:id` | - | `{ ok: true }` (owner only) |
 | GET | `/v1/users/:handle` | - | `{ user, posts: [] }` newest first, `?cursor=` pages |
-| GET | `/v1/feed` | - | `{ posts: [], cursor }` - newest first from everyone (chronological; ranking comes later) |
+| GET | `/v1/feed` | - | `{ posts: [], cursor }` - newest first from everyone (chronological; ranking comes later). `?mode=following` (sign-in required) returns only people you follow. Signed-in viewers never see posts from accounts they blocked or muted, or that blocked them |
 
 `post` = `{ id, author: user, caption, media: [media], createdAt, url }`
 
@@ -49,6 +49,27 @@ Limits v0: images up to 25 MB (jpeg, png, webp, heic), video up to 200 MB (mp4, 
 | GET | `/v1/reports` | - | `{ reports: [{ id, postId, url, note, status, createdAt }] }` the caller's own, newest first |
 
 Only the post's author can report a copy of it (403 `forbidden` otherwise). `url` must be http(s), up to 2048 characters; `note` up to 2000. Unknown post is 404, bad input 400 (`bad_post`, `bad_url`, `bad_note`). `status` starts as `new`. Each report is also emailed to `REPORTS_TO` when that variable is set.
+
+`user` also carries `followers`, `following` and, when the request is signed in, `viewer: { following, blocked, muted }`.
+
+## Follow, block and mute
+
+All writes need a signed-in user with a handle. Each returns `{ user }` with fresh counts and `viewer` flags. Repeating a call is safe.
+
+| Method | Path | Returns |
+| --- | --- | --- |
+| POST | `/v1/follows/:handle` | follow. 400 `self` for your own handle, 403 `blocked` if you blocked them, 404 if they blocked you |
+| DELETE | `/v1/follows/:handle` | unfollow |
+| GET | `/v1/users/:handle/followers` | `{ users: [], cursor }` newest first, `?cursor=&limit=` pages |
+| GET | `/v1/users/:handle/following` | `{ users: [], cursor }` same shape |
+| POST | `/v1/blocks/:handle` | block: removes follows in both directions |
+| DELETE | `/v1/blocks/:handle` | unblock |
+| GET | `/v1/me/blocks` | `{ users: [], cursor }` accounts you blocked |
+| POST | `/v1/mutes/:handle` | mute: their posts leave your feeds, nothing else changes |
+| DELETE | `/v1/mutes/:handle` | unmute |
+| GET | `/v1/me/mutes` | `{ users: [], cursor }` accounts you muted |
+
+Lists and feeds hide accounts that are blocked in either direction with the viewer. A profile or list owned by someone who blocked you returns 404.
 
 ## Public pages (served by the API Worker, server-rendered, no login)
 

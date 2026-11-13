@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
@@ -11,38 +11,14 @@ import { Button, EmptyState, ErrorState, IconButton, Pulse } from "./ui";
 import { api } from "@/lib/api";
 import { PUBLIC_ORIGIN } from "@/lib/config";
 import { useLayout } from "@/lib/layout";
-import { shareLink } from "@/lib/share";
-import { storage } from "@/lib/storage";
+import { confirmAsk, shareLink } from "@/lib/share";
 import { alpha, creatorColors, radius, space, type } from "@/lib/theme";
 import { useResource } from "@/state/resource";
+import { useSheet } from "@/state/sheet";
 import { useTheme } from "@/state/theme";
 import { useToast } from "@/state/toast";
-import type { Post } from "@/lib/types";
-
-const FOLLOW_KEY = "follows";
-
-function useFollow(handle: string) {
-  const [on, setOn] = useState(false);
-  useEffect(() => {
-    storage.get(FOLLOW_KEY).then((v) => {
-      try {
-        setOn((JSON.parse(v ?? "[]") as string[]).includes(handle));
-      } catch {
-        setOn(false);
-      }
-    });
-  }, [handle]);
-  const toggle = async () => {
-    const next = !on;
-    setOn(next);
-    let list: string[] = [];
-    try {
-      list = JSON.parse((await storage.get(FOLLOW_KEY)) ?? "[]");
-    } catch {}
-    await storage.set(FOLLOW_KEY, JSON.stringify(next ? [...new Set([...list, handle])] : list.filter((h) => h !== handle)));
-  };
-  return { on, toggle };
-}
+import { ApiError } from "@/lib/types";
+import type { Post, User } from "@/lib/types";
 
 type Group = "all" | "image" | "video" | "series";
 const groupOf = (p: Post): Group => (p.media.length > 1 ? "series" : p.media[0].kind === "video" ? "video" : "image");
@@ -53,8 +29,9 @@ export function ProfileView({ handle, own, tabs, back, onInvite }: { handle: str
   const toast = useToast();
   const { c } = useTheme();
   const { wide, column } = useLayout();
-  const { data, error, loading, refreshing, reload, retry } = useResource(() => api.profile(handle), `profile:${handle}`);
-  const follow = useFollow(handle);
+  const sheet = useSheet();
+  const { data, error, loading, refreshing, reload, retry, setData } = useResource(() => api.profile(handle), `profile:${handle}`);
+  const [busy, setBusy] = useState(false);
   const [group, setGroup] = useState<Group>("all");
 
   const user = data?.user;
@@ -71,11 +48,46 @@ export function ProfileView({ handle, own, tabs, back, onInvite }: { handle: str
     if (r === "copied") toast("Profile link copied");
   };
 
-  const stat = (value: string, label: string) => (
-    <View style={{ alignItems: "center", gap: 1 }}>
+  const act = async (fn: () => Promise<User>, done?: string) => {
+    if (!user) return;
+    setBusy(true);
+    try {
+      const next = await fn();
+      if (data) setData({ ...data, user: next });
+      if (done) toast(done);
+    } catch (e) {
+      toast(e instanceof ApiError ? e.message : "Something went wrong. Try again.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const following = !!user?.viewer?.following;
+  const isBlocked = !!user?.viewer?.blocked;
+  const isMuted = !!user?.viewer?.muted;
+  const toggleFollow = () => act(() => (following ? api.unfollow(handle) : api.follow(handle)));
+
+  const openMenu = () =>
+    sheet([
+      isMuted
+        ? { label: `Unmute @${handle}`, icon: "moon", onPress: () => act(() => api.unmute(handle), `Unmuted @${handle}`) }
+        : { label: `Mute @${handle}`, icon: "moon", onPress: () => act(() => api.mute(handle), `Muted @${handle}. Their posts are hidden from your feeds.`) },
+      isBlocked
+        ? { label: `Unblock @${handle}`, icon: "shield", onPress: () => act(() => api.unblock(handle), `Unblocked @${handle}`) }
+        : {
+            label: `Block @${handle}`,
+            icon: "shield",
+            destructive: true,
+            onPress: () =>
+              confirmAsk(`Block @${handle}?`, "They can't follow you or see your work, and you won't see theirs.", "Block", () => void act(() => api.block(handle), `Blocked @${handle}`)),
+          },
+    ]);
+
+  const stat = (value: string, label: string, onPress?: () => void) => (
+    <Pressable accessibilityRole={onPress ? "link" : "text"} accessibilityLabel={`${value} ${label}`} disabled={!onPress} onPress={onPress} style={{ alignItems: "center", gap: 1, minWidth: 56 }}>
       <Text style={[type.stat, { color: c.ink }]}>{value}</Text>
       <Text style={[type.meta, { color: c.ink2 }]}>{label}</Text>
-    </View>
+    </Pressable>
   );
 
   return (
@@ -90,6 +102,7 @@ export function ProfileView({ handle, own, tabs, back, onInvite }: { handle: str
               <IconButton icon="sliders" label="Settings" onPress={() => router.push("/settings")} />
             </View>
           )}
+          {!own && user && <IconButton icon="dots" label="More" onPress={openMenu} />}
         </View>
         {error && !data ? (
           <ErrorState message={error} onRetry={retry} />
@@ -101,7 +114,8 @@ export function ProfileView({ handle, own, tabs, back, onInvite }: { handle: str
                 {user ? (
                   <>
                     {stat(String(posts.length), posts.length === 1 ? "Work" : "Works")}
-                    {stat(new Date(user.createdAt).toLocaleDateString(undefined, { month: "short", year: "numeric" }), "Joined")}
+                    {stat(String(user.followers ?? 0), user.followers === 1 ? "Follower" : "Followers", () => router.push({ pathname: "/followers/[handle]", params: { handle: user.handle } }))}
+                    {stat(String(user.following ?? 0), "Following", () => router.push({ pathname: "/following/[handle]", params: { handle: user.handle } }))}
                   </>
                 ) : (
                   <Pulse style={{ height: 36, width: 160, borderRadius: 10 }} />
@@ -127,7 +141,11 @@ export function ProfileView({ handle, own, tabs, back, onInvite }: { handle: str
                 <Button label="Share profile" icon="share" onPress={share} disabled={!user} style={{ flex: 1 }} />
               ) : (
                 <>
-                  <Button label={follow.on ? "Following" : "Follow"} kind={follow.on ? "secondary" : "primary"} onPress={follow.toggle} disabled={!user} style={{ flex: 1.3 }} />
+                  {isBlocked ? (
+                    <Button label="Unblock" kind="secondary" busy={busy} onPress={() => act(() => api.unblock(handle), `Unblocked @${handle}`)} disabled={!user} style={{ flex: 1.3 }} />
+                  ) : (
+                    <Button label={following ? "Following" : "Follow"} kind={following ? "secondary" : "primary"} busy={busy} onPress={toggleFollow} disabled={!user} style={{ flex: 1.3 }} />
+                  )}
                   <Button label="Message" kind="secondary" disabled style={{ flex: 1 }} />
                   <IconButton icon="share" label="Share profile" onPress={share} />
                 </>
