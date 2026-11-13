@@ -588,9 +588,9 @@ features:
     usage: "Commissions and collaborations start in DMs"
     platforms: {instagram: yes, tiktok: yes, youtube: no, pinterest: yes, bluesky: yes, cara: partial, pixelfed: yes, vsco: no}
     emera:
-      twist: ""
-      maps_to: {screens: [], endpoints: [], stories: []}
-      help_wanted: true
+      twist: "Text sealed at rest, requests for strangers, you pick who can write first, posts shared in one tap; channels beside the feed you can hide"
+      maps_to: {screens: ["/messages", "/messages/[id]", "/messages/compose", "/chat"], endpoints: ["GET /v1/dms", "POST /v1/dms", "GET /v1/dms/:id/messages", "POST /v1/dms/:id/messages", "GET /v1/dms/unread", "GET /v1/dms/with/:handle", "POST /v1/dms/:id/mute", "GET /v1/channels", "POST /v1/channels/:id/messages", "PUT /v1/chat/settings", "POST /v1/chat/live"], stories: []}
+      help_wanted: false
       effort: L
   - id: post-scheduling
     name: "Schedule posts"

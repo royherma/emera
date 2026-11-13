@@ -11,6 +11,7 @@ import { copyText, shareLink } from "@/lib/share";
 import { radius, space, type } from "@/lib/theme";
 import { ApiError } from "@/lib/types";
 import { useAuth } from "@/state/auth";
+import { resetChatSettings, saveChatSettings, useChatSettings } from "@/state/chatSettings";
 import { useTheme } from "@/state/theme";
 import { useToast } from "@/state/toast";
 
@@ -32,6 +33,8 @@ export default function Settings() {
   const [invite, setInvite] = useState<{ code: string; url: string } | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const chat = useChatSettings();
+  const saveChat = (input: Parameters<typeof saveChatSettings>[0]) => saveChatSettings(input).catch(() => toast("Couldn't save that. Try again."));
 
   const makeInvite = async () => {
     setBusy(true);
@@ -77,6 +80,29 @@ export default function Settings() {
       </Section>
 
       <View style={{ height: 1, backgroundColor: c.hair }} />
+      <Section title="Messages">
+        <Text style={[type.bodySm, { color: c.ink2 }]}>Who can start a conversation with you</Text>
+        <Segmented
+          value={chat.dmFrom}
+          onChange={(dmFrom) => saveChat({ dmFrom })}
+          options={[
+            { value: "everyone", label: "Everyone" },
+            { value: "following", label: "People I follow" },
+            { value: "nobody", label: "No one" },
+          ]}
+        />
+        <Text style={[type.bodySm, { color: c.ink2, marginTop: space[2] }]}>Channels next to your feed</Text>
+        <Segmented
+          value={chat.channelsHidden ? "hide" : "show"}
+          onChange={(v) => saveChat({ channelsHidden: v === "hide" })}
+          options={[
+            { value: "show", label: "Show" },
+            { value: "hide", label: "Hide" },
+          ]}
+        />
+      </Section>
+
+      <View style={{ height: 1, backgroundColor: c.hair }} />
       <Section title="Invite a friend">
         <Text style={[type.body, { color: c.ink2 }]}>Send a link to someone whose creations you love.</Text>
         {invite ? (
@@ -108,7 +134,7 @@ export default function Settings() {
 
       <View style={{ height: 1, backgroundColor: c.hair }} />
       <Section title="Account">
-        <Button label="Sign out" icon="logout" kind="secondary" onPress={signOut} style={{ alignSelf: "flex-start" }} />
+        <Button label="Sign out" icon="logout" kind="secondary" onPress={() => (resetChatSettings(), signOut())} style={{ alignSelf: "flex-start" }} />
       </Section>
 
       <View style={{ height: 1, backgroundColor: c.hair }} />

@@ -1,6 +1,6 @@
 import { env } from 'cloudflare:workers';
 import { describe, expect, it } from 'vitest';
-import { Client, makeEnv } from './helpers';
+import { Client, makeEnv, pngBytes } from './helpers';
 
 async function person(handle: string) {
   const c = new Client();
@@ -158,5 +158,50 @@ describe('direct messages', () => {
     const prod = await person('yul_dm');
     prod.env = makeEnv({ ENVIRONMENT: 'production', PROOF_SECRET: 'real-secret', CHAT_KEY: '' });
     expect((await prod.json('POST', '/v1/dms', { handle: 'xan_dm', body: 'hi' })).body.error.code).toBe('chat_not_configured');
+  });
+});
+
+describe('chat settings, mute and posts in messages', () => {
+  it('who can message me: everyone, following, nobody', async () => {
+    const [ana, ben] = [await person('ana_pref'), await person('ben_pref')];
+    expect((await ben.json('GET', '/v1/chat/settings')).body.settings).toEqual({ dmFrom: 'everyone', channelsHidden: false });
+    expect((await ben.json('PUT', '/v1/chat/settings', { dmFrom: 'sometimes' })).status).toBe(400);
+    await ben.json('PUT', '/v1/chat/settings', { dmFrom: 'following' });
+    const check = await ana.json('GET', '/v1/dms/with/ben_pref');
+    expect(check.body).toMatchObject({ canMessage: false, thread: null });
+    expect(check.body.reason).toContain('people they follow');
+    expect((await ana.json('POST', '/v1/dms', { handle: 'ben_pref', body: 'hi' })).body.error.code).toBe('cant_message');
+    await ben.json('POST', '/v1/follows/ana_pref');
+    expect((await ana.json('GET', '/v1/dms/with/ben_pref')).body.canMessage).toBe(true);
+    expect((await ana.json('POST', '/v1/dms', { handle: 'ben_pref', body: 'hi' })).status).toBe(201);
+    await ben.json('PUT', '/v1/chat/settings', { dmFrom: 'nobody', channelsHidden: true });
+    expect((await ben.json('GET', '/v1/chat/settings')).body.settings).toEqual({ dmFrom: 'nobody', channelsHidden: true });
+    expect((await ana.json('POST', '/v1/dms', { handle: 'ben_pref', body: 'still here' })).status).toBe(201);
+  });
+
+  it('a muted conversation stops counting as unread', async () => {
+    const [ana, ben] = [await person('ana_mute'), await person('ben_mute')];
+    await ben.json('POST', '/v1/follows/ana_mute');
+    const tid = (await ana.json('POST', '/v1/dms', { handle: 'ben_mute', body: 'ping' })).body.thread.id;
+    expect((await ben.json('GET', '/v1/dms/unread')).body.inbox).toBe(1);
+    const m = await ben.json('POST', `/v1/dms/${tid}/mute`, { muted: true });
+    expect(m.body.thread.muted).toBe(true);
+    expect((await ben.json('GET', '/v1/dms/unread')).body.inbox).toBe(0);
+    await ben.json('POST', `/v1/dms/${tid}/mute`, { muted: false });
+    expect((await ben.json('GET', '/v1/dms/unread')).body.inbox).toBe(1);
+  });
+
+  it('sends a post in a message, with or without words', async () => {
+    const [ana, ben] = [await person('ana_share'), await person('ben_share')];
+    const up = await ana.upload(pngBytes(64, 64));
+    const postId = (await ana.json('POST', '/v1/posts', { mediaIds: [up.body.media.id], caption: 'a bowl I made' })).body.post.id;
+    const r = await ana.json('POST', '/v1/dms', { handle: 'ben_share', postId });
+    expect(r.status).toBe(201);
+    expect(r.body.message).toMatchObject({ body: '', postId, post: { id: postId, caption: 'a bowl I made' } });
+    expect(r.body.thread.last.body).toBe('Sent a post');
+    const page = await ben.json('GET', `/v1/dms/${r.body.thread.id}/messages`);
+    expect(page.body.messages[0].post.id).toBe(postId);
+    expect((await ana.json('POST', `/v1/dms/${r.body.thread.id}/messages`, { postId: 'nope' })).status).toBe(404);
+    expect((await ana.json('POST', `/v1/dms/${r.body.thread.id}/messages`, {})).body.error.code).toBe('bad_message');
   });
 });
