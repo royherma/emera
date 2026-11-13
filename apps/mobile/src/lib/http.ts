@@ -1,5 +1,5 @@
 import { API_URL } from "./config";
-import { ApiError, Backend, Comment, Media, Notification, PickedFile, Post, User, UserPage } from "./types";
+import { ApiError, Backend, Channel, ChatMessage, ChatPage, ChatRoomRef, Comment, DmThread, Media, Notification, PickedFile, Post, User, UserPage } from "./types";
 
 let token: string | null = null;
 export const setToken = (t: string | null) => {
@@ -25,6 +25,8 @@ async function send<T>(method: string, path: string, body?: unknown): Promise<T>
 }
 
 const pageQuery = (cursor?: string | null) => (cursor ? `?cursor=${encodeURIComponent(cursor)}` : "");
+const roomPath = (r: ChatRoomRef) => `/v1/${r.kind === "dm" ? "dms" : "channels"}/${encodeURIComponent(r.id)}`;
+
 const userPage = (r: { users: User[]; cursor?: string | null }): UserPage => ({ users: r.users, cursor: r.cursor ?? null });
 
 export const http: Backend = {
@@ -100,4 +102,21 @@ export const http: Backend = {
   },
   updateProfile: async (input) => (await send<{ user: User }>("PATCH", "/v1/me", input)).user,
   flag: async (input) => void (await send("POST", "/v1/flags", input)),
+  channels: async () => (await send<{ channels: Channel[] }>("GET", "/v1/channels")).channels,
+  roomMessages: (room, page) => {
+    const q = new URLSearchParams();
+    if (page?.after) q.set("after", page.after);
+    if (page?.before) q.set("before", page.before);
+    const qs = q.toString();
+    return send<ChatPage>("GET", `${roomPath(room)}/messages${qs ? `?${qs}` : ""}`);
+  },
+  sendMessage: async (room, body) => (await send<{ message: ChatMessage }>("POST", `${roomPath(room)}/messages`, { body })).message,
+  deleteMessage: async (room, id) => void (await send("DELETE", `${roomPath(room)}/messages/${encodeURIComponent(id)}`)),
+  markRoomRead: async (room) => void (await send("POST", `${roomPath(room)}/read`)),
+  flagMessage: async (input) => void (await send("POST", "/v1/chat/flags", input)),
+  threads: async (box) => (await send<{ threads: DmThread[] }>("GET", `/v1/dms${box === "requests" ? "?box=requests" : ""}`)).threads,
+  startThread: (handle, body) => send("POST", "/v1/dms", { handle, body }),
+  acceptThread: async (id) => (await send<{ thread: DmThread }>("POST", `/v1/dms/${encodeURIComponent(id)}/accept`)).thread,
+  hideThread: async (id) => void (await send("DELETE", `/v1/dms/${encodeURIComponent(id)}`)),
+  dmUnread: () => send("GET", "/v1/dms/unread"),
 };

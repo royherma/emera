@@ -10,6 +10,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { AuthProvider, useAuth } from "@/state/auth";
 import { DemoBadge } from "@/components/DemoBadge";
 import { SideRail } from "@/components/SideRail";
+import { ChatRail } from "@/components/ChatRail";
 import { useLayout } from "@/lib/layout";
 import { SheetProvider } from "@/state/sheet";
 import { ThemeProvider, useTheme } from "@/state/theme";
@@ -36,7 +37,7 @@ function useWebChrome() {
 function Routes() {
   const { status } = useAuth();
   const { c, scheme } = useTheme();
-  const { wide } = useLayout();
+  const { wide, rail } = useLayout();
   useWebChrome();
   useEffect(() => {
     if (status !== "loading") SplashScreen.hideAsync().catch(() => {});
@@ -69,9 +70,13 @@ function Routes() {
               <Stack.Screen name="search" options={{ animation: "slide_from_right" }} />
               <Stack.Screen name="edit-profile" options={{ animation: "slide_from_right" }} />
               <Stack.Screen name="flag" options={{ animation: "slide_from_right" }} />
+              <Stack.Screen name="chat" options={{ animation: "slide_from_right" }} />
+              <Stack.Screen name="messages/index" options={{ animation: "slide_from_right" }} />
+              <Stack.Screen name="messages/[id]" options={{ animation: "slide_from_right" }} />
             </Stack.Protected>
           </Stack>
         </View>
+        {rail && status === "in" && <ChatRail />}
       </View>
       <DemoBadge />
     </>
