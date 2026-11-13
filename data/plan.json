@@ -1,5 +1,5 @@
 {
-  "updated": "10:44 AM Bangkok",
+  "updated": "10:46 AM Bangkok",
   "title": "Plan",
   "goal": "You post photos on your own profile, share the link, and invite people",
   "phases": [
@@ -306,7 +306,7 @@
     }
   ],
   "names": {
-    "note": ".com is free only where shown. SEO names coming from a second search.",
+    "note": "Winnable searches: \"bluesky photo app\", \"social media for tattoo artists\". Every .com is taken except where shown.",
     "items": [
       {
         "id": "madeby",
@@ -316,7 +316,8 @@
           "social": "free",
           "com": "taken",
           "org": "taken"
-        }
+        },
+        "group": "mine"
       },
       {
         "id": "shownhere",
@@ -326,7 +327,8 @@
           "com": "free",
           "org": "free",
           "social": "free"
-        }
+        },
+        "group": "mine"
       },
       {
         "id": "firstframe",
@@ -336,7 +338,8 @@
           "social": "free",
           "com": "taken",
           "org": "taken"
-        }
+        },
+        "group": "mine"
       },
       {
         "id": "kindframe",
@@ -347,7 +350,8 @@
           "app": "free",
           "social": "free",
           "com": "taken"
-        }
+        },
+        "group": "mine"
       },
       {
         "id": "openporch",
@@ -357,7 +361,8 @@
           "social": "free",
           "com": "taken",
           "org": "taken"
-        }
+        },
+        "group": "mine"
       },
       {
         "id": "courtyard",
@@ -367,7 +372,8 @@
           "social": "free",
           "app": "free",
           "com": "taken"
-        }
+        },
+        "group": "mine"
       },
       {
         "id": "lightbox",
@@ -377,7 +383,8 @@
           "social": "free",
           "com": "taken",
           "org": "taken"
-        }
+        },
+        "group": "mine"
       },
       {
         "id": "ownframe",
@@ -387,7 +394,8 @@
           "org": "free",
           "social": "free",
           "com": "taken"
-        }
+        },
+        "group": "mine"
       },
       {
         "id": "sharekeep",
@@ -397,7 +405,8 @@
           "org": "free",
           "social": "free",
           "com": "taken"
-        }
+        },
+        "group": "mine"
       },
       {
         "id": "showfolk",
@@ -407,7 +416,8 @@
           "org": "free",
           "social": "free",
           "com": "taken"
-        }
+        },
+        "group": "mine"
       },
       {
         "id": "hearthside",
@@ -417,7 +427,8 @@
           "social": "free",
           "com": "taken",
           "org": "taken"
-        }
+        },
+        "group": "mine"
       },
       {
         "id": "framekin",
@@ -427,8 +438,175 @@
           "org": "free",
           "social": "free",
           "com": "taken"
+        },
+        "group": "mine"
+      },
+      {
+        "id": "s-shotby",
+        "name": "Shotby",
+        "group": "seo",
+        "why": "'Shot by <you>' is the photographer credit line, so every post is a signature",
+        "phrase": "instagram alternative for photographers",
+        "domains": {
+          "com": "taken",
+          "org": "free",
+          "app": "free",
+          "social": "free"
+        }
+      },
+      {
+        "id": "s-signedframe",
+        "name": "Signedframe",
+        "group": "seo",
+        "why": "Signed + frame = every post is signed",
+        "phrase": "content credentials / C2PA social network",
+        "domains": {
+          "com": "free",
+          "org": "free",
+          "app": "free",
+          "social": "free"
+        }
+      },
+      {
+        "id": "s-folioproof",
+        "name": "Folioproof",
+        "group": "seo",
+        "why": "'folio' catches the portfolio searches, 'proof' says your work is signed",
+        "phrase": "portfolio for artists + proof of authorship",
+        "domains": {
+          "com": "taken",
+          "org": "free",
+          "app": "free",
+          "social": "free"
+        }
+      },
+      {
+        "id": "s-ownshot",
+        "name": "Ownshot",
+        "group": "seo",
+        "why": "'Your own shot' = ownership + authorship, welcoming not hostile",
+        "phrase": "protect my photos from being stolen",
+        "domains": {
+          "com": "taken",
+          "org": "free",
+          "app": "free",
+          "social": "free"
+        }
+      },
+      {
+        "id": "s-stillproof",
+        "name": "Stillproof",
+        "group": "seo",
+        "why": "'Still' = a photograph",
+        "phrase": "prove I took this photo / content credentials",
+        "domains": {
+          "com": "taken",
+          "org": "free",
+          "app": "free",
+          "social": "free"
+        }
+      },
+      {
+        "id": "s-frameproof",
+        "name": "Frameproof",
+        "group": "seo",
+        "why": "Frame = photo, proof = verified",
+        "phrase": "protect my photos from being stolen",
+        "domains": {
+          "com": "taken",
+          "org": "free",
+          "app": "taken",
+          "social": "free"
+        }
+      },
+      {
+        "id": "s-drawnby",
+        "name": "Drawnby",
+        "group": "seo",
+        "why": "'Drawn by <you>' is the illustrator credit",
+        "phrase": "social network for artists / illustrators",
+        "domains": {
+          "com": "taken",
+          "org": "free",
+          "app": "free",
+          "social": "free"
+        }
+      },
+      {
+        "id": "s-inkedby",
+        "name": "Inkedby",
+        "group": "seo",
+        "why": "'Inked by <artist>' is how clients tag tattoo work",
+        "phrase": "social media for tattoo artists",
+        "domains": {
+          "com": "taken",
+          "org": "free",
+          "app": "free",
+          "social": "free"
+        }
+      },
+      {
+        "id": "s-whomade",
+        "name": "Whomade",
+        "group": "seo",
+        "why": "Answers the question every stolen-art repost raises: who made this",
+        "phrase": "prove I took this photo / content credentials",
+        "domains": {
+          "com": "taken",
+          "org": "free",
+          "app": "taken",
+          "social": "free"
+        }
+      },
+      {
+        "id": "s-atproof",
+        "name": "Atproof",
+        "group": "seo",
+        "why": "AT Protocol + proof",
+        "phrase": "bluesky photo app / AT Protocol proof",
+        "domains": {
+          "com": "taken",
+          "org": "free",
+          "app": "free",
+          "social": "free"
+        }
+      },
+      {
+        "id": "s-hallmarked",
+        "name": "Hallmarked",
+        "group": "seo",
+        "why": "A hallmark is the maker's stamp on silver",
+        "phrase": "content credentials / proof of who made it",
+        "domains": {
+          "com": "taken",
+          "org": "free",
+          "app": "free",
+          "social": "free"
+        }
+      },
+      {
+        "id": "s-truemade",
+        "name": "Truemade",
+        "group": "seo",
+        "why": "'Authentic photo' has autocomplete demand",
+        "phrase": "authentic photo / content credentials",
+        "domains": {
+          "com": "taken",
+          "org": "free",
+          "app": "taken",
+          "social": "free"
         }
       }
+    ],
+    "groups": [
+      [
+        "seo",
+        "SEO picks"
+      ],
+      [
+        "mine",
+        "Warm picks"
+      ]
     ]
   }
 }

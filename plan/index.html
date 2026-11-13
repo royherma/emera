@@ -39,6 +39,8 @@ h2 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;mar
 .nm .t{display:flex;align-items:baseline;gap:6px}
 .nm .t b{font:600 16px Fraunces,serif}
 .nm .why{font-size:11px;color:var(--mute);line-height:1.25}
+.nm .ph2{font-size:10.5px;color:var(--a);font-weight:600;line-height:1.2}
+.ngroups{display:flex;gap:4px;text-transform:none;letter-spacing:0}.ngroups button{border:1px solid var(--line);background:#fff;border-radius:6px;padding:1px 8px;font:600 11px Inter,system-ui,sans-serif;cursor:pointer;color:var(--ink)}.ngroups button.on{background:var(--ink);color:#fff}
 .dom{display:flex;gap:4px;flex-wrap:wrap}
 .dom span{font-size:10px;font-weight:600;border-radius:5px;padding:1px 5px;background:#eee;color:var(--mute)}
 .dom span.free{background:#dcefe5;color:var(--a2)}.dom span.taken{background:#f4e1dc;color:#a8452f;text-decoration:line-through}
@@ -86,7 +88,7 @@ h2 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;mar
   </div>
   <div class="col">
     <section class="card">
-      <h2>Name <em id="nameNote"></em></h2>
+      <h2>Name <span id="ngroups" class="ngroups"></span><em id="nameNote"></em></h2>
       <div class="names" id="names"></div>
     </section>
     <div class="phases" id="phases"></div>
@@ -96,7 +98,7 @@ h2 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;mar
 <script>
 const $ = (id) => document.getElementById(id);
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
-let plan;
+let plan; let nameGroup;
 const toast = (t) => { $('toast').textContent = t; $('toast').classList.add('on'); setTimeout(() => $('toast').classList.remove('on'), 1600); };
 async function send(f, msg) {
   const r = await fetch('/api/feedback', { method: 'POST', body: JSON.stringify(f) });
@@ -129,9 +131,14 @@ function render() {
 
   $('nameNote').textContent = plan.names.note;
   const names = $('names'); names.replaceChildren();
-  for (const n of plan.names.items) {
+  const groups = plan.names.groups ?? [];
+  nameGroup ??= groups[0]?.[0];
+  const ng = $('ngroups'); ng.replaceChildren();
+  for (const [g, label] of groups) { const b = el('button', g === nameGroup ? 'on' : '', `${label} (${plan.names.items.filter((n) => (n.group ?? 'mine') === g).length})`); b.onclick = () => { nameGroup = g; render(); }; ng.append(b); }
+  for (const n of plan.names.items.filter((x) => !nameGroup || (x.group ?? 'mine') === nameGroup || x.added)) {
     const card = el('div', `nm ${n.vote ?? ''}`);
     const t = el('div', 't'); t.append(el('b', '', n.name)); card.append(t, el('div', 'why', n.why));
+    if (n.phrase) card.append(el('div', 'ph2', `Ranks for: ${n.phrase}`));
     const dom = el('div', 'dom');
     for (const [d, s] of Object.entries(n.domains ?? {})) { const s1 = el('span', s, d); s1.title = s === 'free' ? 'no registration found' : s === 'taken' ? 'registered' : 'unknown'; dom.append(s1); }
     card.append(dom);

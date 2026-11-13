@@ -1,0 +1,264 @@
+{
+ "phrases": [
+  {
+   "phrase": "instagram alternative for photographers",
+   "demand": "Google autocomplete: 'instagram alternative' -> 'for photographers', 'for artists', 'reddit' (all top-10 suggestions); 'instagram alternative for photographers' -> '...reddit', 'best ...'. Strongest demand signal found.",
+   "competition": "Roundups on TechRadar, PetaPixel, Digital Camera World, DIYPhotography, Fstoppers, Shotkit, IONOS, Digital Trends, Pixsy. All big publishers; a new brand wins by being LISTED in these, not by outranking them. Product sites (Glass, Pixelfed, 500px, Flickr) are inside the lists."
+  },
+  {
+   "phrase": "bluesky instagram alternative / bluesky photo app",
+   "demand": "Autocomplete: 'bluesky instagram' -> 'alternative', 'app', 'version', 'clone', 'vs instagram for artists'; 'bluesky photo app' -> 'bluesky photo sharing app'. Small but real and growing.",
+   "competition": "Winnable. Results dominated by Flashes (TechCrunch, PetaPixel, Engadget, Gizmodo) plus Pinksky and Skygram. No big brand owns it; a dedicated landing page + a few press hits could take it."
+  },
+  {
+   "phrase": "social media for tattoo artists / best social media platform for tattoo artists",
+   "demand": "Autocomplete: 5 suggestions ('best social media platform for tattoo artists', 'marketing', 'strategy').",
+   "competition": "Mostly small agency/marketing blogs. Weak competition, niche, good seed-user phrase."
+  },
+  {
+   "phrase": "social network for artists / artist portfolio app",
+   "demand": "'social network for artists' -> 'best social network for artists'; 'portfolio for artists' has 10 suggestions (website, template, app, free); 'artist portfolio app' present.",
+   "competition": "Behance, ArtStation, Cara, DeviantArt, Squarespace/Wix/Format template pages. Portfolio-builder terms are strong brands; 'artist social network' is mid-strength (Cara leads anti-AI angle)."
+  },
+  {
+   "phrase": "protect my photos from being stolen / how to stop people stealing photos",
+   "demand": "Autocomplete returned nothing for exact phrasing; 'someone stole my photo(s)' -> facebook/instagram/ebay variants. Demand exists as how-to content, not as a product query.",
+   "competition": "PetaPixel, DIYPhotography, Pixsy, Pixpa, Zenfolio, Lightstalking, ipwatchdog. Advice-article game; Pixsy owns the commercial intent. Winnable only with an original guide/tool page, not the homepage."
+  },
+  {
+   "phrase": "copyright takedown / DMCA takedown for photographers",
+   "demand": "No autocomplete returned for photographer-specific phrasing; commercial intent is high (DMCA.com $199 per takedown).",
+   "competition": "Pixsy, Copytrack, DMCA.com, DoNotPay, CVBER; SourceForge/affiliate roundups. Pixsy is the entrenched brand. Free automatic takedown is a differentiator but ranking for the head term is hard."
+  },
+  {
+   "phrase": "photo sharing app / photo sharing sites for photographers",
+   "demand": "Autocomplete: 'photo sharing app' -> 8 suggestions incl. 'for photographers', 'sites for photographers', 'sites like flickr'.",
+   "competition": "Flickr, Google Photos, Dropbox, SmugMug, Pixieset; huge brands. Head term not winnable; the 'for photographers' long tail is via roundups."
+  },
+  {
+   "phrase": "prove I took this photo / content credentials / C2PA",
+   "demand": "'content credentials' -> verify, adobe, c2pa, lightroom, photoshop, remove (real demand, tech-leaning). 'prove i took this photo' returned nothing.",
+   "competition": "Adobe, contentauthenticity.org, c2pa.org, Leica/Sony/Nikon pages. Brand-owned, but 'content credentials' + social network is an open niche. Small apps already here: SignedShot, ProofMark, Capture Cam (capture-only, no network)."
+  },
+  {
+   "phrase": "social media without bots / no algorithm social media",
+   "demand": "Autocomplete returned nothing for these exact phrasings (Reddit/long-tail queries, not suggested).",
+   "competition": "Not assessed deeply; likely Mastodon, Bluesky, BeReal, Pixelfed pages. Use as page copy, not as a name target."
+  },
+  {
+   "phrase": "open source instagram",
+   "demand": "Autocomplete: 8 suggestions (client, app, github, mod, downloader).",
+   "competition": "GitHub repos, Pixelfed, Instagram scraper tools. Mixed intent; Pixelfed wins the 'app' reading."
+  }
+ ],
+ "names": [
+  {
+   "name": "Folioproof",
+   "group": "match",
+   "phrase": "portfolio for artists + proof of authorship",
+   "why": "'folio' catches the portfolio searches, 'proof' says your work is signed; one coined word, zero existing results.",
+   "domains": {
+    "com": "taken",
+    "org": "free",
+    "app": "free",
+    "social": "free"
+   },
+   "conflict": null
+  },
+  {
+   "name": "Frameproof",
+   "group": "match",
+   "phrase": "protect my photos from being stolen",
+   "why": "Frame = photo, proof = verified. Reads as a promise. Neighbours: Frameclaim (content protection, different name), SmartFrame.",
+   "domains": {
+    "com": "taken",
+    "org": "free",
+    "app": "taken",
+    "social": "free"
+   },
+   "conflict": null
+  },
+  {
+   "name": "Stillproof",
+   "group": "match",
+   "phrase": "prove I took this photo / content credentials",
+   "why": "'Still' = a photograph; zero search results so first-ranker for its own name. Loses illustrators and video slightly.",
+   "domains": {
+    "com": "taken",
+    "org": "free",
+    "app": "free",
+    "social": "free"
+   },
+   "conflict": null
+  },
+  {
+   "name": "Photosky",
+   "group": "match",
+   "phrase": "bluesky photo app",
+   "why": "Directly contains 'photo' + 'sky' for 'bluesky photo app' queries; very close to Pinksky/Skygram so confusable.",
+   "domains": {
+    "com": "taken",
+    "org": "free",
+    "app": "taken",
+    "social": "free"
+   },
+   "conflict": null
+  },
+  {
+   "name": "Bluefolio",
+   "group": "match",
+   "phrase": "bluesky portfolio / portfolio for artists",
+   "why": "Blue (Bluesky) + folio (portfolio). Only generic hits (junk-journal kits, templates). Sounds like a portfolio site, not a social network.",
+   "domains": {
+    "com": "taken",
+    "org": "free",
+    "app": "taken",
+    "social": "free"
+   },
+   "conflict": null
+  },
+  {
+   "name": "Copyproof",
+   "group": "match",
+   "phrase": "copyright takedown for photographers",
+   "why": "Says copyright protection in one word. .org taken, .com taken; many 'copyright app' competitors make it crowded.",
+   "domains": {
+    "com": "taken",
+    "org": "taken",
+    "app": "free",
+    "social": "free"
+   },
+   "conflict": "No app of this name found; field of similar tools is crowded (Marksta, PhotoProof, Capture Cam)"
+  },
+  {
+   "name": "Shotby",
+   "group": "brandable",
+   "phrase": "instagram alternative for photographers",
+   "why": "'Shot by <you>' is the photographer credit line, so every post is a signature; ties to the proof-of-author hook. Only unrelated golf app 'ShotByShot' (archived).",
+   "domains": {
+    "com": "taken",
+    "org": "free",
+    "app": "free",
+    "social": "free"
+   },
+   "conflict": null
+  },
+  {
+   "name": "Drawnby",
+   "group": "brandable",
+   "phrase": "social network for artists / illustrators",
+   "why": "'Drawn by <you>' is the illustrator credit; pairs with Shotby if you want a family. 'Drawn by' is a weak phrase to rank on, but the one-word name has no competitor.",
+   "domains": {
+    "com": "taken",
+    "org": "free",
+    "app": "free",
+    "social": "free"
+   },
+   "conflict": null
+  },
+  {
+   "name": "Inkedby",
+   "group": "brandable",
+   "phrase": "social media for tattoo artists",
+   "why": "'Inked by <artist>' is how clients tag tattoo work. Directly targets the weakest-competition phrase. Narrow, so poor for photographers.",
+   "domains": {
+    "com": "taken",
+    "org": "free",
+    "app": "free",
+    "social": "free"
+   },
+   "conflict": "Nearby but different: Inkedin Tools, The Inked Network (tattoo booking apps)"
+  },
+  {
+   "name": "Ownshot",
+   "group": "brandable",
+   "phrase": "protect my photos from being stolen",
+   "why": "'Your own shot' = ownership + authorship, welcoming not hostile. No product found.",
+   "domains": {
+    "com": "taken",
+    "org": "free",
+    "app": "free",
+    "social": "free"
+   },
+   "conflict": null
+  },
+  {
+   "name": "Whomade",
+   "group": "brandable",
+   "phrase": "prove I took this photo / content credentials",
+   "why": "Answers the question every stolen-art repost raises: who made this. No product; WhoMadeWho is a Danish band so may split brand searches.",
+   "domains": {
+    "com": "taken",
+    "org": "free",
+    "app": "taken",
+    "social": "free"
+   },
+   "conflict": "WhoMadeWho (Danish band, similar spelling)"
+  },
+  {
+   "name": "Signedframe",
+   "group": "brandable",
+   "phrase": "content credentials / C2PA social network",
+   "why": "Signed + frame = every post is signed. Only candidate with .com free. Close to SignedShot (open-source authenticity camera app, different name).",
+   "domains": {
+    "com": "free",
+    "org": "free",
+    "app": "free",
+    "social": "free"
+   },
+   "conflict": "SignedShot (photo authenticity app; similar, different name)"
+  },
+  {
+   "name": "Atproof",
+   "group": "wildcard",
+   "phrase": "bluesky photo app / AT Protocol proof",
+   "why": "AT Protocol + proof. Nerdy, but owns 'atproto + proof' searches and signals the protocol to developers. Not welcoming to non-technical creators.",
+   "domains": {
+    "com": "taken",
+    "org": "free",
+    "app": "free",
+    "social": "free"
+   },
+   "conflict": null
+  },
+  {
+   "name": "Hallmarked",
+   "group": "wildcard",
+   "phrase": "content credentials / proof of who made it",
+   "why": "A hallmark is the maker's stamp on silver; warm, craft meaning. Real word so hard to rank for the bare term; 'hallmarked app' query only returns watermark apps.",
+   "domains": {
+    "com": "taken",
+    "org": "free",
+    "app": "free",
+    "social": "free"
+   },
+   "conflict": "None found for this exact name; 'Hallmark' brand is very strong"
+  },
+  {
+   "name": "Truemade",
+   "group": "wildcard",
+   "phrase": "authentic photo / content credentials",
+   "why": "'Authentic photo' has autocomplete demand; true + made = verified creator. Not a dictionary word. Neighbours: Truest, TruShot (different names).",
+   "domains": {
+    "com": "taken",
+    "org": "free",
+    "app": "taken",
+    "social": "free"
+   },
+   "conflict": null
+  },
+  {
+   "name": "Skysnap",
+   "group": "wildcard",
+   "phrase": "bluesky photo app",
+   "why": "Sky (Bluesky) + snap (photo); friendly and short. SkySnap is a Warsaw drone/satellite imagery company, so conflict in search results.",
+   "domains": {
+    "com": "taken",
+    "org": "taken",
+    "app": "free",
+    "social": "free"
+   },
+   "conflict": "SkySnap (Warsaw aerial-imagery company)"
+  }
+ ]
+}
