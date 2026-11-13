@@ -160,10 +160,10 @@ async function copyApi(request, env, url) {
 }
 
 async function page(request, env, ctx, url) {
-  const fresh = new Request(request);
-  fresh.headers.delete("if-none-match");
-  fresh.headers.delete("if-modified-since");
-  let res = await env.ASSETS.fetch(fresh);
+  const plain = new Request(request);
+  plain.headers.delete("if-none-match");
+  plain.headers.delete("if-modified-since");
+  let res = await env.ASSETS.fetch(plain);
   const isDoc = request.method === "GET" && res.status === 200 && (res.headers.get("content-type") || "").includes("text/html");
   if (!isDoc || !env.DB) return res;
   const admin = await isAdmin(request, env);
