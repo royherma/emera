@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Atlas</title>
+<style>
+:root{--bg:#fff;--fg:#000;--mute:#666;--line:#d9d9d9;--soft:#f4f4f4;--red:#d40000;--font:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root{--bg:#000;--fg:#fff;--mute:#999;--line:#333;--soft:#141414;--red:#ff5555}}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font:14px/1.35 var(--font)}
+header{height:44px;display:flex;align-items:center;gap:24px;padding:0 20px;border-bottom:1px solid var(--fg);position:sticky;top:0;background:var(--bg);z-index:5}
+header b{font-size:16px;letter-spacing:.04em}
+nav{display:flex;gap:4px}
+nav button{font:inherit;background:none;border:0;border-bottom:2px solid transparent;padding:12px 10px;cursor:pointer;color:var(--mute);height:44px}
+nav button.on{color:var(--fg);border-bottom-color:var(--fg)}
+#stamp{margin-left:auto;color:var(--mute);font:12px var(--mono)}
+.tab{display:none;height:calc(100vh - 45px);min-height:640px;overflow:auto}
+.tab:not(.on){display:none!important}
+.tab.on{display:block}
+#list,#flow,#sysgraph,#envs{height:calc(100vh - 45px);min-height:640px}
+.mono{font-family:var(--mono)}
+.mute{color:var(--mute)}
+.red{color:var(--red)}
+.bar{height:8px;background:var(--soft);border:1px solid var(--fg);position:relative}
+.bar i{position:absolute;inset:0 auto 0 0;background:var(--fg)}
+#stories.on{display:grid;grid-template-columns:440px 1fr}
+#list{border-right:1px solid var(--line);overflow:auto}
+.row{display:grid;grid-template-columns:1fr 44px;gap:3px 10px;padding:5px 16px;border-bottom:1px solid var(--line);cursor:pointer}
+.row:hover{background:var(--soft)}
+.row.on{background:var(--fg);color:var(--bg)}
+.row .t{font-weight:600}
+.row .a{font-size:12px;color:var(--mute)}
+.row.on .a{color:var(--bg);opacity:.7}
+.row .p{text-align:right;font:600 13px var(--mono);grid-column:2;grid-row:1}
+.row>div:first-child{grid-column:1;grid-row:1}
+.row .bar{grid-column:1/3;grid-row:2;height:4px}
+.row.on .bar{border-color:var(--bg);background:transparent}
+.row.on .bar i{background:var(--bg)}
+#flow{overflow:auto;padding:14px 22px}
+#flow h2{margin:0;font-size:20px}
+.sub{margin:2px 0 8px;color:var(--mute)}
+.pills{display:flex;gap:6px;margin:0 0 10px}
+.pills button{font:12px var(--font);border:1px solid var(--fg);background:var(--bg);color:var(--fg);padding:3px 10px;border-radius:99px;cursor:pointer}
+.pills button.on{background:var(--fg);color:var(--bg)}
+.flag{border:1px dashed var(--red);color:var(--red);padding:4px 10px;margin:0 0 10px;display:inline-block}
+.head,.step{display:grid;grid-template-columns:30px 230px 1fr 1.3fr 1fr;gap:0 26px;align-items:start}
+.head{font:11px var(--mono);color:var(--mute);text-transform:uppercase;letter-spacing:.06em;padding-bottom:4px}
+.step{position:relative;padding:5px 0}
+.step .n{width:24px;height:24px;border-radius:50%;border:1px solid var(--fg);display:grid;place-items:center;font:600 11px var(--mono);background:var(--bg);z-index:1}
+.step:not(:last-child) .n::after{content:"";position:absolute;left:12px;top:30px;bottom:-5px;width:1px;background:var(--fg)}
+.step .say{font-size:13px;padding-top:3px}
+.box{border:1px solid var(--fg);padding:3px 8px;font:12px var(--mono);position:relative;margin-bottom:3px;word-break:break-all;background:var(--bg)}
+.box.miss{border:1px dashed var(--red);color:var(--red)}
+.box.part{border-style:dashed}
+.box.human{border-color:var(--line);color:var(--mute);font-family:var(--font)}
+.box.data{background:var(--soft);border-color:var(--line)}
+.cell{position:relative}
+.cell.arrow::before{content:"";position:absolute;left:-22px;top:12px;width:18px;border-top:1px solid var(--fg)}
+.cell.arrow.m::before{border-top:1px dashed var(--red)}
+.prob{color:var(--red);font-size:11px;margin:0 0 2px}
+.note{font-size:11px;color:var(--mute)}
+#system.on{display:grid;grid-template-columns:1fr 300px}
+#sysgraph{padding:6px 10px;overflow:auto}
+#envs{border-left:1px solid var(--line);padding:12px 16px;overflow:auto;font-size:12px}
+#envs h3{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.env{margin-bottom:12px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.env b{font-size:13px}
+.env .u{font:11px var(--mono);word-break:break-all;display:block}
+svg text{font:11px var(--mono);fill:var(--fg)}
+svg .colhead{fill:var(--mute);text-transform:uppercase;letter-spacing:.06em;font-size:10px}
+svg .node rect{fill:var(--bg);stroke:var(--fg)}
+svg .node.miss rect{stroke:var(--red);stroke-dasharray:3 2}
+svg .node.miss text{fill:var(--red)}
+svg .node.page rect{fill:var(--soft)}
+svg .node.dim{opacity:.18}
+svg .edge{fill:none;stroke:var(--fg);stroke-width:1;opacity:.55}
+svg .edge.writes{stroke-width:2;opacity:.85}
+svg .edge.mirrors{stroke-dasharray:4 3}
+svg .edge.refs{stroke-dasharray:1 3}
+svg .edge.dim{opacity:.06}
+svg .edge.hi{opacity:1;stroke-width:2}
+.legend{font-size:11px;color:var(--mute);padding:4px 10px}
+#cover.on{display:grid;grid-template-columns:300px 1fr 1fr}
+#cover>section{padding:16px 20px;overflow:auto;border-right:1px solid var(--line)}
+#cover>section:last-child{border-right:0}
+#cover h3,#plat h3{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}
+.big{font:700 96px/1 var(--font);letter-spacing:-.03em}
+.mrow{display:grid;grid-template-columns:30px 1fr;gap:8px;padding:6px 0;border-bottom:1px solid var(--line)}
+.mrow .c{font:700 18px var(--mono);text-align:center}
+.mrow small{display:block;color:var(--mute);font-size:11px}
+.brow{display:grid;grid-template-columns:170px 1fr 38px;gap:8px;align-items:center;padding:2px 0;font-size:12px}
+.brow span:last-child{text-align:right;font-family:var(--mono)}
+ul.l{margin:0 0 14px;padding-left:16px;font-size:12px}
+ul.l li{margin:2px 0}
+#plat{padding:16px 24px}
+#plat .top{display:flex;align-items:baseline;gap:18px;margin-bottom:10px}
+#plat .top b{font-size:34px;letter-spacing:-.02em}
+.leg{display:flex;gap:14px;font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border:1px solid var(--fg);vertical-align:-2px;margin-right:4px}
+.grp{margin:12px 0 4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:6px}
+.card{border:1px solid var(--fg);padding:7px 10px;min-height:48px}
+.card b{display:block;font-size:13px}
+.card small{display:block;font-size:11px;opacity:.75}
+.s-live{background:var(--fg);color:var(--bg)}
+.s-in-code{background:var(--soft);border-width:2px}
+.s-planned{border-style:dashed;background:var(--bg)}
+.s-idea{border-color:var(--line);color:var(--mute);background:var(--bg)}
+.sw.s-live{background:var(--fg)}.sw.s-in-code{background:var(--soft);border-width:2px}.sw.s-planned{border-style:dashed}.sw.s-idea{border-color:var(--line)}
+.wait{padding:40px 24px;color:var(--mute);font:14px var(--mono)}
+</style>
+</head>
+<body>
+<header>
+  <b>ATLAS</b>
+  <nav id="nav"></nav>
+  <span id="stamp"></span>
+</header>
+<section class="tab" id="stories"><div id="list"></div><div id="flow"></div></section>
+<section class="tab" id="system"><div id="sysgraph"></div><div id="envs"></div></section>
+<section class="tab" id="cover"></section>
+<section class="tab" id="plat"></section>
+<script>
+const TABS = [['stories', 'Stories'], ['system', 'System'], ['cover', 'Coverage'], ['plat', 'Platforms']];
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const store = { get: (k, d) => { try { return localStorage.getItem(k) ?? d; } catch { return d; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
+let A = null, tab = store.get('atlas.tab', 'stories'), sel = store.get('atlas.story', ''), plat = store.get('atlas.plat', 'all');
+if (location.hash.slice(1)) tab = location.hash.slice(1);
+
+function nav() {
+  $('nav').innerHTML = TABS.map(([k, v]) => `<button data-k="${k}" class="${k === tab ? 'on' : ''}">${v}</button>`).join('');
+  $('nav').querySelectorAll('button').forEach((b) => b.onclick = () => { tab = b.dataset.k; store.set('atlas.tab', tab); history.replaceState(null, '', '#' + tab); show(); });
+}
+function show() {
+  nav();
+  for (const [k] of TABS) $(k).classList.toggle('on', k === tab);
+}
+
+function stamp() {
+  const t = new Date(A.builtAt).toLocaleString('en-US', { timeZone: 'Asia/Bangkok', hour: 'numeric', minute: '2-digit', month: 'short', day: 'numeric' });
+  $('stamp').textContent = `built from commit ${A.git.sha}${A.git.dirty ? '+edits' : ''} at ${t} Bangkok`;
+}
+
+function renderList() {
+  $('list').innerHTML = A.stories.map((s) => `<div class="row ${s.id === sel ? 'on' : ''}" data-id="${s.id}"><div><span class="t">${esc(s.title)}</span> <span class="a">${esc(s.actor)}${s.planned ? ' - planned' : ''}</span></div><div class="p">${s.coverage}%</div><div class="bar"><i style="width:${s.coverage}%"></i></div></div>`).join('');
+  $('list').querySelectorAll('.row').forEach((r) => r.onclick = () => { sel = r.dataset.id; store.set('atlas.story', sel); renderList(); renderFlow(); });
+}
+
+function stepBox(kind, label, state, problems) {
+  const c = state === 'ok' && problems?.length ? 'part' :  state === 'missing' ? 'miss' : state === 'unwired' ? 'part' : '';
+  return `<div class="box ${c}">${esc(label)}</div>`;
+}
+
+function renderFlow() {
+  const s = A.stories.find((x) => x.id === sel) || A.stories[0];
+  sel = s.id;
+  if (plat !== 'all' && !s.platforms.includes(plat)) plat = 'all';
+  const steps = s.steps.filter((x) => plat === 'all' || x.platforms.includes(plat));
+  const pills = ['all', ...s.platforms].map((p) => `<button data-p="${p}" class="${p === plat ? 'on' : ''}">${p === 'all' ? 'all platforms' : p}</button>`).join('');
+  const notes = new Map();
+  for (const st of steps) {
+    const sc = st.screen ?? st.site;
+    const scr = sc && A.screens.find((x) => x.route === sc && x.surface === (st.site ? 'site' : 'app'));
+    for (const n of scr?.notes ?? []) if (plat === 'all' || n.platform === plat || n.platform === 'all') notes.set(`${n.platform}: ${n.text}`, 1);
+  }
+  const rows = steps.map((st, k) => {
+    const sc = st.screen ?? st.site;
+    const scrCell = sc ? `<div class="cell">${stepBox('s', (st.site ? 'site ' : '') + sc, st.screenState)}</div>` : '<div></div>';
+    const epCell = st.endpoint ? `<div class="cell ${sc ? 'arrow' : ''} ${st.epState === 'missing' ? 'm' : ''}">${stepBox('e', st.endpoint, st.epState, st.problems)}${st.problems.map((p) => `<div class="prob">${esc(p)}</div>`).join('')}</div>` : `<div class="cell">${st.status === 'human' ? '<div class="box human">by hand</div>' : st.problems.map((p) => `<div class="prob">${esc(p)}</div>`).join('')}</div>`;
+    const data = [...st.data.tables.map((t) => `<div class="box data">${esc(t)}</div>`), ...st.data.r2.length ? ['<div class="box data">R2 media</div>'] : []].join('');
+    return `<div class="step"><div class="n ${st.status === 'missing' ? 'red' : ''}">${k + 1}</div><div class="say">${esc(st.say)}</div>${scrCell}${epCell}<div class="cell ${data ? 'arrow' : ''}">${data}</div></div>`;
+  }).join('');
+  $('flow').innerHTML = `<h2>${esc(s.title)} <span class="mono">${s.coverage}%</span></h2><div class="sub">${esc(s.actor)}: ${esc(s.goal)}</div>${s.note ? `<div class="flag">${esc(s.note)}</div>` : ''}<div class="pills">${pills}</div>${[...notes.keys()].length ? `<div class="note" style="margin-bottom:8px">${[...notes.keys()].map(esc).join(' &middot; ')}</div>` : ''}<div class="head"><span></span><span>Step</span><span>Screen</span><span>Endpoint</span><span>Data</span></div>${rows}`;
+  $('flow').querySelectorAll('.pills button').forEach((b) => b.onclick = () => { plat = b.dataset.p; store.set('atlas.plat', plat); renderFlow(); });
+}
+
+function layout() {
+  const missing = A.missing;
+  const col = { screen: [], ep: [], data: [], lex: [] };
+  const id = {};
+  for (const s of A.screens) col.screen.push({ id: `screen:${s.surface}:${s.route}`, label: s.shell ? 'app shell' : `${s.surface === 'site' ? 'landing ' : ''}${s.route}`, sub: s.access });
+  for (const e of A.endpoints) col.ep.push({ id: `ep:${e.method} ${e.path}`, label: `${e.method} ${e.path}`, page: e.kind === 'page' });
+  for (const m of missing) {
+    if (m.kind === 'endpoint') col.ep.push({ id: `miss:${m.key}`, label: m.label.replace('endpoint ', ''), miss: true });
+    if (m.kind === 'screen') col.screen.push({ id: `miss:${m.key}`, label: m.label.replace('screen ', ''), miss: true });
+  }
+  for (const t of A.tables) col.data.push({ id: `table:${t.name}`, label: t.name });
+  col.data.push({ id: 'r2:MEDIA', label: 'R2 media bucket' });
+  for (const l of A.lexicons) col.lex.push({ id: `lex:${l.id}`, label: l.id.replace('social.emera.', '') });
+  const edges = A.edges.filter((e) => e.kind !== 'navigates');
+  const pos = (c, n) => c.forEach((x, i) => { x.y = i; });
+  for (const k of Object.keys(col)) pos(col[k]);
+  const nb = (n, set) => { const ys = edges.filter((e) => (e.from === n.id && set.has(e.to)) || (e.to === n.id && set.has(e.from))).map((e) => (e.from === n.id ? e.to : e.from)); return ys; };
+  const all = Object.values(col).flat();
+  const byId = new Map(all.map((n) => [n.id, n]));
+  const order = ['screen', 'ep', 'data', 'lex'];
+  for (let pass = 0; pass < 6; pass++) {
+    for (const k of order) {
+      const others = new Set(all.filter((n) => !col[k].includes(n)).map((n) => n.id));
+      for (const n of col[k]) { const ys = nb(n, others).map((i) => byId.get(i).y); n.b = ys.length ? ys.reduce((a, b) => a + b, 0) / ys.length : n.y; }
+      col[k].sort((a, b) => a.b - b.b || a.y - b.y);
+      col[k].forEach((n, i) => { n.y = i; });
+    }
+  }
+  return { col, edges, byId };
+}
+
+function renderSystem() {
+  const { col, edges, byId } = layout();
+  const widths = { screen: 150, ep: 250, data: 140, lex: 170 };
+  const gap = 90;
+  const xs = {}; let x = 8;
+  for (const k of ['screen', 'ep', 'data', 'lex']) { xs[k] = x; x += widths[k] + gap; }
+  const W = x - gap + 8;
+  const rows = Math.max(...Object.values(col).map((c) => c.length));
+  const rh = 25, top = 26, H = top + rows * rh + 8;
+  const kind = (n) => ['screen', 'ep', 'data', 'lex'].find((k) => col[k].includes(n));
+  const px = (n) => xs[kind(n)];
+  const py = (n) => top + n.y * rh;
+  const path = (a, b) => {
+    const ax = px(a) + widths[kind(a)], ay = py(a) + 10, bx = px(b), by = py(b) + 10;
+    if (bx < ax) { const ax2 = px(a), bx2 = px(b) + widths[kind(b)]; const m = (ax2 + bx2) / 2; return `M${ax2},${ay} C${m},${ay} ${m},${by} ${bx2},${by}`; }
+    const m = (ax + bx) / 2; return `M${ax},${ay} C${m},${ay} ${m},${by} ${bx},${by}`;
+  };
+  const heads = { screen: 'Screens', ep: 'Endpoints', data: 'Data', lex: 'AT Protocol' };
+  let svg = `<svg id="sv" viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W * 1.5}px;min-width:${W}px" xmlns="http://www.w3.org/2000/svg">`;
+  for (const k of Object.keys(heads)) svg += `<text class="colhead" x="${xs[k]}" y="14">${heads[k]}</text>`;
+  svg += edges.map((e, i) => { const a = byId.get(e.from), b = byId.get(e.to); return a && b ? `<path class="edge ${e.kind}" data-a="${esc(e.from)}" data-b="${esc(e.to)}" d="${path(a, b)}"/>` : ''; }).join('');
+  for (const k of Object.keys(col)) for (const n of col[k]) {
+    const label = n.label.length > 34 ? n.label.slice(0, 33) + '…' : n.label;
+    svg += `<g class="node ${n.miss ? 'miss' : ''} ${n.page ? 'page' : ''}" data-id="${esc(n.id)}"><title>${esc(n.label)}${n.sub ? ' (' + esc(n.sub) + ')' : ''}</title><rect x="${xs[k]}" y="${py(n)}" width="${widths[k]}" height="20"/><text x="${xs[k] + 6}" y="${py(n) + 14}">${esc(label)}</text></g>`;
+  }
+  svg += '</svg>';
+  $('sysgraph').innerHTML = `<div class="legend">Thick line writes, thin line reads or calls, dashed mirrors an AT Protocol record, red dashed is wanted by a story and not built. Grey endpoint is a server-rendered page. Hover a box.</div>${svg}`;
+  const root = $('sv');
+  const near = (id) => { const s = new Set([id]); edges.forEach((e) => { if (e.from === id) s.add(e.to); if (e.to === id) s.add(e.from); }); return s; };
+  root.querySelectorAll('.node').forEach((g) => {
+    g.onmouseenter = () => { const s = near(g.dataset.id); root.querySelectorAll('.node').forEach((o) => o.classList.toggle('dim', !s.has(o.dataset.id))); root.querySelectorAll('.edge').forEach((p) => { const on = p.dataset.a === g.dataset.id || p.dataset.b === g.dataset.id; p.classList.toggle('hi', on); p.classList.toggle('dim', !on); }); };
+    g.onmouseleave = () => root.querySelectorAll('.dim,.hi').forEach((o) => o.classList.remove('dim', 'hi'));
+  });
+  $('envs').innerHTML = '<h3>Environments</h3>' + A.environments.map((e) => `<div class="env"><b>${esc(e.env)}</b> ${e.deployed ? '' : '<span class="red">not deployed</span>'}${e.services.map((s) => `<div style="margin-top:4px"><span class="mute">${s.app === 'api' ? 'API + pages' : 'Landing'}</span> <span class="mono mute">${esc(s.worker)}</span>${s.urls.map((u) => `<span class="u">${esc(u)}</span>`).join('')}<span class="mute">D1 ${esc(s.d1 ?? '-')}${s.r2.length ? ' | R2 ' + esc(s.r2.join(', ')) : ''}${s.invitesRequired ? ' | invites ' + (s.invitesRequired === 'true' ? 'on' : 'off') : ''}</span>${s.note ? `<div class="red">${esc(s.note)}</div>` : ''}</div>`).join('')}${e.appWeb.map((u) => `<div style="margin-top:4px"><span class="mute">App on web</span><span class="u">${esc(u)}</span></div>`).join('')}</div>`).join('');
+}
+
+function renderCover() {
+  const s = A.summary;
+  const sorted = [...A.stories].sort((a, b) => a.coverage - b.coverage || a.title.localeCompare(b.title));
+  $('cover').innerHTML = `<section><h3>Overall</h3><div class="big">${s.coverage}%</div><div class="bar" style="margin:12px 0 6px"><i style="width:${s.coverage}%"></i></div><div class="mute">${s.stepsBuilt} of ${s.stepsCounted} steps built across ${s.stories} stories</div>
+  <h3 style="margin-top:22px">In the code</h3><div class="mono" style="font-size:12px;line-height:1.7">${s.screens} screens<br>${s.endpoints} endpoints<br>${s.tables} tables<br>${s.lexicons} AT Protocol records<br>${s.edges} connections</div></section>
+  <section><h3>Build next, most stories blocked first</h3>${A.missing.map((m) => `<div class="mrow"><div class="c">${m.blocks}</div><div>${esc(m.label)}<small>${m.stories.map((id) => esc(A.stories.find((x) => x.id === id)?.title ?? id)).join(', ')}</small></div></div>`).join('') || '<div class="mute">Nothing missing</div>'}</section>
+  <section><h3>Stories, lowest first</h3>${sorted.map((x) => `<div class="brow"><span>${esc(x.title)}</span><div class="bar"><i style="width:${x.coverage}%"></i></div><span>${x.coverage}%</span></div>`).join('')}
+  ${A.drift.length ? `<h3 style="margin-top:16px">App and API disagree</h3><ul class="l">${A.drift.map((d) => `<li><span class="mono">${esc(d.endpoint)}</span>${d.readButNeverSent.length ? ` API reads <b>${esc(d.readButNeverSent.join(', '))}</b>, app never sends it` : ''}${d.sentButIgnored.length ? ` app sends <b>${esc(d.sentButIgnored.join(', '))}</b>, API ignores it` : ''}</li>`).join('')}</ul>` : ''}
+  <h3 style="margin-top:16px">Built, in no story</h3><ul class="l mono">${[...A.unmapped.endpoints, ...A.unmapped.screens.map((x) => 'screen ' + x), ...A.unmapped.tables.map((x) => 'table ' + x)].map((x) => `<li>${esc(x)}</li>`).join('') || '<li>none</li>'}</ul></section>`;
+}
+
+function renderPlat() {
+  const raw = A.platforms;
+  if (!raw) { $('plat').innerHTML = '<div class="wait">waiting for data/platforms.json</div>'; return; }
+  if (raw.error) { $('plat').innerHTML = `<div class="wait red">${esc(raw.error)}</div>`; return; }
+  const list = (Array.isArray(raw) ? raw : raw.platforms ?? Object.values(raw).find(Array.isArray) ?? []).map((p) => ({ ...p, st: String(p.status ?? 'idea').toLowerCase().replace(/[\s_]+/g, '-') }));
+  const order = ['live', 'in-code', 'planned', 'idea'];
+  const label = { live: 'live', 'in-code': 'in code', planned: 'planned', idea: 'idea' };
+  const n = (k) => list.filter((p) => p.st === k).length;
+  const groups = new Map();
+  for (const p of list) { const g = p.group ?? p.category ?? p.type ?? 'Platforms'; if (!groups.has(g)) groups.set(g, []); groups.get(g).push(p); }
+  const cls = (st) => 's-' + (order.includes(st) ? st : 'idea');
+  $('plat').innerHTML = `<div class="top"><b>${n('live')} of ${list.length} live</b><div class="leg">${order.map((k) => `<span><i class="sw ${cls(k)}"></i>${label[k]} ${n(k)}</span>`).join('')}</div></div>${[...groups].map(([g, ps]) => `<div class="grp mute">${esc(g)}</div><div class="grid">${ps.map((p) => `<div class="card ${cls(p.st)}"><b>${esc(p.name ?? p.id)}</b><small>${esc(label[p.st] ?? p.st)}${p.note ? ' - ' + esc(p.note) : ''}</small></div>`).join('')}</div>`).join('')}`;
+}
+
+function renderAll() {
+  stamp(); renderList(); renderFlow(); renderSystem(); renderCover(); renderPlat(); show();
+}
+
+async function load() {
+  const r = await fetch('/atlas.json', { cache: 'no-store' });
+  A = await r.json();
+  if (!A.stories) { document.body.insertAdjacentHTML('beforeend', '<div class="wait">run: node tools/atlas/build.mjs</div>'); return; }
+  if (!sel || !A.stories.some((s) => s.id === sel)) sel = A.stories[0].id;
+  renderAll();
+}
+addEventListener('hashchange', () => { const h = location.hash.slice(1); if (TABS.some(([k]) => k === h)) { tab = h; show(); } });
+load();
+const es = new EventSource('/events');
+es.onmessage = (e) => { if (e.data === 'atlas') load(); else if (e.data === 'atlas-page') location.reload(); };
+</script>
+</body>
+</html>

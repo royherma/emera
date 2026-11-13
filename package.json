@@ -5,6 +5,7 @@
   "scripts": {
     "plan": "node plan/server.mjs",
     "api": "npm --prefix apps/api run dev",
-    "app": "npm --prefix apps/mobile run web"
+    "app": "npm --prefix apps/mobile run web",
+    "atlas": "node tools/atlas/build.mjs --watch"
   }
 }
