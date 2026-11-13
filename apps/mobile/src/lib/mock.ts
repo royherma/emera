@@ -313,7 +313,7 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
   async listInvites() {
     await wait();
     current();
-    return { invites: [...mockInvites], limit: MOCK_INVITE_LIMIT };
+    return { invites: [...mockInvites], limit: MOCK_INVITE_LIMIT, open: !invitesRequired };
   },
   async createInvite(maxUses = 1) {
     await wait();

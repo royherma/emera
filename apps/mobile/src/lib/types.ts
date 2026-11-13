@@ -118,7 +118,7 @@ export interface Backend {
   profile(handle: string, cursor?: string | null): Promise<{ user: User; posts: Post[]; cursor: string | null }>;
   uploadMedia(file: PickedFile): Promise<Media>;
   createPost(input: { mediaIds: string[]; caption: string; alt?: Record<string, string> }): Promise<Post>;
-  listInvites(): Promise<{ invites: Invite[]; limit: number }>;
+  listInvites(): Promise<{ invites: Invite[]; limit: number; open?: boolean }>;
   createInvite(maxUses?: number): Promise<{ code: string; url: string }>;
   report(input: { postId: string; url: string; note: string }): Promise<void>;
   follow(handle: string): Promise<User>;

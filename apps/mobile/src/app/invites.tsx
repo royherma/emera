@@ -31,11 +31,14 @@ export default function Invites() {
     if (r === "copied") toast("Invite link copied");
   };
 
+  const open = data?.open ?? false;
+
   const make = async () => {
+    if (open && data?.invites[0]) return share(data.invites[0]);
     setBusy(true);
     setProblem(null);
     try {
-      const made = await api.createInvite(uses);
+      const made = await api.createInvite(open ? undefined : uses);
       await reload();
       await share(made);
     } catch (e) {
@@ -54,21 +57,29 @@ export default function Invites() {
       </View>
       <View style={{ gap: space[2], marginBottom: space[4] }}>
         <Text style={[type.h1, { color: c.ink }]}>Invite people</Text>
-        <Text style={[type.body, { color: c.ink2 }]}>Emera is invite-only right now. Make a link, send it to someone who makes things, and see who joins.</Text>
+        <Text style={[type.body, { color: c.ink2 }]}>
+          {open
+            ? "Anyone can join Emera. Send your link to someone who makes things and see who joins from it."
+            : "Emera is invite-only right now. Make a link, send it to someone who makes things, and see who joins."}
+        </Text>
       </View>
 
       <View style={{ gap: space[3], marginBottom: space[5] }}>
-        <Text style={[type.label, { color: c.ink3 }]}>PEOPLE WHO CAN USE THIS LINK</Text>
-        <View style={{ flexDirection: "row", gap: space[2] }}>
-          {USES.map((n) => {
-            const on = uses === n;
-            return (
-              <Button key={n} label={n === 1 ? "Just one" : `Up to ${n}`} kind={on ? "primary" : "secondary"} onPress={() => setUses(n)} style={{ flex: 1 }} />
-            );
-          })}
-        </View>
+        {data && !open && (
+          <>
+            <Text style={[type.label, { color: c.ink3 }]}>PEOPLE WHO CAN USE THIS LINK</Text>
+            <View style={{ flexDirection: "row", gap: space[2] }}>
+              {USES.map((n) => {
+                const on = uses === n;
+                return (
+                  <Button key={n} label={n === 1 ? "Just one" : `Up to ${n}`} kind={on ? "primary" : "secondary"} onPress={() => setUses(n)} style={{ flex: 1 }} />
+                );
+              })}
+            </View>
+          </>
+        )}
         {problem && <Banner text={problem} />}
-        <Button label="Get my invite link" icon="link" size="lg" busy={busy} onPress={make} />
+        <Button label={open && invites.length ? "Share my link" : "Get my invite link"} icon={open && invites.length ? "share" : "link"} size="lg" busy={busy} onPress={make} />
       </View>
 
       {error && !data ? (
@@ -84,14 +95,14 @@ export default function Invites() {
         <View style={{ gap: space[3] }}>
           <Text style={[type.section, { color: c.ink }]}>Your links</Text>
           {invites.map((inv) => {
-            const full = inv.uses >= inv.maxUses;
+            const full = !open && inv.uses >= inv.maxUses;
             return (
               <View key={inv.code} style={{ backgroundColor: c.surface, borderRadius: radius.card, borderWidth: 1, borderColor: c.hair, padding: space[4], gap: space[3] }}>
                 <View style={{ flexDirection: "row", alignItems: "center", gap: space[3] }}>
                   <View style={{ flex: 1, gap: 2 }}>
                     <Text style={[type.title, { color: c.ink, letterSpacing: 1 }]} numberOfLines={1}>{inv.code}</Text>
                     <Text style={[type.meta, { color: full ? c.ink3 : c.sunInk }]}>
-                      {inv.uses} of {inv.maxUses} used - {timeAgo(inv.createdAt)}
+                      {open ? `${inv.joined.length} joined` : `${inv.uses} of ${inv.maxUses} used`} - {timeAgo(inv.createdAt)}
                     </Text>
                   </View>
                   <IconButton icon="share" label="Share invite link" onPress={() => share(inv)} />

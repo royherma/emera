@@ -17,7 +17,7 @@ export default function SignIn() {
   const { c } = useTheme();
   const [email, setEmail] = useState(linkEmail);
   const [invite, setInvite] = useState(linkInvite);
-  const [needsInvite, setNeedsInvite] = useState(!!linkInvite);
+  const [needsInvite, setNeedsInvite] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
