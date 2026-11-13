@@ -19,3 +19,4 @@ New angles Roy adds go here first, dated, in his words where possible. Fold into
 - **Brand picked (Roy, 11:43): Twilight** (`brand/directions/full-twilight.html`). Fixes: "Report a copy" is small, tucked in the post's top "..." menu, not a big button; drop the "24 new works signed today" pill; clean up blur glitches and polish. Logo/icon must be redone: the current mark is "too bland".
 - **Feature parity map (Roy, 11:52):** a live comparison vs Instagram and the others. Start with the Pareto core, add Emera twists, map each feature to code so status is computed, and mark what outsiders can build.
 - **Screens in Atlas (Roy, 11:50):** every screen generated as a real picture from the build, shown in flows.
+- **Logo (Roy, 11:55):** 02 Signature. Make it read more like an e, with a gentler curve. Variations coming.
