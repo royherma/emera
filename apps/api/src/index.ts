@@ -13,6 +13,8 @@ import { notificationRoutes } from './notifications';
 import { searchRoutes } from './search';
 import { profileRoutes } from './profile';
 import { flagRoutes } from './flags';
+import { fundRoutes, runFundCron } from './fund';
+import { stripeRoutes } from './stripe';
 import { chatRoutes } from './chat';
 import { liveSocket } from './live';
 import { pages, notFoundPage } from './pages';
@@ -47,6 +49,8 @@ app.route('/', notificationRoutes);
 app.route('/', searchRoutes);
 app.route('/', profileRoutes);
 app.route('/', flagRoutes);
+app.route('/', fundRoutes);
+app.route('/', stripeRoutes);
 app.route('/', chatRoutes);
 app.route('/', cardRoutes);
 app.route('/', embedRoutes);
@@ -88,6 +92,10 @@ export default Sentry.withSentry(
           msg.retry();
         }
       }
+    },
+    async scheduled(_event: ScheduledController, env: Env) {
+      const closed = await runFundCron(env);
+      if (closed) console.log('fund month closed', closed.month, closed.sha256);
     },
   } satisfies ExportedHandler<Env, VideoJob>,
 );

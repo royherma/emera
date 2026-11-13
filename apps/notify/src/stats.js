@@ -17,7 +17,7 @@ async function all(db, sql, ...args) {
 
 export async function load(env, { visitDays = 30 } = {}) {
   const since = new Date(Date.now() - visitDays * DAY).toISOString();
-  const [early, visits, users, posts, media, reports, flags, likes, comments, follows] = await Promise.all([
+  const [early, visits, users, posts, media, reports, flags, likes, comments, follows, sponsors, checkouts] = await Promise.all([
     all(env.SITE_DB, "SELECT * FROM early_access ORDER BY id"),
     all(env.SITE_DB, "SELECT * FROM visits WHERE created_at >= ? AND bot = 0 ORDER BY id LIMIT 50000", since),
     all(env.API_DB, "SELECT id, email, handle, display_name, invited_by, created_at FROM users ORDER BY created_at"),
@@ -28,6 +28,10 @@ export async function load(env, { visitDays = 30 } = {}) {
     all(env.API_DB, "SELECT COUNT(*) AS n FROM likes"),
     all(env.API_DB, "SELECT COUNT(*) AS n FROM comments"),
     all(env.API_DB, "SELECT COUNT(*) AS n FROM follows"),
+    all(env.API_DB, `SELECT p.id, p.name, p.url, p.line, p.banner, p.contact_email AS email, p.demo, p.created_at,
+      COALESCE(SUM(CASE WHEN s.status = 'paid' THEN s.amount_cents END), 0) AS paid_cents, MAX(s.month) AS last_month
+      FROM sponsors p LEFT JOIN sponsorships s ON s.sponsor_id = p.id GROUP BY p.id ORDER BY p.created_at DESC LIMIT 100`),
+    all(env.API_DB, "SELECT * FROM fund_checkouts ORDER BY created_at DESC LIMIT 200"),
   ]);
   const byId = new Map(users.map((u) => [u.id, u]));
   for (const u of users) u.test = isTest(env, u.email);
@@ -46,7 +50,7 @@ export async function load(env, { visitDays = 30 } = {}) {
     r.handle = u?.handle || null;
     r.test = !!u?.test;
   }
-  return { early, visits: visitsKept, users, posts, reports, flags, likes: likes[0]?.n ?? 0, comments: comments[0]?.n ?? 0, follows: follows[0]?.n ?? 0 };
+  return { early, visits: visitsKept, users, posts, reports, flags, likes: likes[0]?.n ?? 0, comments: comments[0]?.n ?? 0, follows: follows[0]?.n ?? 0, sponsors, checkouts };
 }
 
 function sessions(visits) {
@@ -124,6 +128,8 @@ export function adminView(d) {
     posts: [...d.posts].reverse().slice(0, 60).map((p) => ({ id: p.id, handle: p.handle, caption: (p.caption || "").slice(0, 140), media: p.media, at: p.created_at, test: p.test })),
     reports: [...d.reports].reverse().slice(0, 60).map((r) => ({ id: r.id, post_id: r.post_id, copy_url: r.copy_url, note: r.note, status: r.status, handle: r.handle, at: r.created_at, test: r.test })),
     flags: [...d.flags].reverse().slice(0, 60).map((f) => ({ target: `${f.target_type} ${f.target_id}`, reason: f.reason, note: f.note, status: f.status, handle: f.handle, at: f.created_at, test: f.test })),
+    checkouts: (d.checkouts || []).map((x) => ({ name: x.sponsor_name, email: x.email, status: x.status, monthlyCents: x.monthly_cents, months: x.months, totalCents: x.amount_total, discountCents: x.discount_cents, promo: x.promo_code, at: x.created_at, test: !!x.tester || isTest({}, x.email) })),
+    sponsors: (d.sponsors || []).map((x) => ({ id: x.id, name: x.name, url: x.url, line: x.line, banner: x.banner, email: x.email, paidCents: x.paid_cents, lastMonth: x.last_month, at: x.created_at, test: !!x.demo || isTest({}, x.email || "") })),
   };
 }
 

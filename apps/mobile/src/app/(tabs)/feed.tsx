@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Pressable, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { Screen } from "@/components/Screen";
+import { SponsorLine, pickSponsor } from "@/components/Sponsor";
 import { PeopleRail, PostRow, RowSkeleton, useFeedColumn } from "@/components/Grid";
 import { NotificationBell, UnreadDot } from "@/components/Engage";
 import { useDmUnread, useRefreshDmUnread } from "@/state/dmUnread";
@@ -13,7 +14,7 @@ import { useLayout } from "@/lib/layout";
 import { alpha, space, type } from "@/lib/theme";
 import { useResource } from "@/state/resource";
 import { useTheme } from "@/state/theme";
-import type { FeedMode, Post } from "@/lib/types";
+import type { FeedMode, FundCards, Post } from "@/lib/types";
 
 export default function Feed() {
   const router = useRouter();
@@ -25,6 +26,16 @@ export default function Feed() {
   useRefreshDmUnread(mode);
   const { data, error, loading, refreshing, reload, retry, setData } = useResource(() => api.feed(null, mode), `feed:${mode}`);
   const [more, setMore] = useState(false);
+  const [fund, setFund] = useState<FundCards | null>(null);
+  useEffect(() => {
+    let live = true;
+    api.fund().then((f) => live && setFund(f)).catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, []);
+  const banner = fund ? pickSponsor(fund.banners, Date.now()) : null;
+  const every = fund?.feedCards.on ? fund.feedCards.every : 0;
   const [moreError, setMoreError] = useState(false);
   const busy = useRef(false);
 
@@ -69,6 +80,7 @@ export default function Feed() {
             </View>
           </View>
         )}
+        {banner && <SponsorLine sponsor={banner} />}
         <Segmented
           value={mode}
           onChange={(m) => {
@@ -95,8 +107,11 @@ export default function Feed() {
           <>
             <PeopleRail posts={data.posts} />
             <View style={{ gap: space[5] }}>
-              {data.posts.map((p) => (
-                <PostRow key={p.id} post={p} width={column} onDeleted={dropPost} />
+              {data.posts.map((p, i) => (
+                <View key={p.id} style={{ gap: space[5] }}>
+                  <PostRow post={p} width={column} onDeleted={dropPost} />
+                  {every > 0 && fund && (i + 1) % every === 0 && <SponsorLine card sponsor={pickSponsor(fund.banners, (i + 1) / every)!} />}
+                </View>
               ))}
             </View>
             <FeedEnd cursor={data.cursor} loading={more} failed={moreError} onMore={loadMore} onRefresh={reload} />

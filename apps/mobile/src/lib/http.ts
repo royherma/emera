@@ -1,5 +1,5 @@
 import { API_URL } from "./config";
-import { ApiError, Backend, ImportItem, ImportSource, Channel, ChatMessage, ChatPage, ChatRoomRef, Comment, DmThread, Media, Notification, PickedFile, Post, User, UserPage, ChatSettings, DmWith } from "./types";
+import { ApiError, Backend, FundCards, Sponsor, Comment, Media, Notification, PickedFile, Post, User, UserPage, Channel, ChatMessage, ChatPage, ChatRoomRef, DmThread, ImportItem, ImportSource, ChatSettings, DmWith } from "./types";
 
 let token: string | null = null;
 export const setToken = (t: string | null) => {
@@ -102,6 +102,14 @@ export const http: Backend = {
   },
   updateProfile: async (input) => (await send<{ user: User }>("PATCH", "/v1/me", input)).user,
   flag: async (input) => void (await send("POST", "/v1/flags", input)),
+  fund: async () => {
+    try {
+      const r = await send<{ banners?: Sponsor[]; feedCards?: FundCards["feedCards"] }>("GET", "/v1/fund");
+      return { banners: r.banners ?? [], feedCards: r.feedCards ?? { on: false, posts: 0, needed: 0, every: 0 } };
+    } catch {
+      return null;
+    }
+  },
   channels: async () => (await send<{ channels: Channel[] }>("GET", "/v1/channels")).channels,
   roomMessages: (room, page) => {
     const q = new URLSearchParams();

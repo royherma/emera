@@ -12,7 +12,9 @@
     "INVITES_REQUIRED": "false",
     "SEED_INVITE_CODE": "welcome-dev",
     "PROOF_SECRET": "dev-only-proof-secret",
-    "PUBLIC_ORIGIN": ""
+    "PUBLIC_ORIGIN": "",
+    "FUNDING": "on",
+    "FUND_ADMIN_KEY": "dev-fund-admin"
   },
   "d1_databases": [
     { "binding": "DB", "database_name": "emera-dev", "database_id": "local-dev", "migrations_dir": "migrations" }
@@ -29,8 +31,13 @@
         "ENVIRONMENT": "staging",
         "SENTRY_DSN": "https://f1c13fe2a5084a5d09919d7c213ee80d@o4512099364503552.ingest.us.sentry.io/4512422700449792",
         "INVITES_REQUIRED": "false",
-        "PUBLIC_ORIGIN": ""
+        "PUBLIC_ORIGIN": "",
+        "FUNDING": "on",
+        "STRIPE_ACCOUNT_ID": "acct_1TqRrs2cbiVEsA2f",
+        "STRIPE_SPONSOR_PRODUCT": "prod_VcXslLcZqrRZk1",
+        "FUND_PAGE_URL": "https://emera-site-staging.techguyver1337.workers.dev/fund/"
       },
+      "triggers": { "crons": ["0 1 3 * *"] },
       "d1_databases": [
         { "binding": "DB", "database_name": "emera-staging", "database_id": "2fa77b67-d18c-43e8-8839-6c7dc982998e", "migrations_dir": "migrations" }
       ],
@@ -50,8 +57,10 @@
         "ENVIRONMENT": "production",
         "SENTRY_DSN": "https://f1c13fe2a5084a5d09919d7c213ee80d@o4512099364503552.ingest.us.sentry.io/4512422700449792",
         "INVITES_REQUIRED": "false",
-        "PUBLIC_ORIGIN": "https://emera.social"
+        "PUBLIC_ORIGIN": "https://emera.social",
+        "FUNDING": "off"
       },
+      "triggers": { "crons": ["0 1 3 * *"] },
       "d1_databases": [
         { "binding": "DB", "database_name": "emera-prod", "database_id": "e74c4221-f4e7-4304-a1a2-5eceab8f5503", "migrations_dir": "migrations" }
       ],
