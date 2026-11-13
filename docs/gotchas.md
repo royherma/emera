@@ -79,3 +79,8 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 - **Workers static assets redirect `/x.html` to `/x` (307).** A service worker that precaches `/offline.html` stores a redirect it cannot serve offline. Fix: `pwa.mjs` caches `/offline`.
 - **The site build reads `brand/` and `data/`, not only `apps/site`.** A deploy from `git archive HEAD apps/site` fails at `build.mjs` (ENOENT `brand/content/sources.json`) and ships the stale committed `public/`. Archive `brand docs data` too.
 - **Merging a branch that untracks `apps/site/.wrangler` deletes the local D1 files from disk.** `git rm --cached` keeps them in the branch's worktree, but the merge removes them in `main`. Back up `apps/site/.wrangler` first and copy it back.
+
+## 2026-11-13 - Workers rate-limit binding lets bursts through
+- **Bit us:** `SIGNIN_LIMIT` set to 5/min let 27 of 30 quick calls pass on staging before the first 429. Cloudflare documents it as permissive and eventually consistent.
+- **Spot it:** a burst test returns mostly non-429 even though the limit is far lower.
+- **Fix:** treat the binding as a soft guard. Hard limits are the zone rate-limit rule (8 per 10 s per IP, api.emera.social and emera.social only, not workers.dev) and the D1 counts in `apps/api/src/limits.ts`.
