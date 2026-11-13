@@ -27,6 +27,8 @@ The brand name is never hardcoded. Read it from `packages/brand/brand.json`.
 
 `media` = `{ id, kind: "image"|"video", contentType, width, height, alt, url, sha256, proof }`. `alt` is the description for people who cannot see it, an empty string when none was given. `proof` = `{ sha256, signedAt, signer }` - who uploaded it, and when, signed by the server. C2PA comes later.
 
+Images (jpeg, png, webp, heic, up to 20 MB) are re-encoded on upload to WebP, longest side at most 2048 px, quality 82, with all metadata (EXIF, GPS) removed; `contentType` and `url` then say `image/webp`. `proof.sha256` is the stored file anyone can download; `proof.sourceSha256` is the file the creator sent. If the re-encoder is down, the original is stored and both hashes match.
+
 Limits v0: images up to 25 MB (jpeg, png, webp, heic), video up to 200 MB (mp4, mov).
 
 ## Posts
