@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 import type { AppEnv, UserRow } from './env';
 import { requireAuth, requireHandle } from './auth';
 import { fail, readJson } from './http';
-import { newId } from './crypto';
+import { hmacHex, newId } from './crypto';
 import { decodeCursor, encodeCursor, iso, userJson, type PostRow } from './serialize';
 import { notify } from './notifications';
 
@@ -54,6 +54,54 @@ engageRoutes.delete('/v1/posts/:id/like', requireAuth, async (c) => {
   const post = await postRow(c, c.req.param('id'));
   await c.env.DB.prepare('DELETE FROM likes WHERE post_id = ? AND user_id = ?').bind(post.id, c.get('user').id).run();
   return c.json({ liked: false, likeCount: await likeTotal(c, post.id) });
+});
+
+engageRoutes.post('/v1/posts/:id/view', requireAuth, async (c) => {
+  const me = c.get('user');
+  const post = await postRow(c, c.req.param('id'));
+  const video = await c.env.DB.prepare("SELECT 1 FROM media WHERE post_id = ? AND kind = 'video' LIMIT 1").bind(post.id).first();
+  if (!video) throw fail(400, 'not_video', 'Only videos count views.');
+  if (post.user_id !== me.id) {
+    await c.env.DB.prepare('INSERT OR IGNORE INTO post_views (post_id, user_id, created_at) VALUES (?, ?, ?)').bind(post.id, me.id, Date.now()).run();
+  }
+  const r = await c.env.DB.prepare('SELECT COUNT(*) AS n FROM post_views WHERE post_id = ?').bind(post.id).first<{ n: number }>();
+  return c.json({ viewCount: r?.n ?? 0 });
+});
+
+export const VIEW_RULE = "A view is one signed-in person who watched at least 2 seconds with half the video on screen. Each person counts once and the maker's own plays don't count.";
+const LEDGER_MAX = 500;
+const HOUR = 3_600_000;
+const DAY = 24 * HOUR;
+
+type ViewRow = { user_id: string; created_at: number; joined: number; follows: number };
+
+engageRoutes.get('/v1/posts/:id/views', async (c) => {
+  const post = await postRow(c, c.req.param('id'));
+  const rows = (await c.env.DB.prepare(
+    `SELECT v.user_id, v.created_at, u.created_at AS joined,
+       EXISTS (SELECT 1 FROM follows f WHERE f.follower_id = v.user_id AND f.followee_id = ?) AS follows
+     FROM post_views v JOIN users u ON u.id = v.user_id
+     WHERE v.post_id = ? ORDER BY v.created_at DESC`,
+  ).bind(post.user_id, post.id).all<ViewRow>()).results;
+  const age = (r: ViewRow) => {
+    const days = (r.created_at - r.joined) / DAY;
+    return days < 7 ? 'under a week' : days < 30 ? 'under a month' : 'a month or more';
+  };
+  const ledger = await Promise.all(rows.slice(0, LEDGER_MAX).map(async (r) => ({
+    viewer: (await hmacHex(c.env.PROOF_SECRET, `view:${post.id}:${r.user_id}`)).slice(0, 12),
+    hour: iso(Math.floor(r.created_at / HOUR) * HOUR),
+    follower: r.follows === 1,
+    accountAge: age(r),
+  })));
+  return c.json({
+    postId: post.id,
+    viewCount: rows.length,
+    followers: rows.filter((r) => r.follows === 1).length,
+    newAccounts: rows.filter((r) => age(r) === 'under a week').length,
+    rule: VIEW_RULE,
+    ledger,
+    more: rows.length > LEDGER_MAX,
+  });
 });
 
 engageRoutes.get('/v1/posts/:id/comments', async (c) => {
