@@ -51,14 +51,9 @@ So we are fixing it together, in the open. Emera is a place to share what you cr
 
 ## 🚀 Join in four steps
 
-<table>
-  <tr>
-    <td align="center" width="25%"><h3>1️⃣</h3><b>Open the app</b><br><sub><a href="https://app.emera.social">app.emera.social</a>, no invite needed</sub></td>
-    <td align="center" width="25%"><h3>2️⃣</h3><b>Type your email</b><br><sub>We send a code, no password</sub></td>
-    <td align="center" width="25%"><h3>3️⃣</h3><b>Say your name</b><br><sub>Your handle fills itself in</sub></td>
-    <td align="center" width="25%"><h3>4️⃣</h3><b>Post</b><br><sub>Signed with your name from the first upload</sub></td>
-  </tr>
-</table>
+| 1️⃣ Open the app | 2️⃣ Type your email | 3️⃣ Say your name | 4️⃣ Post |
+| :-: | :-: | :-: | :-: |
+| [app.emera.social](https://app.emera.social), no invite needed | We send a code, no password | Your handle fills itself in | Signed with your name from the first upload |
 
 <p align="center"><a href="https://app.emera.social"><img alt="Create your account" src="https://img.shields.io/badge/Create%20your%20account-app.emera.social-ff8a2b?style=for-the-badge"></a></p>
 
