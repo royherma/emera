@@ -22,8 +22,8 @@ const people: [string, string, string, string][] = [
 ];
 
 const users = new Map<string, User>();
-people.forEach(([handle, displayName, bio], i) => {
-  users.set(handle, { id: `u_${i + 1}`, handle, displayName, bio, avatarUrl: null, createdAt: iso(60 * 24 * (40 + i)) });
+people.forEach(([handle, displayName, bio, category], i) => {
+  users.set(handle, { id: `u_${i + 1}`, handle, displayName, bio, avatarUrl: null, createdAt: iso(60 * 24 * (40 + i)), category });
 });
 
 type Seed = [string, string, number, number, number, ("image" | "video")?];
@@ -189,6 +189,10 @@ export const mock: Backend & { _setToken: (t: string | null) => void } = {
     const code = hex(8).toUpperCase();
     invites.set(code, me.handle);
     return { code, url: `${PUBLIC_ORIGIN}/join/${code}` };
+  },
+  async report({ url }) {
+    await wait();
+    if (!/^https?:\/\/\S+\.\S+/.test(url)) throw new ApiError("bad_url", "Paste the full link, starting with https://");
   },
 };
 

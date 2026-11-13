@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" color="#1c1a17">
+    <defs><clipPath id="t11"><rect x="-10" y="-10" width="120" height="60"/></clipPath><clipPath id="u11"><rect x="-10" y="50" width="120" height="70"/></clipPath></defs>
+    <path d="M14 50L86 50A36 36 0 1 0 79.12 71.16" fill="none" stroke="#ff8a2b" stroke-width="24" clip-path="url(#t11)"/>
+    <path d="M14 50L86 50A36 36 0 1 0 79.12 71.16" fill="none" stroke="currentColor" stroke-width="24" clip-path="url(#u11)"/>
+  </svg>

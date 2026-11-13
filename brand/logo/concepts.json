@@ -1,0 +1,98 @@
+[
+  {
+    "id": "01",
+    "name": "Rise",
+    "idea": "The e is a horizon: a sun comes up through the bar.",
+    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/01-rise",
+    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/01-rise/icon-1024.png",
+    "top3": false
+  },
+  {
+    "id": "02",
+    "name": "Signature",
+    "idea": "One unbroken stroke, an e signed by hand, closed with a sun.",
+    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/02-signature",
+    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/02-signature/icon-1024.png",
+    "top3": true
+  },
+  {
+    "id": "03",
+    "name": "Aperture",
+    "idea": "Six blades open on a sun; each colour is someone’s work.",
+    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/03-aperture",
+    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/03-aperture/icon-1024.png",
+    "top3": false
+  },
+  {
+    "id": "04",
+    "name": "Dusk",
+    "idea": "Day and night overlap, and the overlap is dusk.",
+    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/04-dusk",
+    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/04-dusk/icon-1024.png",
+    "top3": false
+  },
+  {
+    "id": "05",
+    "name": "Gathering",
+    "idea": "Four colours close around one sun, like hands around the day.",
+    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/05-gathering",
+    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/05-gathering/icon-1024.png",
+    "top3": false
+  },
+  {
+    "id": "06",
+    "name": "Epsilon",
+    "idea": "Greek epsilon as two bowls: day above, night below.",
+    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/06-epsilon",
+    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/06-epsilon/icon-1024.png",
+    "top3": true
+  },
+  {
+    "id": "07",
+    "name": "People",
+    "idea": "An e made of people, every dot a different colour, one sun.",
+    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/07-people",
+    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/07-people/icon-1024.png",
+    "top3": false
+  },
+  {
+    "id": "08",
+    "name": "Window",
+    "idea": "An arched window onto sunrise: your work, out in the open.",
+    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/08-window",
+    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/08-window/icon-1024.png",
+    "top3": false
+  },
+  {
+    "id": "09",
+    "name": "Crowd",
+    "idea": "Three arches, three heights, the sun in the middle.",
+    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/09-crowd",
+    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/09-crowd/icon-1024.png",
+    "top3": false
+  },
+  {
+    "id": "10",
+    "name": "Switch",
+    "idea": "The day and night switch, caught mid slide.",
+    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/10-switch",
+    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/10-switch/icon-1024.png",
+    "top3": false
+  },
+  {
+    "id": "11",
+    "name": "Twin tone",
+    "idea": "One bold e, sun above the bar, night below.",
+    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/11-twin",
+    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/11-twin/icon-1024.png",
+    "top3": true
+  },
+  {
+    "id": "12",
+    "name": "Eclipse",
+    "idea": "Night in front, sun behind: the e is the light that gets through.",
+    "dir": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/12-eclipse",
+    "icon": "~/Desktop/Development/techguyver-side-projects/agora/brand/logo/concepts/12-eclipse/icon-1024.png",
+    "top3": false
+  }
+]

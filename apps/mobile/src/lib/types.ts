@@ -5,6 +5,7 @@ export type User = {
   bio: string;
   avatarUrl: string | null;
   createdAt: string;
+  category?: string;
 };
 
 export type Proof = { sha256: string; signedAt: string; signer: string };
@@ -45,4 +46,5 @@ export interface Backend {
   uploadMedia(file: PickedFile): Promise<Media>;
   createPost(input: { mediaIds: string[]; caption: string }): Promise<Post>;
   createInvite(): Promise<{ code: string; url: string }>;
+  report(input: { postId: string; url: string; note: string }): Promise<void>;
 }

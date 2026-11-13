@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -15 697.2 130" color="#1c1a17" style="--bg:#f6f3ec">
+    <g transform="translate(0 -11) scale(1.22)">
+    <defs><mask id="e12"><rect width="100" height="100" fill="#fff"/><path d="M4 50H96" stroke="#000" stroke-width="9"/><path d="M52 50L96 50L96 74Z" fill="#000" transform="translate(2 0)"/></mask></defs>
+    <circle cx="42" cy="40" r="40" fill="#ff8a2b"/>
+    <circle cx="54" cy="54" r="38" fill="currentColor" mask="url(#e12)"/>
+  </g>
+    <g transform="translate(162 0)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"><path d="M98.99 40A50 50 0 1 0 89.4 80.78" fill="none" stroke="currentColor"/><path d="M1.01 60L98.99 40" fill="none" stroke="#ff8a2b"/><path d="M116.8 0V100M116.8 24A24 24 0 0 1 164.8 24V100M164.8 24A24 24 0 0 1 212.8 24V100" fill="none" stroke="currentColor"/><path d="M328.59 40A50 50 0 1 0 319 80.78" fill="none" stroke="currentColor"/><path d="M230.61 60L328.59 40" fill="none" stroke="currentColor"/><path d="M346.4 0V100M346.4 28A28 28 0 0 1 374.4 0H390.4" fill="none" stroke="currentColor"/><circle cx="457.2" cy="50" r="50" fill="none" stroke="currentColor"/><path d="M507.2 0V100" fill="none" stroke="currentColor"/></g>
+  </svg>

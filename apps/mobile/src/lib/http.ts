@@ -61,4 +61,5 @@ export const http: Backend = {
   },
   createPost: async (input) => (await send<{ post: Post }>("POST", "/v1/posts", input)).post,
   createInvite: () => send("POST", "/v1/invites"),
+  report: async (input) => void (await send("POST", "/v1/reports", input)),
 };

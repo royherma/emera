@@ -1,17 +1,17 @@
 {
- "builtAt": "2026-11-13T04:48:46.577Z",
+ "builtAt": "2026-11-13T04:49:44.738Z",
  "git": {
-  "sha": "7989836",
+  "sha": "5b8c226",
   "dirty": true,
   "branch": "main"
  },
  "summary": {
-  "screens": 14,
+  "screens": 15,
   "endpoints": 23,
   "tables": 7,
   "lexicons": 4,
   "stories": 18,
-  "edges": 76,
+  "edges": 83,
   "coverage": 89,
   "stepsBuilt": 49,
   "stepsCounted": 55
@@ -97,6 +97,37 @@
   },
   {
    "surface": "app",
+   "route": "/explore",
+   "file": "apps/mobile/src/app/(tabs)/explore.tsx",
+   "group": "tabs",
+   "shell": false,
+   "access": "signed in",
+   "notes": [
+    {
+     "platform": "web",
+     "text": "wide layout at >= 900px, tabs become a left sidebar"
+    },
+    {
+     "platform": "web",
+     "text": "share copies the link"
+    },
+    {
+     "platform": "ios",
+     "text": "share opens the native share sheet"
+    },
+    {
+     "platform": "android",
+     "text": "share opens the native share sheet"
+    }
+   ],
+   "apiCalls": [
+    "feed",
+    "deletePost"
+   ],
+   "nav": []
+  },
+  {
+   "surface": "app",
    "route": "/feed",
    "file": "apps/mobile/src/app/(tabs)/feed.tsx",
    "group": "tabs",
@@ -106,12 +137,26 @@
     {
      "platform": "web",
      "text": "wide layout at >= 900px, tabs become a left sidebar"
+    },
+    {
+     "platform": "web",
+     "text": "share copies the link"
+    },
+    {
+     "platform": "ios",
+     "text": "share opens the native share sheet"
+    },
+    {
+     "platform": "android",
+     "text": "share opens the native share sheet"
     }
    ],
    "apiCalls": [
-    "feed"
+    "feed",
+    "deletePost"
    ],
    "nav": [
+    "/explore",
     "/upload"
    ]
   },
@@ -141,7 +186,8 @@
     }
    ],
    "apiCalls": [
-    "profile"
+    "profile",
+    "deletePost"
    ],
    "nav": []
   },
@@ -156,11 +202,24 @@
     {
      "platform": "web",
      "text": "wide layout at >= 900px, tabs become a left sidebar"
+    },
+    {
+     "platform": "web",
+     "text": "share copies the link"
+    },
+    {
+     "platform": "ios",
+     "text": "share opens the native share sheet"
+    },
+    {
+     "platform": "android",
+     "text": "share opens the native share sheet"
     }
    ],
    "apiCalls": [
     "uploadMedia",
-    "createPost"
+    "createPost",
+    "deletePost"
    ],
    "nav": [
     "/p/:id"
@@ -295,7 +354,8 @@
     }
    ],
    "apiCalls": [
-    "profile"
+    "profile",
+    "deletePost"
    ],
    "nav": []
   },
@@ -1718,9 +1778,29 @@
    "kind": "navigates"
   },
   {
+   "from": "screen:app:/explore",
+   "to": "ep:GET /v1/feed",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/explore",
+   "to": "ep:DELETE /v1/posts/:id",
+   "kind": "calls"
+  },
+  {
    "from": "screen:app:/feed",
    "to": "ep:GET /v1/feed",
    "kind": "calls"
+  },
+  {
+   "from": "screen:app:/feed",
+   "to": "ep:DELETE /v1/posts/:id",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/feed",
+   "to": "screen:app:/explore",
+   "kind": "navigates"
   },
   {
    "from": "screen:app:/feed",
@@ -1730,6 +1810,11 @@
   {
    "from": "screen:app:/me",
    "to": "ep:GET /v1/users/:handle",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/me",
+   "to": "ep:DELETE /v1/posts/:id",
    "kind": "calls"
   },
   {
@@ -1745,6 +1830,11 @@
   {
    "from": "screen:app:/upload",
    "to": "ep:POST /v1/posts",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/upload",
+   "to": "ep:DELETE /v1/posts/:id",
    "kind": "calls"
   },
   {
@@ -1800,6 +1890,11 @@
   {
    "from": "screen:app:/u/:handle",
    "to": "ep:GET /v1/users/:handle",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/u/:handle",
+   "to": "ep:DELETE /v1/posts/:id",
    "kind": "calls"
   },
   {
@@ -3743,6 +3838,7 @@
    "HEAD /media/:key"
   ],
   "screens": [
+   "/explore",
    "/",
    "/invite/:code",
    "/u/:handle"

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -15 689.6 130" color="#1c1a17" style="--bg:#f6f3ec">
+    <g transform="translate(0 -11) scale(1.22)">
+    <defs><clipPath id="t11"><rect x="-10" y="-10" width="120" height="60"/></clipPath><clipPath id="u11"><rect x="-10" y="50" width="120" height="70"/></clipPath></defs>
+    <path d="M14 50L86 50A36 36 0 1 0 79.12 71.16" fill="none" stroke="#ff8a2b" stroke-width="24" clip-path="url(#t11)"/>
+    <path d="M14 50L86 50A36 36 0 1 0 79.12 71.16" fill="none" stroke="currentColor" stroke-width="24" clip-path="url(#u11)"/>
+  </g>
+    <g transform="translate(162 0)" stroke-width="16" stroke-linecap="butt" stroke-linejoin="round"><path d="M100 50A50 50 0 1 0 89.4 80.78" fill="none" stroke="currentColor"/><path d="M0 50L100 50" fill="none" stroke="#ff8a2b"/><path d="M114.4 0V100M114.4 24A24 24 0 0 1 162.4 24V100M162.4 24A24 24 0 0 1 210.4 24V100" fill="none" stroke="currentColor"/><path d="M324.8 50A50 50 0 1 0 314.2 80.78" fill="none" stroke="currentColor"/><path d="M224.8 50L324.8 50" fill="none" stroke="currentColor"/><path d="M339.20000000000005 0V100M339.20000000000005 28A28 28 0 0 1 367.20000000000005 0H383.20000000000005" fill="none" stroke="currentColor"/><circle cx="447.6" cy="50" r="50" fill="none" stroke="currentColor"/><path d="M497.6 0V100" fill="none" stroke="currentColor"/></g>
+  </svg>

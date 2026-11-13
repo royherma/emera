@@ -8,7 +8,6 @@ export function useLayout() {
   const content = Math.min(width - (wide ? SIDEBAR : 0), 1180);
   const pad = wide ? 32 : 16;
   const inner = content - pad * 2;
-  const cols = inner < 520 ? 2 : inner < 800 ? 3 : inner < 1050 ? 4 : 5;
-  const gap = wide ? 16 : 10;
-  return { width, height, wide, content, pad, inner, cols, gap };
+  const column = wide ? 600 : inner;
+  return { width, height, wide, content, pad, inner, column };
 }

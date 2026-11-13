@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -15 689.2 130" color="#1c1a17" style="--bg:#f6f3ec">
+    <g transform="translate(0 -11) scale(1.22)">
+    <path d="M6 88V52A19 19 0 0 1 44 52V88Z" fill="#ff4f8b"/>
+    <path d="M56 88V52A19 19 0 0 1 94 52V88Z" fill="#5180d6"/>
+    <path d="M30 88V34A20 20 0 0 1 70 34V88Z" fill="#ff8a2b" stroke="var(--bg,#f6f3ec)" stroke-width="3.2" stroke-linejoin="round"/>
+  </g>
+    <g transform="translate(162 0)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"><path d="M99.51 43A50 50 0 1 0 89.4 80.78" fill="none" stroke="currentColor"/><path d="M0.49 57L99.51 43" fill="none" stroke="#ff4f8b"/><path d="M114.8 0V100M114.8 24A24 24 0 0 1 162.8 24V100M162.8 24A24 24 0 0 1 210.8 24V100" fill="none" stroke="currentColor"/><path d="M325.11 43A50 50 0 1 0 315 80.78" fill="none" stroke="currentColor"/><path d="M226.09 57L325.11 43" fill="none" stroke="#5180d6"/><path d="M340.4 0V100M340.4 28A28 28 0 0 1 368.4 0H384.4" fill="none" stroke="currentColor"/><circle cx="449.2" cy="50" r="50" fill="none" stroke="currentColor"/><path d="M499.2 0V100" fill="none" stroke="currentColor"/></g>
+  </svg>

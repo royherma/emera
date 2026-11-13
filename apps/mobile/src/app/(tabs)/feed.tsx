@@ -1,18 +1,21 @@
 import { useCallback, useState } from "react";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { Screen } from "@/components/Screen";
-import { GridSkeleton, Masonry } from "@/components/Grid";
+import { PeopleRail, PostRow, RowSkeleton } from "@/components/Grid";
+import { Icon } from "@/components/Icon";
 import { Button, EmptyState, ErrorState, Wordmark } from "@/components/ui";
 import { api } from "@/lib/api";
 import { useLayout } from "@/lib/layout";
-import { colors, space, type } from "@/lib/theme";
+import { space } from "@/lib/theme";
 import { useResource } from "@/state/resource";
+import { useTheme } from "@/state/theme";
 import type { Post } from "@/lib/types";
 
 export default function Feed() {
   const router = useRouter();
-  const { inner, cols, gap, wide } = useLayout();
+  const { c } = useTheme();
+  const { wide, column } = useLayout();
   const { data, error, loading, refreshing, reload, retry, setData } = useResource(() => api.feed(), "feed");
   const [more, setMore] = useState(false);
 
@@ -28,29 +31,42 @@ export default function Feed() {
     }
   }, [data, setData]);
 
+  const dropPost = (id: string) => data && setData({ ...data, posts: data.posts.filter((p) => p.id !== id) });
+
   return (
-    <Screen tabs onRefresh={reload} refreshing={refreshing}>
-      <View style={{ paddingTop: wide ? space[2] : space[1], paddingBottom: space[5], gap: 6 }}>
-        {!wide && <Wordmark size={30} />}
-        <Text style={[type.h2, { color: colors.ink, marginTop: wide ? 0 : space[3] }]}>Fresh from everyone</Text>
-        <Text style={[type.small, { color: colors.muted }]}>Newest first. Every post is signed by the person who made it.</Text>
-      </View>
-      {error && !data ? (
-        <ErrorState message={error} onRetry={retry} />
-      ) : loading || !data ? (
-        <GridSkeleton cols={cols} gap={gap} width={inner} />
-      ) : data.posts.length === 0 ? (
-        <EmptyState icon="image" title="It's early, and that's the fun part" body="Be the first to share something. Your work goes here the moment you post it." action={<Button label="Post something" icon="plus" onPress={() => router.push("/upload")} />} />
-      ) : (
-        <>
-          <Masonry posts={data.posts} cols={cols} gap={gap} width={inner} />
-          {data.cursor && (
-            <View style={{ alignItems: "center", marginTop: space[5] }}>
-              <Button label="Show more" kind="secondary" busy={more} onPress={loadMore} />
+    <Screen tabs onRefresh={reload} refreshing={refreshing} maxWidth={wide ? column + 64 : undefined}>
+      <View style={{ width: column, alignSelf: "center", gap: space[4] }}>
+        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", minHeight: 44 }}>
+          <Wordmark size={22} />
+          <Pressable accessibilityRole="button" accessibilityLabel="Search" onPress={() => router.push("/explore")} hitSlop={8} style={{ width: 44, height: 44, alignItems: "center", justifyContent: "center" }}>
+            <Icon name="search" size={22} color={c.ink} />
+          </Pressable>
+        </View>
+        {error && !data ? (
+          <ErrorState message={error} onRetry={retry} />
+        ) : loading || !data ? (
+          <View style={{ gap: space[5] }}>
+            <RowSkeleton width={column} />
+            <RowSkeleton width={column} />
+          </View>
+        ) : data.posts.length === 0 ? (
+          <EmptyState icon="image" title="Your feed starts with you" body="Share the first piece. It appears here the moment you post it." action={<Button label="Post something" icon="plus" onPress={() => router.push("/upload")} />} />
+        ) : (
+          <>
+            <PeopleRail posts={data.posts} />
+            <View style={{ gap: space[5] }}>
+              {data.posts.map((p) => (
+                <PostRow key={p.id} post={p} width={column} onDeleted={dropPost} />
+              ))}
             </View>
-          )}
-        </>
-      )}
+            {data.cursor && (
+              <View style={{ alignItems: "center" }}>
+                <Button label="Show more" kind="secondary" busy={more} onPress={loadMore} />
+              </View>
+            )}
+          </>
+        )}
+      </View>
     </Screen>
   );
 }
