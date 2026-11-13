@@ -4,8 +4,8 @@ import { COL, squirclePath } from '../lib.mjs'
 
 const { chromium } = await import(process.env.PLAYWRIGHT_CORE_MJS || 'playwright-core')
 const HERE = import.meta.dirname
-const full = fs.readFileSync(path.join(HERE, 'mark.svg'), 'utf8')
-const small = fs.readFileSync(path.join(HERE, 'mark-small.svg'), 'utf8')
+const full = fs.readFileSync(path.join(HERE, 'mark-lit-symbol.svg'), 'utf8')
+const small = full
 const inner = (svg) => svg.replace(/^<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '')
 const vb = (svg) => svg.match(/viewBox="([^"]+)"/)[1]
 
@@ -13,12 +13,12 @@ const icon = (mode, mark, rounded = true) => {
   const bg = mode === 'dark' ? COL.ink : COL.cream
   const fg = mode === 'dark' ? COL.cream : COL.ink
   const shape = rounded ? `<path d="${squirclePath(1024)}" fill="${bg}"/>` : `<rect width="1024" height="1024" fill="${bg}"/>`
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">${shape}<svg x="132" y="132" width="760" height="760" viewBox="${vb(mark)}" color="${fg}">${inner(mark)}</svg></svg>`
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">${shape}<svg x="72" y="92" width="880" height="880" viewBox="${vb(mark)}" color="${fg}">${inner(mark)}</svg></svg>`
 }
 const favicon = (mode) => {
   const bg = mode === 'dark' ? COL.ink : COL.cream
   const fg = mode === 'dark' ? COL.cream : COL.ink
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="${bg}"/><svg x="6" y="6" width="52" height="52" viewBox="${vb(small)}" color="${fg}">${inner(small)}</svg></svg>`
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="${bg}"/><svg x="2" y="3" width="60" height="60" viewBox="${vb(small)}" color="${fg}">${inner(small)}</svg></svg>`
 }
 
 fs.writeFileSync(path.join(HERE, 'favicon.svg'), favicon('light'))
@@ -30,6 +30,9 @@ const jobs = [
   ['apple-touch-icon.png', icon('light', small, false), 180],
   ['favicon-32.png', favicon('light'), 32],
   ['favicon-16.png', favicon('light'), 16],
+  ['pwa-192.png', icon('light', full, false), 192],
+  ['pwa-512.png', icon('light', full, false), 512],
+  ['pwa-maskable-512.png', icon('light', full, false).replace('x="72" y="92" width="880" height="880"', 'x="222" y="232" width="580" height="580"'), 512],
 ]
 const browser = await chromium.launch({ executablePath: process.env.CHROME_HEADLESS || undefined })
 const page = await browser.newPage()
