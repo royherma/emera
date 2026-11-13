@@ -67,6 +67,9 @@
         "INVITES_REQUIRED": "false",
         "PUBLIC_ORIGIN": "https://emera.social",
         "FUNDING": "off",
+        "STRIPE_ACCOUNT_ID": "acct_1UbIhCKHBWaOwymS",
+        "STRIPE_SPONSOR_PRODUCT": "prod_VcZ3xZomuIgfft",
+        "FUND_PAGE_URL": "https://emera.social/fund/",
         "POSTS_PER_DAY": "5"
       },
       "triggers": { "crons": ["*/15 * * * *", "0 1 3 * *"] },
