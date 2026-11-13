@@ -22,7 +22,7 @@ export function PostRow({ post, width, onDeleted }: { post: Post; width: number;
   const menu = usePostMenu(onDeleted);
   const { height: screenH, wide } = useLayout();
   const m = post.media[0];
-  const box = feedBox(m, width, Math.max(320, screenH - (wide ? 170 : 230)));
+  const box = feedBox(m, width, Math.max(320, screenH - (wide ? 160 : 200)));
   const open = () => router.push({ pathname: "/p/[id]", params: { id: post.id } });
   const tag = post.author.category;
   return (

@@ -1,15 +1,16 @@
-import { useCallback, useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ActivityIndicator, Pressable, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { Screen } from "@/components/Screen";
 import { PeopleRail, PostRow, RowSkeleton } from "@/components/Grid";
 import { NotificationBell, UnreadDot } from "@/components/Engage";
 import { useDmUnread, useRefreshDmUnread } from "@/state/dmUnread";
 import { Icon } from "@/components/Icon";
+import { useInView } from "@/components/Media";
 import { Button, EmptyState, ErrorState, Segmented, Wordmark } from "@/components/ui";
 import { api } from "@/lib/api";
 import { useLayout } from "@/lib/layout";
-import { space } from "@/lib/theme";
+import { alpha, space, type } from "@/lib/theme";
 import { useResource } from "@/state/resource";
 import { useTheme } from "@/state/theme";
 import type { FeedMode, Post } from "@/lib/types";
@@ -23,15 +24,22 @@ export default function Feed() {
   useRefreshDmUnread(mode);
   const { data, error, loading, refreshing, reload, retry, setData } = useResource(() => api.feed(null, mode), `feed:${mode}`);
   const [more, setMore] = useState(false);
+  const [moreError, setMoreError] = useState(false);
+  const busy = useRef(false);
 
   const loadMore = useCallback(async () => {
-    if (!data?.cursor) return;
+    if (!data?.cursor || busy.current) return;
+    busy.current = true;
     setMore(true);
+    setMoreError(false);
     try {
       const next = await api.feed(data.cursor, mode);
       const seen = new Set(data.posts.map((p) => p.id));
       setData({ posts: [...data.posts, ...next.posts.filter((p: Post) => !seen.has(p.id))], cursor: next.cursor });
+    } catch {
+      setMoreError(true);
     } finally {
+      busy.current = false;
       setMore(false);
     }
   }, [data, mode, setData]);
@@ -90,14 +98,42 @@ export default function Feed() {
                 <PostRow key={p.id} post={p} width={column} onDeleted={dropPost} />
               ))}
             </View>
-            {data.cursor && (
-              <View style={{ alignItems: "center" }}>
-                <Button label="Show more" kind="secondary" busy={more} onPress={loadMore} />
-              </View>
-            )}
+            <FeedEnd cursor={data.cursor} loading={more} failed={moreError} onMore={loadMore} onRefresh={reload} />
           </>
         )}
       </View>
     </Screen>
+  );
+}
+
+function FeedEnd({ cursor, loading, failed, onMore, onRefresh }: { cursor?: string | null; loading: boolean; failed: boolean; onMore: () => void; onRefresh: () => void }) {
+  const { c } = useTheme();
+  const [ref, inView] = useInView(0.01);
+  useEffect(() => {
+    if (inView && cursor && !failed) onMore();
+  }, [inView, cursor, failed, onMore]);
+  return (
+    <View ref={ref} testID="feed-end" style={{ minHeight: 180, alignItems: "center", justifyContent: "center", gap: space[3], paddingVertical: space[6] }}>
+      {failed ? (
+        <>
+          <Text style={[type.bodySm, { color: c.ink2 }]}>More posts didn't load</Text>
+          <Button label="Try again" kind="secondary" onPress={onMore} />
+        </>
+      ) : cursor || loading ? (
+        <>
+          <ActivityIndicator color={c.sun} />
+          <Text style={[type.meta, { color: c.ink3 }]}>Loading more</Text>
+        </>
+      ) : (
+        <>
+          <View style={{ width: 44, height: 44, borderRadius: 99, backgroundColor: alpha(c.sun, 0.16), alignItems: "center", justifyContent: "center" }}>
+            <Icon name="check" size={22} color={c.sunInk} strokeWidth={2} />
+          </View>
+          <Text style={[type.name, { color: c.ink }]}>You're all caught up</Text>
+          <Text style={[type.meta, { color: c.ink3 }]}>New posts land at the top</Text>
+          <Button label="Check for new posts" kind="secondary" onPress={onRefresh} />
+        </>
+      )}
+    </View>
   );
 }
