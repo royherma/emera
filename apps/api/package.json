@@ -12,6 +12,8 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "smoke": "bash scripts/smoke.sh",
+    "deploy:staging": "wrangler d1 migrations apply DB --env staging --remote && wrangler deploy --env staging",
+    "deploy:production": "wrangler d1 migrations apply DB --env production --remote && wrangler deploy --env production",
     "fund:demo": "node scripts/fund-demo.mjs"
   },
   "dependencies": {

@@ -72,7 +72,7 @@ Headings never end in a period. No em dashes. Avoid "unlock", "elevate" and "sea
 
 | Path | What | Run | Check |
 | --- | --- | --- | --- |
-| `apps/api` | Hono Worker: accounts, R2 uploads, posts, public `/@handle` + `/p/:id` pages | `npm --prefix apps/api run dev` (:5036) | `npm --prefix apps/api test`, `npm --prefix apps/api run smoke` (:5039) |
+| `apps/api` | Hono Worker: accounts, R2 uploads, posts, public `/@handle` + `/p/:id` pages | `npm --prefix apps/api run dev` (:5036) | `npm --prefix apps/api test`, `npm --prefix apps/api run smoke` (:5039); deploy with `npm --prefix apps/api run deploy:staging` / `deploy:production` (migrations first) |
 | `apps/mobile` | Expo app, iOS + Android + web, mock mode when `EXPO_PUBLIC_API_URL` is unset | `npm --prefix apps/mobile run web` (:5037) | `npm --prefix apps/mobile run check` |
 | `apps/site` | emera.social landing + early list (Worker + D1) | `npx wrangler dev --local --port 5038` in `apps/site` | screenshots in `.claude/artifacts/site-shots/` |
 | `apps/notify` | Slack #emera-events (`C0CHFF8S47K`): cron polls both D1s each minute (visitors threaded per person, early list, accounts, posts, reports, flags) with place, device, source and Bangkok time; own/test accounts marked `Test`; 9 AM Bangkok daily summary; staging is silent unless `SLACK_NON_PROD=1`. Also serves `/admin` (key in `.claude/artifacts/admin-key.txt`) and `/api/ledger`, proxied through emera.social; `/github` takes the signed repo webhook | `npm --prefix apps/notify run deploy:production`; local preview with invented data `node apps/notify/scripts/preview.mjs` (:5041) | `npm --prefix apps/notify run deploy:production` | `npm --prefix apps/notify test` |
