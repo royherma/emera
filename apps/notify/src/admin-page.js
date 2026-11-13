@@ -41,7 +41,7 @@ a.r{color:inherit}
 label.tg{display:flex;gap:6px;align-items:center;color:var(--ink2);cursor:pointer}
 </style></head><body>
 <header><b>Emera admin</b><span class="muted" id="upd">loading</span><span class="sp"></span>
-<label class="tg"><input type="checkbox" id="showTest"> show test accounts</label>
+<label class="tg"><input type="checkbox" id="showTest" checked> show you + test accounts</label>
 <a href="/ledger">Public ledger</a></header>
 <div id="gate"><p>Paste the admin key</p><input id="key" type="password" autocomplete="off"><p class="muted" id="gmsg"></p></div>
 <main id="app" hidden>

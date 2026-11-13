@@ -1,4 +1,4 @@
-import { device, isTest, place, source, toMs } from "./people.js";
+import { device, isBotVisit, isTest, place, source, toMs } from "./people.js";
 
 const DAY = 86_400_000;
 export const bkkDay = (ms) => new Date(ms + 7 * 3_600_000).toISOString().slice(0, 10);
@@ -32,7 +32,9 @@ export async function load(env, { visitDays = 30 } = {}) {
   const byId = new Map(users.map((u) => [u.id, u]));
   for (const u of users) u.test = isTest(env, u.email);
   for (const e of early) e.test = isTest(env, e.email, !!e.tester);
-  for (const v of visits) v.test = !!v.tester;
+  const own = new Set(String(env.OWN_VISITORS || "").split(",").filter(Boolean));
+  const visitsKept = visits.filter((v) => !isBotVisit(v));
+  for (const v of visitsKept) v.test = !!v.tester || own.has(v.visitor);
   for (const p of posts) {
     const u = byId.get(p.user_id);
     p.handle = u?.handle || null;
@@ -44,7 +46,7 @@ export async function load(env, { visitDays = 30 } = {}) {
     r.handle = u?.handle || null;
     r.test = !!u?.test;
   }
-  return { early, visits, users, posts, reports, flags, likes: likes[0]?.n ?? 0, comments: comments[0]?.n ?? 0, follows: follows[0]?.n ?? 0 };
+  return { early, visits: visitsKept, users, posts, reports, flags, likes: likes[0]?.n ?? 0, comments: comments[0]?.n ?? 0, follows: follows[0]?.n ?? 0 };
 }
 
 function sessions(visits) {
