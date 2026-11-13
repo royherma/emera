@@ -78,7 +78,7 @@ h2 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;mar
 body.rv main,body.rv .ws{display:none}#review{display:none;flex:1;padding:0 20px 14px;overflow:auto;min-height:0}body.rv #review{display:block}
 .rvgrid{display:grid;grid-template-columns:repeat(5,1fr);grid-auto-flow:dense;gap:10px}
 .rc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 13px;display:flex;flex-direction:column;gap:5px;min-width:0}
-.rc.wide{grid-column:span 2}.rc.tall{grid-row:span 2}
+.rc.wide{grid-column:span 2}.rc.wide3{grid-column:span 3}.rc .imgs.many{grid-template-columns:repeat(8,1fr);gap:6px}.rc .imgs.many .opt{padding:3px;font-size:11px;gap:1px}.rc .imgs.many .opt img{height:auto;aspect-ratio:1;object-fit:cover}.rc.tall{grid-row:span 2}
 .rc .top{display:flex;gap:6px;align-items:center;font:700 10px Inter,system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
 .rc .top i{font-style:normal;border-radius:5px;padding:1px 6px;background:#fde6c8;color:#8a5212}.rc .top i.pick{background:#e5ecf7;color:#36527f}.rc .top i.approve{background:#e7f3ec;color:var(--a2)}.rc .top i.money{background:#f4e1dc;color:#a8452f}
 .rc .top span{margin-left:auto}.rc .top span.now{color:var(--a)}
@@ -280,14 +280,15 @@ function renderReview() {
   const grid = el('div', 'rvgrid'); box.append(head, grid);
   for (const it of items) {
     const hasImg = it.dec?.options.some((o) => o.img);
-    const card = el('div', `rc ${hasImg ? 'wide tall' : ''} ${it.list ? 'tall' : ''} ${it.answered ? 'answered' : ''}`);
+    const many = (it.dec?.options.filter((o) => o.img).length ?? 0) > 6;
+    const card = el('div', `rc ${hasImg ? (many ? 'wide3 tall' : 'wide tall') : ''} ${it.list ? 'tall' : ''} ${it.answered ? 'answered' : ''}`);
     const top = el('div', 'top'); top.append(el('i', it.kind === 'pick' || it.kind === 'decide' ? 'pick' : it.kind, TAG[it.kind] ?? it.kind), el('span', it.when === 'now' ? 'now' : '', it.when));
     card.append(top, el('b', '', it.title), el('p', '', it.why));
     if (it.dec) {
       const d = it.dec;
       const pick = (o) => { d.pick = o.id; render(); send({ kind: 'pick', id: d.id, pick: o.id, label: o.label, q: d.q }, `Picked: ${o.label}`); };
       if (hasImg) {
-        const imgs = el('div', 'imgs');
+        const imgs = el('div', many ? 'imgs many' : 'imgs');
         for (const o of d.options.filter((x) => x.img)) {
           const b = el('button', `opt ${o.id === d.mine ? 'mine' : ''} ${o.id === d.pick ? 'on' : ''}`);
           const im = el('img'); im.src = `/file/${o.img}`; im.alt = o.label; b.append(im);

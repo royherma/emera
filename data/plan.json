@@ -58,7 +58,8 @@
         {
           "id": "a8",
           "text": "Claim @emerasocial: TikTok, YouTube, Instagram, Bluesky (your logins)",
-          "who": "roy"
+          "who": "roy",
+          "done": false
         }
       ]
     },
@@ -136,7 +137,8 @@
         {
           "id": "c4",
           "text": "Your profile + first 10 posts",
-          "who": "roy"
+          "who": "roy",
+          "done": false
         },
         {
           "id": "c5",
@@ -1162,7 +1164,10 @@
           "id": "later",
           "label": "Later"
         }
-      ]
+      ],
+      "answer": "later",
+      "text": null,
+      "at": "2026-11-13T07:43:07.608Z"
     },
     {
       "id": "profile",
@@ -1187,7 +1192,10 @@
           "id": "later",
           "label": "Later"
         }
-      ]
+      ],
+      "answer": "later",
+      "text": null,
+      "at": "2026-11-13T07:43:50.585Z"
     },
     {
       "id": "founding20",
@@ -1241,7 +1249,10 @@
           "id": "no",
           "label": "Not yet"
         }
-      ]
+      ],
+      "answer": "change",
+      "text": "We need to be smart about what we want other people to do and what we want to do. And we should maybe have bigger tasks set for other people for now. And I would update the README also showing checklist and milestone very clearly, emoji, beautification. Like this is not the right list in my in my perspective.",
+      "at": "2026-11-13T07:43:35.052Z"
     },
     {
       "id": "dmca",
@@ -1422,7 +1433,10 @@
           "id": "later",
           "label": "Later"
         }
-      ]
+      ],
+      "answer": "change",
+      "text": "yes take care of this",
+      "at": "2026-11-13T07:43:48.163Z"
     }
   ],
   "reviewDone": [
