@@ -14,9 +14,11 @@ const TITLE = "Half of every sponsor dollar goes to creators | Emera fund";
 const OG_TITLE = "Half of every sponsor dollar goes to the creators people watch";
 const DESCRIPTION = "Companies sponsor Emera. Half of every dollar goes to the creators people watched that month, split by watch time, and every dollar is public.";
 
-const markInner = readFileSync(join(root, "../../brand/logo/final/mark-small.svg"), "utf8").replace(/^<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "");
-const mark = `<svg viewBox="0 0 600 600" aria-hidden="true"><use href="#mark"/></svg>`;
-const sprite = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 600 600">${markInner}</symbol></svg>`;
+const litSvg = readFileSync(join(root, "../../brand/logo/final/mark-lit-symbol.svg"), "utf8");
+const litBox = litSvg.match(/viewBox="([^"]+)"/)[1];
+const litInner = litSvg.replace(/^<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "");
+const mark = `<svg viewBox="${litBox}" aria-hidden="true"><use href="#mark"/></svg>`;
+const sprite = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="${litBox}">${litInner}</symbol></svg>`;
 
 const css = `:root{--sun:#ff8a2b;--sun2:#ffc24a;--bg:#fbf5ea;--bg2:#f3e8d5;--ink:#2a1d14;--ink2:#6b5846;--ink3:#857260;--card:#fffaf1;--line:rgba(60,35,10,.12);--sunink:#9a4a00;--half:#2a1d14;--halfink:#fbf3e8;--err:#a3240f;--disp:"Sora",ui-sans-serif,system-ui,sans-serif;--body:"DM Sans",ui-sans-serif,system-ui,sans-serif;--gutter:clamp(16px,5vw,72px);color-scheme:light}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0c0a09;--bg2:#14110f;--ink:#fbf3e8;--ink2:#bcae9d;--ink3:#8a7c6d;--card:#1a1613;--line:rgba(255,235,210,.12);--sunink:#ffc98a;--half:#2b241f;--halfink:#fbf3e8;--err:#ff9a85;color-scheme:dark}}
@@ -27,7 +29,7 @@ a{color:inherit;text-underline-offset:3px}
 .wrap{max-width:1100px;margin:0 auto;padding:0 var(--gutter)}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
 .mk{display:flex;align-items:center;gap:10px;font:700 1.35rem var(--disp);letter-spacing:-.04em;text-decoration:none}
-.mk svg{width:30px;height:30px;color:var(--ink)}
+.mk svg{width:38px;height:38px;color:var(--ink)}
 .pill{display:inline-block;background:linear-gradient(180deg,var(--sun2),var(--sun));color:#2a1406;font-weight:700;text-decoration:none;padding:10px 18px;border-radius:999px;font-size:.95rem;border:0;cursor:pointer;font-family:var(--body)}
 .ghost{display:inline-block;padding:10px 18px;border-radius:999px;border:1px solid var(--line);text-decoration:none;font-weight:600;font-size:.95rem}
 .eyebrow{font:600 .78rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--sunink);margin-top:28px}

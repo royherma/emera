@@ -38,7 +38,7 @@ export const footerCss = `.gh{display:inline-flex;align-items:stretch;border-rad
 .ft .fw{max-width:1360px;margin:0 auto;padding:0 var(--gutter)}
 .ft .cols{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:32px 28px}
 .ft .fmk{display:inline-flex;align-items:center;gap:10px;font:700 1.35rem var(--disp);letter-spacing:-.04em;color:#fbf3e8;text-decoration:none}
-.ft .fmk svg{width:30px;height:30px;color:#fbf3e8;--bg:#0c0a09}
+.ft .fmk svg{width:38px;height:38px;color:#fbf3e8;--bg:#0c0a09}
 .ft .about{margin-top:12px;max-width:22em;color:rgba(241,231,216,.7);line-height:1.5}
 .ft h3{font:600 .74rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:rgba(241,231,216,.5);margin:0}
 .ft h3 a{color:inherit;text-decoration:none}

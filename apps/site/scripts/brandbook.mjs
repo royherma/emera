@@ -10,7 +10,8 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 
 export const hasBrandKit = () => existsSync(join(FILES, "icons.json"));
 
-const mark = (cls = "") => `<svg class="${cls}" viewBox="0 0 600 600" aria-hidden="true"><use href="#mark"/></svg>`;
+const litBox = readFileSync(join(root, "../../brand/logo/final/mark-lit-symbol.svg"), "utf8").match(/viewBox="([^"]+)"/)[1];
+const mark = (cls = "") => `<svg class="${cls}" viewBox="${litBox}" aria-hidden="true"><use href="#mark"/></svg>`;
 const lockup = (cls) => `<span class="lk ${cls}">${mark()}<span>${esc(brand.name)}</span></span>`;
 const f = (name) => `/brand/files/${name}`;
 const kb = (name) => `${Math.max(1, Math.round(statSync(join(FILES, name)).size / 1024))} KB`;
@@ -36,7 +37,7 @@ export const brandCss = `.bw{max-width:1120px;margin:0 auto;padding:0 var(--gutt
 .dl{font-size:.82rem;font-weight:600;text-decoration:none;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--bg)}
 .dl:hover{border-color:var(--sun)}
 .lk{display:inline-flex;align-items:center;gap:.16em;font:600 clamp(2.4rem,6vw,3.6rem)/1.2 var(--disp);letter-spacing:-.045em}
-.lk svg{width:1.27em;height:1.27em}
+.lk svg{width:1.6em;height:1.6em}
 .stage>svg{width:42%;height:auto}
 .stage img{width:44%;height:auto;border-radius:22%}
 .rules{display:grid;gap:14px;margin-top:18px;grid-template-columns:repeat(3,1fr)}
@@ -91,11 +92,11 @@ export function brandBody() {
   return `<div class="bh"><div><h1>${esc(brand.name)} brand</h1><p>Our logo, app icon, colors, type and icons, ready to download. Use them to write about ${esc(brand.name)}, link to it or build on it.</p></div>
 <a class="kit" href="${f("emera-brand-kit.zip")}" download>Download everything <small>${kb("emera-brand-kit.zip")}</small></a></div>
 
-<section class="bs" id="logo"><h2>Logo</h2><p class="lead">The brush e and the name, side by side. Dark ink on light backgrounds, white on dark ones.</p>
+<section class="bs" id="logo"><h2>Logo</h2><p class="lead">The brush e, lit like a match, and the name side by side. Dark ink on light backgrounds, white on dark ones.</p>
 <div class="tiles">
 <div class="tile"><div class="stage day">${lockup("")}</div><div class="meta"><b>On light</b>${dl("PNG", "emera-logo.png")}${dl("On cream", "emera-logo-on-day.png")}</div></div>
 <div class="tile"><div class="stage night">${lockup("")}</div><div class="meta"><b>On dark</b>${dl("PNG", "emera-logo-white.png")}${dl("On night", "emera-logo-on-night.png")}</div></div>
-<div class="tile"><div class="stage sun">${mark()}</div><div class="meta"><b>Mark</b>${dl("SVG", "emera-mark.svg")}${dl("White SVG", "emera-mark-white.svg")}${dl("Detailed SVG", "emera-mark-detailed.svg")}</div></div>
+<div class="tile"><div class="stage sun">${mark()}</div><div class="meta"><b>Mark</b>${dl("SVG", "emera-mark.svg")}${dl("White SVG", "emera-mark-white.svg")}${dl("Ink only", "emera-mark-ink.svg")}</div></div>
 </div></section>
 
 <section class="bs" id="icon"><h2>App icon</h2><p class="lead">What people see on their home screen and in the browser tab.</p>

@@ -24,9 +24,11 @@ const clean = (html) =>
     .replace(/<a href="(https?:[^"]+)">/g, '<a href="$1" rel="noopener">')
     .replace(/<a href="\/(?:answers\/|compare\/)?([a-z0-9-]+)\/?">/g, (m, s) => (bySlug.has(s) ? `<a href="${bySlug.get(s).path}">` : m));
 
-const markInner = readFileSync(join(root, "../../brand/logo/final/mark-small.svg"), "utf8").replace(/^<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "");
-const markSprite = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 600 600">${markInner}</symbol></svg>`;
-const mark = `<svg viewBox="0 0 600 600" aria-hidden="true"><use href="#mark"/></svg>`;
+const litSvg = readFileSync(join(root, "../../brand/logo/final/mark-lit-symbol.svg"), "utf8");
+const litBox = litSvg.match(/viewBox="([^"]+)"/)[1];
+const litInner = litSvg.replace(/^<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "");
+const markSprite = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="${litBox}">${litInner}</symbol></svg>`;
+const mark = `<svg viewBox="${litBox}" aria-hidden="true"><use href="#mark"/></svg>`;
 
 const css = `:root{--sun:#ff8a2b;--sun2:#ffc24a;--bg:#fbf5ea;--bg2:#f3e8d5;--ink:#2a1d14;--ink2:#6b5846;--ink3:#9a8672;--card:#fffaf1;--line:rgba(60,35,10,.12);--sunink:#9a4a00;--disp:"Sora",ui-sans-serif,system-ui,sans-serif;--body:"DM Sans",ui-sans-serif,system-ui,sans-serif;--gutter:clamp(16px,5vw,72px);color-scheme:light}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0c0a09;--bg2:#14110f;--ink:#fbf3e8;--ink2:#bcae9d;--ink3:#8a7c6d;--card:#1a1613;--line:rgba(255,235,210,.12);--sunink:#ffc98a;color-scheme:dark}}
@@ -37,7 +39,7 @@ a{color:inherit;text-underline-offset:3px}
 .wrap{max-width:820px;margin:0 auto;padding:0 var(--gutter)}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
 .mk{display:flex;align-items:center;gap:10px;font:700 1.35rem var(--disp);letter-spacing:-.04em;text-decoration:none}
-.mk svg{width:30px;height:30px;color:var(--ink)}
+.mk svg{width:38px;height:38px;color:var(--ink)}
 .pill{background:linear-gradient(180deg,var(--sun2),var(--sun));color:#2a1406;font-weight:700;text-decoration:none;padding:10px 18px;border-radius:999px;font-size:.95rem}
 .crumbs{margin-top:28px;font-size:.85rem;color:var(--ink3)}
 .crumbs a{text-decoration:none}

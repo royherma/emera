@@ -31,7 +31,7 @@ const vars = {
   sprite,
   footerCss,
   star: starButton(GITHUB_URL),
-  footer: footer({ pages, mark: '<svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg>', github: GITHUB_URL, year: new Date().getFullYear() }),
+  footer: footer({ pages, mark: `<svg viewBox="${readFileSync(join(root, "../../brand/logo/final/mark-lit-symbol.svg"), "utf8").match(/viewBox="([^"]+)"/)[1]}" aria-hidden="true"><use href="#mark"/></svg>`, github: GITHUB_URL, year: new Date().getFullYear() }),
   ld: JSON.stringify([
     { "@context": "https://schema.org", "@type": "Organization", name: brand.name, url: `https://${brand.domain}/`, logo: `https://${brand.domain}/assets/og.png`, description: "Open-source, nonprofit social network for people who make things and people sharing what is happening, with proof of who posted on every post." },
     { "@context": "https://schema.org", "@type": "WebSite", name: brand.name, url: `https://${brand.domain}/` },
