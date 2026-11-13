@@ -6,12 +6,14 @@ import { Banner, Button, Field } from "@/components/ui";
 import { api } from "@/lib/api";
 import { MOCK } from "@/lib/config";
 import { MOCK_INVITE_CODE } from "@/lib/mock";
-import { colors, space, type } from "@/lib/theme";
+import { space, type } from "@/lib/theme";
+import { useTheme } from "@/state/theme";
 import { ApiError } from "@/lib/types";
 
 export default function SignIn() {
   const { invite: linkInvite = "" } = useLocalSearchParams<{ invite?: string }>();
   const router = useRouter();
+  const { c } = useTheme();
   const [email, setEmail] = useState("");
   const [invite, setInvite] = useState(linkInvite);
   const [needsInvite, setNeedsInvite] = useState(!!linkInvite);
@@ -40,11 +42,11 @@ export default function SignIn() {
       {needsInvite && (
         <View style={{ gap: space[2] }}>
           <Field label="Invite code" value={invite} onChangeText={(t) => setInvite(t.trim())} placeholder="Paste your code" autoCapitalize="none" autoCorrect={false} error={error} onSubmitEditing={submit} />
-          {MOCK && <Text style={[type.small, { color: colors.faint }]}>Preview mode: use {MOCK_INVITE_CODE}</Text>}
+          {MOCK && <Text style={[type.meta, { color: c.ink3 }]}>Preview mode: use {MOCK_INVITE_CODE}</Text>}
         </View>
       )}
       <Button label="Send my code" size="lg" busy={busy} disabled={!email.includes("@")} onPress={submit} />
-      {MOCK && <Text style={[type.small, { color: colors.faint, textAlign: "center" }]}>Preview mode: no email is sent. Any 6 digits will work.</Text>}
+      {MOCK && <Text style={[type.meta, { color: c.ink3, textAlign: "center" }]}>Preview mode: no email is sent. Any 6 digits will work.</Text>}
     </AuthShell>
   );
 }

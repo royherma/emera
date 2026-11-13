@@ -5,12 +5,13 @@ import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
 import { Screen } from "@/components/Screen";
 import { Icon } from "@/components/Icon";
-import { ProofBadge } from "@/components/Grid";
+import { SignedMark } from "@/components/Media";
 import { Banner, Button, type PS } from "@/components/ui";
 import { api } from "@/lib/api";
-import { colors, font, radius, space, type } from "@/lib/theme";
+import { alpha, radius, space, type } from "@/lib/theme";
 import { ApiError, PickedFile } from "@/lib/types";
 import { useAuth } from "@/state/auth";
+import { useTheme } from "@/state/theme";
 
 const MAX = 10;
 const MB = 1024 * 1024;
@@ -18,6 +19,7 @@ const MB = 1024 * 1024;
 export default function Upload() {
   const router = useRouter();
   const { user } = useAuth();
+  const { c } = useTheme();
   const [files, setFiles] = useState<PickedFile[]>([]);
   const [caption, setCaption] = useState("");
   const [busy, setBusy] = useState<string | null>(null);
@@ -63,62 +65,62 @@ export default function Upload() {
 
   return (
     <Screen tabs maxWidth={760}>
-      <View style={{ gap: 6, paddingBottom: space[5] }}>
-        <Text style={[type.h1, { color: colors.ink }]}>Share something</Text>
-        <Text style={[type.body, { color: colors.muted }]}>Photos or video from your library. Your name and the time are signed into every upload.</Text>
+      <View style={{ gap: 6, paddingBottom: space[5], paddingTop: space[2] }}>
+        <Text style={[type.h1, { color: c.ink }]}>Share something</Text>
+        <Text style={[type.body, { color: c.ink2 }]}>Photos or video from your library. Your name and the time are signed into every upload.</Text>
       </View>
 
       {files.length === 0 ? (
         <Pressable
           onPress={pick}
           accessibilityRole="button"
-          style={({ hovered }: PS) => ({ height: 280, borderRadius: radius.lg, borderWidth: 2, borderStyle: "dashed", borderColor: hovered ? colors.ink : colors.lineStrong, backgroundColor: hovered ? colors.surface : colors.sunk, alignItems: "center", justifyContent: "center", gap: space[3] })}
+          style={({ hovered }: PS) => ({ height: 260, borderRadius: radius.media, borderWidth: 1.5, borderStyle: "dashed", borderColor: hovered ? c.sun : c.ink3, backgroundColor: hovered ? c.surface : c.sunk, alignItems: "center", justifyContent: "center", gap: space[3] })}
         >
-          <View style={{ width: 64, height: 64, borderRadius: 99, backgroundColor: colors.accentSoft, alignItems: "center", justifyContent: "center" }}>
-            <Icon name="image" size={28} color={colors.accent} />
+          <View style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: alpha(c.sun, 0.16), alignItems: "center", justifyContent: "center" }}>
+            <Icon name="image" size={26} color={c.sunInk} />
           </View>
-          <Text style={{ fontFamily: font.semibold, fontSize: 17, color: colors.ink }}>Choose photos or video</Text>
-          <Text style={[type.small, { color: colors.muted }]}>Up to {MAX} items. Photos 25 MB, videos 200 MB.</Text>
+          <Text style={[type.title, { color: c.ink }]}>Choose photos or video</Text>
+          <Text style={[type.meta, { color: c.ink2 }]}>Up to {MAX} items. Photos 25 MB, videos 200 MB.</Text>
         </Pressable>
       ) : (
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: space[3] }}>
           {files.map((f, i) => (
-            <View key={f.uri + i} style={{ width: 180, height: 225, borderRadius: radius.md, overflow: "hidden", backgroundColor: colors.ink }}>
-              {f.kind === "image" ? <Image source={{ uri: f.uri }} style={{ width: "100%", height: "100%" }} contentFit="cover" /> : <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}><Icon name="play" size={30} color="#fff" /></View>}
-              <Pressable accessibilityLabel="Remove" onPress={() => setFiles((all) => all.filter((_, j) => j !== i))} style={{ position: "absolute", top: 8, right: 8, width: 30, height: 30, borderRadius: 99, backgroundColor: "rgba(0,0,0,0.55)", alignItems: "center", justifyContent: "center" }}>
+            <View key={f.uri + i} style={{ width: 168, height: 210, borderRadius: radius.card, overflow: "hidden", backgroundColor: c.sunk }}>
+              {f.kind === "image" ? <Image source={{ uri: f.uri }} style={{ width: "100%", height: "100%" }} contentFit="cover" /> : <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#140f0b" }}><Icon name="play" size={30} color="#fff" /></View>}
+              <Pressable accessibilityLabel="Remove" onPress={() => setFiles((all) => all.filter((_, j) => j !== i))} hitSlop={8} style={{ position: "absolute", top: 8, right: 8, width: 28, height: 28, borderRadius: 14, backgroundColor: "rgba(14,10,8,0.66)", alignItems: "center", justifyContent: "center" }}>
                 <Icon name="x" size={16} color="#fff" />
               </Pressable>
             </View>
           ))}
           {files.length < MAX && (
-            <Pressable onPress={pick} style={{ width: 180, height: 225, borderRadius: radius.md, borderWidth: 2, borderStyle: "dashed", borderColor: colors.lineStrong, alignItems: "center", justifyContent: "center", gap: 6 }}>
-              <Icon name="plus" size={26} color={colors.muted} />
-              <Text style={[type.small, { color: colors.muted }]}>Add more</Text>
+            <Pressable onPress={pick} style={{ width: 168, height: 210, borderRadius: radius.card, borderWidth: 1.5, borderStyle: "dashed", borderColor: c.ink3, alignItems: "center", justifyContent: "center", gap: 6 }}>
+              <Icon name="plus" size={24} color={c.ink2} />
+              <Text style={[type.meta, { color: c.ink2 }]}>Add more</Text>
             </Pressable>
           )}
         </ScrollView>
       )}
 
       <View style={{ gap: space[2], marginTop: space[5] }}>
-        <Text style={[type.label, { color: colors.muted }]}>Caption</Text>
+        <Text style={[type.label, { color: c.ink2, textTransform: "uppercase", letterSpacing: 0.8 }]}>Caption</Text>
         <TextInput
           value={caption}
           onChangeText={setCaption}
           placeholder="Tell people about it"
-          placeholderTextColor={colors.faint}
+          placeholderTextColor={c.ink3}
+          selectionColor={c.sun}
           multiline
           maxLength={500}
-          style={[{ minHeight: 112, borderRadius: radius.md, borderWidth: 1.5, borderColor: colors.line, backgroundColor: colors.surface, padding: space[4], fontFamily: font.regular, fontSize: 16, lineHeight: 24, color: colors.ink, textAlignVertical: "top" }, { outlineStyle: "none" } as object]}
+          style={[{ minHeight: 112, borderRadius: radius.field, backgroundColor: c.sunk, padding: space[4], fontFamily: type.body.fontFamily, fontSize: 16, lineHeight: 24, color: c.ink, textAlignVertical: "top" }, { outlineStyle: "none" } as object]}
         />
-        <Text style={[type.small, { color: colors.faint, alignSelf: "flex-end" }]}>{caption.length}/500</Text>
+        <Text style={[type.meta, { color: c.ink3, alignSelf: "flex-end" }]}>{caption.length}/500</Text>
       </View>
 
-      <View style={{ flexDirection: "row", alignItems: "center", gap: space[3], backgroundColor: colors.accent2Soft, borderRadius: radius.md, padding: space[4], marginTop: space[2] }}>
-        <Icon name="shield" size={22} color={colors.accent2} />
-        <View style={{ flex: 1, gap: 4 }}>
-          {user && <ProofBadge handle={user.handle} />}
-          <Text style={[type.small, { color: colors.muted }]}>This is how your post will show up. Anyone can check who made it and when.</Text>
+      <View style={{ flexDirection: "row", alignItems: "center", gap: space[3], backgroundColor: c.surface, borderWidth: 1, borderColor: c.hair, borderRadius: radius.proof, padding: space[3], marginTop: space[2] }}>
+        <View style={{ borderRadius: 13, backgroundColor: "#140f0b", padding: 4 }}>
+          <SignedMark />
         </View>
+        <Text style={[type.bodySm, { flex: 1, color: c.ink2 }]}>Signed with {user ? user.displayName : "your name"} and the time. Anyone can check who made it and when.</Text>
       </View>
 
       {error && <View style={{ marginTop: space[4] }}><Banner text={error} /></View>}

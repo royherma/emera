@@ -417,16 +417,62 @@ function build() {
   const stepsBuilt = stories.reduce((a, s) => a + s.built, 0);
   let platforms = null;
   if (existsSync(R('data/platforms.json'))) { try { platforms = JSON.parse(read('data/platforms.json')); } catch { platforms = { error: 'data/platforms.json is not valid JSON' }; } }
+  const shots = loadShots(scr);
+  const feats = features(atlas, stories);
   const slim = (e) => { const { text, ...rest } = e; return rest; };
   const out = {
     builtAt: new Date().toISOString(), git: git(),
     summary: { screens: scr.length, endpoints: endpoints.length, tables: tbl.length, lexicons: lex.length, stories: stories.length, edges: edges.length, coverage: overall, stepsBuilt, stepsCounted },
     screens: scr.map(({ text, ...s }) => s), endpoints: endpoints.map(slim), tables: tbl, lexicons: lex, client, environments: atlas.environments,
-    edges, stories, missing: missingPieces, drift, unmapped, platforms,
+    edges, stories, missing: missingPieces, drift, unmapped, platforms, shots, features: feats,
   };
   mkdirSync(R('data'), { recursive: true });
   writeFileSync(R('data/atlas.json'), JSON.stringify(out, null, 1) + '\n');
   return out;
+}
+
+function loadShots(screens) {
+  const f = 'data/atlas-shots/index.json';
+  if (!existsSync(R(f))) return null;
+  let idx;
+  try { idx = JSON.parse(read(f)); } catch { return null; }
+  for (const s of screens) {
+    const e = idx.screens?.[`${s.surface}:${s.route}`];
+    s.shots = e?.shots ?? {};
+    s.states = e?.states ?? [];
+    s.slug = e?.slug ?? null;
+  }
+  const g = git();
+  const missing = screens.filter((s) => !s.shell && !Object.keys(s.shots).length).map((s) => `${s.surface}:${s.route}`);
+  return { capturedAt: idx.capturedAt, git: idx.git, count: idx.count, themeSwitch: idx.themeSwitch, themes: idx.themes, params: idx.params, failed: idx.failed ?? [], shell: idx.shell ?? [], missing, stale: idx.git?.sha !== g.sha || !!idx.git?.dirty };
+}
+
+function features(atlas, stories) {
+  if (!existsSync(R('docs/features.yaml'))) return null;
+  let raw;
+  try { raw = YAML.parse(read('docs/features.yaml')); } catch (e) { return { error: `docs/features.yaml is not valid YAML: ${String(e.message).split('\n')[0]}` }; }
+  const scr = new Map(atlas.screens.map((s) => [`${s.surface}:${s.route}`, s]));
+  const eps = new Set(atlas.endpoints.map((e) => `${e.method} ${e.path}`));
+  const sto = new Set(stories.map((s) => s.id));
+  const items = (raw?.features ?? []).map((f) => {
+    const m = f.emera?.maps_to ?? {};
+    const screens = (m.screens ?? []).map((r) => {
+      const site = /^site[\s:]/.test(r);
+      const route = normPath(r.replace(/^(app|site)[\s:]\s*/, ''));
+      return { ref: r, ok: scr.has(`${site ? 'site' : 'app'}:${route}`), key: `${site ? 'site' : 'app'}:${route}` };
+    });
+    const endpoints = (m.endpoints ?? []).map((e) => ({ ref: e, ok: eps.has(e.replace(/\s+/g, ' ').trim()) }));
+    const st = (m.stories ?? []).map((id) => ({ ref: id, ok: sto.has(id) }));
+    const code = [...screens, ...endpoints];
+    let status;
+    if (code.length) status = code.every((x) => x.ok) ? 'built' : code.some((x) => x.ok) ? 'partial' : st.some((x) => x.ok) ? 'partial' : 'not built';
+    else status = st.some((x) => x.ok) ? 'partial' : 'not built';
+    return { ...f, status, mapped: { screens, endpoints, stories: st } };
+  });
+  const pts = (list) => list.length ? Math.round((list.reduce((a, f) => a + (f.status === 'built' ? 1 : f.status === 'partial' ? 0.5 : 0), 0) / list.length) * 100) : 0;
+  const core = items.filter((f) => f.tier === 'core');
+  const count = (list) => ({ built: list.filter((f) => f.status === 'built').length, partial: list.filter((f) => f.status === 'partial').length, missing: list.filter((f) => f.status === 'not built').length, total: list.length });
+  return { platforms: raw?.platforms ?? [], items, coverage: { core: pts(core), all: pts(items), coreCounts: count(core), allCounts: count(items) } };
 }
 
 function eps(list, c) { return list.some((e) => e.method === c.method && e.path === c.path); }
@@ -441,6 +487,8 @@ function print(o) {
   for (const m of o.missing.slice(0, 8)) console.log(`    ${m.blocks}  ${m.label}`);
   console.log(`  drift: ${o.drift.length}  unmapped: ${o.unmapped.endpoints.length} endpoints, ${o.unmapped.screens.length} screens, ${o.unmapped.tables.length} tables`);
   const pl = Array.isArray(o.platforms) ? o.platforms : o.platforms?.items ?? o.platforms?.platforms;
+  console.log(`  screenshots: ${o.shots ? `${o.shots.count} images, ${o.shots.missing.length} screens without a capture${o.shots.stale ? ', older than the code' : ''}` : 'none yet, run node tools/atlas/shots.mjs'}`);
+  console.log(`  features: ${o.features ? (o.features.error ?? `${o.features.items.length} rows, core coverage ${o.features.coverage.core}%`) : 'waiting for docs/features.yaml'}`);
   console.log(`  platforms: ${pl ? `${pl.filter((p) => p.status === 'live').length} of ${pl.length} live` : 'waiting for data/platforms.json'}`);
 }
 
@@ -456,6 +504,6 @@ if (process.argv.includes('--watch')) {
     clearTimeout(t);
     t = setTimeout(once, 300);
   };
-  for (const p of ['apps', 'lexicons', 'docs/stories.yaml', 'data/platforms.json', 'CLAUDE.md']) if (existsSync(R(p))) watch(R(p), { recursive: true }, kick);
+  for (const p of ['apps', 'lexicons', 'docs/stories.yaml', 'docs/features.yaml', 'data/platforms.json', 'CLAUDE.md']) if (existsSync(R(p))) watch(R(p), { recursive: true }, kick);
   console.log('ATLAS watching apps/, lexicons/, docs/stories.yaml, data/platforms.json');
 }

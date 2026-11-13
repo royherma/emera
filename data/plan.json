@@ -1,5 +1,5 @@
 {
-  "updated": "11:50 AM Bangkok",
+  "updated": "11:53 AM Bangkok",
   "title": "Emera",
   "goal": "Emera. Where humanity comes together - you post, share the link, invite people",
   "phases": [
@@ -874,7 +874,7 @@
     {
       "name": "Logo + icon",
       "state": "done",
-      "note": "12 concepts, top 3 in use"
+      "note": "pick one in Decisions"
     },
     {
       "name": "App in Twilight",
@@ -883,8 +883,18 @@
     },
     {
       "name": "Site in Twilight",
+      "state": "done",
+      "note": "live on emera.social"
+    },
+    {
+      "name": "Atlas screens",
       "state": "running",
-      "note": "emera.social restyle"
+      "note": "auto-capture every screen"
+    },
+    {
+      "name": "Feature comparison",
+      "state": "running",
+      "note": "vs Instagram, TikTok, YouTube, Bluesky..."
     }
   ],
   "asks": [

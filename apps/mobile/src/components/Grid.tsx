@@ -18,7 +18,7 @@ export function PostRow({ post, width, onDeleted }: { post: Post; width: number;
   const { c } = useTheme();
   const menu = usePostMenu(onDeleted);
   const m = post.media[0];
-  const h = Math.round(width / clamp(m.width / m.height, 0.95, 1.4));
+  const h = Math.min(Math.round(width / clamp(m.width / m.height, 0.95, 1.4)), 520);
   const open = () => router.push({ pathname: "/p/[id]", params: { id: post.id } });
   const tag = post.author.category;
   return (

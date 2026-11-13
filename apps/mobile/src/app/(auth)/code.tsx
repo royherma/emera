@@ -4,13 +4,15 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { AuthShell } from "@/components/AuthShell";
 import { Banner, Button } from "@/components/ui";
 import { api } from "@/lib/api";
-import { colors, font, radius, space, type } from "@/lib/theme";
+import { font, radius, space, type } from "@/lib/theme";
+import { useTheme } from "@/state/theme";
 import { ApiError } from "@/lib/types";
 import { useAuth } from "@/state/auth";
 
 export default function Code() {
   const { email = "", invite = "" } = useLocalSearchParams<{ email: string; invite?: string }>();
   const router = useRouter();
+  const { c } = useTheme();
   const { signIn } = useAuth();
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
@@ -50,8 +52,8 @@ export default function Code() {
     <AuthShell title="Check your email" lead={`We sent a 6-digit code to ${email}.`}>
       <Pressable onPress={() => input.current?.focus()} style={{ flexDirection: "row", gap: space[2], justifyContent: "space-between" }}>
         {Array.from({ length: 6 }, (_, i) => (
-          <View key={i} style={{ flex: 1, height: 64, borderRadius: radius.md, borderWidth: 1.5, borderColor: error ? colors.danger : i === code.length ? colors.ink : colors.line, backgroundColor: colors.surface, alignItems: "center", justifyContent: "center" }}>
-            <Text style={{ fontFamily: font.display, fontSize: 32, color: colors.ink }}>{code[i] ?? ""}</Text>
+          <View key={i} style={{ flex: 1, height: 64, borderRadius: radius.field, borderWidth: 1.5, borderColor: error ? c.danger : i === code.length ? c.sun : "transparent", backgroundColor: c.sunk, alignItems: "center", justifyContent: "center" }}>
+            <Text style={{ fontFamily: font.display.bold, fontSize: 30, color: c.ink }}>{code[i] ?? ""}</Text>
           </View>
         ))}
         <TextInput
@@ -71,7 +73,7 @@ export default function Code() {
       <Button label={busy ? "Checking" : "Continue"} size="lg" busy={busy} disabled={code.length < 6} onPress={() => verify(code)} />
       <View style={{ alignItems: "center", gap: space[2] }}>
         <Pressable onPress={resend}>
-          <Text style={[type.small, { color: colors.ink, fontFamily: font.semibold, textDecorationLine: "underline" }]}>{resent ? "Sent again" : "Send a new code"}</Text>
+          <Text style={[type.bodySm, { color: c.ink, fontFamily: font.body.semibold, textDecorationLine: "underline" }]}>{resent ? "Sent again" : "Send a new code"}</Text>
         </Pressable>
       </View>
     </AuthShell>

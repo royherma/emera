@@ -1,61 +1,43 @@
 import { useRef, useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Platform, Pressable, ScrollView, Text, View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Avatar } from "@/components/Avatar";
 import { Icon } from "@/components/Icon";
-import { MediaFull } from "@/components/Media";
+import { IndexChip, MediaFull, SignedMark } from "@/components/Media";
 import { Screen } from "@/components/Screen";
-import { Button, ErrorState, IconButton, Pulse } from "@/components/ui";
+import { CategoryTag, ErrorState, IconButton, Pulse, sunGradient } from "@/components/ui";
+import { usePostMenu } from "@/components/postMenu";
 import { api } from "@/lib/api";
 import { fullDate, shortHash, timeAgo } from "@/lib/format";
 import { useLayout } from "@/lib/layout";
-import { confirmAsk, shareLink } from "@/lib/share";
-import { colors, font, radius, space, type } from "@/lib/theme";
-import { useAuth } from "@/state/auth";
+import { alpha, creatorColors, elevation, radius, space, type } from "@/lib/theme";
 import { useResource } from "@/state/resource";
-import { useToast } from "@/state/toast";
+import { useTheme } from "@/state/theme";
 
 export default function PostDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const toast = useToast();
-  const { user } = useAuth();
+  const { c, scheme } = useTheme();
   const { inner, wide } = useLayout();
   const { data: post, error, retry } = useResource(() => api.post(id), `post:${id}`);
   const [index, setIndex] = useState(0);
   const pager = useRef<any>(null);
-  const [deleting, setDeleting] = useState(false);
+
+  const back = () => (router.canGoBack() ? router.back() : router.replace("/feed"));
+  const menu = usePostMenu(back);
 
   const mediaW = wide ? Math.min(640, Math.floor(inner * 0.6)) : inner;
   const first = post?.media[0];
-  const ratio = first ? Math.min(1.25, Math.max(0.75, first.width / first.height)) : 0.9;
+  const ratio = first ? Math.min(1.3, Math.max(0.8, first.width / first.height)) : 0.9;
   const mediaH = Math.round(mediaW / ratio);
-  const own = !!post && user?.id === post.author.id;
-
-  const back = () => (router.canGoBack() ? router.back() : router.replace("/feed"));
-  const share = async () => {
-    if (!post) return;
-    const r = await shareLink(post.url, `A post by @${post.author.handle}`);
-    if (r === "copied") toast("Link copied");
-  };
-  const remove = () =>
-    confirmAsk("Delete this post?", "It will be removed for everyone. This can't be undone.", "Delete", async () => {
-      setDeleting(true);
-      try {
-        await api.deletePost(id);
-        back();
-      } finally {
-        setDeleting(false);
-      }
-    });
-
   const proof = first?.proof;
 
   return (
     <Screen maxWidth={wide ? 1180 : 680}>
-      <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: space[4] }}>
+      <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: space[2] }}>
         <IconButton icon="back" label="Back" onPress={back} />
-        <IconButton icon="share" label="Share" onPress={share} />
+        {post ? <IconButton icon="dots" label="More" onPress={() => menu(post)} /> : <View style={{ width: 44 }} />}
       </View>
       {error && !post ? (
         <ErrorState message={error} onRetry={retry} />
@@ -64,65 +46,77 @@ export default function PostDetail() {
           <View style={{ width: mediaW }}>
             {post ? (
               <>
-                <ScrollView
-                  ref={pager}
-                  horizontal
-                  pagingEnabled
-                  showsHorizontalScrollIndicator={false}
-                  scrollEnabled={post.media.length > 1}
-                  onMomentumScrollEnd={(e) => setIndex(Math.round(e.nativeEvent.contentOffset.x / mediaW))}
-                  style={{ borderRadius: radius.lg, width: mediaW }}
-                >
-                  {post.media.map((m) => (
-                    <MediaFull key={m.id} media={m} style={{ width: mediaW, height: mediaH }} />
-                  ))}
-                </ScrollView>
+                <View style={[{ width: mediaW, height: mediaH, borderRadius: radius.media, overflow: "hidden" }, Platform.OS === "web" ? ({ boxShadow: elevation.media } as object) : null]}>
+                  <ScrollView
+                    ref={pager}
+                    horizontal
+                    pagingEnabled
+                    showsHorizontalScrollIndicator={false}
+                    scrollEnabled={post.media.length > 1}
+                    onMomentumScrollEnd={(e) => setIndex(Math.round(e.nativeEvent.contentOffset.x / mediaW))}
+                  >
+                    {post.media.map((m) => (
+                      <MediaFull key={m.id} media={m} style={{ width: mediaW, height: mediaH }} />
+                    ))}
+                  </ScrollView>
+                  <View pointerEvents="none" style={{ position: "absolute", left: 12, top: 12 }}>
+                    <SignedMark />
+                  </View>
+                  {post.media.length > 1 && (
+                    <View pointerEvents="none" style={{ position: "absolute", right: 12, top: 12 }}>
+                      <IndexChip index={index + 1} total={post.media.length} />
+                    </View>
+                  )}
+                </View>
                 {post.media.length > 1 && (
-                  <View style={{ flexDirection: "row", justifyContent: "center", gap: 8, marginTop: space[3] }}>
+                  <View style={{ flexDirection: "row", justifyContent: "center", gap: 6, marginTop: space[3] }}>
                     {post.media.map((m, i) => (
-                      <Pressable key={m.id} accessibilityLabel={`Show item ${i + 1}`} onPress={() => (pager.current?.scrollTo({ x: i * mediaW, animated: true }), setIndex(i))} hitSlop={8}>
-                        <View style={{ width: i === index ? 22 : 8, height: 8, borderRadius: 99, backgroundColor: i === index ? colors.ink : colors.lineStrong }} />
+                      <Pressable key={m.id} accessibilityLabel={`Show item ${i + 1}`} onPress={() => (pager.current?.scrollTo({ x: i * mediaW, animated: true }), setIndex(i))} hitSlop={10}>
+                        <View style={{ width: i === index ? 20 : 6, height: 6, borderRadius: 3, backgroundColor: i === index ? c.sun : c.hair }} />
                       </Pressable>
                     ))}
                   </View>
                 )}
               </>
             ) : (
-              <Pulse style={{ width: mediaW, height: mediaH, borderRadius: radius.lg }} />
+              <Pulse style={{ width: mediaW, height: mediaH, borderRadius: radius.media }} />
             )}
           </View>
 
           <View style={{ flex: 1, width: "100%", gap: space[4] }}>
             {post ? (
               <>
-                <Pressable onPress={() => router.push({ pathname: "/u/[handle]", params: { handle: post.author.handle } })} style={{ flexDirection: "row", alignItems: "center", gap: space[3] }}>
-                  <Avatar user={post.author} size={48} />
+                <Pressable accessibilityRole="link" onPress={() => router.push({ pathname: "/u/[handle]", params: { handle: post.author.handle } })} style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+                  <Avatar user={post.author} size={44} />
                   <View style={{ flex: 1 }}>
-                    <Text style={{ fontFamily: font.semibold, fontSize: 16, color: colors.ink }}>{post.author.displayName}</Text>
-                    <Text style={[type.small, { color: colors.muted }]}>@{post.author.handle} · {timeAgo(post.createdAt)}</Text>
+                    <Text style={[type.name, { fontSize: 15, color: c.ink }]}>{post.author.displayName}</Text>
+                    <Text style={[type.meta, { color: c.ink3 }]}>@{post.author.handle} · {timeAgo(post.createdAt)}</Text>
                   </View>
                 </Pressable>
-                {post.caption ? <Text style={[type.body, { color: colors.ink, fontSize: 18, lineHeight: 28 }]}>{post.caption}</Text> : null}
+                {post.caption ? <Text style={[type.title, { fontFamily: type.body.fontFamily, fontSize: 17, lineHeight: 25, letterSpacing: 0, color: c.ink }]}>{post.caption}</Text> : null}
+                {post.author.category ? <CategoryTag label={post.author.category} color={creatorColors(post.author.handle).from} /> : null}
                 {proof && (
-                  <View style={{ borderRadius: radius.md, backgroundColor: colors.accent2Soft, padding: space[4], gap: space[2] }}>
-                    <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-                      <Icon name="shield" size={20} color={colors.accent2} strokeWidth={2.2} />
-                      <Text style={{ fontFamily: font.semibold, fontSize: 15, color: colors.accent2 }}>Signed by @{proof.signer.replace(/^@/, "")}</Text>
+                  <View
+                    style={[
+                      { flexDirection: "row", gap: space[3], alignItems: "center", borderRadius: radius.proof, padding: space[3], paddingRight: space[4], backgroundColor: scheme === "day" ? c.surface : alpha(c.sun, 0.12), borderWidth: 1, borderColor: scheme === "day" ? c.hair : alpha(c.sun, 0.2) },
+                    ]}
+                  >
+                    <LinearGradient colors={sunGradient} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={{ width: 38, height: 38, borderRadius: 19, alignItems: "center", justifyContent: "center" }}>
+                      <Icon name="shield" size={20} color={c.onSun} strokeWidth={2} />
+                    </LinearGradient>
+                    <View style={{ flex: 1, gap: 1 }}>
+                      <Text style={[type.name, { color: c.ink }]}>Made by {post.author.displayName}</Text>
+                      <Text style={[type.meta, { color: c.ink2 }]}>Signed {fullDate(proof.signedAt)}</Text>
+                      <Text style={[type.meta, { fontSize: 11, color: c.ink3 }]}>Fingerprint {shortHash(proof.sha256)}</Text>
                     </View>
-                    <Text style={[type.small, { color: colors.muted }]}>{fullDate(proof.signedAt)}</Text>
-                    <Text style={[type.small, { color: colors.faint, fontFamily: font.medium }]}>Fingerprint {shortHash(proof.sha256)}</Text>
                   </View>
                 )}
-                <View style={{ flexDirection: "row", gap: space[2], flexWrap: "wrap" }}>
-                  <Button label="Share" icon="share" kind="secondary" onPress={share} />
-                  {own && <Button label="Delete" icon="trash" kind="danger" busy={deleting} onPress={remove} />}
-                </View>
               </>
             ) : (
               <>
-                <Pulse style={{ height: 48, width: 220 }} />
-                <Pulse style={{ height: 60 }} />
-                <Pulse style={{ height: 96 }} />
+                <Pulse style={{ height: 44, width: 220 }} />
+                <Pulse style={{ height: 52 }} />
+                <Pulse style={{ height: 66 }} />
               </>
             )}
           </View>
