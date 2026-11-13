@@ -41,11 +41,18 @@ export function cuesFrom(segments: Segment[], offset: number): Cue[] {
       cues.push({ start: offset + group[0].start, end: offset + group[group.length - 1].end, text: group.map((w) => w.word.trim()).join(' ') });
       group = [];
     };
-    for (const w of words) {
-      if (group.length >= CUE_WORDS || (group.length && w.end - group[0].start > CUE_SECONDS)) flush();
+    const ends = (w: Word) => /[.!?]$/.test(w.word.trim());
+    const tail = (i: number) => {
+      let n = 0;
+      for (let j = i; j < words.length; j++) if ((n++, ends(words[j]))) break;
+      return n;
+    };
+    words.forEach((w, i) => {
+      const full = group.length >= CUE_WORDS || (group.length > 0 && w.end - group[0].start > CUE_SECONDS);
+      if (full && tail(i) > 2) flush();
       group.push(w);
-      if (/[.!?]$/.test(w.word.trim())) flush();
-    }
+      if (ends(w)) flush();
+    });
     flush();
   }
   return cues;

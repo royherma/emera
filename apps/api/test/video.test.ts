@@ -140,10 +140,11 @@ describe('video captions', () => {
   it('splits what was said into short cues and drops silence', () => {
     const w = (word: string, start: number) => ({ word, start, end: start + 0.3 });
     const cues = cuesFrom([
-      { start: 0, end: 4, text: 'Hi there. This is my first ever video on here', words: [w('Hi', 0), w('there.', 0.4), ...'This is my first ever video on here'.split(' ').map((x, i) => w(x, 1 + i * 0.4))] },
-      { start: 5, end: 6, text: 'Thank you.', no_speech_prob: 0.9 },
+      { start: 0, end: 6, text: 'Hi there. This is my first ever video on here and I love it', words: [w('Hi', 0), w('there.', 0.4), ...'This is my first ever video on here and I love it'.split(' ').map((x, i) => w(x, 1 + i * 0.4))] },
+      { start: 7, end: 9, text: 'It took me a whole week to film.', words: 'It took me a whole week to film.'.split(' ').map((x, i) => w(x, 7 + i * 0.25)) },
+      { start: 9, end: 10, text: 'Thank you.', no_speech_prob: 0.9 },
     ], 60);
-    expect(cues.map((c) => c.text)).toEqual(['Hi there.', 'This is my first ever video on', 'here']);
+    expect(cues.map((c) => c.text)).toEqual(['Hi there.', 'This is my first ever video on', 'here and I love it', 'It took me a whole week to film.']);
     expect(cues[0].start).toBe(60);
   });
 

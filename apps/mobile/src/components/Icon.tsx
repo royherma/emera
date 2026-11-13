@@ -30,6 +30,7 @@ const paths = {
   sound: "M11 5 6 9H3v6h3l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13",
   muted: "M11 5 6 9H3v6h3l5 4zM16 9l6 6M22 9l-6 6",
   chat: "M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-8.5L6 20v-4H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z",
+  captions: "M5 5.5h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2zM10.6 10.3a2.2 2.2 0 1 0 0 3.4M17.1 10.3a2.2 2.2 0 1 0 0 3.4",
 } as const;
 
 export type IconName = keyof typeof paths | "dots" | "play";
