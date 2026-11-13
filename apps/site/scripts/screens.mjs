@@ -83,7 +83,7 @@ const post = (th) => `<div class="scr ${th}">${sb}
 <div class="media big">${img("lettering")}${signed}</div></div>
 <div class="acts" style="padding:9px 18px 2px"><span>${I("heart")}1.2k</span><span>${I("chat")}144</span><span>${I("repeat")}97</span><span class="sv">${I("bookmark")}</span></div>
 <div class="pt"><b>Burn the boats, in brush and ink</b><p>28 letters, drawn in one sitting.</p></div>
-<div class="proof"><span class="seal">${I("shield")}</span><div><b>Made by Nour Letters, a verified human</b><span>Signed 13 Nov 2026, original</span><small>Photo: SevenSeventyFive, CC BY</small></div><a class="rep">${I("flag")}Report a copy</a></div>
+<div class="proof"><span class="seal">${I("shield")}</span><div><b>Made by Nour Letters, a verified human</b><span>Signed 13 Nov 2026, original</span><small>Photo: SevenSeventyFive, CC BY</small></div></div>
 <div class="why">${I("eye")}Seen because you follow Sabine Aquarelle, who reposted it</div>
 <div class="reps"><div class="rp">${av("mural", 26)}<div><div class="who"><b>Kofi Walls</b>${ver}<span class="tm">8m</span></div><p>Those serifs breathe. Is this one pass or two?</p></div></div></div>
 <div class="comp"><span class="rpl">Reply to Nour</span><i>${I("send")}</i></div></div>`;

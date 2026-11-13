@@ -140,7 +140,10 @@ function render() {
   for (const a of plan.asks ?? []) { const d = el('div', 'ask'); const b = el('b', '', a.title); b.append(el('i', '', a.when)); d.append(b, el('span', '', a.why)); as.append(d); }
   const decs = $('decs'); decs.replaceChildren();
   if (!plan.decisions.length) decs.append(el('div', 'empty', 'Filling in...'));
-  for (const d of plan.decisions) {
+  const decided = plan.decisions.filter((d) => d.pick && d.id !== 'logo');
+  const open = plan.decisions.filter((d) => !decided.includes(d));
+  if (decided.length) { const box = el('div', 'dec'); box.append(el('b', '', `Decided (${decided.length})`), el('p', '', decided.map((d) => `${d.q.replace('?', '')}: ${d.options.find((o) => o.id === d.pick)?.label}`).join(' · '))); decs.append(box); }
+  for (const d of open) {
     const box = el('div', 'dec');
     box.append(el('b', '', d.q), el('p', '', d.why));
     const chips = el('div', 'chips');

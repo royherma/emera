@@ -1,19 +1,19 @@
 {
- "builtAt": "2026-11-13T04:50:15.523Z",
+ "builtAt": "2026-11-13T04:52:09.146Z",
  "git": {
-  "sha": "d23d5be",
+  "sha": "79a111f",
   "dirty": true,
   "branch": "main"
  },
  "summary": {
-  "screens": 15,
+  "screens": 16,
   "endpoints": 23,
   "tables": 7,
   "lexicons": 4,
   "stories": 18,
   "edges": 83,
-  "coverage": 89,
-  "stepsBuilt": 49,
+  "coverage": 92,
+  "stepsBuilt": 50,
   "stepsCounted": 55
  },
  "screens": [
@@ -202,24 +202,11 @@
     {
      "platform": "web",
      "text": "wide layout at >= 900px, tabs become a left sidebar"
-    },
-    {
-     "platform": "web",
-     "text": "share copies the link"
-    },
-    {
-     "platform": "ios",
-     "text": "share opens the native share sheet"
-    },
-    {
-     "platform": "android",
-     "text": "share opens the native share sheet"
     }
    ],
    "apiCalls": [
     "uploadMedia",
-    "createPost",
-    "deletePost"
+    "createPost"
    ],
    "nav": [
     "/p/:id"
@@ -232,7 +219,12 @@
    "group": null,
    "shell": true,
    "access": "always",
-   "notes": [],
+   "notes": [
+    {
+     "platform": "web",
+     "text": "wide layout at >= 900px"
+    }
+   ],
    "apiCalls": [
     "me",
     "logout"
@@ -293,6 +285,26 @@
    "nav": [
     "/feed",
     "/u/:handle"
+   ]
+  },
+  {
+   "surface": "app",
+   "route": "/report",
+   "file": "apps/mobile/src/app/report.tsx",
+   "group": null,
+   "shell": false,
+   "access": "signed in",
+   "notes": [
+    {
+     "platform": "web",
+     "text": "wide layout at >= 900px"
+    }
+   ],
+   "apiCalls": [
+    "report"
+   ],
+   "nav": [
+    "/feed"
    ]
   },
   {
@@ -1834,11 +1846,6 @@
   },
   {
    "from": "screen:app:/upload",
-   "to": "ep:DELETE /v1/posts/:id",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/upload",
    "to": "screen:app:/p/:id",
    "kind": "navigates"
   },
@@ -1870,6 +1877,11 @@
   {
    "from": "screen:app:/p/:id",
    "to": "screen:app:/u/:handle",
+   "kind": "navigates"
+  },
+  {
+   "from": "screen:app:/report",
+   "to": "screen:app:/feed",
    "kind": "navigates"
   },
   {
@@ -3219,8 +3231,8 @@
      "say": "Open my post and tap Report a copy",
      "screen": "/report",
      "i": 0,
-     "status": "missing",
-     "screenState": "missing",
+     "status": "built",
+     "screenState": "ok",
      "epState": null,
      "problems": [],
      "data": {
@@ -3242,8 +3254,8 @@
       "auth"
      ],
      "i": 1,
-     "status": "missing",
-     "screenState": "missing",
+     "status": "partial",
+     "screenState": "ok",
      "epState": "missing",
      "problems": [],
      "data": {
@@ -3294,8 +3306,8 @@
      ]
     }
    ],
-   "coverage": 0,
-   "built": 0,
+   "coverage": 50,
+   "built": 1,
    "counted": 3
   },
   {
@@ -3814,19 +3826,6 @@
    ],
    "steps": [
     "report-a-copy#2"
-   ],
-   "blocks": 1
-  },
-  {
-   "key": "screen:app:/report",
-   "kind": "screen",
-   "label": "screen /report",
-   "stories": [
-    "report-a-copy"
-   ],
-   "steps": [
-    "report-a-copy#0",
-    "report-a-copy#1"
    ],
    "blocks": 1
   }
