@@ -99,6 +99,7 @@ async function run() {
     const atlas = JSON.parse(readFileSync(R('data/atlas.json'), 'utf8'));
     const facts = mockFacts();
     const targets = atlas.screens.filter((s) => !s.shell);
+    const forwardsOnly = new Set(targets.filter((s) => s.file && /^\s*return\s*<Redirect\b/m.test(readFileSync(R(s.file), 'utf8')) && !/<(View|Screen|Text)\b/.test(readFileSync(R(s.file), 'utf8'))).map((s) => s.route));
     const shell = atlas.screens.filter((s) => s.shell).map((s) => ({ key: `${s.surface}:${s.route}`, route: s.route, reason: 'no screen of its own, it wraps every route' }));
 
     const out = R('data/atlas-shots');
@@ -108,15 +109,23 @@ async function run() {
     const byRoute = (r) => targets.find((s) => s.surface === 'app' && s.route === r);
 
     const browser = await chromium.launch({ headless: true });
-    for (const theme of themes) for (const vp of Object.keys(VIEWPORTS)) {
+    const jobs = [];
+    for (const theme of themes) for (const vp of Object.keys(VIEWPORTS)) jobs.push((async () => {
       const tag = `${vp}-${theme}`;
+      const tagStart = Date.now();
       const ctx = await browser.newContext({ viewport: VIEWPORTS[vp], colorScheme: theme === 'night' ? 'dark' : 'light', deviceScaleFactor: 1, hasTouch: vp === 'phone' });
       if (themeSwitch) await ctx.addInitScript((t) => { try { localStorage.setItem('settings.theme', t); } catch {} }, theme);
       const page = await ctx.newPage();
       page.on('pageerror', (e) => log(`page error (${tag}): ${String(e).slice(0, 120)}`));
 
       const snap = async (s, name = null, note = null) => {
+        const want = new RegExp(`^${s.route.replace(/:\w+/g, '[^/]+')}/?$`);
+        const at = new URL(page.url()).pathname;
         const e = entryFor(s);
+        if (!want.test(at)) {
+          if (!forwardsOnly.has(s.route)) throw new Error(`landed on ${at}, not ${s.route}`);
+          e.forwardsTo = at;
+        }
         const dir = join(out, e.slug);
         mkdirSync(dir, { recursive: true });
         const file = name ? `${name}-${tag}.png` : `${tag}.png`;
@@ -217,7 +226,25 @@ async function run() {
         if (s) await attempt(route, async () => { await go(page, path); await snap(s); });
       }
       const up = byRoute('/upload');
-      if (up) await attempt('/upload', async () => { await go(page, '/upload'); await snap(up, 'empty', 'nothing chosen yet'); await snap(up); });
+      if (up) await attempt('/upload', async () => {
+        await go(page, '/upload');
+        await snap(up);
+        const chooser = page.waitForEvent('filechooser', { timeout: 5000 });
+        await page.getByText('Choose photos or video', { exact: true }).first().click({ timeout: 4000 });
+        await (await chooser).setFiles([R('brand/content/ceramics.jpg'), R('tools/atlas/fixtures/clip.mp4')]);
+        await settle(page, 1500);
+        await snap(up, 'picked', 'a photo and a video chosen');
+        await page.getByPlaceholder('Tell people about it').first().fill('Glaze test, second firing');
+        const posts = page.getByRole('button', { name: /^post$/i });
+        const widths = await posts.evaluateAll((els) => els.map((e) => e.getBoundingClientRect().width));
+        await posts.nth(widths.indexOf(Math.max(...widths))).click({ timeout: 4000 });
+        await page.waitForTimeout(150);
+        await snap(up, 'posting', 'the post button while it uploads');
+        await page.waitForURL(/\/p\//, { timeout: 15000 });
+        await settle(page, 1500);
+        const p = byRoute('/p/:id');
+        if (p) await snap(p, 'published', 'the post just made');
+      });
       const post = byRoute('/p/:id');
       if (post) await attempt('/p/:id', async () => {
         await go(page, `/p/${postId}`);
@@ -238,9 +265,23 @@ async function run() {
         await settle(page, 1200);
         await snap(rep, 'error', 'a link that is not a link');
       });
+      const fill = (r) => r.replace(':id', postId).replace(':handle', postHandle).replace(':code', facts.invite);
+      for (const s of targets.filter((x) => x.surface === 'app' && !index.screens[`app:${x.route}`]?.shots?.[tag])) {
+        await attempt(s.route, async () => {
+          const path = s.route === '/flag' ? `/flag?id=${postId}` : fill(s.route);
+          await go(page, path);
+          await snap(s);
+          if (/:/.test(s.route)) index.params[s.route] = path;
+        });
+      }
       await ctx.close();
-      phase(tag);
-    }
+      tagPhases.push({ name: tag, ms: Date.now() - tagStart });
+      log(`done ${tag} in ${((Date.now() - tagStart) / 1000).toFixed(1)}s`);
+    })());
+    const tagPhases = [];
+    await Promise.all(jobs);
+    phases.push(...tagPhases.sort((a, b) => a.name.localeCompare(b.name)));
+    phase('all captures (in parallel)');
     await browser.close();
 
     let count = 0;
