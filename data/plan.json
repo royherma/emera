@@ -1127,26 +1127,26 @@
     },
     {
       "name": "Small fixes: share card, oEmbed, RSS/Atom feeds",
-      "state": "running",
-      "note": "building in apps/api, tests + local curl next",
+      "state": "done",
+      "note": "live: emera.social/p/<id>/card.png, /oembed, /embed/<id>, /feed.xml, /@handle/feed.xml",
       "owner": "claude 5916c143"
     },
     {
       "name": "Small fixes: CI migration replay, lexicon tests, pre-commit hook, CONTRIBUTING check",
-      "state": "running",
-      "note": "building, CI + fresh clone run next",
+      "state": "done",
+      "note": "merged 6350080: migrations replay + lexicon golden tests in CI, pre-commit hook, CONTRIBUTING fixed on a fresh clone",
       "owner": "claude 5916c143"
     },
     {
       "name": "Small fixes: mobile unit tests + installable web app",
       "state": "done",
-      "note": "merged 48c88c9: 24 tests pass, installs as an app, works offline; goes live with the next app deploy",
+      "note": "live on app.emera.social: installs as an app, works offline; 24 unit tests in CI",
       "owner": "claude 5916c143"
     },
     {
       "name": "Small fixes: public cost page on emera.social",
-      "state": "running",
-      "note": "building in apps/site, real numbers only",
+      "state": "done",
+      "note": "live: emera.social/costs, linked in every footer",
       "owner": "claude 5916c143"
     }
   ],
@@ -1641,7 +1641,12 @@
       "answer": "no",
       "text": "Not posting them - we build them ourselves (Roy, 18:28)",
       "at": "2026-11-13T11:29:27.911Z",
-      "progress": []
+      "progress": [],
+      "done": {
+        "at": "2026-11-13T11:47:45.905Z",
+        "ref": "f782e57",
+        "note": "All 10 built, merged and live on emera.social (share card, embeds, feeds, /costs, app installs and works offline, CI + hook + CONTRIBUTING fixed). Digital-frame stays for contributors."
+      }
     },
     {
       "id": "stripe-emera",
