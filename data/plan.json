@@ -166,7 +166,8 @@
           "id": "m0-connect",
           "text": "Connect your Claude to Emera and bring your posts over",
           "who": "roy",
-          "review": "connect-ai"
+          "review": "connect-ai",
+          "done": true
         },
         {
           "id": "a8",
@@ -1304,8 +1305,14 @@
           "label": "Later"
         }
       ],
-      "answer": null,
-      "text": null
+      "answer": "done",
+      "text": null,
+      "at": "2026-11-13T12:25:26.308Z",
+      "done": {
+        "at": "2026-11-13T12:25:26.308Z",
+        "ref": "prod sessions: Claude token for @techguyver",
+        "note": "claude.ai connected 19:25 Bangkok"
+      }
     },
     {
       "id": "handles",
