@@ -1,19 +1,19 @@
 {
- "builtAt": "2026-11-13T04:33:35.928Z",
+ "builtAt": "2026-11-13T04:36:34.435Z",
  "git": {
-  "sha": "25bbbf0",
+  "sha": "789c4c0",
   "dirty": true,
   "branch": "main"
  },
  "summary": {
-  "screens": 13,
+  "screens": 14,
   "endpoints": 23,
   "tables": 7,
   "lexicons": 4,
   "stories": 18,
   "edges": 76,
-  "coverage": 87,
-  "stepsBuilt": 47,
+  "coverage": 89,
+  "stepsBuilt": 49,
   "stepsCounted": 55
  },
  "screens": [
@@ -184,6 +184,17 @@
    "surface": "app",
    "route": "/",
    "file": "apps/mobile/src/app/index.tsx",
+   "group": null,
+   "shell": false,
+   "access": "any",
+   "notes": [],
+   "apiCalls": [],
+   "nav": []
+  },
+  {
+   "surface": "app",
+   "route": "/invite/:code",
+   "file": "apps/mobile/src/app/invite/[code].tsx",
    "group": null,
    "shell": false,
    "access": "any",
@@ -1366,7 +1377,8 @@
     }
    ],
    "fields": [
-    "email"
+    "email",
+    "invite"
    ],
    "mock": true,
    "file": "apps/mobile/src/lib/http.ts",
@@ -1398,8 +1410,7 @@
    ],
    "fields": [
     "handle",
-    "displayName",
-    "inviteCode"
+    "displayName"
    ],
    "mock": true,
    "file": "apps/mobile/src/lib/http.ts",
@@ -2096,12 +2107,10 @@
       "table:login_codes"
      ],
      "i": 2,
-     "status": "partial",
+     "status": "built",
      "screenState": "ok",
      "epState": "ok",
-     "problems": [
-      "missing: invite sent by the app and read by the API"
-     ],
+     "problems": [],
      "data": {
       "tables": [
        "users",
@@ -2163,8 +2172,8 @@
      ]
     }
    ],
-   "coverage": 90,
-   "built": 4,
+   "coverage": 100,
+   "built": 5,
    "counted": 5
   },
   {
@@ -3599,12 +3608,10 @@
       "sends:invite"
      ],
      "i": 2,
-     "status": "partial",
+     "status": "built",
      "screenState": null,
      "epState": "ok",
-     "problems": [
-      "missing: invite sent by the app and read by the API"
-     ],
+     "problems": [],
      "data": {
       "tables": [
        "users",
@@ -3620,26 +3627,12 @@
      ]
     }
    ],
-   "coverage": 75,
-   "built": 1,
+   "coverage": 100,
+   "built": 2,
    "counted": 2
   }
  ],
  "missing": [
-  {
-   "key": "expect:POST /v1/auth/start:sends:invite",
-   "kind": "detail",
-   "label": "invite sent by the app and read by the API on POST /v1/auth/start",
-   "stories": [
-    "join-with-invite",
-    "team-seed-invites"
-   ],
-   "steps": [
-    "join-with-invite#2",
-    "team-seed-invites#2"
-   ],
-   "blocks": 2
-  },
   {
    "key": "endpoint:GET /api/early/list",
    "kind": "endpoint",
@@ -3726,28 +3719,7 @@
    "blocks": 1
   }
  ],
- "drift": [
-  {
-   "method": "authStart",
-   "endpoint": "POST /v1/auth/start",
-   "sentButIgnored": [],
-   "readButNeverSent": [
-    "invite"
-   ],
-   "file": "apps/mobile/src/lib/http.ts",
-   "line": 28
-  },
-  {
-   "method": "setHandle",
-   "endpoint": "POST /v1/auth/handle",
-   "sentButIgnored": [
-    "inviteCode"
-   ],
-   "readButNeverSent": [],
-   "file": "apps/mobile/src/lib/http.ts",
-   "line": 30
-  }
- ],
+ "drift": [],
  "unmapped": {
   "endpoints": [
    "GET /health",
@@ -3755,6 +3727,7 @@
   ],
   "screens": [
    "/",
+   "/invite/:code",
    "/u/:handle"
   ],
   "tables": []

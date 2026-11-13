@@ -25,7 +25,7 @@ async function send<T>(method: string, path: string, body?: unknown): Promise<T>
 }
 
 export const http: Backend = {
-  authStart: async (email) => void (await send("POST", "/v1/auth/start", { email })),
+  authStart: async (email, invite) => void (await send("POST", "/v1/auth/start", { email, invite })),
   authVerify: (email, code) => send("POST", "/v1/auth/verify", { email, code }),
   setHandle: async (input) => (await send<{ user: User }>("POST", "/v1/auth/handle", input)).user,
   me: async () => (await send<{ user: User }>("GET", "/v1/me")).user,

@@ -33,9 +33,9 @@ export class ApiError extends Error {
 }
 
 export interface Backend {
-  authStart(email: string): Promise<void>;
+  authStart(email: string, invite?: string): Promise<void>;
   authVerify(email: string, code: string): Promise<{ token: string; user: User; isNew: boolean }>;
-  setHandle(input: { handle: string; displayName: string; inviteCode?: string }): Promise<User>;
+  setHandle(input: { handle: string; displayName: string }): Promise<User>;
   me(): Promise<User>;
   logout(): Promise<void>;
   feed(cursor?: string | null): Promise<{ posts: Post[]; cursor: string | null }>;

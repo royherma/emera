@@ -9,7 +9,7 @@ import { ApiError } from "@/lib/types";
 import { useAuth } from "@/state/auth";
 
 export default function Code() {
-  const { email = "" } = useLocalSearchParams<{ email: string }>();
+  const { email = "", invite = "" } = useLocalSearchParams<{ email: string; invite?: string }>();
   const router = useRouter();
   const { signIn } = useAuth();
   const [code, setCode] = useState("");
@@ -39,7 +39,7 @@ export default function Code() {
 
   const resend = async () => {
     try {
-      await api.authStart(email);
+      await api.authStart(email, invite || undefined);
       setResent(true);
     } catch (e) {
       setError(e instanceof ApiError ? e.message : "Couldn't resend. Try again.");

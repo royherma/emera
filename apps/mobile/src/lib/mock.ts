@@ -99,9 +99,14 @@ export const mock: Backend & { _setToken: (t: string | null) => void } = {
   _setToken: (t) => {
     token = t;
   },
-  async authStart(email) {
+  async authStart(email, invite) {
     await wait();
     if (!/^\S+@\S+\.\S+$/.test(email)) throw new ApiError("bad_email", "That email doesn't look right.");
+    if (invitesRequired && !emails.has(email)) {
+      const code = (invite ?? "").trim().toUpperCase();
+      if (!code) throw new ApiError("invite_required", `${brand.name} is invite-only right now. Enter an invite code from a friend.`);
+      if (!invites.has(code)) throw new ApiError("invite_invalid", "That invite is not valid or was already used.");
+    }
   },
   async authVerify(email, code) {
     await wait();
@@ -119,12 +124,9 @@ export const mock: Backend & { _setToken: (t: string | null) => void } = {
     token = t;
     return { token: t, user, isNew };
   },
-  async setHandle({ handle, displayName, inviteCode }) {
+  async setHandle({ handle, displayName }) {
     await wait();
     const me = current();
-    if (invitesRequired && !invites.has((inviteCode ?? "").trim().toUpperCase())) {
-      throw new ApiError("invite_required", `${brand.name} is invite-only right now. Enter an invite code from a friend.`);
-    }
     if (!HANDLE_RE.test(handle)) throw new ApiError("bad_handle", "Use 3 to 20 letters, numbers or underscores.");
     if (users.has(handle)) throw new ApiError("handle_taken", `@${handle} is taken. Try another.`);
     users.delete(`pending_${me.id}`);
