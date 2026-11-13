@@ -22,3 +22,26 @@ export async function sendCode(env: Env, email: string, code: string): Promise<v
   });
   if (!res.ok) throw new Error(`resend ${res.status}: ${(await res.text()).slice(0, 200)}`);
 }
+
+export async function sendReportToTeam(
+  env: Env,
+  r: { id: string; postId: string; url: string; note: string; reporter: string },
+): Promise<void> {
+  if (!env.REPORTS_TO) return;
+  const text = `Copy report ${r.id}\nPost: ${r.postId}\nReporter: ${r.reporter}\nCopy found at: ${r.url}\n\n${r.note || '(no note)'}`;
+  if (deliveryFor(env) === 'log') {
+    console.log(`[reports] ${text.replace(/\n/g, ' | ')}`);
+    return;
+  }
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      from: env.MAIL_FROM || `${brand.name} <hello@emera.social>`,
+      to: [env.REPORTS_TO],
+      subject: `Copy report ${r.id}`,
+      text,
+    }),
+  });
+  if (!res.ok) throw new Error(`resend ${res.status}: ${(await res.text()).slice(0, 200)}`);
+}

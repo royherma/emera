@@ -87,6 +87,55 @@ describe('invite gate', () => {
   });
 });
 
+describe('my invites', () => {
+  const env = () => makeEnv({ INVITES_REQUIRED: 'true' });
+
+  it('lists my invites with who joined, and caps how many one person can make', async () => {
+    const founder = new Client(env());
+    await founder.signIn('lister@example.test', 'welcome-dev');
+    await founder.withHandle('lister', 'Lister');
+    expect((await founder.json('GET', '/v1/invites')).body).toEqual({ invites: [], limit: 20 });
+    expect((await new Client(env()).json('GET', '/v1/invites')).status).toBe(401);
+
+    const team = await founder.json('POST', '/v1/invites', { maxUses: 3 });
+    const solo = await founder.json('POST', '/v1/invites');
+    expect((await founder.json('POST', '/v1/invites', { maxUses: 0 })).body.error.code).toBe('bad_max_uses');
+
+    for (const [email, handle] of [['ana@example.test', 'ana'], ['ben@example.test', 'ben']]) {
+      const guest = new Client(env());
+      await guest.signIn(email, team.body.code);
+      await guest.withHandle(handle, handle.toUpperCase());
+    }
+    await new Client(env()).signIn('nohandle@example.test', team.body.code);
+
+    const list = await founder.json('GET', '/v1/invites');
+    expect(list.status).toBe(200);
+    const byCode = Object.fromEntries(list.body.invites.map((i: { code: string }) => [i.code, i]));
+    expect(byCode[team.body.code]).toMatchObject({ url: `${ORIGIN}/invite/${team.body.code}`, uses: 3, maxUses: 3 });
+    expect(byCode[team.body.code].joined).toEqual([{ handle: 'ana', displayName: 'ANA' }, { handle: 'ben', displayName: 'BEN' }]);
+    expect(byCode[solo.body.code]).toMatchObject({ uses: 0, maxUses: 1, joined: [] });
+
+    const other = new Client(env());
+    await other.signIn('other@example.test', solo.body.code);
+    await other.withHandle('other', 'Other');
+    expect((await other.json('GET', '/v1/invites')).body.invites).toEqual([]);
+  });
+
+  it('stops at 20 invites', async () => {
+    const e = env();
+    const founder = new Client(e);
+    await founder.signIn('capper@example.test', 'welcome-dev');
+    const me = await founder.withHandle('capper', 'Capper');
+    const id = me.body.user.id;
+    for (let i = 0; i < 20; i++) {
+      await e.DB.prepare('INSERT INTO invites (code, created_by, created_at) VALUES (?, ?, ?)').bind(`old${i}`.padEnd(8, 'x'), id, Date.now() - 3 * 86_400_000).run();
+    }
+    const over = await founder.json('POST', '/v1/invites');
+    expect(over.status).toBe(409);
+    expect(over.body.error.code).toBe('invite_limit');
+  });
+});
+
 describe('uploads, posts, profiles, pages', () => {
   it('uploads an image, reads it back, posts it, and serves profile JSON and pages', async () => {
     const c = new Client();
@@ -188,5 +237,46 @@ describe('uploads, posts, profiles, pages', () => {
     expect(up.body.media.sha256).toBe(Buffer.from(await crypto.subtle.digest('SHA-256', mp4)).toString('hex'));
     const back = await app.fetch(new Request(up.body.media.url), c.env);
     expect(new Uint8Array(await back.arrayBuffer())).toEqual(mp4);
+  });
+});
+
+describe('reports', () => {
+  async function authorWithPost(email: string, handle: string) {
+    const c = new Client();
+    await c.signIn(email);
+    await c.withHandle(handle);
+    const up = await c.upload(pngBytes(16, 16));
+    const post = await c.json('POST', '/v1/posts', { mediaIds: [up.body.media.id], caption: 'mine' });
+    return { c, postId: post.body.post.id as string };
+  }
+
+  it('lets the author report a copy and lists only their own reports', async () => {
+    const { c, postId } = await authorWithPost('rep-author@example.test', 'rep_author');
+    const r = await c.json('POST', '/v1/reports', { postId, url: 'https://copycat.example/pic', note: ' stole it ' });
+    expect(r.status).toBe(201);
+    expect(r.body.report).toMatchObject({ status: 'new' });
+    const list = await c.json('GET', '/v1/reports');
+    expect(list.body.reports).toHaveLength(1);
+    expect(list.body.reports[0]).toMatchObject({ postId, url: 'https://copycat.example/pic', note: 'stole it', status: 'new' });
+
+    const other = new Client();
+    await other.signIn('rep-other@example.test');
+    expect((await other.json('GET', '/v1/reports')).body.reports).toEqual([]);
+  });
+
+  it('rejects other people, missing posts, bad urls and signed-out calls', async () => {
+    const { c, postId } = await authorWithPost('rep-a2@example.test', 'rep_a2');
+    const other = new Client();
+    await other.signIn('rep-b2@example.test');
+    expect((await other.json('POST', '/v1/reports', { postId, url: 'https://x.example/a' })).status).toBe(403);
+    expect((await c.json('POST', '/v1/reports', { postId: 'nope', url: 'https://x.example/a' })).status).toBe(404);
+    for (const url of ['ftp://x.example/a', 'javascript:alert(1)', 'not a url', '', 5, 'https://x.example/' + 'a'.repeat(2100)]) {
+      const bad = await c.json('POST', '/v1/reports', { postId, url });
+      expect(bad.status).toBe(400);
+      expect(bad.body.error.code).toBe('bad_url');
+    }
+    expect((await c.json('POST', '/v1/reports', { postId, url: 'https://x.example/a', note: 'n'.repeat(2001) })).status).toBe(400);
+    expect((await new Client().json('POST', '/v1/reports', { postId, url: 'https://x.example/a' })).status).toBe(401);
+    expect((await new Client().json('GET', '/v1/reports')).status).toBe(401);
   });
 });

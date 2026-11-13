@@ -8,6 +8,7 @@ export type Env = {
   PUBLIC_ORIGIN: string;
   RESEND_API_KEY?: string;
   MAIL_FROM?: string;
+  REPORTS_TO?: string;
 };
 
 export type UserRow = {

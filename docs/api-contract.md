@@ -41,6 +41,15 @@ Limits v0: images up to 25 MB (jpeg, png, webp, heic), video up to 200 MB (mp4, 
 
 `post` = `{ id, author: user, caption, media: [media], createdAt, url }`
 
+## Reports (copies of your work)
+
+| Method | Path | Body | Returns |
+| --- | --- | --- | --- |
+| POST | `/v1/reports` | `{ postId, url, note? }` | `201 { report: { id, status } }` |
+| GET | `/v1/reports` | - | `{ reports: [{ id, postId, url, note, status, createdAt }] }` the caller's own, newest first |
+
+Only the post's author can report a copy of it (403 `forbidden` otherwise). `url` must be http(s), up to 2048 characters; `note` up to 2000. Unknown post is 404, bad input 400 (`bad_post`, `bad_url`, `bad_note`). `status` starts as `new`. Each report is also emailed to `REPORTS_TO` when that variable is set.
+
 ## Public pages (served by the API Worker, server-rendered, no login)
 
 | Path | What |
