@@ -84,3 +84,8 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 - **Bit us:** `SIGNIN_LIMIT` set to 5/min let 27 of 30 quick calls pass on staging before the first 429. Cloudflare documents it as permissive and eventually consistent.
 - **Spot it:** a burst test returns mostly non-429 even though the limit is far lower.
 - **Fix:** treat the binding as a soft guard. Hard limits are the zone rate-limit rule (8 per 10 s per IP, api.emera.social and emera.social only, not workers.dev) and the D1 counts in `apps/api/src/limits.ts`.
+
+## 2026-11-13 - `!/assets/*` in the site's `run_worker_first` hides app files
+- What bit us: emera.social serves the site first and hands missing paths to the app worker, but `"!/assets/*"` made Cloudflare answer missing `/assets/...` itself, so the app's fonts (`/assets/node_modules/...`) 404ed and the page rendered blank.
+- How to spot it: app on emera.social loads with no text; 404s on `/assets/node_modules/` in the network list.
+- Fix: keep `/assets/*` out of the exclude list in `apps/site/wrangler.jsonc` so the worker sees the miss and calls `env.APP`.
