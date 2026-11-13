@@ -17,6 +17,7 @@ function fakeStripe(accountId = 'acct_emera') {
   vi.spyOn(globalThis, 'fetch').mockImplementation(async (input, init) => {
     const url = String(input instanceof Request ? input.url : input);
     if (url.endsWith('/v1/account')) return Response.json({ id: accountId });
+    if (url.includes('/v1/promotion_codes/')) return Response.json({ code: 'EMERATEST100' });
     if (url.endsWith('/v1/checkout/sessions')) {
       sent.push({ url, body: new URLSearchParams(String(init?.body)) });
       return Response.json({ id: 'cs_test_1', url: 'https://checkout.stripe.com/c/pay/cs_test_1' });
@@ -48,7 +49,7 @@ const admin = () => {
 };
 
 beforeEach(async () => {
-  await db.batch(['fund_shares', 'fund_months', 'fund_watch', 'sponsorships', 'sponsors'].map((t) => db.prepare(`DELETE FROM ${t}`)));
+  await db.batch(['fund_checkouts', 'fund_shares', 'fund_months', 'fund_watch', 'sponsorships', 'sponsors'].map((t) => db.prepare(`DELETE FROM ${t}`)));
 });
 afterEach(() => vi.restoreAllMocks());
 
@@ -68,6 +69,9 @@ describe('sponsor checkout', () => {
     expect(b.get('metadata[months]')).toBe(monthsFrom(monthOf(Date.now()), 3).join(','));
     expect(b.get('metadata[sponsor_url]')).toBe('https://quillfern.test/');
     expect(b.get('success_url')).toBe('https://site.test/fund/?paid={CHECKOUT_SESSION_ID}#sponsor');
+    expect(b.get('allow_promotion_codes')).toBe('true');
+    const row = await db.prepare('SELECT status, monthly_cents, months FROM fund_checkouts WHERE session_id = ?').bind('cs_test_1').first();
+    expect(row).toEqual({ status: 'started', monthly_cents: 2500, months: 3 });
   });
 
   it('refuses when the key belongs to another Stripe account', async () => {
@@ -126,6 +130,27 @@ describe('stripe webhook', () => {
     expect(await res.json()).toMatchObject({ result: 'refunded' });
     const left = await db.prepare(`SELECT COUNT(*) AS n FROM sponsorships WHERE stripe_session = 'cs_e' AND status != 'refunded'`).first<{ n: number }>();
     expect(left!.n).toBe(0);
+  });
+});
+
+describe('promotion codes and tracking', () => {
+  it('a 100% code books the months at $0 and records the code', async () => {
+    fakeStripe();
+    const m = [monthOf(Date.now())];
+    await db.prepare(`INSERT INTO fund_checkouts (session_id, sponsor_name, email, monthly_cents, months, created_at, updated_at) VALUES ('cs_free', 'Q', 'q@q.test', 2500, 1, 1, 1)`).run();
+    const res = await signed(paidSession('cs_free', m, { payment_status: 'no_payment_required', amount_total: 0, total_details: { amount_discount: 2500 }, discounts: [{ promotion_code: 'promo_1' }] }));
+    expect(await res.json()).toMatchObject({ result: 'booked' });
+    expect(await db.prepare(`SELECT amount_cents, status FROM sponsorships WHERE stripe_session = 'cs_free'`).first()).toEqual({ amount_cents: 0, status: 'paid' });
+    expect(await db.prepare(`SELECT status, amount_total, discount_cents, promo_code FROM fund_checkouts WHERE session_id = 'cs_free'`).first())
+      .toEqual({ status: 'paid', amount_total: 0, discount_cents: 2500, promo_code: 'EMERATEST100' });
+  });
+
+  it('an expired session marks the checkout abandoned', async () => {
+    await db.prepare(`INSERT INTO fund_checkouts (session_id, sponsor_name, email, monthly_cents, months, created_at, updated_at) VALUES ('cs_gone', 'Q', 'q@q.test', 2500, 1, 1, 1)`).run();
+    await signed({ type: 'checkout.session.expired', data: { object: { id: 'cs_gone', metadata: { project: 'emera' } } } });
+    expect(await db.prepare(`SELECT status FROM fund_checkouts WHERE session_id = 'cs_gone'`).first()).toEqual({ status: 'expired' });
+    const list = await admin().json('GET', '/v1/admin/fund/checkouts');
+    expect(list.body.checkouts.map((x: any) => x.session_id)).toContain('cs_gone');
   });
 });
 
