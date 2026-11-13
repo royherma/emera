@@ -3,7 +3,7 @@
 # Usage: apps/mobile/scripts/ios-release.sh [build-number]   (default: 1 + highest build in ASC)
 set -euo pipefail
 repo="$(git -C "$(dirname "$0")" rev-parse --show-toplevel)"
-asc=/Users/royhermannn_new/Desktop/Development/ShowAndTell/bin/asc
+asc="${ASC_HELPER:-$HOME/Desktop/Development/ShowAndTell/bin/asc}"
 app_id=6834311747
 sha="$(git -C "$repo" rev-parse --short HEAD)"
 out="$repo/.claude/artifacts/ios-release/$sha"
@@ -49,7 +49,7 @@ cat > "$out/ExportOptions.plist" <<'PLIST'
 PLIST
 xcodebuild -exportArchive -archivePath "$out/Emera.xcarchive" -exportPath "$out" -exportOptionsPlist "$out/ExportOptions.plist"
 
-set -a; source /Users/royhermannn_new/Desktop/Development/ShowAndTell/.scratch-local/asc-api.env; set +a
+set -a; source "${ASC_ENV:-$HOME/Desktop/Development/ShowAndTell/.scratch-local/asc-api.env}"; set +a
 key_dir="$(mktemp -d)"
 trap 'rm -f "$key_dir"/AuthKey_*.p8; rmdir "$key_dir"' EXIT
 ln -s "$ASC_KEY_PATH" "$key_dir/AuthKey_${ASC_KEY_ID}.p8"
