@@ -65,8 +65,8 @@
         { "pattern": "emera.social/p/*", "zone_name": "emera.social" },
         { "pattern": "emera.social/media/*", "zone_name": "emera.social" },
         { "pattern": "emera.social/embed/*", "zone_name": "emera.social" },
-        { "pattern": "emera.social/oembed", "zone_name": "emera.social" },
-        { "pattern": "emera.social/feed.xml", "zone_name": "emera.social" }
+        { "pattern": "emera.social/oembed*", "zone_name": "emera.social" },
+        { "pattern": "emera.social/feed.xml*", "zone_name": "emera.social" }
       ]
     }
   }
