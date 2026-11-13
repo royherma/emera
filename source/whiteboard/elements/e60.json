@@ -1,0 +1,57 @@
+{
+  "cols": {
+    "c1": {
+      "at": 1,
+      "w": 420
+    },
+    "c2": {
+      "at": 2,
+      "w": 150
+    }
+  },
+  "rows": {
+    "r1": {
+      "at": 1,
+      "c1": "Cost per user, per month (estimate)",
+      "c2": "Cents"
+    },
+    "r2": {
+      "at": 2,
+      "c1": "Media storage on R2 (0.5 GB/user)",
+      "c2": "0.75¢"
+    },
+    "r3": {
+      "at": 3,
+      "c1": "Video encode + HLS on R2",
+      "c2": "1.0¢"
+    },
+    "r4": {
+      "at": 4,
+      "c1": "API + feeds on Workers",
+      "c2": "0.1¢"
+    },
+    "r5": {
+      "at": 5,
+      "c1": "AppView Postgres",
+      "c2": "1.0¢"
+    },
+    "r6": {
+      "at": 6,
+      "c1": "Moderation ML",
+      "c2": "0.3¢"
+    },
+    "r7": {
+      "at": 7,
+      "c1": "Trust & safety staff",
+      "c2": "2.4¢"
+    },
+    "r8": {
+      "at": 8,
+      "c1": "**Total**",
+      "c2": "**~5.6¢**"
+    }
+  },
+  "type": "table",
+  "x": 908,
+  "y": 1600
+}

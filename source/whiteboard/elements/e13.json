@@ -1,0 +1,11 @@
+{
+  "color": "peach",
+  "h": 80,
+  "kind": "rounded",
+  "size": "body",
+  "text": "**Feed generators**\nWorkers + KV cache, open code",
+  "type": "shape",
+  "w": 268,
+  "x": 24,
+  "y": 752
+}

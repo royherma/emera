@@ -1,0 +1,11 @@
+{
+  "color": "white",
+  "h": 72,
+  "kind": "rounded",
+  "size": "body",
+  "text": "**Personal Data Server**\nBluesky's open PDS on Cloudflare Containers",
+  "type": "shape",
+  "w": 410,
+  "x": 24,
+  "y": 352
+}

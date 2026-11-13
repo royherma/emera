@@ -1,0 +1,61 @@
+<title>Cost & funding calculator</title>
+<style>
+body{margin:0;padding:18px 20px;font:14px/1.4 -apple-system,system-ui,sans-serif;color:#1f1f1f;background:#fff}
+h1{font-size:18px;margin:0 0 4px}
+.sub{color:#666;margin:0 0 14px;font-size:12.5px}
+.row{display:grid;grid-template-columns:170px 1fr 70px;align-items:center;gap:10px;margin:6px 0}
+.row b{text-align:right;font-variant-numeric:tabular-nums}
+input[type=range]{width:100%}
+.big{display:flex;gap:16px;margin:16px 0 10px}
+.big div{flex:1;background:#f6f5f2;border-radius:10px;padding:10px 12px}
+.big span{display:block;font-size:12px;color:#666}
+.big strong{font-size:22px;font-variant-numeric:tabular-nums}
+.bar{display:flex;height:26px;border-radius:6px;overflow:hidden;margin:4px 0 2px;background:#eee}
+.bar i{display:block;height:100%}
+.lbl{font-size:12.5px;color:#444;display:flex;justify-content:space-between}
+.key{font-size:12px;color:#555;margin:2px 0 10px}
+.key em{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 4px 0 10px;vertical-align:-1px}
+.note{font-size:11.5px;color:#777;margin-top:10px}
+</style>
+<h1>Can donations keep it running?</h1>
+<p class="sub">Monthly cost vs revenue on a Cloudflare-first stack. Drag to test the assumptions.</p>
+<div class="row"><label>Monthly active users</label><input id="mau" type="range" min="0" max="100" value="33"><b id="mauv"></b></div>
+<div class="row"><label>Users who donate</label><input id="dp" type="range" min="0.2" max="5" step="0.1" value="1.5"><b id="dpv"></b></div>
+<div class="row"><label>Average donation / mo</label><input id="da" type="range" min="1" max="20" step="1" value="5"><b id="dav"></b></div>
+<div class="row"><label>Users on $4 Premium</label><input id="pp" type="range" min="0" max="5" step="0.1" value="1"><b id="ppv"></b></div>
+<div class="big"><div><span>Monthly cost</span><strong id="cost"></strong></div><div><span>Monthly revenue</span><strong id="rev"></strong></div><div><span>Covered</span><strong id="cov"></strong></div><div><span>Given back / mo</span><strong id="sur"></strong></div></div>
+<div class="lbl"><span>Cost</span><span id="costl"></span></div>
+<div class="bar" id="cbar"></div>
+<div class="key"><em style="background:#d9774b"></em>Servers &amp; media<em style="background:#e8b48f"></em>Safety staff<em style="background:#bbb"></em>Base</div>
+<div class="lbl"><span>Revenue</span><span id="revl"></span></div>
+<div class="bar" id="rbar"></div>
+<div class="key"><em style="background:#3d7dd8"></em>Donations<em style="background:#8fb5ea"></em>Premium<em style="background:#4f9e6b"></em>5% creator fees</div>
+<p id="pitch" style="font-size:15px;margin:12px 0 0"></p>
+<p class="note">Estimates, not quotes. Infra about 3.2&cent;/user/mo (R2 storage 0.5 GB/user, self-encoded video, Workers, Postgres, moderation ML). Safety staff about 2.4&cent;/user (1 moderator per 250k users at $6k/mo). $500/mo base. Creator fees assume 0.5% of users earn $100/mo.</p>
+<script>
+function $(id){return document.getElementById(id)}
+function money(n){return n>=1e6?'$'+(n/1e6).toFixed(2)+'M':n>=1e4?'$'+Math.round(n/1e3)+'k':'$'+Math.round(n).toLocaleString()}
+function num(n){return n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?Math.round(n/1e3)+'k':String(n)}
+function seg(parts,max){return parts.map(function(p){return '<i style="width:'+(100*p[0]/max)+'%;background:'+p[1]+'"></i>'}).join('')}
+function draw(){
+ var mau=Math.round(Math.pow(10,4+3*$('mau').value/100)/1000)*1000;
+ var dp=+$('dp').value, da=+$('da').value, pp=+$('pp').value;
+ $('mauv').textContent=num(mau); $('dpv').textContent=dp.toFixed(1)+'%'; $('dav').textContent='$'+da; $('ppv').textContent=pp.toFixed(1)+'%';
+ var infra=0.0315*mau, staff=0.024*mau, base=500, cost=infra+staff+base;
+ var don=mau*dp/100*da, prem=mau*pp/100*4, fees=mau*0.025, rev=don+prem+fees;
+ var max=Math.max(cost,rev);
+ $('cost').textContent=money(cost); $('rev').textContent=money(rev); $('cov').textContent=Math.round(100*rev/cost)+'%';
+ $('sur').textContent=money(Math.max(0,rev-cost));
+ $('cov').style.color=rev>=cost?'#2f7d4a':'#b4462a';
+ $('costl').textContent=(100*cost/mau).toFixed(1)+'¢ per user';
+ $('revl').textContent=(100*rev/mau).toFixed(1)+'¢ per user';
+ $('cbar').innerHTML=seg([[infra,'#d9774b'],[staff,'#e8b48f'],[base,'#bbb']],max);
+ $('rbar').innerHTML=seg([[don,'#3d7dd8'],[prem,'#8fb5ea'],[fees,'#4f9e6b']],max);
+ var need=Math.ceil(cost/da), oneIn=Math.max(1,Math.round(mau/need));
+ var p=$('pitch'); p.textContent='';
+ var b=document.createElement('b'); b.textContent='1 in '+oneIn+' users giving $'+da+'/mo';
+ p.appendChild(b); p.appendChild(document.createTextNode(' covers the whole bill on donations alone.'));
+}
+['mau','dp','da','pp'].forEach(function(id){$(id).addEventListener('input',draw)});
+draw();
+</script>

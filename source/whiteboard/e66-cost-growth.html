@@ -1,0 +1,67 @@
+<title>Cost as users grow</title>
+<style>
+body{margin:0;padding:16px 20px;font:13px/1.4 -apple-system,system-ui,sans-serif;color:#1f1f1f;background:#fff}
+h1{font-size:18px;margin:0 0 2px}
+.sub{color:#666;margin:0 0 10px;font-size:12.5px}
+.ctl{display:flex;align-items:center;gap:10px;margin:0 0 6px}
+.ctl input{width:220px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+h2{font-size:13.5px;margin:0 0 2px}
+svg{width:100%;height:auto;display:block}
+.key{font-size:12px;color:#555;margin:4px 0 0}
+.key em{display:inline-block;width:14px;height:3px;margin:0 5px 3px 12px;vertical-align:middle}
+#read{font-size:13.5px;margin-top:8px;min-height:20px}
+</style>
+<h1>What it costs as we grow, and what pays for it</h1>
+<p class="sub">Same assumptions as the calculator above. Hover a chart to read any size.</p>
+<div class="ctl"><label>Users who donate $5/mo</label><input id="dp" type="range" min="0.2" max="5" step="0.1" value="1.5"><b id="dpv"></b><span id="be" style="color:#555"></span></div>
+<div class="grid">
+<div><h2>Monthly bill vs monthly income (log scale)</h2><svg id="a" viewBox="0 0 680 300"></svg></div>
+<div><h2>Cost per user falls with scale</h2><svg id="b" viewBox="0 0 680 300"></svg></div>
+</div>
+<div class="key"><em style="background:#d9774b"></em>Total cost<em style="background:#3d7dd8"></em>Donations only<em style="background:#4f9e6b"></em>All revenue (donations + Premium + creator fees)</div>
+<div id="read"></div>
+<script>
+var L=60,R=660,T=14,B=262,MIN=4,MAX=7;
+function $(i){return document.getElementById(i)}
+function cost(m){return 500+0.0555*m}
+function don(m,d){return m*d/100*5}
+function rev(m,d){return don(m,d)+m*0.065}
+function X(m){return L+(Math.log10(m)-MIN)/(MAX-MIN)*(R-L)}
+function money(n){return n>=1e6?'$'+(n/1e6).toFixed(1)+'M':n>=1e3?'$'+Math.round(n/1e3)+'k':'$'+Math.round(n)}
+function users(m){return m>=1e6?(m/1e6).toFixed(m<1e7?1:0)+'M':Math.round(m/1e3)+'k'}
+var ms=[];for(var i=0;i<=60;i++)ms.push(Math.pow(10,MIN+(MAX-MIN)*i/60));
+function path(f,Y){return 'M'+ms.map(function(m){return X(m).toFixed(1)+' '+Y(f(m)).toFixed(1)}).join('L')}
+function axisX(){var s='';[1e4,1e5,1e6,1e7].forEach(function(m){s+='<line x1="'+X(m)+'" x2="'+X(m)+'" y1="'+T+'" y2="'+B+'" stroke="#eee"/><text x="'+X(m)+'" y="'+(B+18)+'" text-anchor="middle" fill="#777" font-size="12">'+users(m)+' users</text>'});return s}
+var hover=null;
+function draw(){
+ var d=+$('dp').value;$('dpv').textContent=d.toFixed(1)+'%';
+ var dd=d/100*5, be=dd>0.0555?500/(dd-0.0555):null;
+ $('be').textContent=be&&be<=1e7?'Donations alone break even at ~'+users(Math.max(be,1e4))+' users':'Donations alone never cover it at this rate';
+ var lo=2,hi=6.5;function Ya(v){var l=Math.log10(Math.max(v,100));return B-(l-lo)/(hi-lo)*(B-T)}
+ var s=axisX();
+ [100,1e3,1e4,1e5,1e6].forEach(function(v){s+='<line x1="'+L+'" x2="'+R+'" y1="'+Ya(v)+'" y2="'+Ya(v)+'" stroke="#eee"/><text x="'+(L-8)+'" y="'+(Ya(v)+4)+'" text-anchor="end" fill="#777" font-size="12">'+money(v)+'</text>'});
+ if(be&&be>=1e4&&be<=1e7)s+='<line x1="'+X(be)+'" x2="'+X(be)+'" y1="'+T+'" y2="'+B+'" stroke="#3d7dd8" stroke-dasharray="4 4"/><text x="'+(X(be)+6)+'" y="'+(T+14)+'" fill="#3d7dd8" font-size="12">break-even</text>';
+ s+='<path d="'+path(function(m){return rev(m,d)},Ya)+'" fill="none" stroke="#4f9e6b" stroke-width="2.5"/>';
+ s+='<path d="'+path(function(m){return don(m,d)},Ya)+'" fill="none" stroke="#3d7dd8" stroke-width="2.5"/>';
+ s+='<path d="'+path(cost,Ya)+'" fill="none" stroke="#d9774b" stroke-width="2.5"/>';
+ var top=Math.max(15,(dd+0.065)*100*1.15);function Yb(v){return B-v/top*(B-T)}
+ var t=axisX(),step=top>40?10:5;
+ for(var v=0;v<=top;v+=step)t+='<line x1="'+L+'" x2="'+R+'" y1="'+Yb(v)+'" y2="'+Yb(v)+'" stroke="#eee"/><text x="'+(L-8)+'" y="'+(Yb(v)+4)+'" text-anchor="end" fill="#777" font-size="12">'+v+'¢</text>';
+ t+='<path d="'+path(function(m){return 100*rev(m,d)/m},Yb)+'" fill="none" stroke="#4f9e6b" stroke-width="2.5"/>';
+ t+='<path d="'+path(function(m){return 100*don(m,d)/m},Yb)+'" fill="none" stroke="#3d7dd8" stroke-width="2.5"/>';
+ t+='<path d="'+path(function(m){return 100*cost(m)/m},Yb)+'" fill="none" stroke="#d9774b" stroke-width="2.5"/>';
+ var m=hover||1e6;
+ [[function(v){return Ya(v)},'a'],[function(v){return Yb(v)},'b']].forEach(function(p){
+  var x=X(m),g='<line x1="'+x+'" x2="'+x+'" y1="'+T+'" y2="'+B+'" stroke="#999"/>';
+  var vals=p[1]=='a'?[cost(m),don(m,d),rev(m,d)]:[100*cost(m)/m,100*don(m,d)/m,100*rev(m,d)/m];
+  ['#d9774b','#3d7dd8','#4f9e6b'].forEach(function(c,i){g+='<circle cx="'+x+'" cy="'+p[0](vals[i])+'" r="4" fill="'+c+'"/>'});
+  if(p[1]=='a')s+=g;else t+=g;
+ });
+ $('a').innerHTML=s;$('b').innerHTML=t;
+ $('read').textContent='At '+users(m)+' users: bill '+money(cost(m))+'/mo ('+(100*cost(m)/m).toFixed(1)+'¢ each) · donations '+money(don(m,d))+' · all revenue '+money(rev(m,d))+' · '+Math.round(100*rev(m,d)/cost(m))+'% covered';
+}
+['a','b'].forEach(function(id){var el=$(id);el.addEventListener('mousemove',function(e){var r=el.getBoundingClientRect(),vx=(e.clientX-r.left)/r.width*680;vx=Math.min(R,Math.max(L,vx));hover=Math.pow(10,MIN+(vx-L)/(R-L)*(MAX-MIN));draw()})});
+$('dp').addEventListener('input',draw);
+draw();
+</script>

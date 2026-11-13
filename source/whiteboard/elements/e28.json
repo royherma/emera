@@ -1,0 +1,72 @@
+{
+  "cols": {
+    "c1": {
+      "at": 1,
+      "w": 160
+    },
+    "c2": {
+      "at": 2,
+      "w": 360
+    }
+  },
+  "rows": {
+    "r1": {
+      "at": 1,
+      "c1": "Layer",
+      "c2": "Pick"
+    },
+    "r10": {
+      "at": 10,
+      "c1": "Payments",
+      "c2": "Stripe Connect, Open Collective"
+    },
+    "r11": {
+      "at": 11,
+      "c1": "License",
+      "c2": "AGPL-3.0 servers, MIT SDKs"
+    },
+    "r2": {
+      "at": 2,
+      "c1": "Protocol",
+      "c2": "AT Protocol, own photo lexicon"
+    },
+    "r3": {
+      "at": 3,
+      "c1": "Clients",
+      "c2": "Expo (iOS/Android/web), web on Pages"
+    },
+    "r4": {
+      "at": 4,
+      "c1": "Servers",
+      "c2": "PDS on CF Containers; Workers APIs"
+    },
+    "r5": {
+      "at": 5,
+      "c1": "Database",
+      "c2": "Postgres via Hyperdrive; D1 for small"
+    },
+    "r6": {
+      "at": 6,
+      "c1": "Media",
+      "c2": "R2, variants once on upload, own HLS"
+    },
+    "r7": {
+      "at": 7,
+      "c1": "Provenance",
+      "c2": "c2pa-rs WASM, PDQ, Vectorize"
+    },
+    "r8": {
+      "at": 8,
+      "c1": "Moderation",
+      "c2": "Ozone, PhotoDNA, Workers AI"
+    },
+    "r9": {
+      "at": 9,
+      "c1": "Relay",
+      "c2": "Bluesky relay + Jetstream, mirror later"
+    }
+  },
+  "type": "table",
+  "x": 984,
+  "y": 584
+}

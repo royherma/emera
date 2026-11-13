@@ -1,0 +1,47 @@
+{
+  "cols": {
+    "c1": {
+      "at": 1,
+      "w": 200
+    },
+    "c2": {
+      "at": 2,
+      "w": 320
+    }
+  },
+  "rows": {
+    "r1": {
+      "at": 1,
+      "c1": "Problem",
+      "c2": "Fix"
+    },
+    "r2": {
+      "at": 2,
+      "c1": "Spam bots, fake followers",
+      "c2": "Trust tiers; bots must be labeled"
+    },
+    "r3": {
+      "at": 3,
+      "c1": "Stolen content",
+      "c2": "C2PA signing + hash registry"
+    },
+    "r4": {
+      "at": 4,
+      "c1": "No creator protection",
+      "c2": "One-tap DMCA, licensing terms"
+    },
+    "r5": {
+      "at": 5,
+      "c1": "Gamed engagement, scams",
+      "c2": "Likes weighted by trust tier"
+    },
+    "r6": {
+      "at": 6,
+      "c1": "Opaque algorithm",
+      "c2": "Open-source ranking, pick your feed"
+    }
+  },
+  "type": "table",
+  "x": 984,
+  "y": 224
+}

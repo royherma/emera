@@ -1,0 +1,11 @@
+{
+  "color": "white",
+  "h": 56,
+  "kind": "rounded",
+  "size": "body",
+  "text": "**Relay**: start on Bluesky's free relay + Jetstream → Cloudflare Queues; mirror our own later",
+  "type": "shape",
+  "w": 852,
+  "x": 24,
+  "y": 488
+}

@@ -1,0 +1,11 @@
+{
+  "color": "blue",
+  "h": 64,
+  "kind": "rounded",
+  "size": "body",
+  "text": "**Clients**: iOS, Android, web (Expo) · on-device C2PA signing · passkeys · web on Cloudflare Pages",
+  "type": "shape",
+  "w": 852,
+  "x": 24,
+  "y": 224
+}
