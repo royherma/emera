@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 import { Avatar } from "./Avatar";
 import { EngageBar } from "./Engage";
 import { Icon } from "./Icon";
-import { IndexChip, MediaImage, SignedMark } from "./Media";
+import { IndexChip, InlineVideo, MediaImage, SignedMark } from "./Media";
 import { CategoryTag, Glass, IconButton, Pulse, type PS } from "./ui";
 import { usePostMenu } from "./postMenu";
 import { creatorColors, elevation, radius, space, type } from "@/lib/theme";
@@ -35,7 +35,7 @@ export function PostRow({ post, width, onDeleted }: { post: Post; width: number;
         <IconButton icon="dots" label="More" filled={false} tint={c.ink2} onPress={() => menu(post)} />
       </View>
       <Pressable accessibilityRole="link" accessibilityLabel={`Open post by ${post.author.displayName}`} onPress={open} style={({ pressed }: PS) => [{ width, height: h, borderRadius: radius.media, overflow: "hidden", transform: [{ scale: pressed ? 0.992 : 1 }] }, web ? ({ boxShadow: elevation.media } as object) : null]}>
-        <MediaImage media={m} style={{ flex: 1 }} playSize={56} />
+        {m.kind === "video" ? <InlineVideo media={m} style={{ flex: 1 }} /> : <MediaImage media={m} style={{ flex: 1 }} playSize={56} />}
         <View style={{ position: "absolute", left: 10, top: 10 }}>
           <SignedMark />
         </View>
