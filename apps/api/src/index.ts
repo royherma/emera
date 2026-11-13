@@ -20,6 +20,9 @@ import { pages, notFoundPage } from './pages';
 import { cardRoutes } from './card';
 import { embedRoutes } from './embed';
 import { feedRoutes } from './feeds';
+import { ingestRoutes, runAutoImports, useApp } from './ingest';
+import { oauthRoutes } from './oauth';
+import { mcpRoutes } from './mcp';
 
 const app = new Hono<AppEnv>();
 
@@ -51,6 +54,9 @@ app.route('/', chatRoutes);
 app.route('/', cardRoutes);
 app.route('/', embedRoutes);
 app.route('/', feedRoutes);
+app.route('/', ingestRoutes);
+app.route('/', oauthRoutes);
+app.route('/', mcpRoutes);
 app.route('/', pages);
 
 app.onError((err, c) => {
@@ -66,10 +72,15 @@ app.notFound((c) => {
   return notFoundPage();
 });
 
+useApp(app.fetch);
+
 export default Sentry.withSentry(
   (env: Env) => ({ dsn: env.SENTRY_DSN, environment: env.ENVIRONMENT, tracesSampleRate: 0.1 }),
   {
     fetch: app.fetch,
+    async scheduled(_event: ScheduledController, env: Env) {
+      console.log('auto-import', JSON.stringify(await runAutoImports(env, 'https://internal.emera')));
+    },
     async queue(batch: MessageBatch<VideoJob>, env: Env) {
       for (const msg of batch.messages) {
         try {
