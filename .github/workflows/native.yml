@@ -33,6 +33,12 @@ jobs:
         run: |
           CI=1 npx expo prebuild -p ios --clean --no-install
           cd ios && pod install
+      - name: Reuse the last iOS build
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: apps/mobile/ios/build
+          key: ios-build-${{ hashFiles('apps/mobile/package-lock.json', 'apps/mobile/app.json', 'apps/mobile/app.config.js') }}-${{ github.sha }}
+          restore-keys: ios-build-${{ hashFiles('apps/mobile/package-lock.json', 'apps/mobile/app.json', 'apps/mobile/app.config.js') }}-
       - name: Pick a simulator
         id: sim
         run: |
