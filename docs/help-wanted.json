@@ -1,0 +1,294 @@
+{
+  "updated": "2026-11-13",
+  "filed": false,
+  "note": "Do not file until the founder says go; the repo is private.",
+  "count": 29,
+  "issues": [
+    {
+      "title": "Add GitHub Actions CI for typecheck and tests",
+      "labels": [
+        "good first issue",
+        "help wanted",
+        "ci"
+      ],
+      "area": "`.github/workflows/`, `apps/api/package.json`, `apps/mobile/package.json`",
+      "body": "Nothing runs on pull requests yet. Run the existing checks on every PR.\n\n## Acceptance criteria\n- [ ] Workflow runs `npm --prefix apps/api run typecheck` and `npm --prefix apps/api test` on pull_request\n- [ ] Workflow runs `npm --prefix apps/mobile run check`\n- [ ] Old runs cancel when a PR gets a new push\n- [ ] Actions are pinned by commit SHA\n- [ ] Badge added to README.md\n\n## Where to look\n`.github/workflows/`, `apps/api/package.json`, `apps/mobile/package.json`"
+    },
+    {
+      "title": "Add issue forms and a pull request template",
+      "labels": [
+        "good first issue",
+        "help wanted",
+        "docs"
+      ],
+      "area": "`.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md`",
+      "body": "Issue forms keep reports complete. Model them on the Bluesky social-app forms.\n\n## Acceptance criteria\n- [ ] Bug form with steps, expected, actual, platform dropdown and an attachment field\n- [ ] Feature form with the problem it solves\n- [ ] PR template with what changed, how it was tested, screenshots\n- [ ] `config.yml` links to Discussions and the security address\n\n## Where to look\n`.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md`"
+    },
+    {
+      "title": "Add CODE_OF_CONDUCT.md and SECURITY.md",
+      "labels": [
+        "help wanted",
+        "docs"
+      ],
+      "area": "repo root",
+      "body": "Both files are required before the repo goes public. The founder supplies the contact addresses.\n\n## Acceptance criteria\n- [ ] CODE_OF_CONDUCT.md based on Contributor Covenant 2.1 with a named enforcement address\n- [ ] SECURITY.md with a private address and a response time\n- [ ] Both linked from README.md and CONTRIBUTING.md\n\n## Where to look\nrepo root"
+    },
+    {
+      "title": "Replay D1 migrations from empty in CI",
+      "labels": [
+        "good first issue",
+        "help wanted",
+        "ci",
+        "api"
+      ],
+      "area": "`apps/api/migrations/`, `apps/site/migrations/`",
+      "body": "Catch a broken migration before it reaches staging.\n\n## Acceptance criteria\n- [ ] CI job creates a fresh local D1 and applies every file in `apps/api/migrations`\n- [ ] Same job for `apps/site/migrations`\n- [ ] Job fails when a migration errors\n\n## Where to look\n`apps/api/migrations/`, `apps/site/migrations/`"
+    },
+    {
+      "title": "Add a pre-commit hook for typecheck and format",
+      "labels": [
+        "good first issue",
+        "help wanted",
+        "devex"
+      ],
+      "area": "repo root",
+      "body": "Fast local feedback keeps PRs clean.\n\n## Acceptance criteria\n- [ ] Husky or lefthook runs typecheck on staged TypeScript files\n- [ ] Hook skipped in CI\n- [ ] `.editorconfig` added\n- [ ] Documented in CONTRIBUTING.md\n\n## Where to look\nrepo root"
+    },
+    {
+      "title": "Add unit tests for the mobile lib folder",
+      "labels": [
+        "good first issue",
+        "help wanted",
+        "tests",
+        "platform:mobile"
+      ],
+      "area": "`apps/mobile/src/lib`",
+      "body": "The Expo app has no unit tests; only the API has them.\n\n## Acceptance criteria\n- [ ] Test runner added to `apps/mobile` (jest-expo)\n- [ ] At least 10 tests for pure functions in `apps/mobile/src/lib`\n- [ ] `npm --prefix apps/mobile test` passes in CI\n\n## Where to look\n`apps/mobile/src/lib`"
+    },
+    {
+      "title": "Per-post share card image for /p/:id",
+      "labels": [
+        "help wanted",
+        "api",
+        "share"
+      ],
+      "area": "`apps/api/src`",
+      "body": "Links pasted into X, iMessage, Slack and Discord should show the work and its maker. The page already has og tags; add a generated card image.\n\n## Acceptance criteria\n- [ ] Route returns a 1200x630 image for a post (work, maker handle, verification line in words)\n- [ ] `og:image` and `twitter:card=summary_large_image` set on `/p/:id`\n- [ ] Cache headers set; unknown post returns 404\n- [ ] Test covers the route\n- [ ] Checked with a card validator and a Discord paste\n\n## Where to look\n`apps/api/src`"
+    },
+    {
+      "title": "oEmbed endpoint and embed page for posts",
+      "labels": [
+        "help wanted",
+        "api",
+        "share"
+      ],
+      "area": "`apps/api/src`",
+      "body": "Blogs and newsletters should embed a post, with a link back. Bluesky does this with its `bskyembed` service.\n\n## Acceptance criteria\n- [ ] `GET /oembed?url=` returns valid oEmbed JSON for `/p/:id` URLs\n- [ ] `/embed/:id` renders a small iframe-safe page\n- [ ] `<link rel=\"alternate\" type=\"application/json+oembed\">` on post pages\n- [ ] Tests for valid, missing and non-Emera URLs\n\n## Where to look\n`apps/api/src`"
+    },
+    {
+      "title": "RSS and Atom feeds for creators and the global feed",
+      "labels": [
+        "good first issue",
+        "help wanted",
+        "api",
+        "feeds"
+      ],
+      "area": "`apps/api/src`",
+      "body": "Readers and automations follow creators with no account.\n\n## Acceptance criteria\n- [ ] `/@handle/feed.xml` returns valid Atom with media enclosures\n- [ ] `/feed.xml` returns the 50 newest public posts\n- [ ] Feed passes an online validator\n- [ ] `<link rel=\"alternate\">` on profile pages\n- [ ] Tests added\n\n## Where to look\n`apps/api/src`"
+    },
+    {
+      "title": "Make the web build an installable PWA",
+      "labels": [
+        "good first issue",
+        "help wanted",
+        "platform:web",
+        "platform:pwa"
+      ],
+      "area": "`apps/mobile`",
+      "body": "The Expo web export should install to the home screen on iOS, Android and desktop.\n\n## Acceptance criteria\n- [ ] Web manifest with name, icons (192, 512, maskable), theme and background colors from `packages/brand`\n- [ ] Service worker caches the shell and shows an offline page\n- [ ] Lighthouse install check passes\n- [ ] No new native dependency\n\n## Where to look\n`apps/mobile`"
+    },
+    {
+      "title": "iPad and Android tablet layout",
+      "labels": [
+        "help wanted",
+        "platform:ipad",
+        "platform:android-tablet"
+      ],
+      "area": "`apps/mobile/src/components`",
+      "body": "On wide screens the feed should use two columns and a side panel.\n\n## Acceptance criteria\n- [ ] Layout switches at 768 px width\n- [ ] Works in portrait and landscape\n- [ ] Touch targets stay at least 44pt\n- [ ] Screenshots of both sizes attached to the PR\n\n## Where to look\n`apps/mobile/src/components`"
+    },
+    {
+      "title": "Prototype Android TV and Fire TV build with react-native-tvos",
+      "labels": [
+        "help wanted",
+        "platform:android-tv",
+        "platform:fire-tv"
+      ],
+      "area": "`apps/mobile`, https://docs.expo.dev/guides/building-for-tv",
+      "body": "One build should cover Android TV, Google TV and Fire TV. Expo documents TV builds through a config plugin.\n\n## Acceptance criteria\n- [ ] Branch builds an APK that launches on an Android TV emulator\n- [ ] Feed rows are navigable with a D-pad and show a focus ring\n- [ ] Playback of one video post with `expo-video`\n- [ ] Notes on what blocked a Fire Stick test, if anything\n- [ ] Status in `docs/platforms.md` and `data/platforms.json` updated\n\n## Where to look\n`apps/mobile`, https://docs.expo.dev/guides/building-for-tv"
+    },
+    {
+      "title": "Prototype Apple TV (tvOS) build",
+      "labels": [
+        "help wanted",
+        "platform:tvos"
+      ],
+      "area": "`apps/mobile`",
+      "body": "Same TV codebase as Android TV, with the tvOS focus engine.\n\n## Acceptance criteria\n- [ ] App launches in the tvOS simulator\n- [ ] Feed rows navigable with the Siri Remote\n- [ ] Sign-in by a code shown on screen and entered on a phone (spec only is fine)\n- [ ] Findings written up\n\n## Where to look\n`apps/mobile`"
+    },
+    {
+      "title": "Roku channel prototype (SceneGraph)",
+      "labels": [
+        "help wanted",
+        "platform:roku"
+      ],
+      "area": "`tv/roku` (new)",
+      "body": "Roku needs a native SceneGraph channel, not React Native. Start with a read-only grid of public posts.\n\n## Acceptance criteria\n- [ ] New folder `tv/roku` with a sideloadable channel\n- [ ] Grid reads a JSON feed from the staging API\n- [ ] Playback of one post\n- [ ] README with sideload steps\n- [ ] List of open questions for Roku certification\n\n## Where to look\n`tv/roku` (new)"
+    },
+    {
+      "title": "Samsung Tizen and LG webOS TV web app shell",
+      "labels": [
+        "help wanted",
+        "platform:tizen",
+        "platform:webos"
+      ],
+      "area": "`tv/web` (new)",
+      "body": "Both TV platforms run packaged web apps. Build one TV-friendly web layout and package it twice.\n\n## Acceptance criteria\n- [ ] Spatial navigation (arrow keys and Enter) on the feed\n- [ ] Layout readable at 10 feet (type at least 28 px)\n- [ ] Packaged builds for Tizen Studio and webOS Studio, or a written reason if a store account blocks it\n\n## Where to look\n`tv/web` (new)"
+    },
+    {
+      "title": "Browser extension: report a copy of this page",
+      "labels": [
+        "help wanted",
+        "platform:extension"
+      ],
+      "area": "`extensions/` (new)",
+      "body": "Creators find copies on other sites. An extension puts the report flow there.\n\n## Acceptance criteria\n- [ ] Manifest V3 extension for Chrome and Firefox\n- [ ] Toolbar button opens the report form prefilled with the page URL\n- [ ] Screenshot of the visible tab attached with consent\n- [ ] No data leaves the browser until the creator presses send\n\n## Where to look\n`extensions/` (new)"
+    },
+    {
+      "title": "Cross-post to Bluesky as a companion post",
+      "labels": [
+        "help wanted",
+        "atproto",
+        "platform:bluesky"
+      ],
+      "area": "`lexicons/`, `apps/api/src`",
+      "body": "Posts should optionally appear in Bluesky with a link back. Needs a design note first.\n\n## Acceptance criteria\n- [ ] Short design note on how the `social.emera.post` and `app.bsky.feed.post` records stay in sync\n- [ ] Opt-in per creator in settings\n- [ ] Unit tests with a fake PDS\n- [ ] Deleting in Emera deletes the companion\n\n## Where to look\n`lexicons/`, `apps/api/src`"
+    },
+    {
+      "title": "Feed generator for Emera creators",
+      "labels": [
+        "help wanted",
+        "atproto",
+        "platform:bluesky"
+      ],
+      "area": "`services/feedgen` (new), https://github.com/bluesky-social/feed-generator",
+      "body": "A custom feed that Bluesky users can pin. Start from the Bluesky feed-generator starter kit.\n\n## Acceptance criteria\n- [ ] Feed generator service answers `getFeedSkeleton`\n- [ ] Serves the 100 newest Emera posts\n- [ ] Deploy notes for a Worker or a small Node host\n- [ ] README with how to publish the feed record\n\n## Where to look\n`services/feedgen` (new), https://github.com/bluesky-social/feed-generator"
+    },
+    {
+      "title": "Golden test files for social.emera lexicons",
+      "labels": [
+        "good first issue",
+        "help wanted",
+        "atproto",
+        "tests"
+      ],
+      "area": "`lexicons/`, `spikes/provenance`",
+      "body": "Lexicon changes should never silently break records.\n\n## Acceptance criteria\n- [ ] Valid and invalid example records for post, profile and provenance\n- [ ] Test runs them through the validator in `spikes/provenance`\n- [ ] Runs in CI\n\n## Where to look\n`lexicons/`, `spikes/provenance`"
+    },
+    {
+      "title": "Translation setup with Lingui",
+      "labels": [
+        "help wanted",
+        "i18n"
+      ],
+      "area": "`apps/mobile`",
+      "body": "Extract every user-facing string so people can translate Emera.\n\n## Acceptance criteria\n- [ ] Lingui configured in `apps/mobile`\n- [ ] All strings in `apps/mobile/src` wrapped\n- [ ] English source catalog committed\n- [ ] `docs/localization.md` explains how to add a language\n- [ ] CI fails when the catalog is out of date\n\n## Where to look\n`apps/mobile`"
+    },
+    {
+      "title": "Translate the app into your language",
+      "labels": [
+        "good first issue",
+        "help wanted",
+        "i18n"
+      ],
+      "area": "`apps/mobile/src/locales`",
+      "body": "Opens once the catalog exists. One issue per language.\n\n## Acceptance criteria\n- [ ] Complete catalog for one language\n- [ ] A native speaker proof-reads it\n- [ ] Right-to-left check if the language needs it\n\n## Where to look\n`apps/mobile/src/locales`"
+    },
+    {
+      "title": "Screen reader pass on every screen",
+      "labels": [
+        "help wanted",
+        "accessibility"
+      ],
+      "area": "`apps/mobile/src`",
+      "body": "Verification state must be said in words, never by color alone.\n\n## Acceptance criteria\n- [ ] VoiceOver and TalkBack walk-through notes for every screen\n- [ ] Every image has an alt-text field or label\n- [ ] Fixes made in the PR or filed as separate issues\n- [ ] Touch targets at least 44pt on iOS and 48dp on Android\n\n## Where to look\n`apps/mobile/src`"
+    },
+    {
+      "title": "Respect Reduce Motion and font scaling",
+      "labels": [
+        "good first issue",
+        "help wanted",
+        "accessibility"
+      ],
+      "area": "`apps/mobile/src/components`",
+      "body": "Animations must stop and text must grow with system settings.\n\n## Acceptance criteria\n- [ ] Reduce Motion disables transitions and autoplay loops\n- [ ] Text scales to the largest setting without clipping on the feed and profile screens\n- [ ] Screenshots at 100% and 200%\n\n## Where to look\n`apps/mobile/src/components`"
+    },
+    {
+      "title": "Seed script for a full local demo",
+      "labels": [
+        "good first issue",
+        "help wanted",
+        "devex"
+      ],
+      "area": "`apps/api/scripts`",
+      "body": "New contributors should see a feed within one command.\n\n## Acceptance criteria\n- [ ] `npm run seed` creates 5 invented creators with CC0 images listed in `brand/content/sources.json`\n- [ ] Works against the local API and the app with mock mode off\n- [ ] Documented in CONTRIBUTING.md\n- [ ] No real people and no scraped images\n\n## Where to look\n`apps/api/scripts`"
+    },
+    {
+      "title": "Docker image for the API",
+      "labels": [
+        "help wanted",
+        "self-hosting"
+      ],
+      "area": "`apps/api`",
+      "body": "Let people run the API outside Cloudflare, or at least test it in a container.\n\n## Acceptance criteria\n- [ ] Dockerfile builds and starts the API with workerd or a Node adapter\n- [ ] Compose file with local storage\n- [ ] Documented limits\n\n## Where to look\n`apps/api`"
+    },
+    {
+      "title": "Public cost page spec and first version",
+      "labels": [
+        "help wanted",
+        "transparency"
+      ],
+      "area": "`apps/site`",
+      "body": "The mission promises a live page of what Emera costs this month.\n\n## Acceptance criteria\n- [ ] Spec in `docs/`\n- [ ] Static page reading a JSON file of monthly costs\n- [ ] Source of each line named\n\n## Where to look\n`apps/site`"
+    },
+    {
+      "title": "Privacy-first visitor counts for the landing page",
+      "labels": [
+        "help wanted",
+        "privacy"
+      ],
+      "area": "`apps/site`",
+      "body": "We need visitor numbers without cookies or personal data.\n\n## Acceptance criteria\n- [ ] Counts page views and referrers only, no IP stored\n- [ ] Published list of what is counted\n- [ ] Do Not Track honored\n\n## Where to look\n`apps/site`"
+    },
+    {
+      "title": "Fresh-machine test of CONTRIBUTING.md",
+      "labels": [
+        "good first issue",
+        "help wanted",
+        "docs"
+      ],
+      "area": "`CONTRIBUTING.md`",
+      "body": "The quickstart must work on a clean computer.\n\n## Acceptance criteria\n- [ ] Follow CONTRIBUTING.md on macOS, Linux or Windows (WSL) and record every error\n- [ ] Fix the doc or file issues\n- [ ] State the OS and Node version tested\n\n## Where to look\n`CONTRIBUTING.md`"
+    },
+    {
+      "title": "Digital-frame mode for smart displays and spare tablets",
+      "labels": [
+        "good first issue",
+        "help wanted",
+        "platform:web"
+      ],
+      "area": "`apps/api/src`",
+      "body": "A fullscreen slideshow of one creator's work for an Echo Show, Nest Hub or spare tablet.\n\n## Acceptance criteria\n- [ ] Route `/@handle/frame` cycles posts every 10 seconds\n- [ ] Hides all controls and shows the maker line\n- [ ] Works in a TV browser with arrow keys\n\n## Where to look\n`apps/api/src`"
+    }
+  ]
+}

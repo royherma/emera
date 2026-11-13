@@ -8,7 +8,7 @@ One Cloudflare Worker (Hono + TypeScript), D1 for data, R2 for media. Implements
 npm install
 npm run dev        # applies local migrations, then wrangler dev on :5036 (local D1 + R2)
 npm test           # vitest in the Workers runtime (@cloudflare/vitest-pool-workers)
-npm run smoke      # boots wrangler dev on :5037 with a fresh temp database, runs the whole flow with curl and a real PNG
+npm run smoke      # boots wrangler dev on :5039 with a fresh temp database, runs the whole flow with curl and a real PNG
 npm run typecheck
 ```
 
