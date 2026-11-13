@@ -2,6 +2,10 @@
 
 Every milestone that closes adds its learnings here, and anything stale gets corrected or struck in the same commit. One entry per trap: what bit us, how to spot it, the fix. Newest first. Each entry is dated and says where it was learned.
 
+## 2026-11-13 - Fund: which Stripe account
+
+- **The shared Techguyver live Stripe account shows "RobotJobsHQ" to buyers.** Sponsors paying Emera through it would see RobotJobsHQ on the checkout and their card statement. Emera gets its own account; the API refuses to open a checkout when the key's account id is not `STRIPE_ACCOUNT_ID`. Spot it: `curl -s -u "$KEY:" https://api.stripe.com/v1/account` must name Emera (or the LLC sandbox in test mode).
+
 ## 2026-11-13 - Media shrink: photos to WebP, 4K video to 1080p
 
 - **Uploads used to keep the camera's GPS.** An iPhone HEIC carried its latitude and `/media/*` served it to anyone. Photos now go through the Images binding (2048 px WebP q82), which drops EXIF/GPS. Spot a regression: `curl -s <media url> | grep -c -a GPS` must print 0.
