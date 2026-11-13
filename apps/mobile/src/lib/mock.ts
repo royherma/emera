@@ -150,14 +150,15 @@ const seedLikes: [number, string[]][] = [
   [4, ["koji"]],
 ];
 for (const [i, who] of seedLikes) likes.set(posts[i].id, new Set(who.map((h) => users.get(h)!.id)));
-const seedComments: [number, string, string, number][] = [
+const seedComments: [number, string, string, number, string?][] = [
   [0, "jonas_w", "That blue is unreal. What time did you set out?", 90],
-  [0, "mina", "Left at five, the light lasted about twenty minutes.", 60],
+  [0, "mina", "Left at five, the light lasted about twenty minutes.", 60, "c_1"],
   [0, "tamsin", "Saving this for a colour study.", 40],
   [2, "koji", "The window light is doing so much here.", 100],
+  [0, "jonas_w", "Twenty minutes. Worth the early alarm.", 25, "c_2"],
 ];
-seedComments.forEach(([i, handle, body, ago], n) => {
-  comments.push({ id: `c_${n + 1}`, postId: posts[i].id, parentId: n === 1 ? "c_1" : null, userId: users.get(handle)!.id, body, createdAt: iso(ago) });
+seedComments.forEach(([i, handle, body, ago, parentId], n) => {
+  comments.push({ id: `c_${n + 1}`, postId: posts[i].id, parentId: parentId ?? null, userId: users.get(handle)!.id, body, createdAt: iso(ago) });
 });
 
 const view = (p: Post): Post => {
@@ -181,7 +182,9 @@ const pushNote = (kind: Notification["kind"], actor: string, postId: string | nu
 };
 pushNote("like", "jonas_w", posts[0].id, null, 12, 3);
 pushNote("comment", "tamsin", posts[0].id, "c_3", 35);
-pushNote("reply", "mina", posts[0].id, "c_2", 70);
+pushNote("reply", "jonas_w", posts[0].id, "c_5", 25);
+pushNote("like", "noor", posts[8].id, null, 180, 2);
+pushNote("follow", "ila_makes", null, null, 900);
 pushNote("follow", "koji", null, null, 300);
 
 const noteView = (n: (typeof notes)[number]): Notification => {
