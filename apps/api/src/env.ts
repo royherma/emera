@@ -9,6 +9,7 @@ export type Env = {
   INVITES_REQUIRED: string;
   SEED_INVITE_CODE: string;
   PROOF_SECRET: string;
+  CHAT_KEY?: string;
   PUBLIC_ORIGIN: string;
   SENTRY_DSN?: string;
   RESEND_API_KEY?: string;
