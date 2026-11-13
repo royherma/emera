@@ -40,7 +40,8 @@ Several sessions and their sub-agents work on this repo at once. The shared-work
 
 - **Every creator, not one niche.** Video, art, photos, music, design, crafts, the physical things people make. Never "for photographers".
 - **News and events too** (Roy, 2026-11-13): people sharing what is happening (local news, updates, events) belong here as much as makers. The proof on a post doubles as "is this real or fake": say only what was checked (who posted, when, original, person or bot), never "fact-checked" or "guaranteed real".
-- Welcoming, never anti-Instagram or anti-anyone. Problem/fix tables stay internal.
+- **Lead with the mission, not "share your work"** (Roy, 2026-11-13): every public page opens with why Emera exists (creators getting ripped off, fake content, rules nobody can read, borrowed audiences) and what we do about it. Say "what you create", not "your work". Sharing is how people use Emera, never the pitch.
+- Welcoming, never anti-Instagram or anti-anyone. Public copy may name the problems, never a platform.
 - **Protection v1 is manual** (Roy, 2026-11-13): a creator reports a copy they found, we help file the takedown, and every report goes into a dataset that later trains automatic matching. Automatic scanning of other platforms is a later milestone. Don't build it now and don't promise it in copy.
 - Every ranking or enforcement decision must be explainable to the person it affects.
 - Mockups and demos use only content we're allowed to use: Roy's own work, or CC0/CC BY/public-domain images from Openverse with credit kept in `brand/content/sources.json`. Never scraped Instagram or other unlicensed work. A creator-protection network can't demo with stolen art.

@@ -22,7 +22,7 @@ Tertiary: press, grant funders and open-source contributors, who read the market
 
 ## Product Purpose
 
-Emera is an open-source, nonprofit network for everyone who makes things and everyone who shares what is happening. The name is from the Greek hemera, "day, daylight": your work out in the open. Tagline: **Where humanity comes together.** Domain: emera.social.
+Emera exists to fix a problem: people who create get ripped off online (copied, faked, buried by rules nobody can read), and that is solvable. It is an open-source, nonprofit network for everyone who creates and everyone who shares what is happening. Public copy leads with this mission, never with "share your work": sharing is how people use it, not why it exists. The name is from the Greek hemera, "day, daylight": your work out in the open. Tagline: **Where humanity comes together.** Domain: emera.social.
 
 Success in v1: a creator signs up with an Emera account, posts a piece of work, sees a proof-of-maker badge on it, and understands within one screen that the work is protected and that real people see it.
 

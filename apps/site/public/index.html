@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Emera | Where humanity comes together</title>
-<meta name="description" content="Share what you make and what you see, with proof of who posted it and when on every post. Open source and run as a nonprofit.">
+<meta name="description" content="A nonprofit, open-source network where what you create keeps your name on it, the people are real and the rules are public.">
 <meta name="theme-color" content="#fbf5ea" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0c0a09" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
@@ -12,15 +12,15 @@
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","name":"Emera","url":"https://emera.social/","logo":"https://emera.social/assets/og.png","description":"Open-source, nonprofit social network for people who make things and people sharing what is happening, with proof of who posted on every post."},{"@context":"https://schema.org","@type":"WebSite","name":"Emera","url":"https://emera.social/"}]</script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Emera">
-<meta property="og:title" content="Emera: every post signed by the person who was there">
-<meta property="og:description" content="Art, music, video and the news from where you stand, shared by real people you can check.">
+<meta property="og:title" content="Emera: create in the open and keep your name on it">
+<meta property="og:description" content="People who create get ripped off online every day. Emera is a nonprofit network built to fix that, in the open.">
 <meta property="og:url" content="https://emera.social/">
 <meta property="og:image" content="https://emera.social/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Emera: every post signed by the person who was there">
-<meta name="twitter:description" content="Art, music, video and the news from where you stand, shared by real people you can check.">
+<meta name="twitter:title" content="Emera: create in the open and keep your name on it">
+<meta name="twitter:description" content="People who create get ripped off online every day. Emera is a nonprofit network built to fix that, in the open.">
 <meta name="twitter:image" content="https://emera.social/assets/og.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23ffc24a'/%3E%3Cstop offset='1' stop-color='%23ff6a2b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='48' fill='%231c1a17'/%3E%3Cpath d='M2 50a48 48 0 0 1 96 0z' fill='url(%23g)'/%3E%3Cpath d='M0 50h100' stroke='%23fbf5ea' stroke-width='6'/%3E%3C/svg%3E">
 <script>
@@ -240,6 +240,13 @@ h2{font:700 clamp(2.1rem,5.2vw,4.2rem)/1.02 var(--disp);letter-spacing:-.05em;te
 blockquote{margin-top:clamp(40px,6vw,72px);max-width:900px;padding-left:22px;border-left:2px solid #ffc98a}
 blockquote p{font:300 clamp(1.25rem,2.4vw,1.9rem)/1.3 var(--disp);letter-spacing:-.03em}
 blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight:400;color:#e6d8c6;letter-spacing:-.02em;line-height:1.4;max-width:34em}
+.probs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,1.8vw,22px);margin-top:clamp(40px,6vw,72px)}
+.prob{border-radius:28px;padding:clamp(22px,2.6vw,32px);background:rgba(255,240,220,.05);border:1px solid rgba(255,235,210,.13)}
+.prob h3{font:700 clamp(1.45rem,2.3vw,2rem)/1.08 var(--disp);letter-spacing:-.045em;color:#fbf3e8}
+.prob .was{margin-top:12px;color:#bcae9d;font-size:1.02rem}
+.prob .fix{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,235,210,.13);color:#fbf3e8;font-size:1.02rem}
+.prob .fix b,.mission b{display:block;margin-bottom:6px;font:600 .74rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:#ffc98a}
+.mission{margin-top:clamp(40px,6vw,64px);max-width:34em;font:600 clamp(1.3rem,2.4vw,1.9rem)/1.25 var(--disp);letter-spacing:-.03em;color:#fbf3e8}
 .who-q{margin-top:28px;font-weight:600;color:#ffc98a}
 
 .close{position:relative;overflow:hidden;isolation:isolate;padding:clamp(72px,11vw,150px) 0;background:var(--hero)}
@@ -277,7 +284,7 @@ footer a.gh:hover{text-decoration-color:var(--sun2)}
   .stage{height:calc(800px*var(--k) + 70px);overflow:hidden;margin:0 calc(var(--gutter)*-1)}
   .stage .ph.a{left:var(--gutter)}
   .stage .ph.b{left:calc(var(--gutter) + 240px)}
-  .bento{grid-template-columns:1fr}
+  .bento,.probs{grid-template-columns:1fr}
   .card,.card.w{grid-column:auto}
   .signup{border-radius:28px;flex-direction:column;padding:8px}
   .signup input[type=email]{padding:16px 14px}
@@ -328,10 +335,10 @@ footer a.gh:hover{text-decoration-color:var(--sun2)}
     </nav>
     <div class="hero-grid">
       <div class="copy">
-        <div class="eyebrow"><b></b>hemera, Greek for daylight</div>
+        <div class="eyebrow"><b></b>Nonprofit, open source, for everyone who creates</div>
         <h1>Emera</h1>
         <p class="tagline">Where humanity comes together</p>
-        <p class="lead">Share what you make and what you see: art, video, music, craft, and the news from where you stand. Every post carries proof of who shared it and when, so people can tell what is real.</p>
+        <p class="lead">A network built in the open, where what you create keeps your name on it, the people are real and the rules are public. People who create get ripped off online every day. We think that is solvable, so we are solving it.</p>
         <form class="signup" data-signup novalidate>
           <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address" required>
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -364,11 +371,85 @@ footer a.gh:hover{text-decoration-color:var(--sun2)}
 </header>
 
 <main>
+  <section class="why-q" id="why">
+    <div class="wrap">
+      <div class="lbl">Why Emera exists</div>
+      <h2 class="mani reveal">Creating something should never mean losing it</h2>
+      <p class="mani-p reveal">A drawing, a song, a film or a photo of something that just happened can be copied in seconds, reposted under someone else's name and buried by a feed nobody can explain. None of that has to be true. Emera is built to fix it, in the open, for everyone.</p>
+      <div class="probs">
+        <article class="prob reveal">
+          <h3>Work gets taken</h3>
+          <p class="was">Copies spread faster than credit, and the person who made the thing is the last to hear about it.</p>
+          <p class="fix"><b>On Emera</b>Every post is signed by the person who shared it, copies point back to the original, and we help you take down the ones you find.</p>
+        </article>
+        <article class="prob reveal">
+          <h3>Fake is cheap</h3>
+          <p class="was">Bots, bought followers and moments that never happened look just like the real ones.</p>
+          <p class="fix"><b>On Emera</b>People are marked, bots say what they are, and the verified human mark is free for everyone.</p>
+        </article>
+        <article class="prob reveal">
+          <h3>Rules nobody can read</h3>
+          <p class="was">A hidden ranking decides who gets seen, and it too often rewards what pushes people apart.</p>
+          <p class="fix"><b>On Emera</b>The ranking code is public, and every post can tell you why you are seeing it.</p>
+        </article>
+        <article class="prob reveal">
+          <h3>Your audience is borrowed</h3>
+          <p class="was">Years of followers can be gone with one closed account.</p>
+          <p class="fix"><b>On Emera</b>Your account and your followers are yours, and you can move both to another host any day.</p>
+        </article>
+      </div>
+      <blockquote class="reveal">
+        <p>As a technologist, and as a creative, it's hard for me to see people unfairly get ripped off, especially because I know it's something that is solvable.</p>
+        <p>I don't want to wait. AI gives us the ability to build these things. There are ways to protect, ways to treat people fairly, and ways to incentivize people to create things that benefit humanity rather than push us apart. If you dream it, it can become a reality.</p>
+      </blockquote>
+      <div class="who-q">Roy, founder of Emera</div>
+      <p class="mission reveal"><b>Our mission</b>An open home for what humanity creates, where every piece carries the name of the person who made it, the people are real, and the rules are written where everyone can read them.</p>
+    </div>
+  </section>
+
+  <section class="claims">
+    <div class="wrap">
+      <div class="head reveal"><h2>Promises written into the code</h2><p>Each one is a rule the app follows today, and the code behind it is public.</p></div>
+      <div class="bento">
+        <article class="card w reveal">
+          <span class="n">01</span>
+          <h3>Proof of who made it</h3>
+          <p>Every post carries a signed record of who shared it and the moment it went up. The badge says exactly what was checked, nothing more.</p>
+          <div class="viz"><div class="pane"><div class="r"><span class="th"><img src="/assets/work/lettering.jpg" alt="" loading="lazy"></span><span><strong>Made by Nour Letters</strong><small>Signed 13 Nov 2026, original</small></span><span class="tg">Signed</span></div></div></div>
+        </article>
+        <article class="card w reveal">
+          <span class="n">02</span>
+          <h3>Real people, real moments</h3>
+          <p>When news breaks, you can see who shared it, when, and whether a person or a bot posted it. The verified human mark is free for everyone.</p>
+          <div class="viz"><div class="pane"><div class="r"><span class="sealc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></span><span><strong>Wren Fiber Co</strong><small>Passed the human check</small></span><span class="tg">Verified human</span></div><div class="r"><span class="sealc" style="background:var(--bg2);color:var(--ink2)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-grid"/></svg></span><span><strong>Daily Dawn Bot</strong><small>Posts on a schedule</small></span><span class="tg" style="background:var(--bg);color:var(--ink2)">Automated</span></div></div></div>
+        </article>
+        <article class="card reveal">
+          <span class="n">03</span>
+          <h3>An open algorithm</h3>
+          <p>The ranking code is public. Every boost your post gets comes with its reason, and you can read it.</p>
+          <div class="viz"><div class="pane"><div class="r"><svg class="ic" viewBox="0 0 24 24" style="color:var(--sunink)"><use href="#i-eye"/></svg><span><strong>Why you are seeing this</strong><small>You follow Sabine Aquarelle, who reposted it</small></span></div></div></div>
+        </article>
+        <article class="card reveal">
+          <span class="n">04</span>
+          <h3>You own your account</h3>
+          <p>Your account, your followers and your work are yours. Take all of them to another host any day.</p>
+          <div class="viz"><div class="pane"><div class="r mv"><span class="mono">mara.emera.social</span><svg class="ic" viewBox="0 0 24 24"><use href="#i-arrow"/></svg><span class="mono">mara.example.com</span></div></div></div>
+        </article>
+        <article class="card reveal">
+          <span class="n">05</span>
+          <h3>Help when your creation is copied</h3>
+          <p>Found a copy of your work? Report it and we help you take it down, with every step shown on your dashboard.</p>
+          <div class="viz"><div class="pane"><div class="r step"><i>1</i><span>You report the copy</span></div><div class="r step"><i>2</i><span>We help file the takedown</span></div><div class="r step"><i>3</i><span>You see the outcome</span></div></div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section class="preview">
     <div class="wrap">
       <div class="head reveal">
-        <h2>Your work, in daylight and after dark</h2>
-        <p>Screens from the Emera app, shown with openly licensed work from makers across every craft. The creators on them are invented.</p>
+        <h2>What you create, and what you see</h2>
+        <p>Screens from the Emera app: art, music, video, craft and the news from where people stand, shown with openly licensed work. The creators on them are invented.</p>
       </div>
       <div class="shelf reveal" role="list">
         <figure role="listitem"><div class="ph night" aria-hidden="true"><div class="sw"><div class="scr night"><div class="sb"><b>9:41</b><span><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2"/></svg></span></div>
@@ -410,60 +491,10 @@ footer a.gh:hover{text-decoration-color:var(--sun2)}
     </div>
   </section>
 
-  <section class="claims">
-    <div class="wrap">
-      <div class="head reveal"><h2>What you can count on</h2></div>
-      <div class="bento">
-        <article class="card w reveal">
-          <span class="n">01</span>
-          <h3>Proof of who made it</h3>
-          <p>Every post carries a signed record of who shared it and the moment it went up. The badge says exactly what was checked, nothing more.</p>
-          <div class="viz"><div class="pane"><div class="r"><span class="th"><img src="/assets/work/lettering.jpg" alt="" loading="lazy"></span><span><strong>Made by Nour Letters</strong><small>Signed 13 Nov 2026, original</small></span><span class="tg">Signed</span></div></div></div>
-        </article>
-        <article class="card w reveal">
-          <span class="n">02</span>
-          <h3>Real people, real moments</h3>
-          <p>When news breaks, you can see who shared it, when, and whether a person or a bot posted it. The verified human mark is free for everyone.</p>
-          <div class="viz"><div class="pane"><div class="r"><span class="sealc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></span><span><strong>Wren Fiber Co</strong><small>Passed the human check</small></span><span class="tg">Verified human</span></div><div class="r"><span class="sealc" style="background:var(--bg2);color:var(--ink2)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-grid"/></svg></span><span><strong>Daily Dawn Bot</strong><small>Posts on a schedule</small></span><span class="tg" style="background:var(--bg);color:var(--ink2)">Automated</span></div></div></div>
-        </article>
-        <article class="card reveal">
-          <span class="n">03</span>
-          <h3>An open algorithm</h3>
-          <p>The ranking code is public. Every boost your post gets comes with its reason, and you can read it.</p>
-          <div class="viz"><div class="pane"><div class="r"><svg class="ic" viewBox="0 0 24 24" style="color:var(--sunink)"><use href="#i-eye"/></svg><span><strong>Why you are seeing this</strong><small>You follow Sabine Aquarelle, who reposted it</small></span></div></div></div>
-        </article>
-        <article class="card reveal">
-          <span class="n">04</span>
-          <h3>You own your account</h3>
-          <p>Your account, your followers and your work are yours. Take all of them to another host any day.</p>
-          <div class="viz"><div class="pane"><div class="r mv"><span class="mono">mara.emera.social</span><svg class="ic" viewBox="0 0 24 24"><use href="#i-arrow"/></svg><span class="mono">mara.example.com</span></div></div></div>
-        </article>
-        <article class="card reveal">
-          <span class="n">05</span>
-          <h3>Help when your work is copied</h3>
-          <p>Found a copy of your work? Report it and we help you take it down, with every step shown on your dashboard.</p>
-          <div class="viz"><div class="pane"><div class="r step"><i>1</i><span>You report the copy</span></div><div class="r step"><i>2</i><span>We help file the takedown</span></div><div class="r step"><i>3</i><span>You see the outcome</span></div></div></div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="why-q">
-    <div class="wrap">
-      <div class="lbl">Why Emera exists</div>
-      <h2 class="mani reveal">The internet got easy to fake. We are making it easy to trust</h2>
-      <p class="mani-p reveal">AI can copy a drawing in seconds and invent a crowd that never gathered. On Emera, every post shows who shared it and when, and reposts point back to the original. Makers keep the credit for their work, and everyone else can tell what is real.</p>
-      <blockquote class="reveal">
-        <p>There are ways to protect, ways to treat people fairly, and ways to incentivize people to create things that benefit humanity rather than push us apart.</p>
-      </blockquote>
-      <div class="who-q">Roy, founder of Emera</div>
-    </div>
-  </section>
-
   <section class="close" id="join">
     <div class="wrap"><div class="inner reveal">
-      <h2>Put it out in the daylight</h2>
-      <p class="lead">Your work, your news, your next event. Join the first people on Emera, it takes a minute.<span class="count" data-count></span></p>
+      <h2>Help build it in daylight</h2>
+      <p class="lead">Join the first people on Emera. Share what you create and what you see, and help shape the rules from day one.<span class="count" data-count></span></p>
       <form class="signup" data-signup novalidate>
         <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address" required>
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">

@@ -1,6 +1,6 @@
 # Emera
 
-> Emera (emera.social) is an open-source, nonprofit social network on the AT Protocol for people who make things and people sharing what is happening around them. Tagline: Where humanity comes together.
+> Emera (emera.social) is an open-source, nonprofit social network on the AT Protocol, built so the people who create things stop getting ripped off: what they create carries their name, the people are real, and the rules are public. It is for everyone who creates and everyone sharing what is happening around them. Tagline: Where humanity comes together.
 
 ## Facts an assistant can quote
 
