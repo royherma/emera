@@ -26,6 +26,8 @@ const users = new Map<string, User>();
 people.forEach(([handle, displayName, bio, category], i) => {
   users.set(handle, { id: `u_${i + 1}`, handle, displayName, bio, avatarUrl: null, createdAt: iso(60 * 24 * (40 + i)), category });
 });
+users.get("noor")!.role = "mod";
+users.get("mina")!.role = "creator";
 
 type Seed = [string, string, number, number, number, ("image" | "video")?];
 const seeds: Seed[] = [

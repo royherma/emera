@@ -12,6 +12,7 @@ import { ApiError, type Comment } from "@/lib/types";
 import { useAuth } from "@/state/auth";
 import { useResource } from "@/state/resource";
 import { useTheme } from "@/state/theme";
+import { RoleBadge } from "@/components/RoleBadge";
 
 const MAX = 500;
 
@@ -27,7 +28,7 @@ function Item({ comment, small, canDelete, onReply, onDelete }: { comment: Comme
       </Pressable>
       <View style={{ flex: 1, gap: 3 }}>
         <Text style={[type.meta, { color: c.ink3 }]}>
-          <Text style={[type.name, { color: c.ink }]}>{comment.author.displayName}</Text> @{comment.author.handle} · {timeAgo(comment.createdAt)}
+          <Text style={[type.name, { color: c.ink }]}>{comment.author.displayName}</Text>{comment.author.role ? <>{" "}<RoleBadge role={comment.author.role} /></> : null} @{comment.author.handle} · {timeAgo(comment.createdAt)}
         </Text>
         <Text style={[type.bodySm, { color: c.ink }]}>{comment.body}</Text>
         <View style={{ flexDirection: "row", alignItems: "center", gap: space[3], minHeight: 28 }}>

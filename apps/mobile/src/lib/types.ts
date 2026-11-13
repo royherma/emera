@@ -6,6 +6,7 @@ export type User = {
   links?: string[];
   avatarUrl: string | null;
   createdAt: string;
+  role?: Role | null;
   category?: string;
   followers?: number;
   following?: number;
@@ -73,7 +74,8 @@ export type FlagReason = "spam" | "harassment" | "hate" | "violence" | "nudity" 
 
 export type SearchKind = "people" | "posts";
 
-export type ChatUser = { id: string; handle: string | null; displayName: string; avatarUrl: string | null };
+export type Role = "admin" | "mod" | "creator";
+export type ChatUser = { id: string; handle: string | null; displayName: string; avatarUrl: string | null; role?: Role | null };
 export type ChatMessage = { id: string; user: ChatUser; body: string; createdAt: string; mine: boolean; deleted: boolean; postId?: string | null; post?: Post | null };
 export type Channel = { id: string; name: string; topic: string; slowSeconds: number; unread: boolean };
 export type DmThread = { id: string; with: ChatUser; accepted: boolean; theyAccepted: boolean; muted?: boolean; lastAt: string; last: { body: string; mine: boolean; deleted: boolean } | null; unread: boolean };

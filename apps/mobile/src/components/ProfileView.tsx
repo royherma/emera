@@ -19,6 +19,7 @@ import { useTheme } from "@/state/theme";
 import { useToast } from "@/state/toast";
 import { ApiError } from "@/lib/types";
 import type { Post, User } from "@/lib/types";
+import { RoleBadge } from "@/components/RoleBadge";
 
 type Group = "all" | "image" | "video" | "series";
 const groupOf = (p: Post): Group => (p.media.length > 1 ? "series" : p.media[0].kind === "video" ? "video" : "image");
@@ -126,7 +127,10 @@ export function ProfileView({ handle, own, tabs, back, onInvite }: { handle: str
             <View style={{ marginTop: space[3], gap: 4 }}>
               {user ? (
                 <>
-                  <Text style={[type.title, { fontSize: 19, color: c.ink }]}>{user.displayName}</Text>
+                  <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+                    <Text style={[type.title, { fontSize: 19, color: c.ink }]}>{user.displayName}</Text>
+                    <RoleBadge role={user.role} />
+                  </View>
                   <Text style={[type.meta, { color: c.ink3 }]}>@{user.handle}</Text>
                   {user.bio ? <Text style={[type.bodySm, { color: c.ink, maxWidth: 420, marginTop: 2 }]}>{user.bio}</Text> : null}
                   {user.links?.map((l) => (

@@ -9,7 +9,7 @@ const minutesAgo = (m: number) => Date.now() - m * 60000;
 
 export function makeMockChat({ current, users, blocked, muted, postById }: Deps): ChatBackend {
   let settings: ChatSettings = { dmFrom: "everyone", channelsHidden: false };
-  const chatUser = (u: User): ChatUser => ({ id: u.id, handle: u.handle, displayName: u.displayName, avatarUrl: u.avatarUrl });
+  const chatUser = (u: User): ChatUser => ({ id: u.id, handle: u.handle, displayName: u.displayName, avatarUrl: u.avatarUrl, role: u.role ?? null });
   const byHandle = (h: string) => chatUser(users.get(h)!);
   const channels: Channel[] = [
     { id: "lobby", name: "lobby", topic: "Say hi and meet the people here", slowSeconds: 0, unread: true },
