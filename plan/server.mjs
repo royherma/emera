@@ -14,14 +14,34 @@ const logFile = join(root, 'data/feedback.jsonl');
 const readPlan = () => JSON.parse(readFileSync(planFile, 'utf8'));
 
 const task = (plan, id) => plan.phases.flatMap((p) => p.tasks).find((t) => t.id === id);
+const nowPhase = (plan) => plan.phases.find((p) => p.id !== 'later' && p.tasks.some((t) => !t.done));
 const apply = {
-  'task-toggle': (plan, f) => { task(plan, f.id).done = f.done; },
+  'task-toggle': (plan, f) => {
+    const t = task(plan, f.id); t.done = f.done;
+    const r = t.review && plan.review?.find((x) => x.id === t.review);
+    if (r) Object.assign(r, f.done ? { answer: 'done', at: new Date().toISOString() } : { answer: null, at: null });
+  },
   'task-edit': (plan, f) => { task(plan, f.id).text = f.text; },
   'task-add': (plan, f) => {
     const phase = plan.phases.find((p) => p.id === f.phase);
     f.id = `${phase.id}${phase.tasks.length + 1}-${Date.now() % 1000}`;
     phase.tasks.push({ id: f.id, text: f.text, who: 'roy', added: true });
   },
+  'task-move': (plan, f) => {
+    const from = plan.phases.find((p) => p.tasks.some((t) => t.id === f.id));
+    const to = plan.phases.find((p) => p.id === f.phase);
+    const [t] = from.tasks.splice(from.tasks.findIndex((x) => x.id === f.id), 1);
+    to.tasks.splice(Math.min(f.index ?? to.tasks.length, to.tasks.length), 0, t);
+    const r = t.review && plan.review?.find((x) => x.id === t.review);
+    if (r && to.id === nowPhase(plan)?.id && r.answer === 'later') Object.assign(r, { answer: null, at: null });
+    if (r && to.id === 'later' && !r.answer) Object.assign(r, { answer: 'later', at: new Date().toISOString() });
+  },
+  'phase-add': (plan, f) => {
+    f.id = `p${Date.now() % 100000}`;
+    const at = plan.phases.findIndex((p) => p.id === 'later');
+    plan.phases.splice(at < 0 ? plan.phases.length : at, 0, { id: f.id, title: f.title, sub: '', tasks: [] });
+  },
+  'phase-edit': (plan, f) => { Object.assign(plan.phases.find((p) => p.id === f.id), 'title' in f ? { title: f.title } : {}, 'sub' in f ? { sub: f.sub } : {}); },
   pick: (plan, f) => { plan.decisions.find((d) => d.id === f.id).pick = f.pick; },
   'decision-note': (plan, f) => { plan.decisions.find((d) => d.id === f.id).note = f.note; },
   'name-vote': (plan, f) => { plan.names.items.find((n) => n.id === f.id).vote = f.vote; },
@@ -31,7 +51,15 @@ const apply = {
     const r = plan.review.find((x) => x.id === f.id);
     Object.assign(r, { answer: f.answer ?? null, text: 'text' in f ? f.text : r.text, at: f.answer ? new Date().toISOString() : null });
     const t = r.task && task(plan, r.task);
-    if (t && r.kind === 'do') t.done = f.answer === 'done';
+    for (const x of [t, ...plan.phases.flatMap((p) => p.tasks).filter((y) => y.review === r.id)]) if (x && r.kind === 'do') x.done = f.answer === 'done';
+    const now = nowPhase(plan);
+    const linked = now?.tasks.find((x) => x.review === r.id && !x.done);
+    if (f.answer === 'later' && linked) {
+      const next = plan.phases[plan.phases.indexOf(now) + 1] ?? now;
+      now.tasks.splice(now.tasks.indexOf(linked), 1);
+      next.tasks.unshift(linked);
+      f.movedTo = next.id;
+    }
   },
   note: (plan, f) => { plan.inbox = [...(plan.inbox ?? []), { at: new Date().toISOString(), text: f.text }]; },
 };

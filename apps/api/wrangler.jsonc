@@ -38,6 +38,7 @@
       "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "emera-media-staging" }],
       "images": { "binding": "IMAGES" },
       "media": { "binding": "VIDEO" },
+      "ai": { "binding": "AI" },
       "queues": {
         "producers": [{ "binding": "VIDEO_JOBS", "queue": "emera-video-staging" }],
         "consumers": [{ "queue": "emera-video-staging", "max_batch_size": 1, "max_retries": 2 }]
@@ -59,6 +60,7 @@
       "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "emera-media-prod" }],
       "images": { "binding": "IMAGES" },
       "media": { "binding": "VIDEO" },
+      "ai": { "binding": "AI" },
       "queues": {
         "producers": [{ "binding": "VIDEO_JOBS", "queue": "emera-video-production" }],
         "consumers": [{ "queue": "emera-video-production", "max_batch_size": 1, "max_retries": 2 }]
@@ -67,7 +69,10 @@
         { "pattern": "api.emera.social", "custom_domain": true },
         { "pattern": "emera.social/@*", "zone_name": "emera.social" },
         { "pattern": "emera.social/p/*", "zone_name": "emera.social" },
-        { "pattern": "emera.social/media/*", "zone_name": "emera.social" }
+        { "pattern": "emera.social/media/*", "zone_name": "emera.social" },
+        { "pattern": "emera.social/embed/*", "zone_name": "emera.social" },
+        { "pattern": "emera.social/oembed*", "zone_name": "emera.social" },
+        { "pattern": "emera.social/feed.xml*", "zone_name": "emera.social" }
       ]
     }
   }

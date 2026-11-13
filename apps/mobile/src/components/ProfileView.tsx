@@ -155,7 +155,7 @@ export function ProfileView({ handle, own, tabs, back, onInvite }: { handle: str
                   ) : (
                     <Button label={following ? "Following" : "Follow"} kind={following ? "secondary" : "primary"} busy={busy} onPress={toggleFollow} disabled={!user} style={{ flex: 1.3 }} />
                   )}
-                  <Button label="Message" kind="secondary" disabled style={{ flex: 1 }} />
+                  <Button label="Message" kind="secondary" disabled={!user} onPress={() => router.push({ pathname: "/messages/[id]", params: { id: "new", handle } })} style={{ flex: 1 }} />
                   <IconButton icon="share" label="Share profile" onPress={share} />
                 </>
               )}
@@ -191,7 +191,7 @@ export function ProfileView({ handle, own, tabs, back, onInvite }: { handle: str
                 action={own ? <Button label="Post something" icon="plus" onPress={() => router.push("/upload")} /> : undefined}
               />
             ) : (
-              <SquareGrid posts={shown} width={column} />
+              <SquareGrid posts={shown} width={column} from={`@${handle}`} cursor={group === "all" ? data.cursor : null} />
             )}
           </>
         )}

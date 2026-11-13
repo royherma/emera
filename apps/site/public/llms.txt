@@ -6,7 +6,7 @@
 
 - Every post carries a signed record (C2PA content credentials) of who shared it and when it went up; the badge states only what was checked.
 - People are marked, automated accounts are labeled, and the verified human mark is free.
-- Creators who find a copy of their work can report it, and Emera helps them file the takedown.
+- Emera scans the web for copies of what creators upload, files takedowns where copies turn up, and its agents take legal steps when a takedown is not enough. Creators can also report a copy from any post.
 - Accounts are portable: a member can move their account and followers to another AT Protocol host.
 - Emera comes from hemera, the Greek word for day.
 

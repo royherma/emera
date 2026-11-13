@@ -1,0 +1,43 @@
+{
+  "month": "2026-11",
+  "updated": "2026-11-13",
+  "lines": [
+    {
+      "item": "Domain emera.social",
+      "detail": "Bought on Cloudflare Registrar, $32.20 a year spread over 12 months",
+      "monthly_usd": 2.68,
+      "basis": "Paid",
+      "source": { "label": "docs/naming.md", "url": "https://github.com/royherma/emera/blob/main/docs/naming.md" }
+    },
+    {
+      "item": "Hosting on Cloudflare",
+      "detail": "Site, API, database and photo storage",
+      "monthly_usd": 0,
+      "basis": "Estimate from today's use",
+      "source": { "label": "docs/master-plan.md, M0", "url": "https://github.com/royherma/emera/blob/main/docs/master-plan.md" }
+    },
+    {
+      "item": "Sign-in email",
+      "detail": "Login codes sent through Resend, free plan of 3,000 emails a month",
+      "monthly_usd": 0,
+      "basis": "Free plan",
+      "source": { "label": "Resend pricing", "url": "https://resend.com/pricing" }
+    }
+  ],
+  "paidBy": {
+    "who": "Techguyver Labs, LLC",
+    "source": { "label": "docs/master-plan.md, section 5", "url": "https://github.com/royherma/emera/blob/main/docs/master-plan.md" }
+  },
+  "model": {
+    "title": "What it costs as Emera grows",
+    "note": "A calculation, not a bill. It assumes each creator posts 12 times a month and stores about 1.5 GB at steady state, at today's Cloudflare prices.",
+    "cols": ["Creators", "1,000", "10,000", "100,000"],
+    "rows": [
+      ["Hosting a month", "$40", "$359", "$3,586"],
+      ["Hosting per creator", "4.0 cents", "3.6 cents", "3.6 cents"],
+      ["Copy watch, one scan per image", "$67", "$697", "$6,997"],
+      ["Total a month", "$107", "$1,056", "$10,583"]
+    ],
+    "source": { "label": "docs/architecture.md, section 5", "url": "https://github.com/royherma/emera/blob/main/docs/architecture.md" }
+  }
+}

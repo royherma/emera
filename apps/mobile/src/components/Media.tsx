@@ -11,6 +11,7 @@ import { sun, type } from "@/lib/theme";
 import { Text } from "react-native";
 import type { Media } from "@/lib/types";
 import { storage } from "@/lib/storage";
+import { cueAt, loadCaptions, type Cue } from "@/lib/captions";
 
 export function MediaImage({ media, style, fit = "cover", playSize = 48 }: { media: Media; style?: StyleProp<ViewStyle>; fit?: "cover" | "contain"; playSize?: number }) {
   const { c } = useTheme();
@@ -79,9 +80,25 @@ function useSound() {
   return useSyncExternalStore((l) => (soundListeners.add(l), () => soundListeners.delete(l)), effectiveSound, () => false);
 }
 
+const CAPTIONS_KEY = "emera.captions";
+let captionsOn = false;
+const captionListeners = new Set<() => void>();
+function setCaptions(on: boolean) {
+  captionsOn = on;
+  captionListeners.forEach((l) => l());
+  void storage.set(CAPTIONS_KEY, on ? "on" : null);
+}
+void storage.get(CAPTIONS_KEY).then((v) => {
+  if (v === "on") (captionsOn = true), captionListeners.forEach((l) => l());
+});
+function useCaptionsOn() {
+  return useSyncExternalStore((l) => (captionListeners.add(l), () => captionListeners.delete(l)), () => captionsOn, () => false);
+}
+
 if (web && typeof document !== "undefined") {
   // Browsers refuse to autoplay with sound until the first tap or key, so a saved "sound on" waits for it.
-  const unlock = () => {
+  const unlock = (e: Event) => {
+    if ((e.target as Element | null)?.closest?.('[data-testid="sound-button"]')) return; // the button sets sound itself; unlocking first flips its toggle
     unlocked = true;
     notify();
     document.removeEventListener("pointerdown", unlock, true);
@@ -138,6 +155,20 @@ function LivePlayer({ media, fit, tapToPause, onPlaying }: { media: Media; fit: 
   useEffect(() => {
     player.muted = !sound;
   }, [player, sound]);
+  const captionsOn = useCaptionsOn();
+  const [cues, setCues] = useState<Cue[]>([]);
+  const showCaptions = captionsOn && !!media.captionsUrl;
+  useEffect(() => {
+    if (!showCaptions) return;
+    let live = true;
+    void loadCaptions(media.captionsUrl!).then((c) => live && setCues(c));
+    return () => void (live = false);
+  }, [showCaptions, media.captionsUrl]);
+  useEffect(() => {
+    player.timeUpdateEventInterval = showCaptions ? 0.25 : 0;
+  }, [player, showCaptions]);
+  const { currentTime } = useEvent(player, "timeUpdate", { currentTime: 0, currentLiveTimestamp: null, currentOffsetFromLive: null, bufferedPosition: 0 });
+  const line = showCaptions ? cueAt(cues, currentTime) : null;
   const toggle = () => {
     const was = player.playing;
     if (was) player.pause();
@@ -147,6 +178,11 @@ function LivePlayer({ media, fit, tapToPause, onPlaying }: { media: Media; fit: 
   return (
     <>
       <VideoView player={player} style={[fill, { opacity: started ? 1 : 0 }]} nativeControls={false} contentFit={fit} />
+      {line && (
+        <View pointerEvents="none" style={{ position: "absolute", left: 16, right: 16, bottom: 50, alignItems: "center" }}>
+          <Text style={{ color: "#fff", fontSize: 15, lineHeight: 20, fontWeight: "600", textAlign: "center", backgroundColor: "rgba(0,0,0,0.62)", paddingHorizontal: 8, paddingVertical: 3, borderRadius: 6, overflow: "hidden" }}>{line}</Text>
+        </View>
+      )}
       {tapToPause && (
         <Pressable accessibilityRole="button" accessibilityLabel={isPlaying ? "Pause" : "Play"} onPress={toggle} style={[full, { alignItems: "center", justifyContent: "center" }]}>
           {started && !isPlaying && (
@@ -163,9 +199,20 @@ function LivePlayer({ media, fit, tapToPause, onPlaying }: { media: Media; fit: 
 function SoundButton() {
   const sound = useSound();
   return (
-    <Pressable accessibilityRole="button" accessibilityLabel={sound ? "Turn sound off" : "Turn sound on"} hitSlop={12} onPress={() => setSound(!sound)} style={{ position: "absolute", right: 10, bottom: 10 }}>
+    <Pressable testID="sound-button" accessibilityRole="button" accessibilityLabel={sound ? "Turn sound off" : "Turn sound on"} hitSlop={12} onPress={() => setSound(!sound)} style={{ position: "absolute", right: 10, bottom: 10 }}>
       <Glass style={{ width: 30, height: 30, borderRadius: 15 }}>
         <Icon name={sound ? "sound" : "muted"} size={15} color="#fff" strokeWidth={2} />
+      </Glass>
+    </Pressable>
+  );
+}
+
+function CaptionsButton() {
+  const on = useCaptionsOn();
+  return (
+    <Pressable accessibilityRole="button" accessibilityLabel={on ? "Turn captions off" : "Turn captions on"} hitSlop={12} onPress={() => setCaptions(!on)} style={{ position: "absolute", right: 48, bottom: 10 }}>
+      <Glass style={{ width: 30, height: 30, borderRadius: 15, opacity: on ? 1 : 0.7 }}>
+        <Icon name="captions" size={16} color={on ? sun.sunHigh : "#fff"} strokeWidth={2} />
       </Glass>
     </Pressable>
   );
@@ -183,6 +230,7 @@ export function InlineVideo({ media, style, fit = "cover", tapToPause = false }:
       <MediaImage media={media} style={full} fit={fit} playSize={playing || live ? 0 : 56} />
       {live && <LivePlayer media={media} fit={fit} tapToPause={tapToPause} onPlaying={setPlaying} />}
       {live && <SoundButton />}
+      {live && media.captionsUrl && <CaptionsButton />}
     </View>
   );
 }

@@ -2,70 +2,70 @@ appId: social.emera
 ---
 - launchApp:
     clearState: true
-- extendedWaitUntil: {visible: "Get started", timeout: 20000}
-- takeScreenshot: ${OUT}/welcome
+- extendedWaitUntil: {visible: "Get started", timeout: 90000}
+- takeScreenshot: welcome
 - tapOn: "Get started"
 - extendedWaitUntil: {visible: "Send my code", timeout: 8000}
-- takeScreenshot: ${OUT}/sign-in
+- takeScreenshot: sign-in
 - tapOn: "you@example.com"
 - inputText: "ios@example.com"
 - tapOn: "Send my code"
 - extendedWaitUntil: {visible: "Check your email", timeout: 8000}
-- takeScreenshot: ${OUT}/code
+- takeScreenshot: code
 - inputText: "123456"
 - extendedWaitUntil: {visible: "What's your name?", timeout: 8000}
-- takeScreenshot: ${OUT}/handle
+- takeScreenshot: handle
 - tapOn: "Your name"
 - inputText: "Iris Test"
 - hideKeyboard
 - tapOn: "Start"
 - waitForAnimationToEnd: {timeout: 4000}
-- takeScreenshot: ${OUT}/feed
+- takeScreenshot: feed
 - openLink: "emera:///explore"
 - waitForAnimationToEnd: {timeout: 4000}
-- takeScreenshot: ${OUT}/explore
+- takeScreenshot: explore
 - openLink: "emera:///me"
 - waitForAnimationToEnd: {timeout: 4000}
-- takeScreenshot: ${OUT}/me
+- takeScreenshot: me
 - openLink: "emera:///upload"
 - waitForAnimationToEnd: {timeout: 4000}
-- takeScreenshot: ${OUT}/upload
+- takeScreenshot: upload
 - openLink: "emera:///settings"
 - waitForAnimationToEnd: {timeout: 4000}
-- takeScreenshot: ${OUT}/settings
+- takeScreenshot: settings
 - openLink: "emera:///search"
 - waitForAnimationToEnd: {timeout: 4000}
-- takeScreenshot: ${OUT}/search
+- takeScreenshot: search
 - openLink: "emera:///notifications"
 - waitForAnimationToEnd: {timeout: 4000}
-- takeScreenshot: ${OUT}/notifications
+- takeScreenshot: notifications
 - openLink: "emera:///invites"
 - waitForAnimationToEnd: {timeout: 4000}
-- takeScreenshot: ${OUT}/invites
+- takeScreenshot: invites
 - openLink: "emera:///edit-profile"
 - waitForAnimationToEnd: {timeout: 4000}
-- takeScreenshot: ${OUT}/edit-profile
+- takeScreenshot: edit-profile
 - openLink: "emera:///blocked"
 - waitForAnimationToEnd: {timeout: 4000}
-- takeScreenshot: ${OUT}/blocked
+- takeScreenshot: blocked
 - openLink: "emera:///p/p_100"
 - waitForAnimationToEnd: {timeout: 4000}
-- takeScreenshot: ${OUT}/p-p_100
+- takeScreenshot: p-p_100
 - openLink: "emera:///comments/p_100"
 - waitForAnimationToEnd: {timeout: 4000}
-- takeScreenshot: ${OUT}/comments-p_100
+- takeScreenshot: comments-p_100
 - openLink: "emera:///u/mina"
 - waitForAnimationToEnd: {timeout: 4000}
-- takeScreenshot: ${OUT}/u-mina
+- takeScreenshot: u-mina
 - openLink: "emera:///followers/mina"
 - waitForAnimationToEnd: {timeout: 4000}
-- takeScreenshot: ${OUT}/followers-mina
+- takeScreenshot: followers-mina
 - openLink: "emera:///following/mina"
 - waitForAnimationToEnd: {timeout: 4000}
-- takeScreenshot: ${OUT}/following-mina
+- takeScreenshot: following-mina
 - openLink: "emera:///report?type=post&id=p_100"
 - waitForAnimationToEnd: {timeout: 4000}
-- takeScreenshot: ${OUT}/report
+- takeScreenshot: report
 - openLink: "emera:///flag?type=user&id=u_1&name=mina"
 - waitForAnimationToEnd: {timeout: 4000}
-- takeScreenshot: ${OUT}/flag
+- takeScreenshot: flag

@@ -22,7 +22,7 @@ const REASONS: { value: FlagReason; label: string; hint: string }[] = [
 ];
 
 export default function Flag() {
-  const { type: targetType = "post", id = "", name = "" } = useLocalSearchParams<{ type: "post" | "user"; id: string; name?: string }>();
+  const { type: targetType = "post", id = "", name = "" } = useLocalSearchParams<{ type: "post" | "user" | "channel" | "dm"; id: string; name?: string }>();
   const router = useRouter();
   const { c } = useTheme();
   const [reason, setReason] = useState<FlagReason | null>(null);
@@ -32,14 +32,15 @@ export default function Flag() {
   const [error, setError] = useState<string | null>(null);
 
   const back = () => (router.canGoBack() ? router.back() : router.replace("/feed"));
-  const what = targetType === "user" ? (name ? `@${name}` : "this account") : "this post";
+  const what = targetType === "user" ? (name ? `@${name}` : "this account") : targetType === "post" ? "this post" : "this message";
 
   const submit = async () => {
     if (!reason) return;
     setBusy(true);
     setError(null);
     try {
-      await api.flag({ targetType, targetId: id, reason, note: note.trim() });
+      if (targetType === "channel" || targetType === "dm") await api.flagMessage({ kind: targetType, messageId: id, reason, note: note.trim() });
+      else await api.flag({ targetType, targetId: id, reason, note: note.trim() });
       setDone(true);
     } catch (e) {
       setError(e instanceof ApiError ? e.message : "Something went wrong. Try again.");
@@ -66,7 +67,7 @@ export default function Flag() {
         <View style={{ gap: space[4] }}>
           <View style={{ gap: space[2] }}>
             <Text style={[type.h1, { color: c.ink }]}>Report {what}</Text>
-            <Text style={[type.body, { color: c.ink2 }]}>Pick what fits best. The person is not told who reported them.</Text>
+            <Text style={[type.body, { color: c.ink2 }]}>Pick what fits best. The person is not told who reported them.{targetType === "dm" ? " We see this one message, nothing else from the conversation." : ""}</Text>
           </View>
           <View style={{ gap: 2 }} accessibilityRole="radiogroup">
             {REASONS.map((r) => {

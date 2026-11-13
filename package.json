@@ -8,6 +8,10 @@
     "app": "npm --prefix apps/mobile run web",
     "atlas": "node tools/atlas/build.mjs --watch",
     "atlas:shots": "node tools/atlas/shots.mjs",
-    "agents": "node tools/agents.mjs"
+    "agents": "node tools/agents.mjs",
+    "demo": "node tools/demo.mjs",
+    "migrations:replay": "node tools/replay-migrations.mjs",
+    "lexicons:golden": "npm --prefix spikes/provenance run golden",
+    "prepare": "node tools/install-hooks.mjs"
   }
 }

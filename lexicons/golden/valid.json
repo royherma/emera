@@ -1,0 +1,86 @@
+[
+  {
+    "nsid": "social.emera.post",
+    "name": "image post with every optional field",
+    "record": {
+      "$type": "social.emera.post",
+      "text": "sunrise over the harbor",
+      "createdAt": "2026-11-13T09:30:00.000Z",
+      "license": "cc-by-nc",
+      "langs": ["en"],
+      "provenance": { "uri": "at://did:plc:ewvi7nxzyoun6zhxrhs64oiz/social.emera.provenance/3kabc", "cid": "bafkreibme22gw2h7y2h7tg2fhqotaqjucnbc24deqo72b6mkl2egezxhvy" },
+      "media": {
+        "$type": "social.emera.post#images",
+        "images": [
+          {
+            "image": { "$type": "blob", "ref": { "$link": "bafkreibme22gw2h7y2h7tg2fhqotaqjucnbc24deqo72b6mkl2egezxhvy" }, "mimeType": "image/jpeg", "size": 120000 },
+            "alt": "orange sky over water",
+            "pdq": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aspectRatio": { "width": 4, "height": 3 }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "nsid": "social.emera.post",
+    "name": "video post without text",
+    "record": {
+      "$type": "social.emera.post",
+      "createdAt": "2026-11-13T09:30:00.000Z",
+      "media": {
+        "$type": "social.emera.post#videoMedia",
+        "video": {
+          "video": { "$type": "blob", "ref": { "$link": "bafkreibme22gw2h7y2h7tg2fhqotaqjucnbc24deqo72b6mkl2egezxhvy" }, "mimeType": "video/mp4", "size": 9000000 },
+          "durationMs": 30000
+        }
+      }
+    }
+  },
+  {
+    "nsid": "social.emera.actor.profile",
+    "name": "empty profile",
+    "record": { "$type": "social.emera.actor.profile" }
+  },
+  {
+    "nsid": "social.emera.actor.profile",
+    "name": "profile with copy watch",
+    "record": {
+      "$type": "social.emera.actor.profile",
+      "craft": ["photography", "ceramics"],
+      "links": ["https://example.com/portfolio"],
+      "defaultLicense": "cc0",
+      "createdAt": "2026-11-13T09:30:00.000Z",
+      "copyWatch": { "enabled": true, "grantedAt": "2026-11-13T09:30:00.000Z", "termsVersion": "1", "legalName": "Test Creator", "autoFile": "ask-each-time" }
+    }
+  },
+  {
+    "nsid": "social.emera.provenance",
+    "name": "provenance with one item",
+    "record": {
+      "$type": "social.emera.provenance",
+      "subject": { "uri": "at://did:plc:ewvi7nxzyoun6zhxrhs64oiz/social.emera.post/3kabc", "cid": "bafkreibme22gw2h7y2h7tg2fhqotaqjucnbc24deqo72b6mkl2egezxhvy" },
+      "signedAt": "2026-11-13T09:30:00.000Z",
+      "items": [{ "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" }]
+    }
+  },
+  {
+    "nsid": "social.emera.provenance",
+    "name": "provenance with c2pa and signer",
+    "record": {
+      "$type": "social.emera.provenance",
+      "subject": { "uri": "at://did:plc:ewvi7nxzyoun6zhxrhs64oiz/social.emera.post/3kabc", "cid": "bafkreibme22gw2h7y2h7tg2fhqotaqjucnbc24deqo72b6mkl2egezxhvy" },
+      "signedAt": "2026-11-13T09:30:00.000Z",
+      "signer": "Emera Test Signer",
+      "claimGenerator": "emera-test/1",
+      "items": [
+        {
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "pdq": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "origin": "captured",
+          "c2pa": { "state": "valid", "incomingIssuer": "Example Camera Co" }
+        }
+      ]
+    }
+  }
+]
