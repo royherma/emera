@@ -116,6 +116,10 @@ Commits are authored by `Techguyver Labs <oss@techguyverlabs.org>` (set in this 
 
 `emera.social` was bought 2026-11-13 on Cloudflare Registrar, zone `89f5419a484e8cc56995a5fe4d68773d`. It expires 2027-11-13 and **auto-renew is OFF**. getemera.com was not bought (Roy chose only .social).
 
+## App Store
+
+iOS app record made 2026-11-13 under Techguyver Labs, LLC: app id `6834311747` (https://appstoreconnect.apple.com/apps/6834311747), bundle `social.emera` (bundle id resource `6R42978HR4`), SKU `emera-ios`, name "Emera - OS Social Network". API access: `~/Desktop/Development/ShowAndTell/bin/asc` (see `~/.claude/reference/rules/apple-asc-auth.md`).
+
 ## Roy's dashboard
 
 http://agora.localhost:5035 (`npm run plan`): milestones with % done, decisions, brand directions, the workstreams agents are running, mission, and what needs Roy. Every click lands in `data/feedback.jsonl` and prints a `DECISION` line in `.claude/artifacts/plan/server.log`. Keep `data/plan.json` current: tick a step the moment it's verified, and mark a workstream running/done when its agent starts or lands.
