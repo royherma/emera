@@ -29,7 +29,10 @@
         "SENTRY_DSN": "https://f1c13fe2a5084a5d09919d7c213ee80d@o4512099364503552.ingest.us.sentry.io/4512422700449792",
         "INVITES_REQUIRED": "false",
         "PUBLIC_ORIGIN": "",
-        "FUNDING": "on"
+        "FUNDING": "on",
+        "STRIPE_ACCOUNT_ID": "acct_1TqRrs2cbiVEsA2f",
+        "STRIPE_SPONSOR_PRODUCT": "prod_VcXslLcZqrRZk1",
+        "FUND_PAGE_URL": "https://emera-site-staging.techguyver1337.workers.dev/fund/"
       },
       "triggers": { "crons": ["0 1 3 * *"] },
       "d1_databases": [
