@@ -52,7 +52,7 @@ notificationRoutes.get('/v1/notifications', requireAuth, async (c) => {
   if (cur) { where.push('(n.created_at < ? OR (n.created_at = ? AND n.id < ?))'); args.push(cur.at, cur.at, cur.id); }
   const rows = (await c.env.DB.prepare(
     `SELECT n.id, n.kind, n.actor_id, n.post_id, n.comment_id, n.count, n.created_at, n.read_at,
-      (SELECT r2_key FROM media WHERE post_id = n.post_id ORDER BY position LIMIT 1) AS thumb_key,
+      (SELECT CASE WHEN kind = 'video' THEN poster_key ELSE r2_key END FROM media WHERE post_id = n.post_id ORDER BY position LIMIT 1) AS thumb_key,
       (SELECT body FROM comments WHERE id = n.comment_id) AS preview
      FROM notifications n WHERE ${where.join(' AND ')} ORDER BY n.created_at DESC, n.id DESC LIMIT ?`,
   ).bind(...args, limit + 1).all<Row>()).results;
