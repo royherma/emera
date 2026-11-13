@@ -23,6 +23,8 @@ import { useTheme } from "@/state/theme";
 import { RoleBadge } from "@/components/RoleBadge";
 import type { Post } from "@/lib/types";
 
+const BACK_GUTTER = 60;
+
 type Next = { posts: Post[]; cursor: string | null };
 
 function startAfter(from: ListSource, id: string): Next | null {
@@ -71,7 +73,7 @@ export default function PostDetail() {
   return (
     <Screen snap maxWidth={wide ? 1180 : 680}>
       <SnapItem top />
-      <View style={[{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: space[2], zIndex: 5 }, wide && Platform.OS === "web" ? ({ position: "sticky", top: 0 } as object) : null]}>
+      <View style={[{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: wide ? -44 : space[2], zIndex: 5, alignSelf: "flex-start" }, wide && Platform.OS === "web" ? ({ position: "sticky", top: 0 } as object) : null]}>
         <IconButton icon="back" label="Back" onPress={back} />
       </View>
       {error && !post ? (
@@ -100,11 +102,11 @@ function PostItem({ post, onChange, onDeleted }: { post: Post | null; onChange: 
   const pager = useRef<any>(null);
   const menu = usePostMenu(onDeleted);
   const first = post?.media[0];
-  const { width: mediaW, height: mediaH } = fitBox(aspect(first, FULL), { width: wide ? inner - 360 - space[6] : inner, height: wide ? height - 100 : height - 200 });
+  const { width: mediaW, height: mediaH } = fitBox(aspect(first, FULL), { width: wide ? inner - 360 - space[6] - BACK_GUTTER : inner, height: wide ? height - 100 : height - 200 });
   const proof = first?.proof;
 
   return (
-    <View style={{ flexDirection: wide ? "row" : "column", gap: wide ? space[6] : space[4], alignItems: "flex-start", justifyContent: "center" }}>
+    <View style={{ flexDirection: wide ? "row" : "column", gap: wide ? space[6] : space[4], alignItems: "flex-start", justifyContent: "center", paddingLeft: wide ? BACK_GUTTER : 0 }}>
       <View style={{ width: mediaW }}>
         {post ? (
           <>
