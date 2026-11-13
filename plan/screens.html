@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phone screens</title>
+<style>
+:root{--bg:#f6f0e6;--card:#fffaf2;--ink:#2a1f17;--mute:#8a7b6c;--line:#e7dccb;--a:#ff8a1f;--ok:#2f8f5b;--bad:#c4412b;--slot:#efe6d8}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font:14px/1.35 -apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;display:flex;flex-direction:column;min-height:100vh}
+header{display:flex;align-items:center;gap:16px;padding:14px 22px 10px;flex-wrap:wrap}
+h1{font:700 22px/1 Georgia,serif;margin:0}
+.st{display:flex;align-items:center;gap:8px;font-size:13px}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--mute)}.dot.run{background:var(--a);animation:pl 1.1s infinite}.dot.ok{background:var(--ok)}.dot.bad{background:var(--bad)}
+@keyframes pl{50%{opacity:.35}}
+.count{margin-left:auto;font:700 28px/1 Georgia,serif}.count small{font:400 13px/1 system-ui;color:var(--mute);margin-left:6px}
+.bar{height:6px;background:var(--slot);border-radius:6px;margin:0 22px 8px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffb347,var(--a));transition:width .6s ease}
+.runs{display:flex;gap:6px;padding:0 22px 10px;flex-wrap:wrap}
+.runs button{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 11px;font:inherit;font-size:12px;color:var(--mute);cursor:pointer}
+.runs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.steps{font-size:12px;color:var(--mute)}
+main{flex:1;min-height:0;padding:0 22px 18px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-auto-rows:calc((100vh - 150px) / 3);gap:12px}
+.s{position:relative;display:flex;flex-direction:column;align-items:center;min-height:0}
+.ph{flex:1;min-height:0;aspect-ratio:9/19.5;max-width:100%;border-radius:16px;background:var(--slot);overflow:hidden;position:relative;border:1px solid var(--line)}
+.ph::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);background-size:220% 100%;animation:sh 1.6s infinite}
+.s.got .ph::after{display:none}
+@keyframes sh{from{background-position:120% 0}to{background-position:-120% 0}}
+.ph img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transform:scale(1.04);transition:opacity .5s ease,transform .5s ease;cursor:zoom-in;user-select:none}
+.s.got .ph img{opacity:1;transform:none}
+.s.new .ph{box-shadow:0 0 0 3px var(--a)}
+.s b{font-size:11.5px;font-weight:500;color:var(--mute);margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.s.got b{color:var(--ink)}
+.zoom{position:fixed;inset:0;background:rgba(20,14,10,.82);display:none;align-items:center;justify-content:center;z-index:9;cursor:zoom-out}
+.zoom.on{display:flex}.zoom img{max-height:94vh;max-width:94vw;border-radius:22px}
+.err{color:var(--bad);font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Phone screens</h1>
+  <div class="st"><span class="dot" id="dot"></span><span id="state">Loading...</span></div>
+  <div class="steps" id="steps"></div>
+  <div class="count" id="count">0<small>of 0</small></div>
+</header>
+<div class="bar"><i id="bar"></i></div>
+<div class="runs" id="runs"></div>
+<main id="grid"></main>
+<div class="zoom" id="zoom"><img id="zimg" alt=""></div>
+<script>
+const $ = (id) => document.getElementById(id);
+const bkk = (iso) => new Date(iso).toLocaleTimeString('en-US', { timeZone: 'Asia/Bangkok', hour: 'numeric', minute: '2-digit' });
+const mins = (a, b) => Math.max(0, Math.round(((b ? Date.parse(b) : Date.now()) - Date.parse(a)) / 60000));
+let pick = new URLSearchParams(location.search).get('run') || '';
+let seen = new Set(), lastRun = null;
+$('zoom').onclick = () => $('zoom').classList.remove('on');
+document.addEventListener('contextmenu', (e) => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+
+function slots(names) {
+  const g = $('grid'); g.replaceChildren();
+  for (const n of names) {
+    const s = document.createElement('div'); s.className = 's'; s.dataset.name = n;
+    const ph = document.createElement('div'); ph.className = 'ph';
+    const img = document.createElement('img'); img.alt = n; img.draggable = false;
+    img.onclick = () => { if (img.src) { $('zimg').src = img.src; $('zoom').classList.add('on'); } };
+    ph.append(img); s.append(ph, Object.assign(document.createElement('b'), { textContent: n })); g.append(s);
+  }
+}
+
+async function tick() {
+  let d;
+  try { d = await (await fetch('/api/screens' + (pick ? `?run=${pick}` : ''), { cache: 'no-store' })).json(); }
+  catch (e) { $('state').textContent = 'Lost the dashboard server'; return; }
+  if (d.error) { $('state').innerHTML = `<span class="err">${d.error}</span>`; return; }
+  if (d.run.id !== lastRun) { lastRun = d.run.id; seen = new Set(); slots(d.names); }
+  const job = d.jobs.find((j) => j.status !== 'completed') || d.jobs[0];
+  const running = d.run.status !== 'completed';
+  $('dot').className = 'dot ' + (running ? 'run' : d.run.conclusion === 'success' ? 'ok' : 'bad');
+  $('state').textContent = running
+    ? `${job ? job.name.replace('ios', 'iOS').replace('android', 'Android') : 'Starting'}: ${job?.step ? `${job.step} · ${mins(job.stepStarted)} min` : 'waiting for a computer'}`
+    : `Finished ${d.run.conclusion} at ${bkk(d.jobs.at(-1)?.completed || d.run.created)} Bangkok`;
+  $('steps').textContent = `Run started ${bkk(d.run.created)} · ${mins(d.run.created, running ? null : d.jobs.at(-1)?.completed)} min · ${d.run.branch}@${d.run.sha}`;
+  const byName = new Map(d.shots.map((s) => [s.name, s]));
+  const newest = d.shots.at(-1)?.name;
+  for (const el of $('grid').children) {
+    const s = byName.get(el.dataset.name);
+    el.classList.toggle('new', running && s && s.name === newest);
+    if (s && !seen.has(s.name)) { seen.add(s.name); const img = el.querySelector('img'); img.onload = () => el.classList.add('got'); img.src = s.url; }
+  }
+  $('count').innerHTML = `${byName.size}<small>of ${d.names.length} screens</small>`;
+  $('bar').style.width = `${(100 * byName.size) / Math.max(1, d.names.length)}%`;
+  const r = $('runs'); r.replaceChildren();
+  for (const x of d.runs) {
+    const b = document.createElement('button'); b.className = String(x.id) === String(d.run.id) ? 'on' : '';
+    b.textContent = `${bkk(x.created)} · ${x.status === 'completed' ? x.conclusion : x.status.replace('_', ' ')}`;
+    b.onclick = () => { pick = String(x.id); history.replaceState(null, '', `?run=${pick}`); tick(); };
+    r.append(b);
+  }
+}
+tick(); setInterval(tick, 5000);
+</script>
+</body>
+</html>

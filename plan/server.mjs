@@ -5,6 +5,7 @@ import { createServer } from 'node:http';
 import { dirname, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CAPTURED, codeHash } from '../tools/atlas/codehash.mjs';
+import { screensApi } from './screens.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PORT = 5035;
@@ -185,6 +186,8 @@ createServer((req, res) => {
     return;
   }
   if (url.pathname === '/api/feedback' && req.method === 'POST') { feedback(req, res); return; }
+  if (url.pathname === '/api/screens') { screensApi(root, url, res); return; }
+  if (url.pathname === '/screens') { res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' }).end(readFileSync(join(root, 'plan/screens.html'))); return; }
   if (url.pathname === '/api/atlas/shots') {
     if (req.method === 'POST') {
       const by = (url.searchParams.get('by') || 'Capture button').slice(0, 40);
