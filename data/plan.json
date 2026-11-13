@@ -1,7 +1,7 @@
 {
-  "updated": "10:46 AM Bangkok",
+  "updated": "10:52 AM Bangkok",
   "title": "Plan",
-  "goal": "You post photos on your own profile, share the link, and invite people",
+  "goal": "You post your work on your own profile, share the link, and invite people",
   "phases": [
     {
       "id": "a",
@@ -80,12 +80,12 @@
       "tasks": [
         {
           "id": "c1",
-          "text": "Log in with Bluesky",
+          "text": "Sign up + log in (our own accounts, passkeys)",
           "who": "claude"
         },
         {
           "id": "c2",
-          "text": "Upload a photo, saved with proof of who made it",
+          "text": "Upload photo or video to our storage, with proof of who made it",
           "who": "claude"
         },
         {
@@ -100,12 +100,12 @@
         },
         {
           "id": "c5",
-          "text": "Bring in your old photos automatically (Instagram export)",
+          "text": "Bring in your old posts automatically (Instagram export)",
           "who": "claude"
         },
         {
           "id": "c6",
-          "text": "Post your first 10 photos",
+          "text": "Post your first 10 pieces",
           "who": "roy"
         }
       ]
@@ -137,7 +137,7 @@
         },
         {
           "id": "d5",
-          "text": "Invite your first 20 photographers",
+          "text": "Invite your first 20 creators",
           "who": "roy"
         }
       ]
@@ -182,7 +182,8 @@
           "label": "Phone app + web together"
         }
       ],
-      "mine": "web"
+      "mine": "web",
+      "pick": "expo"
     },
     {
       "id": "login",
@@ -202,7 +203,8 @@
           "label": "Both from day 1"
         }
       ],
-      "mine": "bsky"
+      "mine": "bsky",
+      "pick": "own"
     },
     {
       "id": "media",
@@ -218,7 +220,8 @@
           "label": "Our storage from day 1"
         }
       ],
-      "mine": "pds"
+      "mine": "pds",
+      "pick": "r2"
     },
     {
       "id": "repo",
@@ -238,27 +241,24 @@
     },
     {
       "id": "niche",
-      "q": "Who do we invite first?",
-      "why": "The people hurt most by stolen work care most about protection.",
+      "q": "Who is it for?",
+      "why": "Every creator. AI copies video, music, designs and objects now.",
       "options": [
         {
-          "id": "photo",
-          "label": "Photographers"
+          "id": "all",
+          "label": "Every creator"
         },
         {
-          "id": "illus",
-          "label": "Illustrators"
+          "id": "video",
+          "label": "Video creators first"
         },
         {
-          "id": "tattoo",
-          "label": "Tattoo artists"
-        },
-        {
-          "id": "friends",
-          "label": "Friends first"
+          "id": "artists",
+          "label": "Artists + designers first"
         }
       ],
-      "mine": "photo"
+      "mine": "all",
+      "pick": "all"
     },
     {
       "id": "protect",
@@ -306,7 +306,7 @@
     }
   ],
   "names": {
-    "note": "Winnable searches: \"bluesky photo app\", \"social media for tattoo artists\". Every .com is taken except where shown.",
+    "note": "Domain shown is free (checked 10:55). Prices not checked yet; checking names against existing products now.",
     "items": [
       {
         "id": "madeby",
@@ -596,17 +596,123 @@
           "app": "taken",
           "social": "free"
         }
+      },
+      {
+        "id": "r2-fair",
+        "name": "Fair",
+        "group": "r2",
+        "domain": "fair.social",
+        "stance": "Fair to every creator.",
+        "why": "Credit, pay and reach, all fair. One syllable, a stance."
+      },
+      {
+        "id": "r2-firsthand",
+        "name": "Firsthand",
+        "group": "r2",
+        "domain": "firsthand.art",
+        "stance": "Everything here is firsthand.",
+        "why": "Made by a human hand, the original, an honest account."
+      },
+      {
+        "id": "r2-credit",
+        "name": "Credit",
+        "group": "r2",
+        "domain": "credit.art",
+        "stance": "Credit where it's due.",
+        "why": "Every piece carries its maker. Bold, but the money meaning competes."
+      },
+      {
+        "id": "r2-honestly",
+        "name": "Honestly",
+        "group": "r2",
+        "domain": "honestly.social",
+        "stance": "Share honestly.",
+        "why": "How friends talk. No bots, no bought reach."
+      },
+      {
+        "id": "r2-sincerely",
+        "name": "Sincerely",
+        "group": "r2",
+        "domain": "sincerely.art",
+        "stance": "Every post, signed.",
+        "why": "The sign-off on a letter: warm, and it's your signature."
+      },
+      {
+        "id": "r2-sigil",
+        "name": "Sigil",
+        "group": "r2",
+        "domain": "sigil.art",
+        "stance": "Your mark on everything you make.",
+        "why": "A maker's mark with some magic to it."
+      },
+      {
+        "id": "r2-here",
+        "name": "Here",
+        "group": "r2",
+        "domain": "here.social",
+        "stance": "Be here, as you are.",
+        "why": "Tiny and present. Hard to search for."
+      },
+      {
+        "id": "r2-byline",
+        "name": "Byline",
+        "group": "r2",
+        "domain": "byline.social",
+        "stance": "Your name stays on your work.",
+        "why": "The credit line on every story, for every medium."
+      },
+      {
+        "id": "r2-ours",
+        "name": "Ours",
+        "group": "r2",
+        "domain": "ours.art",
+        "stance": "Owned by the people on it.",
+        "why": "Nonprofit, and your work stays yours."
+      },
+      {
+        "id": "r2-vow",
+        "name": "Vow",
+        "group": "r2",
+        "domain": "vow.art",
+        "stance": "A promise to every creator.",
+        "why": "A promise you keep: credit, protection, no tricks."
+      },
+      {
+        "id": "r2-chorus",
+        "name": "Chorus",
+        "group": "r2",
+        "domain": "chorus.art",
+        "stance": "Every voice, together.",
+        "why": "Many makers, one place. Lifts everyone, not a few."
+      },
+      {
+        "id": "r2-witness",
+        "name": "Witness",
+        "group": "r2",
+        "domain": "witness.art",
+        "stance": "Seen, credited, proven.",
+        "why": "We witness who made it first. Heavier tone."
       }
     ],
     "groups": [
       [
+        "r2",
+        "Round 2"
+      ],
+      [
         "seo",
-        "SEO picks"
+        "Round 1 SEO"
       ],
       [
         "mine",
-        "Warm picks"
+        "Round 1 warm"
       ]
     ]
-  }
+  },
+  "inbox": [
+    {
+      "at": "2026-11-13T03:49:38.051Z",
+      "text": "Dude, it's not about photographers like fucking just about creatives, creators. I don't you're you're bit a yeah be a bit more ambitious. There's lots of people that are getting creative work stolen. Photographs is of the old school. I mean it can be anything. Because AI is so good, people are copying video, people are copying physical world as well. A lot more now."
+    }
+  ]
 }

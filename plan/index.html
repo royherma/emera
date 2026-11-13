@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>agora plan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter+Tight:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f6f3ec;--ink:#1c1a17;--card:#fff;--a:#e2573a;--a2:#2f7a5b;--mute:#7a746b;--line:#e4ded3;--soft:#faf8f3}
 *{box-sizing:border-box;margin:0}
@@ -39,6 +39,7 @@ h2 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;mar
 .nm .t{display:flex;align-items:baseline;gap:6px}
 .nm .t b{font:600 16px Fraunces,serif}
 .nm .why{font-size:11px;color:var(--mute);line-height:1.25}
+.nm.big{gap:2px;padding:10px 12px}.nm.big .wm{font:800 30px/1 'Inter Tight',Inter,system-ui,sans-serif;letter-spacing:-.035em}.nm.big .dm{font:600 11px ui-monospace,Menlo,monospace;color:var(--a2)}.nm.big .st{font:600 13px/1.25 Inter,system-ui,sans-serif;margin-top:4px}
 .nm .ph2{font-size:10.5px;color:var(--a);font-weight:600;line-height:1.2}
 .ngroups{display:flex;gap:4px;text-transform:none;letter-spacing:0}.ngroups button{border:1px solid var(--line);background:#fff;border-radius:6px;padding:1px 8px;font:600 11px Inter,system-ui,sans-serif;cursor:pointer;color:var(--ink)}.ngroups button.on{background:var(--ink);color:#fff}
 .dom{display:flex;gap:4px;flex-wrap:wrap}
@@ -136,6 +137,14 @@ function render() {
   const ng = $('ngroups'); ng.replaceChildren();
   for (const [g, label] of groups) { const b = el('button', g === nameGroup ? 'on' : '', `${label} (${plan.names.items.filter((n) => (n.group ?? 'mine') === g).length})`); b.onclick = () => { nameGroup = g; render(); }; ng.append(b); }
   for (const n of plan.names.items.filter((x) => !nameGroup || (x.group ?? 'mine') === nameGroup || x.added)) {
+    if (n.group === 'r2') {
+      const card = el('div', `nm big ${n.vote ?? ''}`);
+      card.append(el('div', 'wm', n.name), el('div', 'dm', n.domain), el('div', 'st', n.stance), el('div', 'why', n.why));
+      if (n.check) card.append(el('div', 'ph2', n.check));
+      const btns = el('div', 'btns');
+      for (const [v, label, cls] of [['keep', 'Keep', 'k'], ['drop', 'Drop', 'd']]) { const b = el('button', cls, label); b.onclick = () => { n.vote = n.vote === v ? null : v; render(); send({ kind: 'name-vote', id: n.id, name: n.name, vote: n.vote }, `${n.name}: ${n.vote ?? 'cleared'}`); }; btns.append(b); }
+      card.append(btns); names.append(card); continue;
+    }
     const card = el('div', `nm ${n.vote ?? ''}`);
     const t = el('div', 't'); t.append(el('b', '', n.name)); card.append(t, el('div', 'why', n.why));
     if (n.phrase) card.append(el('div', 'ph2', `Ranks for: ${n.phrase}`));
