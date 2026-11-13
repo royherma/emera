@@ -50,6 +50,44 @@ async function logVisit(env, request, url, visitor) {
     .catch((e) => console.log("[visit]", String(e)));
 }
 
+const BEACON = `<script>(()=>{try{const n=navigator,c=n.connection||{},q=(x)=>matchMedia(x).matches,s=screen,d={path:location.pathname,sw:s.width,sh:s.height,vw:innerWidth,vh:innerHeight,dpr:devicePixelRatio,dark:q("(prefers-color-scheme: dark)"),touch:q("(pointer: coarse)"),type:c.type,speed:c.effectiveType,mbps:c.downlink,rtt:c.rtt,save:c.saveData,tz:Intl.DateTimeFormat().resolvedOptions().timeZone,langs:(n.languages||[]).slice(0,3),mem:n.deviceMemory,cores:n.hardwareConcurrency},go=()=>n.sendBeacon("/api/seen",JSON.stringify(d)),u=n.userAgentData;u&&u.getHighEntropyValues?u.getHighEntropyValues(["platformVersion","model"]).then((h)=>{d.pv=h.platformVersion;d.model=h.model;go()},go):go()}catch(e){}})()</script>`;
+
+const num = (v, max) => (typeof v === "number" && v > 0 && v <= max ? Math.round(v * 100) / 100 : undefined);
+const pick = (v, re) => (typeof v === "string" && re.test(v) ? v : undefined);
+
+export function screenProps(o) {
+  o = o && typeof o === "object" ? o : {};
+  const bool = (v) => (typeof v === "boolean" ? v : undefined);
+  const langs = Array.isArray(o.langs) ? o.langs.filter((l) => pick(l, /^[A-Za-z]{2,3}(-[\w]{2,8}){0,2}$/)).slice(0, 3) : [];
+  return {
+    sw: num(o.sw, 20000), sh: num(o.sh, 20000), vw: num(o.vw, 20000), vh: num(o.vh, 20000), dpr: num(o.dpr, 10),
+    dark: bool(o.dark), touch: bool(o.touch),
+    type: pick(o.type, /^(wifi|cellular|ethernet|bluetooth|wimax|other|none)$/), speed: pick(o.speed, /^(slow-2g|2g|3g|4g)$/),
+    mbps: num(o.mbps, 10000), rtt: num(o.rtt, 60000), save: o.save === true || undefined,
+    tz: pick(o.tz, /^[\w+-]+(\/[\w+-]+){0,2}$/), langs: langs.length ? langs : undefined,
+    mem: num(o.mem, 1024), cores: num(o.cores, 512),
+    pv: pick(o.pv, /^[\d.]{1,20}$/), model: pick(o.model, /^[\w .,()+-]{1,40}$/),
+  };
+}
+
+async function seenApi(request, env) {
+  const visitor = cookie(request, "em_v");
+  if (request.method !== "POST" || !visitor || !env.DB) return new Response(null, { status: 204 });
+  let body;
+  try {
+    body = JSON.parse((await request.text()).slice(0, 4000));
+  } catch {
+    return new Response(null, { status: 204 });
+  }
+  const since = new Date(Date.now() - 10 * 60_000).toISOString();
+  const update = env.DB.prepare(
+    "UPDATE visits SET screen = ? WHERE id = (SELECT id FROM visits WHERE visitor = ? AND path = ? AND screen IS NULL AND created_at > ? ORDER BY id DESC LIMIT 1)"
+  ).bind(JSON.stringify(screenProps(body)), visitor, clip(body.path, 200) || "/", since);
+  const res = await update.run().catch(() => null);
+  if (!res?.meta?.changes) await new Promise((r) => setTimeout(r, 1500)).then(() => update.run()).catch(() => null);
+  return new Response(null, { status: 204 });
+}
+
 const pageKey = (pathname) => pathname.replace(/\/index\.html$/, "/").replace(/\/+$/, "") || "/";
 
 async function adminToken(env) {
@@ -183,8 +221,8 @@ async function page(request, env, ctx, url) {
   const fresh = !visitor;
   if (fresh) visitor = crypto.randomUUID().replace(/-/g, "").slice(0, 20);
   ctx.waitUntil(logVisit(env, request, url, visitor));
-  if (!fresh) return res;
-  const out = new Response(res.body, res);
+  const out = new Response(new HTMLRewriter().on("body", { element(el) { el.append(BEACON, { html: true }); } }).transform(res).body, res);
+  if (!fresh) return out;
   out.headers.append("set-cookie", `em_v=${visitor}; Path=/; Max-Age=31536000; SameSite=Lax; Secure; HttpOnly`);
   return out;
 }
@@ -336,6 +374,7 @@ export default {
     if (pathname === "/sitemap.xml") return sitemap(request, env);
     if (pathname === "/edit") return login(request, env, url);
     if (pathname === "/api/stars") return stars(ctx);
+    if (pathname === "/api/seen") return seenApi(request, env);
     if (pathname === "/api/copy" || pathname.startsWith("/api/copy/")) return copyApi(request, env, url);
     if (pathname.startsWith("/api/")) return json({ ok: false, error: "not_found" }, 404);
     return page(request, env, ctx, url);

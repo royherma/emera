@@ -19,18 +19,62 @@ export function place(r) {
   return where ? `${where} ${flag(r.country)}`.trim() : null;
 }
 
-export function device(ua) {
+export function screenOf(r) {
+  try {
+    const o = typeof r?.screen === "string" ? JSON.parse(r.screen) : r?.screen;
+    return o && typeof o === "object" ? o : null;
+  } catch {
+    return null;
+  }
+}
+
+export function device(ua, sc = {}) {
   ua = String(ua || "");
   if (!ua) return null;
+  sc = sc || {};
   let m;
-  const kind = /iPhone|Android.*Mobile|iPod/.test(ua) ? "📱 phone" : /iPad|Android(?!.*Mobile)/.test(ua) ? "📱 tablet" : "💻 desktop";
+  const major = Number(String(sc.pv || "").split(".")[0]) || 0;
+  const pv = String(sc.pv || "").split(".").slice(0, 2).join(".");
+  const kind = /iPhone|Android.*Mobile|iPod/.test(ua) ? "📱 phone" : /iPad|Android(?!.*Mobile)/.test(ua) || (/Mac OS X/.test(ua) && sc.touch) ? "📱 tablet" : "💻 desktop";
   const os = (m = ua.match(/(iPhone|iPad|iPod).*? OS (\d+)[_.](\d+)/)) ? `${m[1]} iOS ${m[2]}.${m[3]}`
     : (m = ua.match(/Android (\d+(?:\.\d+)?)/)) ? `Android ${m[1]}`
-    : /Windows NT 10/.test(ua) ? "Windows" : /Mac OS X/.test(ua) ? "Mac" : /CrOS/.test(ua) ? "ChromeOS" : /Linux/.test(ua) ? "Linux" : null;
+    : /Windows NT 10/.test(ua) ? (major ? `Windows ${major >= 13 ? 11 : 10}` : "Windows")
+    : /Mac OS X/.test(ua) ? (sc.touch ? "iPad" : pv ? `macOS ${pv}` : "Mac")
+    : /CrOS/.test(ua) ? "ChromeOS" : /Linux/.test(ua) ? "Linux" : null;
   const browser = (m = ua.match(/(Instagram|FBAV|LinkedInApp|musical_ly|BytedanceWebview)/)) ? `${{ FBAV: "Facebook", musical_ly: "TikTok", BytedanceWebview: "TikTok", LinkedInApp: "LinkedIn" }[m[1]] || m[1]} in-app`
-    : (m = ua.match(/Edg(?:A|iOS)?\/(\d+)/)) ? `Edge ${m[1]}` : (m = ua.match(/(?:Firefox|FxiOS)\/(\d+)/)) ? `Firefox ${m[1]}`
+    : (m = ua.match(/Edg(?:A|iOS)?\/(\d+)/)) ? `Edge ${m[1]}` : (m = ua.match(/OPR\/(\d+)/)) ? `Opera ${m[1]}` : (m = ua.match(/(?:Firefox|FxiOS)\/(\d+)/)) ? `Firefox ${m[1]}`
+    : (m = ua.match(/SamsungBrowser\/(\d+)/)) ? `Samsung Internet ${m[1]}`
     : (m = ua.match(/(?:Chrome|CriOS)\/(\d+)/)) ? `Chrome ${m[1]}` : (m = ua.match(/Version\/(\d+(?:\.\d+)?).*Safari/)) ? `Safari ${m[1]}` : null;
-  return [kind, os, browser].filter(Boolean).join(" · ");
+  return [kind, sc.model, os, browser].filter(Boolean).join(" · ");
+}
+
+export function screenLine(sc) {
+  if (!sc?.sw || !sc?.sh) return null;
+  const hw = [sc.mem && `${sc.mem} GB memory`, sc.cores && `${sc.cores} cores`].filter(Boolean).join(", ");
+  return [
+    `${sc.sw}×${sc.sh}${sc.dpr ? ` @${sc.dpr}x` : ""}`,
+    sc.vw && sc.vh && `window ${sc.vw}×${sc.vh}`,
+    sc.dark ? "dark mode" : sc.dark === false ? "light mode" : null,
+    sc.touch ? "touch" : sc.touch === false ? "mouse" : null,
+    hw || null,
+  ].filter(Boolean).join(" · ");
+}
+
+const CARRIER = /mobile|wireless|cellular|mobility|true move|dtac|telkomsel|jio|airtel|vodafone|t-mobile|telcel|claro|movistar|viettel|singtel|starhub|m1 limited/i;
+
+export function connection(sc, network) {
+  sc = sc || {};
+  const kind = sc.type === "cellular" ? "cellular" : sc.type && sc.type !== "other" ? sc.type.replace("wifi", "Wi-Fi") : network && CARRIER.test(network) ? "cellular (carrier network)" : null;
+  const speed = sc.speed && `${sc.speed === "4g" ? "fast" : sc.speed === "3g" ? "medium" : "slow"} speed`;
+  return [kind, speed, sc.mbps && `~${sc.mbps} Mbps`, sc.rtt && `${sc.rtt} ms ping`, sc.save && "data saver on"].filter(Boolean).join(" · ") || null;
+}
+
+export function clockLine(r, sc) {
+  const tz = sc?.tz || r.timezone;
+  const t = theirTime(tz);
+  if (!t) return null;
+  const vpn = sc?.tz && r.timezone && sc.tz !== r.timezone ? `  ·  network says ${r.timezone} (VPN or travelling)` : "";
+  return `${t.replace(" their time", "")} · ${tz}${vpn}`;
 }
 
 const SOURCES = [
@@ -79,6 +123,9 @@ const currentChrome = () => 120 + Math.floor((Date.now() - Date.UTC(2023, 11, 5)
 
 export function isBotVisit(r) {
   if (r.bot) return true;
+  const sc = screenOf(r);
+  if (sc?.sw && sc?.sh && ((sc.sw === 800 && sc.sh === 600) || (sc.sw === 1024 && sc.sh === 1024))) return true;
+  if (sc?.sw && sc?.vw && sc.vw > sc.sw * 1.05) return true;
   if (r.network && HOSTING.test(r.network)) return true;
   const chrome = Number(String(r.ua || "").match(/Chrome\/(\d+)/)?.[1]);
   return !!chrome && chrome < currentChrome() - 20;

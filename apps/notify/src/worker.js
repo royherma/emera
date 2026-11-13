@@ -1,4 +1,4 @@
-import { bangkok, device, isBotVisit, isTest, place, source, theirTime, toMs } from "./people.js";
+import { bangkok, clockLine, connection, device, isBotVisit, isTest, place, screenLine, screenOf, source, toMs } from "./people.js";
 import { adminView, ledgerView, load, summaryLines } from "./stats.js";
 import { ADMIN_HTML } from "./admin-page.js";
 
@@ -136,18 +136,23 @@ async function sendVisit(env, r) {
     return;
   }
   const visits = await env.SITE_DB.prepare("SELECT COUNT(DISTINCT substr(created_at, 1, 10)) AS d FROM visits WHERE visitor = ? AND id < ? AND bot = 0").bind(r.visitor, r.id).first();
+  const sc = screenOf(r);
+  const langs = sc?.langs?.length ? sc.langs : r.lang ? [r.lang] : [];
   const ts = await slack(env, {
     icon: "👀",
     title: prior?.n ? `Returning visitor (day ${(visits?.d ?? 0) + 1})` : "New visitor",
-    detail: place(r) || "somewhere",
+    detail: `${place(r) || "somewhere"}${sc ? "" : "  ·  no JavaScript ran, likely a bot"}`,
     rows: [
       `🔗 *from* ${source(r)}${r.referrer ? `  _${esc(r.referrer.slice(0, 120))}_` : ""}`,
       `🛬 *landed* \`${esc(r.path)}\`${r.utm ? `  ·  \`${esc(r.utm)}\`` : ""}`,
-      device(r.ua) && `*device* ${device(r.ua)}`,
+      clockLine(r, sc) && `🕐 *their time* ${esc(clockLine(r, sc))}`,
+      device(r.ua, sc) && `*device* ${esc(device(r.ua, sc))}`,
+      screenLine(sc) && `🖥️ *screen* ${screenLine(sc)}`,
       r.network && `📡 *network* ${esc(r.network)}`,
-      r.lang && `🗣️ *language* \`${esc(r.lang)}\``,
+      connection(sc, r.network) && `📶 *connection* ${connection(sc, r.network)}`,
+      langs.length && `🗣️ *language* ${langs.map((l) => `\`${esc(l)}\``).join(" ")}`,
     ],
-    facts: [stamp(at), theirTime(r.timezone)],
+    facts: [stamp(at)],
     links: [adminLink(env)],
   });
   if (ts) await env.STATE.put(`thread:${r.visitor}`, ts, { expirationTtl: 7 * 24 * 3600 });
@@ -249,7 +254,11 @@ async function sendFlag(env, r) {
 }
 
 export const FEEDS = [
-  { key: "visits", db: "SITE_DB", sql: "SELECT *, id AS cursor FROM visits WHERE id > ? ORDER BY id LIMIT 40", max: "SELECT COALESCE(MAX(id), 0) AS m FROM visits", send: sendVisit },
+  {
+    key: "visits", db: "SITE_DB", sql: "SELECT *, id AS cursor FROM visits WHERE id > ? ORDER BY id LIMIT 40", max: "SELECT COALESCE(MAX(id), 0) AS m FROM visits",
+    ready: (r, now) => !!r.screen || !!r.bot || now - toMs(r.created_at) > 2 * MIN,
+    send: sendVisit,
+  },
   { key: "early", db: "SITE_DB", sql: "SELECT *, id AS cursor FROM early_access WHERE id > ? ORDER BY id LIMIT 20", max: "SELECT COALESCE(MAX(id), 0) AS m FROM early_access", send: sendEarly },
   { key: "sponsors", db: "SITE_DB", sql: "SELECT *, id AS cursor FROM sponsor_interest WHERE id > ? ORDER BY id LIMIT 20", max: "SELECT COALESCE(MAX(id), 0) AS m FROM sponsor_interest", send: sendSponsor },
   {
