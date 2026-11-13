@@ -118,4 +118,42 @@ export interface Backend {
   search(q: string, kind: SearchKind, cursor?: string | null): Promise<{ users: User[]; posts: Post[]; cursor: string | null }>;
   updateProfile(input: { displayName?: string; bio?: string; links?: string[]; avatarMediaId?: string | null }): Promise<User>;
   flag(input: { targetType: "post" | "user"; targetId: string; reason: FlagReason; note: string }): Promise<void>;
+  fund(): Promise<Fund>;
+  fundMonth(month: string): Promise<FundStatement>;
+  earnings(): Promise<Earnings>;
+  watch(postId: string, seconds: number): Promise<number>;
 }
+
+export type FundRules = { version: string; creatorShare: number; photoCapS: number; videoCapS: number; creatorCapS: number; minViewerAgeH: number; heartbeatMaxS: number; payoutMinCents: number; closeDay: number };
+
+export type FundMonth = {
+  month: string;
+  status: "open" | "closed";
+  sponsoredCents: number;
+  carryInCents: number;
+  creatorPoolCents: number;
+  emeraCents: number;
+  totalSeconds: number;
+  creators: number;
+  sponsors: number;
+  closedAt: string | null;
+  sha256: string | null;
+};
+
+export type Sponsor = { name: string; url: string | null; amountCents: number };
+
+export type Sponsorship = { id: string; sponsorName: string; sponsorUrl: string | null; month: string; amountCents: number; status: "pledged" | "paid" | "refunded"; createdAt: string };
+
+export type FundShare = { handle: string | null; seconds: number; sharePpm: number; amountCents: number };
+
+export type FundStatement = FundMonth & { rulesVersion: string; sponsorships: Sponsorship[]; shares: FundShare[]; carryOutCents: number };
+
+export type Fund = { rules: FundRules; month: FundMonth; sponsors: Sponsor[]; history: FundMonth[] };
+
+export type Earnings = {
+  rules: FundRules;
+  thisMonth: { month: string; seconds: number; totalSeconds: number; sharePpm: number; estimateCents: number };
+  months: { month: string; seconds: number; sharePpm: number; amountCents: number }[];
+  balanceCents: number;
+  topPosts: { post: Post; seconds: number }[];
+};

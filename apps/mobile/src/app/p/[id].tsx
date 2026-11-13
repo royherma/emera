@@ -17,6 +17,7 @@ import { FULL, aspect, fitBox } from "@/lib/mediaBox";
 import { alpha, creatorColors, elevation, radius, space, type } from "@/lib/theme";
 import { useResource } from "@/state/resource";
 import { useTheme } from "@/state/theme";
+import { useWatchTime } from "@/lib/useWatchTime";
 
 export default function PostDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -29,6 +30,7 @@ export default function PostDetail() {
 
   const back = () => (router.canGoBack() ? router.back() : router.replace("/feed"));
   const menu = usePostMenu(back);
+  const watchRef = useWatchTime(post);
 
   const first = post?.media[0];
   const { width: mediaW, height: mediaH } = fitBox(aspect(first, FULL), { width: wide ? inner - 360 - space[6] : inner, height: wide ? height - 100 : height - 200 });
@@ -47,7 +49,7 @@ export default function PostDetail() {
           <View style={{ width: mediaW }}>
             {post ? (
               <>
-                <View style={[{ width: mediaW, height: mediaH, borderRadius: radius.media, overflow: "hidden" }, Platform.OS === "web" ? ({ boxShadow: elevation.media } as object) : null]}>
+                <View ref={watchRef} style={[{ width: mediaW, height: mediaH, borderRadius: radius.media, overflow: "hidden" }, Platform.OS === "web" ? ({ boxShadow: elevation.media } as object) : null]}>
                   <ScrollView
                     ref={pager}
                     horizontal

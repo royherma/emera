@@ -24,7 +24,7 @@ type Group = "all" | "image" | "video" | "series";
 const groupOf = (p: Post): Group => (p.media.length > 1 ? "series" : p.media[0].kind === "video" ? "video" : "image");
 const groupLabel: Record<Group, string> = { all: "All", image: "Photos", video: "Films", series: "Series" };
 
-export function ProfileView({ handle, own, tabs, back, onInvite }: { handle: string; own?: boolean; tabs?: boolean; back?: boolean; onInvite?: () => void }) {
+export function ProfileView({ handle, own, tabs, back, onInvite, below }: { handle: string; own?: boolean; tabs?: boolean; back?: boolean; onInvite?: () => void; below?: React.ReactNode }) {
   const router = useRouter();
   const toast = useToast();
   const sheet = useSheet();
@@ -142,6 +142,7 @@ export function ProfileView({ handle, own, tabs, back, onInvite }: { handle: str
                 </>
               )}
             </View>
+            {user ? below : null}
             <View style={{ flexDirection: "row", gap: space[2], marginTop: space[4] }}>
               {own ? (
                 <>
