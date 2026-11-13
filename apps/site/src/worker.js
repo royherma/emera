@@ -50,10 +50,122 @@ async function logVisit(env, request, url, visitor) {
     .catch((e) => console.log("[visit]", String(e)));
 }
 
+const pageKey = (pathname) => pathname.replace(/\/index\.html$/, "/").replace(/\/+$/, "") || "/";
+
+async function adminToken(env) {
+  if (!env.ADMIN_KEY) return null;
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(`emera-edit:${env.ADMIN_KEY}`));
+  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+async function isAdmin(request, env) {
+  const token = await adminToken(env);
+  return !!token && cookie(request, "em_admin") === token;
+}
+
+const liveCache = new Map();
+
+async function overrides(env, page, admin) {
+  if (admin) {
+    const { results } = await env.DB.prepare("SELECT key, COALESCE(draft, live) AS html FROM copy WHERE page = ?").bind(page).all();
+    return results;
+  }
+  const hit = liveCache.get(page);
+  if (hit && hit.at > Date.now() - 15000) return hit.rows;
+  const { results } = await env.DB.prepare("SELECT key, live AS html FROM copy WHERE page = ? AND live IS NOT NULL").bind(page).all();
+  liveCache.set(page, { at: Date.now(), rows: results });
+  return results;
+}
+
+async function withCopy(res, env, url, admin) {
+  const rows = await overrides(env, pageKey(url.pathname), admin).catch((e) => (console.log("[copy]", String(e)), []));
+  if (!rows.length && !admin) return res;
+  const map = new Map(rows.map((r) => [r.key, r.html]));
+  let rw = new HTMLRewriter().on("[data-e]", {
+    element(el) {
+      const html = map.get(el.getAttribute("data-e"));
+      if (html != null) el.setInnerContent(html, { html: true });
+    },
+  });
+  if (admin) rw = rw.on("body", { element(el) { el.append('<script src="/assets/edit.js" defer></script>', { html: true }); } });
+  const out = rw.transform(res);
+  if (!admin) return out;
+  const priv = new Response(out.body, out);
+  priv.headers.set("cache-control", "no-store");
+  return priv;
+}
+
+async function login(request, env, url) {
+  const token = await adminToken(env);
+  if (url.searchParams.has("off")) {
+    return new Response(null, { status: 302, headers: { location: "/", "set-cookie": "em_admin=; Path=/; Max-Age=0; SameSite=Lax; Secure; HttpOnly" } });
+  }
+  if (!token || url.searchParams.get("key") !== env.ADMIN_KEY) return new Response("Wrong key", { status: 401, headers: { "x-robots-tag": "noindex" } });
+  return new Response(null, {
+    status: 302,
+    headers: { location: "/?edit=1", "set-cookie": `em_admin=${token}; Path=/; Max-Age=31536000; SameSite=Lax; Secure; HttpOnly`, "x-robots-tag": "noindex" },
+  });
+}
+
+const UNSAFE = /<\s*\/?\s*(script|style|iframe|object|embed|form|input|link|meta)\b|\son\w+\s*=|javascript:/i;
+
+async function copyApi(request, env, url) {
+  if (!(await isAdmin(request, env))) return json({ ok: false, error: "not_admin" }, 401);
+  const now = new Date().toISOString();
+  if (request.method === "GET") {
+    const { results } = await env.DB.prepare("SELECT page, key, original, draft, live, updated_at FROM copy ORDER BY updated_at DESC").all();
+    return json({ ok: true, rows: results, drafts: results.filter((r) => r.draft != null).length });
+  }
+  if (request.method !== "POST") return json({ ok: false, error: "method_not_allowed" }, 405);
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return json({ ok: false, error: "invalid_body" }, 400);
+  }
+  const action = url.pathname.slice("/api/copy".length) || "/save";
+  if (action === "/publish") {
+    const res = await env.DB.prepare("UPDATE copy SET live = draft, draft = NULL, published_at = ?, updated_at = ? WHERE draft IS NOT NULL").bind(now, now).run();
+    await env.DB.prepare("DELETE FROM copy WHERE live IS NOT NULL AND live = original AND draft IS NULL").run();
+    liveCache.clear();
+    return json({ ok: true, published: res.meta?.changes ?? 0 });
+  }
+  if (action === "/discard") {
+    await env.DB.prepare("DELETE FROM copy WHERE live IS NULL").run();
+    const res = await env.DB.prepare("UPDATE copy SET draft = NULL, updated_at = ? WHERE draft IS NOT NULL").bind(now).run();
+    return json({ ok: true, discarded: res.meta?.changes ?? 0 });
+  }
+  if (action !== "/save") return json({ ok: false, error: "not_found" }, 404);
+  const page = typeof body.page === "string" ? pageKey(body.page.slice(0, 200)) : null;
+  const key = typeof body.key === "string" && /^[\w-]{1,20}$/.test(body.key) ? body.key : null;
+  const html = typeof body.html === "string" ? body.html.trim() : null;
+  const original = typeof body.original === "string" ? body.original.slice(0, 20000) : null;
+  if (!page || !key || html == null) return json({ ok: false, error: "missing_fields" }, 400);
+  if (html.length > 20000) return json({ ok: false, error: "too_long" }, 400);
+  if (UNSAFE.test(html)) return json({ ok: false, error: "unsafe_html" }, 400);
+  const row = await env.DB.prepare("SELECT original, live FROM copy WHERE page = ? AND key = ?").bind(page, key).first();
+  const base = row ? row.live ?? row.original : original;
+  if (html === base) {
+    if (row && row.live == null) await env.DB.prepare("DELETE FROM copy WHERE page = ? AND key = ?").bind(page, key).run();
+    else if (row) await env.DB.prepare("UPDATE copy SET draft = NULL, updated_at = ? WHERE page = ? AND key = ?").bind(now, page, key).run();
+  } else {
+    await env.DB.prepare(
+      "INSERT INTO copy (page, key, original, draft, updated_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT (page, key) DO UPDATE SET draft = excluded.draft, updated_at = excluded.updated_at"
+    )
+      .bind(page, key, original, html, now)
+      .run();
+  }
+  const n = await env.DB.prepare("SELECT COUNT(*) AS n FROM copy WHERE draft IS NOT NULL").first();
+  return json({ ok: true, drafts: n?.n ?? 0 });
+}
+
 async function page(request, env, ctx, url) {
-  const res = await env.ASSETS.fetch(request);
+  let res = await env.ASSETS.fetch(request);
   const isDoc = request.method === "GET" && res.status === 200 && (res.headers.get("content-type") || "").includes("text/html");
   if (!isDoc || !env.DB) return res;
+  const admin = await isAdmin(request, env);
+  res = await withCopy(res, env, url, admin);
+  if (admin) return res;
   let visitor = cookie(request, "em_v");
   const fresh = !visitor;
   if (fresh) visitor = crypto.randomUUID().replace(/-/g, "").slice(0, 20);
@@ -116,6 +228,8 @@ export default {
       if (request.method === "GET") return count(env);
       return json({ ok: false, error: "method_not_allowed" }, 405);
     }
+    if (pathname === "/edit") return login(request, env, url);
+    if (pathname === "/api/copy" || pathname.startsWith("/api/copy/")) return copyApi(request, env, url);
     if (pathname.startsWith("/api/")) return json({ ok: false, error: "not_found" }, 404);
     return page(request, env, ctx, url);
   },

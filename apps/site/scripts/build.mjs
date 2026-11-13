@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { screens, sprite, usedWork } from "./screens.mjs";
 import { pages, writePages } from "./pages.mjs";
 import { footer, footerCss } from "./footer.mjs";
+import { tagAll } from "./tag.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const brand = JSON.parse(readFileSync(join(root, "../../packages/brand/brand.json"), "utf8"));
@@ -47,3 +48,5 @@ const html = readFileSync(join(root, "src/index.template.html"), "utf8")
 writeFileSync(join(root, "public/index.html"), html);
 console.log("built public/index.html", html.length, "bytes");
 console.log("built", writePages(new Date().toISOString().slice(0, 10), { credits, github: GITHUB_URL }), "sitemap urls");
+const tagged = tagAll(join(root, "public"));
+console.log("tagged", tagged.total, "editable texts in", tagged.files, "pages");
