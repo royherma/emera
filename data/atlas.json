@@ -1,19 +1,19 @@
 {
- "builtAt": "2026-11-13T05:12:18.134Z",
+ "builtAt": "2026-11-13T04:56:20.823Z",
  "git": {
-  "sha": "99572e4",
+  "sha": "b3101aa",
   "dirty": true,
-  "branch": "worktree-agent-a31e061ab25bf40cf"
+  "branch": "main"
  },
  "summary": {
-  "screens": 19,
-  "endpoints": 33,
-  "tables": 10,
+  "screens": 16,
+  "endpoints": 23,
+  "tables": 7,
   "lexicons": 4,
   "stories": 18,
-  "edges": 185,
-  "coverage": 91,
-  "stepsBuilt": 49,
+  "edges": 83,
+  "coverage": 92,
+  "stepsBuilt": 50,
   "stepsCounted": 55
  },
  "screens": [
@@ -36,15 +36,7 @@
    ],
    "nav": [
     "/handle"
-   ],
-   "shots": {
-    "desktop-day": "data/atlas-shots/code/desktop-day.png",
-    "desktop-night": "data/atlas-shots/code/desktop-night.png",
-    "phone-day": "data/atlas-shots/code/phone-day.png",
-    "phone-night": "data/atlas-shots/code/phone-night.png"
-   },
-   "states": [],
-   "slug": "code"
+   ]
   },
   {
    "surface": "app",
@@ -62,40 +54,7 @@
    "apiCalls": [
     "setHandle"
    ],
-   "nav": [],
-   "shots": {
-    "desktop-day": "data/atlas-shots/handle/desktop-day.png",
-    "desktop-night": "data/atlas-shots/handle/desktop-night.png",
-    "phone-day": "data/atlas-shots/handle/phone-day.png",
-    "phone-night": "data/atlas-shots/handle/phone-night.png"
-   },
-   "states": [
-    {
-     "name": "error",
-     "tag": "phone-day",
-     "file": "data/atlas-shots/handle/error-phone-day.png",
-     "note": "a handle that is taken"
-    },
-    {
-     "name": "error",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/handle/error-desktop-day.png",
-     "note": "a handle that is taken"
-    },
-    {
-     "name": "error",
-     "tag": "phone-night",
-     "file": "data/atlas-shots/handle/error-phone-night.png",
-     "note": "a handle that is taken"
-    },
-    {
-     "name": "error",
-     "tag": "desktop-night",
-     "file": "data/atlas-shots/handle/error-desktop-night.png",
-     "note": "a handle that is taken"
-    }
-   ],
-   "slug": "handle"
+   "nav": []
   },
   {
    "surface": "app",
@@ -115,40 +74,7 @@
    ],
    "nav": [
     "/code"
-   ],
-   "shots": {
-    "desktop-day": "data/atlas-shots/sign-in/desktop-day.png",
-    "desktop-night": "data/atlas-shots/sign-in/desktop-night.png",
-    "phone-day": "data/atlas-shots/sign-in/phone-day.png",
-    "phone-night": "data/atlas-shots/sign-in/phone-night.png"
-   },
-   "states": [
-    {
-     "name": "error",
-     "tag": "phone-day",
-     "file": "data/atlas-shots/sign-in/error-phone-day.png",
-     "note": "a bad email address"
-    },
-    {
-     "name": "error",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/sign-in/error-desktop-day.png",
-     "note": "a bad email address"
-    },
-    {
-     "name": "error",
-     "tag": "phone-night",
-     "file": "data/atlas-shots/sign-in/error-phone-night.png",
-     "note": "a bad email address"
-    },
-    {
-     "name": "error",
-     "tag": "desktop-night",
-     "file": "data/atlas-shots/sign-in/error-desktop-night.png",
-     "note": "a bad email address"
-    }
-   ],
-   "slug": "sign-in"
+   ]
   },
   {
    "surface": "app",
@@ -167,15 +93,7 @@
    "nav": [
     "/handle",
     "/sign-in"
-   ],
-   "shots": {
-    "desktop-day": "data/atlas-shots/welcome/desktop-day.png",
-    "desktop-night": "data/atlas-shots/welcome/desktop-night.png",
-    "phone-day": "data/atlas-shots/welcome/phone-day.png",
-    "phone-night": "data/atlas-shots/welcome/phone-night.png"
-   },
-   "states": [],
-   "slug": "welcome"
+   ]
   },
   {
    "surface": "app",
@@ -206,15 +124,7 @@
     "feed",
     "deletePost"
    ],
-   "nav": [],
-   "shots": {
-    "desktop-day": "data/atlas-shots/explore/desktop-day.png",
-    "desktop-night": "data/atlas-shots/explore/desktop-night.png",
-    "phone-day": "data/atlas-shots/explore/phone-day.png",
-    "phone-night": "data/atlas-shots/explore/phone-night.png"
-   },
-   "states": [],
-   "slug": "explore"
+   "nav": []
   },
   {
    "surface": "app",
@@ -248,40 +158,7 @@
    "nav": [
     "/explore",
     "/upload"
-   ],
-   "shots": {
-    "desktop-day": "data/atlas-shots/feed/desktop-day.png",
-    "desktop-night": "data/atlas-shots/feed/desktop-night.png",
-    "phone-day": "data/atlas-shots/feed/phone-day.png",
-    "phone-night": "data/atlas-shots/feed/phone-night.png"
-   },
-   "states": [
-    {
-     "name": "post-menu",
-     "tag": "phone-day",
-     "file": "data/atlas-shots/feed/post-menu-phone-day.png",
-     "note": "the \"...\" menu on a post"
-    },
-    {
-     "name": "post-menu",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/feed/post-menu-desktop-day.png",
-     "note": "the \"...\" menu on a post"
-    },
-    {
-     "name": "post-menu",
-     "tag": "phone-night",
-     "file": "data/atlas-shots/feed/post-menu-phone-night.png",
-     "note": "the \"...\" menu on a post"
-    },
-    {
-     "name": "post-menu",
-     "tag": "desktop-night",
-     "file": "data/atlas-shots/feed/post-menu-desktop-night.png",
-     "note": "the \"...\" menu on a post"
-    }
-   ],
-   "slug": "feed"
+   ]
   },
   {
    "surface": "app",
@@ -310,23 +187,9 @@
    ],
    "apiCalls": [
     "profile",
-    "unfollow",
-    "follow",
-    "unmute",
-    "mute",
-    "unblock",
-    "block",
     "deletePost"
    ],
-   "nav": [],
-   "shots": {
-    "desktop-day": "data/atlas-shots/me/desktop-day.png",
-    "desktop-night": "data/atlas-shots/me/desktop-night.png",
-    "phone-day": "data/atlas-shots/me/phone-day.png",
-    "phone-night": "data/atlas-shots/me/phone-night.png"
-   },
-   "states": [],
-   "slug": "me"
+   "nav": []
   },
   {
    "surface": "app",
@@ -347,40 +210,7 @@
    ],
    "nav": [
     "/p/:id"
-   ],
-   "shots": {
-    "desktop-day": "data/atlas-shots/upload/desktop-day.png",
-    "desktop-night": "data/atlas-shots/upload/desktop-night.png",
-    "phone-day": "data/atlas-shots/upload/phone-day.png",
-    "phone-night": "data/atlas-shots/upload/phone-night.png"
-   },
-   "states": [
-    {
-     "name": "empty",
-     "tag": "phone-day",
-     "file": "data/atlas-shots/upload/empty-phone-day.png",
-     "note": "nothing chosen yet"
-    },
-    {
-     "name": "empty",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/upload/empty-desktop-day.png",
-     "note": "nothing chosen yet"
-    },
-    {
-     "name": "empty",
-     "tag": "phone-night",
-     "file": "data/atlas-shots/upload/empty-phone-night.png",
-     "note": "nothing chosen yet"
-    },
-    {
-     "name": "empty",
-     "tag": "desktop-night",
-     "file": "data/atlas-shots/upload/empty-desktop-night.png",
-     "note": "nothing chosen yet"
-    }
-   ],
-   "slug": "upload"
+   ]
   },
   {
    "surface": "app",
@@ -399,82 +229,7 @@
     "me",
     "logout"
    ],
-   "nav": [],
-   "shots": {},
-   "states": [],
-   "slug": null
-  },
-  {
-   "surface": "app",
-   "route": "/blocked",
-   "file": "apps/mobile/src/app/blocked.tsx",
-   "group": null,
-   "shell": false,
-   "access": "signed in",
-   "notes": [
-    {
-     "platform": "web",
-     "text": "wide layout at >= 900px"
-    }
-   ],
-   "apiCalls": [
-    "blocks",
-    "mutes",
-    "unblock",
-    "unmute"
-   ],
-   "nav": [
-    "/settings"
-   ],
-   "shots": {},
-   "states": [],
-   "slug": null
-  },
-  {
-   "surface": "app",
-   "route": "/followers/:handle",
-   "file": "apps/mobile/src/app/followers/[handle].tsx",
-   "group": null,
-   "shell": false,
-   "access": "signed in",
-   "notes": [
-    {
-     "platform": "web",
-     "text": "wide layout at >= 900px"
-    }
-   ],
-   "apiCalls": [
-    "unfollow",
-    "follow",
-    "followers"
-   ],
-   "nav": [],
-   "shots": {},
-   "states": [],
-   "slug": null
-  },
-  {
-   "surface": "app",
-   "route": "/following/:handle",
-   "file": "apps/mobile/src/app/following/[handle].tsx",
-   "group": null,
-   "shell": false,
-   "access": "signed in",
-   "notes": [
-    {
-     "platform": "web",
-     "text": "wide layout at >= 900px"
-    }
-   ],
-   "apiCalls": [
-    "unfollow",
-    "follow",
-    "following"
-   ],
-   "nav": [],
-   "shots": {},
-   "states": [],
-   "slug": null
+   "nav": []
   },
   {
    "surface": "app",
@@ -485,15 +240,7 @@
    "access": "any",
    "notes": [],
    "apiCalls": [],
-   "nav": [],
-   "shots": {
-    "desktop-day": "data/atlas-shots/home/desktop-day.png",
-    "desktop-night": "data/atlas-shots/home/desktop-night.png",
-    "phone-day": "data/atlas-shots/home/phone-day.png",
-    "phone-night": "data/atlas-shots/home/phone-night.png"
-   },
-   "states": [],
-   "slug": "home"
+   "nav": []
   },
   {
    "surface": "app",
@@ -504,15 +251,7 @@
    "access": "any",
    "notes": [],
    "apiCalls": [],
-   "nav": [],
-   "shots": {
-    "desktop-day": "data/atlas-shots/invite-code/desktop-day.png",
-    "desktop-night": "data/atlas-shots/invite-code/desktop-night.png",
-    "phone-day": "data/atlas-shots/invite-code/phone-day.png",
-    "phone-night": "data/atlas-shots/invite-code/phone-night.png"
-   },
-   "states": [],
-   "slug": "invite-code"
+   "nav": []
   },
   {
    "surface": "app",
@@ -546,40 +285,7 @@
    "nav": [
     "/feed",
     "/u/:handle"
-   ],
-   "shots": {
-    "desktop-day": "data/atlas-shots/p-id/desktop-day.png",
-    "desktop-night": "data/atlas-shots/p-id/desktop-night.png",
-    "phone-day": "data/atlas-shots/p-id/phone-day.png",
-    "phone-night": "data/atlas-shots/p-id/phone-night.png"
-   },
-   "states": [
-    {
-     "name": "post-menu",
-     "tag": "phone-day",
-     "file": "data/atlas-shots/p-id/post-menu-phone-day.png",
-     "note": "the \"...\" menu open"
-    },
-    {
-     "name": "post-menu",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/p-id/post-menu-desktop-day.png",
-     "note": "the \"...\" menu open"
-    },
-    {
-     "name": "post-menu",
-     "tag": "phone-night",
-     "file": "data/atlas-shots/p-id/post-menu-phone-night.png",
-     "note": "the \"...\" menu open"
-    },
-    {
-     "name": "post-menu",
-     "tag": "desktop-night",
-     "file": "data/atlas-shots/p-id/post-menu-desktop-night.png",
-     "note": "the \"...\" menu open"
-    }
-   ],
-   "slug": "p-id"
+   ]
   },
   {
    "surface": "app",
@@ -599,28 +305,7 @@
    ],
    "nav": [
     "/feed"
-   ],
-   "shots": {
-    "desktop-day": "data/atlas-shots/report/desktop-day.png",
-    "desktop-night": "data/atlas-shots/report/desktop-night.png",
-    "phone-day": "data/atlas-shots/report/phone-day.png",
-    "phone-night": "data/atlas-shots/report/phone-night.png"
-   },
-   "states": [
-    {
-     "name": "error",
-     "tag": "phone-day",
-     "file": "data/atlas-shots/report/error-phone-day.png",
-     "note": "a link that is not a link"
-    },
-    {
-     "name": "error",
-     "tag": "phone-night",
-     "file": "data/atlas-shots/report/error-phone-night.png",
-     "note": "a link that is not a link"
-    }
-   ],
-   "slug": "report"
+   ]
   },
   {
    "surface": "app",
@@ -652,17 +337,8 @@
     "logout"
    ],
    "nav": [
-    "/me",
-    "/blocked"
-   ],
-   "shots": {
-    "desktop-day": "data/atlas-shots/settings/desktop-day.png",
-    "desktop-night": "data/atlas-shots/settings/desktop-night.png",
-    "phone-day": "data/atlas-shots/settings/phone-day.png",
-    "phone-night": "data/atlas-shots/settings/phone-night.png"
-   },
-   "states": [],
-   "slug": "settings"
+    "/me"
+   ]
   },
   {
    "surface": "app",
@@ -691,23 +367,9 @@
    ],
    "apiCalls": [
     "profile",
-    "unfollow",
-    "follow",
-    "unmute",
-    "mute",
-    "unblock",
-    "block",
     "deletePost"
    ],
-   "nav": [],
-   "shots": {
-    "desktop-day": "data/atlas-shots/u-handle/desktop-day.png",
-    "desktop-night": "data/atlas-shots/u-handle/desktop-night.png",
-    "phone-day": "data/atlas-shots/u-handle/phone-day.png",
-    "phone-night": "data/atlas-shots/u-handle/phone-night.png"
-   },
-   "states": [],
-   "slug": "u-handle"
+   "nav": []
   },
   {
    "surface": "site",
@@ -727,15 +389,7 @@
     "POST /api/early",
     "GET /api/early/count"
    ],
-   "nav": [],
-   "shots": {
-    "desktop-day": "data/atlas-shots/site-home/desktop-day.png",
-    "desktop-night": "data/atlas-shots/site-home/desktop-night.png",
-    "phone-day": "data/atlas-shots/site-home/phone-day.png",
-    "phone-night": "data/atlas-shots/site-home/phone-night.png"
-   },
-   "states": [],
-   "slug": "site-home"
+   "nav": []
   }
  ],
  "endpoints": [
@@ -908,7 +562,7 @@
    "method": "GET",
    "path": "/health",
    "file": "apps/api/src/index.ts",
-   "line": 24,
+   "line": 23,
    "kind": "page",
    "auth": false,
    "needsHandle": false,
@@ -1019,22 +673,14 @@
    "needsHandle": false,
    "reads": [
     "posts",
-    "blocks",
-    "mutes",
-    "follows",
     "media",
-    "users",
-    "sessions"
+    "users"
    ],
    "writes": [],
    "tables": [
     "posts",
-    "blocks",
-    "mutes",
-    "follows",
     "media",
-    "users",
-    "sessions"
+    "users"
    ],
    "r2": [],
    "bodyFields": [],
@@ -1076,21 +722,13 @@
    "reads": [
     "users",
     "posts",
-    "media",
-    "follows",
-    "blocks",
-    "mutes",
-    "sessions"
+    "media"
    ],
    "writes": [],
    "tables": [
     "users",
     "posts",
-    "media",
-    "follows",
-    "blocks",
-    "mutes",
-    "sessions"
+    "media"
    ],
    "r2": [],
    "bodyFields": [],
@@ -1109,21 +747,13 @@
    "reads": [
     "posts",
     "media",
-    "users",
-    "follows",
-    "blocks",
-    "mutes",
-    "sessions"
+    "users"
    ],
    "writes": [],
    "tables": [
     "posts",
     "media",
-    "users",
-    "follows",
-    "blocks",
-    "mutes",
-    "sessions"
+    "users"
    ],
    "r2": [],
    "bodyFields": [],
@@ -1135,16 +765,12 @@
    "method": "POST",
    "path": "/v1/posts",
    "file": "apps/api/src/posts.ts",
-   "line": 35,
+   "line": 31,
    "kind": "api",
    "auth": true,
    "needsHandle": true,
    "reads": [
-    "users",
-    "follows",
-    "blocks",
-    "mutes",
-    "sessions"
+    "users"
    ],
    "writes": [
     "posts",
@@ -1153,11 +779,7 @@
    "tables": [
     "media",
     "posts",
-    "users",
-    "follows",
-    "blocks",
-    "mutes",
-    "sessions"
+    "users"
    ],
    "r2": [],
    "bodyFields": [
@@ -1172,28 +794,20 @@
    "method": "GET",
    "path": "/v1/posts/:id",
    "file": "apps/api/src/posts.ts",
-   "line": 62,
+   "line": 58,
    "kind": "api",
    "auth": false,
    "needsHandle": false,
    "reads": [
     "posts",
     "media",
-    "users",
-    "follows",
-    "blocks",
-    "mutes",
-    "sessions"
+    "users"
    ],
    "writes": [],
    "tables": [
     "posts",
     "media",
-    "users",
-    "follows",
-    "blocks",
-    "mutes",
-    "sessions"
+    "users"
    ],
    "r2": [],
    "bodyFields": [],
@@ -1205,7 +819,7 @@
    "method": "DELETE",
    "path": "/v1/posts/:id",
    "file": "apps/api/src/posts.ts",
-   "line": 68,
+   "line": 64,
    "kind": "api",
    "auth": true,
    "needsHandle": false,
@@ -1230,26 +844,18 @@
    "method": "GET",
    "path": "/v1/users/:handle",
    "file": "apps/api/src/posts.ts",
-   "line": 82,
+   "line": 78,
    "kind": "api",
    "auth": false,
    "needsHandle": false,
    "reads": [
     "users",
-    "blocks",
-    "sessions",
-    "follows",
-    "mutes",
     "posts",
     "media"
    ],
    "writes": [],
    "tables": [
     "users",
-    "blocks",
-    "sessions",
-    "follows",
-    "mutes",
     "posts",
     "media"
    ],
@@ -1263,324 +869,20 @@
    "method": "GET",
    "path": "/v1/feed",
    "file": "apps/api/src/posts.ts",
-   "line": 94,
+   "line": 85,
    "kind": "api",
    "auth": false,
    "needsHandle": false,
    "reads": [
-    "sessions",
-    "users",
     "posts",
-    "blocks",
-    "mutes",
-    "follows",
-    "media"
+    "media",
+    "users"
    ],
    "writes": [],
    "tables": [
-    "sessions",
-    "users",
     "posts",
-    "blocks",
-    "mutes",
-    "follows",
-    "media"
-   ],
-   "r2": [],
-   "bodyFields": [],
-   "og": false,
-   "twitter": false,
-   "app": "api"
-  },
-  {
-   "method": "POST",
-   "path": "/v1/follows/:handle",
-   "file": "apps/api/src/social.ts",
-   "line": 88,
-   "kind": "api",
-   "auth": true,
-   "needsHandle": true,
-   "reads": [
-    "blocks",
-    "mutes",
-    "sessions",
+    "media",
     "users"
-   ],
-   "writes": [
-    "follows"
-   ],
-   "tables": [
-    "follows",
-    "blocks",
-    "mutes",
-    "sessions",
-    "users"
-   ],
-   "r2": [],
-   "bodyFields": [],
-   "og": false,
-   "twitter": false,
-   "app": "api"
-  },
-  {
-   "method": "DELETE",
-   "path": "/v1/follows/:handle",
-   "file": "apps/api/src/social.ts",
-   "line": 98,
-   "kind": "api",
-   "auth": true,
-   "needsHandle": true,
-   "reads": [
-    "blocks",
-    "mutes",
-    "sessions",
-    "users"
-   ],
-   "writes": [
-    "follows"
-   ],
-   "tables": [
-    "follows",
-    "blocks",
-    "mutes",
-    "sessions",
-    "users"
-   ],
-   "r2": [],
-   "bodyFields": [],
-   "og": false,
-   "twitter": false,
-   "app": "api"
-  },
-  {
-   "method": "GET",
-   "path": "/v1/users/:handle/followers",
-   "file": "apps/api/src/social.ts",
-   "line": 105,
-   "kind": "api",
-   "auth": false,
-   "needsHandle": false,
-   "reads": [
-    "follows",
-    "sessions",
-    "users",
-    "blocks",
-    "mutes"
-   ],
-   "writes": [],
-   "tables": [
-    "follows",
-    "sessions",
-    "users",
-    "blocks",
-    "mutes"
-   ],
-   "r2": [],
-   "bodyFields": [],
-   "og": false,
-   "twitter": false,
-   "app": "api"
-  },
-  {
-   "method": "GET",
-   "path": "/v1/users/:handle/following",
-   "file": "apps/api/src/social.ts",
-   "line": 107,
-   "kind": "api",
-   "auth": false,
-   "needsHandle": false,
-   "reads": [
-    "follows",
-    "sessions",
-    "users",
-    "blocks",
-    "mutes"
-   ],
-   "writes": [],
-   "tables": [
-    "follows",
-    "sessions",
-    "users",
-    "blocks",
-    "mutes"
-   ],
-   "r2": [],
-   "bodyFields": [],
-   "og": false,
-   "twitter": false,
-   "app": "api"
-  },
-  {
-   "method": "POST",
-   "path": "/v1/blocks/:handle",
-   "file": "apps/api/src/social.ts",
-   "line": 109,
-   "kind": "api",
-   "auth": true,
-   "needsHandle": true,
-   "reads": [
-    "mutes",
-    "sessions",
-    "users"
-   ],
-   "writes": [
-    "blocks",
-    "follows"
-   ],
-   "tables": [
-    "follows",
-    "blocks",
-    "mutes",
-    "sessions",
-    "users"
-   ],
-   "r2": [],
-   "bodyFields": [],
-   "og": false,
-   "twitter": false,
-   "app": "api"
-  },
-  {
-   "method": "DELETE",
-   "path": "/v1/blocks/:handle",
-   "file": "apps/api/src/social.ts",
-   "line": 119,
-   "kind": "api",
-   "auth": true,
-   "needsHandle": true,
-   "reads": [
-    "follows",
-    "mutes",
-    "sessions",
-    "users"
-   ],
-   "writes": [
-    "blocks"
-   ],
-   "tables": [
-    "blocks",
-    "follows",
-    "mutes",
-    "sessions",
-    "users"
-   ],
-   "r2": [],
-   "bodyFields": [],
-   "og": false,
-   "twitter": false,
-   "app": "api"
-  },
-  {
-   "method": "POST",
-   "path": "/v1/mutes/:handle",
-   "file": "apps/api/src/social.ts",
-   "line": 126,
-   "kind": "api",
-   "auth": true,
-   "needsHandle": true,
-   "reads": [
-    "follows",
-    "blocks",
-    "sessions",
-    "users"
-   ],
-   "writes": [
-    "mutes"
-   ],
-   "tables": [
-    "follows",
-    "blocks",
-    "mutes",
-    "sessions",
-    "users"
-   ],
-   "r2": [],
-   "bodyFields": [],
-   "og": false,
-   "twitter": false,
-   "app": "api"
-  },
-  {
-   "method": "DELETE",
-   "path": "/v1/mutes/:handle",
-   "file": "apps/api/src/social.ts",
-   "line": 133,
-   "kind": "api",
-   "auth": true,
-   "needsHandle": true,
-   "reads": [
-    "follows",
-    "blocks",
-    "sessions",
-    "users"
-   ],
-   "writes": [
-    "mutes"
-   ],
-   "tables": [
-    "mutes",
-    "follows",
-    "blocks",
-    "sessions",
-    "users"
-   ],
-   "r2": [],
-   "bodyFields": [],
-   "og": false,
-   "twitter": false,
-   "app": "api"
-  },
-  {
-   "method": "GET",
-   "path": "/v1/me/blocks",
-   "file": "apps/api/src/social.ts",
-   "line": 140,
-   "kind": "api",
-   "auth": true,
-   "needsHandle": false,
-   "reads": [
-    "blocks",
-    "users",
-    "follows",
-    "mutes",
-    "sessions"
-   ],
-   "writes": [],
-   "tables": [
-    "blocks",
-    "users",
-    "follows",
-    "mutes",
-    "sessions"
-   ],
-   "r2": [],
-   "bodyFields": [],
-   "og": false,
-   "twitter": false,
-   "app": "api"
-  },
-  {
-   "method": "GET",
-   "path": "/v1/me/mutes",
-   "file": "apps/api/src/social.ts",
-   "line": 144,
-   "kind": "api",
-   "auth": true,
-   "needsHandle": false,
-   "reads": [
-    "mutes",
-    "blocks",
-    "users",
-    "follows",
-    "sessions"
-   ],
-   "writes": [],
-   "tables": [
-    "mutes",
-    "blocks",
-    "users",
-    "follows",
-    "sessions"
    ],
    "r2": [],
    "bodyFields": [],
@@ -2007,96 +1309,6 @@
    ]
   },
   {
-   "name": "follows",
-   "db": "emera-api DB",
-   "app": "api",
-   "file": "apps/api/migrations/0004_social.sql",
-   "line": 1,
-   "columns": [
-    {
-     "name": "follower_id",
-     "type": "TEXT",
-     "pk": false,
-     "unique": false,
-     "fk": "users"
-    },
-    {
-     "name": "followee_id",
-     "type": "TEXT",
-     "pk": false,
-     "unique": false,
-     "fk": "users"
-    },
-    {
-     "name": "created_at",
-     "type": "INTEGER",
-     "pk": false,
-     "unique": false,
-     "fk": null
-    }
-   ]
-  },
-  {
-   "name": "blocks",
-   "db": "emera-api DB",
-   "app": "api",
-   "file": "apps/api/migrations/0004_social.sql",
-   "line": 10,
-   "columns": [
-    {
-     "name": "blocker_id",
-     "type": "TEXT",
-     "pk": false,
-     "unique": false,
-     "fk": "users"
-    },
-    {
-     "name": "blocked_id",
-     "type": "TEXT",
-     "pk": false,
-     "unique": false,
-     "fk": "users"
-    },
-    {
-     "name": "created_at",
-     "type": "INTEGER",
-     "pk": false,
-     "unique": false,
-     "fk": null
-    }
-   ]
-  },
-  {
-   "name": "mutes",
-   "db": "emera-api DB",
-   "app": "api",
-   "file": "apps/api/migrations/0004_social.sql",
-   "line": 18,
-   "columns": [
-    {
-     "name": "muter_id",
-     "type": "TEXT",
-     "pk": false,
-     "unique": false,
-     "fk": "users"
-    },
-    {
-     "name": "muted_id",
-     "type": "TEXT",
-     "pk": false,
-     "unique": false,
-     "fk": "users"
-    },
-    {
-     "name": "created_at",
-     "type": "INTEGER",
-     "pk": false,
-     "unique": false,
-     "fk": null
-    }
-   ]
-  },
-  {
    "name": "early_access",
    "db": "emera-site DB",
    "app": "site",
@@ -2242,7 +1454,7 @@
    ],
    "mock": true,
    "file": "apps/mobile/src/lib/http.ts",
-   "line": 31
+   "line": 28
   },
   "authVerify": {
    "name": "authVerify",
@@ -2258,7 +1470,7 @@
    ],
    "mock": true,
    "file": "apps/mobile/src/lib/http.ts",
-   "line": 32
+   "line": 29
   },
   "setHandle": {
    "name": "setHandle",
@@ -2274,7 +1486,7 @@
    ],
    "mock": true,
    "file": "apps/mobile/src/lib/http.ts",
-   "line": 33
+   "line": 30
   },
   "me": {
    "name": "me",
@@ -2287,7 +1499,7 @@
    "fields": [],
    "mock": true,
    "file": "apps/mobile/src/lib/http.ts",
-   "line": 34
+   "line": 31
   },
   "logout": {
    "name": "logout",
@@ -2300,7 +1512,7 @@
    "fields": [],
    "mock": true,
    "file": "apps/mobile/src/lib/http.ts",
-   "line": 35
+   "line": 32
   },
   "feed": {
    "name": "feed",
@@ -2313,7 +1525,7 @@
    "fields": [],
    "mock": true,
    "file": "apps/mobile/src/lib/http.ts",
-   "line": 36
+   "line": 33
   },
   "post": {
    "name": "post",
@@ -2326,7 +1538,7 @@
    "fields": [],
    "mock": true,
    "file": "apps/mobile/src/lib/http.ts",
-   "line": 44
+   "line": 37
   },
   "deletePost": {
    "name": "deletePost",
@@ -2339,7 +1551,7 @@
    "fields": [],
    "mock": true,
    "file": "apps/mobile/src/lib/http.ts",
-   "line": 45
+   "line": 38
   },
   "profile": {
    "name": "profile",
@@ -2352,7 +1564,7 @@
    "fields": [],
    "mock": true,
    "file": "apps/mobile/src/lib/http.ts",
-   "line": 46
+   "line": 39
   },
   "uploadMedia": {
    "name": "uploadMedia",
@@ -2372,7 +1584,7 @@
    ],
    "mock": true,
    "file": "apps/mobile/src/lib/http.ts",
-   "line": 50
+   "line": 43
   },
   "createPost": {
    "name": "createPost",
@@ -2388,7 +1600,7 @@
    ],
    "mock": true,
    "file": "apps/mobile/src/lib/http.ts",
-   "line": 69
+   "line": 62
   },
   "createInvite": {
    "name": "createInvite",
@@ -2401,7 +1613,7 @@
    "fields": [],
    "mock": true,
    "file": "apps/mobile/src/lib/http.ts",
-   "line": 70
+   "line": 63
   },
   "report": {
    "name": "report",
@@ -2418,137 +1630,7 @@
    ],
    "mock": true,
    "file": "apps/mobile/src/lib/http.ts",
-   "line": 71
-  },
-  "follow": {
-   "name": "follow",
-   "calls": [
-    {
-     "method": "POST",
-     "path": "/v1/follows/:handle"
-    }
-   ],
-   "fields": [],
-   "mock": true,
-   "file": "apps/mobile/src/lib/http.ts",
-   "line": 72
-  },
-  "unfollow": {
-   "name": "unfollow",
-   "calls": [
-    {
-     "method": "DELETE",
-     "path": "/v1/follows/:handle"
-    }
-   ],
-   "fields": [],
-   "mock": true,
-   "file": "apps/mobile/src/lib/http.ts",
-   "line": 73
-  },
-  "followers": {
-   "name": "followers",
-   "calls": [
-    {
-     "method": "GET",
-     "path": "/v1/users/:handle"
-    }
-   ],
-   "fields": [],
-   "mock": true,
-   "file": "apps/mobile/src/lib/http.ts",
-   "line": 74
-  },
-  "following": {
-   "name": "following",
-   "calls": [
-    {
-     "method": "GET",
-     "path": "/v1/users/:handle"
-    }
-   ],
-   "fields": [],
-   "mock": true,
-   "file": "apps/mobile/src/lib/http.ts",
-   "line": 75
-  },
-  "block": {
-   "name": "block",
-   "calls": [
-    {
-     "method": "POST",
-     "path": "/v1/blocks/:handle"
-    }
-   ],
-   "fields": [],
-   "mock": true,
-   "file": "apps/mobile/src/lib/http.ts",
-   "line": 76
-  },
-  "unblock": {
-   "name": "unblock",
-   "calls": [
-    {
-     "method": "DELETE",
-     "path": "/v1/blocks/:handle"
-    }
-   ],
-   "fields": [],
-   "mock": true,
-   "file": "apps/mobile/src/lib/http.ts",
-   "line": 77
-  },
-  "mute": {
-   "name": "mute",
-   "calls": [
-    {
-     "method": "POST",
-     "path": "/v1/mutes/:handle"
-    }
-   ],
-   "fields": [],
-   "mock": true,
-   "file": "apps/mobile/src/lib/http.ts",
-   "line": 78
-  },
-  "unmute": {
-   "name": "unmute",
-   "calls": [
-    {
-     "method": "DELETE",
-     "path": "/v1/mutes/:handle"
-    }
-   ],
-   "fields": [],
-   "mock": true,
-   "file": "apps/mobile/src/lib/http.ts",
-   "line": 79
-  },
-  "blocks": {
-   "name": "blocks",
-   "calls": [
-    {
-     "method": "GET",
-     "path": "/v1/me/blocks"
-    }
-   ],
-   "fields": [],
-   "mock": true,
-   "file": "apps/mobile/src/lib/http.ts",
-   "line": 80
-  },
-  "mutes": {
-   "name": "mutes",
-   "calls": [
-    {
-     "method": "GET",
-     "path": "/v1/me/mutes"
-    }
-   ],
-   "fields": [],
-   "mock": true,
-   "file": "apps/mobile/src/lib/http.ts",
-   "line": 81
+   "line": 64
   }
  },
  "environments": [
@@ -2744,36 +1826,6 @@
   },
   {
    "from": "screen:app:/me",
-   "to": "ep:DELETE /v1/follows/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/me",
-   "to": "ep:POST /v1/follows/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/me",
-   "to": "ep:DELETE /v1/mutes/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/me",
-   "to": "ep:POST /v1/mutes/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/me",
-   "to": "ep:DELETE /v1/blocks/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/me",
-   "to": "ep:POST /v1/blocks/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/me",
    "to": "ep:DELETE /v1/posts/:id",
    "kind": "calls"
   },
@@ -2805,61 +1857,6 @@
   {
    "from": "screen:app:shell",
    "to": "ep:POST /v1/auth/logout",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/blocked",
-   "to": "ep:GET /v1/me/blocks",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/blocked",
-   "to": "ep:GET /v1/me/mutes",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/blocked",
-   "to": "ep:DELETE /v1/blocks/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/blocked",
-   "to": "ep:DELETE /v1/mutes/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/blocked",
-   "to": "screen:app:/settings",
-   "kind": "navigates"
-  },
-  {
-   "from": "screen:app:/followers/:handle",
-   "to": "ep:DELETE /v1/follows/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/followers/:handle",
-   "to": "ep:POST /v1/follows/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/followers/:handle",
-   "to": "ep:GET /v1/users/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/following/:handle",
-   "to": "ep:DELETE /v1/follows/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/following/:handle",
-   "to": "ep:POST /v1/follows/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/following/:handle",
-   "to": "ep:GET /v1/users/:handle",
    "kind": "calls"
   },
   {
@@ -2903,43 +1900,8 @@
    "kind": "navigates"
   },
   {
-   "from": "screen:app:/settings",
-   "to": "screen:app:/blocked",
-   "kind": "navigates"
-  },
-  {
    "from": "screen:app:/u/:handle",
    "to": "ep:GET /v1/users/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/u/:handle",
-   "to": "ep:DELETE /v1/follows/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/u/:handle",
-   "to": "ep:POST /v1/follows/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/u/:handle",
-   "to": "ep:DELETE /v1/mutes/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/u/:handle",
-   "to": "ep:POST /v1/mutes/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/u/:handle",
-   "to": "ep:DELETE /v1/blocks/:handle",
-   "kind": "calls"
-  },
-  {
-   "from": "screen:app:/u/:handle",
-   "to": "ep:POST /v1/blocks/:handle",
    "kind": "calls"
   },
   {
@@ -3049,32 +2011,12 @@
   },
   {
    "from": "ep:GET /",
-   "to": "table:blocks",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /",
-   "to": "table:mutes",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /",
-   "to": "table:follows",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /",
    "to": "table:media",
    "kind": "reads"
   },
   {
    "from": "ep:GET /",
    "to": "table:users",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /",
-   "to": "table:sessions",
    "kind": "reads"
   },
   {
@@ -3103,26 +2045,6 @@
    "kind": "reads"
   },
   {
-   "from": "ep:GET /@:handle",
-   "to": "table:follows",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /@:handle",
-   "to": "table:blocks",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /@:handle",
-   "to": "table:mutes",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /@:handle",
-   "to": "table:sessions",
-   "kind": "reads"
-  },
-  {
    "from": "ep:GET /p/:id",
    "to": "table:posts",
    "kind": "reads"
@@ -3138,48 +2060,8 @@
    "kind": "reads"
   },
   {
-   "from": "ep:GET /p/:id",
-   "to": "table:follows",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /p/:id",
-   "to": "table:blocks",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /p/:id",
-   "to": "table:mutes",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /p/:id",
-   "to": "table:sessions",
-   "kind": "reads"
-  },
-  {
    "from": "ep:POST /v1/posts",
    "to": "table:users",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:POST /v1/posts",
-   "to": "table:follows",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:POST /v1/posts",
-   "to": "table:blocks",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:POST /v1/posts",
-   "to": "table:mutes",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:POST /v1/posts",
-   "to": "table:sessions",
    "kind": "reads"
   },
   {
@@ -3205,26 +2087,6 @@
   {
    "from": "ep:GET /v1/posts/:id",
    "to": "table:users",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/posts/:id",
-   "to": "table:follows",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/posts/:id",
-   "to": "table:blocks",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/posts/:id",
-   "to": "table:mutes",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/posts/:id",
-   "to": "table:sessions",
    "kind": "reads"
   },
   {
@@ -3249,26 +2111,6 @@
   },
   {
    "from": "ep:GET /v1/users/:handle",
-   "to": "table:blocks",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/users/:handle",
-   "to": "table:sessions",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/users/:handle",
-   "to": "table:follows",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/users/:handle",
-   "to": "table:mutes",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/users/:handle",
    "to": "table:posts",
    "kind": "reads"
   },
@@ -3279,32 +2121,7 @@
   },
   {
    "from": "ep:GET /v1/feed",
-   "to": "table:sessions",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/feed",
-   "to": "table:users",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/feed",
    "to": "table:posts",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/feed",
-   "to": "table:blocks",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/feed",
-   "to": "table:mutes",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/feed",
-   "to": "table:follows",
    "kind": "reads"
   },
   {
@@ -3313,253 +2130,8 @@
    "kind": "reads"
   },
   {
-   "from": "ep:POST /v1/follows/:handle",
-   "to": "table:blocks",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:POST /v1/follows/:handle",
-   "to": "table:mutes",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:POST /v1/follows/:handle",
-   "to": "table:sessions",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:POST /v1/follows/:handle",
+   "from": "ep:GET /v1/feed",
    "to": "table:users",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:POST /v1/follows/:handle",
-   "to": "table:follows",
-   "kind": "writes"
-  },
-  {
-   "from": "ep:DELETE /v1/follows/:handle",
-   "to": "table:blocks",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:DELETE /v1/follows/:handle",
-   "to": "table:mutes",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:DELETE /v1/follows/:handle",
-   "to": "table:sessions",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:DELETE /v1/follows/:handle",
-   "to": "table:users",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:DELETE /v1/follows/:handle",
-   "to": "table:follows",
-   "kind": "writes"
-  },
-  {
-   "from": "ep:GET /v1/users/:handle/followers",
-   "to": "table:follows",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/users/:handle/followers",
-   "to": "table:sessions",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/users/:handle/followers",
-   "to": "table:users",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/users/:handle/followers",
-   "to": "table:blocks",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/users/:handle/followers",
-   "to": "table:mutes",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/users/:handle/following",
-   "to": "table:follows",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/users/:handle/following",
-   "to": "table:sessions",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/users/:handle/following",
-   "to": "table:users",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/users/:handle/following",
-   "to": "table:blocks",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/users/:handle/following",
-   "to": "table:mutes",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:POST /v1/blocks/:handle",
-   "to": "table:mutes",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:POST /v1/blocks/:handle",
-   "to": "table:sessions",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:POST /v1/blocks/:handle",
-   "to": "table:users",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:POST /v1/blocks/:handle",
-   "to": "table:blocks",
-   "kind": "writes"
-  },
-  {
-   "from": "ep:POST /v1/blocks/:handle",
-   "to": "table:follows",
-   "kind": "writes"
-  },
-  {
-   "from": "ep:DELETE /v1/blocks/:handle",
-   "to": "table:follows",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:DELETE /v1/blocks/:handle",
-   "to": "table:mutes",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:DELETE /v1/blocks/:handle",
-   "to": "table:sessions",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:DELETE /v1/blocks/:handle",
-   "to": "table:users",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:DELETE /v1/blocks/:handle",
-   "to": "table:blocks",
-   "kind": "writes"
-  },
-  {
-   "from": "ep:POST /v1/mutes/:handle",
-   "to": "table:follows",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:POST /v1/mutes/:handle",
-   "to": "table:blocks",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:POST /v1/mutes/:handle",
-   "to": "table:sessions",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:POST /v1/mutes/:handle",
-   "to": "table:users",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:POST /v1/mutes/:handle",
-   "to": "table:mutes",
-   "kind": "writes"
-  },
-  {
-   "from": "ep:DELETE /v1/mutes/:handle",
-   "to": "table:follows",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:DELETE /v1/mutes/:handle",
-   "to": "table:blocks",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:DELETE /v1/mutes/:handle",
-   "to": "table:sessions",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:DELETE /v1/mutes/:handle",
-   "to": "table:users",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:DELETE /v1/mutes/:handle",
-   "to": "table:mutes",
-   "kind": "writes"
-  },
-  {
-   "from": "ep:GET /v1/me/blocks",
-   "to": "table:blocks",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/me/blocks",
-   "to": "table:users",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/me/blocks",
-   "to": "table:follows",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/me/blocks",
-   "to": "table:mutes",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/me/blocks",
-   "to": "table:sessions",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/me/mutes",
-   "to": "table:mutes",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/me/mutes",
-   "to": "table:blocks",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/me/mutes",
-   "to": "table:users",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/me/mutes",
-   "to": "table:follows",
-   "kind": "reads"
-  },
-  {
-   "from": "ep:GET /v1/me/mutes",
-   "to": "table:sessions",
    "kind": "reads"
   },
   {
@@ -3842,13 +2414,9 @@
      "problems": [],
      "data": {
       "tables": [
-       "sessions",
-       "users",
        "posts",
-       "blocks",
-       "mutes",
-       "follows",
-       "media"
+       "media",
+       "users"
       ],
       "r2": []
      },
@@ -3916,11 +2484,7 @@
       "tables": [
        "users",
        "posts",
-       "media",
-       "follows",
-       "blocks",
-       "mutes",
-       "sessions"
+       "media"
       ],
       "r2": []
      },
@@ -4035,11 +2599,7 @@
       "tables": [
        "media",
        "posts",
-       "users",
-       "follows",
-       "blocks",
-       "mutes",
-       "sessions"
+       "users"
       ],
       "r2": []
      },
@@ -4062,11 +2622,7 @@
       "tables": [
        "posts",
        "media",
-       "users",
-       "follows",
-       "blocks",
-       "mutes",
-       "sessions"
+       "users"
       ],
       "r2": []
      },
@@ -4155,11 +2711,7 @@
       "tables": [
        "media",
        "posts",
-       "users",
-       "follows",
-       "blocks",
-       "mutes",
-       "sessions"
+       "users"
       ],
       "r2": []
      },
@@ -4227,11 +2779,7 @@
       "tables": [
        "posts",
        "media",
-       "users",
-       "follows",
-       "blocks",
-       "mutes",
-       "sessions"
+       "users"
       ],
       "r2": []
      },
@@ -4278,11 +2826,7 @@
       "tables": [
        "posts",
        "media",
-       "users",
-       "follows",
-       "blocks",
-       "mutes",
-       "sessions"
+       "users"
       ],
       "r2": []
      },
@@ -4315,19 +2859,13 @@
      "screen": "/me",
      "endpoint": "GET /v1/users/:handle",
      "i": 0,
-     "status": "partial",
+     "status": "built",
      "screenState": "ok",
-     "epState": "unwired",
-     "problems": [
-      "/me never calls GET /v1/users/:handle"
-     ],
+     "epState": "ok",
+     "problems": [],
      "data": {
       "tables": [
        "users",
-       "blocks",
-       "sessions",
-       "follows",
-       "mutes",
        "posts",
        "media"
       ],
@@ -4387,11 +2925,7 @@
       "tables": [
        "users",
        "posts",
-       "media",
-       "follows",
-       "blocks",
-       "mutes",
-       "sessions"
+       "media"
       ],
       "r2": []
      },
@@ -4402,8 +2936,8 @@
      ]
     }
    ],
-   "coverage": 88,
-   "built": 3,
+   "coverage": 100,
+   "built": 4,
    "counted": 4
   },
   {
@@ -4435,11 +2969,7 @@
       "tables": [
        "users",
        "posts",
-       "media",
-       "follows",
-       "blocks",
-       "mutes",
-       "sessions"
+       "media"
       ],
       "r2": []
      }
@@ -4462,11 +2992,7 @@
       "tables": [
        "posts",
        "media",
-       "users",
-       "follows",
-       "blocks",
-       "mutes",
-       "sessions"
+       "users"
       ],
       "r2": []
      }
@@ -4529,11 +3055,7 @@
       "tables": [
        "users",
        "posts",
-       "media",
-       "follows",
-       "blocks",
-       "mutes",
-       "sessions"
+       "media"
       ],
       "r2": []
      }
@@ -4556,11 +3078,7 @@
       "tables": [
        "posts",
        "media",
-       "users",
-       "follows",
-       "blocks",
-       "mutes",
-       "sessions"
+       "users"
       ],
       "r2": []
      }
@@ -4582,12 +3100,8 @@
      "data": {
       "tables": [
        "posts",
-       "blocks",
-       "mutes",
-       "follows",
        "media",
-       "users",
-       "sessions"
+       "users"
       ],
       "r2": []
      }
@@ -4880,11 +3394,7 @@
       "tables": [
        "posts",
        "media",
-       "users",
-       "follows",
-       "blocks",
-       "mutes",
-       "sessions"
+       "users"
       ],
       "r2": []
      },
@@ -5248,18 +3758,6 @@
  ],
  "missing": [
   {
-   "key": "wire:/me>GET /v1/users/:handle",
-   "kind": "wiring",
-   "label": "/me calling GET /v1/users/:handle",
-   "stories": [
-    "share-profile-link"
-   ],
-   "steps": [
-    "share-profile-link#0"
-   ],
-   "blocks": 1
-  },
-  {
    "key": "endpoint:GET /api/early/list",
    "kind": "endpoint",
    "label": "endpoint GET /api/early/list",
@@ -5336,23 +3834,10 @@
  "unmapped": {
   "endpoints": [
    "GET /health",
-   "HEAD /media/:key",
-   "POST /v1/follows/:handle",
-   "DELETE /v1/follows/:handle",
-   "GET /v1/users/:handle/followers",
-   "GET /v1/users/:handle/following",
-   "POST /v1/blocks/:handle",
-   "DELETE /v1/blocks/:handle",
-   "POST /v1/mutes/:handle",
-   "DELETE /v1/mutes/:handle",
-   "GET /v1/me/blocks",
-   "GET /v1/me/mutes"
+   "HEAD /media/:key"
   ],
   "screens": [
    "/explore",
-   "/blocked",
-   "/followers/:handle",
-   "/following/:handle",
    "/",
    "/invite/:code",
    "/u/:handle"
@@ -5714,3675 +4199,5 @@
     "outsiders": "yes"
    }
   ]
- },
- "shots": {
-  "capturedAt": "2026-11-13T04:53:00.170Z",
-  "git": {
-   "sha": "51294ab",
-   "dirty": true
-  },
-  "count": 82,
-  "themeSwitch": true,
-  "themes": [
-   "day",
-   "night"
-  ],
-  "params": {
-   "/invite/:code": "DAYLIGHT",
-   "/p/:id": "p_100",
-   "/u/:handle": "mina"
-  },
-  "failed": [
-   {
-    "what": "/report (desktop-day)",
-    "why": "locator.click: Timeout 4000ms exceeded."
-   },
-   {
-    "what": "/report (desktop-night)",
-    "why": "locator.click: Timeout 4000ms exceeded."
-   }
-  ],
-  "shell": [
-   {
-    "key": "app:shell",
-    "route": "shell",
-    "reason": "no screen of its own, it wraps every route"
-   }
-  ],
-  "missing": [
-   "app:/blocked",
-   "app:/followers/:handle",
-   "app:/following/:handle"
-  ],
-  "stale": true
- },
- "features": {
-  "platforms": [
-   "instagram",
-   "tiktok",
-   "youtube",
-   "pinterest",
-   "bluesky",
-   "cara",
-   "pixelfed",
-   "vsco"
-  ],
-  "items": [
-   {
-    "id": "email-signup-signin",
-    "name": "Sign up and sign in with an email code",
-    "area": "account",
-    "tier": "core",
-    "usage": "Nobody uses a network they cannot get into; every other feature sits behind it",
-    "why_core": "Front door: no account, no creators",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Own Emera account on the AT Protocol, no password, no Bluesky login needed",
-     "maps_to": {
-      "screens": [
-       "/welcome",
-       "/sign-in",
-       "/code"
-      ],
-      "endpoints": [
-       "POST /v1/auth/start",
-       "POST /v1/auth/verify",
-       "GET /v1/me",
-       "POST /v1/auth/logout"
-      ],
-      "stories": [
-       "join-with-invite",
-       "sign-in-again",
-       "sign-out"
-      ]
-     },
-     "help_wanted": false,
-     "effort": "M"
-    },
-    "status": "built",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "/welcome",
-       "ok": true,
-       "key": "app:/welcome"
-      },
-      {
-       "ref": "/sign-in",
-       "ok": true,
-       "key": "app:/sign-in"
-      },
-      {
-       "ref": "/code",
-       "ok": true,
-       "key": "app:/code"
-      }
-     ],
-     "endpoints": [
-      {
-       "ref": "POST /v1/auth/start",
-       "ok": true
-      },
-      {
-       "ref": "POST /v1/auth/verify",
-       "ok": true
-      },
-      {
-       "ref": "GET /v1/me",
-       "ok": true
-      },
-      {
-       "ref": "POST /v1/auth/logout",
-       "ok": true
-      }
-     ],
-     "stories": [
-      {
-       "ref": "join-with-invite",
-       "ok": true
-      },
-      {
-       "ref": "sign-in-again",
-       "ok": true
-      },
-      {
-       "ref": "sign-out",
-       "ok": true
-      }
-     ]
-    }
-   },
-   {
-    "id": "handle-claim",
-    "name": "Claim a handle and display name",
-    "area": "account",
-    "tier": "core",
-    "usage": "Your name is how people find and tag you",
-    "why_core": "Identity before the first post",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "A handle you can carry with you if you move hosts",
-     "maps_to": {
-      "screens": [
-       "/handle"
-      ],
-      "endpoints": [
-       "POST /v1/auth/handle"
-      ],
-      "stories": [
-       "pick-handle"
-      ]
-     },
-     "help_wanted": false,
-     "effort": "S"
-    },
-    "status": "built",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "/handle",
-       "ok": true,
-       "key": "app:/handle"
-      }
-     ],
-     "endpoints": [
-      {
-       "ref": "POST /v1/auth/handle",
-       "ok": true
-      }
-     ],
-     "stories": [
-      {
-       "ref": "pick-handle",
-       "ok": true
-      }
-     ]
-    }
-   },
-   {
-    "id": "invite-codes",
-    "name": "Join with an invite from a friend",
-    "area": "account",
-    "tier": "next",
-    "usage": "Invites seed a trusted early community and keep bots out",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "partial",
-     "bluesky": "yes",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Invite chains make every account vouched for by a person",
-     "maps_to": {
-      "screens": [
-       "/invite/:code",
-       "/settings"
-      ],
-      "endpoints": [
-       "POST /v1/invites",
-       "GET /v1/invites/:code",
-       "GET /invite/:code"
-      ],
-      "stories": [
-       "join-with-invite",
-       "invite-a-friend",
-       "team-seed-invites"
-      ]
-     },
-     "help_wanted": false,
-     "effort": "S"
-    },
-    "status": "built",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "/invite/:code",
-       "ok": true,
-       "key": "app:/invite/:code"
-      },
-      {
-       "ref": "/settings",
-       "ok": true,
-       "key": "app:/settings"
-      }
-     ],
-     "endpoints": [
-      {
-       "ref": "POST /v1/invites",
-       "ok": true
-      },
-      {
-       "ref": "GET /v1/invites/:code",
-       "ok": true
-      },
-      {
-       "ref": "GET /invite/:code",
-       "ok": true
-      }
-     ],
-     "stories": [
-      {
-       "ref": "join-with-invite",
-       "ok": true
-      },
-      {
-       "ref": "invite-a-friend",
-       "ok": true
-      },
-      {
-       "ref": "team-seed-invites",
-       "ok": true
-      }
-     ]
-    }
-   },
-   {
-    "id": "two-factor-auth",
-    "name": "Two-factor sign-in",
-    "area": "account",
-    "tier": "next",
-    "usage": "Creators lose work and income when an account is taken over",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "partial"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "delete-account",
-    "name": "Delete my account and data",
-    "area": "account",
-    "tier": "next",
-    "usage": "A basic privacy right and an app store requirement",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Deleting removes files from storage, not just hides them",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "profile-edit",
-    "name": "Edit bio and avatar",
-    "area": "profile",
-    "tier": "core",
-    "usage": "People judge a creator by their profile in seconds",
-    "why_core": "Without it every profile is blank",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [
-       "/settings"
-      ],
-      "endpoints": [
-       "PATCH /v1/me"
-      ],
-      "stories": [
-       "edit-profile"
-      ]
-     },
-     "help_wanted": true,
-     "effort": "S"
-    },
-    "status": "partial",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "/settings",
-       "ok": true,
-       "key": "app:/settings"
-      }
-     ],
-     "endpoints": [
-      {
-       "ref": "PATCH /v1/me",
-       "ok": false
-      }
-     ],
-     "stories": [
-      {
-       "ref": "edit-profile",
-       "ok": true
-      }
-     ]
-    }
-   },
-   {
-    "id": "profile-grid",
-    "name": "Profile grid of your work",
-    "area": "profile",
-    "tier": "core",
-    "usage": "The profile is the portfolio people share and return to",
-    "why_core": "Your page is your shop window",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "The work leads; each tile carries its proof of maker",
-     "maps_to": {
-      "screens": [
-       "/u/:handle",
-       "/me"
-      ],
-      "endpoints": [
-       "GET /v1/users/:handle"
-      ],
-      "stories": [
-       "share-profile-link"
-      ]
-     },
-     "help_wanted": true,
-     "effort": "S"
-    },
-    "status": "built",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "/u/:handle",
-       "ok": true,
-       "key": "app:/u/:handle"
-      },
-      {
-       "ref": "/me",
-       "ok": true,
-       "key": "app:/me"
-      }
-     ],
-     "endpoints": [
-      {
-       "ref": "GET /v1/users/:handle",
-       "ok": true
-      }
-     ],
-     "stories": [
-      {
-       "ref": "share-profile-link",
-       "ok": true
-      }
-     ]
-    }
-   },
-   {
-    "id": "public-profile-page",
-    "name": "Public profile page, no account needed to view",
-    "area": "profile",
-    "tier": "core",
-    "usage": "Links shared to other apps must open and show the work",
-    "why_core": "Every share is a growth loop",
-    "platforms": {
-     "instagram": "partial",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Server-rendered page at emera.social/@handle, nothing hidden behind sign-in",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [
-       "GET /@:handle"
-      ],
-      "stories": [
-       "visitor-opens-profile"
-      ]
-     },
-     "help_wanted": false,
-     "effort": "S"
-    },
-    "status": "built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [
-      {
-       "ref": "GET /@:handle",
-       "ok": true
-      }
-     ],
-     "stories": [
-      {
-       "ref": "visitor-opens-profile",
-       "ok": true
-      }
-     ]
-    }
-   },
-   {
-    "id": "story-highlights",
-    "name": "Highlights of past stories",
-    "area": "profile",
-    "tier": "later",
-    "usage": "Keeps ephemeral work visible after 24 hours",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "portfolio-mode",
-    "name": "Portfolio profile for working creators",
-    "area": "profile",
-    "tier": "next",
-    "usage": "Hiring and commissions start from a portfolio page",
-    "platforms": {
-     "instagram": "partial",
-     "tiktok": "no",
-     "youtube": "partial",
-     "pinterest": "partial",
-     "bluesky": "partial",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "partial"
-    },
-    "emera": {
-     "twist": "Portfolio view with proof of maker on every piece",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "post-photo",
-    "name": "Post a photo",
-    "area": "posting",
-    "tier": "core",
-    "usage": "The most common thing a creator does",
-    "why_core": "The product is posting work",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "partial",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Signed with your name at upload",
-     "maps_to": {
-      "screens": [
-       "/upload",
-       "/p/:id"
-      ],
-      "endpoints": [
-       "POST /v1/uploads",
-       "PUT /v1/uploads/:id",
-       "POST /v1/posts",
-       "GET /v1/posts/:id"
-      ],
-      "stories": [
-       "post-photo"
-      ]
-     },
-     "help_wanted": false,
-     "effort": "M"
-    },
-    "status": "built",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "/upload",
-       "ok": true,
-       "key": "app:/upload"
-      },
-      {
-       "ref": "/p/:id",
-       "ok": true,
-       "key": "app:/p/:id"
-      }
-     ],
-     "endpoints": [
-      {
-       "ref": "POST /v1/uploads",
-       "ok": true
-      },
-      {
-       "ref": "PUT /v1/uploads/:id",
-       "ok": true
-      },
-      {
-       "ref": "POST /v1/posts",
-       "ok": true
-      },
-      {
-       "ref": "GET /v1/posts/:id",
-       "ok": true
-      }
-     ],
-     "stories": [
-      {
-       "ref": "post-photo",
-       "ok": true
-      }
-     ]
-    }
-   },
-   {
-    "id": "post-video",
-    "name": "Post a video",
-    "area": "posting",
-    "tier": "core",
-    "usage": "Short video is a large share of daily viewing",
-    "why_core": "Video creators are half the audience",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "partial",
-     "bluesky": "partial",
-     "cara": "partial",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Plays from our own storage, signed the same way",
-     "maps_to": {
-      "screens": [
-       "/upload",
-       "/p/:id"
-      ],
-      "endpoints": [
-       "POST /v1/uploads",
-       "PUT /v1/uploads/:id",
-       "POST /v1/posts",
-       "GET /media/:key"
-      ],
-      "stories": [
-       "post-video"
-      ]
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "built",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "/upload",
-       "ok": true,
-       "key": "app:/upload"
-      },
-      {
-       "ref": "/p/:id",
-       "ok": true,
-       "key": "app:/p/:id"
-      }
-     ],
-     "endpoints": [
-      {
-       "ref": "POST /v1/uploads",
-       "ok": true
-      },
-      {
-       "ref": "PUT /v1/uploads/:id",
-       "ok": true
-      },
-      {
-       "ref": "POST /v1/posts",
-       "ok": true
-      },
-      {
-       "ref": "GET /media/:key",
-       "ok": true
-      }
-     ],
-     "stories": [
-      {
-       "ref": "post-video",
-       "ok": true
-      }
-     ]
-    }
-   },
-   {
-    "id": "alt-text",
-    "name": "Alt text and caption prompts on every post",
-    "area": "posting",
-    "tier": "core",
-    "usage": "Access for blind and low-vision people, and better search",
-    "why_core": "Accessibility rule in the product brief",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "partial",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Prompted on every post, a stated product commitment",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "S"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "multi-image-post",
-    "name": "Carousel of several images or videos",
-    "area": "posting",
-    "tier": "core",
-    "usage": "One piece of work often needs several frames",
-    "why_core": "Process and series posts are how makers show work",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "partial",
-     "pinterest": "partial",
-     "bluesky": "partial",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Up to 10 items, each signed",
-     "maps_to": {
-      "screens": [
-       "/upload",
-       "/p/:id"
-      ],
-      "endpoints": [
-       "POST /v1/uploads",
-       "POST /v1/posts"
-      ],
-      "stories": [
-       "post-photo"
-      ]
-     },
-     "help_wanted": false,
-     "effort": "M"
-    },
-    "status": "built",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "/upload",
-       "ok": true,
-       "key": "app:/upload"
-      },
-      {
-       "ref": "/p/:id",
-       "ok": true,
-       "key": "app:/p/:id"
-      }
-     ],
-     "endpoints": [
-      {
-       "ref": "POST /v1/uploads",
-       "ok": true
-      },
-      {
-       "ref": "POST /v1/posts",
-       "ok": true
-      }
-     ],
-     "stories": [
-      {
-       "ref": "post-photo",
-       "ok": true
-      }
-     ]
-    }
-   },
-   {
-    "id": "post-delete",
-    "name": "Delete a post",
-    "area": "posting",
-    "tier": "core",
-    "usage": "Creators must be able to take work down",
-    "why_core": "Control over your own work",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Removes the files, not just the row",
-     "maps_to": {
-      "screens": [
-       "/p/:id"
-      ],
-      "endpoints": [
-       "DELETE /v1/posts/:id"
-      ],
-      "stories": [
-       "delete-post"
-      ]
-     },
-     "help_wanted": false,
-     "effort": "S"
-    },
-    "status": "built",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "/p/:id",
-       "ok": true,
-       "key": "app:/p/:id"
-      }
-     ],
-     "endpoints": [
-      {
-       "ref": "DELETE /v1/posts/:id",
-       "ok": true
-      }
-     ],
-     "stories": [
-      {
-       "ref": "delete-post",
-       "ok": true
-      }
-     ]
-    }
-   },
-   {
-    "id": "post-edit",
-    "name": "Edit a post after publishing",
-    "area": "posting",
-    "tier": "next",
-    "usage": "Fix a typo without losing the likes",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "partial",
-     "youtube": "yes",
-     "pinterest": "partial",
-     "bluesky": "no",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "partial"
-    },
-    "emera": {
-     "twist": "Edits are logged on the post",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "S"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "hashtags",
-    "name": "Hashtags",
-    "area": "posting",
-    "tier": "next",
-    "usage": "How topics get found",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "no",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "S"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "mentions-tags",
-    "name": "Mention and tag people",
-    "area": "posting",
-    "tier": "next",
-    "usage": "Credit collaborators and pull in friends",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "partial"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "text-only-post",
-    "name": "Text posts",
-    "area": "posting",
-    "tier": "next",
-    "usage": "Short updates between big pieces",
-    "platforms": {
-     "instagram": "partial",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "no",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "no",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "S"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "post-license-terms",
-    "name": "License terms on every post",
-    "area": "posting",
-    "tier": "unique",
-    "usage": "A copy should carry the terms too",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "partial",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "partial",
-     "pixelfed": "yes",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Choose a license per post; the terms travel with every copy",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "collab-posts",
-    "name": "Co-authored posts",
-    "area": "posting",
-    "tier": "next",
-    "usage": "Two makers, one post, both credited",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "partial",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "partial"
-    },
-    "emera": {
-     "twist": "Both makers sign; both shown in the proof",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "sensitive-content-warning",
-    "name": "Content warnings and sensitive media",
-    "area": "posting",
-    "tier": "next",
-    "usage": "Lets people choose what they open",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "partial",
-     "youtube": "partial",
-     "pinterest": "no",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "ai-content-label",
-    "name": "AI-made and AI-assisted labels",
-    "area": "posting",
-    "tier": "next",
-    "usage": "People want to know how a piece was made",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "partial",
-     "cara": "partial",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Label states how it was made, backed by the signed record",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "music-library",
-    "name": "Licensed music for videos",
-    "area": "posting",
-    "tier": "later",
-    "usage": "Sound drives short video",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Only CC0 or paid-for tracks, credit kept",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "audio-posts",
-    "name": "Music and audio as first-class posts",
-    "area": "posting",
-    "tier": "later",
-    "usage": "Makers of music have no home on photo-first networks",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "partial",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Every kind of creator, not one niche",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "physical-work-posts",
-    "name": "Posts for objects you make, with process steps",
-    "area": "posting",
-    "tier": "later",
-    "usage": "Crafters show work in progress, not just a final shot",
-    "platforms": {
-     "instagram": "partial",
-     "tiktok": "partial",
-     "youtube": "no",
-     "pinterest": "partial",
-     "bluesky": "no",
-     "cara": "partial",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Process photos signed in order, proof of making",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "import-from-other-apps",
-    "name": "Import your posts from another platform",
-    "area": "posting",
-    "tier": "later",
-    "usage": "Moving is easier when your archive comes with you",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "yes",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Imported work keeps its original date and credit",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "auto-captions",
-    "name": "Automatic captions for video",
-    "area": "media",
-    "tier": "next",
-    "usage": "Most video is watched without sound",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Editable by the maker before publishing",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "following-feed",
-    "name": "Feed from people you follow",
-    "area": "feed",
-    "tier": "core",
-    "usage": "The daily loop: open the app, see new work from people you chose",
-    "why_core": "The daily reason to open the app",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Chronological by default, ranking is opt-in",
-     "maps_to": {
-      "screens": [
-       "/feed"
-      ],
-      "endpoints": [
-       "GET /v1/feed"
-      ],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "built",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "/feed",
-       "ok": true,
-       "key": "app:/feed"
-      }
-     ],
-     "endpoints": [
-      {
-       "ref": "GET /v1/feed",
-       "ok": true
-      }
-     ],
-     "stories": []
-    }
-   },
-   {
-    "id": "explore-browse",
-    "name": "Browse recent work from everyone",
-    "area": "feed",
-    "tier": "core",
-    "usage": "New people need somewhere to land and find creators",
-    "why_core": "How a first visitor finds work",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Shows the reason each post is here",
-     "maps_to": {
-      "screens": [
-       "/explore"
-      ],
-      "endpoints": [
-       "GET /v1/feed"
-      ],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "built",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "/explore",
-       "ok": true,
-       "key": "app:/explore"
-      }
-     ],
-     "endpoints": [
-      {
-       "ref": "GET /v1/feed",
-       "ok": true
-      }
-     ],
-     "stories": []
-    }
-   },
-   {
-    "id": "open-ranking-code",
-    "name": "Feed ranking code is public",
-    "area": "feed",
-    "tier": "unique",
-    "usage": "Nobody can check a ranking they cannot read",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "partial",
-     "cara": "no",
-     "pixelfed": "yes",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Default ranking is open source; changes are versioned",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "why-am-i-seeing-this",
-    "name": "Why am I seeing this",
-    "area": "feed",
-    "tier": "unique",
-    "usage": "People want to know what pushed a post to them",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "partial",
-     "pinterest": "partial",
-     "bluesky": "partial",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Every post states the real rule and signal behind it",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "pick-your-feed",
-    "name": "Choose your own feed or ranking",
-    "area": "feed",
-    "tier": "unique",
-    "usage": "Different people want different feeds",
-    "platforms": {
-     "instagram": "partial",
-     "tiktok": "partial",
-     "youtube": "partial",
-     "pinterest": "partial",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "partial"
-    },
-    "emera": {
-     "twist": "Swap the ranking like swapping an app; AT Protocol feed generators",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "short-video-feed",
-    "name": "Vertical short video feed",
-    "area": "feed",
-    "tier": "next",
-    "usage": "The most used format on phones",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "partial",
-     "bluesky": "partial",
-     "cara": "partial",
-     "pixelfed": "yes",
-     "vsco": "partial"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "stories",
-    "name": "Stories that expire after 24 hours",
-    "area": "feed",
-    "tier": "later",
-    "usage": "Low-pressure daily sharing",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "partial",
-     "youtube": "partial",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "yes",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "no-bought-reach",
-    "name": "Likes and follows weighted by trust",
-    "area": "feed",
-    "tier": "unique",
-    "usage": "Bought followers make reach meaningless",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "New and farm accounts count close to zero in ranking",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "search",
-    "name": "Search people and posts",
-    "area": "discovery",
-    "tier": "core",
-    "usage": "Find a creator you heard about",
-    "why_core": "Word of mouth ends in a search box",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "suggested-follows",
-    "name": "Suggested people to follow",
-    "area": "discovery",
-    "tier": "next",
-    "usage": "New accounts need a first set of follows",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Suggestions explained, never paid",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "starter-packs",
-    "name": "Starter packs",
-    "area": "discovery",
-    "tier": "next",
-    "usage": "A friend hands you the people worth following",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "yes",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "A welcome pack per craft for the first 1,000 creators",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "craft-categories",
-    "name": "Browse by craft",
-    "area": "discovery",
-    "tier": "next",
-    "usage": "Illustrators want illustrators, woodworkers want woodworkers",
-    "platforms": {
-     "instagram": "partial",
-     "tiktok": "no",
-     "youtube": "yes",
-     "pinterest": "partial",
-     "bluesky": "partial",
-     "cara": "partial",
-     "pixelfed": "no",
-     "vsco": "partial"
-    },
-    "emera": {
-     "twist": "Categories for every kind of making, not one niche",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "S"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "visual-search",
-    "name": "Find similar work from a picture",
-    "area": "discovery",
-    "tier": "later",
-    "usage": "Lets people find work by looking, not typing",
-    "platforms": {
-     "instagram": "partial",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "yes",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Same index powers copy matching",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "save-collections",
-    "name": "Save posts into collections",
-    "area": "discovery",
-    "tier": "next",
-    "usage": "Saving is how people keep references and ideas",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "partial",
-     "bluesky": "partial",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Private by default",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "jobs-board",
-    "name": "Jobs and commission board",
-    "area": "discovery",
-    "tier": "later",
-    "usage": "Creators need paid work",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "yes",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "follow",
-    "name": "Follow and unfollow",
-    "area": "social",
-    "tier": "core",
-    "usage": "The graph that powers the daily feed",
-    "why_core": "No graph, no feed",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Following stays with you if you move hosts",
-     "maps_to": {
-      "screens": [
-       "/u/:handle",
-       "/followers/:handle",
-       "/following/:handle"
-      ],
-      "endpoints": [
-       "POST /v1/follows/:handle",
-       "DELETE /v1/follows/:handle",
-       "GET /v1/users/:handle/followers",
-       "GET /v1/users/:handle/following"
-      ],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "built",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "/u/:handle",
-       "ok": true,
-       "key": "app:/u/:handle"
-      },
-      {
-       "ref": "/followers/:handle",
-       "ok": true,
-       "key": "app:/followers/:handle"
-      },
-      {
-       "ref": "/following/:handle",
-       "ok": true,
-       "key": "app:/following/:handle"
-      }
-     ],
-     "endpoints": [
-      {
-       "ref": "POST /v1/follows/:handle",
-       "ok": true
-      },
-      {
-       "ref": "DELETE /v1/follows/:handle",
-       "ok": true
-      },
-      {
-       "ref": "GET /v1/users/:handle/followers",
-       "ok": true
-      },
-      {
-       "ref": "GET /v1/users/:handle/following",
-       "ok": true
-      }
-     ],
-     "stories": []
-    }
-   },
-   {
-    "id": "like",
-    "name": "Like a post",
-    "area": "social",
-    "tier": "core",
-    "usage": "Cheapest way to tell a maker you saw them",
-    "why_core": "Basic feedback loop",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Weighted by the giver's trust tier",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "S"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "comment",
-    "name": "Comments and replies",
-    "area": "social",
-    "tier": "core",
-    "usage": "Where people talk about the work",
-    "why_core": "Conversation is how people stay",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "partial"
-    },
-    "emera": {
-     "twist": "Comments carry the same trust tier",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "repost-share",
-    "name": "Repost or share with credit",
-    "area": "social",
-    "tier": "next",
-    "usage": "Spreads work beyond a maker's followers",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "partial",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "partial"
-    },
-    "emera": {
-     "twist": "Reposts always point to the original maker",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "private-accounts",
-    "name": "Private accounts and follow requests",
-    "area": "social",
-    "tier": "next",
-    "usage": "Some people share only with chosen people",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "no",
-     "pinterest": "yes",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "yes",
-     "vsco": "partial"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "close-friends",
-    "name": "Close friends lists",
-    "area": "social",
-    "tier": "later",
-    "usage": "Share to a small circle",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "partial",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "partial",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "broadcast-channels",
-    "name": "Broadcast channels",
-    "area": "social",
-    "tier": "later",
-    "usage": "One-to-many updates to people who opt in",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "no",
-     "youtube": "partial",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "notifications",
-    "name": "Notifications",
-    "area": "social",
-    "tier": "core",
-    "usage": "Brings people back when someone responds",
-    "why_core": "Return visits",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Grouped, never nagging",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "direct-messages",
-    "name": "Direct messages",
-    "area": "messaging",
-    "tier": "next",
-    "usage": "Commissions and collaborations start in DMs",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "no",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "partial",
-     "pixelfed": "yes",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "post-scheduling",
-    "name": "Schedule posts",
-    "area": "creator-tools",
-    "tier": "next",
-    "usage": "Creators plan a week of work at once",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "drafts",
-    "name": "Drafts",
-    "area": "creator-tools",
-    "tier": "next",
-    "usage": "Unfinished work should wait safely",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "partial",
-     "cara": "partial",
-     "pixelfed": "partial",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Synced across devices",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "creator-insights",
-    "name": "Insights on views and followers",
-    "area": "creator-tools",
-    "tier": "next",
-    "usage": "Makers want to know what lands",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "no",
-     "cara": "partial",
-     "pixelfed": "no",
-     "vsco": "partial"
-    },
-    "emera": {
-     "twist": "Also shows copies found elsewhere",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "embeds",
-    "name": "Embed a post on another site",
-    "area": "creator-tools",
-    "tier": "next",
-    "usage": "Work shown in a blog or portfolio brings people back",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "no",
-     "pixelfed": "yes",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Embed carries the proof of maker",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "link-preview-cards",
-    "name": "Link previews when shared",
-    "area": "creator-tools",
-    "tier": "core",
-    "usage": "A link in a chat must show the work, or nobody taps",
-    "why_core": "Shared links are the growth channel",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Picture and title for every profile and post link",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [
-       "GET /@:handle",
-       "GET /p/:id",
-       "GET /media/:key"
-      ],
-      "stories": [
-       "link-preview"
-      ]
-     },
-     "help_wanted": false,
-     "effort": "S"
-    },
-    "status": "built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [
-      {
-       "ref": "GET /@:handle",
-       "ok": true
-      },
-      {
-       "ref": "GET /p/:id",
-       "ok": true
-      },
-      {
-       "ref": "GET /media/:key",
-       "ok": true
-      }
-     ],
-     "stories": [
-      {
-       "ref": "link-preview",
-       "ok": true
-      }
-     ]
-    }
-   },
-   {
-    "id": "creator-dashboard",
-    "name": "Creator dashboard of copies found and takedowns",
-    "area": "creator-tools",
-    "tier": "unique",
-    "usage": "Creators see what was found and what was done",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "partial",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "One screen: matches, filings, outcomes",
-     "maps_to": {
-      "screens": [
-       "/admin/reports"
-      ],
-      "endpoints": [
-       "GET /v1/admin/reports"
-      ],
-      "stories": [
-       "report-a-copy"
-      ]
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "partial",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "/admin/reports",
-       "ok": false,
-       "key": "app:/admin/reports"
-      }
-     ],
-     "endpoints": [
-      {
-       "ref": "GET /v1/admin/reports",
-       "ok": false
-      }
-     ],
-     "stories": [
-      {
-       "ref": "report-a-copy",
-       "ok": true
-      }
-     ]
-    }
-   },
-   {
-    "id": "proof-of-maker",
-    "name": "Proof of maker on every post",
-    "area": "protection",
-    "tier": "unique",
-    "usage": "The answer to who made this",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Signed at upload with name and time; badge says exactly what was checked",
-     "maps_to": {
-      "screens": [
-       "/p/:id"
-      ],
-      "endpoints": [
-       "GET /p/:id",
-       "GET /v1/posts/:id"
-      ],
-      "stories": [
-       "see-proof-of-maker"
-      ]
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "built",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "/p/:id",
-       "ok": true,
-       "key": "app:/p/:id"
-      }
-     ],
-     "endpoints": [
-      {
-       "ref": "GET /p/:id",
-       "ok": true
-      },
-      {
-       "ref": "GET /v1/posts/:id",
-       "ok": true
-      }
-     ],
-     "stories": [
-      {
-       "ref": "see-proof-of-maker",
-       "ok": true
-      }
-     ]
-    }
-   },
-   {
-    "id": "report-a-copy",
-    "name": "Report a copy of my work found elsewhere",
-    "area": "protection",
-    "tier": "unique",
-    "usage": "Creators find reposts of their work and have no easy way to act",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "We help file the takedown and keep every report as a dataset",
-     "maps_to": {
-      "screens": [
-       "/report",
-       "/admin/reports"
-      ],
-      "endpoints": [
-       "POST /v1/reports",
-       "GET /v1/admin/reports"
-      ],
-      "stories": [
-       "report-a-copy"
-      ]
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "partial",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "/report",
-       "ok": true,
-       "key": "app:/report"
-      },
-      {
-       "ref": "/admin/reports",
-       "ok": false,
-       "key": "app:/admin/reports"
-      }
-     ],
-     "endpoints": [
-      {
-       "ref": "POST /v1/reports",
-       "ok": false
-      },
-      {
-       "ref": "GET /v1/admin/reports",
-       "ok": false
-      }
-     ],
-     "stories": [
-      {
-       "ref": "report-a-copy",
-       "ok": true
-      }
-     ]
-    }
-   },
-   {
-    "id": "copyright-report-form",
-    "name": "Report a copyright violation inside the app",
-    "area": "protection",
-    "tier": "next",
-    "usage": "Basic route for rights holders",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Outcome shown to both sides",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "auto-copy-matching",
-    "name": "Automatic match of copies across the web",
-    "area": "protection",
-    "tier": "later",
-    "usage": "Finding copies by hand does not scale",
-    "platforms": {
-     "instagram": "partial",
-     "tiktok": "no",
-     "youtube": "yes",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Free for every creator; trained on the reports dataset",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "takedown-filing",
-    "name": "We file the takedown for you",
-    "area": "protection",
-    "tier": "unique",
-    "usage": "Filing takes time and legal words creators do not have",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Free; every filing and outcome shown",
-     "maps_to": {
-      "screens": [
-       "/admin/reports"
-      ],
-      "endpoints": [],
-      "stories": [
-       "report-a-copy"
-      ]
-     },
-     "help_wanted": false,
-     "effort": "L"
-    },
-    "status": "partial",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "/admin/reports",
-       "ok": false,
-       "key": "app:/admin/reports"
-      }
-     ],
-     "endpoints": [],
-     "stories": [
-      {
-       "ref": "report-a-copy",
-       "ok": true
-      }
-     ]
-    }
-   },
-   {
-    "id": "ai-training-opt-in",
-    "name": "AI training only by your opt-in, paid",
-    "area": "protection",
-    "tier": "unique",
-    "usage": "Creators want a say before their work trains a model",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "partial",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Per creator and per post, with payment",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "style-cloak",
-    "name": "Style protection tool for artists",
-    "area": "protection",
-    "tier": "later",
-    "usage": "Artists want to resist style mimicry",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "partial",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Partner with existing open tools",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "verified-human",
-    "name": "Verified human mark, free",
-    "area": "protection",
-    "tier": "unique",
-    "usage": "Real people are the point of a creator network",
-    "platforms": {
-     "instagram": "partial",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Same price for everyone: free",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "bot-labels",
-    "name": "Automated accounts must say so",
-    "area": "protection",
-    "tier": "unique",
-    "usage": "People want to know who is a bot",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "yes",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Undeclared bots are labelled",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "S"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "tips",
-    "name": "Tips from fans",
-    "area": "money",
-    "tier": "next",
-    "usage": "The first money a small creator sees",
-    "platforms": {
-     "instagram": "partial",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Fee capped at 5%",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "subscriptions",
-    "name": "Paid subscriptions",
-    "area": "money",
-    "tier": "later",
-    "usage": "Steady income for working creators",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Fee capped at 5%",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "licensing-marketplace",
-    "name": "License your work to others",
-    "area": "money",
-    "tier": "unique",
-    "usage": "Work is worth more with clear terms",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "partial",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Terms attach to the post; we cap our fee at 5%",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "creator-rewards",
-    "name": "Ad revenue or reward program",
-    "area": "money",
-    "tier": "later",
-    "usage": "Pays for views",
-    "platforms": {
-     "instagram": "partial",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "No ads; surplus returned instead",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "surplus-return",
-    "name": "Surplus given back each quarter",
-    "area": "money",
-    "tier": "unique",
-    "usage": "Nonprofit money returns to makers",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Split by a yearly member vote",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "shopping",
-    "name": "Sell products from posts",
-    "area": "money",
-    "tier": "later",
-    "usage": "Makers of physical things need a shop",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "block-mute",
-    "name": "Block and mute accounts",
-    "area": "safety",
-    "tier": "core",
-    "usage": "People must be able to shut out abuse",
-    "why_core": "Safety before growth",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Blocked and muted accounts stay hidden in every feed and list, and one screen shows who they are",
-     "maps_to": {
-      "screens": [
-       "/u/:handle",
-       "/blocked"
-      ],
-      "endpoints": [
-       "POST /v1/blocks/:handle",
-       "DELETE /v1/blocks/:handle",
-       "POST /v1/mutes/:handle",
-       "DELETE /v1/mutes/:handle",
-       "GET /v1/me/blocks",
-       "GET /v1/me/mutes"
-      ],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "S"
-    },
-    "status": "built",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "/u/:handle",
-       "ok": true,
-       "key": "app:/u/:handle"
-      },
-      {
-       "ref": "/blocked",
-       "ok": true,
-       "key": "app:/blocked"
-      }
-     ],
-     "endpoints": [
-      {
-       "ref": "POST /v1/blocks/:handle",
-       "ok": true
-      },
-      {
-       "ref": "DELETE /v1/blocks/:handle",
-       "ok": true
-      },
-      {
-       "ref": "POST /v1/mutes/:handle",
-       "ok": true
-      },
-      {
-       "ref": "DELETE /v1/mutes/:handle",
-       "ok": true
-      },
-      {
-       "ref": "GET /v1/me/blocks",
-       "ok": true
-      },
-      {
-       "ref": "GET /v1/me/mutes",
-       "ok": true
-      }
-     ],
-     "stories": []
-    }
-   },
-   {
-    "id": "report-content",
-    "name": "Report a post or account",
-    "area": "safety",
-    "tier": "core",
-    "usage": "Basic moderation intake",
-    "why_core": "No report path, no safe network",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Reporter sees the outcome and the reason",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "composable-moderation",
-    "name": "Community labelers",
-    "area": "safety",
-    "tier": "later",
-    "usage": "Moderation that people choose",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "yes",
-     "cara": "no",
-     "pixelfed": "partial",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Native on AT Protocol",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "public-moderation-log",
-    "name": "Public moderation log",
-    "area": "safety",
-    "tier": "unique",
-    "usage": "Enforcement nobody can see cannot be trusted",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "partial",
-     "youtube": "partial",
-     "pinterest": "partial",
-     "bluesky": "partial",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Every takedown and label logged with its reason",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "appeal-decision",
-    "name": "Appeal a takedown or label",
-    "area": "safety",
-    "tier": "unique",
-    "usage": "Mistakes happen; people need a route",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "no",
-     "pixelfed": "yes",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Appeal path shown with every action",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "web-and-mobile-app",
-    "name": "Phone app and web app from one codebase",
-    "area": "platform",
-    "tier": "next",
-    "usage": "Creators review work on desktop and post from a phone",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "iOS, Android and web built together",
-     "maps_to": {
-      "screens": [
-       "shell",
-       "/"
-      ],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "built",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "shell",
-       "ok": true,
-       "key": "app:shell"
-      },
-      {
-       "ref": "/",
-       "ok": true,
-       "key": "app:/"
-      }
-     ],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "accessibility",
-    "name": "Accessibility: text size, contrast, reduced motion",
-    "area": "platform",
-    "tier": "next",
-    "usage": "Mixed-ability creators and viewers",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "WCAG AA as a release test",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "open-source",
-    "name": "Open source code",
-    "area": "platform",
-    "tier": "unique",
-    "usage": "Trust through reading the code",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "yes",
-     "cara": "partial",
-     "pixelfed": "yes",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "AGPL servers, MIT client SDKs",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "no-ads",
-    "name": "No ads and no sale of member data",
-    "area": "platform",
-    "tier": "unique",
-    "usage": "Attention is not for sale",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "partial",
-     "pinterest": "no",
-     "bluesky": "yes",
-     "cara": "yes",
-     "pixelfed": "yes",
-     "vsco": "yes"
-    },
-    "emera": {
-     "twist": "Written into the bylaws",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": false,
-     "effort": "S"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "self-host",
-    "name": "Host your own account server",
-    "area": "platform",
-    "tier": "later",
-    "usage": "Ownership of where your data lives",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "yes",
-     "cara": "no",
-     "pixelfed": "yes",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Own PDS supported",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "account-export",
-    "name": "Export everything you posted",
-    "area": "platform",
-    "tier": "unique",
-    "usage": "Leaving must be possible",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "yes",
-     "bluesky": "yes",
-     "cara": "partial",
-     "pixelfed": "yes",
-     "vsco": "partial"
-    },
-    "emera": {
-     "twist": "Export is a launch feature",
-     "maps_to": {
-      "screens": [
-       "/settings"
-      ],
-      "endpoints": [
-       "GET /v1/me/export"
-      ],
-      "stories": [
-       "export-account"
-      ]
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "partial",
-    "mapped": {
-     "screens": [
-      {
-       "ref": "/settings",
-       "ok": true,
-       "key": "app:/settings"
-      }
-     ],
-     "endpoints": [
-      {
-       "ref": "GET /v1/me/export",
-       "ok": false
-      }
-     ],
-     "stories": [
-      {
-       "ref": "export-account",
-       "ok": true
-      }
-     ]
-    }
-   },
-   {
-    "id": "account-move",
-    "name": "Move your account to another host with followers",
-    "area": "platform",
-    "tier": "unique",
-    "usage": "You own it",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "yes",
-     "cara": "no",
-     "pixelfed": "partial",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "AT Protocol account migration",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "public-cost-page",
-    "name": "Live public cost and books page",
-    "area": "platform",
-    "tier": "unique",
-    "usage": "A nonprofit should show where money goes",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Audited books and this month's costs",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "M"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "remix-duet-stitch",
-    "name": "Remix, duet and stitch",
-    "area": "posting",
-    "tier": "later",
-    "usage": "Building on someone else's clip drives trends",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "Remixes carry the original's proof and credit, so the chain is visible",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "live-streaming",
-    "name": "Live streaming",
-    "area": "posting",
-    "tier": "later",
-    "usage": "Real-time sessions with fans",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "yes",
-     "youtube": "yes",
-     "pinterest": "no",
-     "bluesky": "partial",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "L"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "video-chapters",
-    "name": "Chapters in long videos",
-    "area": "media",
-    "tier": "later",
-    "usage": "Viewers jump to the part they want",
-    "platforms": {
-     "instagram": "no",
-     "tiktok": "no",
-     "youtube": "yes",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "S"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   },
-   {
-    "id": "notes",
-    "name": "Short status notes on your profile",
-    "area": "social",
-    "tier": "later",
-    "usage": "A light way to say what you are up to",
-    "platforms": {
-     "instagram": "yes",
-     "tiktok": "no",
-     "youtube": "no",
-     "pinterest": "no",
-     "bluesky": "no",
-     "cara": "no",
-     "pixelfed": "no",
-     "vsco": "no"
-    },
-    "emera": {
-     "twist": "",
-     "maps_to": {
-      "screens": [],
-      "endpoints": [],
-      "stories": []
-     },
-     "help_wanted": true,
-     "effort": "S"
-    },
-    "status": "not built",
-    "mapped": {
-     "screens": [],
-     "endpoints": [],
-     "stories": []
-    }
-   }
-  ],
-  "coverage": {
-   "core": 68,
-   "all": 21,
-   "coreCounts": {
-    "built": 13,
-    "partial": 1,
-    "missing": 6,
-    "total": 20
-   },
-   "allCounts": {
-    "built": 16,
-    "partial": 5,
-    "missing": 69,
-    "total": 90
-   }
-  }
  }
 }
