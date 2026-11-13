@@ -292,6 +292,28 @@ export async function dailySummary(env, now = Date.now()) {
   });
 }
 
+export async function inboundMail(message, env) {
+  const h = message.headers;
+  const from = h.get("from") || message.from;
+  const subject = h.get("subject") || "(no subject)";
+  let forwarded = "not forwarded: MAIL_FORWARD_TO unset";
+  if (env.MAIL_FORWARD_TO) {
+    try {
+      await message.forward(env.MAIL_FORWARD_TO);
+      forwarded = "forwarded to the inbox";
+    } catch (e) {
+      forwarded = `forward failed: ${String(e).slice(0, 200)}`;
+    }
+  }
+  await slack(env, {
+    icon: forwarded.startsWith("forwarded") ? "✉️" : "🚨",
+    title: `Email to ${esc(message.to)}`,
+    detail: `*${esc(subject).slice(0, 200)}*`,
+    facts: [`from ${esc(from).slice(0, 200)}`, `${Math.round((message.rawSize || 0) / 1024)} KB`, forwarded, "check spam if it is not in the inbox", stamp()],
+  });
+  return forwarded;
+}
+
 function authed(request, env) {
   return !!env.ADMIN_KEY && request.headers.get("x-admin-key") === env.ADMIN_KEY;
 }
@@ -310,6 +332,9 @@ export default {
       return Response.json(adminView(await load(env)), { headers: { "cache-control": "no-store" } });
     }
     return new Response("not found", { status: 404 });
+  },
+  async email(message, env) {
+    await inboundMail(message, env);
   },
   async scheduled(event, env, ctx) {
     if (event.cron === "0 2 * * *") ctx.waitUntil(dailySummary(env));
