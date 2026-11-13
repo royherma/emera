@@ -1,10 +1,11 @@
 import { Hono } from 'hono';
-import type { AppEnv } from './env';
+import type { AppEnv, Env } from './env';
 import { requireAuth, requireHandle } from './auth';
 import { fail, originOf, readJson } from './http';
 import { hmacHex, newId, toHex } from './crypto';
 import { looksLikeVideo, readImageInfo } from './imageSize';
 import { mediaJson, type MediaRow } from './serialize';
+import { readVideoInfo, readVideoInfoFrom, type VideoInfo } from './videoInfo';
 
 const MB = 1024 * 1024;
 const TYPES: Record<string, { kind: 'image' | 'video'; ext: string; max: number }> = {
@@ -32,6 +33,40 @@ async function shrinkImage(images: ImagesBinding | undefined, buf: Uint8Array): 
     console.warn('image shrink failed, storing original', e instanceof Error ? e.message : e);
     return null;
   }
+}
+
+export const VIDEO_MAX_EDGE = 1920;
+const VIDEO_MAX_INPUT = 100 * MB;
+const VIDEO_MAX_SECONDS = 60;
+
+export function videoNeedsShrink(info: VideoInfo, bytes: number): boolean {
+  return Math.max(info.width, info.height) > VIDEO_MAX_EDGE && bytes < VIDEO_MAX_INPUT && info.seconds > 0 && info.seconds <= VIDEO_MAX_SECONDS;
+}
+
+export async function shrinkVideo(env: Env, mediaId: string): Promise<'done' | 'skipped'> {
+  const row = await env.DB.prepare(`SELECT * FROM media WHERE id = ? AND kind = 'video' AND status = 'done'`).bind(mediaId).first<MediaRow & { bytes: number }>();
+  if (!row || !env.VIDEO || row.r2_key.endsWith('-1080.mp4')) return 'skipped';
+  const src = await env.MEDIA.get(row.r2_key);
+  if (!src) return 'skipped';
+  const res = await env.VIDEO.input(src.body)
+    .transform({ width: VIDEO_MAX_EDGE, height: VIDEO_MAX_EDGE, fit: 'scale-down' })
+    .output({ mode: 'video' })
+    .response();
+  if (!res.ok) throw new Error(`video shrink ${res.status}`);
+  const out = new Uint8Array(await res.arrayBuffer());
+  if (!out.length || out.length >= row.bytes) return 'skipped';
+
+  const key = `${row.id}-1080.mp4`;
+  const sha256 = toHex(await crypto.subtle.digest('SHA-256', out));
+  const info = await readVideoInfoFrom(async (o, n) => out.subarray(o, o + n), out.length);
+  const signature = await hmacHex(env.PROOF_SECRET, `${sha256}.${new Date(row.signed_at!).toISOString()}.${row.signer}`);
+  await env.MEDIA.put(key, out, { httpMetadata: { contentType: 'video/mp4' } });
+  const moved = await env.DB.prepare(
+    `UPDATE media SET r2_key = ?, content_type = 'video/mp4', bytes = ?, sha256 = ?, signature = ?, width = ?, height = ? WHERE id = ? AND r2_key = ?`,
+  ).bind(key, out.length, sha256, signature, info?.width ?? row.width, info?.height ?? row.height, row.id, row.r2_key).run();
+  if (!moved.meta.changes) { await env.MEDIA.delete(key); return 'skipped'; }
+  await env.MEDIA.delete(row.r2_key);
+  return 'done';
 }
 
 export const mediaRoutes = new Hono<AppEnv>();
@@ -119,6 +154,11 @@ mediaRoutes.put('/v1/uploads/:id', requireAuth, async (c) => {
       throw fail(400, 'upload_failed', 'The upload did not finish. Try again.');
     }
     size = length;
+    sourceSha256 = sha256;
+    sourceBytes = size;
+    const info = await readVideoInfo(c.env.MEDIA, key, size).catch(() => null);
+    if (info) ({ width, height } = info);
+    if (info && c.env.VIDEO_JOBS && videoNeedsShrink(info, size)) await c.env.VIDEO_JOBS.send({ mediaId: row.id });
   }
 
   const signedAt = Date.now();
@@ -134,7 +174,7 @@ mediaRoutes.put('/v1/uploads/:id', requireAuth, async (c) => {
 
 mediaRoutes.on(['GET', 'HEAD'], '/media/:key', async (c) => {
   const key = c.req.param('key');
-  if (!/^[A-Za-z0-9]+\.[a-z0-9]+$/.test(key)) throw fail(404, 'not_found', 'No such file.');
+  if (!/^[A-Za-z0-9]+(-[a-z0-9]+)?\.[a-z0-9]+$/.test(key)) throw fail(404, 'not_found', 'No such file.');
   const range = c.req.header('Range');
   const m = range ? /^bytes=(\d*)-(\d*)$/.exec(range) : null;
   const head = await c.env.MEDIA.head(key);
