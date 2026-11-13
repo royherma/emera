@@ -5,7 +5,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
 import { Screen } from "@/components/Screen";
 import { Icon } from "@/components/Icon";
-import { SignedMark } from "@/components/Media";
+import { SignedMark, VideoPreview } from "@/components/Media";
 import { Banner, Button, type PS } from "@/components/ui";
 import { api } from "@/lib/api";
 import { alpha, radius, space, type } from "@/lib/theme";
@@ -92,7 +92,7 @@ export default function Upload() {
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: space[3] }}>
           {files.map((f, i) => (
             <View key={f.uri + i} style={{ width: 168, height: 210, borderRadius: radius.card, overflow: "hidden", backgroundColor: c.sunk }}>
-              {f.kind === "image" ? <Image source={{ uri: f.uri }} style={{ width: "100%", height: "100%" }} contentFit="cover" /> : <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#140f0b" }}><Icon name="play" size={30} color="#fff" /></View>}
+              {f.kind === "image" ? <Image source={{ uri: f.uri }} style={{ width: "100%", height: "100%" }} contentFit="cover" /> : <VideoPreview uri={f.uri} style={{ width: "100%", height: "100%" }} />}
               <Pressable accessibilityLabel="Remove" onPress={() => setFiles((all) => all.filter((_, j) => j !== i))} hitSlop={8} style={{ position: "absolute", top: 8, right: 8, width: 28, height: 28, borderRadius: 14, backgroundColor: "rgba(14,10,8,0.66)", alignItems: "center", justifyContent: "center" }}>
                 <Icon name="x" size={16} color="#fff" />
               </Pressable>
