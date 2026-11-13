@@ -1,5 +1,5 @@
 {
-  "updated": "11:14 AM Bangkok",
+  "updated": "11:17 AM Bangkok",
   "title": "Emera",
   "goal": "Emera. Where humanity comes together - you post, share the link, invite people",
   "phases": [
@@ -851,8 +851,8 @@
     },
     {
       "name": "Launch",
-      "state": "running",
-      "note": "first 1,000 creators"
+      "state": "done",
+      "note": "Dec 15 launch, 3,700 list target, 10 video ideas"
     }
   ],
   "asks": [

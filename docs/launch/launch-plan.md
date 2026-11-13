@@ -57,19 +57,17 @@ Launch day only happens if these work on production by Friday 2026-12-11. If a g
 
 **Week 5 (Dec 14 to 20): launch**
 
-Launch day, Tuesday Dec 15. Times are Bangkok; the US-facing slots are the point.
+Launch day, Tuesday Dec 15 (Pacific time, where Product Hunt and Hacker News live). Bangkok is 15 hours ahead of Pacific in December, so the founder's launch day starts mid-afternoon Tuesday and runs into Wednesday morning.
 
-| Time (Bangkok) | Time (US Pacific, Dec 14) | Action | Owner |
+| Time (Bangkok) | Time (US Pacific) | Action | Owner |
 | --- | --- | --- | --- |
-| 2:01 PM Mon Dec 14 | 12:01 AM Mon Dec 14... see note | Product Hunt page goes live (PH day resets at 12:01 AM Pacific) | founder |
-| 3:00 PM | 12:00 AM | Embargo lifts; press notes already in inboxes | founder |
-| 6:00 PM | 3:00 AM | Founder's long video posts on all four platforms | founder |
-| 8:00 PM | 5:00 AM | Bluesky thread, X thread, email 3 to the early list | founder |
-| 9:00 PM | 6:00 AM | Hacker News "Show HN" (only if the repo is public) | founder |
-| 11:00 PM | 8:00 AM | Wedge communities: mods who said yes post | mods or members |
-| 8:00 AM Tue | 5:00 PM Mon | First 24-hour check: counts, errors, support queue | team |
-
-Note: Product Hunt days run 12:01 AM to 11:59 PM Pacific. Pacific on Dec 15 is 12:01 AM Pacific = 3:01 PM Bangkok on Dec 15. Fix the table when the final date is set: the intent is Product Hunt live at 12:01 AM Pacific on Tuesday Dec 15, which is 3:01 PM Bangkok that day, with everything else following it in the order shown.
+| 3:01 PM Tue Dec 15 | 12:01 AM Tue Dec 15 | Product Hunt page goes live (the Product Hunt day resets at 12:01 AM Pacific); maker comment posted | founder |
+| 3:30 PM Tue | 12:30 AM Tue | Embargo lifts; press notes already in inboxes | founder |
+| 6:00 PM Tue | 3:00 AM Tue | Founder's long video posts on all four platforms | founder |
+| 8:00 PM Tue | 5:00 AM Tue | Bluesky thread, X thread, email 3 to the early list | founder |
+| 9:00 PM Tue | 6:00 AM Tue | Hacker News "Show HN" (only if the repo is public) | founder |
+| 11:00 PM Tue | 8:00 AM Tue | Wedge communities: mods who said yes post | mods or members |
+| 8:00 AM Wed Dec 16 | 5:00 PM Tue | 24-hour check: counts, errors, support queue | team |
 
 Launch-day rules:
 - The founder answers every comment on Product Hunt and Hacker News in the first 4 hours. Plain, specific, no defensive tone.
