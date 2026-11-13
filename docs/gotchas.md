@@ -96,3 +96,9 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 - **Bit us:** `npx json5 -c wrangler.jsonc` (meant as a syntax check) writes `wrangler.json`; idle autocommit committed it and wrangler reads `.json` first, so deploys shipped a stale config (old post cap, no */15 import cron).
 - **Spot it:** `ls apps/*/wrangler.json`; deploy output vars differ from `wrangler.jsonc`.
 - **Fix:** never run `json5 -c`; check syntax with `npx wrangler deploy --dry-run`.
+
+## 2026-11-13 - role badges
+
+- **Bit us:** idle autocommit pushed chat code that selects `users.role` before migration 0018 reached production; another session deployed the API from HEAD and prod chat returned 500 until 0018 was applied.
+- **Spot it:** chat or profile 500s right after a deploy; `npx wrangler d1 migrations list DB --env production --remote` lists a pending migration.
+- **Fix:** apply a new migration to staging and production remotely in the same step you write it, before the code that reads it is committed.
