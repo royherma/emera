@@ -122,6 +122,10 @@ Commits are authored by `Techguyver Labs <oss@techguyverlabs.org>` (set in this 
 
 `emera.social` was bought 2026-11-13 on Cloudflare Registrar, zone `89f5419a484e8cc56995a5fe4d68773d`. It expires 2027-11-13 and **auto-renew is OFF**. getemera.com was not bought (Roy chose only .social).
 
+## Stripe
+
+Emera takes money only through its **own Stripe account, named Emera**. Never the shared Techguyver Labs live account `acct_1UIgrwGWZkzXqiT3` (its public name is "RobotJobsHQ", so checkout and card statements would say RobotJobsHQ), never another project's key. Keychain names are `EMERA_STRIPE_*` only. Until the Emera account exists, test mode runs on the Techguyver Labs LLC sandbox `acct_1TqRrs2cbiVEsA2f` (`EMERA_STRIPE_SECRET_KEY_TEST`). The API compares the key's account id with the `STRIPE_ACCOUNT_ID` var before it opens any checkout, and the webhook ignores events without `metadata.project = "emera"`.
+
 ## App Store
 
 iOS app record made 2026-11-13 under Techguyver Labs, LLC: app id `6834311747` (https://appstoreconnect.apple.com/apps/6834311747), bundle `social.emera` (bundle id resource `6R42978HR4`), SKU `emera-ios`, name "Emera - OS Social Network". API access: `~/Desktop/Development/ShowAndTell/bin/asc` (see `~/.claude/reference/rules/apple-asc-auth.md`).
