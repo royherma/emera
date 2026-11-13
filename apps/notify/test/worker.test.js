@@ -4,7 +4,7 @@ import { createHmac } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { verifyGithub, githubText, poll, slackPost } from "../src/worker.js";
+import { verifyGithub, githubText, poll, slackPost, inboundMail } from "../src/worker.js";
 import { adminView, ledgerView, load } from "../src/stats.js";
 import { device, source } from "../src/people.js";
 
@@ -117,4 +117,14 @@ test("source and device read the referrer, utm and user agent", () => {
 test("our own domain as referrer is not a source", () => {
   assert.equal(source({ referrer: "https://emera.social/" }), "⌨️ Direct");
   assert.equal(source({ referrer: "https://www.emera.social/answers/" , utm: "utm_source=ig" }), "📸 Instagram");
+});
+
+test("inbound mail forwards, then posts who wrote and the subject", async () => {
+  const h = harness();
+  h.env.MAIL_FORWARD_TO = "inbox@example.org";
+  const forwardedTo = [];
+  const message = { from: "a@b.org", to: "hello@emera.social", rawSize: 4096, headers: new Map([["subject", "Takedown help"], ["from", "Ada <a@b.org>"]]), forward: async (to) => forwardedTo.push(to) };
+  assert.equal(await inboundMail(message, h.env), "forwarded to the inbox");
+  assert.deepEqual(forwardedTo, ["inbox@example.org"]);
+  assert.match(h.text(), /Email to hello@emera\.social.*Takedown help.*Ada &lt;a@b\.org&gt;.*forwarded to the inbox/);
 });

@@ -1301,9 +1301,9 @@
           "label": "Not yet"
         }
       ],
-      "answer": null,
+      "answer": "yes",
       "text": null,
-      "at": null,
+      "at": "2026-11-13T07:55:20.868Z",
       "links": [
         [
           "README on GitHub",
@@ -1475,13 +1475,9 @@
       "id": "legal-mail",
       "kind": "do",
       "when": "this week",
-      "title": "Turn on hello@emera.social, then a lawyer reads Privacy + Terms",
-      "why": "Both pages are live and tell people to email hello@emera.social, but emera.social has no mail records, so those emails bounce.",
+      "title": "Have a lawyer read Privacy + Terms",
+      "why": "Both are live in plain words. hello@ and dmca@emera.social now forward to techguyver1337@gmail.com (on 2026-11-13).",
       "links": [
-        [
-          "Email routing",
-          "https://dash.cloudflare.com/db9eee5d30dc91c467044f8746e45206/emera.social/email/routing/overview"
-        ],
         [
           "Privacy",
           "https://emera.social/privacy/"
@@ -1542,9 +1538,10 @@
           "label": "Change something"
         }
       ],
-      "answer": null,
+      "answer": "good",
       "text": null,
-      "owner": "claude d44a53f4"
+      "owner": "claude d44a53f4",
+      "at": "2026-11-13T07:55:23.739Z"
     }
   ],
   "reviewDone": [
