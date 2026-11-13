@@ -1,6 +1,6 @@
-# agora (code name)
+# Emera (folder: agora)
 
-Open-source, creator-first photo/video network on the AT Protocol: provenance on every post, creators protected (here and on other platforms), open algorithm, run as a nonprofit. Brand name not picked yet - `agora` is the folder code name only.
+Open-source, creator-first photo/video network on the AT Protocol: provenance on every post, creators protected (here and on other platforms), open algorithm, run as a nonprofit. Name: **Emera** (emera.social; Greek hemera = day, daylight), picked by Roy 2026-11-13. The folder is still `agora` until the build agents finish; the name lives only in `packages/brand/brand.json`.
 
 ## State
 

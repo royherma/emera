@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "agora-api",
+  "name": "emera-api",
   "main": "src/index.ts",
   "compatibility_date": "2026-05-03",
   "compatibility_flags": ["nodejs_compat"],
@@ -14,13 +14,13 @@
     "PUBLIC_ORIGIN": ""
   },
   "d1_databases": [
-    { "binding": "DB", "database_name": "agora-dev", "database_id": "local-dev", "migrations_dir": "migrations" }
+    { "binding": "DB", "database_name": "emera-dev", "database_id": "local-dev", "migrations_dir": "migrations" }
   ],
-  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "agora-media-dev" }],
+  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "emera-media-dev" }],
 
   "env": {
     "staging": {
-      "name": "agora-api-staging",
+      "name": "emera-api-staging",
       "vars": {
         "ENVIRONMENT": "staging",
         "INVITES_REQUIRED": "true",
@@ -29,12 +29,12 @@
         "PUBLIC_ORIGIN": ""
       },
       "d1_databases": [
-        { "binding": "DB", "database_name": "agora-staging", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "migrations" }
+        { "binding": "DB", "database_name": "emera-staging", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "migrations" }
       ],
-      "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "agora-media-staging" }]
+      "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "emera-media-staging" }]
     },
     "production": {
-      "name": "agora-api-production",
+      "name": "emera-api-production",
       "vars": {
         "ENVIRONMENT": "production",
         "INVITES_REQUIRED": "true",
@@ -43,9 +43,9 @@
         "PUBLIC_ORIGIN": ""
       },
       "d1_databases": [
-        { "binding": "DB", "database_name": "agora-prod", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "migrations" }
+        { "binding": "DB", "database_name": "emera-prod", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "migrations" }
       ],
-      "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "agora-media-prod" }]
+      "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "emera-media-prod" }]
     }
   }
 }
