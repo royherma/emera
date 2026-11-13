@@ -126,7 +126,7 @@ Commits are authored by `Techguyver Labs <oss@techguyverlabs.org>` (set in this 
 
 ## Stripe
 
-Emera takes money only through its **own Stripe account, named Emera**. Never the shared Techguyver Labs live account `acct_1UIgrwGWZkzXqiT3` (its public name is "RobotJobsHQ", so checkout and card statements would say RobotJobsHQ), never another project's key. Keychain names are `EMERA_STRIPE_*` only. Until the Emera account exists, test mode runs on the Techguyver Labs LLC sandbox `acct_1TqRrs2cbiVEsA2f` (`EMERA_STRIPE_SECRET_KEY_TEST`). The API compares the key's account id with the `STRIPE_ACCOUNT_ID` var before it opens any checkout, and the webhook ignores events without `metadata.project = "emera"`.
+Emera takes money only through its **own Stripe account, named Emera**. Never the shared Techguyver Labs live account `acct_1UIgrwGWZkzXqiT3` (its public name is "RobotJobsHQ", so checkout and card statements would say RobotJobsHQ), never another project's key. Keychain names are `EMERA_STRIPE_*` only. The Emera account is `acct_1UbIhCKHBWaOwymS` (made 2026-11-13 in the Techguyver Labs org, card statement `EMERA.SOCIAL`); staging uses its test mode (`EMERA_STRIPE_SECRET_KEY_TEST_EMERA`, webhook secret `EMERA_STRIPE_WEBHOOK_SECRET_STAGING`, product `prod_VcXsDVeaSNHptM`, 100% test code `EMERATEST100`). Production stays `FUNDING=off` until the account is activated and a live key is in `EMERA_STRIPE_SECRET_KEY_LIVE`. The API compares the key's account id with the `STRIPE_ACCOUNT_ID` var before it opens any checkout, and the webhook ignores events without `metadata.project = "emera"`.
 
 ## App Store
 
