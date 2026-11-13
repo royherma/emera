@@ -57,29 +57,29 @@ li a{color:var(--sunink);text-decoration:none;font-weight:600}
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc24a"/><stop offset="1" stop-color="#ff6a2b"/></linearGradient>
 <symbol id="mark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="currentColor"/><path d="M4 50a46 46 0 0 1 92 0z" fill="url(#sg)"/><path d="M0 50h100" stroke="var(--bg,#fbf5ea)" stroke-width="6"/></symbol></defs></svg>
 <div class="wrap">
-<nav><a class="mark" href="/" aria-label="Emera"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg>emera</a><a class="pill" href="/">Join Emera</a></nav>
-<div class="eyebrow">Open ledger</div>
-<h1>Every account and every post, counted in public</h1>
-<p class="lead">Rules nobody can read start with numbers nobody can see. On Emera both are open. This page shows Emera growing, one person and one post at a time, the minute it happens.</p>
+<nav><a data-e="ac010164" class="mark" href="/" aria-label="Emera"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg>emera</a><a data-e="6fd5f53e" class="pill" href="/">Join Emera</a></nav>
+<div data-e="54768a25" class="eyebrow">Open ledger</div>
+<h1 data-e="28076880">Every account and every post, counted in public</h1>
+<p data-e="bd1ba45f" class="lead">Rules nobody can read start with numbers nobody can see. On Emera both are open. This page shows Emera growing, one person and one post at a time, the minute it happens.</p>
 <section class="tiles" aria-label="Totals">
-<div class="tile"><b id="t-early">-</b><span>on the early list</span></div>
-<div class="tile"><b id="t-accounts">-</b><span>accounts</span></div>
-<div class="tile"><b id="t-posts">-</b><span>posts</span></div>
-<div class="tile"><b id="t-reports">-</b><span>copies reported by creators</span></div>
+<div class="tile"><b data-e="1f72ff04" id="t-early">-</b><span data-e="002329f3">on the early list</span></div>
+<div class="tile"><b data-e="1f72ff04-2" id="t-accounts">-</b><span data-e="68ead782">accounts</span></div>
+<div class="tile"><b data-e="1f72ff04-3" id="t-posts">-</b><span data-e="5dd63329">posts</span></div>
+<div class="tile"><b data-e="1f72ff04-4" id="t-reports">-</b><span data-e="6682c1bd">copies reported by creators</span></div>
 </section>
 <section class="card">
-<h2>Growth over time</h2>
-<p class="sub">Running totals per day</p>
-<div class="legend"><span><i style="background:var(--l1)"></i>Accounts</span><span><i style="background:var(--l2)"></i>Posts</span><span><i style="background:var(--l3)"></i>Early list</span></div>
+<h2 data-e="28c3181e">Growth over time</h2>
+<p data-e="60e5abcc" class="sub">Running totals per day</p>
+<div class="legend"><span data-e="c6ef0c21"><i style="background:var(--l1)"></i>Accounts</span><span data-e="69a3c1ad"><i style="background:var(--l2)"></i>Posts</span><span data-e="dd987a98"><i style="background:var(--l3)"></i>Early list</span></div>
 <svg class="chart" id="chart" role="img" aria-label="Running totals of accounts, posts and early list sign-ups per day"></svg>
 </section>
 <section class="card">
-<h2>The ledger</h2>
-<p class="sub">Newest first, in your time zone</p>
+<h2 data-e="83c0f917">The ledger</h2>
+<p data-e="461d7932" class="sub">Newest first, in your time zone</p>
 <ol id="events"></ol>
-<button class="more" id="more" hidden>Show more</button>
+<button data-e="7873a908" class="more" id="more" hidden>Show more</button>
 </section>
-<p class="fine">Counts leave out our own test accounts. Early list sign-ups stay anonymous here. The same numbers are open as data at <a href="/api/ledger">/api/ledger</a>. <span id="upd"></span></p>
+<p data-e="cf4e75b8" class="fine">Counts leave out our own test accounts. Early list sign-ups stay anonymous here. The same numbers are open as data at <a href="/api/ledger">/api/ledger</a>. <span id="upd"></span></p>
 </div>
 <script>
 (function(){
