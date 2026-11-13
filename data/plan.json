@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-13T07:59:09.250Z",
+  "updated": "2026-11-13T11:34:50.870Z",
   "title": "Emera",
   "goal": "Emera. Where humanity comes together - you post, share the link, invite people",
   "phases": [
@@ -55,12 +55,6 @@
           "text": "Trademark: workable with care. @emerasocial free on TikTok, YouTube, GitHub, Bluesky",
           "who": "claude",
           "done": true
-        },
-        {
-          "id": "a8",
-          "text": "Claim @emerasocial: TikTok, YouTube, Instagram, Bluesky (your logins)",
-          "who": "roy",
-          "done": false
         }
       ]
     },
@@ -104,11 +98,6 @@
           "text": "Landing page + early list (deployed, emera.social waiting on registry)",
           "who": "claude",
           "done": true
-        },
-        {
-          "id": "b7",
-          "text": "Later: automatic copy matching, trained on the reports",
-          "who": "claude"
         }
       ]
     },
@@ -136,12 +125,6 @@
           "done": true
         },
         {
-          "id": "c4",
-          "text": "Your profile + first 10 posts",
-          "who": "roy",
-          "done": false
-        },
-        {
           "id": "c5",
           "text": "Bring in your old posts automatically",
           "who": "claude",
@@ -167,20 +150,129 @@
           "done": true
         },
         {
+          "id": "d4",
+          "text": "Report a copy: creators flag it, we help file the takedown, it goes in the dataset",
+          "who": "claude",
+          "done": true
+        }
+      ]
+    },
+    {
+      "id": "m0",
+      "title": "M0 · This week",
+      "sub": "Nov 16-20. Done when: 4 handles, DMCA number, your profile live",
+      "tasks": [
+        {
+          "id": "a8",
+          "text": "Claim @emerasocial: TikTok, YouTube, Instagram, Bluesky (your logins)",
+          "who": "roy",
+          "done": false,
+          "review": "handles"
+        },
+        {
+          "id": "c4",
+          "text": "Your profile + first 10 posts",
+          "who": "roy",
+          "done": false,
+          "review": "profile"
+        },
+        {
+          "id": "m0-dmca",
+          "text": "Register the DMCA agent ($6)",
+          "who": "roy",
+          "review": "dmca"
+        },
+        {
+          "id": "m0-stripe",
+          "text": "Give Emera its own Stripe account",
+          "who": "roy",
+          "review": "stripe-emera"
+        }
+      ]
+    },
+    {
+      "id": "m1",
+      "title": "M1 · First 100 creators",
+      "sub": "By Dec 31. Done when: 100 creators with 3+ posts, 40 copy reports",
+      "tasks": [
+        {
+          "id": "d5",
+          "text": "Invite your first 20 creators",
+          "who": "roy",
+          "review": "founding20"
+        },
+        {
           "id": "d3",
           "text": "CONTRIBUTING.md + 10 starter issues",
           "who": "claude"
         },
         {
-          "id": "d4",
-          "text": "Report a copy: creators flag it, we help file the takedown, it goes in the dataset",
-          "who": "claude",
-          "done": true
+          "id": "m1-cfs",
+          "text": "Apply to Cloudflare for Startups",
+          "who": "roy",
+          "review": "cfstartups"
         },
         {
-          "id": "d5",
-          "text": "Invite your first 20 creators",
-          "who": "roy"
+          "id": "m1-orgs",
+          "text": "Intro to one creator group",
+          "who": "roy",
+          "review": "creatororgs"
+        },
+        {
+          "id": "m1-lawyer",
+          "text": "A lawyer reads Privacy + Terms",
+          "who": "roy",
+          "review": "legal-mail",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": "m2",
+      "title": "M2 · 1,000 creators",
+      "sub": "By mid-Feb 2027. Done when: 35% still posting after 30 days",
+      "tasks": [
+        {
+          "id": "m2-pds",
+          "text": "Own PDS + did:plc accounts",
+          "who": "claude"
+        },
+        {
+          "id": "m2-passkeys",
+          "text": "Passkeys",
+          "who": "claude"
+        },
+        {
+          "id": "m2-dash",
+          "text": "Creator dashboard: your reports and outcomes",
+          "who": "claude"
+        },
+        {
+          "id": "m2-cost",
+          "text": "Public cost page + donate button",
+          "who": "claude"
+        },
+        {
+          "id": "m2-feeds",
+          "text": "Open feeds with \"why this post\"",
+          "who": "claude"
+        },
+        {
+          "id": "m2-bounty",
+          "text": "Contributor program with bounties",
+          "who": "claude"
+        }
+      ]
+    },
+    {
+      "id": "later",
+      "title": "Later",
+      "sub": "Parked. Drag a card back when it matters",
+      "tasks": [
+        {
+          "id": "b7",
+          "text": "Later: automatic copy matching, trained on the reports",
+          "who": "claude"
         }
       ]
     }
@@ -967,8 +1059,8 @@
     },
     {
       "name": "App in Twilight",
-      "state": "running",
-      "note": "DESIGN.md + tokens + restyle"
+      "state": "paused",
+      "note": "paused: its session ended in the 18:20 restart - DESIGN.md + tokens + restyle"
     },
     {
       "name": "Site in Twilight",
@@ -977,13 +1069,13 @@
     },
     {
       "name": "Atlas screens",
-      "state": "running",
-      "note": "auto-capture every screen"
+      "state": "paused",
+      "note": "paused: its session ended in the 18:20 restart - auto-capture every screen"
     },
     {
       "name": "Feature comparison",
-      "state": "running",
-      "note": "vs Instagram, TikTok, YouTube, Bluesky..."
+      "state": "paused",
+      "note": "paused: its session ended in the 18:20 restart - vs Instagram, TikTok, YouTube, Bluesky..."
     },
     {
       "name": "Report a copy API",
@@ -1035,9 +1127,33 @@
     },
     {
       "name": "Native iOS + Android",
-      "state": "running",
-      "note": "Run #7 failed, 0 screenshots: Maestro rejects ${OUT}/ paths (walk.yaml:6); Android stuck before welcome",
+      "state": "paused",
+      "note": "paused: its session ended in the 18:20 restart - Run #7 failed, 0 screenshots: Maestro rejects ${OUT}/ paths (walk.yaml:6); Android stuck before welcome",
       "owner": "native-run-7 check"
+    },
+    {
+      "name": "Small fixes: share card, oEmbed, RSS/Atom feeds",
+      "state": "running",
+      "note": "building in apps/api, tests + local curl next",
+      "owner": "claude 5916c143"
+    },
+    {
+      "name": "Small fixes: CI migration replay, lexicon tests, pre-commit hook, CONTRIBUTING check",
+      "state": "running",
+      "note": "building, CI + fresh clone run next",
+      "owner": "claude 5916c143"
+    },
+    {
+      "name": "Small fixes: mobile unit tests + installable web app",
+      "state": "running",
+      "note": "building in apps/mobile",
+      "owner": "claude 5916c143"
+    },
+    {
+      "name": "Small fixes: public cost page on emera.social",
+      "state": "running",
+      "note": "building in apps/site, real numbers only",
+      "owner": "claude 5916c143"
     }
   ],
   "links": [
@@ -1493,8 +1609,8 @@
       "id": "issues-2",
       "kind": "approve",
       "when": "this week",
-      "title": "Post 11 small issues for contributors",
-      "why": "Smaller first jobs next to the 8 big projects; nothing here is core work.",
+      "title": "Building the 10 small fixes ourselves",
+      "why": "Your call: fixes stay with us, new features go to contributors. Digital-frame mode stays a contributor draft.",
       "list": [
         "Replay D1 migrations from empty in CI",
         "Add a pre-commit hook for typecheck and format",
@@ -1505,8 +1621,7 @@
         "Make the web build an installable PWA",
         "Golden test files for social.emera lexicons",
         "Public cost page spec and first version",
-        "Fresh-machine test of CONTRIBUTING.md",
-        "Digital-frame mode for smart displays and spare tablets"
+        "Fresh-machine test of CONTRIBUTING.md"
       ],
       "options": [
         {
@@ -1528,7 +1643,10 @@
           "Posted issues",
           "https://github.com/royherma/emera/issues"
         ]
-      ]
+      ],
+      "answer": "no",
+      "text": "Not posting them - we build them ourselves (Roy, 18:28)",
+      "at": "2026-11-13T11:29:27.911Z"
     },
     {
       "id": "stripe-emera",
@@ -1538,8 +1656,8 @@
       "why": "Sponsors must see Emera on the checkout and their card statement, not RobotJobsHQ.",
       "list": [
         "Stripe dashboard, top-left account menu, + New account, name it Emera (Techguyver Labs LLC, United States)",
-        "Open the Stripe login link below, pick the Emera account, Allow",
-        "Reply done: I make the sponsor product, checkout and webhook in test mode, then show you the live switch here"
+        "Click Stripe login link, tick the new Emera account, Allow (Claude is waiting and saves it the moment you click)",
+        "Click Done here: I make the sponsor product, checkout and webhook in test mode, then show you the live switch here"
       ],
       "options": [
         {
@@ -1556,8 +1674,15 @@
         [
           "Stripe dashboard",
           "https://dashboard.stripe.com"
+        ],
+        [
+          "Stripe login link",
+          "https://access.stripe.com/stripecli/oauth2/authorize/sessions/oases_VXydcV2h1AW3h6"
         ]
-      ]
+      ],
+      "answer": "later",
+      "text": "Roy handles this in another session",
+      "at": "2026-11-13T11:29:27.949Z"
     }
   ],
   "reviewDone": [
