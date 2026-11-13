@@ -1,1 +1,1 @@
-{"mode": "public-first", "public": "royherma/emera", "private_paths": [".dev.vars", ".env", "^\\.claude/"], "allow": ["^apps/api/src/env\\.ts$", "^apps/api/test/env\\.d\\.ts$"]}
+{"mode": "public-first", "public": "royherma/emera", "private_paths": [".dev.vars", ".env", "^\\.claude/"], "allow": ["^apps/api/src/env\\.ts$", "^apps/api/test/env\\.d\\.ts$", "^\\.claude/settings\\.json$"]}

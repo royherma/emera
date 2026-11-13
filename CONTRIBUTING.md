@@ -86,3 +86,9 @@ Server code (`apps/api`, `apps/site`) is AGPL-3.0. Everything else, including th
 ## Questions
 
 Open a discussion or an issue and tag it `question`. We do not offer support for local build problems, but we do want to fix a quickstart that does not work: tell us exactly which step failed.
+
+## Working with Claude Code
+
+- **On your machine:** open the repo in Claude Code. `CLAUDE.md` is the rulebook every agent reads first.
+- **In the cloud (claude.ai/code):** pick this repository. `.claude/settings.json` runs `scripts/cloud-setup.sh` at session start, which installs every app's dependencies (only in cloud sessions). Keep the environment's network on "Limited" with package managers allowed.
+- **From GitHub:** mention `@claude` in an issue or PR comment and Claude works on it in a PR (`.github/workflows/claude.yml`). The repo needs the `CLAUDE_CODE_OAUTH_TOKEN` secret, set once by a maintainer.
