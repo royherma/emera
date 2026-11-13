@@ -544,37 +544,38 @@
     },
     {
       "id": "lit-mark",
-      "q": "Light the e? Pick one for the app, site and icon",
-      "why": "Top: day, bottom: night. Sidebar logo at real size and the app icon. Click one and I put it in the app sidebar, emera.social and the brand page.",
+      "q": "Light the e, round 2: fire only at the tip",
+      "why": "You liked round 1 but want the fire only at the end of the e, like a match. Top: day, bottom: night, sidebar logo at real size and the app icon.",
       "options": [
         {
-          "id": "ember",
-          "label": "1 Ember tail",
-          "img": "brand/logo/lit/ember.png",
-          "note": "still reads as fire at sidebar size"
+          "id": "along",
+          "label": "1 Just the tip",
+          "img": "brand/logo/lit/along.png"
         },
         {
-          "id": "match",
-          "label": "2 Lit match",
-          "img": "brand/logo/lit/match.png"
+          "id": "glow",
+          "label": "2 Tip + glow",
+          "img": "brand/logo/lit/glow.png",
+          "note": "most like a lit match, still reads at sidebar size"
         },
         {
-          "id": "burn",
-          "label": "3 Burning down",
-          "img": "brand/logo/lit/burn.png"
+          "id": "long",
+          "label": "3 Longer ember",
+          "img": "brand/logo/lit/long.png"
         },
         {
-          "id": "sunset",
-          "label": "4 All sun",
-          "img": "brand/logo/lit/sunset.png"
+          "id": "flame",
+          "label": "4 Flame at the tip",
+          "img": "brand/logo/lit/flame.png"
         },
         {
           "id": "ink",
           "label": "Keep it ink"
         }
       ],
-      "mine": "ember",
-      "big": true
+      "mine": "glow",
+      "big": true,
+      "note": "Round 1 (ember, match, burn, all sun) in git 8b746e4; Roy 20:04: pretty good, fire only at the tip"
     }
   ],
   "names": {
