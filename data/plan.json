@@ -217,13 +217,6 @@
           "text": "Intro to one creator group",
           "who": "roy",
           "review": "creatororgs"
-        },
-        {
-          "id": "m1-lawyer",
-          "text": "A lawyer reads Privacy + Terms",
-          "who": "roy",
-          "review": "legal-mail",
-          "done": false
         }
       ]
     },
@@ -955,7 +948,7 @@
     }
   ],
   "brand": {
-    "note": "Pick a Signature version in Decisions. Click a picture to open it full size.",
+    "note": "",
     "items": [
       {
         "id": "logo-signature",
@@ -1145,8 +1138,8 @@
     },
     {
       "name": "Small fixes: mobile unit tests + installable web app",
-      "state": "running",
-      "note": "building in apps/mobile",
+      "state": "done",
+      "note": "merged 48c88c9: 24 tests pass, installs as an app, works offline; goes live with the next app deploy",
       "owner": "claude 5916c143"
     },
     {
@@ -1646,7 +1639,8 @@
       ],
       "answer": "no",
       "text": "Not posting them - we build them ourselves (Roy, 18:28)",
-      "at": "2026-11-13T11:29:27.911Z"
+      "at": "2026-11-13T11:29:27.911Z",
+      "progress": []
     },
     {
       "id": "stripe-emera",

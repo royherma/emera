@@ -1,12 +1,12 @@
 {
- "capturedAt": "2026-11-13T11:27:45.712Z",
+ "capturedAt": "2026-11-13T11:34:19.515Z",
  "git": {
-  "sha": "e1793af",
+  "sha": "3da40b0",
   "dirty": true
  },
- "codeHash": "74bf9fd1b337",
+ "codeHash": "c9ee2921bff1",
  "by": "auto",
- "why": "app code changed: app/(tabs)/explore.tsx, app/_layout.tsx, app/posts/[id].tsx +6 more",
+ "why": "app code changed: app/(tabs)/feed.tsx, app/_layout.tsx, app/chat.tsx +15 more",
  "themeSwitch": true,
  "viewports": {
   "phone": {
@@ -29,6 +29,7 @@
   "/comments/:id": "/comments/p_100",
   "/followers/:handle": "/followers/mina",
   "/following/:handle": "/following/mina",
+  "/messages/:id": "/messages/p_100",
   "/posts/:id": "/posts/p_100"
  },
  "screens": {
@@ -105,12 +106,6 @@
    "states": [
     {
      "name": "error",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/sign-in/error-desktop-day.png",
-     "note": "a bad email address"
-    },
-    {
-     "name": "error",
      "tag": "phone-night",
      "file": "data/atlas-shots/sign-in/error-phone-night.png",
      "note": "a bad email address"
@@ -119,6 +114,12 @@
      "name": "error",
      "tag": "desktop-night",
      "file": "data/atlas-shots/sign-in/error-desktop-night.png",
+     "note": "a bad email address"
+    },
+    {
+     "name": "error",
+     "tag": "desktop-day",
+     "file": "data/atlas-shots/sign-in/error-desktop-day.png",
      "note": "a bad email address"
     },
     {
@@ -158,14 +159,14 @@
    "states": [
     {
      "name": "error",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/handle/error-desktop-day.png",
+     "tag": "phone-night",
+     "file": "data/atlas-shots/handle/error-phone-night.png",
      "note": "a handle that is taken"
     },
     {
      "name": "error",
-     "tag": "phone-night",
-     "file": "data/atlas-shots/handle/error-phone-night.png",
+     "tag": "desktop-night",
+     "file": "data/atlas-shots/handle/error-desktop-night.png",
      "note": "a handle that is taken"
     },
     {
@@ -176,8 +177,8 @@
     },
     {
      "name": "error",
-     "tag": "desktop-night",
-     "file": "data/atlas-shots/handle/error-desktop-night.png",
+     "tag": "desktop-day",
+     "file": "data/atlas-shots/handle/error-desktop-day.png",
      "note": "a handle that is taken"
     }
    ]
@@ -203,8 +204,8 @@
     },
     {
      "name": "post-menu",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/feed/post-menu-desktop-day.png",
+     "tag": "desktop-night",
+     "file": "data/atlas-shots/feed/post-menu-desktop-night.png",
      "note": "the \"...\" menu on a post"
     },
     {
@@ -215,8 +216,8 @@
     },
     {
      "name": "post-menu",
-     "tag": "desktop-night",
-     "file": "data/atlas-shots/feed/post-menu-desktop-night.png",
+     "tag": "desktop-day",
+     "file": "data/atlas-shots/feed/post-menu-desktop-day.png",
      "note": "the \"...\" menu on a post"
     }
    ]
@@ -242,12 +243,6 @@
     },
     {
      "name": "copied",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/me/copied-desktop-day.png",
-     "note": "Share profile tapped on web, the link is copied"
-    },
-    {
-     "name": "copied",
      "tag": "phone-day",
      "file": "data/atlas-shots/me/copied-phone-day.png",
      "note": "Share profile tapped on web, the link is copied"
@@ -256,6 +251,12 @@
      "name": "copied",
      "tag": "desktop-night",
      "file": "data/atlas-shots/me/copied-desktop-night.png",
+     "note": "Share profile tapped on web, the link is copied"
+    },
+    {
+     "name": "copied",
+     "tag": "desktop-day",
+     "file": "data/atlas-shots/me/copied-desktop-day.png",
      "note": "Share profile tapped on web, the link is copied"
     }
    ]
@@ -309,12 +310,6 @@
     },
     {
      "name": "picked",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/upload/picked-desktop-day.png",
-     "note": "a photo and a video chosen"
-    },
-    {
-     "name": "picked",
      "tag": "phone-day",
      "file": "data/atlas-shots/upload/picked-phone-day.png",
      "note": "a photo and a video chosen"
@@ -323,6 +318,12 @@
      "name": "picked",
      "tag": "desktop-night",
      "file": "data/atlas-shots/upload/picked-desktop-night.png",
+     "note": "a photo and a video chosen"
+    },
+    {
+     "name": "picked",
+     "tag": "desktop-day",
+     "file": "data/atlas-shots/upload/picked-desktop-day.png",
      "note": "a photo and a video chosen"
     }
    ]
@@ -348,6 +349,12 @@
     },
     {
      "name": "post-menu",
+     "tag": "phone-day",
+     "file": "data/atlas-shots/p-id/post-menu-phone-day.png",
+     "note": "the \"...\" menu open"
+    },
+    {
+     "name": "post-menu",
      "tag": "desktop-day",
      "file": "data/atlas-shots/p-id/post-menu-desktop-day.png",
      "note": "the \"...\" menu open"
@@ -356,12 +363,6 @@
      "name": "post-menu",
      "tag": "desktop-night",
      "file": "data/atlas-shots/p-id/post-menu-desktop-night.png",
-     "note": "the \"...\" menu open"
-    },
-    {
-     "name": "post-menu",
-     "tag": "phone-day",
-     "file": "data/atlas-shots/p-id/post-menu-phone-day.png",
      "note": "the \"...\" menu open"
     }
    ]
@@ -401,14 +402,14 @@
     },
     {
      "name": "error",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/report/error-desktop-day.png",
+     "tag": "phone-day",
+     "file": "data/atlas-shots/report/error-phone-day.png",
      "note": "a link that is not a link"
     },
     {
      "name": "error",
-     "tag": "phone-day",
-     "file": "data/atlas-shots/report/error-phone-day.png",
+     "tag": "desktop-day",
+     "file": "data/atlas-shots/report/error-desktop-day.png",
      "note": "a link that is not a link"
     },
     {
@@ -430,6 +431,20 @@
     "desktop-night": "data/atlas-shots/blocked/desktop-night.png",
     "phone-day": "data/atlas-shots/blocked/phone-day.png",
     "phone-night": "data/atlas-shots/blocked/phone-night.png"
+   },
+   "states": []
+  },
+  "app:/chat": {
+   "key": "app:/chat",
+   "slug": "chat",
+   "route": "/chat",
+   "surface": "app",
+   "access": "signed in",
+   "shots": {
+    "desktop-day": "data/atlas-shots/chat/desktop-day.png",
+    "desktop-night": "data/atlas-shots/chat/desktop-night.png",
+    "phone-day": "data/atlas-shots/chat/phone-day.png",
+    "phone-night": "data/atlas-shots/chat/phone-night.png"
    },
    "states": []
   },
@@ -517,6 +532,34 @@
    },
    "states": []
   },
+  "app:/messages/:id": {
+   "key": "app:/messages/:id",
+   "slug": "messages-id",
+   "route": "/messages/:id",
+   "surface": "app",
+   "access": "signed in",
+   "shots": {
+    "desktop-day": "data/atlas-shots/messages-id/desktop-day.png",
+    "desktop-night": "data/atlas-shots/messages-id/desktop-night.png",
+    "phone-day": "data/atlas-shots/messages-id/phone-day.png",
+    "phone-night": "data/atlas-shots/messages-id/phone-night.png"
+   },
+   "states": []
+  },
+  "app:/messages": {
+   "key": "app:/messages",
+   "slug": "messages",
+   "route": "/messages",
+   "surface": "app",
+   "access": "signed in",
+   "shots": {
+    "desktop-day": "data/atlas-shots/messages/desktop-day.png",
+    "desktop-night": "data/atlas-shots/messages/desktop-night.png",
+    "phone-day": "data/atlas-shots/messages/phone-day.png",
+    "phone-night": "data/atlas-shots/messages/phone-night.png"
+   },
+   "states": []
+  },
   "app:/notifications": {
    "key": "app:/notifications",
    "slug": "notifications",
@@ -573,15 +616,15 @@
    "why": "locator.fill: Timeout 30000ms exceeded."
   },
   {
-   "what": "/upload (desktop-day)",
-   "why": "locator.fill: Timeout 30000ms exceeded."
-  },
-  {
    "what": "/upload (phone-day)",
    "why": "locator.fill: Timeout 30000ms exceeded."
   },
   {
    "what": "/upload (desktop-night)",
+   "why": "locator.fill: Timeout 30000ms exceeded."
+  },
+  {
+   "what": "/upload (desktop-day)",
    "why": "locator.fill: Timeout 30000ms exceeded."
   }
  ],
@@ -603,7 +646,7 @@
    "key": "page:/invite/:code",
    "slug": "page-invite-code",
    "route": "/invite/:code",
-   "path": "/invite/ssrzzu98",
+   "path": "/invite/w2gxfsnu",
    "shots": {
     "phone-day": "data/atlas-shots/page-invite-code/phone-day.png",
     "desktop-day": "data/atlas-shots/page-invite-code/desktop-day.png",
@@ -654,7 +697,7 @@
    "key": "page:/p/:id",
    "slug": "page-p-id",
    "route": "/p/:id",
-   "path": "/p/YmpH8ccuAd",
+   "path": "/p/bmmuyHW5Kb",
    "shots": {
     "phone-day": "data/atlas-shots/page-p-id/phone-day.png",
     "desktop-day": "data/atlas-shots/page-p-id/desktop-day.png",
@@ -689,36 +732,36 @@
    ]
   }
  },
- "count": 152,
- "ms": 96659,
+ "count": 164,
+ "ms": 106567,
  "phases": [
   {
    "name": "export web build",
-   "ms": 7966
+   "ms": 9897
   },
   {
    "name": "desktop-day",
-   "ms": 88159
+   "ms": 95541
   },
   {
    "name": "desktop-night",
-   "ms": 88379
+   "ms": 95542
   },
   {
    "name": "phone-day",
-   "ms": 88380
+   "ms": 94407
   },
   {
    "name": "phone-night",
-   "ms": 87982
+   "ms": 94190
   },
   {
    "name": "web pages from the api",
-   "ms": 20515
+   "ms": 24781
   },
   {
    "name": "all captures (in parallel)",
-   "ms": 88657
+   "ms": 95867
   }
  ],
  "missing": []
