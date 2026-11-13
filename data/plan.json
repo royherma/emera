@@ -180,7 +180,8 @@
           "id": "m0-dmca",
           "text": "Register the DMCA agent ($6)",
           "who": "roy",
-          "review": "dmca"
+          "review": "dmca",
+          "done": true
         },
         {
           "id": "m0-stripe",
@@ -1385,9 +1386,9 @@
           "label": "Later"
         }
       ],
-      "answer": "later",
+      "answer": "done",
       "text": null,
-      "at": "2026-11-13T07:29:57.790Z"
+      "at": "2026-11-13T11:44:24.791Z"
     },
     {
       "id": "trademark",
