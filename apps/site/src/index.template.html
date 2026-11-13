@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{name}} | {{line}}</title>
-<meta name="description" content="A nonprofit, open-source network where what you create keeps your name on it, the people are real and the rules are public.">
+<meta name="description" content="Emera is the open source social network. AI is flooding the internet with fakes and bots; Emera is a fair, honest place where people are real and what you share keeps your name on it.">
 <meta name="theme-color" content="#fbf5ea" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0c0a09" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
@@ -12,15 +12,15 @@
 <script type="application/ld+json">{{ld}}</script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{{name}}">
-<meta property="og:title" content="{{name}}: create in the open and keep your name on it">
-<meta property="og:description" content="People who create get ripped off online every day. Emera is a nonprofit network built to fix that, in the open.">
+<meta property="og:title" content="{{name}}, the open source social network">
+<meta property="og:description" content="AI is breaking the internet. Emera uses it to build the fix: real people, proof on every post, rules anyone can read.">
 <meta property="og:url" content="https://{{domain}}/">
 <meta property="og:image" content="https://{{domain}}/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{name}}: create in the open and keep your name on it">
-<meta name="twitter:description" content="People who create get ripped off online every day. Emera is a nonprofit network built to fix that, in the open.">
+<meta name="twitter:description" content="AI is breaking the internet. Emera uses it to build the fix: real people, proof on every post, rules anyone can read.">
 <meta name="twitter:image" content="https://{{domain}}/assets/og.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -88,8 +88,9 @@ a{color:inherit}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center;padding:clamp(24px,5vh,64px) 0 clamp(56px,9vh,110px)}
 .eyebrow{display:inline-flex;gap:10px;align-items:center;font:600 .78rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--sunink)}
 .eyebrow b{display:inline-block;width:28px;height:1.5px;background:currentColor}
-h1{font:800 clamp(4.6rem,13.4vw,11.5rem)/.86 var(--disp);letter-spacing:-.065em;margin:20px 0 0 -.05em}
-.tagline{font:600 clamp(1.5rem,3.1vw,2.5rem)/1.1 var(--disp);letter-spacing:-.04em;margin-top:clamp(14px,2.4vh,26px);max-width:14em}
+h1{font:800 clamp(4.6rem,13.4vw,11.5rem)/.86 var(--disp);letter-spacing:-.065em;margin:20px 0 0}
+h1 .nm{display:block;margin-left:-.05em}
+.tagline{display:block;font:600 clamp(1.5rem,3.1vw,2.5rem)/1.1 var(--disp);letter-spacing:-.04em;margin-top:clamp(14px,2.4vh,26px);max-width:14em}
 .lead{font-size:clamp(1.02rem,1.5vw,1.2rem);color:var(--ink2);max-width:29em;margin-top:16px}
 .signup{display:flex;gap:8px;margin-top:30px;max-width:520px;padding:6px;border-radius:999px;background:color-mix(in srgb,var(--card) 82%,transparent);border:1px solid var(--line);backdrop-filter:blur(12px);box-shadow:var(--shadow)}
 .signup input[type=email]{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:1.02rem;color:var(--ink);padding:0 8px 0 20px;outline:none}
@@ -293,9 +294,8 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
     <div class="hero-grid">
       <div class="copy">
         <div class="eyebrow"><b></b>{{tagline}}</div>
-        <h1>{{name}}</h1>
-        <p class="tagline">{{line}}</p>
-        <p class="lead">A network built in the open, where what you create keeps your name on it, the people are real and the rules are public. People who create get ripped off online every day. We think that is solvable, so we are solving it.</p>
+        <h1><span class="nm">{{name}}</span><span class="tagline">{{line}}</span></h1>
+        <p class="lead">Fakes, bots and copies are drowning out real people online. {{name}} is a fair, honest place to share and talk, where the people are real, what you post keeps your name on it, and the rules are public.</p>
         <form class="signup" data-signup novalidate>
           <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address" required>
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -315,36 +315,36 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
   <section class="why-q" id="why">
     <div class="wrap">
       <div class="lbl">Why {{name}} exists</div>
-      <h2 class="mani reveal">Creating something should never mean losing it</h2>
-      <p class="mani-p reveal">A drawing, a song, a film or a photo of something that just happened can be copied in seconds, reposted under someone else's name and buried by a feed nobody can explain. None of that has to be true. {{name}} is built to fix it, in the open, for everyone.</p>
+      <h2 class="mani reveal">AI is breaking the internet. We are using it to build the fix</h2>
+      <p class="mani-p reveal">Fake photos, cloned voices, bot crowds and stolen work now spread faster than anyone can check them. The people who make things lose the credit, everyone else loses track of what is real, and the outcry keeps growing while little changes. The same AI that floods the internet lets a small team build the answer. We refuse to believe a fair, honest place to talk and share is out of reach, so we are building one in the open, for every human being.</p>
       <div class="probs">
         <article class="prob reveal">
-          <h3>Work gets taken</h3>
-          <p class="was">Copies spread faster than credit, and the person who made the thing is the last to hear about it.</p>
-          <p class="fix"><b>On {{name}}</b>Every post is signed by the person who shared it, copies point back to the original, and we help you take down the ones you find.</p>
+          <h3>You can't tell what is real</h3>
+          <p class="was">AI makes a fake photo, video or voice in seconds, and it looks just like the real thing.</p>
+          <p class="fix"><b>On {{name}}</b>Every post carries a signed record of who shared it and when, and the badge says only what was checked.</p>
         </article>
         <article class="prob reveal">
-          <h3>Fake is cheap</h3>
-          <p class="was">Bots, bought followers and moments that never happened look just like the real ones.</p>
+          <h3>Bots talk louder than people</h3>
+          <p class="was">Bot accounts, bought followers and machine-written replies drown out the humans.</p>
           <p class="fix"><b>On {{name}}</b>People are marked, bots say what they are, and the verified human mark is free for everyone.</p>
+        </article>
+        <article class="prob reveal">
+          <h3>What you make gets taken</h3>
+          <p class="was">Copies spread faster than credit, and the person who made it is the last to hear about it.</p>
+          <p class="fix"><b>On {{name}}</b>Copies point back to the original, and we help you take down the ones you find.</p>
         </article>
         <article class="prob reveal">
           <h3>Rules nobody can read</h3>
           <p class="was">A hidden ranking decides who gets seen, and it too often rewards what pushes people apart.</p>
           <p class="fix"><b>On {{name}}</b>The ranking code is public, and every post can tell you why you are seeing it.</p>
         </article>
-        <article class="prob reveal">
-          <h3>Your audience is borrowed</h3>
-          <p class="was">Years of followers can be gone with one closed account.</p>
-          <p class="fix"><b>On {{name}}</b>Your account and your followers are yours, and you can move both to another host any day.</p>
-        </article>
       </div>
       <blockquote class="reveal">
-        <p>As a technologist, and as a creative, it's hard for me to see people unfairly get ripped off, especially because I know it's something that is solvable.</p>
-        <p>I don't want to wait. AI gives us the ability to build these things. There are ways to protect, ways to treat people fairly, and ways to incentivize people to create things that benefit humanity rather than push us apart. If you dream it, it can become a reality.</p>
+        <p>AI is destroying the internet, for the people who create and for everyone who reads, watches and listens. The outcry is already beyond belief.</p>
+        <p>But AI also lets us build the solutions. I refuse to believe there is no way to give people a fair, authentic place to express themselves and talk to each other. So we are building it.</p>
       </blockquote>
       <div class="who-q">Roy, founder of {{name}}</div>
-      <p class="mission reveal"><b>Our mission</b>An open home for what humanity creates, where every piece carries the name of the person who made it, the people are real, and the rules are written where everyone can read them.</p>
+      <p class="mission reveal"><b>Our mission</b>A fair, authentic place on the internet for every human being, where the people are real, what you share keeps your name on it, and the rules are written where everyone can read them.</p>
     </div>
   </section>
 
@@ -404,7 +404,7 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
   <section class="close" id="join">
     <div class="wrap"><div class="inner reveal">
       <h2>Help build it in daylight</h2>
-      <p class="lead">Join the first people on {{name}}. Share what you create and what you see, and help shape the rules from day one.<span class="count" data-count></span></p>
+      <p class="lead">Join the first people on {{name}} and help write the rules from day one.<span class="count" data-count></span></p>
       <form class="signup" data-signup novalidate>
         <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address" required>
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">

@@ -1,6 +1,6 @@
 # Emera mission, values and manifesto
 
-Version 1.2.0, 2026-11-13. Machine copy: `values.json`. How this changes: `how-values-change.md`. History: `CHANGELOG.md`.
+Version 1.3.0, 2026-11-13. Machine copy: `values.json`. How this changes: `how-values-change.md`. History: `CHANGELOG.md`.
 
 ## In one line
 
@@ -11,6 +11,12 @@ Dialed down one step: the code and the algorithm are public and it is run as a n
 Everything below explains that line. If a page, post or pitch can only say one thing, it says this.
 
 ## Why Emera exists
+
+AI is breaking the internet for the people who create and for everyone who reads, watches and listens. The same AI lets us build the fix. Emera is for every human being, not one kind of creator.
+
+In the founder's words, second take (2026-11-13):
+
+> AI is destroying the internet, for creators and for consumers. Platforms aren't really doing much, and the outcry is already beyond belief. But the benefit of AI is it also allows us to build solutions. We refuse to believe there are no possible ways to solve the important things, to provide a fair, authentic place for expression and communication. It's for human beings.
 
 In the founder's words (2026-11-13):
 
