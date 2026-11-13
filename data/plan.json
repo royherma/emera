@@ -1,5 +1,5 @@
 {
-  "updated": "11:43 AM Bangkok",
+  "updated": "11:50 AM Bangkok",
   "title": "Emera",
   "goal": "Emera. Where humanity comes together - you post, share the link, invite people",
   "phases": [
@@ -178,6 +178,30 @@
     }
   ],
   "decisions": [
+    {
+      "id": "logo",
+      "q": "Which logo?",
+      "why": "Signature: an e drawn in one stroke, closed with a sun (every post signed). Epsilon: Greek e, day bowl over night bowl. Twin tone: bold e, sun above the bar, night below.",
+      "options": [
+        {
+          "id": "signature",
+          "label": "02 Signature"
+        },
+        {
+          "id": "epsilon",
+          "label": "06 Epsilon"
+        },
+        {
+          "id": "twintone",
+          "label": "11 Twin tone"
+        },
+        {
+          "id": "other",
+          "label": "Another of the 12"
+        }
+      ],
+      "mine": "signature"
+    },
     {
       "id": "client",
       "q": "What do we build first?",
@@ -751,35 +775,28 @@
     }
   ],
   "brand": {
-    "note": "Picked: Twilight. DESIGN.md, app + site restyle and new logos in progress.",
+    "note": "Pick the logo in Decisions (left). Click a picture to open it full size.",
     "items": [
       {
-        "id": "full-beam",
-        "name": "Beam (dark)",
-        "png": ".claude/artifacts/brand/full-beam.png",
-        "html": "brand/directions/full-beam.html",
+        "id": "logo-top3",
+        "name": "Logo top 3, in use",
+        "png": ".claude/artifacts/brand/logo-top3.png",
+        "html": "brand/logo/top3.html",
         "vote": null
       },
       {
-        "id": "full-midday",
-        "name": "Midday (light)",
-        "png": ".claude/artifacts/brand/full-midday.png",
-        "html": "brand/directions/full-midday.html",
+        "id": "logo-board",
+        "name": "All 12 logo ideas",
+        "png": ".claude/artifacts/brand/logo-board.png",
+        "html": "brand/logo/board.html",
         "vote": null
       },
       {
         "id": "full-twilight",
-        "name": "Twilight (day + night)",
+        "name": "Twilight (picked)",
         "png": ".claude/artifacts/brand/full-twilight.png",
         "html": "brand/directions/full-twilight.html",
         "vote": "keep"
-      },
-      {
-        "id": "mono-light",
-        "name": "Light (B+W, earlier)",
-        "png": ".claude/artifacts/brand/mono-light.png",
-        "html": "brand/directions/mono-light.html",
-        "vote": null
       }
     ]
   },
@@ -856,8 +873,8 @@
     },
     {
       "name": "Logo + icon",
-      "state": "running",
-      "note": "many concepts, app icon, favicon"
+      "state": "done",
+      "note": "12 concepts, top 3 in use"
     },
     {
       "name": "App in Twilight",
