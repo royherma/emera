@@ -1394,6 +1394,41 @@
   ],
   "review": [
     {
+      "id": "ios-submit",
+      "kind": "approve",
+      "when": "tonight",
+      "title": "Submit Emera 1.0 to the App Store",
+      "why": "Build 1 is uploaded (9:05 PM test run: all 21 screens real). Listing, 4 screenshots and review notes are filled in. Apple review usually takes 1-2 days.",
+      "list": [
+        "Build 1 from commit 4eae5b7, signed by Techguyver Labs, LLC",
+        "Name: Emera - OS Social Network, iPhone only",
+        "Reviewer signs in with their own email + 6-digit code (in the review notes)",
+        "Release: goes live by itself the moment Apple approves (App Store Connect setting)"
+      ],
+      "options": [
+        {
+          "id": "yes",
+          "label": "Submit for review",
+          "primary": true
+        },
+        {
+          "id": "no",
+          "label": "Not yet"
+        }
+      ],
+      "links": [
+        [
+          "Live phone screens",
+          "http://agora.localhost:5035/screens?run=43432339550"
+        ],
+        [
+          "App Store Connect",
+          "https://appstoreconnect.apple.com/apps/6834311747"
+        ]
+      ],
+      "mine": "Submit: nothing on the listing is missing"
+    },
+    {
       "id": "email-leak",
       "kind": "approve",
       "when": "today",
