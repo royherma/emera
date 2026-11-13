@@ -20,7 +20,15 @@
       "expo-secure-store",
       "expo-font",
       "expo-splash-screen",
-      "expo-video"
+      "expo-video",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "buildReactNativeFromSource": true
+          }
+        }
+      ]
     ],
     "icon": "./assets/icon.png"
   }
