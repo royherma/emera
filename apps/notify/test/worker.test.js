@@ -128,3 +128,19 @@ test("inbound mail forwards, then posts who wrote and the subject", async () => 
   assert.deepEqual(forwardedTo, ["inbox@example.org"]);
   assert.match(h.text(), /Email to hello@emera\.social.*Takedown help.*Ada &lt;a@b\.org&gt;.*forwarded to the inbox/);
 });
+
+test("hosting networks, old Chrome and Roy's own browser never post as visitors", async () => {
+  const h = harness();
+  await poll(h.env);
+  const now = new Date().toISOString();
+  const old = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/124.0 Safari/537.36";
+  const fresh = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/157.0 Safari/537.36";
+  const add = (visitor, ua, network) => h.env.SITE_DB.raw.prepare("INSERT INTO visits (created_at, visitor, path, ua, network, bot) VALUES (?, ?, '/', ?, ?, 0)").run(now, visitor, ua, network);
+  add("k1", fresh, "Virtual Systems LLC");
+  add("k2", old, "Some Home ISP");
+  add("me", fresh, "TOT Public Company Limited Bangkok");
+  h.kv.set("own:me", "1");
+  add("p1", fresh, "TOT Public Company Limited Bangkok");
+  assert.deepEqual(await poll(h.env), { visits: 1 });
+  assert.equal(h.posted.length, 1);
+});

@@ -1,4 +1,4 @@
-import { bangkok, device, isTest, place, source, theirTime, toMs } from "./people.js";
+import { bangkok, device, isBotVisit, isTest, place, source, theirTime, toMs } from "./people.js";
 import { adminView, ledgerView, load, summaryLines } from "./stats.js";
 import { ADMIN_HTML } from "./admin-page.js";
 
@@ -127,7 +127,7 @@ async function threadFor(env, visitor) {
 }
 
 async function sendVisit(env, r) {
-  if (r.bot || r.tester || !r.visitor) return false;
+  if (isBotVisit(r) || r.tester || !r.visitor || (await env.STATE.get(`own:${r.visitor}`))) return false;
   const prior = await env.SITE_DB.prepare("SELECT COUNT(*) AS n, MAX(created_at) AS last FROM visits WHERE visitor = ? AND id < ? AND bot = 0").bind(r.visitor, r.id).first();
   const thread = await threadFor(env, r.visitor);
   const at = toMs(r.created_at);
@@ -329,7 +329,10 @@ export default {
     if (pathname === "/admin" || pathname === "/admin/") return new Response(ADMIN_HTML, { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store", "x-robots-tag": "noindex" } });
     if (pathname === "/admin/data") {
       if (!authed(request, env)) return Response.json({ ok: false, error: "bad_key" }, { status: 401 });
-      return Response.json(adminView(await load(env)), { headers: { "cache-control": "no-store" } });
+      const mine = (request.headers.get("cookie") || "").match(/(?:^|;\s*)em_v=([\w-]{8,64})/)?.[1];
+      if (mine) await env.STATE.put(`own:${mine}`, "1");
+      const own = await env.STATE.list({ prefix: "own:" }).then((l) => l.keys.map((k) => k.name.slice(4))).catch(() => []);
+      return Response.json(adminView(await load({ ...env, OWN_VISITORS: own.join(",") })), { headers: { "cache-control": "no-store" } });
     }
     return new Response("not found", { status: 404 });
   },
