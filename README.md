@@ -115,7 +115,7 @@ Dates are targets, not limits: the sooner one lands, the sooner the next one sta
 - ⬜ Passkeys
 - ⬜ Creator dashboard: your reports, outcomes, receipts
 - ⬜ Open feeds with "why this post"
-- ⬜ Community notes, shown when people who usually disagree both rate a note helpful
+- ⬜ Community notes: verified humans with a 30-day-old account and no recent rule breaks apply, rate notes first, then earn the right to write them; anyone can request a note
 - ⬜ Public cost page and donations
 - ⬜ Contributor program with bounties
 
