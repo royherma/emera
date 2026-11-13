@@ -53,6 +53,15 @@ function RealVideo({ url, style }: { url: string; style?: StyleProp<ViewStyle> }
   return <VideoView player={player} style={[{ backgroundColor: "#000" }, style]} nativeControls contentFit="contain" />;
 }
 
+export function VideoPreview({ uri, style }: { uri: string; style?: StyleProp<ViewStyle> }) {
+  const player = useVideoPlayer(uri, (p) => {
+    p.muted = true;
+    p.loop = true;
+    p.play();
+  });
+  return <VideoView player={player} style={[{ backgroundColor: "#000" }, style]} nativeControls={false} contentFit="cover" />;
+}
+
 export function MediaFull({ media, style }: { media: Media; style?: StyleProp<ViewStyle> }) {
   if (media.kind === "video" && !media.url.startsWith("mock:")) return <RealVideo url={media.url} style={style} />;
   return <MediaImage media={media} style={style} fit="contain" playSize={60} />;
