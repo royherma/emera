@@ -97,12 +97,14 @@ Sign-up needs an invite code while invites are on (`INVITES_REQUIRED=true`). Wit
 
 ## Likes, comments, notifications
 
-Post JSON also carries `likeCount`, `commentCount` and `viewer: { liked }` (`liked` is false when the request has no sign-in).
+Post JSON also carries `likeCount`, `commentCount`, `viewCount` (people who watched, see `/view`) and `viewer: { liked }` (`liked` is false when the request has no sign-in).
 
 | Method | Path | Body | Returns |
 | --- | --- | --- | --- |
 | POST | `/v1/posts/:id/like` | - | `{ liked: true, likeCount }` - safe to repeat |
 | DELETE | `/v1/posts/:id/like` | - | `{ liked: false, likeCount }` |
+| POST | `/v1/posts/:id/view` | - | `{ viewCount }` - video posts only (`400 not_video` otherwise); counts each signed-in person once, never the maker; the app sends it after 2 s of play with the video at least 60% on screen |
+| GET | `/v1/posts/:id/views` | public | `{ postId, viewCount, followers, newAccounts, rule, ledger: [{ viewer, hour, follower, accountAge }], more }` - every view, newest first (up to 500), `viewer` is a 12-hex code unique to that person on that post only, `hour` rounded down, `accountAge` is `under a week` / `under a month` / `a month or more` at the time of the view. Rule and research: `docs/views.md` |
 | GET | `/v1/posts/:id/comments` | - | `{ comments: [comment], cursor, total }` - top-level comments oldest first, each with its `replies` (oldest first); `?cursor=&limit=` pages, `total` counts replies too |
 | POST | `/v1/posts/:id/comments` | `{ body, parentId? }` | `{ comment }` (201) |
 | DELETE | `/v1/comments/:id` | - | `{ ok: true }` - the commenter or the post author; replies go with it |

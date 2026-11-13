@@ -80,6 +80,7 @@ const posts: Post[] = seeds.map(([handle, caption, w, h, ago, kind], i) => {
     url: `${PUBLIC_ORIGIN}/p/${id}`,
     likeCount: 0,
     commentCount: 0,
+    viewCount: 0,
     viewer: { liked: false },
     media: [makeMedia(handle, w * 400, h * 400, kind ?? "image", `mock:art/${id}`, createdAt)],
   };
@@ -143,6 +144,8 @@ const pageOf = (handles: string[], cursor?: string | null): UserPage => {
 };
 
 const likes = new Map<string, Set<string>>();
+const views = new Map<string, Map<string, number>>();
+const VIEW_RULE = "A view is one signed-in person who watched at least 2 seconds with half the video on screen. Each person counts once and the maker's own plays don't count.";
 const comments: { id: string; postId: string; parentId: string | null; userId: string; body: string; createdAt: string }[] = [];
 const notes: { id: string; kind: Notification["kind"]; actor: string; count: number; postId: string | null; commentId: string | null; createdAt: string; read: boolean }[] = [];
 const COMMENT_MAX = 500;
@@ -167,7 +170,7 @@ seedComments.forEach(([i, handle, body, ago, parentId], n) => {
 
 const view = (p: Post): Post => {
   const me = token ? sessions.get(token) : undefined;
-  return { ...p, likeCount: likes.get(p.id)?.size ?? 0, commentCount: comments.filter((c) => c.postId === p.id).length, viewer: { liked: !!me && !!likes.get(p.id)?.has(me) } };
+  return { ...p, likeCount: likes.get(p.id)?.size ?? 0, viewCount: views.get(p.id)?.size ?? 0, commentCount: comments.filter((c) => c.postId === p.id).length, viewer: { liked: !!me && !!likes.get(p.id)?.has(me) } };
 };
 
 const userById = (id: string) => [...users.values()].find((u) => u.id === id)!;
@@ -306,7 +309,7 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
     const id = `p_${++counter}`;
     const media = pending.filter((m) => mediaIds.includes(m.id)).map((m) => ({ ...m, alt: alt?.[m.id]?.trim() ?? "" }));
     if (!media.length) throw new ApiError("bad_request", "Add at least one photo or video.");
-    const post: Post = { id, author: me, caption: caption.trim(), media, createdAt: new Date().toISOString(), url: `${PUBLIC_ORIGIN}/p/${id}`, likeCount: 0, commentCount: 0, viewer: { liked: false } };
+    const post: Post = { id, author: me, caption: caption.trim(), media, createdAt: new Date().toISOString(), url: `${PUBLIC_ORIGIN}/p/${id}`, likeCount: 0, commentCount: 0, viewCount: 0, viewer: { liked: false } };
     posts.unshift(post);
     return view(post);
   },
@@ -401,6 +404,22 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
     const set = likes.get(postId);
     set?.delete(me.id);
     return { liked: false, likeCount: set?.size ?? 0 };
+  },
+  async view(postId) {
+    await wait(60);
+    const me = current();
+    const post = posts.find((p) => p.id === postId);
+    if (!post) throw new ApiError("not_found", "That post isn't here anymore.");
+    const seen = views.get(postId) ?? new Map<string, number>();
+    if (post.author.id !== me.id) seen.set(me.id, seen.get(me.id) ?? Date.now());
+    views.set(postId, seen);
+    return { viewCount: seen.size };
+  },
+  async views(postId) {
+    await wait();
+    const seen = [...(views.get(postId) ?? new Map<string, number>())].sort((a, b) => b[1] - a[1]);
+    const ledger = seen.map(([id, at], i) => ({ viewer: (id + "000000000000").replace(/[^0-9a-f]/g, "a").slice(0, 12), hour: new Date(Math.floor(at / 3_600_000) * 3_600_000).toISOString(), follower: i % 2 === 0, accountAge: "a month or more" }));
+    return { postId, viewCount: seen.length, followers: ledger.filter((r) => r.follower).length, newAccounts: 0, rule: VIEW_RULE, ledger, more: false };
   },
   async comments(postId) {
     await wait();

@@ -11,6 +11,7 @@ import { sun, type } from "@/lib/theme";
 import { Text } from "react-native";
 import type { Media } from "@/lib/types";
 import { storage } from "@/lib/storage";
+import { WATCH_MS } from "@/state/views";
 import { cueAt, loadCaptions, type Cue } from "@/lib/captions";
 
 export function MediaImage({ media, style, fit = "cover", playSize = 48 }: { media: Media; style?: StyleProp<ViewStyle>; fit?: "cover" | "contain"; playSize?: number }) {
@@ -218,13 +219,20 @@ function CaptionsButton() {
   );
 }
 
-export function InlineVideo({ media, style, fit = "cover", tapToPause = false }: { media: Media; style?: StyleProp<ViewStyle>; fit?: "cover" | "contain"; tapToPause?: boolean }) {
+export function InlineVideo({ media, style, fit = "cover", tapToPause = false, onWatched }: { media: Media; style?: StyleProp<ViewStyle>; fit?: "cover" | "contain"; tapToPause?: boolean; onWatched?: () => void }) {
   const [ref, inView] = useInView();
   const [playing, setPlaying] = useState(false);
   const live = inView && !media.url.startsWith("mock:");
   useEffect(() => {
     if (!live) setPlaying(false);
   }, [live]);
+  const watchedRef = useRef(onWatched);
+  watchedRef.current = onWatched;
+  useEffect(() => {
+    if (!playing) return;
+    const t = setTimeout(() => watchedRef.current?.(), WATCH_MS);
+    return () => clearTimeout(t);
+  }, [playing]);
   return (
     <View ref={ref} style={[{ overflow: "hidden", backgroundColor: "#140f0b" }, style]}>
       <MediaImage media={media} style={full} fit={fit} playSize={playing || live ? 0 : 56} />
@@ -244,7 +252,7 @@ export function VideoPreview({ uri, style }: { uri: string; style?: StyleProp<Vi
   return <VideoView player={player} style={[{ backgroundColor: "#000", width: "100%", height: "100%" }, style]} nativeControls={false} contentFit="cover" />;
 }
 
-export function MediaFull({ media, style }: { media: Media; style?: StyleProp<ViewStyle> }) {
-  if (media.kind === "video") return <InlineVideo media={media} style={style} fit="contain" tapToPause />;
+export function MediaFull({ media, style, onWatched }: { media: Media; style?: StyleProp<ViewStyle>; onWatched?: () => void }) {
+  if (media.kind === "video") return <InlineVideo media={media} style={style} fit="contain" tapToPause onWatched={onWatched} />;
   return <MediaImage media={media} style={style} fit="contain" playSize={60} />;
 }

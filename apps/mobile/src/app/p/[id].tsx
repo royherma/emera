@@ -7,6 +7,7 @@ import { EngageBar } from "@/components/Engage";
 import { FeedEnd } from "@/components/FeedEnd";
 import { Icon } from "@/components/Icon";
 import { IndexChip, MediaFull, SignedMark } from "@/components/Media";
+import { watched } from "@/state/views";
 import { Screen } from "@/components/Screen";
 import { SnapItem } from "@/components/Snap";
 import { Thread } from "@/components/Thread";
@@ -120,7 +121,7 @@ function PostItem({ post, onChange, onDeleted }: { post: Post | null; onChange: 
                 onMomentumScrollEnd={(e) => setIndex(Math.round(e.nativeEvent.contentOffset.x / mediaW))}
               >
                 {post.media.map((m) => (
-                  <MediaFull key={m.id} media={m} style={{ width: mediaW, height: mediaH }} />
+                  <MediaFull key={m.id} media={m} style={{ width: mediaW, height: mediaH }} onWatched={() => watched(post.id)} />
                 ))}
               </ScrollView>
               <View pointerEvents="none" style={{ position: "absolute", left: 12, top: 12 }}>

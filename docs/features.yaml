@@ -614,6 +614,17 @@ features:
       maps_to: {screens: [], endpoints: [], stories: []}
       help_wanted: true
       effort: M
+  - id: video-views
+    name: "Video views"
+    area: creator-tools
+    tier: core
+    usage: "Makers and viewers want to know how many people watched"
+    platforms: {instagram: yes, tiktok: yes, youtube: yes, pinterest: partial, bluesky: no, cara: no, pixelfed: no, vsco: no}
+    emera:
+      twist: "One person counts once after 2 s watched, and anyone can audit where the views came from without seeing who"
+      maps_to: {screens: ["views/[id]"], endpoints: ["POST /v1/posts/:id/view", "GET /v1/posts/:id/views"], stories: []}
+      help_wanted: false
+      effort: S
   - id: creator-insights
     name: "Insights on views and followers"
     area: creator-tools
