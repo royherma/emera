@@ -52,10 +52,12 @@ export function parseMoov(moov: Uint8Array): VideoInfo | null {
   return best ? { ...best, seconds } : null;
 }
 
-export async function readVideoInfo(bucket: R2Bucket, key: string, size: number): Promise<VideoInfo | null> {
+type ReadAt = (offset: number, length: number) => Promise<Uint8Array | null>;
+
+export async function readVideoInfoFrom(read: ReadAt, size: number): Promise<VideoInfo | null> {
   let o = 0;
   for (let i = 0; i < 64 && o + 8 <= size; i++) {
-    const head = await readRange(bucket, key, o, 16);
+    const head = await read(o, 16);
     if (!head || head.length < 8) return null;
     const dv = new DataView(head.buffer, head.byteOffset, head.byteLength);
     let boxSize = u32(dv, 0);
@@ -65,10 +67,13 @@ export async function readVideoInfo(bucket: R2Bucket, key: string, size: number)
     if (boxSize < header) return null;
     if (type(head, 4) === 'moov') {
       if (boxSize > MAX_MOOV) return null;
-      const moov = await readRange(bucket, key, o + header, boxSize - header);
+      const moov = await read(o + header, boxSize - header);
       return moov ? parseMoov(moov) : null;
     }
     o += boxSize;
   }
   return null;
 }
+
+export const readVideoInfo = (bucket: R2Bucket, key: string, size: number) =>
+  readVideoInfoFrom((offset, length) => readRange(bucket, key, offset, Math.min(length, size - offset)), size);

@@ -2,6 +2,8 @@ export type Env = {
   DB: D1Database;
   MEDIA: R2Bucket;
   IMAGES?: ImagesBinding;
+  VIDEO?: MediaBinding;
+  VIDEO_JOBS?: Queue<{ mediaId: string }>;
   ENVIRONMENT: string;
   INVITES_REQUIRED: string;
   SEED_INVITE_CODE: string;
