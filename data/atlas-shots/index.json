@@ -1,9 +1,12 @@
 {
- "capturedAt": "2026-11-13T05:01:44.161Z",
+ "capturedAt": "2026-11-13T07:41:10.256Z",
  "git": {
-  "sha": "99572e4",
+  "sha": "ede9f76",
   "dirty": false
  },
+ "codeHash": "318558fd5553",
+ "by": "Roy",
+ "why": "Capture button on the Atlas page",
  "themeSwitch": true,
  "viewports": {
   "phone": {
@@ -395,5 +398,38 @@
  ],
  "failed": [],
  "count": 84,
- "missing": []
+ "ms": 144597,
+ "phases": [
+  {
+   "name": "export web build",
+   "ms": 5502
+  },
+  {
+   "name": "phone-day",
+   "ms": 34618
+  },
+  {
+   "name": "desktop-day",
+   "ms": 34615
+  },
+  {
+   "name": "phone-night",
+   "ms": 34521
+  },
+  {
+   "name": "desktop-night",
+   "ms": 35306
+  }
+ ],
+ "missing": [
+  "app:/blocked",
+  "app:/comments/:id",
+  "app:/edit-profile",
+  "app:/flag",
+  "app:/followers/:handle",
+  "app:/following/:handle",
+  "app:/invites",
+  "app:/notifications",
+  "app:/search"
+ ]
 }
