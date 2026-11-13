@@ -88,11 +88,11 @@ async function withCopy(res, env, url, admin) {
     },
   });
   if (admin) rw = rw.on("body", { element(el) { el.append('<script src="/assets/edit.js" defer></script>', { html: true }); } });
-  const out = rw.transform(res);
-  if (!admin) return out;
-  const priv = new Response(out.body, out);
-  priv.headers.set("cache-control", "no-store");
-  return priv;
+  const out = new Response(rw.transform(res).body, res);
+  out.headers.delete("etag");
+  out.headers.delete("last-modified");
+  if (admin) out.headers.set("cache-control", "no-store");
+  return out;
 }
 
 async function login(request, env, url) {
@@ -160,7 +160,10 @@ async function copyApi(request, env, url) {
 }
 
 async function page(request, env, ctx, url) {
-  let res = await env.ASSETS.fetch(request);
+  const fresh = new Request(request);
+  fresh.headers.delete("if-none-match");
+  fresh.headers.delete("if-modified-since");
+  let res = await env.ASSETS.fetch(fresh);
   const isDoc = request.method === "GET" && res.status === 200 && (res.headers.get("content-type") || "").includes("text/html");
   if (!isDoc || !env.DB) return res;
   const admin = await isAdmin(request, env);

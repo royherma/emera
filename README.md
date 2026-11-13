@@ -11,7 +11,7 @@
 
 [![CI](https://github.com/royherma/emera/actions/workflows/ci.yml/badge.svg)](https://github.com/royherma/emera/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/license-MIT%20%2B%20AGPL--3.0-ff8a2b)](#license) [![AT Protocol](https://img.shields.io/badge/built%20on-AT%20Protocol-0085ff)](https://atproto.com) [![Nonprofit](https://img.shields.io/badge/run%20as-a%20nonprofit-2a1d14)](docs/mission/mission.md) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ffc24a)](CONTRIBUTING.md)
 
-**[🌐 Website](https://emera.social)** &nbsp;·&nbsp; **[📱 Open the app](https://app.emera.social)** &nbsp;·&nbsp; **[🧭 Mission](docs/mission/mission.md)** &nbsp;·&nbsp; **[🗺️ Roadmap](#roadmap)** &nbsp;·&nbsp; **[🙌 Contribute](#contribute)**
+**[✨ Join Emera](https://app.emera.social)** &nbsp;·&nbsp; **[🌐 Website](https://emera.social)** &nbsp;·&nbsp; **[🧭 Mission](docs/mission/mission.md)** &nbsp;·&nbsp; **[🗺️ Roadmap](#roadmap)** &nbsp;·&nbsp; **[💡 Suggest a feature](https://github.com/royherma/emera/issues/new?template=feature.yml)** &nbsp;·&nbsp; **[🙌 Contribute](#contribute)**
 
 </div>
 
@@ -19,9 +19,9 @@
 
 ## ✨ Why Emera
 
-AI fakes, cloned voices, bot crowds and stolen work now spread faster than anyone can check them, and real people get drowned out. The same AI lets us build the fix, so we are building it.
+Manipulation, bots and fakes reach more people than ever, and the feeds reward them. Making things and finding real ones has turned slow and wasteful: you scroll past noise, you can't tell what is real, and when your work gets copied no one helps. The platforms we have are not fixing it.
 
-Emera is a fair, honest place for every human being to share what they create and talk. Every line of code and the algorithm are public, it runs as a nonprofit, and it sits on the [AT Protocol](https://atproto.com), so no one can quietly change the rules on you.
+So we are fixing it together, in the open. Emera is a place to share what you create and what helps each other, where **anyone can check** who made a post, why the feed shows it, and what the rules are. Every line of code is public, it runs as a nonprofit, and it sits on the [AT Protocol](https://atproto.com), so no one can quietly change the rules on you.
 
 <table>
   <tr>
@@ -49,6 +49,32 @@ Emera is a fair, honest place for every human being to share what they create an
 > [!TIP]
 > **Someone copied your work?** Report it from any post. We help file the takedown, and every report trains the copy matching that comes next.
 
+## 🚀 Join in four steps
+
+<table>
+  <tr>
+    <td align="center" width="25%"><h3>1️⃣</h3><b>Open the app</b><br><sub><a href="https://app.emera.social">app.emera.social</a>, no invite needed</sub></td>
+    <td align="center" width="25%"><h3>2️⃣</h3><b>Type your email</b><br><sub>We send a code, no password</sub></td>
+    <td align="center" width="25%"><h3>3️⃣</h3><b>Say your name</b><br><sub>Your handle fills itself in</sub></td>
+    <td align="center" width="25%"><h3>4️⃣</h3><b>Post</b><br><sub>Signed with your name from the first upload</sub></td>
+  </tr>
+</table>
+
+<p align="center"><a href="https://app.emera.social"><img alt="Create your account" src="https://img.shields.io/badge/Create%20your%20account-app.emera.social-ff8a2b?style=for-the-badge"></a></p>
+
+## 📸 What you can post
+
+| | Format | What works today |
+| :-: | --- | --- |
+| 🖼️ | **Photos** | JPEG, PNG, WebP, HEIC up to 20 MB. Stored sharp at up to 2048 px |
+| 🎬 | **Video** | MP4 and MOV up to 200 MB, portrait or landscape. 4K clips up to 60 s are turned into 1080p for smooth playback |
+| 🎠 | **Carousels** | Up to 10 photos and videos in one post, swipe through |
+| ✍️ | **Caption** | Up to 2,200 characters, one per post |
+| 💬 | **Comments** | Up to 500 characters each |
+| 🛡️ | **Proof** | Every file is fingerprinted and signed with its maker's name on upload |
+
+<sub>Need another format? [Suggest it](https://github.com/royherma/emera/issues/new?template=feature.yml), the most asked for goes first.</sub>
+
 ## ⚙️ How it works
 
 ```mermaid
@@ -72,6 +98,8 @@ flowchart LR
 | 🌱 | **M1** First 100 creators | Dec 31, 2026 | ![3 of 6](https://img.shields.io/badge/3%2F6-50%25-ff8a2b) | 100 creators, 40 reports, half of notices end in removal in 14 days |
 | 🌍 | **M2** 1,000 creators | Mid-Feb 2027 | ![0 of 6](https://img.shields.io/badge/0%2F6-next-c9b8a4) | 35% still posting after 30 days, 5 outside contributors merged |
 | ☀️ | **M3 + M4** 10K, then 100K creators | 2027 | ![0 of 4](https://img.shields.io/badge/0%2F4-next-c9b8a4) | Creators paid, copy matching for everyone |
+
+Dates are targets, not limits: the sooner one lands, the sooner the next one starts.
 
 <sub>Open a milestone for its items: ✅ done · 🟡 in progress · ⬜ next. Full plan with costs and risks in [docs/master-plan.md](docs/master-plan.md).</sub>
 
@@ -213,7 +241,15 @@ npm --prefix spikes/provenance run lexicons
 
 ## 🙌 Build it with us
 
-The core stays with the core team so it moves fast and stays safe. The projects around it are big, self-contained, and yours to own.
+Emera gets better the way it was started: people bringing problems and solving them together. Three ways in:
+
+| | Way in | Where |
+| :-: | --- | --- |
+| 💡 | **Suggest a feature** or a better way to do something | [Feature request](https://github.com/royherma/emera/issues/new?template=feature.yml) |
+| 💬 | **Bring a problem** the community should solve, or ask anything | [Discussions](https://github.com/royherma/emera/discussions) |
+| 🐞 | **Report a bug** | [Bug report](https://github.com/royherma/emera/issues/new?template=bug.yml) |
+
+**Want to write code?** The core stays with the core team so it moves fast and stays safe. The projects around it are big, self-contained, and yours to own.
 
 | 🔒 Core team builds | 🙌 You can own |
 | --- | --- |
