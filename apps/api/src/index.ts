@@ -78,11 +78,18 @@ app.notFound((c) => {
 
 useApp(app.fetch);
 
+const FUND_CRON = '0 1 3 * *';
+
 export default Sentry.withSentry(
   (env: Env) => ({ dsn: env.SENTRY_DSN, environment: env.ENVIRONMENT, tracesSampleRate: 0.1 }),
   {
     fetch: (req: Request, env: Env, ctx?: ExecutionContext) => (new URL(req.url).pathname === '/v1/chat/live' && req.method === 'GET' ? liveSocket(req, env) : app.fetch(req, env, ctx)),
-    async scheduled(_event: ScheduledController, env: Env) {
+    async scheduled(event: ScheduledController, env: Env) {
+      if (event.cron === FUND_CRON) {
+        const closed = await runFundCron(env);
+        if (closed) console.log('fund month closed', closed.month, closed.sha256);
+        return;
+      }
       console.log('auto-import', JSON.stringify(await runAutoImports(env, 'https://internal.emera')));
     },
     async queue(batch: MessageBatch<VideoJob>, env: Env) {
@@ -95,10 +102,6 @@ export default Sentry.withSentry(
           msg.retry();
         }
       }
-    },
-    async scheduled(_event: ScheduledController, env: Env) {
-      const closed = await runFundCron(env);
-      if (closed) console.log('fund month closed', closed.month, closed.sha256);
     },
   } satisfies ExportedHandler<Env, VideoJob>,
 );
