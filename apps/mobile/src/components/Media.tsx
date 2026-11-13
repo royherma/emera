@@ -81,7 +81,8 @@ function useSound() {
 
 if (web && typeof document !== "undefined") {
   // Browsers refuse to autoplay with sound until the first tap or key, so a saved "sound on" waits for it.
-  const unlock = () => {
+  const unlock = (e: Event) => {
+    if ((e.target as Element | null)?.closest?.('[data-testid="sound-button"]')) return; // the button sets sound itself; unlocking first flips its toggle
     unlocked = true;
     notify();
     document.removeEventListener("pointerdown", unlock, true);
@@ -163,7 +164,7 @@ function LivePlayer({ media, fit, tapToPause, onPlaying }: { media: Media; fit: 
 function SoundButton() {
   const sound = useSound();
   return (
-    <Pressable accessibilityRole="button" accessibilityLabel={sound ? "Turn sound off" : "Turn sound on"} hitSlop={12} onPress={() => setSound(!sound)} style={{ position: "absolute", right: 10, bottom: 10 }}>
+    <Pressable testID="sound-button" accessibilityRole="button" accessibilityLabel={sound ? "Turn sound off" : "Turn sound on"} hitSlop={12} onPress={() => setSound(!sound)} style={{ position: "absolute", right: 10, bottom: 10 }}>
       <Glass style={{ width: 30, height: 30, borderRadius: 15 }}>
         <Icon name={sound ? "sound" : "muted"} size={15} color="#fff" strokeWidth={2} />
       </Glass>
