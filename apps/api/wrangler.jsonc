@@ -24,12 +24,10 @@
       "vars": {
         "ENVIRONMENT": "staging",
         "INVITES_REQUIRED": "true",
-        "SEED_INVITE_CODE": "REPLACE_WITH_SECRET",
-        "PROOF_SECRET": "REPLACE_WITH_SECRET",
         "PUBLIC_ORIGIN": ""
       },
       "d1_databases": [
-        { "binding": "DB", "database_name": "emera-staging", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "migrations" }
+        { "binding": "DB", "database_name": "emera-staging", "database_id": "2fa77b67-d18c-43e8-8839-6c7dc982998e", "migrations_dir": "migrations" }
       ],
       "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "emera-media-staging" }]
     },
@@ -38,14 +36,18 @@
       "vars": {
         "ENVIRONMENT": "production",
         "INVITES_REQUIRED": "true",
-        "SEED_INVITE_CODE": "REPLACE_WITH_SECRET",
-        "PROOF_SECRET": "REPLACE_WITH_SECRET",
-        "PUBLIC_ORIGIN": ""
+        "PUBLIC_ORIGIN": "https://emera.social"
       },
       "d1_databases": [
-        { "binding": "DB", "database_name": "emera-prod", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "migrations" }
+        { "binding": "DB", "database_name": "emera-prod", "database_id": "e74c4221-f4e7-4304-a1a2-5eceab8f5503", "migrations_dir": "migrations" }
       ],
-      "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "emera-media-prod" }]
+      "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "emera-media-prod" }],
+      "routes": [
+        { "pattern": "api.emera.social", "custom_domain": true },
+        { "pattern": "emera.social/@*", "zone_name": "emera.social" },
+        { "pattern": "emera.social/p/*", "zone_name": "emera.social" },
+        { "pattern": "emera.social/media/*", "zone_name": "emera.social" }
+      ]
     }
   }
 }

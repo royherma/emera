@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import type { MiddlewareHandler } from 'hono';
 import type { AppEnv, UserRow } from './env';
-import { fail, originOf, readJson } from './http';
+import { fail, siteOrigin, readJson } from './http';
 import { hmacHex, newInviteCode, newSixDigitCode, newToken, newId, sha256Hex } from './crypto';
 import { delivery, sendCode } from './mail';
 import { userJson } from './serialize';
@@ -144,7 +144,7 @@ auth.post('/v1/invites', requireAuth, requireHandle, async (c) => {
   if ((today?.n ?? 0) >= 10) throw fail(429, 'too_many_invites', 'You can make 10 invites a day.');
   const code = newInviteCode();
   await c.env.DB.prepare('INSERT INTO invites (code, created_by, created_at) VALUES (?, ?, ?)').bind(code, me.id, Date.now()).run();
-  return c.json({ code, url: `${originOf(c)}/invite/${code}` });
+  return c.json({ code, url: `${siteOrigin(c)}/invite/${code}` });
 });
 
 auth.get('/v1/invites/:code', async (c) => {

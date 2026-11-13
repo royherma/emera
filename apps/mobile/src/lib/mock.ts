@@ -26,7 +26,7 @@ people.forEach(([handle, displayName, bio], i) => {
   users.set(handle, { id: `u_${i + 1}`, handle, displayName, bio, avatarUrl: null, createdAt: iso(60 * 24 * (40 + i)) });
 });
 
-type Seed = [string, string, number, number, number, "image" | "video"?];
+type Seed = [string, string, number, number, number, ("image" | "video")?];
 const seeds: Seed[] = [
   ["mina", "First light on the Tagus. Shot at 6:12, no edits besides crop.", 4, 5, 8],
   ["jonas_w", "Tenmoku test tiles, cone 10. The iron really came through this time.", 1, 1, 55],

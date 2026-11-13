@@ -1,126 +1,140 @@
 {
-  "updated": "11:00 AM Bangkok",
+  "updated": "11:06 AM Bangkok",
   "title": "Emera",
   "goal": "Emera. Where humanity comes together - you post, share the link, invite people",
   "phases": [
     {
       "id": "a",
-      "title": "1 \u00b7 Decide",
-      "sub": "This week. Everything else waits on the name.",
+      "title": "1 \u00b7 Brand",
+      "sub": "You decide, I build. Directions land above.",
       "tasks": [
         {
           "id": "a1",
-          "text": "Plan copied into the project folder + this page",
-          "who": "claude",
-          "done": true
-        },
-        {
-          "id": "a2",
-          "text": "Pick the name: Emera (emera.social)",
+          "text": "Name: Emera, emera.social bought",
           "who": "roy",
           "done": true
         },
         {
-          "id": "a2b",
-          "text": "Trademark check: Emera vs Emera Inc. (energy)",
-          "who": "claude"
+          "id": "a2",
+          "text": "Positioning: Where humanity comes together",
+          "who": "roy",
+          "done": true
         },
         {
           "id": "a3",
-          "text": "Bought emera.social ($32.20, active till 2027-11-13)",
+          "text": "impeccable set up: PRODUCT.md",
+          "who": "claude",
+          "running": true
+        },
+        {
+          "id": "a4",
+          "text": "3 brand directions: logo, color, type",
+          "who": "claude",
+          "running": true
+        },
+        {
+          "id": "a5",
+          "text": "Pick a direction",
+          "who": "roy"
+        },
+        {
+          "id": "a6",
+          "text": "DESIGN.md + logo files + app icon",
+          "who": "claude"
+        },
+        {
+          "id": "a7",
+          "text": "Trademark: workable with care. @emerasocial free on TikTok, YouTube, GitHub, Bluesky",
           "who": "claude",
           "done": true
         },
         {
-          "id": "a4",
-          "text": "Claim @emera handles: Bluesky, IG, X, TikTok, GitHub",
-          "who": "claude"
-        },
-        {
-          "id": "a5",
-          "text": "Brand kit: logo, colors, fonts, brand.json",
-          "who": "claude"
-        },
-        {
-          "id": "a6",
-          "text": "PRODUCT.md + DESIGN.md, like our other repos",
-          "who": "claude"
-        }
-      ]
-    },
-    {
-      "id": "b",
-      "title": "2 \u00b7 Set up",
-      "sub": "Day 1 after the name. Runs on what we already have.",
-      "tasks": [
-        {
-          "id": "b1",
-          "text": "GitHub repo + checks on every push",
-          "who": "claude"
-        },
-        {
-          "id": "b2",
-          "text": "Cloudflare staging + production, deploy scripts",
-          "who": "claude"
-        },
-        {
-          "id": "b3",
-          "text": "Project skills: deploy, status, invite",
-          "who": "claude"
-        },
-        {
-          "id": "b4",
-          "text": "Tools home + TOOLS.md",
-          "who": "claude"
-        },
-        {
-          "id": "b5",
-          "text": "Error alerts (Sentry) + visitor numbers",
-          "who": "claude"
-        }
-      ]
-    },
-    {
-      "id": "c",
-      "title": "3 \u00b7 Your profile live",
-      "sub": "Days 1-3. You post, share a link.",
-      "tasks": [
-        {
-          "id": "c1",
-          "text": "Sign up + log in (our own accounts, passkeys)",
-          "who": "claude"
-        },
-        {
-          "id": "c2",
-          "text": "Upload photo or video to our storage, with proof of who made it",
-          "who": "claude"
-        },
-        {
-          "id": "c3",
-          "text": "Public profile page with link previews",
-          "who": "claude"
-        },
-        {
-          "id": "c4",
-          "text": "Post page + share button",
-          "who": "claude"
-        },
-        {
-          "id": "c5",
-          "text": "Bring in your old posts automatically (Instagram export)",
-          "who": "claude"
-        },
-        {
-          "id": "c6",
-          "text": "Post your first 10 pieces",
+          "id": "a8",
+          "text": "Claim @emerasocial: TikTok, YouTube, Instagram, Bluesky (your logins)",
           "who": "roy"
         }
       ]
     },
     {
+      "id": "b",
+      "title": "2 \u00b7 Architecture",
+      "sub": "Agents building now, I check each one.",
+      "tasks": [
+        {
+          "id": "b1",
+          "text": "GitHub repo (private for now)",
+          "who": "claude",
+          "done": true
+        },
+        {
+          "id": "b2",
+          "text": "Cloudflare: 4 databases + 2 media buckets",
+          "who": "claude",
+          "done": true
+        },
+        {
+          "id": "b3",
+          "text": "API: accounts, uploads, posts, profile pages (11 tests pass)",
+          "who": "claude",
+          "done": true
+        },
+        {
+          "id": "b4",
+          "text": "App: iOS, Android, web from one codebase",
+          "who": "claude",
+          "running": true
+        },
+        {
+          "id": "b5",
+          "text": "AT Protocol plan + proof-of-maker test",
+          "who": "claude",
+          "running": true
+        },
+        {
+          "id": "b6",
+          "text": "Landing page + early list (deployed, emera.social waiting on registry)",
+          "who": "claude",
+          "done": true
+        }
+      ]
+    },
+    {
+      "id": "c",
+      "title": "3 \u00b7 Live",
+      "sub": "Staging first, then emera.social.",
+      "tasks": [
+        {
+          "id": "c1",
+          "text": "Staging live: emera-api-staging + emera-site-staging",
+          "who": "claude",
+          "done": true
+        },
+        {
+          "id": "c2",
+          "text": "emera.social + api.emera.social live",
+          "who": "claude"
+        },
+        {
+          "id": "c3",
+          "text": "Error alerts + visitor numbers",
+          "who": "claude"
+        },
+        {
+          "id": "c4",
+          "text": "Your profile + first 10 posts",
+          "who": "roy"
+        },
+        {
+          "id": "c5",
+          "text": "Bring in your old posts automatically",
+          "who": "claude"
+        }
+      ]
+    },
+    {
       "id": "d",
-      "title": "4 \u00b7 Invite people",
-      "sub": "Week 1. First 20 creators + first contributors.",
+      "title": "4 \u00b7 Invite",
+      "sub": "First 20 creators, first contributors.",
       "tasks": [
         {
           "id": "d1",
@@ -129,17 +143,17 @@
         },
         {
           "id": "d2",
-          "text": "Landing page + early list",
+          "text": "Open-source the repo (leak scan first)",
           "who": "claude"
         },
         {
           "id": "d3",
-          "text": "Fingerprint every upload: \"Original by @you\"",
+          "text": "CONTRIBUTING.md + 10 starter issues",
           "who": "claude"
         },
         {
           "id": "d4",
-          "text": "CONTRIBUTING.md + 10 starter issues",
+          "text": "Copy watch v1: find your work elsewhere",
           "who": "claude"
         },
         {
@@ -151,31 +165,6 @@
     }
   ],
   "decisions": [
-    {
-      "id": "domain",
-      "q": "Which domain ending?",
-      "why": "Every real-word .com is taken. .social reads as a network; .org says nonprofit. Handles can be roy.<domain>.",
-      "options": [
-        {
-          "id": "social",
-          "label": ".social"
-        },
-        {
-          "id": "org",
-          "label": ".org"
-        },
-        {
-          "id": "both",
-          "label": ".org + .social"
-        },
-        {
-          "id": "com",
-          "label": "coined .com"
-        }
-      ],
-      "mine": "social",
-      "pick": "social"
-    },
     {
       "id": "client",
       "q": "What do we build first?",
@@ -747,5 +736,25 @@
       "at": "2026-11-13T03:49:38.051Z",
       "text": "Dude, it's not about photographers like fucking just about creatives, creators. I don't you're you're bit a yeah be a bit more ambitious. There's lots of people that are getting creative work stolen. Photographs is of the old school. I mean it can be anything. Because AI is so good, people are copying video, people are copying physical world as well. A lot more now."
     }
-  ]
+  ],
+  "brand": {
+    "note": "3 directions being drawn now. Pick one, I write DESIGN.md.",
+    "items": [
+      {
+        "id": "bd1",
+        "name": "Direction 1",
+        "pending": true
+      },
+      {
+        "id": "bd2",
+        "name": "Direction 2",
+        "pending": true
+      },
+      {
+        "id": "bd3",
+        "name": "Direction 3",
+        "pending": true
+      }
+    ]
+  }
 }

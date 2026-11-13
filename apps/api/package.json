@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "wrangler d1 migrations apply DB --local && wrangler dev --port 5036",
     "migrate": "wrangler d1 migrations apply DB --local",
@@ -17,6 +19,9 @@
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.23.0",
     "@cloudflare/workers-types": "^4.20260702.1",
+    "@types/node": "^26.6.6",
+    "@vitest/runner": "^4.1.12",
+    "@vitest/snapshot": "^4.1.12",
     "typescript": "^5.9.3",
     "vitest": "^4.1.0",
     "wrangler": "^4.85.0"

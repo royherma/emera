@@ -2,3 +2,6 @@
 .claude/handoffs/
 .DS_Store
 node_modules/
+.wrangler/
+.claude/deploy-lock.json
+.dev.vars

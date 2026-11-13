@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter+Tight:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f6f3ec;--ink:#1c1a17;--card:#fff;--a:#e2573a;--a2:#2f7a5b;--mute:#7a746b;--line:#e4ded3;--soft:#faf8f3}
-*{box-sizing:border-box;margin:0}
+*{box-sizing:border-box;margin:0}[hidden]{display:none!important}
 body{background:var(--bg);color:var(--ink);font:13px/1.35 Inter,system-ui,sans-serif;height:100vh;display:flex;flex-direction:column}
 button,input{font-family:inherit}
 .serif{font-family:Fraunces,Georgia,serif}
@@ -58,6 +58,8 @@ h2 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;mar
 .task span{flex:1;outline:none;font-size:11.5px;line-height:1.25}
 .task i{font-style:normal;font-size:9.5px;font-weight:700;border-radius:4px;padding:0 4px;white-space:nowrap;margin-top:2px}
 .task i.roy{background:#fde6c8;color:#8a5212}.task i.claude{background:#e5ecf7;color:#36527f}
+.brands{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.bd{border:1px solid var(--line);border-radius:12px;background:var(--soft);display:flex;flex-direction:column;overflow:hidden}.bd .img{height:150px;background:linear-gradient(110deg,#efe9dd 30%,#f8f4ec 50%,#efe9dd 70%);background-size:200% 100%;animation:sh 1.6s linear infinite;display:grid;place-items:center;color:var(--mute);font-size:12px;font-weight:600}.bd .img img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;cursor:zoom-in}.bd.has .img{animation:none;background:#fff}.bd .meta{padding:8px 10px;display:flex;gap:8px;align-items:center}.bd .meta b{font-size:13px}.bd .meta span{font-size:11px;color:var(--mute);flex:1}.bd .meta button{border:1px solid var(--line);background:#fff;border-radius:6px;font:600 11px Inter,system-ui,sans-serif;padding:3px 10px;cursor:pointer}.bd.keep{box-shadow:0 0 0 2px var(--a2)}.bd.keep .meta button{background:var(--a2);color:#fff}@keyframes sh{to{background-position:-200% 0}}
+.task i.run{background:#e7f3ec;color:var(--a2);animation:pl 1.4s ease-in-out infinite}@keyframes pl{50%{opacity:.45}}
 .task.done span{text-decoration:line-through;color:var(--mute)}
 .add{border:1px dashed var(--line);background:none;color:var(--mute);border-radius:8px;padding:4px 7px;font:500 11.5px Inter,system-ui,sans-serif;cursor:pointer;text-align:left}
 .add:hover{color:var(--ink);border-color:var(--ink)}
@@ -89,8 +91,9 @@ h2 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;mar
   </div>
   <div class="col">
     <section class="card">
-      <h2>Name <span id="ngroups" class="ngroups"></span><em id="nameNote"></em></h2>
-      <div class="names" id="names"></div>
+      <h2>Brand <span class="ngroups"><button class="on">Emera · emera.social · Where humanity comes together</button></span><em id="brandNote"></em></h2>
+      <div class="brands" id="brands"></div>
+      <div class="names" id="names" hidden></div><span id="ngroups" hidden></span><em id="nameNote" hidden></em>
     </section>
     <div class="phases" id="phases"></div>
   </div>
@@ -130,7 +133,7 @@ function render() {
     box.append(chips); decs.append(box);
   }
 
-  $('nameNote').textContent = plan.names.note;
+  if ($('nameNote')) $('nameNote').textContent = plan.names.note;
   const names = $('names'); names.replaceChildren();
   const groups = plan.names.groups ?? [];
   nameGroup ??= groups[0]?.[0];
@@ -161,6 +164,18 @@ function render() {
     card.append(btns); names.append(card);
   }
 
+  if (plan.brand) {
+    $('brandNote').textContent = plan.brand.note;
+    const bs = $('brands'); bs.replaceChildren();
+    for (const b of plan.brand.items) {
+      const card = el('div', `bd ${b.png ? 'has' : ''} ${b.vote ?? ''}`);
+      const img = el('div', 'img', b.png ? null : 'Drawing...');
+      if (b.png) { const im = el('img'); im.src = `/file/${b.png}?v=${plan.updated}`; im.onclick = () => window.open(`/file/${b.html}`, '_blank'); img.append(im); }
+      const meta = el('div', 'meta'); meta.append(el('b', '', b.name), el('span', '', b.line ?? ''));
+      if (b.png) { const k = el('button', '', b.vote === 'keep' ? 'Picked' : 'Pick this'); k.onclick = () => { for (const o of plan.brand.items) o.vote = o === b && b.vote !== 'keep' ? 'keep' : null; render(); send({ kind: 'brand-vote', id: b.id, name: b.name, vote: b.vote }, `${b.name}: ${b.vote ?? 'cleared'}`); }; meta.append(k); }
+      card.append(img, meta); bs.append(card);
+    }
+  }
   const phases = $('phases'); phases.replaceChildren();
   for (const p of plan.phases) {
     const box = el('div', 'ph');
@@ -173,7 +188,7 @@ function render() {
       const span = el('span', '', t.text); span.contentEditable = true; span.spellcheck = false;
       span.onblur = () => { if (span.textContent !== t.text) { t.text = span.textContent; send({ kind: 'task-edit', id: t.id, text: t.text }, 'Edit saved'); } };
       span.onclick = (e) => e.preventDefault();
-      row.append(cb, span, el('i', t.who, t.who === 'roy' ? 'you' : 'Claude'));
+      row.append(cb, span, t.running && !t.done ? el('i', 'run', 'agent working') : el('i', t.who, t.who === 'roy' ? 'you' : 'Claude'));
       box.append(row);
     }
     const add = el('button', 'add', '+ add a step');

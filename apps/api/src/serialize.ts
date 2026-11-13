@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { AppEnv, UserRow } from './env';
-import { originOf } from './http';
+import { originOf, siteOrigin } from './http';
 
 export type MediaRow = {
   id: string; user_id: string; kind: string; content_type: string; width: number; height: number;
@@ -37,6 +37,7 @@ export function mediaJson(origin: string, m: MediaRow) {
 export async function loadPosts(c: Context<AppEnv>, rows: PostRow[]) {
   if (!rows.length) return [];
   const origin = originOf(c);
+  const site = siteOrigin(c);
   const ph = rows.map(() => '?').join(',');
   const ids = rows.map((r) => r.id);
   const userIds = [...new Set(rows.map((r) => r.user_id))];
@@ -58,7 +59,7 @@ export async function loadPosts(c: Context<AppEnv>, rows: PostRow[]) {
     caption: p.caption,
     media: byPost.get(p.id) ?? [],
     createdAt: iso(p.created_at),
-    url: `${origin}/p/${p.id}`,
+    url: `${site}/p/${p.id}`,
   }));
 }
 

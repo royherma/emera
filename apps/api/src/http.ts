@@ -9,9 +9,11 @@ export class ApiError extends Error {
 
 export const fail = (status: number, code: string, message: string) => new ApiError(status, code, message);
 
-export function originOf(c: Context<AppEnv>): string {
+export const originOf = (c: Context<AppEnv>): string => new URL(c.req.url).origin;
+
+export function siteOrigin(c: Context<AppEnv>): string {
   const fixed = c.env.PUBLIC_ORIGIN;
-  return fixed ? fixed.replace(/\/$/, '') : new URL(c.req.url).origin;
+  return fixed ? fixed.replace(/\/$/, '') : originOf(c);
 }
 
 export async function readJson(c: Context<AppEnv>): Promise<Record<string, unknown>> {

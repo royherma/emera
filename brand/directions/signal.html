@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Emera Signal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+--white:oklch(98.5% 0.003 100);
+--fog:oklch(90% 0.004 270);
+--signal:oklch(48% 0.26 264);
+--flare:oklch(93% 0.2 112);
+--alarm:oklch(62% 0.23 28);
+--black:oklch(15% 0.01 270);
+--display:'Archivo',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0}
+html,body{background:var(--black);color:var(--black);font-family:var(--display);font-size:14px;font-weight:450;-webkit-font-smoothing:antialiased}
+body{min-width:1320px;min-height:860px;height:100vh;display:grid;grid-template-columns:minmax(0,1fr) 704px}
+::selection{background:var(--flare);color:var(--black)}
+.ic{width:22px;height:22px;display:block}
+.left{background:var(--black);color:var(--white);padding:22px 36px 26px;display:flex;flex-direction:column;min-height:0}
+.nav{display:flex;align-items:center;gap:30px}
+.logo{display:flex;align-items:center;gap:12px;font:900 26px var(--display);font-stretch:125%;letter-spacing:-.02em}
+.nav ul{display:flex;gap:24px;list-style:none;padding:0;margin-left:auto;font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:0;padding:14px 22px;font:800 14px var(--display);font-stretch:112%;text-transform:uppercase;letter-spacing:.02em;background:var(--white);color:var(--black);cursor:pointer;transition:background .15s,color .15s}
+.btn:hover{background:var(--flare)}
+.btn:focus-visible{outline:3px solid var(--flare);outline-offset:3px}
+.btn.blue{background:var(--signal);color:var(--white)}
+.btn.blue:hover{background:var(--white);color:var(--signal)}
+.btn.sm{padding:10px 14px;font-size:12px}
+.btn.line{background:transparent;color:var(--white);box-shadow:inset 0 0 0 2px var(--white)}
+.btn.line:hover{background:var(--white);color:var(--black)}
+h1{font:900 112px/.86 var(--display);font-stretch:125%;letter-spacing:-.035em;text-transform:uppercase;margin-top:46px}
+h1 span{display:block}
+h1 .t{display:inline-block;background:var(--signal);padding:0 16px 6px 12px;margin-left:-12px}
+.rules{list-style:none;padding:0;margin-top:auto;border-top:2px solid var(--white)}
+.rules li{display:flex;align-items:baseline;justify-content:space-between;gap:20px;border-bottom:1px solid oklch(40% 0.01 270);padding:11px 0 9px;font:800 25px var(--display);font-stretch:112%;text-transform:uppercase;letter-spacing:-.01em}
+.rules li small{font:500 12px var(--mono);text-transform:none;letter-spacing:0;color:oklch(78% 0.01 270)}
+.cta{display:flex;gap:12px;margin-top:22px}
+.right{background:var(--white);display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:1fr 108px;padding:0 24px;min-height:0}
+.apps{display:grid;grid-template-columns:284px minmax(0,1fr);gap:22px;align-items:center;min-height:0}
+.phone{width:284px;height:610px;background:var(--black);border-radius:42px;padding:9px}
+.scr{height:100%;background:var(--white);border-radius:34px;overflow:hidden;position:relative;display:flex;flex-direction:column}
+.island{position:absolute;left:50%;top:8px;width:80px;height:22px;background:var(--black);border-radius:20px;transform:translateX(-50%)}
+.sb{display:flex;justify-content:space-between;padding:12px 22px 4px;font:700 13px var(--display)}
+.top{background:var(--signal);color:var(--white);padding:34px 16px 14px;margin-top:6px;position:relative}
+.av{width:68px;height:68px;overflow:hidden;border:3px solid var(--white);background:var(--fog);position:absolute;right:14px;bottom:-26px}
+.top h3{font:900 25px/.95 var(--display);font-stretch:125%;text-transform:uppercase;letter-spacing:-.03em;max-width:190px}
+.top p{font:500 12px var(--mono);margin-top:8px}
+.badge{display:inline-flex;align-items:center;gap:6px;background:var(--flare);color:var(--black);font:800 11px var(--display);font-stretch:112%;text-transform:uppercase;letter-spacing:.03em;padding:5px 9px 4px}
+.badge .ic{width:14px;height:14px}
+.body{padding:12px 16px 0}
+.body .bio{font-size:13px;line-height:1.35;font-weight:500;margin:10px 0 12px;max-width:215px}
+.stats{display:flex;border-top:2px solid var(--black);border-bottom:2px solid var(--black)}
+.stats div{flex:1;padding:7px 0 6px;font:500 11px var(--mono);text-transform:uppercase}
+.stats div+div{padding-left:10px;border-left:1px solid var(--black)}
+.stats b{display:block;font:900 22px var(--display);font-stretch:112%;letter-spacing:-.02em}
+.acts{display:flex;gap:8px;margin:12px 0}
+.acts .btn{flex:1;justify-content:center}
+.btn.ink{background:var(--black);color:var(--white)}
+.btn.ink:hover{background:var(--signal)}
+.btn.out{background:transparent;color:var(--black);box-shadow:inset 0 0 0 2px var(--black)}
+.btn.out:hover{background:var(--black);color:var(--white)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:3px;flex:1;min-height:0;padding:0 16px}
+.tabs{display:flex;justify-content:space-around;padding:10px 6px 22px;margin-top:10px;background:var(--black);color:var(--white)}
+.tabs .on{color:var(--flare)}
+.card{background:var(--white);border:2px solid var(--black)}
+.who{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:2px solid var(--black)}
+.who .av{position:static;width:36px;height:36px;border:0}
+.who b{font:800 14px var(--display);font-stretch:112%;text-transform:uppercase;display:block}
+.who span{font:500 11px var(--mono)}
+.who .btn{margin-left:auto}
+.pic{height:290px}
+.pf{background:var(--black);color:var(--white);padding:12px 12px 12px}
+.pf .badge{margin-bottom:10px}
+.pf dl{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font:500 11.5px/1.3 var(--mono)}
+.pf dt{color:oklch(75% 0.01 270)}
+.pf dd{margin:0}
+.pf dd.al{color:var(--flare)}
+.meta{display:flex;align-items:center;gap:16px;padding:10px 12px}
+.meta .ic{width:24px;height:24px}
+.meta .push{margin-left:auto;font:500 11px var(--mono)}
+.foot{display:grid;grid-template-columns:1fr 170px;gap:16px;align-items:center;border-top:4px solid var(--black)}
+.sws{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;min-width:0}
+.sw i{display:block;height:36px;box-shadow:inset 0 0 0 1px oklch(15% 0.01 270 / .2);margin-bottom:5px}
+.sw b{display:block;font:800 11px var(--display);font-stretch:112%;text-transform:uppercase}
+.sw span{font:500 8.5px var(--mono);white-space:nowrap;letter-spacing:-.03em}
+.type .aa{font:900 44px/1 var(--display);font-stretch:125%;letter-spacing:-.03em}
+.type p{font:500 11px/1.3 var(--mono);margin-top:4px}
+.line1{position:absolute;right:36px;top:22px}
+.verdict{margin-top:14px;font:500 12.5px/1.4 var(--mono);color:oklch(80% 0.01 270);max-width:560px}
+</style></head><body>
+<section class="left" aria-label="Landing hero">
+  <nav class="nav"><div class="logo"><svg width="36" height="36" viewBox="0 0 100 100" aria-label="Emera mark"><rect width="100" height="100" fill="var(--signal)"/><path d="M24 20h54v14H40v10h30v14H40v10h38v14H24z" fill="var(--white)"/><circle cx="82" cy="51" r="7" fill="var(--flare)"/></svg>EMERA</div><ul><li>Proof</li><li>Protection</li><li>Open algorithm</li><li>Pay</li></ul><button class="btn sm blue">Join</button></nav>
+  <h1><span>Where</span><span>Humanity</span><span>Comes</span><span><i class="t" style="font-style:normal">Together</i></span></h1>
+  <div class="cta"><button class="btn blue">Claim your handle</button><button class="btn line">Read the rules</button></div>
+  <p class="verdict">Direction 2, Signal: Emera says it out loud. Honest by default, in type you cannot scroll past.</p>
+  <ul class="rules"><li>Signed by the maker<small>proof on every post</small></li><li>Protected everywhere<small>we file the takedowns</small></li><li>Ranked in the open<small>public feed code, public log</small></li><li>Owned by you<small>take your account and leave</small></li></ul>
+</section>
+<section class="right">
+<div class="apps">
+<div class="phone" aria-label="Profile screen"><div class="scr"><span class="island"></span>
+  <div class="sb"><span>9:41</span><span></span></div>
+  <div class="top"><h3>Mira Okonkwo</h3><p>@mira.emera.social</p><div class="av"><svg viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true"><rect width="100" height="100" fill="oklch(93% 0.2 112)"/><path d="M14 100c2-24 16-34 36-34s34 10 36 34z" fill="oklch(15% 0.01 270)"/><circle cx="50" cy="44" r="19" fill="oklch(62% 0.08 55)"/><path d="M30 44c-2-20 12-28 24-26 12 1 20 10 16 26-4-10-10-14-20-14s-16 4-20 14z" fill="oklch(15% 0.01 270)"/></svg></div></div>
+  <div class="body"><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Verified human</span><div class="bio">Illustrator and print maker. Every piece here is signed by me.</div>
+  <div class="stats"><div><b>86</b>works</div><div><b>14k</b>fans</div><div><b>212</b>takedowns</div></div>
+  <div class="acts"><button class="btn sm ink">Follow</button><button class="btn sm out">Tip</button></div></div>
+  <div class="grid"><div><svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true"><rect width="400" height="500" fill="oklch(15% 0.01 270)"/><circle cx="268" cy="196" r="86" fill="oklch(48% 0.26 264)"/><path d="M0 300C70 240 140 250 210 290S340 330 400 270V500H0z" fill="oklch(93% 0.2 112)"/><path d="M0 360C90 310 170 330 250 360S350 400 400 350V500H0z" fill="oklch(98% 0.003 100)"/><path d="M0 430C100 395 190 420 270 440S360 450 400 420V500H0z" fill="oklch(62% 0.23 28)"/></svg></div><div><svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true"><rect width="400" height="500" fill="oklch(93% 0.2 112)"/><circle cx="150" cy="170" r="110" fill="oklch(15% 0.01 270)"/><rect x="190" y="210" width="170" height="170" fill="oklch(48% 0.26 264)"/><path d="M60 460 200 270 340 460z" fill="oklch(98% 0.003 100)"/><circle cx="300" cy="120" r="36" fill="oklch(62% 0.23 28)"/></svg></div><div><svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true"><rect width="400" height="500" fill="oklch(62% 0.23 28)"/><path d="M60 500V240a140 140 0 0 1 280 0V500z" fill="oklch(15% 0.01 270)"/><path d="M100 500V250a100 100 0 0 1 200 0V500z" fill="oklch(98% 0.003 100)"/><path d="M140 500V260a60 60 0 0 1 120 0V500z" fill="oklch(48% 0.26 264)"/><path d="M175 500V270a25 25 0 0 1 50 0V500z" fill="oklch(93% 0.2 112)"/></svg></div><div><svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true"><rect width="400" height="500" fill="oklch(90% 0.004 270)"/><circle cx="200" cy="170" r="92" fill="oklch(48% 0.26 264)"/><rect x="28" y="410" width="20" height="90" rx="10" fill="oklch(62% 0.23 28)"/><rect x="60" y="350" width="20" height="150" rx="10" fill="oklch(15% 0.01 270)"/><rect x="92" y="270" width="20" height="230" rx="10" fill="oklch(93% 0.2 112)"/><rect x="124" y="200" width="20" height="300" rx="10" fill="oklch(62% 0.23 28)"/><rect x="156" y="300" width="20" height="200" rx="10" fill="oklch(15% 0.01 270)"/><rect x="188" y="160" width="20" height="340" rx="10" fill="oklch(93% 0.2 112)"/><rect x="220" y="320" width="20" height="180" rx="10" fill="oklch(62% 0.23 28)"/><rect x="252" y="240" width="20" height="260" rx="10" fill="oklch(15% 0.01 270)"/><rect x="284" y="380" width="20" height="120" rx="10" fill="oklch(93% 0.2 112)"/><rect x="316" y="300" width="20" height="200" rx="10" fill="oklch(62% 0.23 28)"/><rect x="348" y="430" width="20" height="70" rx="10" fill="oklch(15% 0.01 270)"/></svg></div><div><svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true"><rect width="400" height="500" fill="oklch(15% 0.01 270)"/><path d="M-20 120C40 60 100 180 170 120S300 60 420 130V520H-20z" fill="oklch(48% 0.26 264)" opacity="0.55"/><path d="M-20 182C40 122 100 242 170 182S300 122 420 192V520H-20z" fill="oklch(93% 0.2 112)" opacity="0.64"/><path d="M-20 244C40 184 100 304 170 244S300 184 420 254V520H-20z" fill="oklch(98% 0.003 100)" opacity="0.73"/><path d="M-20 306C40 246 100 366 170 306S300 246 420 316V520H-20z" fill="oklch(62% 0.23 28)" opacity="0.8200000000000001"/><path d="M-20 368C40 308 100 428 170 368S300 308 420 378V520H-20z" fill="oklch(48% 0.26 264)" opacity="0.91"/><path d="M-20 430C40 370 100 490 170 430S300 370 420 440V520H-20z" fill="oklch(93% 0.2 112)" opacity="1"/></svg></div><div><svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true"><rect width="400" height="500" fill="oklch(93% 0.2 112)"/><rect y="380" width="400" height="120" fill="oklch(15% 0.01 270)"/><path d="M160 380c-40-60-30-130 22-150v-40h36v40c52 20 62 90 22 150z" fill="oklch(48% 0.26 264)"/><ellipse cx="200" cy="380" rx="70" ry="8" fill="oklch(98% 0.003 100)" opacity=".35"/><path d="M200 190C200 120 230 80 262 60" stroke="oklch(98% 0.003 100)" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="268" cy="56" r="26" fill="oklch(62% 0.23 28)"/><circle cx="150" cy="96" r="20" fill="oklch(62% 0.23 28)"/><path d="M200 190C190 140 170 120 150 106" stroke="oklch(98% 0.003 100)" stroke-width="7" fill="none" stroke-linecap="round"/></svg></div></div>
+  <div class="tabs"><span class="on"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1z"/></svg></span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg></span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"/><path d="M12 8.5v7M8.5 12h7"/></svg></span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 1.5h-15z"/><path d="M10 21h4"/></svg></span><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c.8-3.6 3.8-5.5 7.5-5.5s6.7 1.9 7.5 5.5"/></svg></span></div>
+</div></div>
+<article class="card" aria-label="Post card">
+  <div class="who"><div class="av"><svg viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true"><rect width="100" height="100" fill="oklch(93% 0.2 112)"/><path d="M14 100c2-24 16-34 36-34s34 10 36 34z" fill="oklch(15% 0.01 270)"/><circle cx="50" cy="44" r="19" fill="oklch(62% 0.08 55)"/><path d="M30 44c-2-20 12-28 24-26 12 1 20 10 16 26-4-10-10-14-20-14s-16 4-20 14z" fill="oklch(15% 0.01 270)"/></svg></div><div><b>Mira Okonkwo</b><span>2h ago</span></div><button class="btn sm ink">Follow</button></div>
+  <div class="pic"><svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true"><rect width="400" height="500" fill="oklch(93% 0.2 112)"/><circle cx="150" cy="170" r="110" fill="oklch(15% 0.01 270)"/><rect x="190" y="210" width="170" height="170" fill="oklch(48% 0.26 264)"/><path d="M60 460 200 270 340 460z" fill="oklch(98% 0.003 100)"/><circle cx="300" cy="120" r="36" fill="oklch(62% 0.23 28)"/></svg></div>
+  <div class="pf"><span class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Made by a verified human</span>
+    <dl><dt>Maker</dt><dd>mira.emera.social</dd><dt>Signed</dt><dd>13 Nov 2026 09:12</dd><dt>Device</dt><dd>Attested</dd><dt>Copies</dt><dd class="al">2 found elsewhere, reported</dd></dl></div>
+  <div class="meta"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-8l-4 3.5V16H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M9.5 10.2c0-1 1-1.7 2.5-1.7s2.5.700 2.5 1.6-1 1.4-2.5 1.7-2.5.700-2.5 1.7 1 1.6 2.5 1.6 2.5-.700 2.5-1.7"/></svg><span class="push">You follow Mira</span></div>
+</article>
+</div>
+<footer class="foot"><div class="sws"><div class="sw"><i style="background:var(--white)"></i><b>White</b><span>(98.5% 0.003 100)</span></div><div class="sw"><i style="background:var(--fog)"></i><b>Fog</b><span>(90% 0.004 270)</span></div><div class="sw"><i style="background:var(--signal)"></i><b>Signal</b><span>(48% 0.26 264)</span></div><div class="sw"><i style="background:var(--flare)"></i><b>Flare</b><span>(93% 0.2 112)</span></div><div class="sw"><i style="background:var(--alarm)"></i><b>Alarm</b><span>(62% 0.23 28)</span></div><div class="sw"><i style="background:var(--black)"></i><b>Black</b><span>(15% 0.01 270)</span></div></div><div class="type"><div class="aa">Aa</div><p>Archivo + Plex Mono</p></div></footer>
+</section>
+</body></html>
