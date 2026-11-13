@@ -2,6 +2,11 @@
 
 Every milestone that closes adds its learnings here, and anything stale gets corrected or struck in the same commit. One entry per trap: what bit us, how to spot it, the fix. Newest first. Each entry is dated and says where it was learned.
 
+## 2026-11-13 - Build time: a new app builds in under 10 minutes
+
+- **The iOS build on GitHub took 57 minutes** (run 43405787939, `Build` step 10:06-11:03 UTC). `app.json` turned on `buildReactNativeFromSource` to get past one missing symbol (`RCTStatusBarAppearance`, see below), and that compiles all of React Native's C++ on every run. Never fix a crash by building a framework from source; find why the prebuilt one doesn't match (usually the `react-native` version in node_modules vs the prebuilt pod) and fix that.
+- **Any build over 10 minutes is a bug, not a wait.** Spot it: `gh run view <id> --json jobs --jq '.jobs[].steps[]|"\(.name) \(.startedAt) \(.completedAt)"'`. Check step times while it runs; don't sit on a 45-minute "it's just slow".
+
 ## 2026-11-13 - Media shrink: photos to WebP, 4K video to 1080p
 
 - **Uploads used to keep the camera's GPS.** An iPhone HEIC carried its latitude and `/media/*` served it to anyone. Photos now go through the Images binding (2048 px WebP q82), which drops EXIF/GPS. Spot a regression: `curl -s <media url> | grep -c -a GPS` must print 0.
