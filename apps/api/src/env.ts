@@ -3,6 +3,7 @@ export type Env = {
   MEDIA: R2Bucket;
   IMAGES?: ImagesBinding;
   VIDEO?: MediaBinding;
+  AI?: { run(model: string, input: Record<string, unknown>): Promise<unknown> };
   VIDEO_JOBS?: Queue<{ mediaId: string; shrink?: boolean }>;
   ENVIRONMENT: string;
   INVITES_REQUIRED: string;

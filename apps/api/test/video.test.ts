@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import app from '../src/index';
 import { makePoster, posterKey, runVideoJob, shrinkVideo, videoNeedsShrink } from '../src/media';
 import { hmacHex } from '../src/crypto';
+import { captionsKey, cuesFrom, makeCaptions } from '../src/captions';
 import { Client, makeEnv } from './helpers';
 
 const box = (type: string, ...parts: Uint8Array[]) => {
@@ -95,7 +96,7 @@ describe('video size', () => {
     expect(send).toHaveBeenCalledWith({ mediaId: id, shrink: false });
     expect(up.body.media.posterUrl).toBeNull();
 
-    expect(await runVideoJob(env, { mediaId: id, shrink: false })).toEqual({ poster: 'done', shrink: 'skipped' });
+    expect(await runVideoJob(env, { mediaId: id, shrink: false })).toEqual({ poster: 'done', shrink: 'skipped', captions: 'skipped' });
     expect(outputs).toEqual(['frame@1s', 'frame@0s']);
     expect(await makePoster(env, id)).toBe('skipped');
 
@@ -132,5 +133,67 @@ describe('video length', () => {
     const early = await c.json('POST', '/v1/uploads', { contentType: 'video/mp4', bytes: 5000, seconds: 900 });
     expect(early.status).toBe(413);
     expect(early.body.error.code).toBe('too_long');
+  });
+});
+
+describe('video captions', () => {
+  it('splits what was said into short cues and drops silence', () => {
+    const w = (word: string, start: number) => ({ word, start, end: start + 0.3 });
+    const cues = cuesFrom([
+      { start: 0, end: 4, text: 'Hi there. This is my first ever video on here', words: [w('Hi', 0), w('there.', 0.4), ...'This is my first ever video on here'.split(' ').map((x, i) => w(x, 1 + i * 0.4))] },
+      { start: 5, end: 6, text: 'Thank you.', no_speech_prob: 0.9 },
+    ], 60);
+    expect(cues.map((c) => c.text)).toEqual(['Hi there.', 'This is my first ever video on', 'here']);
+    expect(cues[0].start).toBe(60);
+  });
+
+  it('writes captions for a video in 60 s pieces, serves them, shows them on the page, deletes them with the post', async () => {
+    const send = vi.fn(async () => {});
+    const audio: string[] = [];
+    const out = (o: { mode: string; time?: string; duration?: string }) => ({ response: async () => {
+      if (o.mode !== 'audio') return new Response(new Uint8Array([0xff, 0xd8, 0xff, 0xd9]));
+      audio.push(`${o.time}+${o.duration}`);
+      return new Response(new Uint8Array([1, 2, 3]));
+    } });
+    const VIDEO = { input: () => ({ output: out, transform: () => ({ output: out }) }) };
+    const AI = { run: vi.fn(async (_m: string, input: Record<string, unknown>) => {
+      expect(input.audio).toBe('AQID');
+      return { segments: [{ start: 1, end: 2, text: 'Hello world', words: [{ word: 'Hello', start: 1, end: 1.4 }, { word: 'world', start: 1.5, end: 2 }] }] };
+    }) };
+    const env = makeEnv({ VIDEO_JOBS: { send } as any, VIDEO: VIDEO as any, AI });
+    const c = new Client(env);
+    await c.signIn('cc@example.test');
+    await c.withHandle('talker');
+    const id = (await c.upload(mp4(1080, 1920, 130), 'video/mp4')).body.media.id;
+
+    expect((await runVideoJob(env, { mediaId: id, shrink: false })).captions).toBe('done');
+    expect(audio).toEqual(['0s+60s', '60s+60s', '120s+10s']);
+    expect(AI.run).toHaveBeenCalledWith('@cf/openai/whisper-large-v3-turbo', expect.objectContaining({ vad_filter: true }));
+    expect(await makeCaptions(env, id)).toBe('skipped');
+
+    const post = await c.json('POST', '/v1/posts', { caption: 'talk', mediaIds: [id] });
+    const media = post.body.post.media[0];
+    expect(media.captionsUrl).toMatch(new RegExp(`/media/${captionsKey(id)}$`));
+    const vtt = await app.fetch(new Request(media.captionsUrl), env);
+    expect(vtt.headers.get('content-type')).toBe('text/vtt; charset=utf-8');
+    expect(await vtt.text()).toBe('WEBVTT\n\n00:00:01.000 --> 00:00:02.000\nHello world\n\n00:01:01.000 --> 00:01:02.000\nHello world\n\n00:02:01.000 --> 00:02:02.000\nHello world\n');
+
+    const page = await (await app.fetch(new Request(post.body.post.url.replace(/^https?:\/\/[^/]+/, new URL(media.url).origin)), env)).text();
+    expect(page).toContain(`<track kind="captions" src="${media.captionsUrl}" label="Captions">`);
+
+    await c.json('DELETE', `/v1/posts/${post.body.post.id}`);
+    expect(await env.MEDIA.head(captionsKey(id))).toBeNull();
+  });
+
+  it('leaves captionsUrl empty when nobody speaks', async () => {
+    const VIDEO = { input: () => ({ output: () => ({ response: async () => new Response(new Uint8Array([1])) }), transform: () => ({ output: () => ({ response: async () => new Response(new Uint8Array([0xff, 0xd9])) }) }) }) };
+    const env = makeEnv({ VIDEO_JOBS: { send: vi.fn(async () => {}) } as any, VIDEO: VIDEO as any, AI: { run: async () => ({ segments: [] }) } });
+    const c = new Client(env);
+    await c.signIn('quiet@example.test');
+    await c.withHandle('quiet');
+    const id = (await c.upload(mp4(1080, 1920, 5), 'video/mp4')).body.media.id;
+    expect((await runVideoJob(env, { mediaId: id, shrink: false })).captions).toBe('skipped');
+    const post = await c.json('POST', '/v1/posts', { caption: 'quiet', mediaIds: [id] });
+    expect(post.body.post.media[0].captionsUrl).toBeNull();
   });
 });
