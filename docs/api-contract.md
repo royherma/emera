@@ -134,6 +134,42 @@ Search needs no sign-in. `q` is 1 to 100 characters (`bad_query`), `type` defaul
 
 `flag` = `{ id, targetType, targetId, reason, note, status, createdAt }`. `status` starts as `new`.
 
+## Fund: sponsors, watch time, creator earnings
+
+Rules and every number: `docs/mission/funding-rules.md`. Constants live in `apps/api/src/fundRules.ts` and are echoed in `rules` below, so screens never hardcode them. Months are UTC `YYYY-MM`. Money is integer cents (USD).
+
+**Switch:** the whole feature is on only when the API var `FUNDING` is `"on"` (dev and staging on, production off). When off, every route in this section returns 404 `not_found`, and the app hides the fund and earnings screens after one `GET /v1/fund` 404.
+
+| Method | Path | Auth | Body | Returns |
+| --- | --- | --- | --- | --- |
+| POST | `/v1/watch` | user | `{ postId, seconds }` | `{ counted }` - seconds 1 to 30 (`bad_seconds`); `counted` is what survived the caps (0 for own posts, young accounts, capped) |
+| GET | `/v1/fund` | - | - | `{ rules, month: monthSummary, sponsors: [sponsor], history: [monthSummary] }` - `month` is the open month, `history` closed months newest first (max 24) |
+| GET | `/v1/fund/months/:month` | - | - | `{ statement }` - 404 if the month has no money and no watch time |
+| GET | `/v1/me/earnings` | user | - | `{ rules, thisMonth: { month, seconds, totalSeconds, sharePpm, estimateCents }, months: [{ month, seconds, sharePpm, amountCents }], balanceCents, topPosts: [{ post, seconds }] }` - `topPosts` = your 5 most-watched posts this month |
+| POST | `/v1/admin/fund/sponsorships` | admin | `{ sponsorName, sponsorUrl?, contactEmail?, amountCents, months: ["YYYY-MM"], status?: "paid"\|"pledged" }` | `201 { sponsorships: [sponsorship] }` - amount split equally across `months`, leftover cent on the earliest; 409 `month_closed` if a month is already closed |
+| POST | `/v1/admin/fund/sponsorships/:id/refund` | admin | - | `{ sponsorship }` |
+| POST | `/v1/admin/fund/close` | admin | `{ month }` | `{ statement }` - safe to run twice (returns the frozen one); 400 `month_open` if the month has not ended |
+| POST | `/v1/fund/checkout` | - | `{ sponsorName, contactEmail, monthlyCents, months?: 1-12, sponsorUrl?, line?: max 80 }` | `201 { url }` - Stripe Checkout (promotion codes on); 503 `payments_off` without Stripe config or when the key is not the `STRIPE_ACCOUNT_ID` account; every start is saved in `fund_checkouts` |
+| GET | `/v1/fund/checkout/:sessionId` | - | - | `{ paid: false }` or `{ paid: true, sponsorName, amountCents, months, banner }` - for the thank-you note on the fund page |
+| POST | `/v1/stripe/webhook` | Stripe signature | Stripe event | `{ received, result }` - books `checkout.session.completed` (paid or 100% off), marks `checkout.session.expired` as left, refunds on full `charge.refunded`; ignores events without `metadata.project = "emera"` |
+| GET | `/v1/admin/fund/sponsors` | admin | - | `{ sponsors: [{ id, name, url, line, banner, email, paid_cents }] }` |
+| POST | `/v1/admin/fund/sponsors/:id/banner` | admin | `{ banner: "approved"\|"rejected"\|"pending" }` | `{ id, banner }` |
+| GET | `/v1/admin/fund/checkouts` | admin | - | `{ checkouts: [...] }` - started, paid, expired, with promo code and discount |
+
+`GET /v1/fund` also returns `banners: [{ name, url, line }]` (approved sponsors paid for this month, biggest first) and `feedCards: { on, posts, needed, every }` (in-feed sponsor cards only when `on`).
+
+Admin auth = `Authorization: Bearer <FUND_ADMIN_KEY>` (a wrangler secret; dev default `dev-fund-admin`). Wrong or missing key is 404, not 401.
+
+`rules` = `{ version, creatorShare, photoCapS, videoCapS, creatorCapS, minViewerAgeH, heartbeatMaxS, payoutMinCents, closeDay }`.
+
+`monthSummary` = `{ month, status: "open"|"closed", sponsoredCents, carryInCents, creatorPoolCents, emeraCents, totalSeconds, creators, sponsors, closedAt, sha256 }`. `creatorPoolCents` = carry in + creator share of sponsored. `creators` = how many creators have counted seconds.
+
+`sponsor` = `{ name, url, amountCents }` for the open month, biggest first.
+
+`sponsorship` = `{ id, sponsorName, sponsorUrl, month, amountCents, status: "pledged"|"paid"|"refunded", createdAt }`. Only `paid` counts toward the pool; `pledged` shows on the fund page as pledged. `contactEmail` is never returned.
+
+`statement` = `monthSummary` plus `{ rulesVersion, sponsorships: [sponsorship], refunds: [sponsorship], shares: [{ handle, seconds, sharePpm, amountCents }], carryOutCents }`. `refunds` = sponsorships from an already-closed month refunded out of this one (their `month` is the month they were booked to); `sponsoredCents` is paid minus those refunds. `shares` biggest first; `handle` is `null` for creators who asked not to be named. `sha256` is over the canonical JSON of the statement without `sha256` and `closedAt`, keys sorted, so anyone can re-check it. Open-month statements are live estimates with `sha256: null`.
+
 ## Connect an AI app, import, auto-post
 
 `/mcp` is an MCP server (Streamable HTTP, stateless JSON-RPC, protocol `2025-11-25` back to `2024-11-05`). Add `https://api.emera.social/mcp` as a connector in claude.ai, ChatGPT, Claude Code or Cursor; the app signs in with OAuth 2.1 (dynamic client registration + PKCE S256) and the person approves with an email code on `/oauth/authorize`. Access tokens are `sessions` rows with `client_id` set (30 days), refresh tokens rotate (1 year). Tools: `whoami`, `preview_import`, `import_posts`, `auto_post`, `list_connections`, `create_post`, `list_my_posts`.

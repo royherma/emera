@@ -16,6 +16,13 @@ export type Env = {
   RESEND_API_KEY?: string;
   MAIL_FROM?: string;
   REPORTS_TO?: string;
+  FUNDING?: string;
+  FUND_ADMIN_KEY?: string;
+  STRIPE_SECRET_KEY?: string;
+  STRIPE_WEBHOOK_SECRET?: string;
+  STRIPE_ACCOUNT_ID?: string;
+  STRIPE_SPONSOR_PRODUCT?: string;
+  FUND_PAGE_URL?: string;
 };
 
 export type UserRow = {

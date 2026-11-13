@@ -6,19 +6,21 @@
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
-    "run_worker_first": ["/*", "!/assets/*", "!/*.txt", "!/*.xml"]
+    "run_worker_first": ["/*", "!/assets/*", "!/*.txt"]
   },
+  "vars": { "FUNDING": "on", "API_ORIGIN": "http://agora-api.localhost:5036" },
   "d1_databases": [
     { "binding": "DB", "database_name": "emera-site-local", "database_id": "TBD", "migrations_dir": "migrations" }
   ],
   "env": {
     "staging": {
       "name": "emera-site-staging",
+      "vars": { "FUNDING": "on", "API_ORIGIN": "https://emera-api-staging.techguyver1337.workers.dev" },
       "workers_dev": true,
       "assets": {
         "directory": "./public",
         "binding": "ASSETS",
-        "run_worker_first": ["/*", "!/assets/*", "!/*.txt", "!/*.xml"]
+        "run_worker_first": ["/*", "!/assets/*", "!/*.txt"]
       },
       "d1_databases": [
         { "binding": "DB", "database_name": "emera-site-staging", "database_id": "55193bab-c903-4f35-b059-93df0b37c3b6", "migrations_dir": "migrations" }
@@ -27,12 +29,13 @@
     },
     "production": {
       "name": "emera-site",
+      "vars": { "FUNDING": "off", "API_ORIGIN": "https://api.emera.social" },
       "workers_dev": false,
       "routes": [{ "pattern": "emera.social", "custom_domain": true }, { "pattern": "www.emera.social", "custom_domain": true }],
       "assets": {
         "directory": "./public",
         "binding": "ASSETS",
-        "run_worker_first": ["/*", "!/assets/*", "!/*.txt", "!/*.xml"]
+        "run_worker_first": ["/*", "!/assets/*", "!/*.txt"]
       },
       "d1_databases": [
         { "binding": "DB", "database_name": "emera-site", "database_id": "daae3f49-ca5f-4d42-ac1e-4281701c86c1", "migrations_dir": "migrations" }

@@ -168,6 +168,18 @@ async function sendEarly(env, r) {
   }, thread ? { ts: thread, broadcast: true } : null);
 }
 
+async function sendSponsor(env, r) {
+  const thread = await threadFor(env, r.visitor);
+  await slack(env, {
+    icon: "🤝",
+    title: "Sponsor interest",
+    detail: `*${esc(r.company)}*`,
+    facts: [esc(r.email), r.monthly_cents ? `$${(r.monthly_cents / 100).toLocaleString("en-US")}/mo` : "no amount given", place(r), device(r.ua), stamp(toMs(r.created_at))],
+    links: [r.url && ["Their site", r.url], adminLink(env)],
+    test: isTest(env, r.email, !!r.tester),
+  }, thread ? { ts: thread, broadcast: true } : null);
+}
+
 async function sendUser(env, r) {
   const test = isTest(env, r.email);
   const n = await realCount(env, env.API_DB, "SELECT email FROM users");
@@ -239,6 +251,7 @@ async function sendFlag(env, r) {
 export const FEEDS = [
   { key: "visits", db: "SITE_DB", sql: "SELECT *, id AS cursor FROM visits WHERE id > ? ORDER BY id LIMIT 40", max: "SELECT COALESCE(MAX(id), 0) AS m FROM visits", send: sendVisit },
   { key: "early", db: "SITE_DB", sql: "SELECT *, id AS cursor FROM early_access WHERE id > ? ORDER BY id LIMIT 20", max: "SELECT COALESCE(MAX(id), 0) AS m FROM early_access", send: sendEarly },
+  { key: "sponsors", db: "SITE_DB", sql: "SELECT *, id AS cursor FROM sponsor_interest WHERE id > ? ORDER BY id LIMIT 20", max: "SELECT COALESCE(MAX(id), 0) AS m FROM sponsor_interest", send: sendSponsor },
   {
     key: "users", db: "API_DB",
     sql: "SELECT id, email, handle, display_name, invited_by, created_at, created_at AS cursor FROM users WHERE created_at > ? ORDER BY created_at LIMIT 20",
@@ -248,6 +261,15 @@ export const FEEDS = [
   },
   { key: "posts", db: "API_DB", sql: "SELECT id, user_id, caption, created_at, created_at AS cursor FROM posts WHERE created_at > ? ORDER BY created_at LIMIT 20", max: "SELECT COALESCE(MAX(created_at), 0) AS m FROM posts", send: sendPost },
   { key: "reports", db: "API_DB", sql: "SELECT *, created_at AS cursor FROM reports WHERE created_at > ? ORDER BY created_at LIMIT 20", max: "SELECT COALESCE(MAX(created_at), 0) AS m FROM reports", send: sendReport },
+  {
+    key: "paid", db: "API_DB",
+    sql: `SELECT s.stripe_session, p.name, p.url, p.line, p.banner, p.contact_email AS email, p.demo, SUM(s.amount_cents) AS cents, COUNT(*) AS months,
+      MIN(s.month) AS first_month, MAX(s.month) AS last_month, MAX(s.created_at) AS cursor, MAX(k.promo_code) AS promo, MAX(k.discount_cents) AS discount, MAX(k.tester) AS tester
+      FROM sponsorships s JOIN sponsors p ON p.id = s.sponsor_id LEFT JOIN fund_checkouts k ON k.session_id = s.stripe_session
+      WHERE s.stripe_session IS NOT NULL AND s.created_at > ? GROUP BY s.stripe_session ORDER BY cursor LIMIT 20`,
+    max: "SELECT COALESCE(MAX(created_at), 0) AS m FROM sponsorships",
+    send: sendPaid,
+  },
   { key: "flags", db: "API_DB", sql: "SELECT *, created_at AS cursor FROM flags WHERE created_at > ? ORDER BY created_at LIMIT 20", max: "SELECT COALESCE(MAX(created_at), 0) AS m FROM flags", send: sendFlag },
 ];
 
@@ -314,6 +336,26 @@ export async function inboundMail(message, env) {
   return forwarded;
 }
 
+async function sendPaid(env, r) {
+  const months = r.months === 1 ? r.first_month : `${r.first_month} to ${r.last_month}`;
+  await slack(env, {
+    icon: "💳",
+    title: "Sponsor paid",
+    detail: `*${esc(r.name)}*${r.line ? ` - ${esc(r.line)}` : ""}`,
+    facts: [`$${(r.cents / 100).toLocaleString("en-US")} for ${months}`, r.promo ? `code ${esc(r.promo)} took $${(r.discount / 100).toLocaleString("en-US")} off` : null, r.email ? esc(r.email) : null, `banner ${r.banner}`, stamp(r.cursor)],
+    links: [r.url && ["Their site", r.url], adminLink(env)],
+    test: isTest(env, r.email || "", !!r.demo || !!r.tester),
+  });
+}
+
+async function setBanner(request, env) {
+  if (!authed(request, env)) return Response.json({ ok: false, error: "bad_key" }, { status: 401 });
+  const body = await request.json().catch(() => ({}));
+  if (!["approved", "rejected", "pending"].includes(body.banner) || typeof body.id !== "string") return Response.json({ ok: false, error: "bad_body" }, { status: 400 });
+  const res = await env.API_DB.prepare("UPDATE sponsors SET banner = ? WHERE id = ?").bind(body.banner, body.id).run();
+  return Response.json({ ok: !!res.meta?.changes, banner: body.banner }, { status: res.meta?.changes ? 200 : 404 });
+}
+
 function authed(request, env) {
   return !!env.ADMIN_KEY && request.headers.get("x-admin-key") === env.ADMIN_KEY;
 }
@@ -327,6 +369,7 @@ export default {
     if (pathname === "/health") return Response.json({ ok: true, env: env.ENVIRONMENT, silent: silent(env) });
     if (pathname === "/api/ledger") return Response.json(ledgerView(await load(env, { visitDays: 1 })), { headers: cors });
     if (pathname === "/admin" || pathname === "/admin/") return new Response(ADMIN_HTML, { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store", "x-robots-tag": "noindex" } });
+    if (request.method === "POST" && pathname === "/admin/sponsor") return setBanner(request, env);
     if (pathname === "/admin/data") {
       if (!authed(request, env)) return Response.json({ ok: false, error: "bad_key" }, { status: 401 });
       const mine = (request.headers.get("cookie") || "").match(/(?:^|;\s*)em_v=([\w-]{8,64})/)?.[1];

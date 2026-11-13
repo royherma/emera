@@ -2,6 +2,9 @@
 
 Every milestone that closes adds its learnings here, and anything stale gets corrected or struck in the same commit. One entry per trap: what bit us, how to spot it, the fix. Newest first. Each entry is dated and says where it was learned.
 
+## 2026-11-13 - Fund: which Stripe account
+
+- **The shared Techguyver live Stripe account shows "RobotJobsHQ" to buyers.** Sponsors paying Emera through it would see RobotJobsHQ on the checkout and their card statement. Emera gets its own account; the API refuses to open a checkout when the key's account id is not `STRIPE_ACCOUNT_ID`. Spot it: `curl -s -u "$KEY:" https://api.stripe.com/v1/account` must name Emera (or the LLC sandbox in test mode).
 ## 2026-11-13 - Build time: a new app builds in under 10 minutes
 
 - **The iOS build on GitHub took 57 minutes** (run 43405787939, `Build` step 10:06-11:03 UTC). `app.json` turned on `buildReactNativeFromSource` to get past one missing symbol (`RCTStatusBarAppearance`, see below), and that compiles all of React Native's C++ on every run. Never fix a crash by building a framework from source; find why the prebuilt one doesn't match (usually the `react-native` version in node_modules vs the prebuilt pod) and fix that.

@@ -56,6 +56,8 @@ label.tg{display:flex;gap:6px;align-items:center;color:var(--ink2);cursor:pointe
 <div class="card"><h2>Early list <span id="ne"></span></h2><div class="scroll"><table id="early"></table></div></div>
 <div class="card"><h2>Visitors <span>latest 60</span></h2><div class="scroll"><table id="visitors"></table></div></div>
 <div class="card"><h2>Posts, reports, flags</h2><div class="scroll"><table id="posts"></table></div></div>
+<div class="card"><h2>Sponsors <span>banner shows after Approve</span></h2><div class="scroll"><table id="sponsors"></table></div></div>
+<div class="card"><h2>Sponsor checkouts <span id="nk"></span></h2><div class="scroll"><table id="checkouts"></table></div></div>
 </section>
 </main>
 <script>
@@ -92,11 +94,16 @@ var feed=d.posts.map(function(p){return{test:p.test,at:p.at,html:'<div class="h"
 .concat(d.reports.map(function(r){return{test:r.test,at:r.at,html:'<div class="h">🚨 copy report by @'+esc(r.handle)+' <span class="tag">'+esc(r.status)+"</span>"+test(r)+'</div><div class="sm"><a class="r" target="_blank" href="'+esc(r.copy_url)+'">'+esc(r.copy_url)+'</a></div><div class="sm">'+bkk(r.at)+"</div>"}}))
 .concat(d.flags.map(function(f){return{test:f.test,at:f.at,html:'<div class="h">🚩 '+esc(f.reason)+" on "+esc(f.target)+' <span class="tag">'+esc(f.status)+"</span>"+test(f)+'</div><div class="sm">by @'+esc(f.handle)+" · "+bkk(f.at)+"</div>"}})).sort(function(a,b){return b.at-a.at});
 document.getElementById("posts").innerHTML=rows(feed,function(x){return"<td>"+x.html+"</td>"});
+var ks=(d.checkouts||[]).filter(function(x){return!x.test}),kc=function(st){return ks.filter(function(x){return x.status===st}).length};
+document.getElementById("nk").textContent=ks.length+" started · "+kc("paid")+" paid · "+kc("expired")+" left";
+document.getElementById("checkouts").innerHTML=rows(d.checkouts||[],function(x){return'<td><div class="h">'+esc(x.name)+' <span class="tag">'+esc(x.status)+"</span>"+test(x)+'</div><div class="sm">$'+(x.monthlyCents/100)+" x "+x.months+" mo"+(x.totalCents!=null?" · paid $"+(x.totalCents/100):"")+(x.promo?" · code "+esc(x.promo):"")+'</div><div class="sm">'+esc(x.email)+" · "+bkk(x.at)+"</div></td>"});
+document.getElementById("sponsors").innerHTML=rows(d.sponsors||[],function(x){return'<td><div class="h">'+(x.url?'<a class="r" target="_blank" rel="noopener" href="'+esc(x.url)+'">'+esc(x.name)+"</a>":esc(x.name))+' <span class="tag">'+esc(x.banner)+"</span>"+test(x)+'</div><div class="sm">'+esc(x.line||"no banner line")+'</div><div class="sm">$'+(x.paidCents/100).toLocaleString("en-US")+" paid"+(x.lastMonth?" · to "+esc(x.lastMonth):"")+(x.email?" · "+esc(x.email):"")+'</div><div class="sm"><button data-sp="'+esc(x.id)+'" data-b="approved">Approve</button> <button data-sp="'+esc(x.id)+'" data-b="rejected">Reject</button></div></td>'});
 }
 function load(){var key=store().getItem(K);if(!key){gate();return}
 fetch("/admin/data",{headers:{"x-admin-key":key}}).then(function(r){if(r.status===401){gate("That key did not work");return null}return r.json()}).then(function(j){if(!j)return;data=j;document.getElementById("gate").style.display="none";document.getElementById("app").hidden=false;render()}).catch(function(e){document.getElementById("upd").textContent="could not load: "+e})}
 function gate(msg){document.getElementById("app").hidden=true;document.getElementById("gate").style.display="block";document.getElementById("gmsg").textContent=msg||""}
 document.getElementById("key").addEventListener("change",function(e){store().setItem(K,e.target.value.trim());load()});
 document.getElementById("showTest").addEventListener("change",function(){if(data)render()});
+document.getElementById("sponsors").addEventListener("click",function(e){var b=e.target.closest("button[data-sp]");if(!b)return;b.disabled=true;fetch("/admin/sponsor",{method:"POST",headers:{"x-admin-key":store().getItem(K),"content-type":"application/json"},body:JSON.stringify({id:b.getAttribute("data-sp"),banner:b.getAttribute("data-b")})}).then(function(){load()})});
 load();setInterval(load,60000);
 </script></body></html>`;

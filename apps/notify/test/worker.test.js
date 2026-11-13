@@ -81,6 +81,14 @@ test("visit opens a thread, the early-list join lands in it with place, device a
   assert.match(JSON.stringify(join.blocks), /maya@paint\.org.*Bangkok, TH.*\*1\* on the list.*Bangkok.*emera\.social\/admin/);
 });
 
+test("sponsor interest posts company, amount and their link", async () => {
+  const h = harness();
+  await poll(h.env);
+  h.env.SITE_DB.raw.prepare("INSERT INTO sponsor_interest (created_at, company, email, monthly_cents, url, country, city, ua) VALUES (?, 'Daylight Paint Co', 'hi@daylight.example', 150000, 'https://daylight.example/', 'TH', 'Bangkok', ?)").run(new Date().toISOString(), IPHONE);
+  assert.deepEqual(await poll(h.env), { sponsors: 1 });
+  assert.match(h.text(), /Sponsor interest.*Daylight Paint Co.*hi@daylight\.example.*\$1,500\/mo.*Bangkok, TH.*daylight\.example/);
+});
+
 test("new account waits for a handle, then posts with early-list match and profile link", async () => {
   const h = harness();
   await poll(h.env);
