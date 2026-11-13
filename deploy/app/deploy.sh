@@ -10,6 +10,7 @@ cp -Rc "$ROOT/apps/mobile/node_modules" "$SRC/apps/mobile/node_modules"
 (cd "$SRC/apps/mobile" && EXPO_PUBLIC_API_URL=$API npx expo export --platform web --output-dir "$HERE/dist.new")
 cp "$ROOT/brand/readme/og.jpg" "$HERE/dist.new/og.jpg"
 node "$HERE/share-tags.mjs" "$HERE/dist.new/index.html"
+node "$SRC/apps/mobile/scripts/pwa.mjs" "$HERE/dist.new"
 mv "$HERE/dist" "$HERE/dist.old.$$" 2>/dev/null || true
 mv "$HERE/dist.new" "$HERE/dist"
 cd "$HERE"
