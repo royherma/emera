@@ -37,6 +37,7 @@ jobs:
           cache-dependency-path: apps/mobile/package-lock.json
       - run: npm --prefix apps/mobile ci
       - run: npm --prefix apps/mobile run check
+      - run: npm --prefix apps/mobile test
 
   site:
     runs-on: ubuntu-latest
