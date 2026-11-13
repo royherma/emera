@@ -128,3 +128,31 @@ Search needs no sign-in. `q` is 1 to 100 characters (`bad_query`), `type` defaul
 `/v1/flags` is the safety report on any post or account, separate from `POST /v1/reports` (a creator reporting a copy of their own work). `reason` is one of `spam`, `harassment`, `hate`, `violence`, `nudity`, `self_harm`, `impersonation`, `scam`, `other` (`bad_reason`). `targetId` is a post id or a user id (`bad_target`, 404 `not_found`). Reporting your own post or account is 400 `own_content`. More than 20 new reports in an hour is 429 `too_many`. `note` up to 1000 characters (`bad_note`).
 
 `flag` = `{ id, targetType, targetId, reason, note, status, createdAt }`. `status` starts as `new`.
+
+## Fund: sponsors, watch time, creator earnings
+
+Rules and every number: `docs/mission/funding-rules.md`. Constants live in `apps/api/src/fundRules.ts` and are echoed in `rules` below, so screens never hardcode them. Months are UTC `YYYY-MM`. Money is integer cents (USD).
+
+**Switch:** the whole feature is on only when the API var `FUNDING` is `"on"` (dev and staging on, production off). When off, every route in this section returns 404 `not_found`, and the app hides the fund and earnings screens after one `GET /v1/fund` 404.
+
+| Method | Path | Auth | Body | Returns |
+| --- | --- | --- | --- | --- |
+| POST | `/v1/watch` | user | `{ postId, seconds }` | `{ counted }` - seconds 1 to 30 (`bad_seconds`); `counted` is what survived the caps (0 for own posts, young accounts, capped) |
+| GET | `/v1/fund` | - | - | `{ rules, month: monthSummary, sponsors: [sponsor], history: [monthSummary] }` - `month` is the open month, `history` closed months newest first (max 24) |
+| GET | `/v1/fund/months/:month` | - | - | `{ statement }` - 404 if the month has no money and no watch time |
+| GET | `/v1/me/earnings` | user | - | `{ rules, thisMonth: { month, seconds, totalSeconds, sharePpm, estimateCents }, months: [{ month, seconds, sharePpm, amountCents }], balanceCents, topPosts: [{ post, seconds }] }` - `topPosts` = your 5 most-watched posts this month |
+| POST | `/v1/admin/fund/sponsorships` | admin | `{ sponsorName, sponsorUrl?, contactEmail?, amountCents, months: ["YYYY-MM"], status?: "paid"\|"pledged" }` | `201 { sponsorships: [sponsorship] }` - amount split equally across `months`, leftover cent on the first |
+| POST | `/v1/admin/fund/sponsorships/:id/refund` | admin | - | `{ sponsorship }` |
+| POST | `/v1/admin/fund/close` | admin | `{ month }` | `{ statement }` - safe to run twice (returns the frozen one); 400 `month_open` if the month has not ended |
+
+Admin auth = `Authorization: Bearer <FUND_ADMIN_KEY>` (a wrangler secret; dev default `dev-fund-admin`). Wrong or missing key is 404, not 401.
+
+`rules` = `{ version, creatorShare, photoCapS, videoCapS, creatorCapS, minViewerAgeH, heartbeatMaxS, payoutMinCents, closeDay }`.
+
+`monthSummary` = `{ month, status: "open"|"closed", sponsoredCents, carryInCents, creatorPoolCents, emeraCents, totalSeconds, creators, sponsors, closedAt, sha256 }`. `creatorPoolCents` = carry in + creator share of sponsored. `creators` = how many creators have counted seconds.
+
+`sponsor` = `{ name, url, amountCents }` for the open month, biggest first.
+
+`sponsorship` = `{ id, sponsorName, sponsorUrl, month, amountCents, status: "pledged"|"paid"|"refunded", createdAt }`. Only `paid` counts toward the pool; `pledged` shows on the fund page as pledged. `contactEmail` is never returned.
+
+`statement` = `monthSummary` plus `{ rulesVersion, sponsorships: [sponsorship], shares: [{ handle, seconds, sharePpm, amountCents }], carryOutCents }`. `shares` biggest first; `handle` is `null` for creators who asked not to be named. `sha256` is over the canonical JSON of the statement without `sha256` and `closedAt`, keys sorted, so anyone can re-check it. Open-month statements are live estimates with `sha256: null`.
