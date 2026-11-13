@@ -264,7 +264,8 @@ export const FEEDS = [
   {
     key: "paid", db: "API_DB",
     sql: `SELECT s.stripe_session, p.name, p.url, p.line, p.banner, p.contact_email AS email, p.demo, SUM(s.amount_cents) AS cents, COUNT(*) AS months,
-      MIN(s.month) AS first_month, MAX(s.month) AS last_month, MAX(s.created_at) AS cursor FROM sponsorships s JOIN sponsors p ON p.id = s.sponsor_id
+      MIN(s.month) AS first_month, MAX(s.month) AS last_month, MAX(s.created_at) AS cursor, MAX(k.promo_code) AS promo, MAX(k.discount_cents) AS discount, MAX(k.tester) AS tester
+      FROM sponsorships s JOIN sponsors p ON p.id = s.sponsor_id LEFT JOIN fund_checkouts k ON k.session_id = s.stripe_session
       WHERE s.stripe_session IS NOT NULL AND s.created_at > ? GROUP BY s.stripe_session ORDER BY cursor LIMIT 20`,
     max: "SELECT COALESCE(MAX(created_at), 0) AS m FROM sponsorships",
     send: sendPaid,
@@ -341,9 +342,9 @@ async function sendPaid(env, r) {
     icon: "💳",
     title: "Sponsor paid",
     detail: `*${esc(r.name)}*${r.line ? ` - ${esc(r.line)}` : ""}`,
-    facts: [`$${(r.cents / 100).toLocaleString("en-US")} for ${months}`, r.email ? esc(r.email) : null, `banner ${r.banner}`, stamp(r.cursor)],
+    facts: [`$${(r.cents / 100).toLocaleString("en-US")} for ${months}`, r.promo ? `code ${esc(r.promo)} took $${(r.discount / 100).toLocaleString("en-US")} off` : null, r.email ? esc(r.email) : null, `banner ${r.banner}`, stamp(r.cursor)],
     links: [r.url && ["Their site", r.url], adminLink(env)],
-    test: isTest(env, r.email || "", !!r.demo),
+    test: isTest(env, r.email || "", !!r.demo || !!r.tester),
   });
 }
 

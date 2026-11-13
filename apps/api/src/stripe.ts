@@ -73,7 +73,10 @@ export const monthsFrom = (start: string, count: number) => Array.from({ length:
 type Session = {
   id: string; url?: string; payment_status: string; amount_total: number; payment_intent: string | null;
   customer_details?: { email?: string | null } | null; metadata?: Record<string, string>;
+  total_details?: { amount_discount?: number } | null; discounts?: { promotion_code?: string | null }[] | null;
 };
+
+const PAID = new Set(['paid', 'no_payment_required']);
 
 export const stripeRoutes = new Hono<AppEnv>();
 
@@ -101,6 +104,7 @@ stripeRoutes.post('/v1/fund/checkout', fundOn, async (c) => {
   const session = await stripeCall<Session>(env, 'POST', '/checkout/sessions', {
     mode: 'payment',
     customer_email: email,
+    allow_promotion_codes: 'true',
     'line_items[0][quantity]': count,
     'line_items[0][price_data][currency]': 'usd',
     'line_items[0][price_data][unit_amount]': monthly,
@@ -115,6 +119,11 @@ stripeRoutes.post('/v1/fund/checkout', fundOn, async (c) => {
     success_url: `${page}?paid={CHECKOUT_SESSION_ID}#sponsor`,
     cancel_url: `${page}#sponsor`,
   });
+  const now = Date.now();
+  await env.DB.prepare(
+    `INSERT OR IGNORE INTO fund_checkouts (session_id, sponsor_name, email, url, line, monthly_cents, months, tester, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+  ).bind(session.id, name, email, url, line, monthly, count, c.req.header('X-TG-Tester') === '1' ? 1 : 0, now, now).run();
   return c.json({ url: session.url }, 201);
 });
 
@@ -128,9 +137,31 @@ stripeRoutes.get('/v1/fund/checkout/:id', fundOn, async (c) => {
   return c.json({ paid: true, sponsorName: row.name, amountCents: row.cents, months: row.months, banner: row.banner });
 });
 
+async function promoCode(env: Env, s: Session) {
+  const id = s.discounts?.find((d) => d.promotion_code)?.promotion_code;
+  if (!id) return null;
+  try {
+    return (await stripeCall<{ code: string }>(env, 'GET', `/promotion_codes/${id}`)).code;
+  } catch {
+    return id;
+  }
+}
+
+async function onExpired(env: Env, s: Session) {
+  if (s.metadata?.project !== 'emera') return 'ignored';
+  await env.DB.prepare(`UPDATE fund_checkouts SET status = 'expired', updated_at = ? WHERE session_id = ? AND status = 'started'`)
+    .bind(Date.now(), s.id).run();
+  return 'expired';
+}
+
 async function onPaid(env: Env, s: Session) {
-  if (s.metadata?.project !== 'emera' || s.payment_status !== 'paid') return 'ignored';
+  if (s.metadata?.project !== 'emera' || !PAID.has(s.payment_status)) return 'ignored';
   const db = env.DB;
+  const discount = s.total_details?.amount_discount ?? 0;
+  const promo = discount ? await promoCode(env, s) : null;
+  await db.prepare(
+    `UPDATE fund_checkouts SET status = 'paid', amount_total = ?, discount_cents = ?, promo_code = ?, updated_at = ? WHERE session_id = ?`,
+  ).bind(s.amount_total, discount, promo, Date.now(), s.id).run();
   const seen = await db.prepare('SELECT 1 FROM sponsorships WHERE stripe_session = ? LIMIT 1').bind(s.id).first();
   if (seen) return 'duplicate';
   const months = (s.metadata.months ?? '').split(',').filter(Boolean);
@@ -171,6 +202,8 @@ stripeRoutes.post('/v1/stripe/webhook', async (c) => {
   let result = 'ignored';
   if (event.type === 'checkout.session.completed' || event.type === 'checkout.session.async_payment_succeeded') {
     result = await onPaid(c.env, event.data.object);
+  } else if (event.type === 'checkout.session.expired') {
+    result = await onExpired(c.env, event.data.object);
   } else if (event.type === 'charge.refunded') {
     result = await onRefund(c.env, event.data.object);
   }
@@ -184,6 +217,11 @@ stripeRoutes.get('/v1/admin/fund/sponsors', fundOn, fundAdmin, async (c) => {
      FROM sponsors p LEFT JOIN sponsorships s ON s.sponsor_id = p.id GROUP BY p.id ORDER BY p.created_at DESC LIMIT 200`,
   ).all()).results;
   return c.json({ sponsors: rows });
+});
+
+stripeRoutes.get('/v1/admin/fund/checkouts', fundOn, fundAdmin, async (c) => {
+  const rows = (await c.env.DB.prepare('SELECT * FROM fund_checkouts ORDER BY created_at DESC LIMIT 200').all()).results;
+  return c.json({ checkouts: rows });
 });
 
 stripeRoutes.post('/v1/admin/fund/sponsors/:id/banner', fundOn, fundAdmin, async (c) => {
