@@ -77,7 +77,7 @@ export function Button({ label, onPress, kind = "primary", icon, busy, disabled,
       ]}
     >
       {kind === "primary" && <LinearGradient colors={sunGradient} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={{ position: "absolute", inset: 0 }} />}
-      {busy ? <ActivityIndicator color={fg} /> : icon ? <Icon name={icon} size={18} color={fg} /> : null}
+      {busy ? <ActivityIndicator color={fg} /> : icon ? <View><Icon name={icon} size={18} color={fg} /></View> : null}
       <Text style={[type.button, { color: fg }]}>{label}</Text>
     </Pressable>
   );

@@ -78,7 +78,7 @@ export default function Settings() {
 
       <View style={{ height: 1, backgroundColor: c.hair }} />
       <Section title="Invite a friend">
-        <Text style={[type.body, { color: c.ink2 }]}>Make a link and send it to someone whose work you love.</Text>
+        <Text style={[type.body, { color: c.ink2 }]}>Send a link to someone whose creations you love.</Text>
         {invite ? (
           <View style={{ gap: space[3], backgroundColor: c.surface, borderRadius: radius.card, borderWidth: 1, borderColor: c.hair, padding: space[4] }}>
             <Text selectable style={[type.h1, { color: c.ink, letterSpacing: 2 }]}>{invite.code}</Text>
@@ -89,7 +89,7 @@ export default function Settings() {
             </View>
           </View>
         ) : (
-          <Button label="Make an invite link" icon="userplus" busy={busy} onPress={makeInvite} style={{ alignSelf: "flex-start" }} />
+          <Button label="Get my invite link" icon="userplus" busy={busy} onPress={makeInvite} style={{ alignSelf: "flex-start" }} />
         )}
         {error && <Banner text={error} />}
       </Section>

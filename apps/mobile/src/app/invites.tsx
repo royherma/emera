@@ -68,7 +68,7 @@ export default function Invites() {
           })}
         </View>
         {problem && <Banner text={problem} />}
-        <Button label="Make an invite link" icon="link" size="lg" busy={busy} onPress={make} />
+        <Button label="Get my invite link" icon="link" size="lg" busy={busy} onPress={make} />
       </View>
 
       {error && !data ? (
