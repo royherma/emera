@@ -1,11 +1,11 @@
 {
-  "updated": "11:55 AM Bangkok",
+  "updated": "2026-11-13T07:25:35.809Z",
   "title": "Emera",
   "goal": "Emera. Where humanity comes together - you post, share the link, invite people",
   "phases": [
     {
       "id": "a",
-      "title": "1 \u00b7 Brand",
+      "title": "1 · Brand",
       "sub": "You decide, I build. Directions land above.",
       "tasks": [
         {
@@ -64,7 +64,7 @@
     },
     {
       "id": "b",
-      "title": "2 \u00b7 Architecture",
+      "title": "2 · Architecture",
       "sub": "Agents building now, I check each one.",
       "tasks": [
         {
@@ -112,7 +112,7 @@
     },
     {
       "id": "c",
-      "title": "3 \u00b7 Live",
+      "title": "3 · Live",
       "sub": "Staging first, then emera.social.",
       "tasks": [
         {
@@ -130,7 +130,8 @@
         {
           "id": "c3",
           "text": "Error alerts + visitor numbers",
-          "who": "claude"
+          "who": "claude",
+          "done": true
         },
         {
           "id": "c4",
@@ -140,19 +141,21 @@
         {
           "id": "c5",
           "text": "Bring in your old posts automatically",
-          "who": "claude"
+          "who": "claude",
+          "done": true
         }
       ]
     },
     {
       "id": "d",
-      "title": "4 \u00b7 Invite",
+      "title": "4 · Invite",
       "sub": "First 20 creators, first contributors.",
       "tasks": [
         {
           "id": "d1",
           "text": "Invite links + invite list",
-          "who": "claude"
+          "who": "claude",
+          "done": true
         },
         {
           "id": "d2",
@@ -167,7 +170,8 @@
         {
           "id": "d4",
           "text": "Report a copy: creators flag it, we help file the takedown, it goes in the dataset",
-          "who": "claude"
+          "who": "claude",
+          "done": true
         },
         {
           "id": "d5",
@@ -180,28 +184,34 @@
   "decisions": [
     {
       "id": "logo",
-      "q": "Which logo?",
-      "why": "Signature: an e drawn in one stroke, closed with a sun (every post signed). Epsilon: Greek e, day bowl over night bowl. Twin tone: bold e, sun above the bar, night below.",
+      "q": "Which Signature version?",
+      "why": "02 Clear bar: the most e-like. 04 Dip: most hand-signed. 06 Bar sun: the sun sits on the bar like a horizon.",
       "options": [
         {
-          "id": "signature",
-          "label": "02 Signature"
+          "id": "02",
+          "label": "02 Clear bar",
+          "img": "brand/logo/signature/02-clear-bar/icon-1024.png",
+          "img2": "brand/logo/signature/02-clear-bar/wordmark.svg"
         },
         {
-          "id": "epsilon",
-          "label": "06 Epsilon"
+          "id": "04",
+          "label": "04 Dip",
+          "img": "brand/logo/signature/04-dip/icon-1024.png",
+          "img2": "brand/logo/signature/04-dip/wordmark.svg"
         },
         {
-          "id": "twintone",
-          "label": "11 Twin tone"
+          "id": "06",
+          "label": "06 Bar sun",
+          "img": "brand/logo/signature/06-bar-sun/icon-1024.png",
+          "img2": "brand/logo/signature/06-bar-sun/wordmark.svg"
         },
         {
           "id": "other",
-          "label": "Another of the 12"
+          "label": "Another of the 8",
+          "href": "/file/brand/logo/signature/board.html"
         }
       ],
-      "mine": "signature",
-      "pick": "signature"
+      "mine": "06"
     },
     {
       "id": "client",
@@ -350,7 +360,7 @@
         "domain": "emera.social",
         "stance": "Your work, in daylight.",
         "why": "Your pick. Greek hemera = day. Soft and modern. But Emera Inc., a big Canadian energy utility (TSX/NYSE: EMA), owns the search results, and the App Store has an \"Emera\" app.",
-        "check": "$32/yr \u00b7 getemera.com $11 \u00b7 name clash: serious (energy utility)",
+        "check": "$32/yr · getemera.com $11 · name clash: serious (energy utility)",
         "conflictWhy": "Emera Inc. energy utility, 2.5M customers; @emera.bsky.social taken",
         "vote": "keep"
       },
@@ -361,7 +371,7 @@
         "domain": "arengo.social",
         "stance": "The people's assembly.",
         "why": "From your tab. San Marino's assembly of the people, the original agora. No product found with the name.",
-        "check": "$32/yr \u00b7 arengo.org $8.50 \u00b7 name clash: none found",
+        "check": "$32/yr · arengo.org $8.50 · name clash: none found",
         "conflictWhy": "Closest: Arenago (sports booking, France), Arengu (acquired startup)"
       },
       {
@@ -660,7 +670,7 @@
         "domain": "fair.social",
         "stance": "Fair to every creator.",
         "why": "Credit, pay and reach, all fair. One syllable, a stance.",
-        "check": "$99/yr (premium) \u00b7 name clash: serious",
+        "check": "$99/yr (premium) · name clash: serious",
         "conflictWhy": "Generic word; near-homophone Faire (big wholesale marketplace); FairMoney; Fair VPN; Equal/other 'fair' creator networks in web search"
       },
       {
@@ -670,7 +680,7 @@
         "domain": "firsthand.art",
         "stance": "Everything here is firsthand.",
         "why": "Made by a human hand, the original, an honest account.",
-        "check": "$410 first yr, then $70 \u00b7 name clash: minor",
+        "check": "$410 first yr, then $70 · name clash: minor",
         "conflictWhy": "No creator/AI product found by that name; App Store has small apps (Firsthand: To-Do Cards, First Hand: Secret Shopper, Firsthand for Business)"
       },
       {
@@ -680,7 +690,7 @@
         "domain": "honestly.social",
         "stance": "Share honestly.",
         "why": "How friends talk. No bots, no bought reach.",
-        "check": "Taken (Cloudflare check) \u00b7 name clash: minor",
+        "check": "Taken (Cloudflare check) · name clash: minor",
         "conflictWhy": "Small apps: Honestly: Journal & Reflect, Honestly, Honestly Engage; Honestly analytics tool on Product Hunt; no major social/creator brand"
       },
       {
@@ -690,7 +700,7 @@
         "domain": "sincerely.art",
         "stance": "Every post, signed.",
         "why": "The sign-off on a letter: warm, and it's your signature.",
-        "check": "$910 first yr, then $70 \u00b7 name clash: serious",
+        "check": "$910 first yr, then $70 · name clash: serious",
         "conflictWhy": "Sincerely: Vent & Confess (MWM, anonymous social app, exact name); Sincerely Inc is a known photo-print/gift app company [inferred from memory, not verified this run]"
       },
       {
@@ -700,7 +710,7 @@
         "domain": "sigil.art",
         "stance": "Your mark on everything you make.",
         "why": "A maker's mark with some magic to it.",
-        "check": "$910 first yr, then $70 \u00b7 name clash: minor",
+        "check": "$910 first yr, then $70 · name clash: minor",
         "conflictWhy": "Sigil Video (social video app) discontinued; Sigil Creator / SigilAI / Sigil Maker occult apps; Sigil EPUB editor; Project: Sigil social idea on DEV; nothing big"
       },
       {
@@ -710,7 +720,7 @@
         "domain": "here.social",
         "stance": "Be here, as you are.",
         "why": "Tiny and present. Hard to search for.",
-        "check": "Taken (Cloudflare check) \u00b7 name clash: serious",
+        "check": "Taken (Cloudflare check) · name clash: serious",
         "conflictWhy": "HERE Technologies / HERE WeGo maps is a major brand; several apps named Here (subway, peer support, TV, puzzle); word is ungoogleable"
       },
       {
@@ -720,7 +730,7 @@
         "domain": "byline.social",
         "stance": "Your name stays on your work.",
         "why": "The credit line on every story, for every medium.",
-        "check": "$32/yr \u00b7 name clash: minor",
+        "check": "$32/yr · name clash: minor",
         "conflictWhy": "Byline Bank (large US bank, finance); Byline multiplayer writing app; Byline Times / Byline magazine; Byline: Reads; none are creator networks"
       },
       {
@@ -730,7 +740,7 @@
         "domain": "ours.art",
         "stance": "Owned by the people on it.",
         "why": "Nonprofit, and your work stays yours.",
-        "check": "$910 first yr, then $70 \u00b7 name clash: serious",
+        "check": "$910 first yr, then $70 · name clash: serious",
         "conflictWhy": "Several exact-name photo/memory/art apps: Ours: Wedding & Event Camera, Ours: Couple Diary, Ours: Couple Widget & Art, Ours - Shared Memories; Oura near-homophone"
       },
       {
@@ -740,7 +750,7 @@
         "domain": "vow.art",
         "stance": "A promise to every creator.",
         "why": "A promise you keep: credit, protection, no tricks.",
-        "check": "$910 first yr, then $70 \u00b7 name clash: minor",
+        "check": "$910 first yr, then $70 · name clash: minor",
         "conflictWhy": "Many small exact-name apps (VOW habit/urge blockers, Vow Wedding AI planner, Vow Affirmations); none in creator/social space"
       },
       {
@@ -750,7 +760,7 @@
         "domain": "chorus.art",
         "stance": "Every voice, together.",
         "why": "Many makers, one place. Lifts everyone, not a few.",
-        "check": "$910 first yr, then $70 \u00b7 name clash: serious",
+        "check": "$910 first yr, then $70 · name clash: serious",
         "conflictWhy": "Chorus - The Future is Fandom (fan platform for artists, same space); Chorus Network (music distribution app); Chorus by ZoomInfo; Chorus nonprofit for civic creators (wearechorus.com, nonprofit + creators overlap)"
       }
     ],
@@ -776,20 +786,20 @@
     }
   ],
   "brand": {
-    "note": "Pick the logo in Decisions (left). Click a picture to open it full size.",
+    "note": "Pick a Signature version in Decisions. Click a picture to open it full size.",
     "items": [
       {
-        "id": "logo-top3",
-        "name": "Logo top 3, in use",
-        "png": ".claude/artifacts/brand/logo-top3.png",
-        "html": "brand/logo/top3.html",
+        "id": "logo-signature",
+        "name": "Signature: 8 versions",
+        "png": ".claude/artifacts/brand/logo-signature.png",
+        "html": "brand/logo/signature/board.html",
         "vote": null
       },
       {
-        "id": "logo-board",
-        "name": "All 12 logo ideas",
-        "png": ".claude/artifacts/brand/logo-board.png",
-        "html": "brand/logo/board.html",
+        "id": "logo-signature-top3",
+        "name": "Top 3 in use",
+        "png": ".claude/artifacts/brand/logo-signature-top3.png",
+        "html": "brand/logo/signature/signature-top3.html",
         "vote": null
       },
       {
@@ -896,6 +906,54 @@
       "name": "Feature comparison",
       "state": "running",
       "note": "vs Instagram, TikTok, YouTube, Bluesky..."
+    },
+    {
+      "name": "Report a copy API",
+      "state": "done",
+      "note": "POST/GET /v1/reports, 13 tests pass, 8bbb405",
+      "owner": "claude 87493f70"
+    },
+    {
+      "name": "Invite list",
+      "state": "done",
+      "note": "Invite people screen, who joined each link, limit 20",
+      "owner": "claude 87493f70"
+    },
+    {
+      "name": "Error alerts + visitors",
+      "state": "done",
+      "note": "Sentry on API + email alert, Web Analytics on site; staging",
+      "owner": "claude 87493f70"
+    },
+    {
+      "name": "Open-source prep",
+      "state": "done",
+      "note": "0 leaks, licenses + CI, fb49a4e; waits on your go",
+      "owner": "claude 87493f70"
+    },
+    {
+      "name": "Import old posts",
+      "state": "done",
+      "note": "Instagram export in, original dates kept, tested",
+      "owner": "claude 87493f70"
+    },
+    {
+      "name": "Follow, block, mute",
+      "state": "done",
+      "note": "live on app.emera.social",
+      "owner": "claude 87493f70"
+    },
+    {
+      "name": "Likes, comments, notifications",
+      "state": "done",
+      "note": "live, follows notify too",
+      "owner": "claude 87493f70"
+    },
+    {
+      "name": "Search, profile edit, alt text, report",
+      "state": "done",
+      "note": "live on app.emera.social",
+      "owner": "claude 87493f70"
     }
   ],
   "asks": [
@@ -1045,6 +1103,275 @@
       "Admin",
       "Resend",
       "https://resend.com/domains/ae36578d-9dfd-4a25-a635-dab3f2a083c9"
+    ]
+  ],
+  "review": [
+    {
+      "id": "handles",
+      "kind": "do",
+      "when": "now",
+      "title": "Claim @emerasocial on 4 apps",
+      "why": "Free today; handles get taken. Every launch post needs them.",
+      "task": "a8",
+      "links": [
+        [
+          "TikTok",
+          "https://www.tiktok.com/signup"
+        ],
+        [
+          "YouTube",
+          "https://www.youtube.com/create_channel"
+        ],
+        [
+          "Instagram",
+          "https://www.instagram.com/accounts/emailsignup/"
+        ],
+        [
+          "Bluesky",
+          "https://bsky.app"
+        ]
+      ],
+      "options": [
+        {
+          "id": "done",
+          "label": "Done",
+          "primary": true
+        },
+        {
+          "id": "later",
+          "label": "Later"
+        }
+      ]
+    },
+    {
+      "id": "profile",
+      "kind": "do",
+      "when": "this week",
+      "title": "Post your profile + 10 works",
+      "why": "Nobody joins an empty network; yours is the example.",
+      "task": "c4",
+      "links": [
+        [
+          "Open the app",
+          "https://app.emera.social"
+        ]
+      ],
+      "options": [
+        {
+          "id": "done",
+          "label": "Done",
+          "primary": true
+        },
+        {
+          "id": "later",
+          "label": "Later"
+        }
+      ]
+    },
+    {
+      "id": "founding20",
+      "kind": "type",
+      "when": "this week",
+      "title": "Name 20 creators you can DM",
+      "why": "People who know you convert; I draft the DMs, you send.",
+      "task": "d5",
+      "placeholder": "Names or @handles, comma separated",
+      "options": [
+        {
+          "id": "send",
+          "label": "Send names",
+          "primary": true
+        },
+        {
+          "id": "later",
+          "label": "Later"
+        }
+      ]
+    },
+    {
+      "id": "issues",
+      "kind": "approve",
+      "when": "now",
+      "title": "Post these 10 starter issues",
+      "why": "Contributors pick from these the day the repo opens. Full text in docs/help-wanted.json.",
+      "task": "d3",
+      "list": [
+        "Replay D1 migrations from empty in CI",
+        "Add a pre-commit hook for typecheck and format",
+        "Add unit tests for the mobile lib folder",
+        "RSS and Atom feeds for creators and the global feed",
+        "Make the web build an installable PWA",
+        "Golden test files for social.emera lexicons",
+        "Translate the app into your language",
+        "Respect Reduce Motion and font scaling",
+        "Seed script for a full local demo",
+        "Fresh-machine test of CONTRIBUTING.md"
+      ],
+      "options": [
+        {
+          "id": "yes",
+          "label": "Post all 10",
+          "primary": true
+        },
+        {
+          "id": "no",
+          "label": "Not yet"
+        }
+      ]
+    },
+    {
+      "id": "dmca",
+      "kind": "do",
+      "when": "this week",
+      "title": "Register the DMCA agent ($6)",
+      "why": "Without it we lose safe harbor for user uploads.",
+      "rec": "File as Techguyver Labs, dmca@emera.social",
+      "links": [
+        [
+          "dmca.copyright.gov",
+          "https://dmca.copyright.gov"
+        ]
+      ],
+      "options": [
+        {
+          "id": "done",
+          "label": "Done",
+          "primary": true
+        },
+        {
+          "id": "later",
+          "label": "Later"
+        }
+      ]
+    },
+    {
+      "id": "trademark",
+      "kind": "do",
+      "when": "this week",
+      "title": "Check Canada + EU trademarks",
+      "why": "US is clear; Emera Inc. is Canadian, EU mark 014359897 may exist.",
+      "links": [
+        [
+          "Canada search",
+          "https://ised-isde.canada.ca/cipo/trademark-search/srch"
+        ],
+        [
+          "EU (TMview)",
+          "https://www.tmdn.org/tmview/"
+        ]
+      ],
+      "options": [
+        {
+          "id": "clear",
+          "label": "Both clear",
+          "primary": true
+        },
+        {
+          "id": "clash",
+          "label": "Found a clash"
+        },
+        {
+          "id": "later",
+          "label": "Later"
+        }
+      ]
+    },
+    {
+      "id": "counsel",
+      "kind": "money",
+      "when": "this week",
+      "title": "Book one IP lawyer",
+      "why": "Takedown notices are sworn; report terms and the dataset need a lawyer read.",
+      "rec": "Fixed fee $1,500-3,000 [inferred]",
+      "options": [
+        {
+          "id": "yes",
+          "label": "Approve budget",
+          "primary": true
+        },
+        {
+          "id": "no",
+          "label": "Not yet"
+        }
+      ]
+    },
+    {
+      "id": "cfstartups",
+      "kind": "do",
+      "when": "this week",
+      "title": "Apply to Cloudflare for Startups",
+      "why": "Credits cover hosting for a year.",
+      "links": [
+        [
+          "Apply",
+          "https://www.cloudflare.com/forstartups/"
+        ]
+      ],
+      "options": [
+        {
+          "id": "done",
+          "label": "Done",
+          "primary": true
+        },
+        {
+          "id": "later",
+          "label": "Later"
+        }
+      ],
+      "answer": null,
+      "text": null,
+      "at": null
+    },
+    {
+      "id": "stores",
+      "kind": "decide",
+      "when": "later",
+      "title": "Store name: Emera Social",
+      "why": "An iOS app \"Emera\" exists. Bundle id social.emera.app, under the LLC Apple account.",
+      "options": [
+        {
+          "id": "yes",
+          "label": "Yes",
+          "primary": true
+        },
+        {
+          "id": "no",
+          "label": "Other name"
+        }
+      ]
+    },
+    {
+      "id": "creatororgs",
+      "kind": "type",
+      "when": "later",
+      "title": "Intro to one creator group",
+      "why": "A guild brings hundreds of members. Graphic Artists Guild, Concept Art Association...",
+      "placeholder": "Who you can intro us to",
+      "options": [
+        {
+          "id": "send",
+          "label": "Send",
+          "primary": true
+        },
+        {
+          "id": "later",
+          "label": "Later"
+        }
+      ]
+    }
+  ],
+  "reviewDone": [
+    [
+      "Pick a brand direction",
+      "Twilight picked"
+    ],
+    [
+      "Approve production go-live",
+      "api.emera.social 200"
+    ],
+    [
+      "Resend for sign-in email",
+      "RESEND_API_KEY set on prod"
     ]
   ]
 }

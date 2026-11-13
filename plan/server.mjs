@@ -25,6 +25,12 @@ const apply = {
   'name-vote': (plan, f) => { plan.names.items.find((n) => n.id === f.id).vote = f.vote; },
   'brand-vote': (plan, f) => { plan.brand.items.find((n) => n.id === f.id).vote = f.vote; },
   'name-add': (plan, f) => { f.id = `n${Date.now() % 100000}`; plan.names.items.push({ id: f.id, name: f.name, why: 'Roy added', added: true }); },
+  review: (plan, f) => {
+    const r = plan.review.find((x) => x.id === f.id);
+    Object.assign(r, { answer: f.answer ?? null, text: 'text' in f ? f.text : r.text, at: f.answer ? new Date().toISOString() : null });
+    const t = r.task && task(plan, r.task);
+    if (t && r.kind === 'do') t.done = f.answer === 'done';
+  },
   note: (plan, f) => { plan.inbox = [...(plan.inbox ?? []), { at: new Date().toISOString(), text: f.text }]; },
 };
 

@@ -108,3 +108,5 @@ Commits are authored by `Techguyver Labs <oss@techguyverlabs.org>` (set in this 
 ## Roy's dashboard
 
 http://agora.localhost:5035 (`npm run plan`): milestones with % done, decisions, brand directions, the workstreams agents are running, mission, and what needs Roy. Every click lands in `data/feedback.jsonl` and prints a `DECISION` line in `.claude/artifacts/plan/server.log`. Keep `data/plan.json` current: tick a step the moment it's verified, and mark a workstream running/done when its agent starts or lands.
+
+**Anything that needs Roy goes on the Review screen, never only in the terminal** (Roy, 2026-11-13). That covers a pick, a yes/no, a thing only he can do (a login, a filing, a payment), and anything an agent added that he should approve before it goes out (issues, copy, posts). Add it to `data/plan.json` `review` (an open `decisions` entry shows up there by itself): show the thing itself (the image, the list, the exact words, the link he clicks), one-line why, your pick, and buttons. His click comes back as a `DECISION` line with `kind: "review"`; act on it, then set `done` on the item. Remove an item the moment you can prove it's already done.

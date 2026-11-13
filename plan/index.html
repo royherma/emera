@@ -74,7 +74,33 @@ h2 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;mar
 .toast{position:fixed;right:20px;bottom:20px;background:var(--ink);color:#fff;padding:8px 14px;border-radius:10px;font-weight:600;opacity:0;transition:.2s;pointer-events:none}
 .toast.on{opacity:1}
 .empty{color:var(--mute);font-size:12px;padding:6px 0}
-@media (max-width:1100px){body{height:auto;min-height:100vh}main{grid-template-columns:1fr}.phases{grid-template-columns:repeat(2,1fr)}.names{grid-template-columns:repeat(2,1fr)}}
+.rvbtn{border:0;border-radius:10px;background:var(--a);color:#fff;font:700 13px Inter,system-ui,sans-serif;padding:8px 14px;cursor:pointer;white-space:nowrap}.rvbtn.off{background:var(--ink)}
+body.rv main,body.rv .ws{display:none}#review{display:none;flex:1;padding:0 20px 14px;overflow:auto;min-height:0}body.rv #review{display:block}
+.rvgrid{display:grid;grid-template-columns:repeat(5,1fr);grid-auto-flow:dense;gap:10px}
+.rc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 13px;display:flex;flex-direction:column;gap:5px;min-width:0}
+.rc.wide{grid-column:span 2}.rc.tall{grid-row:span 2}
+.rc .top{display:flex;gap:6px;align-items:center;font:700 10px Inter,system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.rc .top i{font-style:normal;border-radius:5px;padding:1px 6px;background:#fde6c8;color:#8a5212}.rc .top i.pick{background:#e5ecf7;color:#36527f}.rc .top i.approve{background:#e7f3ec;color:var(--a2)}.rc .top i.money{background:#f4e1dc;color:#a8452f}
+.rc .top span{margin-left:auto}.rc .top span.now{color:var(--a)}
+.rc > b{font-size:14.5px;line-height:1.2}.rc > p{font-size:11.5px;color:var(--mute);line-height:1.3}
+.rc .rec{font-size:11.5px;font-weight:600;color:var(--a2)}
+.rc .imgs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rc .opt{border:2px solid var(--line);border-radius:12px;padding:6px;background:var(--soft);cursor:pointer;display:flex;flex-direction:column;gap:4px;align-items:center;font:600 12px Inter,system-ui,sans-serif;position:relative}
+.rc .opt:hover{border-color:var(--ink)}.rc .opt.on{border-color:var(--a2);box-shadow:0 0 0 2px var(--a2)}
+.rc .opt img{width:100%;height:118px;object-fit:contain;border-radius:8px;background:#fff}.rc .opt img.wm{height:22px}
+.rc .opt.mine::after{content:"my pick";position:absolute;top:-8px;right:8px;font-size:9px;font-weight:700;background:var(--a);color:#fff;padding:0 5px;border-radius:4px}
+.rc .lks{display:flex;flex-wrap:wrap;gap:5px}.rc .lks a{font:600 12px Inter,system-ui,sans-serif;color:var(--ink);text-decoration:none;border:1px solid var(--ink);border-radius:8px;padding:4px 9px}.rc .lks a:hover{background:var(--ink);color:#fff}
+.rc ol{margin:0;padding-left:18px;font-size:12px;line-height:1.45}
+.rc textarea,.rc input.chg{width:100%;border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:12px Inter,system-ui,sans-serif;resize:vertical}
+.rc .acts{display:flex;gap:6px;margin-top:auto;padding-top:4px;align-items:center;flex-wrap:wrap}
+.rc .acts button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 12px;font:600 12.5px Inter,system-ui,sans-serif;cursor:pointer;color:var(--ink)}
+.rc .acts button.p{background:var(--ink);color:#fff;border-color:var(--ink)}.rc .acts button:hover{border-color:var(--ink)}
+.rc .acts .ch{border:0;background:none;color:var(--mute);text-decoration:underline;padding:6px 4px;margin-left:auto}
+.rc.answered{opacity:.55;background:var(--soft)}.rc.answered:hover{opacity:1}
+.rc .ans{font-size:12px;font-weight:700;color:var(--a2)}.rc .ans button{border:0;background:none;color:var(--mute);text-decoration:underline;cursor:pointer;font:500 11.5px Inter,system-ui,sans-serif}
+.rvhead{display:flex;align-items:baseline;gap:12px;margin:2px 0 10px}.rvhead b{font:600 20px Fraunces,Georgia,serif}.rvhead span{font-size:12px;color:var(--mute)}
+.rvdone{margin-top:10px;font-size:11.5px;color:var(--mute)}.rvdone s{color:var(--ink)}
+@media (max-width:1100px){.rvgrid{grid-template-columns:repeat(2,1fr)}body{height:auto;min-height:100vh}main{grid-template-columns:1fr}.phases{grid-template-columns:repeat(2,1fr)}.names{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -82,9 +108,11 @@ h2 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;mar
   <h1 class="serif">Emera <small>emera.social · plan</small></h1>
   <div class="goal"><span>Goal</span><div id="goal"></div></div>
   <div class="prog"><i><b id="bar"></b></i><span id="count"></span><span id="upd"></span></div>
+  <button class="rvbtn" id="rvbtn"></button>
 </header>
 <div class="lk" id="lk"></div>
 <div class="ws" id="ws"></div>
+<section id="review"></section>
 <main>
   <div class="col">
     <section class="card" style="flex:1;overflow:auto">
@@ -125,7 +153,8 @@ function render() {
   $('count').textContent = `${Math.round((100 * done) / Math.max(1, tasks.length))}% · ${done} / ${tasks.length} steps`;
   $('bar').style.width = tasks.length ? `${(100 * done) / tasks.length}%` : '0';
 
-  const tabs = [['decs', 'Decisions'], ['mission', 'Mission'], ['asks', 'Needs you', (plan.asks ?? []).length]];
+  renderReview();
+  const tabs = [['decs', 'Decisions'], ['mission', 'Mission']];
   window.tab ??= 'decs';
   const tb = $('tabs'); tb.replaceChildren();
   for (const [id, label, n] of tabs) { const b = el('button', id === window.tab ? 'on' : '', label); if (n) b.append(el('b', '', n)); b.onclick = () => { window.tab = id; render(); }; tb.append(b); }
@@ -222,7 +251,86 @@ function render() {
     box.append(add); phases.append(box);
   }
 }
-$('tell').onsubmit = (e) => { e.preventDefault(); const text = $('tellIn').value.trim(); if (!text) return; $('tellIn').value = ''; send({ kind: 'note', text }); };
+let rvMode; try { rvMode = sessionStorage.getItem('rv'); } catch {}
+let openDecs;
+const WHEN = { now: 0, 'this week': 1, later: 2 };
+const TAG = { pick: 'Pick', decide: 'Decide', do: 'You do', type: 'Tell me', approve: 'Approve', money: 'Money' };
+function changeBox(card, onSend) {
+  const ch = el('button', 'ch', 'Change...');
+  ch.onclick = () => {
+    const inp = el('input', 'chg'); inp.placeholder = 'What should change? Enter to send';
+    inp.onkeydown = (e) => { if (e.key === 'Enter' && inp.value.trim()) onSend(inp.value.trim()); };
+    card.insertBefore(inp, card.querySelector('.acts')); inp.focus(); ch.remove();
+  };
+  return ch;
+}
+function renderReview() {
+  const box = $('review'); box.replaceChildren();
+  openDecs ??= new Set(plan.decisions.filter((d) => !d.pick).map((d) => d.id));
+  const decs = plan.decisions.filter((d) => openDecs.has(d.id)).map((d) => ({ ...d, kind: 'pick', title: d.q, when: 'now', answered: !!d.pick, dec: d }));
+  const items = [...decs, ...(plan.review ?? []).map((r) => ({ ...r, answered: !!r.answer }))];
+  items.sort((a, b) => a.answered - b.answered || (WHEN[a.when] ?? 1) - (WHEN[b.when] ?? 1));
+  const left = items.filter((x) => !x.answered).length;
+  if (!rvMode) rvMode = left ? 'on' : 'off';
+  document.body.classList.toggle('rv', rvMode === 'on');
+  const btn = $('rvbtn'); btn.className = `rvbtn ${rvMode === 'on' ? 'off' : ''}`;
+  btn.textContent = rvMode === 'on' ? 'Back to plan' : `Review · ${left} for you`;
+  btn.onclick = () => { rvMode = rvMode === 'on' ? 'off' : 'on'; try { sessionStorage.setItem('rv', rvMode); } catch {} render(); };
+  const head = el('div', 'rvhead'); head.append(el('b', '', left ? `${left} things need you` : 'Nothing needs you'), el('span', '', 'Click a button and it reaches Claude. Faded cards are answered; click Undo to change.'));
+  const grid = el('div', 'rvgrid'); box.append(head, grid);
+  for (const it of items) {
+    const hasImg = it.dec?.options.some((o) => o.img);
+    const card = el('div', `rc ${hasImg ? 'wide tall' : ''} ${it.list ? 'tall' : ''} ${it.answered ? 'answered' : ''}`);
+    const top = el('div', 'top'); top.append(el('i', it.kind === 'pick' || it.kind === 'decide' ? 'pick' : it.kind, TAG[it.kind] ?? it.kind), el('span', it.when === 'now' ? 'now' : '', it.when));
+    card.append(top, el('b', '', it.title), el('p', '', it.why));
+    if (it.dec) {
+      const d = it.dec;
+      const pick = (o) => { d.pick = o.id; render(); send({ kind: 'pick', id: d.id, pick: o.id, label: o.label, q: d.q }, `Picked: ${o.label}`); };
+      if (hasImg) {
+        const imgs = el('div', 'imgs');
+        for (const o of d.options.filter((x) => x.img)) {
+          const b = el('button', `opt ${o.id === d.mine ? 'mine' : ''} ${o.id === d.pick ? 'on' : ''}`);
+          const im = el('img'); im.src = `/file/${o.img}`; im.alt = o.label; b.append(im);
+          if (o.img2) { const w = el('img', 'wm'); w.src = `/file/${o.img2}`; w.alt = ''; b.append(w); }
+          b.append(o.label); b.onclick = () => pick(o); imgs.append(b);
+        }
+        card.append(imgs);
+      }
+      const mine = d.options.find((o) => o.id === d.mine);
+      if (mine) card.append(el('div', 'rec', `My pick: ${mine.label}${mine.note ? ' - ' + mine.note : ''}`));
+      const acts = el('div', 'acts');
+      if (d.pick) { const a = el('div', 'ans', `You picked: ${d.options.find((o) => o.id === d.pick)?.label} `); acts.append(a); }
+      else for (const o of d.options.filter((x) => !x.img)) {
+        if (o.href) { const a = el('a', '', o.label); a.href = o.href; a.target = '_blank'; a.className = 'ch'; a.style.marginLeft = '0'; acts.append(a); continue; }
+        const b = el('button', o.id === d.mine ? 'p' : '', o.label); b.onclick = () => pick(o); acts.append(b);
+      }
+      if (!d.pick) acts.append(changeBox(card, (text) => send({ kind: 'decision-note', id: d.id, note: text }, 'Sent to Claude')));
+      card.append(acts); grid.append(card); continue;
+    }
+    if (it.links) { const l = el('div', 'lks'); for (const [t, u] of it.links) { const a = el('a', '', `${t} ↗`); a.href = u; a.target = '_blank'; a.rel = 'noopener'; l.append(a); } card.append(l); }
+    if (it.list) { const ol = el('ol'); for (const t of it.list) ol.append(el('li', '', t)); card.append(ol); }
+    let ta;
+    if (it.kind === 'type' && !it.answered) { ta = el('textarea'); ta.rows = 2; ta.placeholder = it.placeholder; card.append(ta); }
+    if (it.rec) card.append(el('div', 'rec', `My pick: ${it.rec}`));
+    const acts = el('div', 'acts');
+    const answer = (answer, text) => { const r = plan.review.find((x) => x.id === it.id); r.answer = answer; r.text = text; render(); send({ kind: 'review', id: it.id, title: it.title, answer, text }, answer ? `${it.title}: ${answer}` : 'Undone'); };
+    if (it.answered) {
+      const o = it.options.find((x) => x.id === it.answer);
+      const a = el('div', 'ans', `You: ${o?.label ?? it.answer}${it.text ? ' - ' + it.text : ''} `);
+      const u = el('button', '', 'Undo'); u.onclick = () => answer(null, null); a.append(u); acts.append(a);
+    } else {
+      for (const o of it.options) {
+        const b = el('button', o.primary ? 'p' : '', o.label);
+        b.onclick = () => { const text = ta?.value.trim(); if (it.kind === 'type' && o.id === 'send' && !text) { ta.focus(); return; } answer(o.id, text || null); };
+        acts.append(b);
+      }
+      acts.append(changeBox(card, (text) => answer('change', text)));
+    }
+    card.append(acts); grid.append(card);
+  }
+  if (plan.reviewDone?.length) { const d = el('div', 'rvdone', 'Already done, removed: '); plan.reviewDone.forEach(([t, ev], i) => { if (i) d.append(' · '); d.append(el('s', '', t), ` (${ev})`); }); box.append(d); }
+}
+$('tell').onsubmit =(e) => { e.preventDefault(); const text = $('tellIn').value.trim(); if (!text) return; $('tellIn').value = ''; send({ kind: 'note', text }); };
 async function load() { plan = await (await fetch('/plan.json')).json(); if (!document.activeElement?.isContentEditable) render(); }
 load();
 new EventSource('/events').onmessage = load;
