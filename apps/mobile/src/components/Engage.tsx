@@ -9,6 +9,7 @@ import { space, sun, type } from "@/lib/theme";
 import { useToast } from "@/state/toast";
 import { useTheme } from "@/state/theme";
 import { useUnread } from "@/state/unread";
+import { useViewCount } from "@/state/views";
 
 const count = (n: number) => (n >= 10000 ? `${Math.round(n / 1000)}k` : n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n));
 
@@ -75,11 +76,31 @@ export function CommentButton({ post }: { post: Post }) {
   );
 }
 
+export function ViewCount({ post }: { post: Post }) {
+  const { c } = useTheme();
+  const router = useRouter();
+  const n = useViewCount(post);
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={`${n} ${n === 1 ? "person" : "people"} watched. See where the views came from`}
+      onPress={() => router.push({ pathname: "/views/[id]", params: { id: post.id } })}
+      hitSlop={6}
+      style={({ pressed, hovered }: PS) => ({ flexDirection: "row", alignItems: "center", gap: 6, height: 44, paddingRight: space[2], opacity: hovered ? 0.8 : 1, transform: [{ scale: pressed ? 0.94 : 1 }] })}
+    >
+      <Icon name="eye" size={23} color={c.ink} />
+      <Text style={[type.name, { color: c.ink2 }]}>{count(n)}</Text>
+    </Pressable>
+  );
+}
+
 export function EngageBar({ post }: { post: Post }) {
+  const video = post.media.some((m) => m.kind === "video");
   return (
     <View style={{ flexDirection: "row", alignItems: "center", gap: space[2], marginLeft: -2 }}>
       <LikeButton post={post} />
       <CommentButton post={post} />
+      {video && <ViewCount post={post} />}
     </View>
   );
 }

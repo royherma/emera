@@ -14,6 +14,7 @@ import { useLayout } from "@/lib/layout";
 import { useTheme } from "@/state/theme";
 import type { Post } from "@/lib/types";
 import { RoleBadge } from "@/components/RoleBadge";
+import { watched } from "@/state/views";
 
 const web = typeof document !== "undefined";
 
@@ -49,7 +50,7 @@ export function PostRow({ post, width, onDeleted, list }: { post: Post; width: n
         <IconButton icon="dots" label="More" filled={false} tint={c.ink2} onPress={() => menu(post)} />
       </View>
       <Pressable accessibilityRole="link" accessibilityLabel={`Open post by ${post.author.displayName}`} onPress={open} style={({ pressed }: PS) => [{ width: box.width, height: box.height, alignSelf: "center", borderRadius: radius.media, overflow: "hidden", transform: [{ scale: pressed ? 0.992 : 1 }] }, web ? ({ boxShadow: elevation.media } as object) : null]}>
-        {m.kind === "video" ? <InlineVideo media={m} style={{ flex: 1 }} /> : <MediaImage media={m} style={{ flex: 1 }} playSize={56} />}
+        {m.kind === "video" ? <InlineVideo media={m} style={{ flex: 1 }} onWatched={() => watched(post.id)} /> : <MediaImage media={m} style={{ flex: 1 }} playSize={56} />}
         <View style={{ position: "absolute", left: 10, top: 10 }}>
           <SignedMark />
         </View>

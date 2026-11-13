@@ -59,6 +59,7 @@ function Routes() {
               <Stack.Screen name="p/[id]" options={{ animation: "slide_from_right" }} />
               <Stack.Screen name="posts/[id]" options={{ animation: "slide_from_right" }} />
               <Stack.Screen name="comments/[id]" options={{ animation: "slide_from_right" }} />
+              <Stack.Screen name="views/[id]" options={{ animation: "slide_from_right" }} />
               <Stack.Screen name="notifications" options={{ animation: "slide_from_right" }} />
               <Stack.Screen name="u/[handle]" options={{ animation: "slide_from_right" }} />
               <Stack.Screen name="followers/[handle]" options={{ animation: "slide_from_right" }} />
