@@ -8,7 +8,7 @@ import { CategoryTag, Glass, IconButton, Pulse, type PS } from "./ui";
 import { usePostMenu } from "./postMenu";
 import { creatorColors, elevation, radius, space, type } from "@/lib/theme";
 import { timeAgo } from "@/lib/format";
-import { feedBox } from "@/lib/mediaBox";
+import { feedBox, feedColumn } from "@/lib/mediaBox";
 import { rememberList, type ListSource } from "@/lib/postList";
 import { useLayout } from "@/lib/layout";
 import { useTheme } from "@/state/theme";
@@ -16,13 +16,17 @@ import type { Post } from "@/lib/types";
 
 const web = typeof document !== "undefined";
 
+export function useFeedColumn() {
+  const { column, height, wide } = useLayout();
+  return feedColumn(column, height, wide ? 350 : 300);
+}
+
 export function PostRow({ post, width, onDeleted }: { post: Post; width: number; onDeleted?: (id: string) => void }) {
   const router = useRouter();
   const { c } = useTheme();
   const menu = usePostMenu(onDeleted);
-  const { height: screenH, wide } = useLayout();
   const m = post.media[0];
-  const box = feedBox(m, width, Math.max(320, screenH - (wide ? 160 : 200)));
+  const box = feedBox(m, width);
   const open = () => router.push({ pathname: "/p/[id]", params: { id: post.id } });
   const tag = post.author.category;
   return (
