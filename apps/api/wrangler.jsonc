@@ -1,0 +1,51 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "agora-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-05-03",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+
+  "vars": {
+    "ENVIRONMENT": "dev",
+    "INVITES_REQUIRED": "false",
+    "SEED_INVITE_CODE": "welcome-dev",
+    "PROOF_SECRET": "dev-only-proof-secret",
+    "PUBLIC_ORIGIN": ""
+  },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "agora-dev", "database_id": "local-dev", "migrations_dir": "migrations" }
+  ],
+  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "agora-media-dev" }],
+
+  "env": {
+    "staging": {
+      "name": "agora-api-staging",
+      "vars": {
+        "ENVIRONMENT": "staging",
+        "INVITES_REQUIRED": "true",
+        "SEED_INVITE_CODE": "REPLACE_WITH_SECRET",
+        "PROOF_SECRET": "REPLACE_WITH_SECRET",
+        "PUBLIC_ORIGIN": ""
+      },
+      "d1_databases": [
+        { "binding": "DB", "database_name": "agora-staging", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "migrations" }
+      ],
+      "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "agora-media-staging" }]
+    },
+    "production": {
+      "name": "agora-api-production",
+      "vars": {
+        "ENVIRONMENT": "production",
+        "INVITES_REQUIRED": "true",
+        "SEED_INVITE_CODE": "REPLACE_WITH_SECRET",
+        "PROOF_SECRET": "REPLACE_WITH_SECRET",
+        "PUBLIC_ORIGIN": ""
+      },
+      "d1_databases": [
+        { "binding": "DB", "database_name": "agora-prod", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "migrations" }
+      ],
+      "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "agora-media-prod" }]
+    }
+  }
+}

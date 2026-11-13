@@ -1,6 +1,6 @@
 {
-  "updated": "10:57 AM Bangkok",
-  "title": "Plan",
+  "updated": "10:58 AM Bangkok",
+  "title": "Emera",
   "goal": "You post your work on your own profile, share the link, and invite people",
   "phases": [
     {
@@ -16,17 +16,23 @@
         },
         {
           "id": "a2",
-          "text": "Pick the name (cards above)",
-          "who": "roy"
+          "text": "Pick the name: Emera (emera.social)",
+          "who": "roy",
+          "done": true
+        },
+        {
+          "id": "a2b",
+          "text": "Trademark check: Emera vs Emera Inc. (energy)",
+          "who": "claude"
         },
         {
           "id": "a3",
-          "text": "Buy the domain on Cloudflare after your yes",
+          "text": "Buy emera.social + getemera.com on Cloudflare (your yes)",
           "who": "claude"
         },
         {
           "id": "a4",
-          "text": "Brand Bluesky account + handle",
+          "text": "Claim @emera handles: Bluesky, IG, X, TikTok, GitHub",
           "who": "claude"
         },
         {
@@ -166,7 +172,8 @@
           "label": "coined .com"
         }
       ],
-      "mine": "social"
+      "mine": "social",
+      "pick": "social"
     },
     {
       "id": "client",
@@ -316,7 +323,8 @@
         "stance": "Your work, in daylight.",
         "why": "Your pick. Greek hemera = day. Soft and modern. But Emera Inc., a big Canadian energy utility (TSX/NYSE: EMA), owns the search results, and the App Store has an \"Emera\" app.",
         "check": "$32/yr \u00b7 getemera.com $11 \u00b7 name clash: serious (energy utility)",
-        "conflictWhy": "Emera Inc. energy utility, 2.5M customers; @emera.bsky.social taken"
+        "conflictWhy": "Emera Inc. energy utility, 2.5M customers; @emera.bsky.social taken",
+        "vote": "keep"
       },
       {
         "id": "r2-arengo",
