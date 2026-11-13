@@ -8,6 +8,7 @@ import { Sora_400Regular, Sora_600SemiBold, Sora_700Bold } from "@expo-google-fo
 import { DMSans_400Regular, DMSans_500Medium, DMSans_600SemiBold, DMSans_700Bold } from "@expo-google-fonts/dm-sans";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { AuthProvider, useAuth } from "@/state/auth";
+import { DemoBadge } from "@/components/DemoBadge";
 import { SheetProvider } from "@/state/sheet";
 import { ThemeProvider, useTheme } from "@/state/theme";
 import { ToastProvider } from "@/state/toast";
@@ -63,6 +64,7 @@ function Routes() {
           <Stack.Screen name="flag" options={{ animation: "slide_from_right" }} />
         </Stack.Protected>
       </Stack>
+      <DemoBadge />
     </>
   );
 }

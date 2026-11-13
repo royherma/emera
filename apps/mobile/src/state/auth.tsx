@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { api, setToken } from "@/lib/api";
-import { MOCK } from "@/lib/config";
+import { DEMO, MOCK } from "@/lib/config";
 import { mock } from "@/lib/mock";
 import { storage } from "@/lib/storage";
 import type { User } from "@/lib/types";
@@ -29,13 +29,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const drop = useCallback(async () => {
     setToken(null);
     if (MOCK) mock._setToken(null);
-    await storage.set(KEY, null);
+    if (!DEMO) await storage.set(KEY, null);
     setUser(null);
     setStatus("out");
   }, []);
 
   useEffect(() => {
     (async () => {
+      if (DEMO) {
+        const d = mock._demoSession();
+        setToken(d.token);
+        return apply(d.user);
+      }
       const t = await storage.get(KEY);
       if (!t) return setStatus("out");
       setToken(t);
@@ -54,7 +59,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       user,
       signIn: async (t, u, isNew) => {
         setToken(t);
-        await storage.set(KEY, t);
+        if (DEMO) mock._setToken(t);
+        else await storage.set(KEY, t);
         setUser(u);
         setStatus(isNew || !u.handle ? "needsHandle" : "in");
       },

@@ -202,9 +202,16 @@ const noteView = (n: (typeof notes)[number]): Notification => {
 
 const sorted = () => [...posts].sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
 
-export const mock: Backend & { _setToken: (t: string | null) => void } = {
+export const mock: Backend & { _setToken: (t: string | null) => void; _demoSession: () => { token: string; user: User } } = {
   _setToken: (t) => {
     token = t;
+  },
+  _demoSession: () => {
+    const user = users.get("mina")!;
+    const t = `mock_${hex(24)}`;
+    sessions.set(t, user.id);
+    token = t;
+    return { token: t, user };
   },
   async authStart(email, invite) {
     await wait();
