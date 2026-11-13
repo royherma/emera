@@ -1,2 +1,37 @@
 [    2833ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5037/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=src%2Fapp&unstable_transformProfile=hermes-stable:71755
 [   28760ms] [WARNING] Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md @ http://localhost:5037/node_modules/expo-router/entry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=src%2Fapp&unstable_transformProfile=hermes-stable:71755
+[  288912ms] SyntaxError: ~/Desktop/Development/techguyver-side-projects/agora/apps/mobile/src/components/ProfileView.tsx: Unexpected token (99:1)
+
+   97 |         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", minHeight: 44, marginBottom: space[2] }}>
+   98 |           {back ? <IconButton icon="back" label="Back" onPress={() => (router.canGoBack() ? router.back() : router.replace("/feed"))} /> : <View />}
+>  99 | <<<<<<< HEAD
+      |  ^
+  100 |           {own && (
+  101 |             <View style={{ flexDirection: "row", gap: space[2] }}>
+  102 |               {onInvite && <IconButton icon="userplus" label="Invite people" onPress={onInvite} />}
+[  323268ms] SyntaxError: ~/Desktop/Development/techguyver-side-projects/agora/apps/mobile/src/lib/http.ts: Unexpected token (2:0)
+
+  1 | import { API_URL } from "./config";
+> 2 | <<<<<<< HEAD
+    | ^
+  3 | import { ApiError, Backend, Media, PickedFile, Post, User, UserPage } from "./types";
+  4 | =======
+  5 | import { ApiError, Backend, Comment, Media, Notification, PickedFile, Post, User } from "./types";
+[  389031ms] SyntaxError: ~/Desktop/Development/techguyver-side-projects/agora/apps/mobile/src/app/_layout.tsx: Unexpected token (60:1)
+
+  58 |           <Stack.Screen name="settings" options={{ animation: "slide_from_right" }} />
+  59 |           <Stack.Screen name="report" options={{ animation: "slide_from_right" }} />
+> 60 | <<<<<<< HEAD
+     |  ^
+  61 |           <Stack.Screen name="invites" options={{ animation: "slide_from_right" }} />
+  62 | =======
+  63 |           <Stack.Screen name="search" options={{ animation: "slide_from_right" }} />
+[  415093ms] SyntaxError: ~/Desktop/Development/techguyver-side-projects/agora/apps/mobile/src/components/ProfileView.tsx: Identifier 'useSheet' has already been declared. (18:9)
+
+  16 | import { alpha, creatorColors, radius, space, type } from "@/lib/theme";
+  17 | import { useResource } from "@/state/resource";
+> 18 | import { useSheet } from "@/state/sheet";
+     |          ^
+  19 | import { useTheme } from "@/state/theme";
+  20 | import { useToast } from "@/state/toast";
+  21 | import { ApiError } from "@/lib/types";

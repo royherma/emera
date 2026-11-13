@@ -1,39 +1,48 @@
-name: CI
-
+name: ci
 on:
-  pull_request:
   push:
     branches: [main]
-
-permissions:
-  contents: read
-
-concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
-
+  pull_request:
 jobs:
   api:
     runs-on: ubuntu-latest
+    defaults: { run: { working-directory: apps/api } }
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with:
-          node-version: 22
-          cache: npm
-          cache-dependency-path: apps/api/package-lock.json
-      - run: npm --prefix apps/api ci
-      - run: npm --prefix apps/api run typecheck
-      - run: npm --prefix apps/api test
-
-  mobile:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: apps/api/package-lock.json }
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+  app:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: apps/mobile } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: apps/mobile/package-lock.json }
+      - run: npm ci
+      - run: npm run check
+  site:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: apps/site } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: apps/site/package-lock.json }
+      - run: npm ci
+      - run: node scripts/build.mjs
+  atlas:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with:
-          node-version: 22
-          cache: npm
-          cache-dependency-path: apps/mobile/package-lock.json
-      - run: npm --prefix apps/mobile ci
-      - run: npm --prefix apps/mobile run check
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: tools/atlas/package-lock.json }
+      - run: npm ci --prefix tools/atlas
+      - run: node tools/atlas/build.mjs
+  leaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: no personal details in tracked files
+        run: "! git grep -n -I -E 'royherma''@|/Users/''royhermannn' -- ."
