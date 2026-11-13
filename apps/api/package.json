@@ -11,7 +11,8 @@
     "migrate": "wrangler d1 migrations apply DB --local",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "smoke": "bash scripts/smoke.sh"
+    "smoke": "bash scripts/smoke.sh",
+    "fund:demo": "node scripts/fund-demo.mjs"
   },
   "dependencies": {
     "@sentry/cloudflare": "^11.12.0",

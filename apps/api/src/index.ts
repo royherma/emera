@@ -13,6 +13,7 @@ import { notificationRoutes } from './notifications';
 import { searchRoutes } from './search';
 import { profileRoutes } from './profile';
 import { flagRoutes } from './flags';
+import { fundRoutes, runFundCron } from './fund';
 import { pages, notFoundPage } from './pages';
 
 const app = new Hono<AppEnv>();
@@ -39,6 +40,7 @@ app.route('/', notificationRoutes);
 app.route('/', searchRoutes);
 app.route('/', profileRoutes);
 app.route('/', flagRoutes);
+app.route('/', fundRoutes);
 app.route('/', pages);
 
 app.onError((err, c) => {
@@ -68,6 +70,10 @@ export default Sentry.withSentry(
           msg.retry();
         }
       }
+    },
+    async scheduled(_event: ScheduledController, env: Env) {
+      const closed = await runFundCron(env);
+      if (closed) console.log('fund month closed', closed.month, closed.sha256);
     },
   } satisfies ExportedHandler<Env, VideoJob>,
 );
