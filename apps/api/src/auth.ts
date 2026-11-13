@@ -51,11 +51,14 @@ auth.post('/v1/auth/start', async (c) => {
 
   const existing = await c.env.DB.prepare('SELECT id FROM users WHERE email = ?').bind(email).first();
   let invite: string | null = null;
+  const offered = typeof body.invite === 'string' ? body.invite.trim().toLowerCase() : '';
   if (!existing && c.env.INVITES_REQUIRED === 'true') {
-    invite = typeof body.invite === 'string' ? body.invite.trim().toLowerCase() : '';
+    invite = offered;
     if (!invite) throw fail(403, 'invite_required', 'You need an invite to join.');
     const status = await inviteStatus(c.env, invite);
     if (!status.valid) throw fail(403, 'invite_invalid', 'That invite is not valid or was already used.');
+  } else if (!existing && offered && offered.length <= 32) {
+    invite = offered;
   }
 
   const now = Date.now();
@@ -102,6 +105,12 @@ auth.post('/v1/auth/verify', async (c) => {
         if (!claimed.meta.changes) throw fail(403, 'invite_invalid', 'That invite is not valid or was already used.');
         usedCode = inv;
         invitedBy = (await c.env.DB.prepare('SELECT created_by FROM invites WHERE code = ?').bind(inv).first<{ created_by: string | null }>())?.created_by ?? null;
+      }
+    } else if (row.invite_code) {
+      const from = await c.env.DB.prepare('UPDATE invites SET uses = uses + 1 WHERE code = ? RETURNING created_by').bind(row.invite_code).first<{ created_by: string | null }>();
+      if (from) {
+        usedCode = row.invite_code;
+        invitedBy = from.created_by;
       }
     }
     const id = newId(12);
@@ -179,6 +188,7 @@ auth.get('/v1/invites', requireAuth, requireHandle, async (c) => {
       joined: joined.filter((j) => j.invite_code === r.code).map((j) => ({ handle: j.handle, displayName: j.display_name })),
     })),
     limit: MAX_INVITES,
+    open: c.env.INVITES_REQUIRED !== 'true',
   });
 });
 

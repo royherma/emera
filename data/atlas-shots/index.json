@@ -1,12 +1,12 @@
 {
- "capturedAt": "2026-11-13T12:22:09.549Z",
+ "capturedAt": "2026-11-13T12:28:38.911Z",
  "git": {
-  "sha": "f64091b",
+  "sha": "2118164",
   "dirty": false
  },
- "codeHash": "a5c944f4ead8",
+ "codeHash": "591e56eaafdc",
  "by": "auto",
- "why": "app code changed: app/connect.tsx",
+ "why": "app code changed: app/p/[id].tsx, components/ChatRoom.tsx, components/Grid.tsx +6 more",
  "themeSwitch": true,
  "viewports": {
   "phone": {
@@ -22,126 +22,15 @@
   "day",
   "night"
  ],
- "params": {
-  "/invite/:code": "DAYLIGHT",
-  "/p/:id": "p_100",
-  "/u/:handle": "mina",
-  "/comments/:id": "/comments/p_100",
-  "/followers/:handle": "/followers/mina",
-  "/following/:handle": "/following/mina",
-  "/messages/:id": "/messages/p_100",
-  "/posts/:id": "/posts/p_100"
- },
+ "params": {},
  "screens": {
-  "site:/": {
-   "key": "site:/",
-   "slug": "site-home",
-   "route": "/",
-   "surface": "site",
-   "access": "public",
-   "shots": {
-    "desktop-day": "data/atlas-shots/site-home/desktop-day.png",
-    "desktop-night": "data/atlas-shots/site-home/desktop-night.png",
-    "phone-day": "data/atlas-shots/site-home/phone-day.png",
-    "phone-night": "data/atlas-shots/site-home/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/": {
-   "key": "app:/",
-   "slug": "home",
-   "route": "/",
-   "surface": "app",
-   "access": "any",
-   "shots": {
-    "desktop-day": "data/atlas-shots/home/desktop-day.png",
-    "desktop-night": "data/atlas-shots/home/desktop-night.png",
-    "phone-day": "data/atlas-shots/home/phone-day.png",
-    "phone-night": "data/atlas-shots/home/phone-night.png"
-   },
-   "states": [],
-   "forwardsTo": "/welcome"
-  },
-  "app:/welcome": {
-   "key": "app:/welcome",
-   "slug": "welcome",
-   "route": "/welcome",
-   "surface": "app",
-   "access": "signed out",
-   "shots": {
-    "desktop-day": "data/atlas-shots/welcome/desktop-day.png",
-    "desktop-night": "data/atlas-shots/welcome/desktop-night.png",
-    "phone-day": "data/atlas-shots/welcome/phone-day.png",
-    "phone-night": "data/atlas-shots/welcome/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/invite/:code": {
-   "key": "app:/invite/:code",
-   "slug": "invite-code",
-   "route": "/invite/:code",
-   "surface": "app",
-   "access": "any",
-   "shots": {
-    "desktop-day": "data/atlas-shots/invite-code/desktop-day.png",
-    "desktop-night": "data/atlas-shots/invite-code/desktop-night.png",
-    "phone-day": "data/atlas-shots/invite-code/phone-day.png",
-    "phone-night": "data/atlas-shots/invite-code/phone-night.png"
-   },
-   "states": [],
-   "forwardsTo": "/sign-in"
-  },
-  "app:/sign-in": {
-   "key": "app:/sign-in",
-   "slug": "sign-in",
-   "route": "/sign-in",
-   "surface": "app",
-   "access": "signed out",
-   "shots": {
-    "desktop-day": "data/atlas-shots/sign-in/desktop-day.png",
-    "desktop-night": "data/atlas-shots/sign-in/desktop-night.png",
-    "phone-day": "data/atlas-shots/sign-in/phone-day.png",
-    "phone-night": "data/atlas-shots/sign-in/phone-night.png"
-   },
-   "states": [
-    {
-     "name": "error",
-     "tag": "phone-day",
-     "file": "data/atlas-shots/sign-in/error-phone-day.png",
-     "note": "a bad email address"
-    },
-    {
-     "name": "error",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/sign-in/error-desktop-day.png",
-     "note": "a bad email address"
-    },
-    {
-     "name": "error",
-     "tag": "desktop-night",
-     "file": "data/atlas-shots/sign-in/error-desktop-night.png",
-     "note": "a bad email address"
-    },
-    {
-     "name": "error",
-     "tag": "phone-night",
-     "file": "data/atlas-shots/sign-in/error-phone-night.png",
-     "note": "a bad email address"
-    }
-   ]
-  },
   "app:/code": {
    "key": "app:/code",
    "slug": "code",
    "route": "/code",
    "surface": "app",
    "access": "signed out",
-   "shots": {
-    "desktop-day": "data/atlas-shots/code/desktop-day.png",
-    "desktop-night": "data/atlas-shots/code/desktop-night.png",
-    "phone-day": "data/atlas-shots/code/phone-day.png",
-    "phone-night": "data/atlas-shots/code/phone-night.png"
-   },
+   "shots": {},
    "states": []
   },
   "app:/handle": {
@@ -150,484 +39,7 @@
    "route": "/handle",
    "surface": "app",
    "access": "signed out",
-   "shots": {
-    "desktop-day": "data/atlas-shots/handle/desktop-day.png",
-    "desktop-night": "data/atlas-shots/handle/desktop-night.png",
-    "phone-day": "data/atlas-shots/handle/phone-day.png",
-    "phone-night": "data/atlas-shots/handle/phone-night.png"
-   },
-   "states": [
-    {
-     "name": "error",
-     "tag": "phone-day",
-     "file": "data/atlas-shots/handle/error-phone-day.png",
-     "note": "a handle that is taken"
-    },
-    {
-     "name": "error",
-     "tag": "phone-night",
-     "file": "data/atlas-shots/handle/error-phone-night.png",
-     "note": "a handle that is taken"
-    },
-    {
-     "name": "error",
-     "tag": "desktop-night",
-     "file": "data/atlas-shots/handle/error-desktop-night.png",
-     "note": "a handle that is taken"
-    },
-    {
-     "name": "error",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/handle/error-desktop-day.png",
-     "note": "a handle that is taken"
-    }
-   ]
-  },
-  "app:/feed": {
-   "key": "app:/feed",
-   "slug": "feed",
-   "route": "/feed",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/feed/desktop-day.png",
-    "desktop-night": "data/atlas-shots/feed/desktop-night.png",
-    "phone-day": "data/atlas-shots/feed/phone-day.png",
-    "phone-night": "data/atlas-shots/feed/phone-night.png"
-   },
-   "states": [
-    {
-     "name": "post-menu",
-     "tag": "phone-day",
-     "file": "data/atlas-shots/feed/post-menu-phone-day.png",
-     "note": "the \"...\" menu on a post"
-    },
-    {
-     "name": "post-menu",
-     "tag": "phone-night",
-     "file": "data/atlas-shots/feed/post-menu-phone-night.png",
-     "note": "the \"...\" menu on a post"
-    },
-    {
-     "name": "post-menu",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/feed/post-menu-desktop-day.png",
-     "note": "the \"...\" menu on a post"
-    },
-    {
-     "name": "post-menu",
-     "tag": "desktop-night",
-     "file": "data/atlas-shots/feed/post-menu-desktop-night.png",
-     "note": "the \"...\" menu on a post"
-    }
-   ]
-  },
-  "app:/me": {
-   "key": "app:/me",
-   "slug": "me",
-   "route": "/me",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/me/desktop-day.png",
-    "desktop-night": "data/atlas-shots/me/desktop-night.png",
-    "phone-day": "data/atlas-shots/me/phone-day.png",
-    "phone-night": "data/atlas-shots/me/phone-night.png"
-   },
-   "states": [
-    {
-     "name": "copied",
-     "tag": "phone-night",
-     "file": "data/atlas-shots/me/copied-phone-night.png",
-     "note": "Share profile tapped on web, the link is copied"
-    },
-    {
-     "name": "copied",
-     "tag": "phone-day",
-     "file": "data/atlas-shots/me/copied-phone-day.png",
-     "note": "Share profile tapped on web, the link is copied"
-    },
-    {
-     "name": "copied",
-     "tag": "desktop-night",
-     "file": "data/atlas-shots/me/copied-desktop-night.png",
-     "note": "Share profile tapped on web, the link is copied"
-    },
-    {
-     "name": "copied",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/me/copied-desktop-day.png",
-     "note": "Share profile tapped on web, the link is copied"
-    }
-   ]
-  },
-  "app:/explore": {
-   "key": "app:/explore",
-   "slug": "explore",
-   "route": "/explore",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/explore/desktop-day.png",
-    "desktop-night": "data/atlas-shots/explore/desktop-night.png",
-    "phone-day": "data/atlas-shots/explore/phone-day.png",
-    "phone-night": "data/atlas-shots/explore/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/settings": {
-   "key": "app:/settings",
-   "slug": "settings",
-   "route": "/settings",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/settings/desktop-day.png",
-    "desktop-night": "data/atlas-shots/settings/desktop-night.png",
-    "phone-day": "data/atlas-shots/settings/phone-day.png",
-    "phone-night": "data/atlas-shots/settings/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/upload": {
-   "key": "app:/upload",
-   "slug": "upload",
-   "route": "/upload",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/upload/desktop-day.png",
-    "desktop-night": "data/atlas-shots/upload/desktop-night.png",
-    "phone-day": "data/atlas-shots/upload/phone-day.png",
-    "phone-night": "data/atlas-shots/upload/phone-night.png"
-   },
-   "states": [
-    {
-     "name": "picked",
-     "tag": "phone-day",
-     "file": "data/atlas-shots/upload/picked-phone-day.png",
-     "note": "a photo and a video chosen"
-    },
-    {
-     "name": "picked",
-     "tag": "phone-night",
-     "file": "data/atlas-shots/upload/picked-phone-night.png",
-     "note": "a photo and a video chosen"
-    },
-    {
-     "name": "picked",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/upload/picked-desktop-day.png",
-     "note": "a photo and a video chosen"
-    },
-    {
-     "name": "picked",
-     "tag": "desktop-night",
-     "file": "data/atlas-shots/upload/picked-desktop-night.png",
-     "note": "a photo and a video chosen"
-    }
-   ]
-  },
-  "app:/p/:id": {
-   "key": "app:/p/:id",
-   "slug": "p-id",
-   "route": "/p/:id",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/p-id/desktop-day.png",
-    "desktop-night": "data/atlas-shots/p-id/desktop-night.png",
-    "phone-day": "data/atlas-shots/p-id/phone-day.png",
-    "phone-night": "data/atlas-shots/p-id/phone-night.png"
-   },
-   "states": [
-    {
-     "name": "post-menu",
-     "tag": "phone-day",
-     "file": "data/atlas-shots/p-id/post-menu-phone-day.png",
-     "note": "the \"...\" menu open"
-    },
-    {
-     "name": "post-menu",
-     "tag": "phone-night",
-     "file": "data/atlas-shots/p-id/post-menu-phone-night.png",
-     "note": "the \"...\" menu open"
-    },
-    {
-     "name": "post-menu",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/p-id/post-menu-desktop-day.png",
-     "note": "the \"...\" menu open"
-    },
-    {
-     "name": "post-menu",
-     "tag": "desktop-night",
-     "file": "data/atlas-shots/p-id/post-menu-desktop-night.png",
-     "note": "the \"...\" menu open"
-    }
-   ]
-  },
-  "app:/u/:handle": {
-   "key": "app:/u/:handle",
-   "slug": "u-handle",
-   "route": "/u/:handle",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/u-handle/desktop-day.png",
-    "desktop-night": "data/atlas-shots/u-handle/desktop-night.png",
-    "phone-day": "data/atlas-shots/u-handle/phone-day.png",
-    "phone-night": "data/atlas-shots/u-handle/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/report": {
-   "key": "app:/report",
-   "slug": "report",
-   "route": "/report",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/report/desktop-day.png",
-    "desktop-night": "data/atlas-shots/report/desktop-night.png",
-    "phone-day": "data/atlas-shots/report/phone-day.png",
-    "phone-night": "data/atlas-shots/report/phone-night.png"
-   },
-   "states": [
-    {
-     "name": "error",
-     "tag": "phone-night",
-     "file": "data/atlas-shots/report/error-phone-night.png",
-     "note": "a link that is not a link"
-    },
-    {
-     "name": "error",
-     "tag": "phone-day",
-     "file": "data/atlas-shots/report/error-phone-day.png",
-     "note": "a link that is not a link"
-    },
-    {
-     "name": "error",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/report/error-desktop-day.png",
-     "note": "a link that is not a link"
-    },
-    {
-     "name": "error",
-     "tag": "desktop-night",
-     "file": "data/atlas-shots/report/error-desktop-night.png",
-     "note": "a link that is not a link"
-    }
-   ]
-  },
-  "app:/blocked": {
-   "key": "app:/blocked",
-   "slug": "blocked",
-   "route": "/blocked",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/blocked/desktop-day.png",
-    "desktop-night": "data/atlas-shots/blocked/desktop-night.png",
-    "phone-day": "data/atlas-shots/blocked/phone-day.png",
-    "phone-night": "data/atlas-shots/blocked/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/chat": {
-   "key": "app:/chat",
-   "slug": "chat",
-   "route": "/chat",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/chat/desktop-day.png",
-    "desktop-night": "data/atlas-shots/chat/desktop-night.png",
-    "phone-day": "data/atlas-shots/chat/phone-day.png",
-    "phone-night": "data/atlas-shots/chat/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/comments/:id": {
-   "key": "app:/comments/:id",
-   "slug": "comments-id",
-   "route": "/comments/:id",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/comments-id/desktop-day.png",
-    "desktop-night": "data/atlas-shots/comments-id/desktop-night.png",
-    "phone-day": "data/atlas-shots/comments-id/phone-day.png",
-    "phone-night": "data/atlas-shots/comments-id/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/connect": {
-   "key": "app:/connect",
-   "slug": "connect",
-   "route": "/connect",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/connect/desktop-day.png",
-    "desktop-night": "data/atlas-shots/connect/desktop-night.png",
-    "phone-day": "data/atlas-shots/connect/phone-day.png",
-    "phone-night": "data/atlas-shots/connect/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/edit-profile": {
-   "key": "app:/edit-profile",
-   "slug": "edit-profile",
-   "route": "/edit-profile",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/edit-profile/desktop-day.png",
-    "desktop-night": "data/atlas-shots/edit-profile/desktop-night.png",
-    "phone-day": "data/atlas-shots/edit-profile/phone-day.png",
-    "phone-night": "data/atlas-shots/edit-profile/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/flag": {
-   "key": "app:/flag",
-   "slug": "flag",
-   "route": "/flag",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/flag/desktop-day.png",
-    "desktop-night": "data/atlas-shots/flag/desktop-night.png",
-    "phone-day": "data/atlas-shots/flag/phone-day.png",
-    "phone-night": "data/atlas-shots/flag/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/followers/:handle": {
-   "key": "app:/followers/:handle",
-   "slug": "followers-handle",
-   "route": "/followers/:handle",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/followers-handle/desktop-day.png",
-    "desktop-night": "data/atlas-shots/followers-handle/desktop-night.png",
-    "phone-day": "data/atlas-shots/followers-handle/phone-day.png",
-    "phone-night": "data/atlas-shots/followers-handle/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/following/:handle": {
-   "key": "app:/following/:handle",
-   "slug": "following-handle",
-   "route": "/following/:handle",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/following-handle/desktop-day.png",
-    "desktop-night": "data/atlas-shots/following-handle/desktop-night.png",
-    "phone-day": "data/atlas-shots/following-handle/phone-day.png",
-    "phone-night": "data/atlas-shots/following-handle/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/invites": {
-   "key": "app:/invites",
-   "slug": "invites",
-   "route": "/invites",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/invites/desktop-day.png",
-    "desktop-night": "data/atlas-shots/invites/desktop-night.png",
-    "phone-day": "data/atlas-shots/invites/phone-day.png",
-    "phone-night": "data/atlas-shots/invites/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/messages/:id": {
-   "key": "app:/messages/:id",
-   "slug": "messages-id",
-   "route": "/messages/:id",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/messages-id/desktop-day.png",
-    "desktop-night": "data/atlas-shots/messages-id/desktop-night.png",
-    "phone-day": "data/atlas-shots/messages-id/phone-day.png",
-    "phone-night": "data/atlas-shots/messages-id/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/messages/compose": {
-   "key": "app:/messages/compose",
-   "slug": "messages-compose",
-   "route": "/messages/compose",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/messages-compose/desktop-day.png",
-    "desktop-night": "data/atlas-shots/messages-compose/desktop-night.png",
-    "phone-day": "data/atlas-shots/messages-compose/phone-day.png",
-    "phone-night": "data/atlas-shots/messages-compose/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/messages": {
-   "key": "app:/messages",
-   "slug": "messages",
-   "route": "/messages",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/messages/desktop-day.png",
-    "desktop-night": "data/atlas-shots/messages/desktop-night.png",
-    "phone-day": "data/atlas-shots/messages/phone-day.png",
-    "phone-night": "data/atlas-shots/messages/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/notifications": {
-   "key": "app:/notifications",
-   "slug": "notifications",
-   "route": "/notifications",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/notifications/desktop-day.png",
-    "desktop-night": "data/atlas-shots/notifications/desktop-night.png",
-    "phone-day": "data/atlas-shots/notifications/phone-day.png",
-    "phone-night": "data/atlas-shots/notifications/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/posts/:id": {
-   "key": "app:/posts/:id",
-   "slug": "posts-id",
-   "route": "/posts/:id",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/posts-id/desktop-day.png",
-    "desktop-night": "data/atlas-shots/posts-id/desktop-night.png",
-    "phone-day": "data/atlas-shots/posts-id/phone-day.png",
-    "phone-night": "data/atlas-shots/posts-id/phone-night.png"
-   },
-   "states": []
-  },
-  "app:/search": {
-   "key": "app:/search",
-   "slug": "search",
-   "route": "/search",
-   "surface": "app",
-   "access": "signed in",
-   "shots": {
-    "desktop-day": "data/atlas-shots/search/desktop-day.png",
-    "desktop-night": "data/atlas-shots/search/desktop-night.png",
-    "phone-day": "data/atlas-shots/search/phone-day.png",
-    "phone-night": "data/atlas-shots/search/phone-night.png"
-   },
+   "shots": {},
    "states": []
   }
  },
@@ -640,157 +52,809 @@
  ],
  "failed": [
   {
+   "what": "web pages (all)",
+   "why": "/v1/posts 429 {\"error\":{\"code\":\"daily_posts\",\"message\":\"You can share 5 posts a day. Try again tomorrow.\"}}"
+  },
+  {
+   "what": "site (phone-day)",
+   "why": "page.waitForTimeout: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/ (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "site (phone-night)",
+   "why": "page.waitForTimeout: Target page, context or browser has been closed"
+  },
+  {
+   "what": "site (desktop-day)",
+   "why": "page.waitForTimeout: Target page, context or browser has been closed"
+  },
+  {
+   "what": "site (desktop-night)",
+   "why": "page.waitForTimeout: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/welcome (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/ (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/ (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/ (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invite/:code (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/welcome (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/welcome (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/welcome (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/sign-in (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/code (phone-day)",
+   "why": "landed on /welcome, not /code"
+  },
+  {
+   "what": "/handle (phone-day)",
+   "why": "landed on /welcome, not /handle"
+  },
+  {
+   "what": "/invite/:code (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invite/:code (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invite/:code (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "read a real post and handle from the feed (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/sign-in (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/code (phone-night)",
+   "why": "landed on /welcome, not /code"
+  },
+  {
+   "what": "/handle (phone-night)",
+   "why": "landed on /welcome, not /handle"
+  },
+  {
+   "what": "/sign-in (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/code (desktop-day)",
+   "why": "landed on /welcome, not /code"
+  },
+  {
+   "what": "/handle (desktop-day)",
+   "why": "landed on /welcome, not /handle"
+  },
+  {
+   "what": "/sign-in (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/code (desktop-night)",
+   "why": "landed on /welcome, not /code"
+  },
+  {
+   "what": "/handle (desktop-night)",
+   "why": "landed on /welcome, not /handle"
+  },
+  {
+   "what": "/feed (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "read a real post and handle from the feed (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "read a real post and handle from the feed (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "read a real post and handle from the feed (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/me copied (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/feed (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/feed (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/feed (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/explore (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/me copied (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/me copied (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/me copied (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/me (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/explore (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/explore (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/explore (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/settings (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/me (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/me (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/me (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
    "what": "/upload (phone-day)",
-   "why": "locator.fill: Timeout 30000ms exceeded."
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/settings (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/settings (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/settings (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/p/:id (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
    "what": "/upload (phone-night)",
-   "why": "locator.fill: Timeout 30000ms exceeded."
+   "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
    "what": "/upload (desktop-day)",
-   "why": "locator.fill: Timeout 30000ms exceeded."
+   "why": "page.evaluate: Target page, context or browser has been closed"
   },
   {
    "what": "/upload (desktop-night)",
-   "why": "locator.fill: Timeout 30000ms exceeded."
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/u/:handle (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/p/:id (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/p/:id (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/p/:id (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/report (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/u/:handle (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/u/:handle (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/u/:handle (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/code (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/report (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/report (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/report (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/handle (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/code (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/code (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/code (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/sign-in (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/handle (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/handle (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/handle (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/welcome (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/sign-in (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/sign-in (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/sign-in (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/explore (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/welcome (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/welcome (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/welcome (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/feed (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/explore (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/explore (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/explore (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/me (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/feed (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/feed (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/feed (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/upload (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/me (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/me (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/me (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/blocked (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/upload (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/upload (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/upload (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/chat (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/blocked (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/blocked (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/blocked (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/comments/:id (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/chat (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/chat (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/chat (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/connect (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/comments/:id (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/comments/:id (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/comments/:id (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/edit-profile (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/connect (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/connect (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/connect (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/flag (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/edit-profile (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/edit-profile (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/edit-profile (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/followers/:handle (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/flag (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/flag (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/flag (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/following/:handle (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/followers/:handle (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/followers/:handle (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/followers/:handle (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/ (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/following/:handle (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/following/:handle (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/following/:handle (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invite/:code (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/ (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/ (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/ (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invites (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invite/:code (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invite/:code (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invite/:code (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages/:id (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invites (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invites (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/invites (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages/compose (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages/:id (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages/:id (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages/:id (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages/compose (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages/compose (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages/compose (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/notifications (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/messages (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/p/:id (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/notifications (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/notifications (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/notifications (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/posts/:id (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/p/:id (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/p/:id (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/p/:id (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/report (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/posts/:id (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/posts/:id (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/posts/:id (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/search (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/report (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/report (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/report (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/settings (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/search (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/search (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/search (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/u/:handle (phone-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/settings (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/settings (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/settings (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/u/:handle (phone-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/u/:handle (desktop-day)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
+  },
+  {
+   "what": "/u/:handle (desktop-night)",
+   "why": "page.evaluate: Target page, context or browser has been closed"
   }
  ],
- "pages": {
-  "/": {
-   "key": "page:/",
-   "slug": "page-home",
-   "route": "/",
-   "path": "/",
-   "shots": {
-    "phone-day": "data/atlas-shots/page-home/phone-day.png",
-    "desktop-day": "data/atlas-shots/page-home/desktop-day.png",
-    "phone-night": "data/atlas-shots/page-home/phone-night.png",
-    "desktop-night": "data/atlas-shots/page-home/desktop-night.png"
-   },
-   "states": []
-  },
-  "/invite/:code": {
-   "key": "page:/invite/:code",
-   "slug": "page-invite-code",
-   "route": "/invite/:code",
-   "path": "/invite/mjr3jp2z",
-   "shots": {
-    "phone-day": "data/atlas-shots/page-invite-code/phone-day.png",
-    "desktop-day": "data/atlas-shots/page-invite-code/desktop-day.png",
-    "phone-night": "data/atlas-shots/page-invite-code/phone-night.png",
-    "desktop-night": "data/atlas-shots/page-invite-code/desktop-night.png"
-   },
-   "states": []
-  },
-  "/@:handle": {
-   "key": "page:/@:handle",
-   "slug": "page-handle",
-   "route": "/@:handle",
-   "path": "/@kiln_studio",
-   "shots": {
-    "phone-day": "data/atlas-shots/page-handle/phone-day.png",
-    "desktop-day": "data/atlas-shots/page-handle/desktop-day.png",
-    "phone-night": "data/atlas-shots/page-handle/phone-night.png",
-    "desktop-night": "data/atlas-shots/page-handle/desktop-night.png"
-   },
-   "states": [
-    {
-     "name": "preview",
-     "tag": "phone-day",
-     "file": "data/atlas-shots/page-handle/preview-phone-day.png",
-     "note": "the card a pasted link shows, built from its og tags"
-    },
-    {
-     "name": "preview",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/page-handle/preview-desktop-day.png",
-     "note": "the card a pasted link shows, built from its og tags"
-    },
-    {
-     "name": "preview",
-     "tag": "phone-night",
-     "file": "data/atlas-shots/page-handle/preview-phone-night.png",
-     "note": "the card a pasted link shows, built from its og tags"
-    },
-    {
-     "name": "preview",
-     "tag": "desktop-night",
-     "file": "data/atlas-shots/page-handle/preview-desktop-night.png",
-     "note": "the card a pasted link shows, built from its og tags"
-    }
-   ]
-  },
-  "/p/:id": {
-   "key": "page:/p/:id",
-   "slug": "page-p-id",
-   "route": "/p/:id",
-   "path": "/p/JhOIrtVdYP",
-   "shots": {
-    "phone-day": "data/atlas-shots/page-p-id/phone-day.png",
-    "desktop-day": "data/atlas-shots/page-p-id/desktop-day.png",
-    "phone-night": "data/atlas-shots/page-p-id/phone-night.png",
-    "desktop-night": "data/atlas-shots/page-p-id/desktop-night.png"
-   },
-   "states": [
-    {
-     "name": "preview",
-     "tag": "phone-day",
-     "file": "data/atlas-shots/page-p-id/preview-phone-day.png",
-     "note": "the card a pasted link shows, built from its og tags"
-    },
-    {
-     "name": "preview",
-     "tag": "desktop-day",
-     "file": "data/atlas-shots/page-p-id/preview-desktop-day.png",
-     "note": "the card a pasted link shows, built from its og tags"
-    },
-    {
-     "name": "preview",
-     "tag": "phone-night",
-     "file": "data/atlas-shots/page-p-id/preview-phone-night.png",
-     "note": "the card a pasted link shows, built from its og tags"
-    },
-    {
-     "name": "preview",
-     "tag": "desktop-night",
-     "file": "data/atlas-shots/page-p-id/preview-desktop-night.png",
-     "note": "the card a pasted link shows, built from its og tags"
-    }
-   ]
-  }
- },
- "count": 172,
- "ms": 100545,
+ "pages": {},
+ "count": 0,
+ "ms": 11887,
  "phases": [
   {
    "name": "export web build",
-   "ms": 3181
+   "ms": 2447
   },
   {
    "name": "desktop-day",
-   "ms": 97000
+   "ms": 9323
   },
   {
    "name": "desktop-night",
-   "ms": 97176
+   "ms": 9323
   },
   {
    "name": "phone-day",
-   "ms": 96343
+   "ms": 9322
   },
   {
    "name": "phone-night",
-   "ms": 96355
+   "ms": 9323
   },
   {
    "name": "web pages from the api",
-   "ms": 23321
+   "ms": 9272
   },
   {
    "name": "all captures (in parallel)",
-   "ms": 97316
+   "ms": 9440
   }
  ],
- "missing": []
+ "missing": [
+  "app:/code",
+  "app:/handle",
+  "app:/sign-in",
+  "app:/welcome",
+  "app:/explore",
+  "app:/feed",
+  "app:/me",
+  "app:/upload",
+  "app:/blocked",
+  "app:/chat",
+  "app:/comments/:id",
+  "app:/connect",
+  "app:/edit-profile",
+  "app:/flag",
+  "app:/followers/:handle",
+  "app:/following/:handle",
+  "app:/",
+  "app:/invite/:code",
+  "app:/invites",
+  "app:/messages/:id",
+  "app:/messages/compose",
+  "app:/messages",
+  "app:/notifications",
+  "app:/p/:id",
+  "app:/posts/:id",
+  "app:/report",
+  "app:/search",
+  "app:/settings",
+  "app:/u/:handle",
+  "site:/"
+ ]
 }

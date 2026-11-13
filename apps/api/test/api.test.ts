@@ -87,6 +87,31 @@ describe('invite gate', () => {
   });
 });
 
+describe('open sign-up', () => {
+  const env = () => makeEnv({ INVITES_REQUIRED: 'false' });
+
+  it('lets anyone join and still counts who joined from an invite link', async () => {
+    const e = env();
+    const host = new Client(e);
+    await host.signIn('host@example.test');
+    await host.withHandle('host', 'Host');
+    const link = await host.json('POST', '/v1/invites');
+    expect((await host.json('GET', '/v1/invites')).body.open).toBe(true);
+
+    for (const [email, handle] of [['a@example.test', 'guest_a'], ['b@example.test', 'guest_b']]) {
+      const guest = new Client(e);
+      await guest.signIn(email, link.body.code);
+      await guest.withHandle(handle, handle);
+    }
+    const plain = new Client(e);
+    await plain.signIn('plain@example.test', 'nosuchcode');
+    await plain.withHandle('plain', 'Plain');
+
+    const mine = (await host.json('GET', '/v1/invites')).body.invites[0];
+    expect(mine).toMatchObject({ uses: 2, joined: [{ handle: 'guest_a', displayName: 'guest_a' }, { handle: 'guest_b', displayName: 'guest_b' }] });
+  });
+});
+
 describe('my invites', () => {
   const env = () => makeEnv({ INVITES_REQUIRED: 'true' });
 
@@ -94,7 +119,7 @@ describe('my invites', () => {
     const founder = new Client(env());
     await founder.signIn('lister@example.test', 'welcome-dev');
     await founder.withHandle('lister', 'Lister');
-    expect((await founder.json('GET', '/v1/invites')).body).toEqual({ invites: [], limit: 20 });
+    expect((await founder.json('GET', '/v1/invites')).body).toEqual({ invites: [], limit: 20, open: false });
     expect((await new Client(env()).json('GET', '/v1/invites')).status).toBe(401);
 
     const team = await founder.json('POST', '/v1/invites', { maxUses: 3 });
