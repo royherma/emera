@@ -218,6 +218,18 @@ describe('uploads, posts, profiles, pages', () => {
     expect((await app.fetch(new Request(media.url), c.env)).status).toBe(404);
   });
 
+  it('keeps the original image when the shrinker is unavailable', async () => {
+    const c = new Client(makeEnv({ IMAGES: undefined }));
+    await c.signIn('raw@example.test');
+    await c.withHandle('raw');
+    const png = pngBytes(64, 48);
+    const up = await c.upload(png);
+    expect(up.status).toBe(200);
+    expect(up.body.media).toMatchObject({ contentType: 'image/png', width: 64, height: 48 });
+    const digest = Buffer.from(await crypto.subtle.digest('SHA-256', png)).toString('hex');
+    expect(up.body.media.proof).toMatchObject({ sha256: digest, sourceSha256: digest });
+  });
+
   it('rejects files that are not what they claim, and unsupported types', async () => {
     const c = new Client();
     await c.signIn('liar@example.test');
