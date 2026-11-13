@@ -1188,7 +1188,7 @@
     {
       "name": "Bring your posts screen",
       "state": "done",
-      "note": "app.emera.social/connect: pick posts, auto-post rules, connector files, 5f82d94",
+      "note": "emera.social/connect: pick posts, auto-post rules, connector files, 5f82d94",
       "owner": "claude fd627ece"
     }
   ],
@@ -1284,7 +1284,7 @@
         ],
         [
           "Bring your posts (app)",
-          "https://app.emera.social/connect"
+          "https://emera.social/connect"
         ]
       ],
       "list": [
@@ -1758,7 +1758,12 @@
           "Fund rules",
           "https://github.com/royherma/emera/blob/main/docs/mission/funding-rules.md"
         ]
-      ]
+      ],
+      "done": {
+        "at": "2026-11-13 19:22 Bangkok",
+        "ref": "1088a9c",
+        "note": "Claude ran it: Marrowbend Studio sponsored on staging with EMERATEST100 ($40 off to $0), banner approved, tracked paid"
+      }
     },
     {
       "id": "posts-per-day",
