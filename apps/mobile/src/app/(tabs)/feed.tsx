@@ -3,7 +3,8 @@ import { Pressable, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { Screen } from "@/components/Screen";
 import { PeopleRail, PostRow, RowSkeleton } from "@/components/Grid";
-import { NotificationBell } from "@/components/Engage";
+import { NotificationBell, UnreadDot } from "@/components/Engage";
+import { useDmUnread, useRefreshDmUnread } from "@/state/dmUnread";
 import { Icon } from "@/components/Icon";
 import { Button, EmptyState, ErrorState, Segmented, Wordmark } from "@/components/ui";
 import { api } from "@/lib/api";
@@ -18,6 +19,8 @@ export default function Feed() {
   const { c } = useTheme();
   const { wide, column } = useLayout();
   const [mode, setMode] = useState<FeedMode>("all");
+  const dm = useDmUnread();
+  useRefreshDmUnread(mode);
   const { data, error, loading, refreshing, reload, retry, setData } = useResource(() => api.feed(null, mode), `feed:${mode}`);
   const [more, setMore] = useState(false);
 
@@ -42,6 +45,16 @@ export default function Feed() {
           {wide ? <View /> : <Wordmark size={22} />}
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             {!wide && <NotificationBell />}
+            {!wide && (
+              <Pressable accessibilityRole="button" accessibilityLabel={dm.inbox + dm.requests ? "Messages, unread" : "Messages"} onPress={() => router.push("/messages")} hitSlop={8} style={{ width: 44, height: 44, alignItems: "center", justifyContent: "center" }}>
+                <Icon name="chat" size={22} color={c.ink} />
+                {dm.inbox + dm.requests > 0 && (
+                  <View style={{ position: "absolute", top: 9, right: 8 }}>
+                    <UnreadDot />
+                  </View>
+                )}
+              </Pressable>
+            )}
             <Pressable accessibilityRole="button" accessibilityLabel="Search" onPress={() => router.push("/explore")} hitSlop={8} style={{ width: 44, height: 44, alignItems: "center", justifyContent: "center" }}>
               <Icon name="search" size={22} color={c.ink} />
             </Pressable>

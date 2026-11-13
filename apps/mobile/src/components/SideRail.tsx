@@ -10,6 +10,7 @@ import { SIDEBAR } from "@/lib/layout";
 import { useAuth } from "@/state/auth";
 import { useTheme } from "@/state/theme";
 import { useRefreshUnread, useUnread } from "@/state/unread";
+import { useDmUnread, useRefreshDmUnread } from "@/state/dmUnread";
 
 const items: { name: string; label: string; icon: IconName }[] = [
   { name: "feed", label: "Home", icon: "home" },
@@ -26,6 +27,9 @@ export function SideRail() {
   const active = path.split("/")[1] ?? "";
   const unread = useUnread();
   useRefreshUnread(active);
+  const dm = useDmUnread();
+  useRefreshDmUnread(active);
+  const dmCount = dm.inbox + dm.requests;
   return (
     <View
       style={{
@@ -120,6 +124,32 @@ export function SideRail() {
         </View>
         <Text style={[type.title, { fontSize: 15, color: c.ink2 }]}>
           Notifications
+        </Text>
+      </Pressable>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={dmCount ? `Messages, ${dmCount} unread` : "Messages"}
+        onPress={() => router.push("/messages")}
+        style={({ hovered }: PS) => ({
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 14,
+          height: 48,
+          paddingHorizontal: 12,
+          borderRadius: radius.field,
+          backgroundColor: active === "messages" || hovered ? c.sunk : "transparent",
+        })}
+      >
+        <View>
+          <Icon name="chat" size={24} color={active === "messages" ? c.ink : c.ink2} strokeWidth={active === "messages" ? 2 : 1.7} />
+          {dmCount > 0 && (
+            <View style={{ position: "absolute", top: -2, right: -3 }}>
+              <UnreadDot />
+            </View>
+          )}
+        </View>
+        <Text style={[type.title, { fontSize: 15, color: active === "messages" ? c.ink : c.ink2 }]}>
+          Messages
         </Text>
       </Pressable>
       <View style={{ flex: 1 }} />
