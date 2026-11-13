@@ -31,6 +31,7 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 
 ## 2026-11-13 - M0: first deploys, open sign-up
 
+- **2026-11-13: an API deploy shipped code reading `users.role` before migration 0018 reached production.** Every chat list returned 500 (`no such column: u.role`) for about 5 minutes. Spot it: `npx wrangler d1 migrations list DB --env production --remote` lists anything. Fix: deploy the API only with `npm --prefix apps/api run deploy:production` (or `deploy:staging`), which applies migrations first.
 - **New D1 migrations don't reach staging/prod on their own.** Production verify returned 500 because migrations 0002-0006 existed in `apps/api/migrations/` but were never applied remotely. Fix: before every API deploy, run `npx wrangler d1 migrations apply DB --env <env> --remote`, then deploy. Spot it with `npx wrangler d1 migrations list DB --env production --remote`. If it lists anything, prod is behind.
 - **Deploy from a commit, not the working tree, when other agents share the repo.** One deploy shipped another session's half-merged API code. The web app deploy (`deploy/app/deploy.sh`) already builds from `git archive HEAD`. Do the same for the API and site before deploying while others work in parallel.
 - **CORS must allow our tester header.** Browser e2e runs send `X-TG-Tester: 1`, and the API's CORS allow-list rejected it, which showed up as "Can't reach the server". It's now allowed in `apps/api/src/index.ts`. Any new API origin needs it too.
