@@ -113,3 +113,8 @@ test("source and device read the referrer, utm and user agent", () => {
   assert.equal(source({}), "⌨️ Direct");
   assert.equal(device("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/142.0 Safari/537.36"), "💻 desktop · Mac · Chrome 142");
 });
+
+test("our own domain as referrer is not a source", () => {
+  assert.equal(source({ referrer: "https://emera.social/" }), "⌨️ Direct");
+  assert.equal(source({ referrer: "https://www.emera.social/answers/" , utm: "utm_source=ig" }), "📸 Instagram");
+});
