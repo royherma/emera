@@ -10,24 +10,25 @@ const { chromium } = await import(process.env.PLAYWRIGHT_CORE_MJS || path.join(R
 const INK = "#2a1d14", CREAM = "#fbf3e8", DAY = "#fbf5ea", NIGHT = "#0c0a09";
 const HOT = "#ffd25a", SUN = "#ff8a2b", RED = "#e8461e";
 
+const lin = (x1, y1, x2, y2) => (id, stops) => `<linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}">${stops}</linearGradient>`;
+const rad = (cx, cy, r) => (id, stops) => `<radialGradient id="${id}" gradientUnits="userSpaceOnUse" cx="${cx}" cy="${cy}" r="${r}">${stops}</radialGradient>`;
+const TIP = [576, 318];
+
 export const options = [
-  { id: "ember", label: "1 Ember tail", note: "the strokes at the end of the e burn orange to yellow", stops: (ink) => [[0, ink], [0.5, ink], [0.72, RED], [0.86, SUN], [1, HOT]], glow: 0 },
-  { id: "match", label: "2 Lit match", note: "ink e, only the tip is lit, with a soft glow", stops: (ink) => [[0, ink], [0.7, ink], [0.84, SUN], [1, HOT]], glow: 1 },
-  { id: "burn", label: "3 Burning down", note: "dark at the start, the fire runs along the whole stroke", stops: (ink) => [[0, ink], [0.3, ink], [0.55, RED], [0.8, SUN], [1, HOT]], glow: 0 },
-  { id: "sunset", label: "4 All sun", note: "the whole e in the sun colors, no ink", stops: () => [[0, RED], [0.5, SUN], [1, HOT]], glow: 0 },
+  { id: "along", label: "1 Along the stroke", grad: lin(430, 450, ...TIP), stops: (ink) => [[0, ink], [0.62, ink], [0.8, RED], [0.92, SUN], [1, HOT]] },
+  { id: "edge", label: "2 Straight edge", grad: lin(470, 0, 580, 0), stops: (ink) => [[0, ink], [0.35, ink], [0.6, RED], [0.82, SUN], [1, HOT]] },
+  { id: "below", label: "3 From below", grad: lin(540, 470, 570, 300), stops: (ink) => [[0, ink], [0.4, ink], [0.62, RED], [0.82, SUN], [1, HOT]] },
+  { id: "glow", label: "4 Glowing tip", grad: rad(566, 326, 120), stops: (ink) => [[0, HOT], [0.3, SUN], [0.62, RED], [1, ink]], halo: rad(566, 326, 70) },
 ];
 
 let n = 0;
 export function litMark(o, ink, size) {
   const id = `l${n++}`;
   const stops = o.stops(ink).map(([at, c]) => `<stop offset="${at}" stop-color="${ink === CREAM && c === RED ? SUN : c}"/>`).join("");
-  const glow = o.glow ? `<filter id="${id}f" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="22"/></filter>` : "";
-  const fill = (extra = "") => `<rect width="600" height="600" fill="url(#${id}g)" mask="url(#${id}m)"${extra}/>`;
-  return `<svg width="${size}" height="${size}" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg"><defs>
-<linearGradient id="${id}g" gradientUnits="userSpaceOnUse" x1="120" y1="200" x2="560" y2="400">${stops}</linearGradient>
-<linearGradient id="${id}h" gradientUnits="userSpaceOnUse" x1="120" y1="200" x2="560" y2="400"><stop offset="0.68" stop-color="${SUN}" stop-opacity="0"/><stop offset="0.85" stop-color="${SUN}"/><stop offset="1" stop-color="${HOT}"/></linearGradient>
-<mask id="${id}m"><g fill="#fff">${inner.replace(/fill="currentColor"/g, "")}</g></mask>${glow}</defs>
-${o.glow ? `<g filter="url(#${id}f)"><rect width="600" height="600" fill="url(#${id}h)" mask="url(#${id}m)"/></g><g filter="url(#${id}f)" opacity=".7"><rect width="600" height="600" fill="url(#${id}h)" mask="url(#${id}m)"/></g>` : ""}${fill()}</svg>`;
+  const halo = o.halo ? o.halo(`${id}h`, `<stop offset="0" stop-color="${HOT}"/><stop offset=".5" stop-color="${SUN}" stop-opacity=".8"/><stop offset="1" stop-color="${SUN}" stop-opacity="0"/>`) + `<filter id="${id}f" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="16"/></filter>` : "";
+  return `<svg width="${size}" height="${size}" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg"><defs>${o.grad(`${id}g`, stops)}${halo}
+<mask id="${id}m"><g fill="#fff">${inner.replace(/fill="currentColor"/g, "")}</g></mask></defs>
+${o.halo ? `<g filter="url(#${id}f)"><rect width="600" height="600" fill="url(#${id}h)" mask="url(#${id}m)"/></g>` : ""}<rect width="600" height="600" fill="url(#${id}g)" mask="url(#${id}m)"/></svg>`;
 }
 
 const half = (o, ink, bg, tile) => `<div class="h" style="background:${bg};color:${ink}"><div class="lk">${litMark(o, ink, 82)}Emera</div><div class="ic" style="background:${tile}">${litMark(o, ink, 200)}</div></div>`;
