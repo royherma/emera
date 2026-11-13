@@ -3,6 +3,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { footer, footerCss } from "./footer.mjs";
 import { costs, costsBody, costsCss, costsShort } from "./costs.mjs";
+import { brandBody, brandCss, hasBrandKit } from "./brandbook.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const brand = JSON.parse(readFileSync(join(root, "../../packages/brand/brand.json"), "utf8"));
@@ -23,7 +24,9 @@ const clean = (html) =>
     .replace(/<a href="(https?:[^"]+)">/g, '<a href="$1" rel="noopener">')
     .replace(/<a href="\/(?:answers\/|compare\/)?([a-z0-9-]+)\/?">/g, (m, s) => (bySlug.has(s) ? `<a href="${bySlug.get(s).path}">` : m));
 
-const mark = `<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc24a"/><stop offset="1" stop-color="#ff6a2b"/></linearGradient></defs><circle cx="50" cy="50" r="46" fill="currentColor"/><path d="M4 50a46 46 0 0 1 92 0z" fill="url(#sg)"/><path d="M0 50h100" stroke="var(--bg,#fbf5ea)" stroke-width="6"/></svg>`;
+const markInner = readFileSync(join(root, "../../brand/logo/final/mark-small.svg"), "utf8").replace(/^<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "");
+const markSprite = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 600 600">${markInner}</symbol></svg>`;
+const mark = `<svg viewBox="0 0 600 600" aria-hidden="true"><use href="#mark"/></svg>`;
 
 const css = `:root{--sun:#ff8a2b;--sun2:#ffc24a;--bg:#fbf5ea;--bg2:#f3e8d5;--ink:#2a1d14;--ink2:#6b5846;--ink3:#9a8672;--card:#fffaf1;--line:rgba(60,35,10,.12);--sunink:#9a4a00;--disp:"Sora",ui-sans-serif,system-ui,sans-serif;--body:"DM Sans",ui-sans-serif,system-ui,sans-serif;--gutter:clamp(16px,5vw,72px);color-scheme:light}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0c0a09;--bg2:#14110f;--ink:#fbf3e8;--ink2:#bcae9d;--ink3:#8a7c6d;--card:#1a1613;--line:rgba(255,235,210,.12);--sunink:#ffc98a;color-scheme:dark}}
@@ -76,7 +79,7 @@ const themeBoot = `<script>(function(){try{var s=localStorage.getItem("emera-the
 
 const signupJs = `<script>(function(){var f=document.querySelector("[data-signup]");if(!f)return;var n=f.parentElement.querySelector("[data-note]"),b=f.querySelector("button");f.addEventListener("submit",function(e){e.preventDefault();var em=f.email.value.trim();n.className="note";if(!/^[^\\s@]+@[^\\s@.]+(\\.[^\\s@.]+)+$/.test(em)){n.textContent="That email does not look right. Check it and try again.";n.classList.add("err");return}b.disabled=true;fetch("/api/early",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({email:em,website:f.website.value,source:f.dataset.source,referrer:document.referrer})}).then(function(r){return r.json()}).then(function(j){if(!j.ok)throw 0;n.textContent=j.already?"You are already on the list.":"You are in. We will email you when your account is ready.";f.reset()}).catch(function(){n.textContent="Something went wrong on our side. Try again in a moment.";n.classList.add("err")}).finally(function(){b.disabled=false})})})()</script>`;
 
-const head = ({ title, description, path, ld }) => `<!doctype html>
+const head = ({ title, description, path, ld, css: extraCss = "" }) => `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -101,7 +104,8 @@ ${themeBoot}
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>${css}
 ${footerCss}
-${costsCss}</style>
+${costsCss}
+${extraCss}</style>
 ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(/</g, "\\u003c")}</script>`).join("\n")}
 </head>`;
 
@@ -137,7 +141,7 @@ function page(p) {
   ];
   const related = (p.related || []).map((s) => bySlug.get(s)).filter(Boolean);
   return `${head({ title: p.title, description: p.description, path: p.path, ld })}
-<body><div class="wrap">${nav}
+<body>${markSprite}<div class="wrap">${nav}
 <main>
 ${crumbs}
 <h1>${esc(p.q)}</h1>
@@ -163,7 +167,7 @@ function hub(kind, name, path, intro) {
     { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: brand.name, item: `${SITE}/` }, { "@type": "ListItem", position: 2, name, item: `${SITE}${path}` }] },
   ];
   return `${head({ title: `${name} | ${brand.name}`, description: intro, path, ld })}
-<body><div class="wrap">${nav}
+<body>${markSprite}<div class="wrap">${nav}
 <main><div class="crumbs"><a href="/">${esc(brand.name)}</a></div>
 <h1>${esc(name)}</h1><p class="short">${esc(intro)}</p>
 <div class="rel">${list.map((p) => `<a href="${p.path}">${esc(p.q)}</a>`).join("")}</div>
@@ -175,11 +179,23 @@ function plain({ slug, title, description, short, updated, body }) {
   const path = `/${slug}/`;
   const ld = [{ "@context": "https://schema.org", "@type": "WebPage", name: `${title} | ${brand.name}`, url: `${SITE}${path}`, dateModified: updated }];
   return `${head({ title: `${title} | ${brand.name}`, description, path, ld })}
-<body><div class="wrap">${nav}
+<body>${markSprite}<div class="wrap">${nav}
 <main><div class="crumbs"><a href="/">${esc(brand.name)}</a></div>
 <h1>${esc(title)}</h1>${updated ? `<p class="updated">Updated ${esc(updated)}</p>` : ""}
 ${short ? `<div class="short">${esc(short)}</div>` : ""}
 <div class="body">${body}</div></main>
+</div>${foot()}</body></html>`;
+}
+
+function brandPage() {
+  const path = "/brand/";
+  const title = `${brand.name} brand`;
+  const description = `Download the ${brand.name} logo, app icon, colors, fonts and icons.`;
+  const ld = [{ "@context": "https://schema.org", "@type": "WebPage", name: title, url: `${SITE}${path}` }];
+  return `${head({ title, description, path, ld, css: brandCss })}
+<body>${markSprite}<div class="bw">${nav}
+<main><div class="crumbs"><a href="/">${esc(brand.name)}</a></div>
+${brandBody()}</main>
 </div>${foot()}</body></html>`;
 }
 
@@ -203,8 +219,9 @@ export function writePages(today, { credits = "", github = "" } = {}) {
   }
   for (const l of legal) write(`/${l.slug}/`, plain({ ...l, body: l.sections.map((x) => `<h2>${esc(x.h)}</h2>${clean(x.html)}`).join("\n") }));
   write("/credits/", plain({ slug: "credits", title: "Image credits", description: `The open-licensed images shown on ${brand.name}, with who made them and the license.`, short: "Every image on this site is used under an open license. Here is who made each one.", body: `<ul class="credits">${credits}</ul>` }));
+  if (hasBrandKit()) write("/brand/", brandPage());
   write("/costs/", plain({ slug: "costs", title: "What Emera costs to run", description: "Every bill that keeps Emera running, who pays it, and where each number comes from.", short: costsShort, updated: costs.updated, body: costsBody() }));
-  const urls = [{ loc: "/", lastmod: today }, ...hubs.map((h) => ({ loc: h, lastmod: today })), ...pages.map((p) => ({ loc: p.path, lastmod: p.checked })), ...legal.map((l) => ({ loc: `/${l.slug}/`, lastmod: l.updated })), { loc: "/credits/", lastmod: today }, { loc: "/costs/", lastmod: costs.updated }];
+  const urls = [{ loc: "/", lastmod: today }, ...hubs.map((h) => ({ loc: h, lastmod: today })), ...pages.map((p) => ({ loc: p.path, lastmod: p.checked })), ...legal.map((l) => ({ loc: `/${l.slug}/`, lastmod: l.updated })), { loc: "/credits/", lastmod: today }, ...(hasBrandKit() ? [{ loc: "/brand/", lastmod: today }] : []), { loc: "/costs/", lastmod: costs.updated }];
   writeFileSync(join(out, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `<url><loc>${SITE}${u.loc}</loc><lastmod>${u.lastmod}</lastmod></url>`).join("\n")}\n</urlset>\n`);
   const bots = ["OAI-SearchBot", "ChatGPT-User", "PerplexityBot", "Perplexity-User", "ClaudeBot", "Claude-User", "Claude-SearchBot", "Google-Extended", "Bingbot"];
   writeFileSync(join(out, "robots.txt"), `User-agent: *\nAllow: /\nDisallow: /api/\n\n${bots.map((b) => `User-agent: ${b}`).join("\n")}\nAllow: /\nDisallow: /api/\n\nSitemap: ${SITE}/sitemap.xml\n`);

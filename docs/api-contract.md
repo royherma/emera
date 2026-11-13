@@ -93,7 +93,7 @@ Lists and feeds hide accounts that are blocked in either direction with the view
 | GET | `/v1/invites` | - | `{ invites: [{ code, url, uses, maxUses, createdAt, joined: [{ handle, displayName }] }], limit }` - newest first, only the caller's own |
 | GET | `/v1/invites/:code` | - | `{ valid, invitedBy }` |
 
-Sign-up needs an invite code while invites are on (`INVITES_REQUIRED=true`).
+Sign-up needs an invite code while invites are on (`INVITES_REQUIRED=true`). With invites off (every env today) anyone can sign up; an invite code sent to `/v1/auth/start` still records who joined from that link (no use cap). `GET /v1/invites` also returns `open: true` then.
 
 ## Likes, comments, notifications
 

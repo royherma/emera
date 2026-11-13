@@ -1,0 +1,27 @@
+:root {
+  --emera-day-bg: #fbf5ea;
+  --emera-day-surface: #fffaf1;
+  --emera-day-sunk: #f1e8d8;
+  --emera-day-ink: #2a1d14;
+  --emera-day-ink2: #6b5846;
+  --emera-day-ink3: #7d6a57;
+  --emera-day-sunInk: #8a4300;
+  --emera-day-tab: #fffaf1;
+  --emera-day-scrim: #0e0a08;
+  --emera-day-hair: rgba(60,35,10,0.1);
+  --emera-day-danger: #b3261e;
+  --emera-night-bg: #0c0a09;
+  --emera-night-surface: #1a1613;
+  --emera-night-sunk: #221d19;
+  --emera-night-ink: #fbf3e8;
+  --emera-night-ink2: #bcae9d;
+  --emera-night-ink3: #8f8171;
+  --emera-night-sunInk: #ffc98a;
+  --emera-night-tab: #1f1a16;
+  --emera-night-scrim: #0e0a08;
+  --emera-night-hair: rgba(255,235,210,0.1);
+  --emera-night-danger: #ff8f84;
+  --emera-sun: #ff8a2b;
+  --emera-sunHigh: #ffc24a;
+  --emera-onSun: #1a1008;
+}
