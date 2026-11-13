@@ -4,18 +4,19 @@ import type { AppEnv, Env, UserRow } from './env';
 import { ApiError, originOf } from './http';
 import { resourceMetadataUrl, userForToken } from './oauth';
 import { importItems, listSources, parseFrom, postFromUrls, previewItems, readSource, setAuto, sourceJson } from './ingest';
+import { cleanRules, connectorList } from './connectors';
 import { BRAND } from './brand';
 
 const VERSIONS = ['2025-11-25', '2025-06-18', '2025-03-26', '2024-11-05'];
 const str = (description: string) => ({ type: 'string', description });
 const int = (description: string, max: number) => ({ type: 'integer', minimum: 1, maximum: max, description });
-const FROM = str('Where to import from: a Bluesky handle (@name.bsky.social), a Mastodon or Pixelfed profile link, or any RSS / Atom feed link');
+const FROM = str(`Where to import from. Works with: ${connectorList().connectors.map((c) => `${c.name} (${c.example})`).join(', ')}. Pixelfed and blog pages work too when they link a feed.`);
 
 const TOOLS = [
   { name: 'whoami', description: `Show which ${BRAND.name} account this is connected to, with its profile link and post count.`, inputSchema: { type: 'object', properties: {} }, annotations: { readOnlyHint: true } },
   { name: 'preview_import', description: 'List the recent posts with photos or videos at a source, and which are already on Emera. Nothing is posted. Run this first and show the person what will come over.', inputSchema: { type: 'object', properties: { from: FROM, limit: int('How many recent posts to look at, default 12', 50) }, required: ['from'] }, annotations: { readOnlyHint: true } },
   { name: 'import_posts', description: 'Copy posts from a source to Emera, keeping their photos, videos, captions and original dates. Posts already imported are skipped, so it is safe to run again. Up to 25 per call.', inputSchema: { type: 'object', properties: { from: FROM, limit: int('How many of the most recent posts, default 10', 25), only: { type: 'array', items: { type: 'string' }, description: 'Only these item ids from preview_import' }, auto_post: { type: 'boolean', description: 'Also post new ones from this source automatically from now on' } }, required: ['from'] } },
-  { name: 'auto_post', description: 'Turn automatic posting on or off for a source. When on, Emera checks it every 15 minutes and posts anything new made after this moment. Older posts are not touched; use import_posts for those.', inputSchema: { type: 'object', properties: { from: FROM, on: { type: 'boolean', description: 'true to turn it on, false to turn it off' } }, required: ['from', 'on'] } },
+  { name: 'auto_post', description: 'Turn automatic posting on or off for a source. When on, Emera checks it every 15 minutes and posts anything new made after this moment. Older posts are not touched; use import_posts for those.', inputSchema: { type: 'object', properties: { from: FROM, on: { type: 'boolean', description: 'true to turn it on, false to turn it off' }, media: { type: 'string', enum: ['any', 'photos', 'videos'], description: 'Only bring over posts with photos, or with videos. Default any' }, tag: str('Only bring over posts whose caption has this hashtag, like emera') }, required: ['from', 'on'] } },
   { name: 'list_connections', description: 'List the sources connected to this account and whether auto-post is on for each.', inputSchema: { type: 'object', properties: {} }, annotations: { readOnlyHint: true } },
   { name: 'create_post', description: 'Post 1 to 10 photos or videos to Emera from public https links, with a caption.', inputSchema: { type: 'object', properties: { media_urls: { type: 'array', items: { type: 'string' }, minItems: 1, maxItems: 10, description: 'Public https links to jpeg, png, webp, heic, mp4 or mov files' }, caption: str('The caption, up to 2200 characters'), created_at: str('Optional ISO date if the work was made earlier') }, required: ['media_urls'] } },
   { name: 'list_my_posts', description: 'List this account\'s latest posts with links.', inputSchema: { type: 'object', properties: { limit: int('How many, default 10', 50) } }, annotations: { readOnlyHint: true } },
@@ -51,8 +52,11 @@ async function call(x: Ctx, name: string, a: Record<string, any>) {
   if (name === 'auto_post') {
     const s = parseFrom(String(a.from ?? ''));
     if (a.on) await readSource(s, 1);
-    const row = await setAuto(x.env, x.user.id, s, !!a.on);
-    return text(a.on ? `Auto-post is on for ${s.label}. Anything new posted there from now on shows up on Emera within 15 minutes.` : `Auto-post is off for ${s.label}.`, sourceJson(row));
+    const rules = a.media !== undefined || a.tag !== undefined ? cleanRules({ media: a.media, tag: a.tag }) : undefined;
+    const row = await setAuto(x.env, x.user.id, s, !!a.on, rules);
+    const r = sourceJson(row).rules;
+    const which = `${r.media === 'photos' ? 'posts with photos' : r.media === 'videos' ? 'posts with videos' : 'posts'}${r.tag ? ` tagged #${r.tag}` : ''}`;
+    return text(a.on ? `Auto-post is on for ${s.label}. New ${which} made there from now on show up on Emera within 15 minutes.` : `Auto-post is off for ${s.label}.`, sourceJson(row));
   }
   if (name === 'list_connections') {
     const rows = (await listSources(x.env, x.user.id)).map(sourceJson);

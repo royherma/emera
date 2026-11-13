@@ -137,4 +137,15 @@ export interface Backend {
   acceptThread(id: string): Promise<DmThread>;
   hideThread(id: string): Promise<void>;
   dmUnread(): Promise<{ inbox: number; requests: number }>;
+  importPreview(from: string): Promise<{ label: string; items: ImportItem[] }>;
+  connectors(): Promise<{ connectors: ImportConnector[]; locked: { name: string; why: string }[] }>;
+  importPosts(input: { from: string; limit?: number; only?: string[]; autoPost?: boolean; rules?: ImportRules }): Promise<{ imported: number; skipped: { item: string; why: string }[] }>;
+  sources(): Promise<ImportSource[]>;
+  setSource(from: string, autoPost: boolean, rules?: ImportRules): Promise<ImportSource>;
+  removeSource(id: string): Promise<void>;
 }
+
+export type ImportItem = { id: string; url: string; date: string | null; caption: string; photos: number; videos: number; thumb: string | null; onEmera: string | null };
+export type ImportConnector = { id: string; name: string; example: string };
+export type ImportRules = { media: "any" | "photos" | "videos"; tag?: string };
+export type ImportSource = { id: string; from: string; kind: string; label: string; autoPost: boolean; rules: ImportRules; since: string; lastChecked: string | null; lastError: string | null };

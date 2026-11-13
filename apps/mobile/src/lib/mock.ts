@@ -1,6 +1,6 @@
 import brand from "./brand";
 import { PUBLIC_ORIGIN } from "./config";
-import { ApiError, Backend, Comment, FeedMode, Invite, Media, Notification, PickedFile, Post, User, UserPage } from "./types";
+import { ApiError, Backend, Comment, FeedMode, ImportSource, Invite, Media, Notification, PickedFile, Post, User, UserPage } from "./types";
 import { HANDLE_RE } from "./format";
 import { makeMockChat } from "./mockChat";
 
@@ -464,6 +464,56 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
     });
     return me;
   },
+  async importPreview(from) {
+    await wait(600);
+    current();
+    const label = from.trim().replace(/^https?:\/\//, "").replace(/\/$/, "");
+    if (!label) throw new ApiError("bad_source", "Paste a link or a Bluesky handle.");
+    if (/instagram\.com|tiktok\.com/i.test(from)) throw new ApiError("source_locked", "Instagram and TikTok do not share posts with other apps. Download your data there and bring the files in one by one.");
+    const items = posts.filter((p) => p.media[0]?.kind !== "video").slice(0, 6).map((p) => ({ id: `mock:${p.id}`, url: p.url, date: p.createdAt, caption: p.caption, photos: p.media.length, videos: 0, thumb: p.media[0]?.url ?? null, onEmera: imported.has(`mock:${p.id}`) ? p.id : null }));
+    return { label, items };
+  },
+  async connectors() {
+    return {
+      connectors: [{ id: "bluesky", name: "Bluesky", example: "@you.bsky.social" }, { id: "mastodon", name: "Mastodon", example: "https://mastodon.social/@you" }, { id: "feed", name: "RSS or Atom feed", example: "https://yourblog.com/feed" }],
+      locked: [{ name: "Instagram", why: "Instagram does not share posts with other apps." }, { name: "TikTok", why: "TikTok does not share posts with other apps." }],
+    };
+  },
+  async importPosts({ from, limit = 10, only, autoPost, rules }) {
+    const { items } = await mock.importPreview(from);
+    const me = current();
+    let n = 0;
+    for (const it of items.filter((i) => !only || only.includes(i.id)).slice(0, only ? 50 : limit)) {
+      if (imported.has(it.id)) continue;
+      const src = posts.find((p) => `mock:${p.id}` === it.id)!;
+      const id = `p_${++counter}`;
+      posts.unshift({ ...src, id, author: me, url: `${PUBLIC_ORIGIN}/p/${id}`, likeCount: 0, commentCount: 0, viewer: { liked: false } });
+      imported.add(it.id);
+      n++;
+    }
+    if (autoPost) await mock.setSource(from, true, rules);
+    return { imported: n, skipped: [] };
+  },
+  async sources() {
+    await wait();
+    current();
+    return [...sources];
+  },
+  async setSource(from, autoPost, rules) {
+    await wait();
+    current();
+    const label = from.trim().replace(/^https?:\/\//, "").replace(/\/$/, "");
+    let s = sources.find((x) => x.from === from);
+    if (!s) sources.push((s = { id: hex(8), from, kind: /bsky|^@/.test(from) ? "bluesky" : "feed", label, autoPost, rules: { media: "any" }, since: new Date().toISOString(), lastChecked: null, lastError: null }));
+    s.autoPost = autoPost;
+    if (rules) s.rules = rules;
+    return { ...s };
+  },
+  async removeSource(id) {
+    await wait();
+    const i = sources.findIndex((s) => s.id === id);
+    if (i >= 0) sources.splice(i, 1);
+  },
   async flag({ targetType, targetId }) {
     await wait();
     const me = current();
@@ -473,6 +523,8 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
 };
 
 const pending: Media[] = [];
+const imported = new Set<string>();
+const sources: ImportSource[] = [];
 const upload = mock.uploadMedia;
 mock.uploadMedia = async (file) => {
   const m = await upload(file);
