@@ -448,7 +448,7 @@ function loadShots(screens) {
   const missing = screens.filter((s) => !s.shell && !Object.keys(s.shots).length).map((s) => `${s.surface}:${s.route}`);
   const runsFile = R('data/atlas-shots/runs.jsonl');
   const runs = existsSync(runsFile) ? readFileSync(runsFile, 'utf8').split('\n').filter(Boolean).slice(-40).map((l) => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean) : [];
-  return { capturedAt: idx.capturedAt, git: idx.git, count: idx.count, ms: idx.ms ?? null, phases: idx.phases ?? [], by: idx.by ?? null, why: idx.why ?? null, themeSwitch: idx.themeSwitch, themes: idx.themes, params: idx.params, failed: idx.failed ?? [], shell: idx.shell ?? [], missing, codeHash: idx.codeHash ?? null, codeHashNow: now, stale: idx.codeHash !== now, runs };
+  return { pages: idx.pages ?? {}, capturedAt: idx.capturedAt, git: idx.git, count: idx.count, ms: idx.ms ?? null, phases: idx.phases ?? [], by: idx.by ?? null, why: idx.why ?? null, themeSwitch: idx.themeSwitch, themes: idx.themes, params: idx.params, failed: idx.failed ?? [], shell: idx.shell ?? [], missing, codeHash: idx.codeHash ?? null, codeHashNow: now, stale: idx.codeHash !== now, runs };
 }
 
 function features(atlas, stories) {
