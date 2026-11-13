@@ -68,7 +68,7 @@ test("visit opens a thread, the early-list join lands in it with place, device a
   const h = harness();
   await poll(h.env);
   const now = new Date().toISOString();
-  h.env.SITE_DB.raw.prepare("INSERT INTO visits (created_at, visitor, path, referrer, country, city, region, ua, bot) VALUES (?, 'v1', '/', 'https://www.instagram.com/', 'TH', 'Bangkok', 'Bangkok', ?, 0)").run(now, IPHONE);
+  h.env.SITE_DB.raw.prepare("INSERT INTO visits (created_at, visitor, path, referrer, country, city, region, ua, bot, screen) VALUES (?, 'v1', '/', 'https://www.instagram.com/', 'TH', 'Bangkok', 'Bangkok', ?, 0, '{\"sw\":393}')").run(now, IPHONE);
   h.env.SITE_DB.raw.prepare("INSERT INTO visits (created_at, visitor, path, ua, bot) VALUES (?, 'b1', '/', 'curl/8', 1)").run(now);
   h.env.SITE_DB.raw.prepare("INSERT INTO early_access (email, created_at, source, visitor, country, city, ua) VALUES ('owner@gmail.com', ?, 'hero', 'v0', 'TH', 'Bangkok', ?)").run(now, IPHONE);
   h.env.SITE_DB.raw.prepare("INSERT INTO early_access (email, created_at, source, visitor, country, city, ua) VALUES ('maya@paint.org', ?, 'hero', 'v1', 'TH', 'Bangkok', ?)").run(now, IPHONE);
@@ -143,7 +143,7 @@ test("hosting networks, old Chrome and Roy's own browser never post as visitors"
   const now = new Date().toISOString();
   const old = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/124.0 Safari/537.36";
   const fresh = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/157.0 Safari/537.36";
-  const add = (visitor, ua, network) => h.env.SITE_DB.raw.prepare("INSERT INTO visits (created_at, visitor, path, ua, network, bot) VALUES (?, ?, '/', ?, ?, 0)").run(now, visitor, ua, network);
+  const add = (visitor, ua, network) => h.env.SITE_DB.raw.prepare("INSERT INTO visits (created_at, visitor, path, ua, network, bot, screen) VALUES (?, ?, '/', ?, ?, 0, '{}')").run(now, visitor, ua, network);
   add("k1", fresh, "Virtual Systems LLC");
   add("k2", old, "Some Home ISP");
   add("me", fresh, "TOT Public Company Limited Bangkok");
@@ -151,4 +151,27 @@ test("hosting networks, old Chrome and Roy's own browser never post as visitors"
   add("p1", fresh, "TOT Public Company Limited Bangkok");
   assert.deepEqual(await poll(h.env), { visits: 1 });
   assert.equal(h.posted.length, 1);
+});
+
+test("visit waits for the page script, then shows screen, connection, their time and languages", async () => {
+  const h = harness();
+  await poll(h.env);
+  const now = Date.now();
+  const mac = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/157.0 Safari/537.36";
+  const add = h.env.SITE_DB.raw.prepare("INSERT INTO visits (created_at, visitor, path, country, city, region, timezone, network, ua, lang, bot) VALUES (?, ?, '/', 'SE', 'Lulea', 'Norrbotten', 'Europe/Stockholm', 'Telia Company AB', ?, 'en-US', 0)");
+  add.run(new Date(now).toISOString(), "s1", mac);
+  assert.deepEqual(await poll(h.env, now + 30_000), {});
+  const screen = { sw: 1512, sh: 982, dpr: 2, vw: 1512, vh: 860, dark: true, touch: false, type: "wifi", speed: "4g", mbps: 10, rtt: 50, tz: "Europe/Berlin", langs: ["sv-SE", "en-US"], pv: "15.2.0", mem: 8, cores: 10 };
+  h.env.SITE_DB.raw.prepare("UPDATE visits SET screen = ? WHERE visitor = 's1'").run(JSON.stringify(screen));
+  assert.deepEqual(await poll(h.env, now + 30_000), { visits: 1 });
+  const t = h.text();
+  assert.match(t, /screen\* 1512×982 @2x · window 1512×860 · dark mode · mouse · 8 GB memory, 10 cores/);
+  assert.match(t, /desktop · macOS 15\.2 · Chrome 157/);
+  assert.match(t, /connection\* Wi-Fi · fast speed · ~10 Mbps · 50 ms ping/);
+  assert.match(t, /Europe\/Berlin  ·  network says Europe\/Stockholm/);
+  assert.match(t, /`sv-SE` `en-US`/);
+  assert.doesNotMatch(t, /no JavaScript/);
+  add.run(new Date(now).toISOString(), "s2", mac);
+  assert.deepEqual(await poll(h.env, now + 3 * 60_000), { visits: 1 });
+  assert.match(JSON.stringify(h.posted.at(-1).blocks), /no JavaScript ran, likely a bot/);
 });
