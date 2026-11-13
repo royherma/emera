@@ -48,7 +48,7 @@ export function litMark(o, ink, size, id = `l${n++}`) {
   const f = o.flame ?? 1.35;
   const flame = o.noFlame ? "" : `<ellipse cx="566" cy="328" rx="34" ry="22" transform="rotate(-38 566 328)" fill="${HOT}" opacity=".85" filter="url(#${id}s)"/><g transform="translate(560 334) scale(${f}) translate(-566 -336)">
 <path d="${FLAME}" fill="${SUN}" opacity=".55" filter="url(#${id}b)"/><path d="${FLAME}" fill="url(#${id}fl)"/><path d="${CORE_PATH}" fill="url(#${id}co)"/></g>`;
-  return `<svg style="overflow:visible" width="${size}" height="${size}" viewBox="${o.noFlame ? "0 0 600 600" : "-40 -80 720 720"}" xmlns="http://www.w3.org/2000/svg"><defs>${o.grad(`${id}g`, stops)}
+  return `<svg style="overflow:visible" width="${size}" height="${size}" viewBox="${o.noFlame ? "0 0 600 600" : (o.flame ?? 1.35) > 1.5 ? "0 -60 760 760" : "-40 -80 720 720"}" xmlns="http://www.w3.org/2000/svg"><defs>${o.grad(`${id}g`, stops)}
 <linearGradient id="${id}t" gradientUnits="userSpaceOnUse" x1="${from}" y1="0" x2="${from + 50}" y2="0"><stop offset="0" stop-color="#000"/><stop offset="1" stop-color="#fff"/></linearGradient>
 <mask id="${id}c"><rect x="0" y="${o.from ? 318 : 290}" width="600" height="310" fill="url(#${id}t)"/></mask>
 <mask id="${id}m"><g fill="#fff">${o.markInner ?? inner}</g></mask>
