@@ -9,6 +9,7 @@ export type MediaRow = {
   sha256: string | null; r2_key: string; signed_at: number | null; signer: string | null; signature: string | null;
   post_id: string | null; position: number; alt: string;
   source_sha256?: string | null;
+  poster_key?: string | null;
 };
 export type PostRow = { id: string; user_id: string; caption: string; created_at: number };
 
@@ -42,6 +43,7 @@ export function mediaJson(origin: string, m: MediaRow) {
     height: m.height,
     alt: m.alt ?? '',
     url: `${origin}/media/${m.r2_key}`,
+    posterUrl: m.poster_key ? `${origin}/media/${m.poster_key}` : null,
     sha256: m.sha256,
     proof: {
       sha256: m.sha256,

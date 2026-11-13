@@ -4,7 +4,7 @@ import { cors } from 'hono/cors';
 import type { AppEnv, Env } from './env';
 import { ApiError } from './http';
 import { auth } from './auth';
-import { mediaRoutes, shrinkVideo } from './media';
+import { mediaRoutes, runVideoJob, type VideoJob } from './media';
 import { postRoutes } from './posts';
 import { reportRoutes } from './reports';
 import { social } from './social';
@@ -58,16 +58,16 @@ export default Sentry.withSentry(
   (env: Env) => ({ dsn: env.SENTRY_DSN, environment: env.ENVIRONMENT, tracesSampleRate: 0.1 }),
   {
     fetch: app.fetch,
-    async queue(batch: MessageBatch<{ mediaId: string }>, env: Env) {
+    async queue(batch: MessageBatch<VideoJob>, env: Env) {
       for (const msg of batch.messages) {
         try {
-          console.log('video shrink', msg.body.mediaId, await shrinkVideo(env, msg.body.mediaId));
+          console.log('video job', msg.body.mediaId, await runVideoJob(env, msg.body));
           msg.ack();
         } catch (e) {
-          console.error('video shrink failed', msg.body.mediaId, e);
+          console.error('video job failed', msg.body.mediaId, e);
           msg.retry();
         }
       }
     },
-  } satisfies ExportedHandler<Env, { mediaId: string }>,
+  } satisfies ExportedHandler<Env, VideoJob>,
 );

@@ -3,7 +3,7 @@ export type Env = {
   MEDIA: R2Bucket;
   IMAGES?: ImagesBinding;
   VIDEO?: MediaBinding;
-  VIDEO_JOBS?: Queue<{ mediaId: string }>;
+  VIDEO_JOBS?: Queue<{ mediaId: string; shrink?: boolean }>;
   ENVIRONMENT: string;
   INVITES_REQUIRED: string;
   SEED_INVITE_CODE: string;

@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import app from '../src/index';
-import { shrinkVideo, videoNeedsShrink } from '../src/media';
+import { makePoster, posterKey, runVideoJob, shrinkVideo, videoNeedsShrink } from '../src/media';
 import { hmacHex } from '../src/crypto';
 import { Client, makeEnv } from './helpers';
 
@@ -62,7 +62,7 @@ describe('video size', () => {
     const big = mp4(2160, 3840, 5);
     const up = await c.upload(big, 'video/quicktime');
     const id = up.body.media.id;
-    expect(send).toHaveBeenCalledWith({ mediaId: id });
+    expect(send).toHaveBeenCalledWith({ mediaId: id, shrink: true });
     const oldUrl = up.body.media.url;
 
     expect(await shrinkVideo(env, id)).toBe('done');
@@ -75,5 +75,38 @@ describe('video size', () => {
     const served = await app.fetch(new Request(oldUrl.replace(/[^/]+$/, row.r2_key)), env);
     expect(new Uint8Array(await served.arrayBuffer())).toEqual(small);
     expect(await shrinkVideo(env, id)).toBe('skipped');
+  });
+
+  it('grabs a poster frame for every video, shows it in posts, and deletes it with the post', async () => {
+    const send = vi.fn(async () => {});
+    const jpg = new Uint8Array([0xff, 0xd8, 0xff, 0xe0, 1, 2, 3, 0xff, 0xd9]);
+    const outputs: string[] = [];
+    const VIDEO = { input: () => ({ transform: () => ({ output: (o: { mode: string; time?: string }) => ({ response: async () => {
+      outputs.push(`${o.mode}@${o.time ?? ''}`);
+      if (o.time === '1s') return new Response('too short', { status: 400 });
+      return new Response(jpg);
+    } }) }) }) };
+    const env = makeEnv({ VIDEO_JOBS: { send } as any, VIDEO: VIDEO as any });
+    const c = new Client(env);
+    await c.signIn('poster@example.test');
+    await c.withHandle('poster');
+    const up = await c.upload(mp4(1080, 1920, 1), 'video/mp4');
+    const id = up.body.media.id;
+    expect(send).toHaveBeenCalledWith({ mediaId: id, shrink: false });
+    expect(up.body.media.posterUrl).toBeNull();
+
+    expect(await runVideoJob(env, { mediaId: id, shrink: false })).toEqual({ poster: 'done', shrink: 'skipped' });
+    expect(outputs).toEqual(['frame@1s', 'frame@0s']);
+    expect(await makePoster(env, id)).toBe('skipped');
+
+    const post = await c.json('POST', '/v1/posts', { caption: 'clip', mediaIds: [id] });
+    const media = post.body.post.media[0];
+    expect(media.posterUrl).toMatch(new RegExp(`/media/${posterKey(id)}$`));
+    const served = await app.fetch(new Request(media.posterUrl), env);
+    expect(served.headers.get('content-type')).toBe('image/jpeg');
+    expect(new Uint8Array(await served.arrayBuffer())).toEqual(jpg);
+
+    await c.json('DELETE', `/v1/posts/${post.body.post.id}`);
+    expect(await env.MEDIA.head(posterKey(id))).toBeNull();
   });
 });

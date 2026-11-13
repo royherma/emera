@@ -69,6 +69,40 @@ export async function shrinkVideo(env: Env, mediaId: string): Promise<'done' | '
   return 'done';
 }
 
+const POSTER_EDGE = 1280;
+export const posterKey = (id: string) => `${id}-poster.jpg`;
+
+async function frame(env: Env, key: string, time: string): Promise<Uint8Array | null> {
+  const src = await env.MEDIA.get(key);
+  if (!src) return null;
+  const res = await env.VIDEO!.input(src.body)
+    .transform({ width: POSTER_EDGE, height: POSTER_EDGE, fit: 'scale-down' })
+    .output({ mode: 'frame', time, format: 'jpg' })
+    .response();
+  if (!res.ok) throw new Error(`poster ${res.status}`);
+  const out = new Uint8Array(await res.arrayBuffer());
+  return out.length ? out : null;
+}
+
+export async function makePoster(env: Env, mediaId: string): Promise<'done' | 'skipped'> {
+  const row = await env.DB.prepare(`SELECT * FROM media WHERE id = ? AND kind = 'video' AND status = 'done'`).bind(mediaId).first<MediaRow & { bytes: number }>();
+  if (!row || row.poster_key || !env.VIDEO || row.bytes >= VIDEO_MAX_INPUT) return 'skipped';
+  const jpg = await frame(env, row.r2_key, '1s').catch(() => frame(env, row.r2_key, '0s'));
+  if (!jpg) return 'skipped';
+  const key = posterKey(row.id);
+  await env.MEDIA.put(key, jpg, { httpMetadata: { contentType: 'image/jpeg' } });
+  await env.DB.prepare('UPDATE media SET poster_key = ? WHERE id = ? AND poster_key IS NULL').bind(key, row.id).run();
+  return 'done';
+}
+
+export type VideoJob = { mediaId: string; shrink?: boolean };
+
+export async function runVideoJob(env: Env, job: VideoJob) {
+  const poster = await makePoster(env, job.mediaId).catch((e) => (console.warn('poster failed', job.mediaId, e instanceof Error ? e.message : e), 'failed' as const));
+  const shrink = job.shrink === false ? 'skipped' : await shrinkVideo(env, job.mediaId);
+  return { poster, shrink };
+}
+
 export const mediaRoutes = new Hono<AppEnv>();
 
 mediaRoutes.post('/v1/uploads', requireAuth, requireHandle, async (c) => {
@@ -158,7 +192,7 @@ mediaRoutes.put('/v1/uploads/:id', requireAuth, async (c) => {
     sourceBytes = size;
     const info = await readVideoInfo(c.env.MEDIA, key, size).catch(() => null);
     if (info) ({ width, height } = info);
-    if (info && c.env.VIDEO_JOBS && videoNeedsShrink(info, size)) await c.env.VIDEO_JOBS.send({ mediaId: row.id });
+    if (c.env.VIDEO_JOBS) await c.env.VIDEO_JOBS.send({ mediaId: row.id, shrink: !!info && videoNeedsShrink(info, size) });
   }
 
   const signedAt = Date.now();

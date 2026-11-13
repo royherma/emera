@@ -86,7 +86,7 @@ postRoutes.delete('/v1/posts/:id', requireAuth, async (c) => {
   const row = await c.env.DB.prepare('SELECT * FROM posts WHERE id = ?').bind(id).first<PostRow>();
   if (!row) throw fail(404, 'not_found', 'No such post.');
   if (row.user_id !== c.get('user').id) throw fail(403, 'forbidden', 'Only the author can delete this post.');
-  const keys = (await c.env.DB.prepare('SELECT r2_key FROM media WHERE post_id = ?').bind(id).all<{ r2_key: string }>()).results.map((r) => r.r2_key);
+  const keys = (await c.env.DB.prepare('SELECT r2_key, poster_key FROM media WHERE post_id = ?').bind(id).all<{ r2_key: string; poster_key: string | null }>()).results.flatMap((r) => (r.poster_key ? [r.r2_key, r.poster_key] : [r.r2_key]));
   await c.env.DB.batch([
     c.env.DB.prepare('DELETE FROM media WHERE post_id = ?').bind(id),
     c.env.DB.prepare('DELETE FROM posts WHERE id = ?').bind(id),
