@@ -19,7 +19,7 @@ export function PostRow({ post, width, onDeleted }: { post: Post; width: number;
   const { c } = useTheme();
   const menu = usePostMenu(onDeleted);
   const m = post.media[0];
-  const h = Math.min(Math.round(width / clamp(m.width / m.height, 0.95, 1.4)), 520);
+  const h = Math.round(width / clamp(m.width && m.height ? m.width / m.height : 0.8, 0.8, 1.91));
   const open = () => router.push({ pathname: "/p/[id]", params: { id: post.id } });
   const tag = post.author.category;
   return (
@@ -88,7 +88,7 @@ export function SquareGrid({ posts, width, gap = 3 }: { posts: Post[]; width: nu
   return (
     <View style={{ flexDirection: "row", flexWrap: "wrap", gap }}>
       {posts.map((p) => (
-        <PostTile key={p.id} post={p} w={w} h={w} radiusPx={radius.tile - 4} />
+        <PostTile key={p.id} post={p} w={w} h={Math.round((w * 4) / 3)} radiusPx={radius.tile - 4} />
       ))}
     </View>
   );
@@ -149,7 +149,7 @@ export function GridSkeleton({ width, rows = 3, gap = 3 }: { width: number; rows
   return (
     <View style={{ flexDirection: "row", flexWrap: "wrap", gap }}>
       {Array.from({ length: rows * 3 }, (_, i) => (
-        <Pulse key={i} style={{ width: w, height: w, borderRadius: radius.tile - 4 }} />
+        <Pulse key={i} style={{ width: w, height: Math.round((w * 4) / 3), borderRadius: radius.tile - 4 }} />
       ))}
     </View>
   );

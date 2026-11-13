@@ -20,7 +20,7 @@ export default function PostDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const { c, scheme } = useTheme();
-  const { inner, wide } = useLayout();
+  const { inner, wide, height } = useLayout();
   const { data: post, error, retry } = useResource(() => api.post(id), `post:${id}`);
   const [index, setIndex] = useState(0);
   const pager = useRef<any>(null);
@@ -28,10 +28,12 @@ export default function PostDetail() {
   const back = () => (router.canGoBack() ? router.back() : router.replace("/feed"));
   const menu = usePostMenu(back);
 
-  const mediaW = wide ? Math.min(640, Math.floor(inner * 0.6)) : inner;
   const first = post?.media[0];
-  const ratio = first ? Math.min(1.3, Math.max(0.8, first.width / first.height)) : 0.9;
-  const mediaH = Math.round(mediaW / ratio);
+  const ratio = first?.width && first.height ? Math.min(1.8, Math.max(0.56, first.width / first.height)) : 0.8;
+  const roomH = wide ? height - 100 : height - 200;
+  const roomW = wide ? inner - 360 - space[6] : inner;
+  const mediaW = Math.round(Math.min(roomW, roomH * ratio));
+  const mediaH = Math.round(Math.min(mediaW / ratio, roomH));
   const proof = first?.proof;
 
   return (
@@ -43,7 +45,7 @@ export default function PostDetail() {
       {error && !post ? (
         <ErrorState message={error} onRetry={retry} />
       ) : (
-        <View style={{ flexDirection: wide ? "row" : "column", gap: wide ? space[6] : space[4], alignItems: "flex-start" }}>
+        <View style={{ flexDirection: wide ? "row" : "column", gap: wide ? space[6] : space[4], alignItems: "flex-start", justifyContent: "center" }}>
           <View style={{ width: mediaW }}>
             {post ? (
               <>
@@ -84,7 +86,7 @@ export default function PostDetail() {
             )}
           </View>
 
-          <View style={{ flex: 1, width: "100%", gap: space[4] }}>
+          <View style={{ flex: wide ? undefined : 1, width: wide ? 360 : "100%", gap: space[4] }}>
             {post ? (
               <>
                 <Pressable accessibilityRole="link" onPress={() => router.push({ pathname: "/u/[handle]", params: { handle: post.author.handle } })} style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
