@@ -2,9 +2,6 @@ name: Native apps
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths: ["apps/mobile/**", "packages/brand/**", ".github/workflows/native.yml"]
 
 permissions:
   contents: read
