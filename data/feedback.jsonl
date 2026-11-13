@@ -29,3 +29,4 @@
 {"at":"2026-11-13T11:38:50.728Z","kind":"task-move","id":"a8","phase":"m0","index":0,"by":"claude test undo"}
 {"at":"2026-11-13T11:44:24.793Z","kind":"review","id":"dmca","title":"Register the DMCA agent ($6)","answer":"done","text":null}
 {"at":"2026-11-13T12:10:12.000Z","kind":"review","id":"stripe-emera","answer":"reopened","text":"Card replaced: try the test sponsor flow on staging (Claude, 19:10)"}
+{"at":"2026-11-13T12:21:00.498Z","kind":"review","id":"posts-per-day","title":"How many new posts can one account share a day?","answer":"5","text":null}
