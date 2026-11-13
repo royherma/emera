@@ -1,5 +1,5 @@
 import { API_URL } from "./config";
-import { ApiError, Backend, Media, PickedFile, Post, User, UserPage } from "./types";
+import { ApiError, Backend, Comment, Media, Notification, PickedFile, Post, User, UserPage } from "./types";
 
 let token: string | null = null;
 export const setToken = (t: string | null) => {
@@ -80,4 +80,18 @@ export const http: Backend = {
   unmute: async (handle) => (await send<{ user: User }>("DELETE", `/v1/mutes/${encodeURIComponent(handle)}`)).user,
   blocks: async (cursor) => userPage(await send("GET", `/v1/me/blocks${pageQuery(cursor)}`)),
   mutes: async (cursor) => userPage(await send("GET", `/v1/me/mutes${pageQuery(cursor)}`)),
+  like: (postId) => send("POST", `/v1/posts/${encodeURIComponent(postId)}/like`),
+  unlike: (postId) => send("DELETE", `/v1/posts/${encodeURIComponent(postId)}/like`),
+  comments: async (postId, cursor) => {
+    const r = await send<{ comments: Comment[]; cursor?: string | null; total: number }>("GET", `/v1/posts/${encodeURIComponent(postId)}/comments${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`);
+    return { comments: r.comments, cursor: r.cursor ?? null, total: r.total };
+  },
+  addComment: async ({ postId, body, parentId }) => (await send<{ comment: Comment }>("POST", `/v1/posts/${encodeURIComponent(postId)}/comments`, { body, parentId })).comment,
+  deleteComment: async (id) => void (await send("DELETE", `/v1/comments/${encodeURIComponent(id)}`)),
+  notifications: async (cursor) => {
+    const r = await send<{ notifications: Notification[]; cursor?: string | null; unread: number }>("GET", `/v1/notifications${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`);
+    return { notifications: r.notifications, cursor: r.cursor ?? null, unread: r.unread };
+  },
+  unreadCount: async () => (await send<{ unread: number }>("GET", "/v1/notifications/unread-count")).unread,
+  markNotificationsRead: async (ids) => (await send<{ unread: number }>("POST", "/v1/notifications/read", ids ? { ids } : {})).unread,
 };

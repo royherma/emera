@@ -3,6 +3,7 @@ import { Pressable, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { Screen } from "@/components/Screen";
 import { PeopleRail, PostRow, RowSkeleton } from "@/components/Grid";
+import { NotificationBell } from "@/components/Engage";
 import { Icon } from "@/components/Icon";
 import { Button, EmptyState, ErrorState, Segmented, Wordmark } from "@/components/ui";
 import { api } from "@/lib/api";
@@ -39,9 +40,12 @@ export default function Feed() {
       <View style={{ width: column, alignSelf: "center", gap: space[4] }}>
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", minHeight: 44 }}>
           {wide ? <View /> : <Wordmark size={22} />}
-          <Pressable accessibilityRole="button" accessibilityLabel="Search" onPress={() => router.push("/explore")} hitSlop={8} style={{ width: 44, height: 44, alignItems: "center", justifyContent: "center" }}>
-            <Icon name="search" size={22} color={c.ink} />
-          </Pressable>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            {!wide && <NotificationBell />}
+            <Pressable accessibilityRole="button" accessibilityLabel="Search" onPress={() => router.push("/explore")} hitSlop={8} style={{ width: 44, height: 44, alignItems: "center", justifyContent: "center" }}>
+              <Icon name="search" size={22} color={c.ink} />
+            </Pressable>
+          </View>
         </View>
         <Segmented
           value={mode}

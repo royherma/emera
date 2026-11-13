@@ -8,6 +8,8 @@ import { mediaRoutes } from './media';
 import { postRoutes } from './posts';
 import { reportRoutes } from './reports';
 import { social } from './social';
+import { engageRoutes } from './engage';
+import { notificationRoutes } from './notifications';
 import { pages, notFoundPage } from './pages';
 
 const app = new Hono<AppEnv>();
@@ -29,6 +31,8 @@ app.route('/', mediaRoutes);
 app.route('/', postRoutes);
 app.route('/', reportRoutes);
 app.route('/', social);
+app.route('/', engageRoutes);
+app.route('/', notificationRoutes);
 app.route('/', pages);
 
 app.onError((err, c) => {

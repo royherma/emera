@@ -5,10 +5,13 @@ import { requireAuth, requireHandle } from './auth';
 import { fail } from './http';
 import { usersJson } from './serialize';
 import { viewerOf } from './viewer';
+import { notify } from './notifications';
 
 const PAGE = 30;
 
-export async function onFollow(_env: Env, _followerId: string, _followeeId: string): Promise<void> {}
+export async function onFollow(env: Env, followerId: string, followeeId: string): Promise<void> {
+  await notify(env, { userId: followeeId, kind: 'follow', actorId: followerId });
+}
 
 const pageLimit = (raw: string | undefined) => {
   const n = Number(raw);

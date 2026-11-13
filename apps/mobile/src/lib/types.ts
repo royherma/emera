@@ -27,7 +27,34 @@ export type Media = {
   proof: Proof;
 };
 
-export type Post = { id: string; author: User; caption: string; media: Media[]; createdAt: string; url: string };
+export type Post = {
+  id: string;
+  author: User;
+  caption: string;
+  media: Media[];
+  createdAt: string;
+  url: string;
+  likeCount: number;
+  commentCount: number;
+  viewer: { liked: boolean };
+};
+
+export type Comment = { id: string; postId: string; parentId: string | null; author: User; body: string; createdAt: string; replies: Comment[] };
+
+export type NotificationKind = "like" | "comment" | "reply" | "follow";
+
+export type Notification = {
+  id: string;
+  kind: NotificationKind;
+  actor: User;
+  count: number;
+  postId: string | null;
+  thumbUrl: string | null;
+  commentId: string | null;
+  preview: string | null;
+  createdAt: string;
+  read: boolean;
+};
 
 export type Invite = {
   code: string;
@@ -73,4 +100,12 @@ export interface Backend {
   unmute(handle: string): Promise<User>;
   blocks(cursor?: string | null): Promise<UserPage>;
   mutes(cursor?: string | null): Promise<UserPage>;
+  like(postId: string): Promise<{ liked: boolean; likeCount: number }>;
+  unlike(postId: string): Promise<{ liked: boolean; likeCount: number }>;
+  comments(postId: string, cursor?: string | null): Promise<{ comments: Comment[]; cursor: string | null; total: number }>;
+  addComment(input: { postId: string; body: string; parentId?: string }): Promise<Comment>;
+  deleteComment(id: string): Promise<void>;
+  notifications(cursor?: string | null): Promise<{ notifications: Notification[]; cursor: string | null; unread: number }>;
+  unreadCount(): Promise<number>;
+  markNotificationsRead(ids?: string[]): Promise<number>;
 }

@@ -510,8 +510,8 @@ features:
     platforms: {instagram: yes, tiktok: yes, youtube: yes, pinterest: yes, bluesky: yes, cara: yes, pixelfed: yes, vsco: yes}
     emera:
       twist: "Weighted by the giver's trust tier"
-      maps_to: {screens: [], endpoints: [], stories: []}
-      help_wanted: true
+      maps_to: {screens: ["/p/:id", "/feed"], endpoints: ["POST /v1/posts/:id/like", "DELETE /v1/posts/:id/like"], stories: []}
+      help_wanted: false
       effort: S
   - id: comment
     name: "Comments and replies"
@@ -522,8 +522,8 @@ features:
     platforms: {instagram: yes, tiktok: yes, youtube: yes, pinterest: yes, bluesky: yes, cara: yes, pixelfed: yes, vsco: partial}
     emera:
       twist: "Comments carry the same trust tier"
-      maps_to: {screens: [], endpoints: [], stories: []}
-      help_wanted: true
+      maps_to: {screens: ["/comments/:id"], endpoints: ["GET /v1/posts/:id/comments", "POST /v1/posts/:id/comments", "DELETE /v1/comments/:id"], stories: []}
+      help_wanted: false
       effort: M
   - id: repost-share
     name: "Repost or share with credit"
@@ -578,8 +578,8 @@ features:
     platforms: {instagram: yes, tiktok: yes, youtube: yes, pinterest: yes, bluesky: yes, cara: yes, pixelfed: yes, vsco: yes}
     emera:
       twist: "Grouped, never nagging"
-      maps_to: {screens: [], endpoints: [], stories: []}
-      help_wanted: true
+      maps_to: {screens: ["/notifications"], endpoints: ["GET /v1/notifications", "GET /v1/notifications/unread-count", "POST /v1/notifications/read"], stories: []}
+      help_wanted: false
       effort: M
   - id: direct-messages
     name: "Direct messages"
