@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>agora plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f3ec;--ink:#1c1a17;--card:#fff;--a:#e2573a;--a2:#2f7a5b;--mute:#7a746b;--line:#e4ded3;--soft:#faf8f3}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font:13px/1.35 Inter,system-ui,sans-serif;height:100vh;display:flex;flex-direction:column}
+button,input{font-family:inherit}
+.serif{font-family:Fraunces,Georgia,serif}
+header{display:flex;align-items:center;gap:20px;padding:10px 20px 8px}
+header h1{font-size:24px;font-weight:600;line-height:1}
+header h1 small{display:block;font:500 11px Inter,system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-top:4px}
+.goal{flex:1;font-size:15px;font-weight:600}
+.goal span{display:block;font-size:11px;font-weight:500;color:var(--mute);text-transform:uppercase;letter-spacing:.06em}
+.prog{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--mute)}
+.prog i{width:200px;height:8px;border-radius:9px;background:var(--line);overflow:hidden;display:block}
+.prog i b{display:block;height:100%;background:var(--a2);border-radius:9px}
+main{flex:1;display:grid;grid-template-columns:440px 1fr;gap:12px;padding:0 20px 12px;min-height:0}
+.col{display:flex;flex-direction:column;gap:12px;min-width:0;min-height:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+h2{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:700;display:flex;gap:8px;margin-bottom:8px}
+h2 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;margin-left:auto}
+.dec{padding:4px 0;border-top:1px solid var(--line)}.dec:first-of-type{border-top:0;padding-top:0}
+.dec b{font-size:13px;display:block}
+.dec p{font-size:11px;line-height:1.3;color:var(--mute);margin:1px 0 0}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.chip{border:1px solid var(--line);background:var(--soft);border-radius:8px;padding:4px 8px;font:500 11.5px/1.2 Inter,system-ui,sans-serif;cursor:pointer;position:relative;color:var(--ink)}
+.chip:hover{border-color:var(--ink)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip.mine::after{content:"my pick";position:absolute;top:-7px;right:4px;font-size:8px;font-weight:700;background:var(--a);color:#fff;padding:0 4px;border-radius:4px}
+.names{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+.nm{border:1px solid var(--line);border-radius:10px;padding:7px 9px;background:var(--soft);display:flex;flex-direction:column;gap:3px}
+.nm.keep{border-color:var(--a2);box-shadow:0 0 0 1px var(--a2)}.nm.drop{opacity:.4}
+.nm .t{display:flex;align-items:baseline;gap:6px}
+.nm .t b{font:600 16px Fraunces,serif}
+.nm .why{font-size:11px;color:var(--mute);line-height:1.25}
+.dom{display:flex;gap:4px;flex-wrap:wrap}
+.dom span{font-size:10px;font-weight:600;border-radius:5px;padding:1px 5px;background:#eee;color:var(--mute)}
+.dom span.free{background:#dcefe5;color:var(--a2)}.dom span.taken{background:#f4e1dc;color:#a8452f;text-decoration:line-through}
+.nm .btns{display:flex;gap:4px;margin-top:auto}
+.nm .btns button{flex:1;border:1px solid var(--line);background:#fff;border-radius:6px;font:600 11px Inter,system-ui,sans-serif;padding:3px;cursor:pointer}
+.nm.keep .k{background:var(--a2);color:#fff;border-color:var(--a2)}.nm.drop .d{background:var(--ink);color:#fff}
+.phases{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;min-height:0}
+.ph{border-radius:12px;padding:10px;background:var(--soft);border:1px solid var(--line);display:flex;flex-direction:column;gap:4px;min-height:0;overflow:auto}
+.ph h3{font-size:13.5px;font-weight:700;display:flex;gap:6px;align-items:center}
+.ph h3 small{margin-left:auto;font-size:10px;color:var(--mute);font-weight:600}
+.ph .sub{font-size:11px;color:var(--mute);margin-bottom:2px}
+.task{display:flex;gap:6px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:8px;padding:3px 7px}
+.task input{margin-top:2px;accent-color:var(--a2);cursor:pointer}
+.task span{flex:1;outline:none;font-size:11.5px;line-height:1.25}
+.task i{font-style:normal;font-size:9.5px;font-weight:700;border-radius:4px;padding:0 4px;white-space:nowrap;margin-top:2px}
+.task i.roy{background:#fde6c8;color:#8a5212}.task i.claude{background:#e5ecf7;color:#36527f}
+.task.done span{text-decoration:line-through;color:var(--mute)}
+.add{border:1px dashed var(--line);background:none;color:var(--mute);border-radius:8px;padding:4px 7px;font:500 11.5px Inter,system-ui,sans-serif;cursor:pointer;text-align:left}
+.add:hover{color:var(--ink);border-color:var(--ink)}
+.tell{display:flex;gap:8px}
+.tell input{flex:1;border:1px solid var(--line);border-radius:9px;padding:8px 10px;font:inherit;background:#fff}
+.tell button{border:0;border-radius:9px;background:var(--a);color:#fff;font:600 12.5px Inter,system-ui,sans-serif;padding:0 14px;cursor:pointer}
+.toast{position:fixed;right:20px;bottom:20px;background:var(--ink);color:#fff;padding:8px 14px;border-radius:10px;font-weight:600;opacity:0;transition:.2s;pointer-events:none}
+.toast.on{opacity:1}
+.empty{color:var(--mute);font-size:12px;padding:6px 0}
+@media (max-width:1100px){body{height:auto;min-height:100vh}main{grid-template-columns:1fr}.phases{grid-template-columns:repeat(2,1fr)}.names{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header>
+  <h1 class="serif">agora <small>code name · plan</small></h1>
+  <div class="goal"><span>Goal</span><div id="goal"></div></div>
+  <div class="prog"><i><b id="bar"></b></i><span id="count"></span><span id="upd"></span></div>
+</header>
+<main>
+  <div class="col">
+    <section class="card" style="flex:1;overflow:auto">
+      <h2>Decisions <em>my pick is marked, click yours</em></h2>
+      <div id="decs"><div class="empty">Filling in...</div></div>
+    </section>
+    <section class="card">
+      <h2>Tell Claude</h2>
+      <form class="tell" id="tell"><input id="tellIn" placeholder="An idea, a name you rejected, a change..."><button>Send</button></form>
+    </section>
+  </div>
+  <div class="col">
+    <section class="card">
+      <h2>Name <em id="nameNote"></em></h2>
+      <div class="names" id="names"></div>
+    </section>
+    <div class="phases" id="phases"></div>
+  </div>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+let plan;
+const toast = (t) => { $('toast').textContent = t; $('toast').classList.add('on'); setTimeout(() => $('toast').classList.remove('on'), 1600); };
+async function send(f, msg) {
+  const r = await fetch('/api/feedback', { method: 'POST', body: JSON.stringify(f) });
+  toast(r.ok ? (msg || 'Sent to Claude') : 'Did not save');
+}
+function render() {
+  $('goal').textContent = plan.goal;
+  $('upd').textContent = `Updated ${plan.updated}`;
+  const tasks = plan.phases.flatMap((p) => p.tasks);
+  const done = tasks.filter((t) => t.done).length;
+  $('count').textContent = `${done} / ${tasks.length} done`;
+  $('bar').style.width = tasks.length ? `${(100 * done) / tasks.length}%` : '0';
+
+  const decs = $('decs'); decs.replaceChildren();
+  if (!plan.decisions.length) decs.append(el('div', 'empty', 'Filling in...'));
+  for (const d of plan.decisions) {
+    const box = el('div', 'dec');
+    box.append(el('b', '', d.q), el('p', '', d.why));
+    const chips = el('div', 'chips');
+    for (const o of d.options) {
+      const c = el('button', 'chip', o.label);
+      if (o.id === d.mine) c.classList.add('mine');
+      if (o.id === (d.pick ?? d.mine)) c.classList.add('on');
+      if (o.note) c.title = o.note;
+      c.onclick = () => { d.pick = o.id; render(); send({ kind: 'pick', id: d.id, pick: o.id, label: o.label, q: d.q }, `Picked: ${o.label}`); };
+      chips.append(c);
+    }
+    box.append(chips); decs.append(box);
+  }
+
+  $('nameNote').textContent = plan.names.note;
+  const names = $('names'); names.replaceChildren();
+  for (const n of plan.names.items) {
+    const card = el('div', `nm ${n.vote ?? ''}`);
+    const t = el('div', 't'); t.append(el('b', '', n.name)); card.append(t, el('div', 'why', n.why));
+    const dom = el('div', 'dom');
+    for (const [d, s] of Object.entries(n.domains ?? {})) { const s1 = el('span', s, d); s1.title = s === 'free' ? 'no registration found' : s === 'taken' ? 'registered' : 'unknown'; dom.append(s1); }
+    card.append(dom);
+    const btns = el('div', 'btns');
+    for (const [v, label, cls] of [['keep', 'Keep', 'k'], ['drop', 'Drop', 'd']]) {
+      const b = el('button', cls, label);
+      b.onclick = () => { n.vote = n.vote === v ? null : v; render(); send({ kind: 'name-vote', id: n.id, name: n.name, vote: n.vote }, `${n.name}: ${n.vote ?? 'cleared'}`); };
+      btns.append(b);
+    }
+    card.append(btns); names.append(card);
+  }
+
+  const phases = $('phases'); phases.replaceChildren();
+  for (const p of plan.phases) {
+    const box = el('div', 'ph');
+    const h = el('h3', '', p.title); h.append(el('small', '', `${p.tasks.filter((t) => t.done).length}/${p.tasks.length}`));
+    box.append(h, el('div', 'sub', p.sub));
+    for (const t of p.tasks) {
+      const row = el('label', `task ${t.done ? 'done' : ''}`);
+      const cb = el('input'); cb.type = 'checkbox'; cb.checked = !!t.done;
+      cb.onchange = () => { t.done = cb.checked; render(); send({ kind: 'task-toggle', id: t.id, text: t.text, done: t.done }); };
+      const span = el('span', '', t.text); span.contentEditable = true; span.spellcheck = false;
+      span.onblur = () => { if (span.textContent !== t.text) { t.text = span.textContent; send({ kind: 'task-edit', id: t.id, text: t.text }, 'Edit saved'); } };
+      span.onclick = (e) => e.preventDefault();
+      row.append(cb, span, el('i', t.who, t.who === 'roy' ? 'you' : 'Claude'));
+      box.append(row);
+    }
+    const add = el('button', 'add', '+ add a step');
+    add.onclick = () => { const text = prompt('New step'); if (text) send({ kind: 'task-add', phase: p.id, text }, 'Step added'); };
+    box.append(add); phases.append(box);
+  }
+}
+$('tell').onsubmit = (e) => { e.preventDefault(); const text = $('tellIn').value.trim(); if (!text) return; $('tellIn').value = ''; send({ kind: 'note', text }); };
+async function load() { plan = await (await fetch('/plan.json')).json(); if (!document.activeElement?.isContentEditable) render(); }
+load();
+new EventSource('/events').onmessage = load;
+</script>
+</body>
+</html>

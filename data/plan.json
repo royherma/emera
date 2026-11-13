@@ -1,0 +1,434 @@
+{
+  "updated": "10:44 AM Bangkok",
+  "title": "Plan",
+  "goal": "You post photos on your own profile, share the link, and invite people",
+  "phases": [
+    {
+      "id": "a",
+      "title": "1 \u00b7 Decide",
+      "sub": "This week. Everything else waits on the name.",
+      "tasks": [
+        {
+          "id": "a1",
+          "text": "Plan copied into the project folder + this page",
+          "who": "claude",
+          "done": true
+        },
+        {
+          "id": "a2",
+          "text": "Pick the name (cards above)",
+          "who": "roy"
+        },
+        {
+          "id": "a3",
+          "text": "Buy the domain on Cloudflare after your yes",
+          "who": "claude"
+        },
+        {
+          "id": "a4",
+          "text": "Brand Bluesky account + handle",
+          "who": "claude"
+        },
+        {
+          "id": "a5",
+          "text": "Brand kit: logo, colors, fonts, brand.json",
+          "who": "claude"
+        },
+        {
+          "id": "a6",
+          "text": "PRODUCT.md + DESIGN.md, like our other repos",
+          "who": "claude"
+        }
+      ]
+    },
+    {
+      "id": "b",
+      "title": "2 \u00b7 Set up",
+      "sub": "Day 1 after the name. Runs on what we already have.",
+      "tasks": [
+        {
+          "id": "b1",
+          "text": "GitHub repo + checks on every push",
+          "who": "claude"
+        },
+        {
+          "id": "b2",
+          "text": "Cloudflare staging + production, deploy scripts",
+          "who": "claude"
+        },
+        {
+          "id": "b3",
+          "text": "Project skills: deploy, status, invite",
+          "who": "claude"
+        },
+        {
+          "id": "b4",
+          "text": "Tools home + TOOLS.md",
+          "who": "claude"
+        },
+        {
+          "id": "b5",
+          "text": "Error alerts (Sentry) + visitor numbers",
+          "who": "claude"
+        }
+      ]
+    },
+    {
+      "id": "c",
+      "title": "3 \u00b7 Your profile live",
+      "sub": "Days 1-3. You post, share a link.",
+      "tasks": [
+        {
+          "id": "c1",
+          "text": "Log in with Bluesky",
+          "who": "claude"
+        },
+        {
+          "id": "c2",
+          "text": "Upload a photo, saved with proof of who made it",
+          "who": "claude"
+        },
+        {
+          "id": "c3",
+          "text": "Public profile page with link previews",
+          "who": "claude"
+        },
+        {
+          "id": "c4",
+          "text": "Post page + share button",
+          "who": "claude"
+        },
+        {
+          "id": "c5",
+          "text": "Bring in your old photos automatically (Instagram export)",
+          "who": "claude"
+        },
+        {
+          "id": "c6",
+          "text": "Post your first 10 photos",
+          "who": "roy"
+        }
+      ]
+    },
+    {
+      "id": "d",
+      "title": "4 \u00b7 Invite people",
+      "sub": "Week 1. First 20 creators + first contributors.",
+      "tasks": [
+        {
+          "id": "d1",
+          "text": "Invite links + invite list",
+          "who": "claude"
+        },
+        {
+          "id": "d2",
+          "text": "Landing page + early list",
+          "who": "claude"
+        },
+        {
+          "id": "d3",
+          "text": "Fingerprint every upload: \"Original by @you\"",
+          "who": "claude"
+        },
+        {
+          "id": "d4",
+          "text": "CONTRIBUTING.md + 10 starter issues",
+          "who": "claude"
+        },
+        {
+          "id": "d5",
+          "text": "Invite your first 20 photographers",
+          "who": "roy"
+        }
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "domain",
+      "q": "Which domain ending?",
+      "why": "Every real-word .com is taken. .social reads as a network; .org says nonprofit. Handles can be roy.<domain>.",
+      "options": [
+        {
+          "id": "social",
+          "label": ".social"
+        },
+        {
+          "id": "org",
+          "label": ".org"
+        },
+        {
+          "id": "both",
+          "label": ".org + .social"
+        },
+        {
+          "id": "com",
+          "label": "coined .com"
+        }
+      ],
+      "mine": "social"
+    },
+    {
+      "id": "client",
+      "q": "What do we build first?",
+      "why": "A web page is the fastest thing you can share as a link. The phone app reuses the same code later.",
+      "options": [
+        {
+          "id": "web",
+          "label": "Web first, app next"
+        },
+        {
+          "id": "expo",
+          "label": "Phone app + web together"
+        }
+      ],
+      "mine": "web"
+    },
+    {
+      "id": "login",
+      "q": "How do people sign in?",
+      "why": "Bluesky login works today and brings their followers. Our own accounts come when we run our own server.",
+      "options": [
+        {
+          "id": "bsky",
+          "label": "Bluesky login"
+        },
+        {
+          "id": "own",
+          "label": "Our own accounts"
+        },
+        {
+          "id": "both",
+          "label": "Both from day 1"
+        }
+      ],
+      "mine": "bsky"
+    },
+    {
+      "id": "media",
+      "q": "Where do photos live at first?",
+      "why": "In the person's own Bluesky storage costs us $0 and they can leave with it. Our storage (R2) adds speed later.",
+      "options": [
+        {
+          "id": "pds",
+          "label": "Their Bluesky storage"
+        },
+        {
+          "id": "r2",
+          "label": "Our storage from day 1"
+        }
+      ],
+      "mine": "pds"
+    },
+    {
+      "id": "repo",
+      "q": "GitHub repo public or private?",
+      "why": "Contributors need it public. A rename later keeps old links working.",
+      "options": [
+        {
+          "id": "private",
+          "label": "Private until the name"
+        },
+        {
+          "id": "public",
+          "label": "Public now"
+        }
+      ],
+      "mine": "private"
+    },
+    {
+      "id": "niche",
+      "q": "Who do we invite first?",
+      "why": "The people hurt most by stolen work care most about protection.",
+      "options": [
+        {
+          "id": "photo",
+          "label": "Photographers"
+        },
+        {
+          "id": "illus",
+          "label": "Illustrators"
+        },
+        {
+          "id": "tattoo",
+          "label": "Tattoo artists"
+        },
+        {
+          "id": "friends",
+          "label": "Friends first"
+        }
+      ],
+      "mine": "photo"
+    },
+    {
+      "id": "protect",
+      "q": "Where do we watch for copies first?",
+      "why": "Where art theft is loudest today.",
+      "options": [
+        {
+          "id": "ig",
+          "label": "Instagram"
+        },
+        {
+          "id": "pin",
+          "label": "Pinterest"
+        },
+        {
+          "id": "tiktok",
+          "label": "TikTok"
+        },
+        {
+          "id": "web",
+          "label": "Whole web (reverse image)"
+        }
+      ],
+      "mine": "web"
+    },
+    {
+      "id": "entity",
+      "q": "Who owns it at the start?",
+      "why": "A nonprofit takes months to form. Start under the LLC, move to a nonprofit host at beta.",
+      "options": [
+        {
+          "id": "llc",
+          "label": "Techguyver Labs now"
+        },
+        {
+          "id": "host",
+          "label": "Nonprofit host now"
+        },
+        {
+          "id": "own",
+          "label": "Own nonprofit now"
+        }
+      ],
+      "mine": "llc"
+    }
+  ],
+  "names": {
+    "note": ".com is free only where shown. SEO names coming from a second search.",
+    "items": [
+      {
+        "id": "madeby",
+        "name": "madeby",
+        "why": "Every profile reads \"made by you\": madeby.social/@roy. Proof of who made it, in the name.",
+        "domains": {
+          "social": "free",
+          "com": "taken",
+          "org": "taken"
+        }
+      },
+      {
+        "id": "shownhere",
+        "name": "Shown Here",
+        "why": "Where your work is shown first. The only name with .com free.",
+        "domains": {
+          "com": "free",
+          "org": "free",
+          "social": "free"
+        }
+      },
+      {
+        "id": "firstframe",
+        "name": "Firstframe",
+        "why": "The first frame is the original. Hints at provenance.",
+        "domains": {
+          "social": "free",
+          "com": "taken",
+          "org": "taken"
+        }
+      },
+      {
+        "id": "kindframe",
+        "name": "Kindframe",
+        "why": "Kind place, your frame. Every ending but .com free.",
+        "domains": {
+          "org": "free",
+          "app": "free",
+          "social": "free",
+          "com": "taken"
+        }
+      },
+      {
+        "id": "openporch",
+        "name": "Open Porch",
+        "why": "Sit out front, show what you made, say hi.",
+        "domains": {
+          "social": "free",
+          "com": "taken",
+          "org": "taken"
+        }
+      },
+      {
+        "id": "courtyard",
+        "name": "Courtyard",
+        "why": "The open middle of the house where people gather. Hotel brand shares it (harder SEO).",
+        "domains": {
+          "social": "free",
+          "app": "free",
+          "com": "taken"
+        }
+      },
+      {
+        "id": "lightbox",
+        "name": "Lightbox",
+        "why": "What photographers view their work on. Common word, harder to rank.",
+        "domains": {
+          "social": "free",
+          "com": "taken",
+          "org": "taken"
+        }
+      },
+      {
+        "id": "ownframe",
+        "name": "Ownframe",
+        "why": "You own your frame, and you can leave with it.",
+        "domains": {
+          "org": "free",
+          "social": "free",
+          "com": "taken"
+        }
+      },
+      {
+        "id": "sharekeep",
+        "name": "Sharekeep",
+        "why": "Share it, keep it yours.",
+        "domains": {
+          "org": "free",
+          "social": "free",
+          "com": "taken"
+        }
+      },
+      {
+        "id": "showfolk",
+        "name": "Showfolk",
+        "why": "The people who show their work.",
+        "domains": {
+          "org": "free",
+          "social": "free",
+          "com": "taken"
+        }
+      },
+      {
+        "id": "hearthside",
+        "name": "Hearthside",
+        "why": "Warm, by the fire, among friends.",
+        "domains": {
+          "social": "free",
+          "com": "taken",
+          "org": "taken"
+        }
+      },
+      {
+        "id": "framekin",
+        "name": "Framekin",
+        "why": "Your people, around your pictures.",
+        "domains": {
+          "org": "free",
+          "social": "free",
+          "com": "taken"
+        }
+      }
+    ]
+  }
+}

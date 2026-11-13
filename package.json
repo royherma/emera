@@ -1,0 +1,8 @@
+{
+  "name": "agora",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "plan": "node plan/server.mjs"
+  }
+}

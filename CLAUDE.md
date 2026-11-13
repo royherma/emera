@@ -4,7 +4,7 @@ Open-source, creator-first photo/video network on the AT Protocol: provenance on
 
 ## State
 
-Idea stage. No code yet. Don't scaffold apps or buy anything until Roy says go.
+Idea stage. Roy said go (2026-11-13): build toward his live profile. Buying a domain waits for his name pick.
 
 ## Where things are
 
@@ -17,6 +17,7 @@ Idea stage. No code yet. Don't scaffold apps or buy anything until Roy says go.
 | Cost calculators from the board | `source/whiteboard/e59-calculator.html`, `e66-cost-growth.html` |
 | New ideas, dated | `docs/ideas.md` |
 | Name search | `docs/naming.md` |
+| Plan page (steps, decisions, names) | http://agora.localhost:5035 - `npm run plan`, data in `data/plan.json`, clicks in `data/feedback.jsonl` |
 
 ## Rules
 
