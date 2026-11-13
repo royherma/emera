@@ -67,7 +67,7 @@
         "INVITES_REQUIRED": "false",
         "PUBLIC_ORIGIN": "https://emera.social",
         "FUNDING": "off",
-        "POSTS_PER_DAY": "10"
+        "POSTS_PER_DAY": "5"
       },
       "triggers": { "crons": ["*/15 * * * *", "0 1 3 * *"] },
       "d1_databases": [

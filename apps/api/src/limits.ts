@@ -11,7 +11,7 @@ const num = (raw: string | undefined, fallback: number) => {
   const n = Number(raw);
   return Number.isFinite(n) && n > 0 ? n : fallback;
 };
-export const postsPerDay = (env: Env) => num(env.POSTS_PER_DAY, 10);
+export const postsPerDay = (env: Env) => num(env.POSTS_PER_DAY, 5);
 export const uploadsPerDay = (env: Env) => num(env.UPLOADS_PER_DAY, 300);
 export const signinEmailsPerDay = (env: Env) => num(env.SIGNIN_EMAILS_PER_DAY, 20000);
 
