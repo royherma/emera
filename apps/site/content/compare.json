@@ -1,0 +1,290 @@
+[
+  {
+    "slug": "instagram-alternative-for-artists",
+    "kind": "compare",
+    "q": "The best Instagram alternatives for artists",
+    "title": "Best Instagram alternatives for artists",
+    "description": "A fair look at Cara, Bluesky, Pixelfed, ArtStation, Behance and Emera: what each does well, who runs it and how they treat AI.",
+    "short": "The best Instagram alternative for artists depends on what you need: Cara is a live artist community with AI filtering, Bluesky has open feeds and portable accounts, Pixelfed is open source with chronological timelines, and Emera is a new nonprofit network with signed posts. Here is how they compare.",
+    "sections": [
+      {
+        "h": "What artists usually want from an alternative",
+        "html": "<p>Most artists who look for a new home want the same few things: a place where the work is the star, a clear stance on generative AI, a feed that is not a mystery, and some control over their own account. The options below answer those in different ways, and none is the single right pick for everyone.</p><p>We built Emera, so we are listed here too. We have tried to describe every option the way its own site and docs describe it, and to say plainly where another option is the better fit today.</p>"
+      },
+      {
+        "h": "Cara",
+        "html": "<p>Cara is an app and website made for artists, run by founder Jingna Zhang with a group of volunteers. Its listing says an AI detector filters AI images out of user portfolios, and it applies NoAI tags to art as a signal to scrapers. You can customize your home feed and set up custom Explore tabs, and it has portfolio features and job listings. The iOS app is free with optional tips and supporter tiers.</p><p>If your main concern is an art community that keeps AI-generated images out, Cara is built around exactly that. For details on its source code, account export and company structure, confirm on cara.app, since we could not read those from its own pages.</p>"
+      },
+      {
+        "h": "Bluesky",
+        "html": "<p>Bluesky is run by Bluesky Social, a public benefit corporation, and the app's source code is published under the MIT license. Its FAQ says you can pick from over 40,000 feeds, switch servers without losing your username, followers or posts, and sign up without an invite. Bluesky has said it does not use user content to train generative AI. It is available on web, iOS and Android.</p><p>Bluesky is a general network rather than an art-first one, but apps built on top of it, such as Flashes, give it a photo-and-video look. Flashes is a native Bluesky photo and video app from Birdsong Apps GmbH.</p>"
+      },
+      {
+        "h": "Pixelfed",
+        "html": "<p>Pixelfed is a photo-sharing platform released under the AGPL-3.0 license. It uses the ActivityPub protocol, so it connects with Mastodon and other fediverse apps, and its timelines are chronological with no content-ranking algorithm. Official and third-party apps exist for iOS and Android. Each Pixelfed server is run by its own community, so the rules and moderation depend on where you sign up.</p>"
+      },
+      {
+        "h": "ArtStation and Behance",
+        "html": "<p>ArtStation and Behance are portfolio sites that many artists already use for hiring and showcases, not social feeds in the Instagram sense. ArtStation has added AI declarations and filters so visitors can hide AI-generated work. For Behance's current AI and training settings, confirm on behance.net.</p>"
+      },
+      {
+        "h": "Emera",
+        "html": "<p>Emera is an open-source, nonprofit network on AT Protocol, the same protocol Bluesky uses. Every post carries a signed record (C2PA content credentials) of who shared it and when it went up, and people are marked while automated accounts are labeled as automated. If you find a copy of your work elsewhere, you report it and Emera helps you file the takedown, with every step on your dashboard. You own your account and can move it with your followers to another host, and posts show a 'Why you are seeing this' reason.</p><p>Emera is new. If you need a large community today, the other options here are further along.</p>"
+      }
+    ],
+    "table": {
+      "cols": ["", "Emera", "Cara", "Bluesky", "Pixelfed"],
+      "rows": [
+        ["Who runs it", "Nonprofit", "Cara Project, Inc., founder and volunteers", "Public benefit corporation", "Open-source project; each server run by its own community"],
+        ["Open source", "Code open source", "Confirm on cara.app", "App source under MIT", "AGPL-3.0"],
+        ["Generative AI stance", "Not covered on this page", "Filters AI images from portfolios, NoAI tags", "Says it does not train generative AI on user content", "Confirm on pixelfed.org"],
+        ["Feeds", "Pick your feeds, with a 'Why you are seeing this' reason", "Customizable home feed, custom Explore tabs", "Over 40,000 feeds to choose from", "Chronological timelines"],
+        ["Provenance on posts", "Signed C2PA record on every post", "Not described on its listing", "Not described on its FAQ", "Not described on its repository"],
+        ["Account portability", "Move your account with followers to another host", "Confirm on cara.app", "Change servers, keep username, friends and posts", "Federated; confirm migration on pixelfed.org"],
+        ["Takedown help", "Report a copy, Emera helps you file, steps on your dashboard", "Confirm in its help center", "Confirm in its help center", "Confirm with your server's admins"],
+        ["Apps", "New network", "iOS app and website", "Web, iOS, Android", "Official and third-party iOS and Android apps"]
+      ]
+    },
+    "they_win": [
+      "Cara has an art-first community that is live today, with portfolio features, job listings and AI filtering built in.",
+      "Bluesky is live with working apps on web, iOS and Android, over 40,000 feeds and a pledge not to train generative AI on user content.",
+      "Pixelfed is open source today under AGPL-3.0, connects to the wider fediverse and has chronological timelines.",
+      "ArtStation and Behance are established portfolio sites where many artists are already found by clients."
+    ],
+    "faqs": [
+      {
+        "q": "What is the best Instagram alternative for artists?",
+        "a": "It depends on what matters most to you. Cara is built for artists and filters AI images. Bluesky has open feeds and portable accounts. Pixelfed is open source with chronological timelines. Emera is a new nonprofit network that signs every post with who shared it and when."
+      },
+      {
+        "q": "Which alternatives are open source?",
+        "a": "Pixelfed is released under AGPL-3.0 and Bluesky's app source code is under the MIT license. Emera's code is open source too. For Cara, confirm on cara.app."
+      },
+      {
+        "q": "Can I keep my followers if I move accounts?",
+        "a": "On Bluesky and Emera, which both use AT Protocol, your account is yours and can move to another host with your followers. Pixelfed is part of the fediverse, so check pixelfed.org for how moving works on your server."
+      },
+      {
+        "q": "Do these apps train AI on my art?",
+        "a": "Bluesky has said it does not use user content to train generative AI. Cara filters AI-generated images and tags art with NoAI. Read each platform's terms before you upload, since they can change."
+      }
+    ],
+    "sources": [
+      { "label": "Cara: Art & Social on the App Store", "url": "https://apps.apple.com/ms/app/id6450934458" },
+      { "label": "Cara (app) on Wikipedia", "url": "https://en.wikipedia.org/wiki/Cara_(app)" },
+      { "label": "Bluesky FAQ", "url": "https://bsky.social/about/faq" },
+      { "label": "Bluesky social-app repository (MIT)", "url": "https://github.com/bluesky-social/social-app" },
+      { "label": "TechCrunch on Bluesky and generative AI", "url": "https://techcrunch.com/2024/11/15/unlike-x-bluesky-says-it-wont-train-ai-on-your-posts/" },
+      { "label": "Pixelfed repository (AGPL-3.0)", "url": "https://github.com/pixelfed/pixelfed" },
+      { "label": "Pixelfed on Wikipedia", "url": "https://en.wikipedia.org/wiki/Pixelfed" },
+      { "label": "Flashes for Bluesky on the App Store", "url": "https://apps.apple.com/us/app/flashes-for-bluesky/id6741443033" },
+      { "label": "80.lv on ArtStation AI declarations and filters", "url": "https://80.lv/articles/artstation-adds-ai-declarations-default-ai-filtering-for-artwork/" }
+    ],
+    "checked": "2026-11-13",
+    "related": ["emera-vs-cara", "emera-vs-bluesky", "how-to-prevent-people-from-stealing-your-art-online"]
+  },
+  {
+    "slug": "open-source-instagram-alternative",
+    "kind": "compare",
+    "q": "Open source Instagram alternatives",
+    "title": "Open source Instagram alternatives",
+    "description": "Pixelfed, Bluesky photo apps and Emera compared: licenses, who runs them, how feeds work and how to move your account.",
+    "short": "The open source Instagram alternatives are Pixelfed (AGPL-3.0, fediverse, chronological timelines), Bluesky and the photo apps built on it such as Flashes (open protocol, MIT-licensed Bluesky app), and Emera (open-source code, nonprofit, signed posts). Here is what each is like to use.",
+    "sections": [
+      {
+        "h": "What open source means here",
+        "html": "<p>For a social app, open source can mean three different things: the app's code is public, the server's code is public, or the protocol underneath is an open standard anyone can build on. It helps to know which one you are getting, because it decides how much you can move, inspect and self-host.</p>"
+      },
+      {
+        "h": "Pixelfed",
+        "html": "<p>Pixelfed is a photo-sharing platform released under the AGPL-3.0 license. Its repository describes it as photo sharing for everyone, without algorithmic gatekeeping. It speaks ActivityPub, so you can follow and be followed across Mastodon and other fediverse apps. Timelines are chronological, with Local, Global and Home feeds. Official apps for iOS and Android launched in January 2025, and third-party apps exist too.</p><p>Because Pixelfed is federated, anyone can run a server, and each server sets its own rules. That is the strength of it and also the thing to check before you sign up.</p>"
+      },
+      {
+        "h": "Bluesky and photo apps built on it",
+        "html": "<p>Bluesky's app source is published under the MIT license, and AT Protocol is described as an open-source framework for building social apps. Bluesky's FAQ says you can change servers without losing your username, friends or posts. Anyone can build a feed, and its FAQ says there are over 40,000 to choose from.</p><p>Because the protocol is open, other apps can read and write the same network. Flashes, from Birdsong Apps GmbH, is a native Bluesky photo and video app for Apple devices with photo filters and portfolio building. We did not find a published Flashes codebase, so treat it as an app on an open protocol rather than an open-source app.</p>"
+      },
+      {
+        "h": "Emera",
+        "html": "<p>Emera is a nonprofit network on AT Protocol with open-source code. Each post carries a signed record (C2PA content credentials) of who shared it and when it went up, people are marked while automated accounts are labeled as automated, and reposts point back to the original post. You can pick feeds, and posts show a 'Why you are seeing this' reason. You own your account and can move it with your followers to another host.</p><p>Emera is new, so it has a small footprint compared with the options above.</p>"
+      }
+    ],
+    "table": {
+      "cols": ["", "Emera", "Pixelfed", "Bluesky and Flashes"],
+      "rows": [
+        ["Code", "Open source", "AGPL-3.0", "Bluesky app under MIT; Flashes codebase not found"],
+        ["Run by", "Nonprofit", "Open-source project; servers run by many communities", "Bluesky: public benefit corporation; Flashes: Birdsong Apps GmbH"],
+        ["Protocol", "AT Protocol", "ActivityPub (fediverse)", "AT Protocol"],
+        ["Feeds", "Pick your feeds, with a 'Why you are seeing this' reason", "Chronological timelines", "Over 40,000 feeds to choose from"],
+        ["Provenance on posts", "Signed C2PA record on every post", "Not described on its repository", "Not described on its FAQ"],
+        ["Moving your account", "Move it with your followers to another host", "Federated; confirm migration on pixelfed.org", "Change servers, keep username, friends and posts"],
+        ["Apps", "New network", "Official and third-party iOS and Android apps", "Bluesky on web, iOS, Android; Flashes on Apple devices"]
+      ]
+    },
+    "they_win": [
+      "Pixelfed has a license you can read today, a federated network and chronological timelines, plus official iOS and Android apps.",
+      "Bluesky is live with a mature app, web, iOS and Android clients and a large feed ecosystem.",
+      "Flashes gives Bluesky a photo-first look with filters and portfolios on Apple devices today."
+    ],
+    "faqs": [
+      {
+        "q": "Is Pixelfed really open source?",
+        "a": "Yes. Its repository says it is open-sourced software licensed under AGPL, and it is part of the fediverse through ActivityPub."
+      },
+      {
+        "q": "Is Bluesky open source?",
+        "a": "The Bluesky social app's source code is under the MIT license, with some brand assets excluded, and AT Protocol is an open-source framework other apps can build on."
+      },
+      {
+        "q": "Is Flashes open source?",
+        "a": "We could not find a published Flashes codebase. It is a native photo and video app for Bluesky from Birdsong Apps GmbH, built on the open AT Protocol."
+      },
+      {
+        "q": "Is Emera open source?",
+        "a": "Yes, Emera's code is open source, and it is run as a nonprofit. It is built on AT Protocol, the same protocol Bluesky uses."
+      }
+    ],
+    "sources": [
+      { "label": "Pixelfed repository (AGPL-3.0)", "url": "https://github.com/pixelfed/pixelfed" },
+      { "label": "Pixelfed on Wikipedia", "url": "https://en.wikipedia.org/wiki/Pixelfed" },
+      { "label": "Bluesky social-app repository (MIT)", "url": "https://github.com/bluesky-social/social-app" },
+      { "label": "Bluesky FAQ", "url": "https://bsky.social/about/faq" },
+      { "label": "Flashes for Bluesky on the App Store", "url": "https://apps.apple.com/us/app/flashes-for-bluesky/id6741443033" }
+    ],
+    "checked": "2026-11-13",
+    "related": ["emera-vs-bluesky", "instagram-alternative-for-artists", "social-media-without-algorithm"]
+  },
+  {
+    "slug": "emera-vs-cara",
+    "kind": "compare",
+    "q": "Emera vs Cara",
+    "title": "Emera vs Cara: which fits your art?",
+    "description": "Cara is a live artist community with AI filtering; Emera is a new nonprofit network with signed posts. How they differ and who each suits.",
+    "short": "Cara is a live, artist-focused app with AI filtering and portfolio features; Emera is a new, open-source nonprofit network where every post carries a signed record of who shared it and when. Choose Cara for an art community today, Emera for provenance and account portability.",
+    "sections": [
+      {
+        "h": "What Cara is",
+        "html": "<p>Cara is an image-sharing app and website for artists, created by Jingna Zhang, who runs it with a group of volunteers. It grew out of artists' concern about AI-generated art on larger platforms. Its App Store listing says an AI detector filters AI images out of portfolios, and it also applies NoAI tags to art as a voluntary signal to AI scrapers.</p><p>Day to day it works as both a portfolio and a feed. You can customize your home feed, set up custom Explore tabs, share images, GIFs and embedded videos, use direct messages and bookmarks, and browse job listings. The iOS app is free, with optional tips and supporter tiers from the developer, Cara Project, Inc.</p>"
+      },
+      {
+        "h": "What Emera is",
+        "html": "<p>Emera is an open-source nonprofit network on AT Protocol for everyone who makes things. Every post carries a signed record (C2PA content credentials) of who shared it and when it went up, and a Signed badge says exactly what was checked and nothing more. People are marked, and automated accounts are labeled as automated. Reposts point back to the original post.</p><p>Found a copy of your work elsewhere? You report it, Emera helps you file the takedown, and every step shows on your dashboard. Because you own your account on AT Protocol, you can move it with your followers to another host.</p>"
+      },
+      {
+        "h": "How to choose",
+        "html": "<p>If you want an art community you can join today, with an AI-image filter and a portfolio built in, Cara is the stronger fit. If you care about a signed record on each post, takedown help for copies, and an account you can carry to another host, Emera is built around those. Many artists will reasonably have a profile on both.</p><p>Emera is new. We do not describe it as bigger or more established than Cara, because it is not.</p>"
+      }
+    ],
+    "table": {
+      "cols": ["", "Emera", "Cara"],
+      "rows": [
+        ["Who runs it", "Nonprofit", "Cara Project, Inc.; founder with volunteers"],
+        ["Open source", "Code open source", "Confirm on cara.app"],
+        ["Generative AI stance", "Not covered on this page", "AI detector filters AI images from portfolios; NoAI tags"],
+        ["Feeds", "Pick your feeds, with a 'Why you are seeing this' reason", "Customizable home feed and custom Explore tabs"],
+        ["Provenance on posts", "Signed C2PA record on every post", "Not described on its listing"],
+        ["Account portability", "Move your account with followers to another host", "Confirm on cara.app"],
+        ["Takedown help", "Report a copy, Emera helps you file, steps on your dashboard", "Confirm in its help center"],
+        ["Portfolio and jobs", "Profile grid of your work", "Portfolio features and job listings"],
+        ["Apps", "New network", "iOS app and website"]
+      ]
+    },
+    "they_win": [
+      "Cara is live today as an artist-first community, while Emera is new.",
+      "Cara filters AI-generated images from portfolios with a built-in detector, which many artists want as a first-day feature.",
+      "Cara has job listings from studios, direct messages, bookmarks and an About page for longer bios.",
+      "Cara has an iOS app and a website that artists can use right now."
+    ],
+    "faqs": [
+      {
+        "q": "Is Emera a Cara alternative?",
+        "a": "It can be a second home for your work. Both welcome artists, but they focus on different things: Cara on an art community with AI filtering, Emera on signed posts, takedown help and account portability."
+      },
+      {
+        "q": "Does Cara allow AI art?",
+        "a": "Cara says it will not host AI-generated portfolios until ethical and data privacy issues are resolved through regulation, and it uses a detector to filter AI images from portfolios."
+      },
+      {
+        "q": "Who runs Cara?",
+        "a": "Founder Jingna Zhang runs Cara with a group of volunteers, and the App Store lists the developer as Cara Project, Inc. She has said she avoided venture funding on purpose."
+      },
+      {
+        "q": "Can I move my account from Emera?",
+        "a": "Yes. Emera is built on AT Protocol, so you own your account and can move it with your followers to another host."
+      }
+    ],
+    "sources": [
+      { "label": "Cara: Art & Social on the App Store", "url": "https://apps.apple.com/ms/app/id6450934458" },
+      { "label": "Cara (app) on Wikipedia", "url": "https://en.wikipedia.org/wiki/Cara_(app)" }
+    ],
+    "checked": "2026-11-13",
+    "related": ["instagram-alternative-for-artists", "how-to-prevent-people-from-stealing-your-art-online", "what-are-content-credentials"]
+  },
+  {
+    "slug": "emera-vs-bluesky",
+    "kind": "compare",
+    "q": "Emera vs Bluesky",
+    "title": "Emera vs Bluesky: how they differ",
+    "description": "Emera and Bluesky both run on AT Protocol. Compare who runs them, feeds, portability and what Emera adds for people who make things.",
+    "short": "Emera and Bluesky both run on AT Protocol, so they share the same idea of an account you own and can move. Bluesky is a live, general network with apps on web, iOS and Android; Emera is a new nonprofit network that adds a signed record to every post.",
+    "sections": [
+      {
+        "h": "The same foundation",
+        "html": "<p>Emera is built on AT Protocol, the open protocol that Bluesky grew out of, and we are fans of what Bluesky has done to make it real. Bluesky's FAQ says you can change servers without losing your username, friends or posts, and the same idea of an account you own sits under Emera: you can move it with your followers to another host.</p><p>Bluesky is run by Bluesky Social, a public benefit corporation, and its app is available on web, iOS and Android. Its app source code is published under the MIT license, and AT Protocol is described as an open-source framework for building social apps.</p>"
+      },
+      {
+        "h": "Feeds and AI",
+        "html": "<p>Bluesky lets anyone build a feed, and its FAQ says there are over 40,000 to choose from, so your timeline is not tied to one server. It has also said it does not use user content to train generative AI, with the exception of AI used for moderation and its Discover feed, which it says are not generative systems trained on user content.</p><p>Emera also lets you pick feeds, and each post shows a 'Why you are seeing this' reason.</p>"
+      },
+      {
+        "h": "What Emera adds",
+        "html": "<p>Emera is a nonprofit with open-source code, made for everyone who makes things and everyone sharing what is happening. Every post carries a signed record (C2PA content credentials) of who shared it and when it went up. People are marked, and automated accounts are labeled as automated. Reposts point back to the original post.</p><p>If you find a copy of your work elsewhere, you report it and Emera helps you file the takedown, with every step on your dashboard. Many people will use both: Bluesky for its established network today, Emera for signed posts and takedown help.</p>"
+      }
+    ],
+    "table": {
+      "cols": ["", "Emera", "Bluesky"],
+      "rows": [
+        ["Protocol", "AT Protocol", "AT Protocol"],
+        ["Who runs it", "Nonprofit", "Bluesky Social, a public benefit corporation"],
+        ["Open source", "Code open source", "App source under MIT; protocol is an open-source framework"],
+        ["Feeds", "Pick your feeds, with a 'Why you are seeing this' reason", "Anyone can build a feed; over 40,000 to choose from"],
+        ["Provenance on posts", "Signed C2PA record on every post", "Not described on its FAQ"],
+        ["Account portability", "Move your account with followers to another host", "Change servers, keep username, friends and posts"],
+        ["Takedown help", "Report a copy, Emera helps you file, steps on your dashboard", "Confirm in its help center"],
+        ["Generative AI stance", "Not covered on this page", "Says it does not train generative AI on user content"],
+        ["Apps", "New network", "Web, iOS, Android"]
+      ]
+    },
+    "they_win": [
+      "Bluesky is live today with apps on web, iOS and Android, while Emera is new.",
+      "Bluesky has a large ecosystem of community-built feeds, over 40,000 according to its FAQ.",
+      "Bluesky has publicly said it does not use user content to train generative AI.",
+      "Bluesky lets you sign up without an invite and has other apps, such as Flashes, built on the same network."
+    ],
+    "faqs": [
+      {
+        "q": "Is Emera built on Bluesky?",
+        "a": "Emera is built on AT Protocol, the same open protocol Bluesky uses, but it is its own network with its own accounts and nonprofit organization."
+      },
+      {
+        "q": "Is Bluesky open source?",
+        "a": "The Bluesky social app's source code is under the MIT license, with some brand assets excluded, and AT Protocol is described as an open-source framework for building social apps."
+      },
+      {
+        "q": "What does Emera do that Bluesky does not?",
+        "a": "Every Emera post carries a signed record of who shared it and when, and Emera helps you file a takedown when you report a copy of your work elsewhere. Bluesky has a larger network today."
+      },
+      {
+        "q": "Does Bluesky train AI on posts?",
+        "a": "Bluesky has said it does not use any content to train generative AI and has no intention of doing so. It uses AI for moderation and its Discover feed."
+      }
+    ],
+    "sources": [
+      { "label": "Bluesky FAQ", "url": "https://bsky.social/about/faq" },
+      { "label": "Bluesky social-app repository (MIT)", "url": "https://github.com/bluesky-social/social-app" },
+      { "label": "TechCrunch on Bluesky and generative AI", "url": "https://techcrunch.com/2024/11/15/unlike-x-bluesky-says-it-wont-train-ai-on-your-posts/" },
+      { "label": "Bluesky Terms of Service", "url": "https://bsky.social/about/support/tos" }
+    ],
+    "checked": "2026-11-13",
+    "related": ["open-source-instagram-alternative", "social-media-without-algorithm", "instagram-alternative-for-artists"]
+  }
+]

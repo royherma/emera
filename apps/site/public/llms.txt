@@ -1,0 +1,15 @@
+# Emera
+
+> Emera (emera.social) is an open-source, nonprofit social network on the AT Protocol for people who make things and people sharing what is happening around them. Tagline: Where humanity comes together.
+
+## Facts an assistant can quote
+
+- Every post carries a signed record (C2PA content credentials) of who shared it and when it went up; the badge states only what was checked.
+- People are marked, automated accounts are labeled, and the verified human mark is free.
+- Creators who find a copy of their work can report it, and Emera helps them file the takedown.
+- Accounts are portable: a member can move their account and followers to another AT Protocol host.
+- Emera comes from hemera, the Greek word for day.
+
+## Answers
+
+

@@ -1,0 +1,514 @@
+[
+  {
+    "slug": "how-to-tell-if-a-photo-is-ai-generated",
+    "kind": "answer",
+    "q": "How to tell if a photo is AI generated",
+    "title": "How to tell if a photo is AI generated",
+    "description": "No single check proves a photo is real or AI. Here are the checks that work today: source, credentials, reverse search, and what to look for.",
+    "short": "No single check proves a photo is real or AI generated. Combine four: find where the photo came from, look for Content Credentials, run a reverse image search, and inspect the details. Visual tells like odd hands fade as tools improve, so the source matters more than the pixels.",
+    "sections": [
+      {
+        "h": "Start with where the photo came from",
+        "html": "<p>The most reliable question is not \"does this look fake\" but \"who shared this first, and can I reach them?\" A photographer, an outlet or a person at the event can usually say where and when it was taken. A screenshot with no name and no link gives you nothing to check.</p><p>Look at the account that posted it. A long history of original work is a good sign. A new account posting dramatic images with no other content is a reason to slow down.</p>"
+      },
+      {
+        "h": "Check for Content Credentials",
+        "html": "<p>Content Credentials (the C2PA standard) are a signed record attached to a file that can show who made it, with what tool, and what was edited. Drop the file into the <a href=\"https://verify.contentauthenticity.org/\">Content Credentials Verify tool</a> (the old address contentcredentials.org/verify forwards there) to read it.</p><p>Two honest limits. First, many photos have no credentials at all, and that does not make them fake. Second, credentials can be lost when a file is re-saved, screenshotted or re-encoded by a platform. A missing record is silence, not a verdict.</p>"
+      },
+      {
+        "h": "Run a reverse image search",
+        "html": "<p>Upload the image or paste its link into <a href=\"https://support.google.com/websearch/answer/1325808\">Google search by image</a> (in Chrome, right-click and choose Search with Google Lens) or into TinEye. You are looking for an earlier copy, a caption that contradicts the claim, or the original photographer. If a \"breaking\" photo shows up years old, you have your answer.</p><p>A brand-new image will return nothing, so an empty result proves nothing either way.</p>"
+      },
+      {
+        "h": "Look closely at the image itself",
+        "html": "<p>Zoom in. Common tells include text that is almost-letters, hands or teeth that do not add up, jewelry or glasses that merge into skin, shadows that point in different directions, repeated patterns in crowds and backgrounds that melt together. Treat these as hints. Newer tools get many of them right, and real photos can show odd artifacts from compression or editing.</p><p>Also ask whether the scene makes sense: weather, signs, uniforms and landmarks can often be checked against other photos from the same place and day.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Every post on Emera carries a signed record (C2PA content credentials) of who shared it and when it went up. A Signed badge says exactly what was checked and nothing more. Reposts point back to the original post, so you can follow a picture to the person who first shared it. Emera does not detect AI images and does not tell you a photo is real; it shows you what was recorded so you can judge.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can an AI detector tell me for sure?",
+        "a": "No. Detector tools give probabilities, make mistakes in both directions and fall behind new image generators. Use them as one input next to the source and a reverse image search."
+      },
+      {
+        "q": "Does a missing Content Credential mean the photo is fake?",
+        "a": "No. Most photos online carry no credentials, and platforms or screenshots can strip them. Absence is not evidence either way."
+      },
+      {
+        "q": "Does a present Content Credential mean the photo is true?",
+        "a": "No. It records who signed the file and what was done to it. It does not say the scene is accurate or that the caption is honest."
+      },
+      {
+        "q": "What is the fastest check?",
+        "a": "A reverse image search. It takes under a minute and often finds the original or an earlier copy."
+      }
+    ],
+    "sources": [
+      {
+        "label": "C2PA, Content Credentials standard",
+        "url": "https://c2pa.org/"
+      },
+      {
+        "label": "Content Credentials Verify tool",
+        "url": "https://verify.contentauthenticity.org/"
+      },
+      {
+        "label": "Google Search Help: search with an image",
+        "url": "https://support.google.com/websearch/answer/1325808"
+      },
+      {
+        "label": "TinEye reverse image search",
+        "url": "https://tineye.com/how"
+      }
+    ],
+    "checked": "2026-11-13",
+    "related": [
+      "what-are-content-credentials",
+      "how-to-tell-if-a-video-is-real-or-fake"
+    ]
+  },
+  {
+    "slug": "how-to-tell-if-a-video-is-real-or-fake",
+    "kind": "answer",
+    "q": "How to tell if a video is real or fake",
+    "title": "How to tell if a video is real or fake",
+    "description": "No one check proves a video is real. Fact-checker steps for news clips, event footage and deepfakes: source, keyframe search, context, credentials.",
+    "short": "No single check proves a video is real or fake. Fact-checkers trace it: find the earliest upload, pull still frames and reverse search them, check that place, date and weather match the claim, and look for Content Credentials. A clip with no earlier copy is not proven new or authentic.",
+    "sections": [
+      {
+        "h": "Find the earliest upload",
+        "html": "<p>Most misleading videos are real footage with a false caption, often an old clip from another event. Search the claim, the location and key phrases on several platforms and sort by oldest. Fact-checkers report finding clips that predate the event they supposedly show by days or years.</p>"
+      },
+      {
+        "h": "Search by keyframes, not the whole video",
+        "html": "<p>Reverse search works on images, so pull still frames from the video and search each one. The free <a href=\"https://www.invid-project.eu/tools-and-services/invid-verification-plugin/\">InVID-WeVerify plugin</a> extracts keyframes and sends them to Google, Bing, Yandex and TinEye. <a href=\"https://fullfact.org/blog/2022/feb/how-to-fact-check-ukraine-videos\">Full Fact's guide</a> suggests trying more than one engine, since results differ.</p><p>Searching in other languages can surface debunks an English search misses. And a brand-new video will return nothing, which does not prove it is genuine.</p>"
+      },
+      {
+        "h": "Check that the scene fits the claim",
+        "html": "<p>Compare what you can see with what is claimed: signs and language, vehicles, uniforms, shop fronts, skyline, weather, shadows and time of day. Match them against maps and other footage from that place and date. For news events, check whether established outlets or local reporters have published the same footage and where they got it.</p>"
+      },
+      {
+        "h": "Watch for edits and synthetic video",
+        "html": "<p>Deepfakes and fully generated clips can show lip movement that drifts from the audio, flickering around the face or hairline, objects that change shape between frames and hands or text that warp. These tells are getting rarer. Cuts that remove context matter just as much: ask what happened before and after the clip.</p><p>Metadata can help but is not reliable, since it is often stripped on upload and can be edited.</p>"
+      },
+      {
+        "h": "Look for Content Credentials",
+        "html": "<p>If the file carries Content Credentials, the <a href=\"https://verify.contentauthenticity.org/\">Verify tool</a> shows who signed it and what tool made or edited it. Many videos have none, and platforms can remove them, so treat them as a bonus when present, not a requirement.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Every post on Emera carries a signed record (C2PA content credentials) of who shared it and when it went up. A Signed badge says exactly what was checked and nothing more. Reposts point back to the original post, so you can see who shared a clip first. Emera does not fact-check videos or promise that anything is real.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can I trust a video because many people shared it?",
+        "a": "No. Sharing counts say how popular a clip is, not whether it is genuine. Many viral clips are old footage with new captions."
+      },
+      {
+        "q": "How do I spot a deepfake?",
+        "a": "Check the source first, then look for mismatched lip movement, flicker near the face, warped hands or text and odd lighting. None of these is conclusive, and good fakes avoid them."
+      },
+      {
+        "q": "What if my reverse search finds nothing?",
+        "a": "That means no earlier copy was indexed, not that the video is real. Keep checking the source, location and other reporting."
+      },
+      {
+        "q": "Is there a tool that gives a yes or no?",
+        "a": "Not one you should rely on. Detection tools give estimates and are wrong in both directions."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Full Fact: how to fact check misleading videos",
+        "url": "https://fullfact.org/blog/2022/feb/how-to-fact-check-ukraine-videos"
+      },
+      {
+        "label": "Full Fact: how to spot misleading videos online",
+        "url": "https://fullfact.org/blog/2018/aug/how-spot-misleading-videos-online/"
+      },
+      {
+        "label": "InVID-WeVerify verification plugin",
+        "url": "https://www.invid-project.eu/tools-and-services/invid-verification-plugin/"
+      },
+      {
+        "label": "Content Credentials Verify tool",
+        "url": "https://verify.contentauthenticity.org/"
+      },
+      {
+        "label": "C2PA, Content Credentials standard",
+        "url": "https://c2pa.org/"
+      }
+    ],
+    "checked": "2026-11-13",
+    "related": [
+      "how-to-tell-if-a-photo-is-ai-generated",
+      "what-are-content-credentials"
+    ]
+  },
+  {
+    "slug": "how-to-prevent-people-from-stealing-your-art-online",
+    "kind": "answer",
+    "q": "How to prevent people from stealing your art online",
+    "title": "How to prevent people from stealing your art online",
+    "description": "You cannot stop all copying, but you can make theft harder and easier to prove: sizes, credits, records, registration, and protection tools.",
+    "short": "You cannot fully prevent copying once art is public, but you can make theft harder and easier to prove. Post smaller files, keep dated originals, put your name in the file, register important work with your copyright office, and know the takedown route before you need it.",
+    "sections": [
+      {
+        "h": "Make the original easy to prove",
+        "html": "<p>In a dispute, the person who can show the work in progress usually wins. Keep layered files, sketches, raw photos and exports with their dates. Post a lower-resolution version publicly and keep the full-resolution file to yourself.</p><p>Put your name in the file's metadata and, if it suits the piece, a small mark in a corner. A mark that sits across the image is harder to crop out than one in a corner but changes how the work looks, so it is your call.</p>"
+      },
+      {
+        "h": "Register work that matters",
+        "html": "<p>In the United States, registration is generally required before you can sue for infringement (<a href=\"https://www.govinfo.gov/content/pkg/USCODE-2017-title17/pdf/USCODE-2017-title17-chap4-sec411.pdf\">17 U.S.C. 411</a>), and statutory damages and attorney's fees are generally unavailable for infringement that began before registration unless an exception applies, such as registering within three months of first publication (<a href=\"https://www.bitlaw.com/source/17usc/412.html\">17 U.S.C. 412</a>). Rules differ in other countries and this is not legal advice. Confirm the details with your copyright office.</p>"
+      },
+      {
+        "h": "Consider protection tools, with honest limits",
+        "html": "<p>Glaze and Nightshade, from the University of Chicago's SAND Lab, add changes to images meant to disrupt how AI models learn an artist's style. Researchers and reviewers note limits: the changes can be visible on flat-color art, they are not future-proof, and they do nothing to stop a person from reposting your file. Confirm current details on <a href=\"https://nightshade.cs.uchicago.edu/whatis.html\">the project page</a>.</p>"
+      },
+      {
+        "h": "Know where your work shows up",
+        "html": "<p>Run a reverse image search on your best-known pieces every so often, using <a href=\"https://support.google.com/websearch/answer/1325808\">Google search by image</a> or TinEye. Early discovery makes a takedown simpler. If you find a copy, see <a href=\"/what-to-do-if-someone-steals-your-artwork\">what to do if someone steals your artwork</a>.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Every post on Emera carries a signed record (C2PA content credentials) of who shared it and when it went up. A Signed badge says exactly what was checked and nothing more. Reposts point back to the original post. Found a copy of your work elsewhere? You report it and Emera helps you file the takedown, and every step shows on your dashboard. This is manual: Emera does not scan other platforms for you.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Does a watermark stop theft?",
+        "a": "No. It makes casual reposting less appealing and helps you prove origin, but a determined person can crop or edit it out."
+      },
+      {
+        "q": "Is right-click protection worth it?",
+        "a": "No. Anything shown on a screen can be saved, so it only annoys honest visitors."
+      },
+      {
+        "q": "Do I need to register my art?",
+        "a": "Not to own it, but in the US registration is generally needed before you can sue, and timing affects damages. Check your own country's rules."
+      },
+      {
+        "q": "Will Glaze or Nightshade stop all AI training?",
+        "a": "No. They are described by their makers and independent reviewers as a partial measure that may weaken over time."
+      }
+    ],
+    "sources": [
+      {
+        "label": "17 U.S.C. 411 (registration before suing)",
+        "url": "https://www.govinfo.gov/content/pkg/USCODE-2017-title17/pdf/USCODE-2017-title17-chap4-sec411.pdf"
+      },
+      {
+        "label": "17 U.S.C. 412 (registration and damages)",
+        "url": "https://www.bitlaw.com/source/17usc/412.html"
+      },
+      {
+        "label": "Nightshade, University of Chicago SAND Lab",
+        "url": "https://nightshade.cs.uchicago.edu/whatis.html"
+      },
+      {
+        "label": "Google Search Help: search with an image",
+        "url": "https://support.google.com/websearch/answer/1325808"
+      }
+    ],
+    "checked": "2026-11-13",
+    "related": [
+      "what-to-do-if-someone-steals-your-artwork",
+      "how-to-file-a-dmca-takedown-on-instagram",
+      "instagram-alternative-for-artists"
+    ]
+  },
+  {
+    "slug": "what-to-do-if-someone-steals-your-artwork",
+    "kind": "answer",
+    "q": "What to do if someone steals your artwork",
+    "title": "What to do if someone steals your artwork",
+    "description": "Step by step if your art was copied: gather proof, contact the person, file a takedown with the platform, and when to talk to a lawyer.",
+    "short": "Save proof first: links, screenshots with dates and your original files. Then message the poster, and if that fails file a takedown with the platform's copyright form. A US-style takedown notice has six required parts. For money or repeat copying, talk to a copyright lawyer.",
+    "sections": [
+      {
+        "h": "Step 1: collect proof before anything changes",
+        "html": "<ol><li>Copy the exact link to each copy and the account that posted it.</li><li>Take screenshots that show the date, the account name and the caption.</li><li>Collect your originals: layered files, sketches, raw exports and your first post of the work with its date.</li><li>Note any profit being made from it, such as a shop listing or an ad.</li></ol>"
+      },
+      {
+        "h": "Step 2: decide whether to contact the person first",
+        "html": "<p>A short, calm message often works when the copy looks like a fan repost or a mistake. Say it is your work, link your original and ask them to remove it or credit you. Skip this step if the account is a business copying at scale or you expect hostility. Going straight to the platform is fine.</p>"
+      },
+      {
+        "h": "Step 3: file a takedown with the platform",
+        "html": "<p>Most large platforms have a copyright form. A notice under U.S. law has to include six things: a signature, the work you own, the material you want removed with enough detail to find it, your contact details, a statement of good-faith belief that the use is not authorized, and a statement that your information is accurate and, under penalty of perjury, that you are the owner or authorized to act for them (<a href=\"https://www.law.cornell.edu/uscode/text/17/512\">17 U.S.C. 512(c)(3)</a>). For Instagram specifically, see <a href=\"/how-to-file-a-dmca-takedown-on-instagram\">how to file a DMCA takedown on Instagram</a>.</p><p>Only file if you are sure. Knowingly misrepresenting that material is infringing can make you liable for damages (section 512(f)).</p>"
+      },
+      {
+        "h": "Step 4: expect a possible counter-notice",
+        "html": "<p>The person who posted can file a counter-notification. If a valid one arrives, the platform forwards it to you and must restore the material 10 to 14 business days later unless you tell it you have filed a court action (section 512(g)). Decide beforehand whether you would go to court.</p>"
+      },
+      {
+        "h": "Step 5: know when to bring in a lawyer",
+        "html": "<p>Consider one if someone is selling your work, repeats the copying or ignores notices. In the US, registration is generally needed before suing, so register early for pieces that matter. This page is general information, not legal advice.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Found a copy of your work elsewhere? You report it and Emera helps you file the takedown; every step shows on your dashboard. It is manual, so you spot the copy and Emera helps with the paperwork.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can I just report the post inside the app?",
+        "a": "For copyright, use the platform's dedicated copyright form. General reporting menus often route to other policies. On Instagram, use the Copyright Report Form."
+      },
+      {
+        "q": "Do I need to register my art before sending a takedown?",
+        "a": "A takedown notice does not require registration. Suing for infringement in the US generally does."
+      },
+      {
+        "q": "What if they credited me?",
+        "a": "Credit is not permission. You can still ask for removal or a license, though a friendly message may settle it faster."
+      },
+      {
+        "q": "Can I be penalized for filing?",
+        "a": "If you knowingly misrepresent infringement, yes, under section 512(f). A good-faith notice from the real owner is fine."
+      }
+    ],
+    "sources": [
+      {
+        "label": "17 U.S.C. 512, Cornell LII",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      },
+      {
+        "label": "U.S. Copyright Office: Title 17, chapter 5",
+        "url": "https://www.copyright.gov/title17/92chap5.html"
+      },
+      {
+        "label": "Instagram Copyright Report Form",
+        "url": "https://help.instagram.com/contact/552695131608132"
+      },
+      {
+        "label": "17 U.S.C. 411 (registration before suing)",
+        "url": "https://www.govinfo.gov/content/pkg/USCODE-2017-title17/pdf/USCODE-2017-title17-chap4-sec411.pdf"
+      }
+    ],
+    "checked": "2026-11-13",
+    "related": [
+      "how-to-file-a-dmca-takedown-on-instagram",
+      "how-to-prevent-people-from-stealing-your-art-online",
+      "instagram-alternative-for-artists"
+    ]
+  },
+  {
+    "slug": "how-to-file-a-dmca-takedown-on-instagram",
+    "kind": "answer",
+    "q": "How to file a DMCA takedown on Instagram",
+    "title": "How to file a DMCA takedown on Instagram",
+    "description": "Use Instagram's Copyright Report Form, not the in-app Report button. What to prepare, what the notice needs, and what happens after.",
+    "short": "Use Instagram's Copyright Report Form in the Help Center, not the in-app Report button. You must be the rights owner or their authorized representative. Have the post links, a link to your original and your contact details ready, and only submit if the claim is accurate.",
+    "sections": [
+      {
+        "h": "Before you start",
+        "html": "<p>Instagram's Help Center says only the rights owner or an authorized representative can get a copyright report processed. Appearing in a photo or video does not by itself make you the copyright owner. Gather:</p><ul><li>The exact URL of each infringing post or account</li><li>A link or file showing your original and its date</li><li>Your name, address and email</li></ul><p>Read Instagram's page on <a href=\"https://help.instagram.com/1624041234305603\">what to consider before submitting an IP report</a>, which also covers false reports and counter notices.</p>"
+      },
+      {
+        "h": "File the report",
+        "html": "<ol><li>Open the <a href=\"https://help.instagram.com/contact/552695131608132\">Instagram Copyright Report Form</a> (it opens a Meta reporting form). Confirm the wording and fields on that page, since forms change.</li><li>Say you are the owner or acting for the owner.</li><li>Identify your work and paste the links to the content you want removed.</li><li>Describe the work and why the content infringes it.</li><li>Give your contact details and sign electronically.</li></ol>"
+      },
+      {
+        "h": "What the law requires in a notice",
+        "html": "<p>Under <a href=\"https://www.law.cornell.edu/uscode/text/17/512\">17 U.S.C. 512(c)(3)</a> a notice needs a signature, identification of the work, identification of the infringing material with enough detail to find it, your contact information, a good-faith statement that the use is not authorized and an accuracy statement made under penalty of perjury. Knowingly lying in a notice can make you liable for damages (section 512(f)).</p>"
+      },
+      {
+        "h": "After you submit",
+        "html": "<p>Meta reviews the report and may remove the content. The uploader is told and can file a counter-notification. If a valid one arrives, the material can be restored 10 to 14 business days after it is received unless you file a court action first (section 512(g)). Meta says it may take action against accounts that submit fraudulent reports.</p><p>Do not use the three-dot Report menu for copyright; use the form.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Emera helps you file takedowns for copies of your work elsewhere. You report a copy you found, Emera helps with the paperwork, and every step shows on your dashboard. It is manual: Emera does not scan other platforms.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Is a DMCA takedown the same as reporting a post?",
+        "a": "No. A DMCA takedown is a formal copyright notice with legal statements. The regular Report button is for other policy violations."
+      },
+      {
+        "q": "Does it cost anything?",
+        "a": "The form is free to submit. A lawyer is optional."
+      },
+      {
+        "q": "How long does removal take?",
+        "a": "It varies and Instagram does not promise a time. Check the Help Center for current guidance."
+      },
+      {
+        "q": "Can I file for someone else?",
+        "a": "Yes, if you are an authorized representative of the owner and say so on the form."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Instagram Copyright Report Form",
+        "url": "https://help.instagram.com/contact/552695131608132"
+      },
+      {
+        "label": "Instagram Help: before you submit an IP report",
+        "url": "https://help.instagram.com/1624041234305603"
+      },
+      {
+        "label": "17 U.S.C. 512, Cornell LII",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      },
+      {
+        "label": "U.S. Copyright Office: Title 17, chapter 5",
+        "url": "https://www.copyright.gov/title17/92chap5.html"
+      }
+    ],
+    "checked": "2026-11-13",
+    "related": [
+      "what-to-do-if-someone-steals-your-artwork",
+      "how-to-prevent-people-from-stealing-your-art-online"
+    ]
+  },
+  {
+    "slug": "what-are-content-credentials",
+    "kind": "answer",
+    "q": "What are content credentials",
+    "title": "What are Content Credentials",
+    "description": "Content Credentials (C2PA) are a signed record of where a file came from and how it was edited. How to check one, and what they cannot prove.",
+    "short": "Content Credentials are a signed record attached to a photo, video or file that shows where it came from and how it was edited. They follow the open C2PA standard. You can check a file at the Verify tool. They show a file's history, not whether what it shows is true.",
+    "sections": [
+      {
+        "h": "What they are",
+        "html": "<p>Content Credentials are the name for the open standard from the Coalition for Content Provenance and Authenticity (C2PA). The C2PA site compares them to a nutrition label: a look at a file's history that anyone can read. Its steering committee includes Adobe, Amazon, BBC, Google, Meta, Microsoft, OpenAI, Sony, TikTok and Truepic.</p><p>A credential is a signed bundle of facts, such as who created the file, what tool made it and what edits followed, tied to the file so tampering can be noticed.</p>"
+      },
+      {
+        "h": "How to verify one",
+        "html": "<ol><li>Go to the <a href=\"https://verify.contentauthenticity.org/\">Content Credentials Verify tool</a> (contentcredentials.org/verify forwards to it).</li><li>Upload the original file or use a supported link.</li><li>Read the result: who signed it, the tool used and the edit history, if any.</li></ol><p>Use the original file where you can. Screenshots and files re-saved by messengers or social platforms often lose the record.</p>"
+      },
+      {
+        "h": "What they do not prove",
+        "html": "<p>A credential records provenance. It does not say that a scene is real, that a caption is honest or that the signer is trustworthy. A missing credential does not make a file fake either: most files online have none. Treat credentials as one clue next to the source and a reverse image search.</p>"
+      },
+      {
+        "h": "Who uses them",
+        "html": "<p>Support is spread across cameras, editing software, AI tools and some platforms, and it keeps changing. Check the C2PA site for the current list of members and products rather than assuming a given app supports them.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Every post on Emera carries a signed record (C2PA content credentials) of who shared it and when it went up. A Signed badge says exactly what was checked and nothing more. Emera does not say a post is true or guarantee that it is real, and it does not detect AI.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Are Content Credentials the same as a watermark?",
+        "a": "No. A watermark is a mark in the pixels. Content Credentials are signed metadata about the file's history. They can also be lost when a file is re-saved."
+      },
+      {
+        "q": "Do they stop deepfakes?",
+        "a": "No. They help you check files that carry a credential. A fake with no credential is still possible, and a missing credential proves nothing."
+      },
+      {
+        "q": "Is C2PA the same thing?",
+        "a": "C2PA is the standards group and technical specification. Content Credentials is the public name for the resulting record."
+      },
+      {
+        "q": "Does it cost money to check one?",
+        "a": "The Verify tool is free to use."
+      }
+    ],
+    "sources": [
+      {
+        "label": "C2PA, Content Credentials standard",
+        "url": "https://c2pa.org/"
+      },
+      {
+        "label": "Content Credentials Verify tool",
+        "url": "https://verify.contentauthenticity.org/"
+      }
+    ],
+    "checked": "2026-11-13",
+    "related": [
+      "how-to-tell-if-a-photo-is-ai-generated",
+      "how-to-tell-if-a-video-is-real-or-fake"
+    ]
+  },
+  {
+    "slug": "social-media-without-algorithm",
+    "kind": "answer",
+    "q": "Is there social media without an algorithm",
+    "title": "Is there social media without an algorithm",
+    "description": "Yes, partly. Chronological feeds on Instagram, Bluesky and Mastodon, plus open algorithms you choose. What each option really gives you.",
+    "short": "Yes, partly. Instagram has a Following feed in time order, Bluesky's Following feed is chronological and it lets you pick custom feeds, and Mastodon has lists and a timeline of people you follow. Few services have zero ranking anywhere, so check each feed's label.",
+    "sections": [
+      {
+        "h": "What \"no algorithm\" can mean",
+        "html": "<p>Any list of posts has some order. The real question is who chooses it. A chronological feed orders by time. A ranked feed orders by a system's guess at what you will engage with. A choice of feeds lets you pick the ordering yourself.</p>"
+      },
+      {
+        "h": "Instagram",
+        "html": "<p>Instagram offers a Following feed (posts from accounts you follow) and a Favorites feed. According to widely published guides, tap the Instagram logo at the top left of the home screen and choose Following or Favorites; the setting may not stick between sessions. Confirm the steps on Instagram's <a href=\"https://help.instagram.com/1002748940776338\">Help Center page</a>.</p>"
+      },
+      {
+        "h": "Bluesky",
+        "html": "<p>Bluesky's docs describe the Following feed as the default timeline of accounts you follow, and its <a href=\"https://docs.bsky.app/docs/starter-templates/custom-feeds\">custom feeds</a> let developers publish ranking methods over the AT Protocol that anyone can choose. A feed can be a chronological list or one filtered to a topic. See also the <a href=\"https://atproto.com/guides/feeds\">AT Protocol feeds guide</a>.</p>"
+      },
+      {
+        "h": "Mastodon",
+        "html": "<p>Mastodon's docs describe lists as subsets of your home timeline, plus live feeds of public posts your server knows about. Confirm the ordering on the <a href=\"https://docs.joinmastodon.org/user/network/\">Mastodon docs</a>. Because servers are independent, features vary by host.</p>"
+      },
+      {
+        "h": "Tradeoffs to expect",
+        "html": "<p>Time order is predictable but favors people who post often, and it can bury a post you would have wanted. Ranked feeds surface more but hide the reasoning. Following only the accounts you care about and using lists gives you control on any service.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Posts on Emera show a Why you are seeing this reason, and you can pick your feeds. Emera runs as a nonprofit and the code is open source.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Is a chronological feed better?",
+        "a": "It is more predictable, but not always better. You may miss things when you are away because feeds fill quickly."
+      },
+      {
+        "q": "Can I turn the algorithm off on Instagram?",
+        "a": "Not entirely, but the Following and Favorites feeds order posts by time. Confirm the steps on the Help Center page."
+      },
+      {
+        "q": "What is a custom feed?",
+        "a": "A feed built by someone else, or by you, with its own rules, which you choose to follow. On Bluesky they are published over the open AT Protocol."
+      },
+      {
+        "q": "Do any platforms have no ranking at all?",
+        "a": "Few do everywhere. Search, suggestions and notifications often rank things even when your main feed does not."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Instagram Help: Following and Favorites feeds",
+        "url": "https://help.instagram.com/1002748940776338"
+      },
+      {
+        "label": "Bluesky docs: custom feeds",
+        "url": "https://docs.bsky.app/docs/starter-templates/custom-feeds"
+      },
+      {
+        "label": "Bluesky docs: viewing feeds",
+        "url": "https://docs.bsky.app/docs/tutorials/viewing-feeds"
+      },
+      {
+        "label": "AT Protocol guide: custom feeds",
+        "url": "https://atproto.com/guides/feeds"
+      },
+      {
+        "label": "Mastodon docs: network and timelines",
+        "url": "https://docs.joinmastodon.org/user/network/"
+      }
+    ],
+    "checked": "2026-11-13",
+    "related": [
+      "emera-vs-bluesky",
+      "open-source-instagram-alternative",
+      "instagram-alternative-for-artists"
+    ]
+  }
+]

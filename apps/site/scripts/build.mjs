@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { screens, sprite, usedWork } from "./screens.mjs";
+import { guideLinks, writePages } from "./pages.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const brand = JSON.parse(readFileSync(join(root, "../../packages/brand/brand.json"), "utf8"));
@@ -25,6 +26,11 @@ const vars = {
   github: GITHUB_URL,
   sprite,
   credits,
+  guides: guideLinks(),
+  ld: JSON.stringify([
+    { "@context": "https://schema.org", "@type": "Organization", name: brand.name, url: `https://${brand.domain}/`, logo: `https://${brand.domain}/assets/og.png`, description: "Open-source, nonprofit social network for people who make things and people sharing what is happening, with proof of who posted on every post." },
+    { "@context": "https://schema.org", "@type": "WebSite", name: brand.name, url: `https://${brand.domain}/` },
+  ]).replace(/</g, "\\u003c"),
 };
 
 const html = readFileSync(join(root, "src/index.template.html"), "utf8")
@@ -38,3 +44,4 @@ const html = readFileSync(join(root, "src/index.template.html"), "utf8")
   });
 writeFileSync(join(root, "public/index.html"), html);
 console.log("built public/index.html", html.length, "bytes");
+console.log("built", writePages(new Date().toISOString().slice(0, 10)), "sitemap urls");

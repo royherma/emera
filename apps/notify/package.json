@@ -1,0 +1,10 @@
+{
+  "name": "@emera/notify",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/worker.test.js",
+    "deploy:staging": "npx wrangler deploy --env staging",
+    "deploy:production": "npx wrangler deploy --env production"
+  }
+}
