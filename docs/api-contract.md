@@ -16,7 +16,7 @@ The brand name is never hardcoded. Read it from `packages/brand/brand.json`.
 | GET | `/v1/me` | - | `{ user }` |
 | POST | `/v1/auth/logout` | - | `{ ok: true }` |
 
-`user` = `{ id, handle, displayName, bio, links, avatarUrl, createdAt }` (`links` is a list of up to 5 http(s) URLs)
+`user` = `{ id, handle, displayName, bio, links, avatarUrl, role, createdAt }` (`links` is a list of up to 5 http(s) URLs; `role` is `admin`, `mod`, `creator` or null, shown as a badge by the name; `admin` and `mod` can delete any channel message)
 
 ## Media (our storage, R2)
 
@@ -221,7 +221,7 @@ Design and rules: `docs/chat.md`. Everything needs sign-in; sending needs a hand
 | POST | `/v1/chat/live` | `{ kind: "channel"\|"dm"\|"me", id? }` | `{ path, room }` a WebSocket path with a 60 s ticket |
 | GET (WebSocket) | `/v1/chat/live?ticket=` | - | `101`; then `{ t: "new"\|"deleted", room }` per change, `pong` for `ping` |
 
-`message` = `{ id, user: { id, handle, displayName, avatarUrl }, body, createdAt, mine, deleted, postId, post: post \| null }`. A message must have words, a `postId`, or both; a post that no longer exists is 404 `not_found` on send and `post: null` later.
+`message` = `{ id, user: { id, handle, displayName, avatarUrl, role }, body, createdAt, mine, deleted, postId, post: post \| null }`. A message must have words, a `postId`, or both; a post that no longer exists is 404 `not_found` on send and `post: null` later.
 
 `thread` = `{ id, with, accepted, theyAccepted, muted, lastAt, last: { body, mine, deleted } \| null, unread }`. A message from someone the recipient doesn't follow is a request (`accepted: false` for them); the sender can send 3 until it's accepted (403 `request_pending`). `dmFrom` decides who can start a request: `following` lets only people you follow in, `nobody` stops every new conversation (403 `cant_message` with the reason). Existing accepted conversations keep working. Blocks hide the thread both ways and the error never says who blocked whom.
 
