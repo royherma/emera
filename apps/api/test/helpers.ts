@@ -81,7 +81,19 @@ export class Client {
     const init = await this.json('POST', '/v1/uploads', { contentType, bytes: bytes.length });
     if (init.status !== 200) return init;
     const url = new URL(init.body.uploadUrl);
+    if (init.body.partSize) return this.uploadParts(url.pathname, bytes, init.body.partSize);
     const res = await this.call('PUT', url.pathname, undefined, bytes, { 'Content-Type': contentType });
     return { status: res.status, body: (await res.json()) as any };
+  }
+
+  async uploadParts(path: string, bytes: Uint8Array, partSize: number) {
+    const parts = [];
+    for (let n = 1, o = 0; o < bytes.length; n++, o += partSize) {
+      const res = await this.call('PUT', `${path}/parts/${n}`, undefined, bytes.subarray(o, o + partSize));
+      const body = (await res.json()) as any;
+      if (res.status !== 200) return { status: res.status, body };
+      parts.push(body);
+    }
+    return this.json('POST', `${path}/complete`, { parts });
   }
 }

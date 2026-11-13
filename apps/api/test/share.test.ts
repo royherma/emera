@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import app from '../src/index';
-import { Client, ORIGIN, pngBytes } from './helpers';
+import { Client, makeEnv, ORIGIN, pngBytes } from './helpers';
 
 function assertWellFormed(xml: string) {
   expect(xml.startsWith('<?xml version="1.0" encoding="utf-8"?>')).toBe(true);
@@ -29,7 +29,7 @@ function assertWellFormed(xml: string) {
 }
 
 async function seed() {
-  const c = new Client();
+  const c = new Client(makeEnv({ POSTS_PER_DAY: '1000' } as any));
   await c.signIn('share@example.test');
   await c.withHandle('shara', 'Shara <Lens> & Co');
   const up = await c.upload(pngBytes(64, 48));

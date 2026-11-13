@@ -49,24 +49,38 @@ export const http: Backend = {
     const r = await send<{ user: User; posts: Post[]; cursor?: string | null }>("GET", `/v1/users/${encodeURIComponent(handle)}${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`);
     return { user: r.user, posts: r.posts, cursor: r.cursor ?? null };
   },
-  uploadMedia: async (file: PickedFile): Promise<Media> => {
+  uploadMedia: async (file: PickedFile, onProgress?: (share: number) => void): Promise<Media> => {
     const blob = await (await fetch(file.uri)).blob();
-    const { uploadUrl } = await send<{ uploadId: string; uploadUrl: string }>("POST", "/v1/uploads", { contentType: file.mimeType, bytes: blob.size, seconds: file.seconds });
-    const target = uploadUrl.startsWith("http") ? uploadUrl : API_URL + uploadUrl;
-    const sameOrigin = target.startsWith(API_URL);
-    let res: Response;
-    try {
-      res = await fetch(target, {
-        method: "PUT",
-        headers: { "Content-Type": file.mimeType, ...(sameOrigin && token ? { Authorization: `Bearer ${token}` } : {}) },
-        body: blob,
-      });
-    } catch {
-      throw new ApiError("network", "The upload didn't go through. Check your connection and try again.");
+    const slot = await send<{ uploadId: string; uploadUrl: string; partSize?: number; partCount?: number }>("POST", "/v1/uploads", { contentType: file.mimeType, bytes: blob.size, seconds: file.seconds });
+    const target = slot.uploadUrl.startsWith("http") ? slot.uploadUrl : API_URL + slot.uploadUrl;
+    const auth: Record<string, string> = target.startsWith(API_URL) && token ? { Authorization: `Bearer ${token}` } : {};
+    const call = async (method: string, url: string, body: Blob | string, contentType: string) => {
+      let res: Response;
+      try {
+        res = await fetch(url, { method, headers: { "Content-Type": contentType, ...auth }, body });
+      } catch {
+        throw new ApiError("network", "The upload didn't go through. Check your connection and try again.");
+      }
+      const json = await res.json().catch(() => null);
+      if (!res.ok) throw new ApiError(json?.error?.code ?? `http_${res.status}`, json?.error?.message ?? "The upload failed. Try again.");
+      return json;
+    };
+    if (!slot.partSize || !slot.partCount) return (await call("PUT", target, blob, file.mimeType)).media as Media;
+
+    const parts: Array<{ partNumber: number; etag: string }> = [];
+    for (let n = 1; n <= slot.partCount; n++) {
+      const chunk = blob.slice((n - 1) * slot.partSize, n * slot.partSize);
+      for (let tries = 1; ; tries++) {
+        try {
+          parts.push(await call("PUT", `${target}/parts/${n}`, chunk, file.mimeType));
+          break;
+        } catch (e) {
+          if (tries === 3 || !(e instanceof ApiError && (e.code === "network" || e.code.startsWith("http_5")))) throw e;
+        }
+      }
+      onProgress?.(n / slot.partCount);
     }
-    const json = await res.json().catch(() => null);
-    if (!res.ok) throw new ApiError(json?.error?.code ?? `http_${res.status}`, json?.error?.message ?? "The upload failed. Try again.");
-    return json.media as Media;
+    return (await call("POST", `${target}/complete`, JSON.stringify({ parts }), "application/json")).media as Media;
   },
   createPost: async (input) => (await send<{ post: Post }>("POST", "/v1/posts", input)).post,
   listInvites: () => send("GET", "/v1/invites"),
