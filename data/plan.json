@@ -243,6 +243,11 @@
           "text": "Messages and channels: live, sealed, hide-able, you pick who can write first",
           "who": "claude",
           "done": true
+        },
+        {
+          "id": "m1-ig-connector",
+          "text": "Instagram connector: creators sign in with Instagram (professional accounts) and bring reels over; needs Meta app review for people other than you",
+          "who": "claude"
         }
       ]
     },
@@ -1190,6 +1195,12 @@
       "name": "Bring your posts screen",
       "state": "done",
       "note": "emera.social/connect: pick posts, auto-post rules, connector files, 5f82d94",
+      "owner": "claude fd627ece"
+    },
+    {
+      "name": "Your 10 Instagram reels on Emera",
+      "state": "done",
+      "note": "10 latest reels on emera.social/@techguyver with original dates, read with the comment-dm Instagram token",
       "owner": "claude fd627ece"
     }
   ],
