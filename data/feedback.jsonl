@@ -8,3 +8,5 @@
 {"at":"2026-11-13T07:29:57.792Z","kind":"review","id":"dmca","title":"Register the DMCA agent ($6)","answer":"later","text":null}
 {"at":"2026-11-13T07:30:00.950Z","kind":"review","id":"trademark","title":"Check Canada + EU trademarks","answer":"clear","text":null}
 {"at":"2026-11-13T07:30:04.058Z","kind":"review","id":"counsel","title":"Book one IP lawyer","answer":"no","text":null}
+{"at":"2026-11-13T07:30:22.738Z","kind":"pick","id":"entity","pick":"llc","label":"Techguyver Labs now","q":"Who owns it at the start?"}
+{"at":"2026-11-13T07:31:39Z","kind":"terminal","text":"Roy in terminal: repo public now; copy watching not yet; owner = Techguyver Labs; no DMs yet; logo = hand-drawn e like his sketch"}
