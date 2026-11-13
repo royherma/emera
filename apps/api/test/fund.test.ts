@@ -145,7 +145,7 @@ describe('split and close', () => {
     const res = await close('2025-03');
     expect(res.status).toBe(200);
     const st = res.body.statement;
-    expect(st).toMatchObject({ month: '2025-03', status: 'closed', sponsoredCents: 1_000_000, creatorPoolCents: 500_000, emeraCents: 500_000, totalSeconds: 2_000_000, creators: 2, sponsors: 1, carryOutCents: 0, rulesVersion: '1.0.0' });
+    expect(st).toMatchObject({ month: '2025-03', status: 'closed', sponsoredCents: 1_000_000, creatorPoolCents: 500_000, emeraCents: 500_000, totalSeconds: 2_000_000, creators: 2, sponsors: 1, carryOutCents: 0, rulesVersion: '1.1.0' });
     expect(st.shares.find((s: any) => s.handle === you.handle)).toEqual({ handle: you.handle, seconds: 40_000, sharePpm: 20_000, amountCents: 10_000 });
   });
 
@@ -247,7 +247,7 @@ describe('fund pages', () => {
     await sponsor(9_000, [now], { sponsorName: 'Pledged Only', status: 'pledged' });
     const res = await new Client(env).json('GET', '/v1/fund');
     expect(res.status).toBe(200);
-    expect(res.body.rules).toEqual({ version: '1.0.0', creatorShare: 0.5, photoCapS: 60, videoCapS: 600, creatorCapS: 1800, minViewerAgeH: 24, heartbeatMaxS: 30, payoutMinCents: 1000, closeDay: 3 });
+    expect(res.body.rules).toEqual({ version: '1.1.0', creatorShare: 0.5, photoCapS: 60, videoCapS: 600, creatorCapS: 1800, minViewerAgeH: 24, heartbeatMaxS: 30, payoutMinCents: 1000, closeDay: 3, feedCardMinPosts: 1000, feedCardEvery: 12, minMonthlyCents: 1000, maxCheckoutMonths: 12 });
     expect(res.body.sponsors).toEqual([
       { name: 'Marrowbend Studio', url: null, amountCents: 50_000 },
       { name: 'Low Tide Lens Shop', url: 'https://lowtide.example/', amountCents: 30_000 },

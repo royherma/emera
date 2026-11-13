@@ -14,6 +14,7 @@ import { searchRoutes } from './search';
 import { profileRoutes } from './profile';
 import { flagRoutes } from './flags';
 import { fundRoutes, runFundCron } from './fund';
+import { stripeRoutes } from './stripe';
 import { pages, notFoundPage } from './pages';
 
 const app = new Hono<AppEnv>();
@@ -41,6 +42,7 @@ app.route('/', searchRoutes);
 app.route('/', profileRoutes);
 app.route('/', flagRoutes);
 app.route('/', fundRoutes);
+app.route('/', stripeRoutes);
 app.route('/', pages);
 
 app.onError((err, c) => {
