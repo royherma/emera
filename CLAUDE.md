@@ -53,6 +53,8 @@ Every screen, flow and feature starts from: what is the fewest steps and words a
 - **One screen, one ask.** No optional fields on sign-up; fill what we can guess (handle from name or email) and let people change it later.
 - **Never ask twice.** Anything a person already typed (email on the landing page, a code from the link) carries forward; no second click to repeat it.
 - **Plain words a non-creator gets.** "Your name", not "Your name or studio". No jargon, no niche words.
+- **Anything is one click from any page.** The site footer (Emera, Answers, Compare, Legal columns, `apps/site/scripts/footer.mjs`) is the same on every page; a new page gets a footer link or it does not ship.
+- **Lead with one line: "The open source social network"** (`brand.line`), then dial down to the mission. README, site, store text, posts.
 - **Delete before you add.** A new field, setting, step or screen needs a reason Roy would agree with; "nice to have" is not one.
 - Before shipping a flow, count the taps from landing page to first post and write the number in the commit. Lower is the goal.
 
