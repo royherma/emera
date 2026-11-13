@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Pressable, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { Screen } from "@/components/Screen";
-import { PeopleRail, PostRow, RowSkeleton } from "@/components/Grid";
+import { PeopleRail, PostRow, RowSkeleton, useFeedColumn } from "@/components/Grid";
 import { NotificationBell, UnreadDot } from "@/components/Engage";
 import { useDmUnread, useRefreshDmUnread } from "@/state/dmUnread";
 import { Icon } from "@/components/Icon";
@@ -18,7 +18,8 @@ import type { FeedMode, Post } from "@/lib/types";
 export default function Feed() {
   const router = useRouter();
   const { c } = useTheme();
-  const { wide, column } = useLayout();
+  const { wide } = useLayout();
+  const column = useFeedColumn();
   const [mode, setMode] = useState<FeedMode>("all");
   const dm = useDmUnread();
   useRefreshDmUnread(mode);
@@ -49,11 +50,11 @@ export default function Feed() {
   return (
     <Screen tabs onRefresh={reload} refreshing={refreshing} maxWidth={wide ? column + 64 : undefined}>
       <View style={{ width: column, alignSelf: "center", gap: space[4] }}>
-        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", minHeight: 44 }}>
-          {wide ? <View /> : <Wordmark size={22} />}
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            {!wide && <NotificationBell />}
-            {!wide && (
+        {!wide && (
+          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", minHeight: 44 }}>
+            <Wordmark size={22} />
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <NotificationBell />
               <Pressable accessibilityRole="button" accessibilityLabel={dm.inbox + dm.requests ? "Messages, unread" : "Messages"} onPress={() => router.push("/messages")} hitSlop={8} style={{ width: 44, height: 44, alignItems: "center", justifyContent: "center" }}>
                 <Icon name="chat" size={22} color={c.ink} />
                 {dm.inbox + dm.requests > 0 && (
@@ -62,12 +63,12 @@ export default function Feed() {
                   </View>
                 )}
               </Pressable>
-            )}
-            <Pressable accessibilityRole="button" accessibilityLabel="Search" onPress={() => router.push("/explore")} hitSlop={8} style={{ width: 44, height: 44, alignItems: "center", justifyContent: "center" }}>
-              <Icon name="search" size={22} color={c.ink} />
-            </Pressable>
+              <Pressable accessibilityRole="button" accessibilityLabel="Search" onPress={() => router.push("/explore")} hitSlop={8} style={{ width: 44, height: 44, alignItems: "center", justifyContent: "center" }}>
+                <Icon name="search" size={22} color={c.ink} />
+              </Pressable>
+            </View>
           </View>
-        </View>
+        )}
         <Segmented
           value={mode}
           onChange={(m) => {
