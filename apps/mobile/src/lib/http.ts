@@ -49,7 +49,7 @@ export const http: Backend = {
   },
   uploadMedia: async (file: PickedFile): Promise<Media> => {
     const blob = await (await fetch(file.uri)).blob();
-    const { uploadUrl } = await send<{ uploadId: string; uploadUrl: string }>("POST", "/v1/uploads", { contentType: file.mimeType, bytes: blob.size });
+    const { uploadUrl } = await send<{ uploadId: string; uploadUrl: string }>("POST", "/v1/uploads", { contentType: file.mimeType, bytes: blob.size, seconds: file.seconds });
     const target = uploadUrl.startsWith("http") ? uploadUrl : API_URL + uploadUrl;
     const sameOrigin = target.startsWith(API_URL);
     let res: Response;

@@ -58,3 +58,8 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 - **Live site text can differ from `apps/site` source.** Roy edits copy in place (`/edit?key=<ADMIN_KEY>`); edits live in the site D1 `copy` table and the worker swaps them in by `data-e` key. Before rewriting landing text, check `SELECT page, key, live FROM copy` on `emera-site` and fold any live edit into the template first.
 - **A `data-e` key is a hash of the element's tag + text at build.** Change that text in source and the key changes, so Roy's edit stops applying (the edit bar then counts it as "no longer on the page"). Fix: copy the edit into source, then delete its row.
 - **Rewritten HTML must not answer 304.** The asset ETag survives HTMLRewriter, so a returning browser kept the old copy. `page()` strips `If-None-Match` and the ETag.
+
+## 2026-11-13 - Video upload limits
+
+- **Cloudflare caps a request body at 100 MiB on the Free plan, and `emera.social` is on Free.** Uploads are a PUT straight to the Worker (`/v1/uploads/:id`), so the zone cap is the real file cap: 104,857,600 bytes reached the Worker, one byte more got Cloudflare's 413 before the Worker ran. Spot it: a 413 with an HTML body, not our JSON. Fix: video max is 100 MB in `media.ts` and `upload.tsx`; going bigger needs a presigned direct-to-R2 upload or a Business plan (200 MB).
+- **Video length is capped at 10 minutes (600 s).** `POST /v1/uploads` refuses `seconds > 600`; the PUT reads the length from the file and deletes the upload if it is over.

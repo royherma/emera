@@ -13,6 +13,7 @@ import { ApiError, PickedFile } from "@/lib/types";
 import { useTheme } from "@/state/theme";
 
 const MAX = 10;
+const MAX_VIDEO_SECONDS = 600;
 const MB = 1024 * 1024;
 
 export default function Upload() {
@@ -25,18 +26,23 @@ export default function Upload() {
 
   const pick = async () => {
     setError(null);
-    const res = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ["images", "videos"], allowsMultipleSelection: true, selectionLimit: MAX - files.length, quality: 0.8, videoExportPreset: ImagePicker.VideoExportPreset.H264_1920x1080, preferredAssetRepresentationMode: ImagePicker.UIImagePickerPreferredAssetRepresentationMode.Compatible });
+    const res = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ["images", "videos"], allowsMultipleSelection: true, selectionLimit: MAX - files.length, quality: 0.8, videoMaxDuration: MAX_VIDEO_SECONDS, videoExportPreset: ImagePicker.VideoExportPreset.H264_1920x1080, preferredAssetRepresentationMode: ImagePicker.UIImagePickerPreferredAssetRepresentationMode.Compatible });
     if (res.canceled) return;
     const next: PickedFile[] = [];
     for (const a of res.assets) {
       const kind = a.type === "video" ? "video" : "image";
       const mimeType = a.mimeType ?? (kind === "video" ? "video/mp4" : "image/jpeg");
       const fileSize = a.fileSize ?? 0;
-      if (fileSize > (kind === "video" ? 200 : 20) * MB) {
-        setError(`${a.fileName ?? "That file"} is too big. Photos can be up to 20 MB and videos up to 200 MB.`);
+      const seconds = a.duration ? a.duration / 1000 : undefined;
+      if (kind === "video" && seconds && seconds > MAX_VIDEO_SECONDS) {
+        setError(`${a.fileName ?? "That video"} is too long. Videos can be up to 10 minutes.`);
         continue;
       }
-      next.push({ uri: a.uri, mimeType, fileSize, width: a.width, height: a.height, kind });
+      if (fileSize > (kind === "video" ? 100 : 20) * MB) {
+        setError(`${a.fileName ?? "That file"} is too big. Photos can be up to 20 MB and videos up to 100 MB.`);
+        continue;
+      }
+      next.push({ uri: a.uri, mimeType, fileSize, width: a.width, height: a.height, kind, seconds });
     }
     setFiles((f) => [...f, ...next].slice(0, MAX));
   };
