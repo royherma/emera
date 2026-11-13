@@ -72,7 +72,7 @@ export type FlagReason = "spam" | "harassment" | "hate" | "violence" | "nudity" 
 
 export type SearchKind = "people" | "posts";
 
-export type PickedFile = { uri: string; mimeType: string; fileSize: number; width: number; height: number; kind: "image" | "video" };
+export type PickedFile = { uri: string; mimeType: string; fileSize: number; width: number; height: number; kind: "image" | "video"; seconds?: number };
 
 export class ApiError extends Error {
   code: string;

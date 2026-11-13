@@ -117,3 +117,20 @@ describe('video size', () => {
     expect(await env.MEDIA.head(posterKey(id))).toBeNull();
   });
 });
+
+describe('video length', () => {
+  it('takes a 10 minute video and refuses anything longer, before or after the upload', async () => {
+    const c = new Client();
+    await c.signIn('long@example.test');
+    await c.withHandle('long');
+    expect((await c.upload(mp4(1080, 1920, 600), 'video/mp4')).status).toBe(200);
+
+    const late = await c.upload(mp4(1080, 1920, 601), 'video/mp4');
+    expect(late.status).toBe(413);
+    expect(late.body.error.code).toBe('too_long');
+
+    const early = await c.json('POST', '/v1/uploads', { contentType: 'video/mp4', bytes: 5000, seconds: 900 });
+    expect(early.status).toBe(413);
+    expect(early.body.error.code).toBe('too_long');
+  });
+});

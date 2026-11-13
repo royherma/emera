@@ -13,8 +13,8 @@ const TYPES: Record<string, { kind: 'image' | 'video'; ext: string; max: number 
   'image/png': { kind: 'image', ext: 'png', max: 20 * MB },
   'image/webp': { kind: 'image', ext: 'webp', max: 20 * MB },
   'image/heic': { kind: 'image', ext: 'heic', max: 20 * MB },
-  'video/mp4': { kind: 'video', ext: 'mp4', max: 200 * MB },
-  'video/quicktime': { kind: 'video', ext: 'mov', max: 200 * MB },
+  'video/mp4': { kind: 'video', ext: 'mp4', max: 100 * MB },
+  'video/quicktime': { kind: 'video', ext: 'mov', max: 100 * MB },
 };
 const ALIASES: Record<string, string> = { 'image/jpg': 'image/jpeg', 'image/heif': 'image/heic' };
 
@@ -38,6 +38,8 @@ async function shrinkImage(images: ImagesBinding | undefined, buf: Uint8Array): 
 export const VIDEO_MAX_EDGE = 1920;
 const VIDEO_MAX_INPUT = 100 * MB;
 const VIDEO_MAX_SECONDS = 60;
+export const VIDEO_MAX_LENGTH = 600;
+const TOO_LONG = 'Videos can be up to 10 minutes.';
 
 export function videoNeedsShrink(info: VideoInfo, bytes: number): boolean {
   return Math.max(info.width, info.height) > VIDEO_MAX_EDGE && bytes < VIDEO_MAX_INPUT && info.seconds > 0 && info.seconds <= VIDEO_MAX_SECONDS;
@@ -114,6 +116,7 @@ mediaRoutes.post('/v1/uploads', requireAuth, requireHandle, async (c) => {
   const bytes = body.bytes;
   if (typeof bytes !== 'number' || !Number.isInteger(bytes) || bytes <= 0) throw fail(400, 'bad_bytes', 'Send the file size in bytes.');
   if (bytes > spec.max) throw fail(413, 'too_large', `${spec.kind === 'image' ? 'Images' : 'Videos'} can be up to ${spec.max / MB} MB.`);
+  if (spec.kind === 'video' && typeof body.seconds === 'number' && body.seconds > VIDEO_MAX_LENGTH) throw fail(413, 'too_long', TOO_LONG);
 
   const id = newId(12);
   await c.env.DB.prepare(
@@ -191,6 +194,11 @@ mediaRoutes.put('/v1/uploads/:id', requireAuth, async (c) => {
     sourceSha256 = sha256;
     sourceBytes = size;
     const info = await readVideoInfo(c.env.MEDIA, key, size).catch(() => null);
+    if (info && info.seconds > VIDEO_MAX_LENGTH) {
+      await c.env.MEDIA.delete(key);
+      await c.env.DB.prepare('DELETE FROM media WHERE id = ?').bind(row.id).run();
+      throw fail(413, 'too_long', TOO_LONG);
+    }
     if (info) ({ width, height } = info);
     if (c.env.VIDEO_JOBS) await c.env.VIDEO_JOBS.send({ mediaId: row.id, shrink: !!info && videoNeedsShrink(info, size) });
   }
