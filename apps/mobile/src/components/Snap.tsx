@@ -44,6 +44,19 @@ export function SnapItem({ children, style, align = "start", top = false }: { ch
   );
 }
 
+function glide(el: HTMLElement, to: number, ms = 420) {
+  const from = el.scrollTop;
+  const start = performance.now();
+  el.style.scrollSnapType = "none";
+  const step = (now: number) => {
+    const t = Math.min(1, (now - start) / ms);
+    el.scrollTop = from + (to - from) * (1 - Math.pow(1 - t, 3));
+    if (t < 1) requestAnimationFrame(step);
+    else el.style.scrollSnapType = "";
+  };
+  requestAnimationFrame(step);
+}
+
 export function pageByWheel(el: HTMLElement) {
   let lockUntil = 0;
   let acc = 0;
@@ -71,7 +84,7 @@ export function pageByWheel(el: HTMLElement) {
     if (Math.abs(acc) < 30) return;
     acc = 0;
     const target = down ? stops.find((y) => y > top + 2) ?? el.scrollHeight : [...stops].reverse().find((y) => y < top - 2) ?? 0;
-    el.scrollTo({ top: target, behavior: "smooth" });
+    glide(el, Math.min(target, el.scrollHeight - el.clientHeight));
     lockUntil = now + 520;
   };
   el.addEventListener("wheel", onWheel, { passive: false });
