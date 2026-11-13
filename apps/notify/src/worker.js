@@ -168,6 +168,18 @@ async function sendEarly(env, r) {
   }, thread ? { ts: thread, broadcast: true } : null);
 }
 
+async function sendSponsor(env, r) {
+  const thread = await threadFor(env, r.visitor);
+  await slack(env, {
+    icon: "🤝",
+    title: "Sponsor interest",
+    detail: `*${esc(r.company)}*`,
+    facts: [esc(r.email), r.monthly_cents ? `$${(r.monthly_cents / 100).toLocaleString("en-US")}/mo` : "no amount given", place(r), device(r.ua), stamp(toMs(r.created_at))],
+    links: [r.url && ["Their site", r.url], adminLink(env)],
+    test: isTest(env, r.email, !!r.tester),
+  }, thread ? { ts: thread, broadcast: true } : null);
+}
+
 async function sendUser(env, r) {
   const test = isTest(env, r.email);
   const n = await realCount(env, env.API_DB, "SELECT email FROM users");
@@ -239,6 +251,7 @@ async function sendFlag(env, r) {
 export const FEEDS = [
   { key: "visits", db: "SITE_DB", sql: "SELECT *, id AS cursor FROM visits WHERE id > ? ORDER BY id LIMIT 40", max: "SELECT COALESCE(MAX(id), 0) AS m FROM visits", send: sendVisit },
   { key: "early", db: "SITE_DB", sql: "SELECT *, id AS cursor FROM early_access WHERE id > ? ORDER BY id LIMIT 20", max: "SELECT COALESCE(MAX(id), 0) AS m FROM early_access", send: sendEarly },
+  { key: "sponsors", db: "SITE_DB", sql: "SELECT *, id AS cursor FROM sponsor_interest WHERE id > ? ORDER BY id LIMIT 20", max: "SELECT COALESCE(MAX(id), 0) AS m FROM sponsor_interest", send: sendSponsor },
   {
     key: "users", db: "API_DB",
     sql: "SELECT id, email, handle, display_name, invited_by, created_at, created_at AS cursor FROM users WHERE created_at > ? ORDER BY created_at LIMIT 20",
