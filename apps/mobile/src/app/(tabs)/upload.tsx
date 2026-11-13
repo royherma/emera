@@ -28,15 +28,15 @@ export default function Upload() {
 
   const pick = async () => {
     setError(null);
-    const res = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ["images", "videos"], allowsMultipleSelection: true, selectionLimit: MAX - files.length, quality: 1 });
+    const res = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ["images", "videos"], allowsMultipleSelection: true, selectionLimit: MAX - files.length, quality: 0.8, videoExportPreset: ImagePicker.VideoExportPreset.H264_1920x1080, preferredAssetRepresentationMode: ImagePicker.UIImagePickerPreferredAssetRepresentationMode.Compatible });
     if (res.canceled) return;
     const next: PickedFile[] = [];
     for (const a of res.assets) {
       const kind = a.type === "video" ? "video" : "image";
       const mimeType = a.mimeType ?? (kind === "video" ? "video/mp4" : "image/jpeg");
       const fileSize = a.fileSize ?? 0;
-      if (fileSize > (kind === "video" ? 200 : 25) * MB) {
-        setError(`${a.fileName ?? "That file"} is too big. Photos can be up to 25 MB and videos up to 200 MB.`);
+      if (fileSize > (kind === "video" ? 200 : 20) * MB) {
+        setError(`${a.fileName ?? "That file"} is too big. Photos can be up to 20 MB and videos up to 200 MB.`);
         continue;
       }
       next.push({ uri: a.uri, mimeType, fileSize, width: a.width, height: a.height, kind });
@@ -86,7 +86,7 @@ export default function Upload() {
             <Icon name="image" size={26} color={c.sunInk} />
           </View>
           <Text style={[type.title, { color: c.ink }]}>Choose photos or video</Text>
-          <Text style={[type.meta, { color: c.ink2 }]}>Up to {MAX} items. Photos 25 MB, videos 200 MB.</Text>
+          <Text style={[type.meta, { color: c.ink2 }]}>Up to {MAX} items. Photos 20 MB, videos 200 MB.</Text>
         </Pressable>
       ) : (
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: space[3] }}>

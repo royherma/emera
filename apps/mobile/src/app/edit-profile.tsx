@@ -33,11 +33,11 @@ export default function EditProfile() {
 
   const pick = async () => {
     setError(null);
-    const res = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ["images"], allowsEditing: true, aspect: [1, 1], quality: 1 });
+    const res = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ["images"], allowsEditing: true, aspect: [1, 1], quality: 0.8 });
     if (res.canceled) return;
     const a = res.assets[0];
     const fileSize = a.fileSize ?? 0;
-    if (fileSize > 25 * MB) return setError("That photo is too big. Photos can be up to 25 MB.");
+    if (fileSize > 20 * MB) return setError("That photo is too big. Photos can be up to 20 MB.");
     setAvatar({ file: { uri: a.uri, mimeType: a.mimeType ?? "image/jpeg", fileSize, width: a.width, height: a.height, kind: "image" } });
   };
 
