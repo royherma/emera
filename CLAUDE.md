@@ -69,7 +69,7 @@ Headings never end in a period. No em dashes. Avoid "unlock", "elevate" and "sea
 | `apps/api` | Hono Worker: accounts, R2 uploads, posts, public `/@handle` + `/p/:id` pages | `npm --prefix apps/api run dev` (:5036) | `npm --prefix apps/api test`, `npm --prefix apps/api run smoke` (:5039) |
 | `apps/mobile` | Expo app, iOS + Android + web, mock mode when `EXPO_PUBLIC_API_URL` is unset | `npm --prefix apps/mobile run web` (:5037) | `npm --prefix apps/mobile run check` |
 | `apps/site` | emera.social landing + early list (Worker + D1) | `npx wrangler dev --local --port 5038` in `apps/site` | screenshots in `.claude/artifacts/site-shots/` |
-| `apps/notify` | Slack #emera-events (`C0CHFF8S47K`): cron polls both D1s each minute (early list, accounts, posts, reports, flags), `/github` takes the signed repo webhook (forks, stars, issues, PRs) | `npm --prefix apps/notify run deploy:production` | `npm --prefix apps/notify test` |
+| `apps/notify` | Slack #emera-events (`C0CHFF8S47K`): cron polls both D1s each minute (visitors threaded per person, early list, accounts, posts, reports, flags) with place, device, source and Bangkok time; own/test accounts marked `Test`; 9 AM Bangkok daily summary; staging is silent unless `SLACK_NON_PROD=1`. Also serves `/admin` (key in `.claude/artifacts/admin-key.txt`) and `/api/ledger`, proxied through emera.social; `/github` takes the signed repo webhook | `npm --prefix apps/notify run deploy:production`; local preview with invented data `node apps/notify/scripts/preview.mjs` (:5041) | `npm --prefix apps/notify run deploy:production` | `npm --prefix apps/notify test` |
 | `packages/brand` | name, tagline, colors, NSID - the only place the brand is written | - | - |
 | `lexicons/` | AT Protocol lexicons `social.emera.*` | `npm --prefix spikes/provenance run lexicons` | - |
 | `spikes/provenance` | C2PA sign/verify + PDQ copy matching | `npm --prefix spikes/provenance run demo` | prints PASS |
@@ -84,7 +84,7 @@ Ports were claimed with `ports claim`: agora 5035 (dashboard), agora-api 5036, a
 | --- | --- | --- | --- |
 | Local | http://agora-api.localhost:5036 | http://agora-site.localhost:5038 | wrangler local D1/R2 under each app's `.wrangler/` (gitignored) |
 | Staging | https://emera-api-staging.techguyver1337.workers.dev | https://emera-site-staging.techguyver1337.workers.dev | D1 `emera-staging`, `emera-site-staging`; R2 `emera-media-staging` |
-| Production | https://api.emera.social (not deployed yet: sign-in email isn't wired) | https://emera.social, https://www.emera.social | D1 `emera-prod`, `emera-site`; R2 `emera-media-prod` |
+| Production | https://api.emera.social (live; app at https://app.emera.social) | https://emera.social, https://www.emera.social | D1 `emera-prod`, `emera-site`; R2 `emera-media-prod` |
 
 Cloudflare account `db9eee5d30dc91c467044f8746e45206` (wrangler OAuth, no token needed). Secrets (`PROOF_SECRET`, `SEED_INVITE_CODE`) are set with `wrangler secret put --env <env>`, never in `wrangler.jsonc`. Seed invite codes are in `.claude/artifacts/seed-invites.txt` (gitignored).
 

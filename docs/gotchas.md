@@ -2,6 +2,14 @@
 
 Every milestone that closes adds its learnings here, and anything stale gets corrected or struck in the same commit. One entry per trap: what bit us, how to spot it, the fix. Newest first. Each entry is dated and says where it was learned.
 
+## 2026-11-13 - Ops visibility: Slack, /admin, /ledger
+
+- **Staging and production shared one Slack channel, so test runs looked like real signups.** Non-production notify now posts nothing unless `SLACK_NON_PROD=1`. Spot it: `curl https://emera-notify-staging.techguyver1337.workers.dev/health` says `"silent":true`.
+- **Roy's own sign-ups were counted as people.** Owner emails live in the `OWN_EMAILS` wrangler secret (never in code, the repo is public); test domains and `X-TG-Tester` traffic are marked `Test` and left out of every count, the admin totals and the public ledger.
+- **An account was announced before it had a handle.** The users feed now waits until a handle is set or 10 minutes pass, and stops the batch there so no later account skips ahead of it.
+- **The site worker now runs before assets for every page** (`run_worker_first` in `apps/site/wrangler.jsonc`) to log visits server-side. A site deploy needs migration `0002_visits.sql` applied first, and the `OPS` service binding needs `emera-notify` deployed in the same env.
+- **The site build needs `brand/` next to `apps/site`.** A `git archive` of only `apps/` fails `scripts/build.mjs`; deploy then ships the committed `public/`, which is what you want, but archive `brand` too if you rebuild.
+
 ## 2026-11-13 - M0: first deploys, open sign-up
 
 - **New D1 migrations don't reach staging/prod on their own.** Production verify returned 500 because migrations 0002-0006 existed in `apps/api/migrations/` but were never applied remotely. Fix: before every API deploy, run `npx wrangler d1 migrations apply DB --env <env> --remote`, then deploy. Spot it with `npx wrangler d1 migrations list DB --env production --remote`. If it lists anything, prod is behind.
@@ -15,3 +23,6 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 - **Cloudflare Registrar's domain-check says "premium" without a price.** `GET /registrar/domain-search?q=<domain>` shows the premium price. Most single-word .art/.social names are $99-$10,000.
 - **Single `/file/` route on the dashboard server needs an allow-list.** Only `.claude/artifacts`, `brand`, `docs`, `data/atlas-shots` and the README are served. Add a folder there, never a blanket path.
 - **wrangler dev leaves a `workerd` child holding the port.** Killing the wrangler PID isn't enough. Find the child by port (`lsof -ti :<port>`) and kill that one PID. Never pkill.
+- **A long-running `atlas --watch` keeps the code it started with** (2026-11-13). A 3-hour-old watcher kept writing `data/atlas.json` without `shots`, so every story showed "no capture" while 120 pictures sat on disk. The plan server now owns the build and spawns `tools/atlas/build.mjs` fresh on every change. Spot it: `node -e 'console.log(!!require("./data/atlas.json").shots)'` prints false.
+- **Atlas captures need `playwright-core` + its own headless Chromium.** It is pinned in `tools/atlas/package.json`; after a version bump run `npx playwright-core install chromium-headless-shell` in `tools/atlas`, or every run dies in 1 s with "Cannot find module".
+- **The capture script clicks buttons by their label.** When a sign-up screen renames a button (Finish became Start), every signed-in screen after it fails to capture. The run history on the Captures tab shows it as "Missed".

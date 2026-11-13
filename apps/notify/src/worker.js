@@ -157,11 +157,12 @@ async function sendEarly(env, r) {
   const test = isTest(env, r.email, !!r.tester);
   const n = await realCount(env, env.SITE_DB, "SELECT email, tester FROM early_access");
   const thread = await threadFor(env, r.visitor);
+  const first = r.visitor ? await env.SITE_DB.prepare("SELECT referrer, utm, ua FROM visits WHERE visitor = ? ORDER BY id LIMIT 1").bind(r.visitor).first().catch(() => null) : null;
   await slack(env, {
     icon: "👋",
     title: "Early list join",
     detail: esc(r.email),
-    facts: [place(r), device(r.ua), `from ${source(r)}`, r.source && r.source !== "site" ? `form \`${esc(r.source)}\`` : null, `*${n}* on the list`, stamp(toMs(r.created_at))],
+    facts: [place(r), device(r.ua), `from ${source(first || r)}`, r.source && r.source !== "site" ? `form \`${esc(r.source)}\`` : null, `*${n}* on the list`, stamp(toMs(r.created_at))],
     links: [adminLink(env)],
     test,
   }, thread ? { ts: thread, broadcast: true } : null);

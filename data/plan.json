@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-13T07:36:43.146Z",
+  "updated": "2026-11-13T07:46:04.016Z",
   "title": "Emera",
   "goal": "Emera. Where humanity comes together - you post, share the link, invite people",
   "phases": [
@@ -187,44 +187,96 @@
   "decisions": [
     {
       "id": "logo",
-      "q": "Which hand-drawn e?",
-      "why": "Traced from your sketch: one pen stroke, no geometry. 02 puts the sun in the eye of the e.",
+      "q": "Which hand-made e? (16 new)",
+      "why": "Fresh directions, not traced from your sketch. Click one; I redraw it clean as the icon, favicon and site logo.",
       "options": [
         {
           "id": "01",
-          "label": "01 Your sketch",
-          "note": "Your stroke, cleaned only enough to read at app-icon size",
-          "img": "brand/logo/handdrawn/01-your-sketch/icon-1024.png",
-          "img2": "brand/logo/handdrawn/01-your-sketch/wordmark.svg"
+          "label": "1 Dry brush",
+          "img": "brand/logo/grid16/01.png"
         },
         {
           "id": "02",
-          "label": "02 Sketch + sun",
-          "note": "Your stroke, starting from a sun in the eye of the e",
-          "img": "brand/logo/handdrawn/02-sketch-sun/icon-1024.png",
-          "img2": "brand/logo/handdrawn/02-sketch-sun/wordmark.svg"
+          "label": "2 Fountain pen",
+          "img": "brand/logo/grid16/02.png"
         },
         {
           "id": "03",
-          "label": "03 Brush",
-          "note": "Faster and looser, thin where the pen lands and lifts",
-          "img": "brand/logo/handdrawn/03-brush/icon-1024.png",
-          "img2": "brand/logo/handdrawn/03-brush/wordmark.svg"
+          "label": "3 Sumi ink",
+          "img": "brand/logo/grid16/03.png"
         },
         {
           "id": "04",
-          "label": "04 Signed",
-          "note": "Your stroke with the lead-in from the first Signature",
-          "img": "brand/logo/handdrawn/04-signed/icon-1024.png",
-          "img2": "brand/logo/handdrawn/04-signed/wordmark.svg"
+          "label": "4 Line + sun",
+          "img": "brand/logo/grid16/04.png"
+        },
+        {
+          "id": "05",
+          "label": "5 Cut paper",
+          "img": "brand/logo/grid16/05.png"
+        },
+        {
+          "id": "06",
+          "label": "6 Crayon",
+          "img": "brand/logo/grid16/06.png"
+        },
+        {
+          "id": "07",
+          "label": "7 Broad nib",
+          "img": "brand/logo/grid16/07.png"
+        },
+        {
+          "id": "08",
+          "label": "8 Horizon sun",
+          "img": "brand/logo/grid16/08.png"
+        },
+        {
+          "id": "09",
+          "label": "9 Marker",
+          "img": "brand/logo/grid16/09.png"
+        },
+        {
+          "id": "10",
+          "label": "10 Linocut",
+          "img": "brand/logo/grid16/10.png"
+        },
+        {
+          "id": "11",
+          "label": "11 Ribbon",
+          "img": "brand/logo/grid16/11.png"
+        },
+        {
+          "id": "12",
+          "label": "12 Pencil",
+          "img": "brand/logo/grid16/12.png"
+        },
+        {
+          "id": "13",
+          "label": "13 Stamp",
+          "img": "brand/logo/grid16/13.png"
+        },
+        {
+          "id": "14",
+          "label": "14 Spiral",
+          "img": "brand/logo/grid16/14.png"
+        },
+        {
+          "id": "15",
+          "label": "15 Roller",
+          "img": "brand/logo/grid16/15.png"
+        },
+        {
+          "id": "16",
+          "label": "16 Stitched",
+          "img": "brand/logo/grid16/16.png"
         },
         {
           "id": "other",
-          "label": "Redraw",
-          "href": "/file/brand/logo/handdrawn/board.html"
+          "label": "See the full sheet",
+          "href": "/file/brand/logo/grid16/grid.png"
         }
       ],
-      "mine": "02",
+      "mine": "08",
       "note": "Roy 2026-11-13: geometric Signature rejected; hand-drawn versions from his sketch"
     },
     {
@@ -1224,25 +1276,23 @@
       "id": "issues",
       "kind": "approve",
       "when": "now",
-      "title": "Post these 10 starter issues",
-      "why": "Contributors pick from these the day the repo opens. Full text in docs/help-wanted.json.",
+      "title": "Post 8 big projects for contributors",
+      "why": "Your change: bigger, self-contained projects for others; the core stays with us. README now shows both lists and the milestone checklist.",
       "task": "d3",
       "list": [
-        "Replay D1 migrations from empty in CI",
-        "Add a pre-commit hook for typecheck and format",
-        "Add unit tests for the mobile lib folder",
-        "RSS and Atom feeds for creators and the global feed",
-        "Make the web build an installable PWA",
-        "Golden test files for social.emera lexicons",
-        "Translate the app into your language",
-        "Respect Reduce Motion and font scaling",
-        "Seed script for a full local demo",
-        "Fresh-machine test of CONTRIBUTING.md"
+        "Browser extension: report a copy of this page",
+        "Bluesky feed generator + companion cross-posts",
+        "TV apps: Android TV, Fire TV, Apple TV first",
+        "Roku, Samsung Tizen and LG webOS apps",
+        "Translations: Lingui setup + first languages",
+        "Accessibility: screen reader, Reduce Motion, font scaling",
+        "Tablet layout for iPad and Android tablets",
+        "Self-hosting: Docker image for the API"
       ],
       "options": [
         {
           "id": "yes",
-          "label": "Post all 10",
+          "label": "Post all 8",
           "primary": true
         },
         {
@@ -1250,9 +1300,15 @@
           "label": "Not yet"
         }
       ],
-      "answer": "change",
-      "text": "We need to be smart about what we want other people to do and what we want to do. And we should maybe have bigger tasks set for other people for now. And I would update the README also showing checklist and milestone very clearly, emoji, beautification. Like this is not the right list in my in my perspective.",
-      "at": "2026-11-13T07:43:35.052Z"
+      "answer": null,
+      "text": null,
+      "at": null,
+      "links": [
+        [
+          "README on GitHub",
+          "https://github.com/royherma/emera#where-we-are"
+        ]
+      ]
     },
     {
       "id": "dmca",
@@ -1362,9 +1418,9 @@
           "label": "Later"
         }
       ],
-      "answer": null,
+      "answer": "later",
       "text": null,
-      "at": null
+      "at": "2026-11-13T07:43:54.544Z"
     },
     {
       "id": "stores",
@@ -1382,7 +1438,10 @@
           "id": "no",
           "label": "Other name"
         }
-      ]
+      ],
+      "answer": "change",
+      "text": "dogin now",
+      "at": "2026-11-13T07:44:08.773Z"
     },
     {
       "id": "creatororgs",
@@ -1401,7 +1460,10 @@
           "id": "later",
           "label": "Later"
         }
-      ]
+      ],
+      "answer": "later",
+      "text": null,
+      "at": "2026-11-13T07:43:53.530Z"
     },
     {
       "id": "legal-mail",
@@ -1437,6 +1499,41 @@
       "answer": "change",
       "text": "yes take care of this",
       "at": "2026-11-13T07:43:48.163Z"
+    },
+    {
+      "id": "ops-visibility",
+      "kind": "look",
+      "when": "now",
+      "title": "Your admin page, public ledger and richer Slack alerts are live",
+      "why": "Every visitor, early-list join, account and post now shows where they came from, their device and Bangkok time. Your own and test accounts are marked Test and never counted.",
+      "links": [
+        [
+          "Admin (key link is in the terminal reply)",
+          "https://emera.social/admin"
+        ],
+        [
+          "Public ledger",
+          "https://emera.social/ledger/"
+        ],
+        [
+          "#emera-events",
+          "https://slack.com/app_redirect?channel=C0CHFF8S47K"
+        ]
+      ],
+      "options": [
+        {
+          "id": "good",
+          "label": "Looks right",
+          "primary": true
+        },
+        {
+          "id": "change",
+          "label": "Change something"
+        }
+      ],
+      "answer": null,
+      "text": null,
+      "owner": "claude d44a53f4"
     }
   ],
   "reviewDone": [

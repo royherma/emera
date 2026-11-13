@@ -43,7 +43,7 @@ const SOURCES = [
 
 export function source(r) {
   const utm = String(r.utm || "");
-  const ref = String(r.referrer || "");
+  const ref = /^https?:\/\/([\w-]+\.)*emera\.social(\/|$)/i.test(String(r.referrer || "")) ? "" : String(r.referrer || "");
   const ua = String(r.ua || "");
   const utmSrc = utm.match(/(?:utm_source|ref)=([^&]+)/)?.[1];
   for (const probe of [utmSrc, ref, /Instagram|FBAV|musical_ly|Bytedance|LinkedInApp/.test(ua) ? ua : null]) {
