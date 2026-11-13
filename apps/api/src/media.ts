@@ -1,4 +1,4 @@
-import { Hono } from 'hono';
+import { Hono, type Context } from 'hono';
 import type { AppEnv, Env } from './env';
 import { requireAuth, requireHandle } from './auth';
 import { fail, originOf, readJson } from './http';
@@ -15,8 +15,8 @@ const TYPES: Record<string, { kind: 'image' | 'video'; ext: string; max: number 
   'image/png': { kind: 'image', ext: 'png', max: 20 * MB },
   'image/webp': { kind: 'image', ext: 'webp', max: 20 * MB },
   'image/heic': { kind: 'image', ext: 'heic', max: 20 * MB },
-  'video/mp4': { kind: 'video', ext: 'mp4', max: 100 * MB },
-  'video/quicktime': { kind: 'video', ext: 'mov', max: 100 * MB },
+  'video/mp4': { kind: 'video', ext: 'mp4', max: 2048 * MB },
+  'video/quicktime': { kind: 'video', ext: 'mov', max: 2048 * MB },
 };
 const ALIASES: Record<string, string> = { 'image/jpg': 'image/jpeg', 'image/heif': 'image/heic' };
 
@@ -42,6 +42,10 @@ const VIDEO_MAX_INPUT = 100 * MB;
 const VIDEO_MAX_SECONDS = 60;
 export const VIDEO_MAX_LENGTH = 600;
 const TOO_LONG = 'Videos can be up to 10 minutes.';
+// Cloudflare Free refuses request bodies over 100 MiB, so bigger videos arrive as R2 multipart parts of this size.
+// Up to oneRequest stays a single PUT so app builds without parts support keep working.
+export const parts = { size: 50 * MB, oneRequest: 100 * MB };
+const partCount = (bytes: number) => Math.ceil(bytes / parts.size);
 
 export function videoNeedsShrink(info: VideoInfo, bytes: number): boolean {
   return Math.max(info.width, info.height) > VIDEO_MAX_EDGE && bytes < VIDEO_MAX_INPUT && info.seconds > 0 && info.seconds <= VIDEO_MAX_SECONDS;
@@ -123,99 +127,167 @@ mediaRoutes.post('/v1/uploads', requireAuth, requireHandle, async (c) => {
   if (spec.kind === 'video' && typeof body.seconds === 'number' && body.seconds > VIDEO_MAX_LENGTH) throw fail(413, 'too_long', TOO_LONG);
 
   const id = newId(12);
+  const key = `${id}.${spec.ext}`;
+  const multipart = spec.kind === 'video' && bytes > parts.oneRequest ? await c.env.MEDIA.createMultipartUpload(key, { httpMetadata: { contentType } }) : null;
   await c.env.DB.prepare(
-    'INSERT INTO media (id, user_id, kind, content_type, declared_bytes, r2_key, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)',
-  ).bind(id, c.get('user').id, spec.kind, contentType, bytes, `${id}.${spec.ext}`, Date.now()).run();
-  return c.json({ uploadId: id, uploadUrl: `${originOf(c)}/v1/uploads/${id}` });
+    'INSERT INTO media (id, user_id, kind, content_type, declared_bytes, r2_key, multipart_id, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+  ).bind(id, c.get('user').id, spec.kind, contentType, bytes, key, multipart?.uploadId ?? null, Date.now()).run();
+  const uploadUrl = `${originOf(c)}/v1/uploads/${id}`;
+  return c.json(multipart ? { uploadId: id, uploadUrl, partSize: parts.size, partCount: partCount(bytes) } : { uploadId: id, uploadUrl });
+});
+
+type PendingRow = MediaRow & { status: string; declared_bytes: number; multipart_id: string | null };
+
+async function pendingUpload(c: Context<AppEnv>): Promise<PendingRow> {
+  const row = await c.env.DB.prepare('SELECT * FROM media WHERE id = ? AND user_id = ?')
+    .bind(c.req.param('id'), c.get('user').id).first<PendingRow>();
+  if (!row) throw fail(404, 'not_found', 'No such upload.');
+  if (row.status !== 'pending') throw fail(409, 'already_uploaded', 'This upload already has a file.');
+  return row;
+}
+
+function sniffVideo() {
+  let first = true;
+  const state = { ok: true };
+  const check = new TransformStream<Uint8Array, Uint8Array>({
+    transform(chunk, ctrl) {
+      if (first) {
+        first = false;
+        state.ok = looksLikeVideo(chunk);
+        if (!state.ok) return ctrl.error(new Error('not a video'));
+      }
+      ctrl.enqueue(chunk);
+    },
+  });
+  return { check, state };
+}
+
+async function checkVideo(c: Context<AppEnv>, row: PendingRow, size: number): Promise<{ width: number; height: number }> {
+  const info = await readVideoInfo(c.env.MEDIA, row.r2_key, size).catch(() => null);
+  if (info && info.seconds > VIDEO_MAX_LENGTH) {
+    await c.env.MEDIA.delete(row.r2_key);
+    await c.env.DB.prepare('DELETE FROM media WHERE id = ?').bind(row.id).run();
+    throw fail(413, 'too_long', TOO_LONG);
+  }
+  if (c.env.VIDEO_JOBS) await c.env.VIDEO_JOBS.send({ mediaId: row.id, shrink: !!info && videoNeedsShrink(info, size) });
+  return info ?? { width: 0, height: 0 };
+}
+
+type Stored = { width: number; height: number; size: number; sha256: string; key: string; storedType: string; sourceSha256: string; sourceBytes: number };
+
+async function markDone(c: Context<AppEnv>, row: PendingRow, s: Stored) {
+  const signedAt = Date.now();
+  const signer = c.get('user').handle!;
+  const signature = await hmacHex(c.env.PROOF_SECRET, `${s.sha256}.${new Date(signedAt).toISOString()}.${signer}`);
+  await c.env.DB.prepare(
+    `UPDATE media SET status = 'done', width = ?, height = ?, bytes = ?, sha256 = ?, signed_at = ?, signer = ?, signature = ?,
+       r2_key = ?, content_type = ?, source_sha256 = ?, source_bytes = ?, multipart_id = NULL WHERE id = ?`,
+  ).bind(s.width, s.height, s.size, s.sha256, signedAt, signer, signature, s.key, s.storedType, s.sourceSha256, s.sourceBytes, row.id).run();
+  const done = (await c.env.DB.prepare('SELECT * FROM media WHERE id = ?').bind(row.id).first<MediaRow>())!;
+  return c.json({ media: mediaJson(originOf(c), done) });
+}
+
+mediaRoutes.put('/v1/uploads/:id/parts/:n', requireAuth, async (c) => {
+  const row = await pendingUpload(c);
+  if (!row.multipart_id) throw fail(409, 'not_in_parts', 'Send this file in one request.');
+  const count = partCount(row.declared_bytes);
+  const n = Number(c.req.param('n'));
+  if (!Number.isInteger(n) || n < 1 || n > count) throw fail(400, 'bad_part', `Parts are numbered 1 to ${count}.`);
+  const expected = n < count ? parts.size : row.declared_bytes - parts.size * (count - 1);
+  if (Number(c.req.header('content-length') ?? '') !== expected) throw fail(400, 'bad_part_size', `Part ${n} must be ${expected} bytes.`);
+  const stream = c.req.raw.body;
+  if (!stream) throw fail(400, 'empty_body', 'Send the part bytes as the request body.');
+
+  const sniff = n === 1 ? sniffVideo() : null;
+  const fixed = new FixedLengthStream(expected);
+  const upload = c.env.MEDIA.resumeMultipartUpload(row.r2_key, row.multipart_id);
+  try {
+    const [, part] = await Promise.all([(sniff ? stream.pipeThrough(sniff.check) : stream).pipeTo(fixed.writable), upload.uploadPart(n, fixed.readable)]);
+    return c.json({ partNumber: part.partNumber, etag: part.etag });
+  } catch {
+    if (sniff && !sniff.state.ok) throw fail(415, 'bad_file', 'That file is not a valid video.');
+    throw fail(400, 'upload_failed', 'The upload did not finish. Try again.');
+  }
+});
+
+mediaRoutes.post('/v1/uploads/:id/complete', requireAuth, async (c) => {
+  const row = await pendingUpload(c);
+  if (!row.multipart_id) throw fail(409, 'not_in_parts', 'Send this file in one request.');
+  const count = partCount(row.declared_bytes);
+  const body = await readJson(c);
+  const sent = Array.isArray(body.parts) ? body.parts : [];
+  const list = sent
+    .filter((p: any) => p && Number.isInteger(p.partNumber) && typeof p.etag === 'string')
+    .map((p: any) => ({ partNumber: p.partNumber as number, etag: p.etag as string }))
+    .sort((a: R2UploadedPart, b: R2UploadedPart) => a.partNumber - b.partNumber);
+  if (list.length !== count || list.some((p: R2UploadedPart, i: number) => p.partNumber !== i + 1)) {
+    throw fail(400, 'bad_parts', `Send all ${count} parts as { partNumber, etag }.`);
+  }
+  try {
+    await c.env.MEDIA.resumeMultipartUpload(row.r2_key, row.multipart_id).complete(list);
+  } catch {
+    throw fail(400, 'parts_missing', 'Some parts did not arrive. Send them again.');
+  }
+
+  const obj = await c.env.MEDIA.get(row.r2_key);
+  if (!obj || obj.size !== row.declared_bytes) {
+    await c.env.MEDIA.delete(row.r2_key);
+    throw fail(400, 'upload_failed', 'The upload did not finish. Try again.');
+  }
+  const digest = new crypto.DigestStream('SHA-256');
+  await obj.body.pipeTo(digest);
+  const sha256 = toHex(await digest.digest);
+  const size = obj.size;
+  const { width, height } = await checkVideo(c, row, size);
+  return markDone(c, row, { width, height, size, sha256, key: row.r2_key, storedType: row.content_type, sourceSha256: sha256, sourceBytes: size });
 });
 
 mediaRoutes.put('/v1/uploads/:id', requireAuth, async (c) => {
-  const me = c.get('user');
-  const row = await c.env.DB.prepare('SELECT * FROM media WHERE id = ? AND user_id = ?')
-    .bind(c.req.param('id'), me.id).first<MediaRow & { status: string; declared_bytes: number }>();
-  if (!row) throw fail(404, 'not_found', 'No such upload.');
-  if (row.status !== 'pending') throw fail(409, 'already_uploaded', 'This upload already has a file.');
+  const row = await pendingUpload(c);
+  if (row.multipart_id) throw fail(409, 'use_parts', 'Send this file in parts.');
   const spec = TYPES[row.content_type];
   const length = Number(c.req.header('content-length') ?? '');
   const stream = c.req.raw.body;
   if (!stream) throw fail(400, 'empty_body', 'Send the file bytes as the request body.');
   if (Number.isFinite(length) && length > spec.max) throw fail(413, 'too_large', 'That file is too big.');
 
-  let sha256: string;
-  let size: number;
-  let width = 0;
-  let height = 0;
-
-  let sourceSha256: string | null = null;
-  let sourceBytes: number | null = null;
-  let key = row.r2_key;
-  let storedType = row.content_type;
-
   if (spec.kind === 'image') {
     const buf = new Uint8Array(await c.req.arrayBuffer());
     if (!buf.length || buf.length > spec.max) throw fail(413, 'too_large', 'That file is too big.');
     const info = readImageInfo(buf);
     if (!info || info.contentType !== row.content_type) throw fail(415, 'bad_file', 'That file is not a valid image of the type you declared.');
-    sourceSha256 = toHex(await crypto.subtle.digest('SHA-256', buf));
-    sourceBytes = buf.length;
+    const sourceSha256 = toHex(await crypto.subtle.digest('SHA-256', buf));
     const small = await shrinkImage(c.env.IMAGES, buf);
     const out = small ?? buf;
-    ({ width, height } = (small && readImageInfo(small)) || info);
-    if (small) { key = `${row.id}.webp`; storedType = 'image/webp'; }
-    size = out.length;
-    sha256 = toHex(await crypto.subtle.digest('SHA-256', out));
+    const { width, height } = (small && readImageInfo(small)) || info;
+    const key = small ? `${row.id}.webp` : row.r2_key;
+    const storedType = small ? 'image/webp' : row.content_type;
+    const sha256 = toHex(await crypto.subtle.digest('SHA-256', out));
     await c.env.MEDIA.put(key, out, { httpMetadata: { contentType: storedType } });
-  } else {
-    if (!Number.isFinite(length) || length <= 0) throw fail(411, 'length_required', 'Videos need a Content-Length header.');
-    let first = true;
-    let sniffOk = true;
-    const checked = stream.pipeThrough(new TransformStream<Uint8Array, Uint8Array>({
-      transform(chunk, ctrl) {
-        if (first) {
-          first = false;
-          sniffOk = looksLikeVideo(chunk);
-          if (!sniffOk) return ctrl.error(new Error('not a video'));
-        }
-        ctrl.enqueue(chunk);
-      },
-    }));
-    const [toR2, toHash] = checked.tee();
-    const fixed = new FixedLengthStream(length);
-    const digest = new crypto.DigestStream('SHA-256');
-    try {
-      const [, , hash] = await Promise.all([
-        toR2.pipeTo(fixed.writable),
-        c.env.MEDIA.put(row.r2_key, fixed.readable, { httpMetadata: { contentType: row.content_type } }),
-        toHash.pipeTo(digest).then(() => digest.digest),
-      ]);
-      sha256 = toHex(hash);
-    } catch {
-      await c.env.MEDIA.delete(row.r2_key);
-      if (!sniffOk) throw fail(415, 'bad_file', 'That file is not a valid video.');
-      throw fail(400, 'upload_failed', 'The upload did not finish. Try again.');
-    }
-    size = length;
-    sourceSha256 = sha256;
-    sourceBytes = size;
-    const info = await readVideoInfo(c.env.MEDIA, key, size).catch(() => null);
-    if (info && info.seconds > VIDEO_MAX_LENGTH) {
-      await c.env.MEDIA.delete(key);
-      await c.env.DB.prepare('DELETE FROM media WHERE id = ?').bind(row.id).run();
-      throw fail(413, 'too_long', TOO_LONG);
-    }
-    if (info) ({ width, height } = info);
-    if (c.env.VIDEO_JOBS) await c.env.VIDEO_JOBS.send({ mediaId: row.id, shrink: !!info && videoNeedsShrink(info, size) });
+    return markDone(c, row, { width, height, size: out.length, sha256, key, storedType, sourceSha256, sourceBytes: buf.length });
   }
 
-  const signedAt = Date.now();
-  const signer = me.handle!;
-  const signature = await hmacHex(c.env.PROOF_SECRET, `${sha256}.${new Date(signedAt).toISOString()}.${signer}`);
-  await c.env.DB.prepare(
-    `UPDATE media SET status = 'done', width = ?, height = ?, bytes = ?, sha256 = ?, signed_at = ?, signer = ?, signature = ?,
-       r2_key = ?, content_type = ?, source_sha256 = ?, source_bytes = ? WHERE id = ?`,
-  ).bind(width, height, size, sha256, signedAt, signer, signature, key, storedType, sourceSha256, sourceBytes, row.id).run();
-  const done = (await c.env.DB.prepare('SELECT * FROM media WHERE id = ?').bind(row.id).first<MediaRow>())!;
-  return c.json({ media: mediaJson(originOf(c), done) });
+  if (!Number.isFinite(length) || length <= 0) throw fail(411, 'length_required', 'Videos need a Content-Length header.');
+  if (length > parts.oneRequest) throw fail(413, 'too_large', 'That file is too big.');
+  const sniff = sniffVideo();
+  const [toR2, toHash] = stream.pipeThrough(sniff.check).tee();
+  const fixed = new FixedLengthStream(length);
+  const digest = new crypto.DigestStream('SHA-256');
+  let sha256: string;
+  try {
+    const [, , hash] = await Promise.all([
+      toR2.pipeTo(fixed.writable),
+      c.env.MEDIA.put(row.r2_key, fixed.readable, { httpMetadata: { contentType: row.content_type } }),
+      toHash.pipeTo(digest).then(() => digest.digest),
+    ]);
+    sha256 = toHex(hash);
+  } catch {
+    await c.env.MEDIA.delete(row.r2_key);
+    if (!sniff.state.ok) throw fail(415, 'bad_file', 'That file is not a valid video.');
+    throw fail(400, 'upload_failed', 'The upload did not finish. Try again.');
+  }
+  const { width, height } = await checkVideo(c, row, length);
+  return markDone(c, row, { width, height, size: length, sha256, key: row.r2_key, storedType: row.content_type, sourceSha256: sha256, sourceBytes: length });
 });
 
 mediaRoutes.on(['GET', 'HEAD'], '/media/:key', async (c) => {

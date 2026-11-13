@@ -10,8 +10,8 @@ export const TYPES = {
   '.png': ['image/png', 25 * MB],
   '.webp': ['image/webp', 25 * MB],
   '.heic': ['image/heic', 25 * MB],
-  '.mp4': ['video/mp4', 200 * MB],
-  '.mov': ['video/quicktime', 200 * MB],
+  '.mp4': ['video/mp4', 2048 * MB],
+  '.mov': ['video/quicktime', 2048 * MB],
 };
 export const MAX_CAPTION = 2200;
 export const MAX_MEDIA = 10;
