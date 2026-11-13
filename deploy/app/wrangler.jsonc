@@ -5,7 +5,7 @@
   "env": {
     "production": {
       "name": "emera-app",
-      "routes": [{ "pattern": "app.emera.social", "custom_domain": true }]
+      "workers_dev": false
     }
   }
 }
