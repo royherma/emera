@@ -19,17 +19,49 @@ When someone copies a creator's work, the creator reports it and we help take it
 
 Site: [emera.social](https://emera.social). Mission and values: [docs/mission/mission.md](docs/mission/mission.md).
 
-## Status
+## Where we are
 
-| Piece | State |
-| --- | --- |
-| Landing page and early list ([apps/site](apps/site)) | Live at emera.social |
-| API: accounts, uploads to R2, posts, public `/@handle` and `/p/:id` pages ([apps/api](apps/api)) | Running on staging |
-| App for iOS, Android and web from one Expo codebase ([apps/mobile](apps/mobile)) | Being built, mock data |
-| AT Protocol lexicons `social.emera.*` ([lexicons](lexicons)) | In the repo |
-| Proof of maker: C2PA signing and PDQ copy matching ([spikes/provenance](spikes/provenance)) | Working spike |
-| Production API at api.emera.social | Planned |
-| Own PDS and portable accounts | Planned |
+✅ done · 🟡 in progress · ⬜ next
+
+### 🌅 M0 · Live on emera.social (week of Nov 16, 2026)
+
+- ✅ [emera.social](https://emera.social), [app.emera.social](https://app.emera.social) and [api.emera.social](https://api.emera.social/health) live
+- ✅ Sign up with an email code, invite links
+- ✅ Post, follow, like, comment, search, notifications
+- ✅ Report a copy of your work, from any post
+- 🟡 Sign-in email lands in the inbox, not spam, 3 of 3 tries
+- ⬜ @emerasocial on TikTok, YouTube, Instagram and Bluesky
+- ⬜ DMCA agent registered
+- ⬜ Founder profile with the first 10 posts
+
+### 🌱 M1 · First 100 creators (by Dec 31, 2026)
+
+- ✅ Public repo, CONTRIBUTING, code of conduct, security policy
+- ✅ Error alerts and visitor numbers
+- ✅ Bring your old posts over (`tools/import`)
+- ⬜ Takedown notice builder: the creator confirms, we send it
+- ⬜ Ops page to file and track every report
+- ⬜ Abuse and CSAM basics
+- 🎯 Exit test: 100 creators, 40 reports filed, half of sent notices end in removal within 14 days
+
+### 🌍 M2 · 1,000 creators (by mid-Feb 2027)
+
+- ⬜ Own PDS and portable accounts
+- ⬜ Passkeys
+- ⬜ Creator dashboard: your reports, outcomes, receipts
+- ⬜ Open feeds with "why this post"
+- ⬜ Public cost page and donations
+- ⬜ Contributor program with bounties
+- 🎯 Exit test: 1,000 creators, 35% still posting after 30 days, 5 outside contributors merged
+
+### ☀️ M3 and M4 · 10,000 then 100,000 creators
+
+- ⬜ Automatic copy matching, trained on the reports creators send
+- ⬜ Tips and Premium, money paid to creators
+- ⬜ Video on our own streaming
+- ⬜ Scanning for everyone, platform integrations, board elections
+
+Full plan with costs and risks: [docs/master-plan.md](docs/master-plan.md).
 
 ## Platforms
 
@@ -104,14 +136,26 @@ npm --prefix spikes/provenance run lexicons
 | `docs` | Mission, master plan, architecture, API contract, platforms |
 | `data` | Machine-readable lists, such as platforms |
 
-## How to help
+## What we build, what you can own
 
-Emera is built in the open and we want help, especially on the platforms we have not reached yet.
+The core of Emera stays with the core team so it moves fast and stays safe. The projects around it are big, self-contained, and yours to own.
 
-1. Read [CONTRIBUTING.md](CONTRIBUTING.md) for setup, the pull request flow and code style.
-2. Pick something from the [help-wanted list](docs/help-wanted.json): about 30 scoped tasks, 13 of them good first issues.
-3. See what other open-source social projects have that we are still building in the [gap checklist](docs/gap-checklist.md).
-4. Own a platform. Roku, Samsung and LG TV, Apple TV, the browser extension and translations all work well as separate projects. Start in [docs/platforms.md](docs/platforms.md).
+| 🔒 Core team builds | 🙌 You can own |
+| --- | --- |
+| Accounts, sign-in, invites | 🧩 Browser extension: report a copy of the page you are on |
+| Posts, feeds, ranking | 🦋 Bluesky: feed generator for Emera creators, companion cross-posts |
+| Proof of who made it (signing, badges) | 📺 TV apps: Android TV, Fire TV, Apple TV, Roku, Samsung, LG |
+| Report a copy and takedowns | 🌐 Translations: Lingui setup and your language |
+| Moderation and safety | ♿ Accessibility: screen reader pass, Reduce Motion, font scaling |
+| Payments and payouts | 📱 Tablet layout for iPad and Android tablets |
+| | 🐳 Self-hosting: Docker image for the API |
+| | 🔗 Embeds: share cards, oEmbed, RSS feeds |
+
+How to start:
+
+1. Read [CONTRIBUTING.md](CONTRIBUTING.md): setup, the pull request flow, code style.
+2. Pick a project from the right column. Each one has a full brief in the [help-wanted list](docs/help-wanted.json) and the [platforms plan](docs/platforms.md).
+3. Open an issue saying you are taking it, so two people do not build the same thing.
 
 ## License
 
