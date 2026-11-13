@@ -1,5 +1,5 @@
 import { API_URL } from "./config";
-import { ApiError, Backend, Comment, Media, Notification, PickedFile, Post, User, UserPage } from "./types";
+import { ApiError, Backend, Comment, Earnings, Fund, FundStatement, Media, Notification, PickedFile, Post, User, UserPage } from "./types";
 
 let token: string | null = null;
 export const setToken = (t: string | null) => {
@@ -100,4 +100,8 @@ export const http: Backend = {
   },
   updateProfile: async (input) => (await send<{ user: User }>("PATCH", "/v1/me", input)).user,
   flag: async (input) => void (await send("POST", "/v1/flags", input)),
+  fund: () => send<Fund>("GET", "/v1/fund"),
+  fundMonth: async (month) => (await send<{ statement: FundStatement }>("GET", `/v1/fund/months/${encodeURIComponent(month)}`)).statement,
+  earnings: () => send<Earnings>("GET", "/v1/me/earnings"),
+  watch: async (postId, seconds) => (await send<{ counted: number }>("POST", "/v1/watch", { postId, seconds })).counted,
 };

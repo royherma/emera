@@ -50,6 +50,8 @@ function Routes() {
         <View style={{ flex: 1 }}>
           <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: c.bg }, animation: "fade" }}>
             <Stack.Screen name="index" />
+            <Stack.Screen name="fund" options={{ animation: "slide_from_right" }} />
+            <Stack.Screen name="fund/[month]" options={{ animation: "slide_from_right" }} />
             <Stack.Protected guard={status !== "in"}>
               <Stack.Screen name="(auth)" />
             </Stack.Protected>
@@ -68,6 +70,7 @@ function Routes() {
               <Stack.Screen name="search" options={{ animation: "slide_from_right" }} />
               <Stack.Screen name="edit-profile" options={{ animation: "slide_from_right" }} />
               <Stack.Screen name="flag" options={{ animation: "slide_from_right" }} />
+              <Stack.Screen name="earnings" options={{ animation: "slide_from_right" }} />
             </Stack.Protected>
           </Stack>
         </View>

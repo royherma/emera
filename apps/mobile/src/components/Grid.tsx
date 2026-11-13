@@ -10,6 +10,7 @@ import { creatorColors, elevation, radius, space, type } from "@/lib/theme";
 import { timeAgo } from "@/lib/format";
 import { feedBox } from "@/lib/mediaBox";
 import { useTheme } from "@/state/theme";
+import { useWatchTime } from "@/lib/useWatchTime";
 import type { Post } from "@/lib/types";
 
 const web = typeof document !== "undefined";
@@ -22,6 +23,7 @@ export function PostRow({ post, width, onDeleted }: { post: Post; width: number;
   const h = feedBox(m, width).height;
   const open = () => router.push({ pathname: "/p/[id]", params: { id: post.id } });
   const tag = post.author.category;
+  const watchRef = useWatchTime(post);
   return (
     <View style={{ width, gap: space[2] }}>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 10, minHeight: 44 }}>
@@ -34,7 +36,7 @@ export function PostRow({ post, width, onDeleted }: { post: Post; width: number;
         </Pressable>
         <IconButton icon="dots" label="More" filled={false} tint={c.ink2} onPress={() => menu(post)} />
       </View>
-      <Pressable accessibilityRole="link" accessibilityLabel={`Open post by ${post.author.displayName}`} onPress={open} style={({ pressed }: PS) => [{ width, height: h, borderRadius: radius.media, overflow: "hidden", transform: [{ scale: pressed ? 0.992 : 1 }] }, web ? ({ boxShadow: elevation.media } as object) : null]}>
+      <Pressable ref={watchRef} accessibilityRole="link" accessibilityLabel={`Open post by ${post.author.displayName}`} onPress={open} style={({ pressed }: PS) => [{ width, height: h, borderRadius: radius.media, overflow: "hidden", transform: [{ scale: pressed ? 0.992 : 1 }] }, web ? ({ boxShadow: elevation.media } as object) : null]}>
         {m.kind === "video" ? <InlineVideo media={m} style={{ flex: 1 }} /> : <MediaImage media={m} style={{ flex: 1 }} playSize={56} />}
         <View style={{ position: "absolute", left: 10, top: 10 }}>
           <SignedMark />
