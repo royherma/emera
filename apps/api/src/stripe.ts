@@ -105,6 +105,7 @@ stripeRoutes.post('/v1/fund/checkout', fundOn, async (c) => {
     mode: 'payment',
     customer_email: email,
     allow_promotion_codes: 'true',
+    'managed_payments[enabled]': 'false',
     'line_items[0][quantity]': count,
     'line_items[0][price_data][currency]': 'usd',
     'line_items[0][price_data][unit_amount]': monthly,
