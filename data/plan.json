@@ -1523,6 +1523,35 @@
           "https://github.com/royherma/emera/issues"
         ]
       ]
+    },
+    {
+      "id": "stripe-emera",
+      "kind": "approve",
+      "when": "now, 5 min",
+      "title": "Give Emera its own Stripe account",
+      "why": "Sponsors must see Emera on the checkout and their card statement, not RobotJobsHQ.",
+      "list": [
+        "Stripe dashboard, top-left account menu, + New account, name it Emera (Techguyver Labs LLC, United States)",
+        "Open the Stripe login link below, pick the Emera account, Allow",
+        "Reply done: I make the sponsor product, checkout and webhook in test mode, then show you the live switch here"
+      ],
+      "options": [
+        {
+          "id": "done",
+          "label": "Done, Emera account linked",
+          "primary": true
+        },
+        {
+          "id": "later",
+          "label": "Later"
+        }
+      ],
+      "links": [
+        [
+          "Stripe dashboard",
+          "https://dashboard.stripe.com"
+        ]
+      ]
     }
   ],
   "reviewDone": [
