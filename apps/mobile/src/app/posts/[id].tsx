@@ -3,7 +3,7 @@ import { NativeScrollEvent, NativeSyntheticEvent, Platform, ScrollView, Text, Vi
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Screen } from "@/components/Screen";
-import { PostRow, RowSkeleton } from "@/components/Grid";
+import { PostRow, RowSkeleton, useFeedColumn } from "@/components/Grid";
 import { ErrorState, IconButton } from "@/components/ui";
 import { api } from "@/lib/api";
 import { useLayout } from "@/lib/layout";
@@ -27,7 +27,8 @@ export default function PostScroll() {
   const from = (fromParam || "explore") as ListSource;
   const router = useRouter();
   const { c } = useTheme();
-  const { wide, column } = useLayout();
+  const { wide } = useLayout();
+  const column = useFeedColumn();
   const insets = useSafeAreaInsets();
   const [list, setList] = useState<List | null>(() => recallList(from, id));
   const [error, setError] = useState<string | null>(null);

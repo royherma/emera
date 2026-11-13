@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { WhoAvatar } from "@/components/ChatRoom";
 import { UnreadDot } from "@/components/Engage";
+import { Icon } from "@/components/Icon";
 import { Screen } from "@/components/Screen";
 import { Chip, EmptyState, ErrorState, IconButton, Pulse, Segmented, type PS } from "@/components/ui";
 import { api } from "@/lib/api";
@@ -11,6 +12,7 @@ import { useLayout } from "@/lib/layout";
 import { font, radius, space, type } from "@/lib/theme";
 import type { DmThread } from "@/lib/types";
 import { useRefreshDmUnread, useDmUnread } from "@/state/dmUnread";
+import { saveChatSettings, useChatSettings } from "@/state/chatSettings";
 import { useResource } from "@/state/resource";
 import { useTheme } from "@/state/theme";
 
@@ -28,6 +30,7 @@ function Row({ t, onPress }: { t: DmThread; onPress: () => void }) {
           {preview} · {timeAgo(t.lastAt)}
         </Text>
       </View>
+      {t.muted && <Icon name="muted" size={16} color={c.ink3} />}
       {t.unread && <UnreadDot />}
     </Pressable>
   );
@@ -40,7 +43,16 @@ export default function Messages() {
   const [box, setBox] = useState<Box>("inbox");
   const unread = useDmUnread();
   useRefreshDmUnread(box);
+  const { channelsHidden } = useChatSettings();
   const { data, error, loading, reload, refreshing, retry } = useResource(() => api.threads(box), `threads:${box}`);
+  const seen = useRef(`${unread.inbox}:${unread.requests}`);
+  useEffect(() => {
+    const now = `${unread.inbox}:${unread.requests}`;
+    if (now !== seen.current) {
+      seen.current = now;
+      void reload();
+    }
+  }, [unread.inbox, unread.requests]);
   const back = () => (router.canGoBack() ? router.back() : router.replace("/feed"));
 
   return (
@@ -48,9 +60,14 @@ export default function Messages() {
       <View style={{ gap: space[4] }}>
         <View style={{ flexDirection: "row", alignItems: "center", gap: space[2] }}>
           {!wide && <IconButton icon="back" label="Back" onPress={back} />}
-          <Text style={[type.h2, { color: c.ink }]}>Messages</Text>
+          <Text style={[type.h2, { color: c.ink, flex: 1 }]}>Messages</Text>
+          <IconButton icon="plus" label="New message" onPress={() => router.push("/messages/compose")} />
         </View>
-        {!wide && (
+        {channelsHidden ? (
+          <View style={{ flexDirection: "row" }}>
+            <Chip label="Show channels" onPress={() => void saveChatSettings({ channelsHidden: false }).catch(() => {})} />
+          </View>
+        ) : !wide && (
           <View style={{ flexDirection: "row", flexWrap: "wrap", gap: space[2] }}>
             {["lobby", "feedback", "news"].map((id) => (
               <Chip key={id} label={`#${id}`} onPress={() => router.push({ pathname: "/chat", params: { c: id } })} />

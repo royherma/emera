@@ -21,6 +21,8 @@
   ],
   "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "emera-media-dev" }],
   "images": { "binding": "IMAGES" },
+  "durable_objects": { "bindings": [{ "name": "CHAT_LIVE", "class_name": "ChatLive" }] },
+  "migrations": [{ "tag": "v1-chat-live", "new_sqlite_classes": ["ChatLive"] }],
 
   "env": {
     "staging": {
@@ -41,6 +43,7 @@
       ],
       "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "emera-media-staging" }],
       "images": { "binding": "IMAGES" },
+      "durable_objects": { "bindings": [{ "name": "CHAT_LIVE", "class_name": "ChatLive" }] },
       "media": { "binding": "VIDEO" },
       "ai": { "binding": "AI" },
       "queues": {
@@ -63,6 +66,7 @@
       ],
       "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "emera-media-prod" }],
       "images": { "binding": "IMAGES" },
+      "durable_objects": { "bindings": [{ "name": "CHAT_LIVE", "class_name": "ChatLive" }] },
       "media": { "binding": "VIDEO" },
       "ai": { "binding": "AI" },
       "queues": {

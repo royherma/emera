@@ -2,7 +2,7 @@ import type { Media } from "./types";
 
 export type Box = { width: number; height: number };
 
-export const FEED = { min: 9 / 16, max: 1.91, fallback: 0.8 } as const;
+export const FEED = { min: 0.8, max: 1.91, fallback: 0.8 } as const;
 export const FULL = { min: 0.5, max: 2.4, fallback: 0.8 } as const;
 
 type Limits = { min: number; max: number; fallback: number };
@@ -17,4 +17,6 @@ export function fitBox(ratio: number, room: Box): Box {
   return { width, height: Math.max(1, Math.round(Math.min(width / ratio, room.height))) };
 }
 
-export const feedBox = (media: Media | undefined, width: number, maxHeight = Infinity): Box => fitBox(aspect(media, FEED), { width, height: maxHeight });
+export const feedBox = (media: Media | undefined, width: number): Box => ({ width, height: Math.round(width / aspect(media, FEED)) });
+
+export const feedColumn = (column: number, screenHeight: number, chrome: number) => Math.min(column, Math.round(Math.max(360, screenHeight - chrome) * FEED.min));

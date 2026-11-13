@@ -40,6 +40,9 @@ Later, a **community** is a group of channels with its own moderators. `channels
 5. **Report.** Any message can be reported into the existing `flags` queue. For a private message, the reporter's copy of that one message is attached as evidence, so a moderator never has to open anyone's inbox.
 6. **Channels are public to members.** The composer says it once: "Everyone on Emera can read #lobby".
 7. **No read receipts, no typing dots, no "online" status** in v1. Each one leaks when you are around.
+8. **You pick who can write first**: everyone, people you follow, or no one (Settings). Existing conversations keep working.
+9. **Mute a conversation**: it stays in the inbox but stops counting as unread.
+10. **Hide channels**: one tap on the rail or in Settings; saved on the account, so every device follows it.
 
 ## End-to-end encryption (step 3)
 
@@ -47,7 +50,7 @@ Server-side sealing protects against a leaked database, not against Emera itself
 
 ## Steps
 
-1. Channels + messages on D1, polling (this change).
-2. Durable Object `ChatRoom` per channel and thread for live delivery; app swaps the poll for a socket.
+1. Channels + messages on D1, polling. Done 2026-11-13.
+2. Live delivery: Durable Object `ChatLive` per room (`channel:<id>`, `dm:<id>`, `user:<id>`) with hibernating WebSockets. It only sends "something new"; the app fetches through the normal endpoints, so blocks, mutes and sealing stay in one place. Poll drops to every 30 s while the socket is open. Done 2026-11-13.
 3. End-to-end encryption for messages (MLS).
 4. Communities: a set of channels, its own moderators and rules page.

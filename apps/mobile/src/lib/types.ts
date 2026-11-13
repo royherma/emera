@@ -74,11 +74,14 @@ export type FlagReason = "spam" | "harassment" | "hate" | "violence" | "nudity" 
 export type SearchKind = "people" | "posts";
 
 export type ChatUser = { id: string; handle: string | null; displayName: string; avatarUrl: string | null };
-export type ChatMessage = { id: string; user: ChatUser; body: string; createdAt: string; mine: boolean; deleted: boolean };
+export type ChatMessage = { id: string; user: ChatUser; body: string; createdAt: string; mine: boolean; deleted: boolean; postId?: string | null; post?: Post | null };
 export type Channel = { id: string; name: string; topic: string; slowSeconds: number; unread: boolean };
-export type DmThread = { id: string; with: ChatUser; accepted: boolean; theyAccepted: boolean; lastAt: string; last: { body: string; mine: boolean; deleted: boolean } | null; unread: boolean };
+export type DmThread = { id: string; with: ChatUser; accepted: boolean; theyAccepted: boolean; muted?: boolean; lastAt: string; last: { body: string; mine: boolean; deleted: boolean } | null; unread: boolean };
 export type ChatPage = { messages: ChatMessage[]; before: string | null; latest: string | null; moderator?: boolean; thread?: DmThread };
 export type ChatRoomRef = { kind: "channel" | "dm"; id: string };
+export type DmFrom = "everyone" | "following" | "nobody";
+export type ChatSettings = { dmFrom: DmFrom; channelsHidden: boolean };
+export type DmWith = { user: ChatUser; thread: DmThread | null; canMessage: boolean; reason: string | null };
 
 export type PickedFile = { uri: string; mimeType: string; fileSize: number; width: number; height: number; kind: "image" | "video"; seconds?: number };
 
@@ -140,12 +143,12 @@ export interface Backend {
   flag(input: { targetType: "post" | "user"; targetId: string; reason: FlagReason; note: string }): Promise<void>;
   channels(): Promise<Channel[]>;
   roomMessages(room: ChatRoomRef, page?: { after?: string | null; before?: string | null }): Promise<ChatPage>;
-  sendMessage(room: ChatRoomRef, body: string): Promise<ChatMessage>;
+  sendMessage(room: ChatRoomRef, body: string, postId?: string): Promise<ChatMessage>;
   deleteMessage(room: ChatRoomRef, messageId: string): Promise<void>;
   markRoomRead(room: ChatRoomRef): Promise<void>;
   flagMessage(input: { kind: "channel" | "dm"; messageId: string; reason: FlagReason; note: string }): Promise<void>;
   threads(box: "inbox" | "requests"): Promise<DmThread[]>;
-  startThread(handle: string, body: string): Promise<{ thread: DmThread; message: ChatMessage }>;
+  startThread(handle: string, body: string, postId?: string): Promise<{ thread: DmThread; message: ChatMessage }>;
   acceptThread(id: string): Promise<DmThread>;
   hideThread(id: string): Promise<void>;
   dmUnread(): Promise<{ inbox: number; requests: number }>;
@@ -155,6 +158,11 @@ export interface Backend {
   sources(): Promise<ImportSource[]>;
   setSource(from: string, autoPost: boolean, rules?: ImportRules): Promise<ImportSource>;
   removeSource(id: string): Promise<void>;
+  liveUrl(room: ChatRoomRef | { kind: "me"; id?: string }): Promise<string | null>;
+  chatSettings(): Promise<ChatSettings>;
+  saveChatSettings(input: Partial<ChatSettings>): Promise<ChatSettings>;
+  dmWith(handle: string): Promise<DmWith>;
+  muteThread(id: string, muted: boolean): Promise<DmThread>;
 }
 
 export type ImportItem = { id: string; url: string; date: string | null; caption: string; photos: number; videos: number; thumb: string | null; onEmera: string | null };

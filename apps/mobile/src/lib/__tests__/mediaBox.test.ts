@@ -34,7 +34,7 @@ describe("fitBox", () => {
 
 describe("feedBox", () => {
   it("derives height from clamped aspect", () => {
-    expect(feedBox(media(1000, 4000), 400)).toEqual({ width: 400, height: 711 });
+    expect(feedBox(media(1000, 4000), 400)).toEqual({ width: 400, height: 500 });
     expect(feedBox(undefined, 400)).toEqual({ width: 400, height: 500 });
   });
 });

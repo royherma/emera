@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -9,7 +9,7 @@ import { api } from "@/lib/api";
 import { useLayout } from "@/lib/layout";
 import { confirmAsk } from "@/lib/share";
 import { radius, space, type } from "@/lib/theme";
-import { ApiError, type ChatUser, type DmThread } from "@/lib/types";
+import { ApiError, type ChatUser, type DmThread, type DmWith } from "@/lib/types";
 import { refreshDmUnread } from "@/state/dmUnread";
 import { useSheet } from "@/state/sheet";
 import { useTheme } from "@/state/theme";
@@ -41,8 +41,16 @@ function NewThread({ handle, onBack }: { handle: string; onBack: () => void }) {
   const toast = useToast();
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
+  const [w, setW] = useState<DmWith | null>(null);
+  useEffect(() => {
+    api.dmWith(handle).then((r) => {
+      if (r.thread) router.replace({ pathname: "/messages/[id]", params: { id: r.thread.id } });
+      else setW(r);
+    }, () => {});
+  }, [handle]);
+  const closed = w && !w.canMessage;
   const send = async () => {
-    if (!draft.trim() || busy) return;
+    if (!draft.trim() || busy || closed) return;
     setBusy(true);
     try {
       const r = await api.startThread(handle, draft);
@@ -54,11 +62,13 @@ function NewThread({ handle, onBack }: { handle: string; onBack: () => void }) {
   };
   return (
     <>
-      <Header who={{ id: "", handle, displayName: "", avatarUrl: null }} onBack={onBack} />
+      <Header who={w?.user ?? { id: "", handle, displayName: "", avatarUrl: null }} onBack={onBack} />
       <View style={{ flex: 1 }} />
+      {closed && <Text style={[type.bodySm, { color: c.ink3, textAlign: "center", padding: space[4] }]}>{w.reason}</Text>}
       <View style={{ flexDirection: "row", alignItems: "center", gap: space[2], padding: space[3], borderTopWidth: 1, borderTopColor: c.hair }}>
         <TextInput
           autoFocus
+          editable={!closed}
           value={draft}
           onChangeText={setDraft}
           onSubmitEditing={send}
@@ -104,8 +114,19 @@ export default function Thread() {
       }
     });
   };
+  const mute = async () => {
+    if (!thread) return;
+    try {
+      setThread(await api.muteThread(id, !thread.muted));
+      toast(thread.muted ? "Unmuted" : "Muted. It won't count as unread.");
+      void refreshDmUnread();
+    } catch (e) {
+      toast(e instanceof ApiError ? e.message : "Something went wrong. Try again.");
+    }
+  };
   const menu = () =>
     sheet([
+      { label: thread?.muted ? "Unmute" : "Mute", icon: thread?.muted ? "bell" : "muted", onPress: mute },
       { label: "Report account", icon: "flag", onPress: () => thread && router.push({ pathname: "/flag", params: { type: "user", id: thread.with.id, name: thread.with.handle ?? "" } }) },
       { label: "Block", icon: "x", destructive: true, onPress: block },
       { label: "Delete conversation", icon: "trash", destructive: true, onPress: () => confirmAsk("Delete this conversation?", "It's removed from your inbox. They keep their copy.", "Delete", hide) },

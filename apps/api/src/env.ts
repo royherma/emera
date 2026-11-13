@@ -10,6 +10,7 @@ export type Env = {
   SEED_INVITE_CODE: string;
   PROOF_SECRET: string;
   CHAT_KEY?: string;
+  CHAT_LIVE: DurableObjectNamespace<import('./live').ChatLive>;
   PUBLIC_ORIGIN: string;
   SENTRY_DSN?: string;
   RESEND_API_KEY?: string;
