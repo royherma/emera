@@ -14,7 +14,7 @@ const REQUEST_CAP = 3;
 const PAGE = 50;
 const PREVIEW = 80;
 
-type Who = { user_id: string; handle: string | null; display_name: string; avatar_url: string | null };
+type Who = { user_id: string; handle: string | null; display_name: string; avatar_url: string | null; role?: string | null };
 type MsgRow = Who & { id: string; body?: string; sealed?: string; post_id?: string | null; created_at: number; deleted_at: number | null };
 type DmFrom = 'everyone' | 'following' | 'nobody';
 const DM_FROM: DmFrom[] = ['everyone', 'following', 'nobody'];
@@ -80,7 +80,7 @@ async function rateLimit(env: Env, userId: string) {
 const blockedEitherWay = (env: Env, a: string, b: string) =>
   env.DB.prepare('SELECT 1 AS x FROM blocks WHERE (blocker_id = ?1 AND blocked_id = ?2) OR (blocker_id = ?2 AND blocked_id = ?1)').bind(a, b).first();
 
-const who = (r: Who) => ({ id: r.user_id, handle: r.handle, displayName: r.display_name, avatarUrl: r.avatar_url });
+const who = (r: Who) => ({ id: r.user_id, handle: r.handle, displayName: r.display_name, avatarUrl: r.avatar_url, role: r.role ?? null });
 
 function messageJson(r: MsgRow, body: string, me: string, post: unknown = null) {
   const deleted = r.deleted_at !== null;
@@ -106,7 +106,7 @@ const closedReason = (handle: string | null, dmFrom: DmFrom) =>
 async function pageOf(c: Context<AppEnv>, table: 'channel_messages' | 'dm_messages', where: string, args: (string | number)[]) {
   const after = decodeCur(c.req.query('after'));
   const before = decodeCur(c.req.query('before'));
-  const base = `SELECT m.*, u.handle, u.display_name, u.avatar_url FROM ${table} m JOIN users u ON u.id = m.user_id WHERE ${where}`;
+  const base = `SELECT m.*, u.handle, u.display_name, u.avatar_url, u.role FROM ${table} m JOIN users u ON u.id = m.user_id WHERE ${where}`;
   let rows: MsgRow[];
   let older = false;
   if (after) {
@@ -144,7 +144,7 @@ async function channelFor(c: Context<AppEnv>): Promise<ChannelRow> {
 }
 
 const isMod = async (env: Env, channelId: string, userId: string) =>
-  !!(await env.DB.prepare(`SELECT 1 AS x FROM channel_mods WHERE user_id = ? AND channel_id IN (?, '*')`).bind(userId, channelId).first());
+  !!(await env.DB.prepare(`SELECT 1 AS x FROM channel_mods WHERE user_id = ?1 AND channel_id IN (?2, '*') UNION SELECT 1 FROM users WHERE id = ?1 AND role IN ('admin', 'mod')`).bind(userId, channelId).first());
 
 const markChannelRead = (env: Env, channelId: string, userId: string, at: number) =>
   env.DB.prepare('INSERT INTO channel_reads (channel_id, user_id, read_at) VALUES (?, ?, ?) ON CONFLICT (channel_id, user_id) DO UPDATE SET read_at = MAX(read_at, excluded.read_at)')
@@ -185,7 +185,7 @@ chatRoutes.post('/v1/channels/:id/messages', requireAuth, requireHandle, async (
   ]);
   await markChannelRead(c.env, ch.id, me.id, now);
   await poke(c, `channel:${ch.id}`);
-  const row: MsgRow = { id, user_id: me.id, handle: me.handle, display_name: me.display_name, avatar_url: me.avatar_url, body: text, created_at: now, deleted_at: null };
+  const row: MsgRow = { id, user_id: me.id, handle: me.handle, display_name: me.display_name, avatar_url: me.avatar_url, role: me.role ?? null, body: text, created_at: now, deleted_at: null };
   return c.json({ message: messageJson(row, text, me.id) }, 201);
 });
 
@@ -208,10 +208,10 @@ chatRoutes.delete('/v1/channels/:id/messages/:mid', requireAuth, async (c) => {
 
 type ThreadRow = {
   id: string; last_at: number; accepted: number; read_at: number; muted: number; other_id: string; other_accepted: number;
-  handle: string | null; display_name: string; avatar_url: string | null;
+  handle: string | null; display_name: string; avatar_url: string | null; role?: string | null;
 };
 
-const THREAD_SELECT = `SELECT t.id, t.last_at, me.accepted, me.read_at, me.muted, o.user_id AS other_id, o.accepted AS other_accepted, u.handle, u.display_name, u.avatar_url
+const THREAD_SELECT = `SELECT t.id, t.last_at, me.accepted, me.read_at, me.muted, o.user_id AS other_id, o.accepted AS other_accepted, u.handle, u.display_name, u.avatar_url, u.role
   FROM dm_members me JOIN dm_threads t ON t.id = me.thread_id
   JOIN dm_members o ON o.thread_id = t.id AND o.user_id != me.user_id
   JOIN users u ON u.id = o.user_id
@@ -224,7 +224,7 @@ async function threadJson(env: Env, t: ThreadRow) {
   const text = said || (last?.post_id && last.deleted_at === null ? 'Sent a post' : '');
   return {
     id: t.id,
-    with: { id: t.other_id, handle: t.handle, displayName: t.display_name, avatarUrl: t.avatar_url },
+    with: { id: t.other_id, handle: t.handle, displayName: t.display_name, avatarUrl: t.avatar_url, role: t.role ?? null },
     accepted: !!t.accepted,
     theyAccepted: !!t.other_accepted,
     muted: !!t.muted,

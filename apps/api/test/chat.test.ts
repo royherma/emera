@@ -63,6 +63,19 @@ describe('channels', () => {
     expect(after).toMatchObject({ deleted: true, body: '' });
   });
 
+  it('shows a role badge on names and lets a mod role delete', async () => {
+    const [ivy, jon] = [await person('ivy_ch'), await person('jon_ch')];
+    const m = (await jon.json('POST', '/v1/channels/lobby/messages', { body: 'hi all' })).body.message;
+    expect(m.user.role).toBeNull();
+    await env.DB.prepare(`UPDATE users SET role = 'mod' WHERE handle = 'ivy_ch'`).run();
+    const said = (await ivy.json('POST', '/v1/channels/lobby/messages', { body: 'welcome' })).body.message;
+    expect(said.user.role).toBe('mod');
+    const list = (await jon.json('GET', '/v1/channels/lobby/messages')).body.messages;
+    expect(list.find((x: any) => x.id === said.id).user.role).toBe('mod');
+    expect((await ivy.json('GET', '/v1/users/ivy_ch')).body.user.role).toBe('mod');
+    expect((await ivy.json('DELETE', `/v1/channels/lobby/messages/${m.id}`)).status).toBe(200);
+  });
+
   it('enforces slow mode and the per-minute cap', async () => {
     const hal = await person('hal_ch');
     await env.DB.prepare(`UPDATE channels SET slow_seconds = 30 WHERE id = 'news'`).run();

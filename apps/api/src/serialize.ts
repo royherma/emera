@@ -26,7 +26,7 @@ function parseLinks(raw: string | undefined): string[] {
 }
 
 export function userJson(u: UserRow, social?: SocialInfo) {
-  return { id: u.id, handle: u.handle, displayName: u.display_name, bio: u.bio, links: parseLinks(u.links), avatarUrl: u.avatar_url, createdAt: iso(u.created_at), ...social };
+  return { id: u.id, handle: u.handle, displayName: u.display_name, bio: u.bio, links: parseLinks(u.links), avatarUrl: u.avatar_url, role: u.role ?? null, createdAt: iso(u.created_at), ...social };
 }
 
 export async function usersJson(c: Context<AppEnv>, rows: UserRow[]) {
