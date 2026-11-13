@@ -1,38 +1,9 @@
 {
   "updated": "2026-11-13",
   "filed": "2026-11-13: 8 combined projects posted as royherma/emera #1-#8",
-  "note": "Repo is public. Drafts not in #1-#8 are not filed yet.",
-  "count": 29,
+  "note": "Repo is public. #1-#8 combine 13 of these drafts; the other 11 wait on Roy (Review card issues-2).",
+  "count": 24,
   "issues": [
-    {
-      "title": "Add GitHub Actions CI for typecheck and tests",
-      "labels": [
-        "good first issue",
-        "help wanted",
-        "ci"
-      ],
-      "area": "`.github/workflows/`, `apps/api/package.json`, `apps/mobile/package.json`",
-      "body": "Nothing runs on pull requests yet. Run the existing checks on every PR.\n\n## Acceptance criteria\n- [ ] Workflow runs `npm --prefix apps/api run typecheck` and `npm --prefix apps/api test` on pull_request\n- [ ] Workflow runs `npm --prefix apps/mobile run check`\n- [ ] Old runs cancel when a PR gets a new push\n- [ ] Actions are pinned by commit SHA\n- [ ] Badge added to README.md\n\n## Where to look\n`.github/workflows/`, `apps/api/package.json`, `apps/mobile/package.json`"
-    },
-    {
-      "title": "Add issue forms and a pull request template",
-      "labels": [
-        "good first issue",
-        "help wanted",
-        "docs"
-      ],
-      "area": "`.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md`",
-      "body": "Issue forms keep reports complete. Model them on the Bluesky social-app forms.\n\n## Acceptance criteria\n- [ ] Bug form with steps, expected, actual, platform dropdown and an attachment field\n- [ ] Feature form with the problem it solves\n- [ ] PR template with what changed, how it was tested, screenshots\n- [ ] `config.yml` links to Discussions and the security address\n\n## Where to look\n`.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md`"
-    },
-    {
-      "title": "Add CODE_OF_CONDUCT.md and SECURITY.md",
-      "labels": [
-        "help wanted",
-        "docs"
-      ],
-      "area": "repo root",
-      "body": "Both files are required before the repo goes public. The founder supplies the contact addresses.\n\n## Acceptance criteria\n- [ ] CODE_OF_CONDUCT.md based on Contributor Covenant 2.1 with a named enforcement address\n- [ ] SECURITY.md with a private address and a response time\n- [ ] Both linked from README.md and CONTRIBUTING.md\n\n## Where to look\nrepo root"
-    },
     {
       "title": "Replay D1 migrations from empty in CI",
       "labels": [
@@ -234,16 +205,6 @@
       "body": "Animations must stop and text must grow with system settings.\n\n## Acceptance criteria\n- [ ] Reduce Motion disables transitions and autoplay loops\n- [ ] Text scales to the largest setting without clipping on the feed and profile screens\n- [ ] Screenshots at 100% and 200%\n\n## Where to look\n`apps/mobile/src/components`"
     },
     {
-      "title": "Seed script for a full local demo",
-      "labels": [
-        "good first issue",
-        "help wanted",
-        "devex"
-      ],
-      "area": "`apps/api/scripts`",
-      "body": "New contributors should see a feed within one command.\n\n## Acceptance criteria\n- [ ] `npm run seed` creates 5 invented creators with CC0 images listed in `brand/content/sources.json`\n- [ ] Works against the local API and the app with mock mode off\n- [ ] Documented in CONTRIBUTING.md\n- [ ] No real people and no scraped images\n\n## Where to look\n`apps/api/scripts`"
-    },
-    {
       "title": "Docker image for the API",
       "labels": [
         "help wanted",
@@ -260,15 +221,6 @@
       ],
       "area": "`apps/site`",
       "body": "The mission promises a live page of what Emera costs this month.\n\n## Acceptance criteria\n- [ ] Spec in `docs/`\n- [ ] Static page reading a JSON file of monthly costs\n- [ ] Source of each line named\n\n## Where to look\n`apps/site`"
-    },
-    {
-      "title": "Privacy-first visitor counts for the landing page",
-      "labels": [
-        "help wanted",
-        "privacy"
-      ],
-      "area": "`apps/site`",
-      "body": "We need visitor numbers without cookies or personal data.\n\n## Acceptance criteria\n- [ ] Counts page views and referrers only, no IP stored\n- [ ] Published list of what is counted\n- [ ] Do Not Track honored\n\n## Where to look\n`apps/site`"
     },
     {
       "title": "Fresh-machine test of CONTRIBUTING.md",
