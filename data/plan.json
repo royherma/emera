@@ -782,7 +782,7 @@
     ]
   },
   "mission": {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "mission": "Make Emera the open home where humanity's creative work lives: every piece signed by its maker, protected wherever we can see it, shown by rules anyone can read, and paid back to the people who made it.",
     "values": [
       {
@@ -813,7 +813,8 @@
         "name": "Welcome first",
         "line": "A first post and a thousandth post get the same welcome, and nobody has to be against anyone to belong."
       }
-    ]
+    ],
+    "why": "As a technologist and a creative, it's hard to watch people get unfairly ripped off when I know it's solvable. AI now gives us the ability to build the protection, treat creators fairly, and reward work that brings humanity together instead of pushing us apart. I don't want to wait for the platforms to change. If you dream it, it can become a reality."
   },
   "workstreams": [
     {

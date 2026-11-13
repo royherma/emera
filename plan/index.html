@@ -131,7 +131,7 @@ function render() {
   const ws = $('ws'); ws.replaceChildren();
   for (const w of plan.workstreams ?? []) { const d = el('div', w.state); const b = el('b', ''); b.append(el('i'), w.name); d.append(b, el('span', '', w.state === 'running' ? `agent working: ${w.note}` : w.note)); ws.append(d); }
   const mi = $('mission'); mi.replaceChildren(); mi.className = 'mis';
-  if (plan.mission) { mi.append(el('p', '', plan.mission.mission)); for (const v of plan.mission.values) { const d = el('div', 'v'); d.append(el('b', '', v.name), el('span', '', v.line)); mi.append(d); } mi.append(el('div', 'why', `v${plan.mission.version} · improves by community vote, see docs/mission`)); }
+  if (plan.mission) { if (plan.mission.why) mi.append(el('div', 'why', `Why: ${plan.mission.why}`)); mi.append(el('p', '', plan.mission.mission)); for (const v of plan.mission.values) { const d = el('div', 'v'); d.append(el('b', '', v.name), el('span', '', v.line)); mi.append(d); } mi.append(el('div', 'why', `v${plan.mission.version} · improves by community vote, see docs/mission`)); }
   const as = $('asks'); as.replaceChildren();
   for (const a of plan.asks ?? []) { const d = el('div', 'ask'); const b = el('b', '', a.title); b.append(el('i', '', a.when)); d.append(b, el('span', '', a.why)); as.append(d); }
   const decs = $('decs'); decs.replaceChildren();

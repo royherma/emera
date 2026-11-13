@@ -1,6 +1,16 @@
 # Emera mission, values and manifesto
 
-Version 1.0.0, 2026-11-13. Machine copy: `values.json`. How this changes: `how-values-change.md`. History: `CHANGELOG.md`.
+Version 1.1.0, 2026-11-13. Machine copy: `values.json`. How this changes: `how-values-change.md`. History: `CHANGELOG.md`.
+
+## Why Emera exists
+
+In the founder's words (2026-11-13):
+
+> As a technologist, and as a creative, it's hard for me to see people unfairly get ripped off, especially because I know it's something that is solvable.
+>
+> There are lots of upsides and beauty in technology, especially now. Our only reality is to rely on platforms that I think could do a better job. I hope maybe this changes them, but if not, I don't want to wait. There are too many things that can help, too many people with too much opportunity to waste time waiting. We can make a thing, we can make an impact, especially now.
+>
+> AI gives us the ability to build these things. There are ways to protect, ways to treat people fairly, and ways to incentivize people to create things that benefit humanity rather than push us apart. That's what I'm hoping to help with. This is my one man on an island's cry for help. If you dream it, it can become a reality.
 
 ## Mission
 

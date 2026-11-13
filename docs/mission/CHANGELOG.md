@@ -2,6 +2,11 @@
 
 Format: `MAJOR.MINOR.PATCH`. Major: a value added, retired, or a "never" changed. Minor: a commitment added, removed or changed. Patch: wording only, same meaning. Every entry names who proposed it, the vote or board decision, and the real decision that prompted it. Rules: `how-values-change.md`.
 
+## 1.1.0 - 2026-11-13
+
+- Added "Why Emera exists": the founder's own words on why this has to be built now (creators unfairly ripped off, a solvable problem, AI makes the protection buildable, reward work that brings humanity together).
+- Proposed and decided by: the founder.
+
 ## 1.0.0 - 2026-11-13
 
 First version, written for the founder's review.
