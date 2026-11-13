@@ -157,6 +157,11 @@ const seedLikes: [number, string[]][] = [
   [4, ["koji"]],
 ];
 for (const [i, who] of seedLikes) likes.set(posts[i].id, new Set(who.map((h) => users.get(h)!.id)));
+const watchers = ["jonas_w", "tamsin", "noor", "bram", "mina", "ila_makes", "odd_type"];
+posts.filter((p) => p.media.some((m) => m.kind === "video")).forEach((p, i) => {
+  const who = watchers.filter((h) => h !== p.author.handle).slice(0, 3 + i * 2);
+  views.set(p.id, new Map(who.map((h, j) => [users.get(h)!.id, Date.now() - (j + 1) * 47 * 60_000])));
+});
 const seedComments: [number, string, string, number, string?][] = [
   [0, "jonas_w", "That blue is unreal. What time did you set out?", 90],
   [0, "mina", "Left at five, the light lasted about twenty minutes.", 60, "c_1"],
@@ -418,7 +423,7 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
   async views(postId) {
     await wait();
     const seen = [...(views.get(postId) ?? new Map<string, number>())].sort((a, b) => b[1] - a[1]);
-    const ledger = seen.map(([id, at], i) => ({ viewer: (id + "000000000000").replace(/[^0-9a-f]/g, "a").slice(0, 12), hour: new Date(Math.floor(at / 3_600_000) * 3_600_000).toISOString(), follower: i % 2 === 0, accountAge: "a month or more" }));
+    const ledger = seen.map(([id, at], i) => ({ viewer: [...`${postId}:${id}`].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) >>> 0, 7).toString(16).padStart(8, "0") + String(i).padStart(4, "0"), hour: new Date(Math.floor(at / 3_600_000) * 3_600_000).toISOString(), follower: i % 2 === 0, accountAge: "a month or more" }));
     return { postId, viewCount: seen.length, followers: ledger.filter((r) => r.follower).length, newAccounts: 0, rule: VIEW_RULE, ledger, more: false };
   },
   async comments(postId) {
