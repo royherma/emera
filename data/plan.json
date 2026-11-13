@@ -1,5 +1,5 @@
 {
-  "updated": "11:38 AM Bangkok",
+  "updated": "11:43 AM Bangkok",
   "title": "Emera",
   "goal": "Emera. Where humanity comes together - you post, share the link, invite people",
   "phases": [
@@ -40,8 +40,9 @@
         },
         {
           "id": "a5",
-          "text": "Pick a direction",
-          "who": "roy"
+          "text": "Pick a direction: Twilight",
+          "who": "roy",
+          "done": true
         },
         {
           "id": "a6",
@@ -750,7 +751,7 @@
     }
   ],
   "brand": {
-    "note": "Light x Daylight, dense real UI, no Tip. Click to open full size.",
+    "note": "Picked: Twilight. DESIGN.md, app + site restyle and new logos in progress.",
     "items": [
       {
         "id": "full-beam",
@@ -771,7 +772,7 @@
         "name": "Twilight (day + night)",
         "png": ".claude/artifacts/brand/full-twilight.png",
         "html": "brand/directions/full-twilight.html",
-        "vote": null
+        "vote": "keep"
       },
       {
         "id": "mono-light",
@@ -834,24 +835,9 @@
       "note": "emera.social live (200)"
     },
     {
-      "name": "Architecture",
-      "state": "done",
-      "note": "AT Protocol plan + proof test"
-    },
-    {
-      "name": "Brand",
-      "state": "done",
-      "note": "3 directions + PRODUCT.md"
-    },
-    {
       "name": "Mission",
       "state": "done",
       "note": "v1.0.0, 7 values"
-    },
-    {
-      "name": "Real-content mockup",
-      "state": "done",
-      "note": "25 makers, 18 mediums + you"
     },
     {
       "name": "Master plan",
@@ -864,29 +850,24 @@
       "note": "Dec 15 launch, 3,700 list target, 10 video ideas"
     },
     {
-      "name": "Black + white",
-      "state": "done",
-      "note": "Gallery, Archive, Light"
-    },
-    {
       "name": "Atlas",
       "state": "done",
       "note": "89% of 18 stories built, /atlas"
     },
     {
-      "name": "Color + polish round",
-      "state": "done",
-      "note": "Beam, Midday, Twilight"
+      "name": "Logo + icon",
+      "state": "running",
+      "note": "many concepts, app icon, favicon"
     },
     {
-      "name": "Invite fix",
-      "state": "done",
-      "note": "sign-up with invite works end to end"
+      "name": "App in Twilight",
+      "state": "running",
+      "note": "DESIGN.md + tokens + restyle"
     },
     {
-      "name": "Sign-in email",
-      "state": "done",
-      "note": "api.emera.social live, email delivered"
+      "name": "Site in Twilight",
+      "state": "running",
+      "note": "emera.social restyle"
     }
   ],
   "asks": [
