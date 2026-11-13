@@ -440,7 +440,8 @@ function print(o) {
   console.log('  missing, by stories blocked:');
   for (const m of o.missing.slice(0, 8)) console.log(`    ${m.blocks}  ${m.label}`);
   console.log(`  drift: ${o.drift.length}  unmapped: ${o.unmapped.endpoints.length} endpoints, ${o.unmapped.screens.length} screens, ${o.unmapped.tables.length} tables`);
-  console.log(`  platforms: ${Array.isArray(o.platforms?.platforms ?? o.platforms) ? (o.platforms.platforms ?? o.platforms).length : 'waiting for data/platforms.json'}`);
+  const pl = Array.isArray(o.platforms) ? o.platforms : o.platforms?.items ?? o.platforms?.platforms;
+  console.log(`  platforms: ${pl ? `${pl.filter((p) => p.status === 'live').length} of ${pl.length} live` : 'waiting for data/platforms.json'}`);
 }
 
 function once() {

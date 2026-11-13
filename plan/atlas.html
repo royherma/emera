@@ -62,6 +62,7 @@ nav button.on{color:var(--fg);border-bottom-color:var(--fg)}
 .note{font-size:11px;color:var(--mute)}
 #system.on{display:grid;grid-template-columns:1fr 300px}
 #sysgraph{padding:6px 10px;overflow:auto}
+#sysgraph svg{display:block}
 #envs{border-left:1px solid var(--line);padding:12px 16px;overflow:auto;font-size:12px}
 #envs h3{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
 .env{margin-bottom:12px;border-bottom:1px solid var(--line);padding-bottom:8px}
@@ -98,9 +99,13 @@ ul.l li{margin:2px 0}
 #plat .top b{font-size:34px;letter-spacing:-.02em}
 .leg{display:flex;gap:14px;font-size:12px}
 .sw{display:inline-block;width:12px;height:12px;border:1px solid var(--fg);vertical-align:-2px;margin-right:4px}
-.grp{margin:12px 0 4px}
+.grp{margin:4px 0 4px;text-transform:uppercase;font-size:11px;letter-spacing:.06em}
+.groups{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:4px 14px;align-items:start}
+.card{margin-bottom:4px}
+.card em{font:normal 10px var(--mono);float:right;opacity:.8}
+.card small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:6px}
-.card{border:1px solid var(--fg);padding:7px 10px;min-height:48px}
+.card{border:1px solid var(--fg);padding:5px 9px}
 .card b{display:block;font-size:13px}
 .card small{display:block;font-size:11px;opacity:.75}
 .s-live{background:var(--fg);color:var(--bg)}
@@ -225,7 +230,7 @@ function renderSystem() {
     const m = (ax + bx) / 2; return `M${ax},${ay} C${m},${ay} ${m},${by} ${bx},${by}`;
   };
   const heads = { screen: 'Screens', ep: 'Endpoints', data: 'Data', lex: 'AT Protocol' };
-  let svg = `<svg id="sv" viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W * 1.5}px;min-width:${W}px" xmlns="http://www.w3.org/2000/svg">`;
+  let svg = `<svg id="sv" viewBox="0 0 ${W} ${H}" width="100%" height="calc(100% - 30px)" preserveAspectRatio="xMinYMin meet" style="height:calc(100% - 30px);min-height:560px" xmlns="http://www.w3.org/2000/svg">`;
   for (const k of Object.keys(heads)) svg += `<text class="colhead" x="${xs[k]}" y="14">${heads[k]}</text>`;
   svg += edges.map((e, i) => { const a = byId.get(e.from), b = byId.get(e.to); return a && b ? `<path class="edge ${e.kind}" data-a="${esc(e.from)}" data-b="${esc(e.to)}" d="${path(a, b)}"/>` : ''; }).join('');
   for (const k of Object.keys(col)) for (const n of col[k]) {
@@ -258,14 +263,15 @@ function renderPlat() {
   const raw = A.platforms;
   if (!raw) { $('plat').innerHTML = '<div class="wait">waiting for data/platforms.json</div>'; return; }
   if (raw.error) { $('plat').innerHTML = `<div class="wait red">${esc(raw.error)}</div>`; return; }
-  const list = (Array.isArray(raw) ? raw : raw.platforms ?? Object.values(raw).find(Array.isArray) ?? []).map((p) => ({ ...p, st: String(p.status ?? 'idea').toLowerCase().replace(/[\s_]+/g, '-') }));
+  const list = (Array.isArray(raw) ? raw : raw.items ?? raw.platforms ?? Object.values(raw).find(Array.isArray) ?? []).map((p) => ({ ...p, st: String(p.status ?? 'idea').toLowerCase().replace(/[\s_]+/g, '-') }));
   const order = ['live', 'in-code', 'planned', 'idea'];
   const label = { live: 'live', 'in-code': 'in code', planned: 'planned', idea: 'idea' };
   const n = (k) => list.filter((p) => p.st === k).length;
   const groups = new Map();
   for (const p of list) { const g = p.group ?? p.category ?? p.type ?? 'Platforms'; if (!groups.has(g)) groups.set(g, []); groups.get(g).push(p); }
   const cls = (st) => 's-' + (order.includes(st) ? st : 'idea');
-  $('plat').innerHTML = `<div class="top"><b>${n('live')} of ${list.length} live</b><div class="leg">${order.map((k) => `<span><i class="sw ${cls(k)}"></i>${label[k]} ${n(k)}</span>`).join('')}</div></div>${[...groups].map(([g, ps]) => `<div class="grp mute">${esc(g)}</div><div class="grid">${ps.map((p) => `<div class="card ${cls(p.st)}"><b>${esc(p.name ?? p.id)}</b><small>${esc(label[p.st] ?? p.st)}${p.note ? ' - ' + esc(p.note) : ''}</small></div>`).join('')}</div>`).join('')}`;
+  const key = raw.statusKey ?? {};
+  $('plat').innerHTML = `<div class="top"><b>${n('live')} of ${list.length} live</b><div class="leg">${order.map((k) => `<span title="${esc(key[label[k]] ?? '')}"><i class="sw ${cls(k)}"></i>${label[k]} ${n(k)}</span>`).join('')}</div></div><div class="groups">${[...groups].map(([g, ps]) => `<div><div class="grp mute">${esc(g)}</div>${ps.map((p) => `<div class="card ${cls(p.st)}" title="${esc([p.path, p.note].filter(Boolean).join(' - '))}"><b>${esc(p.name ?? p.id)} <em>${esc(label[p.st] ?? p.st)}</em></b><small>${esc(p.why ?? p.note ?? '')}</small></div>`).join('')}</div>`).join('')}</div>`;
 }
 
 function renderAll() {
