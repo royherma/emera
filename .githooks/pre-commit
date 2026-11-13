@@ -1,0 +1,18 @@
+#!/bin/sh
+[ -n "$CI" ] && exit 0
+
+staged=$(git diff --cached --name-only --diff-filter=ACMR)
+status=0
+
+for app in apps/api apps/mobile; do
+  printf '%s\n' "$staged" | grep -Eq "^$app/.*\.(ts|tsx)$" || continue
+  if [ ! -d "$app/node_modules" ]; then
+    echo "pre-commit: skipped $app typecheck, run npm --prefix $app install"
+    continue
+  fi
+  echo "pre-commit: typecheck $app"
+  npm --prefix "$app" run --silent typecheck || status=1
+done
+
+[ "$status" -eq 0 ] || echo "pre-commit: typecheck failed (git commit --no-verify skips it)"
+exit "$status"

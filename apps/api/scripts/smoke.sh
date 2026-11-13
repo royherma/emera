@@ -81,7 +81,7 @@ MEDIA_ID="$(echo "$up" | field media.id)"
 MEDIA_URL="$(echo "$up" | field media.url)"
 expect "width x height" "$(echo "$up" | field media.width)x$(echo "$up" | field media.height)" "64x48"
 LOCAL_SHA="$(shasum -a 256 "$WORK/pic.png" | cut -d' ' -f1)"
-expect "sha256 matches local file" "$(echo "$up" | field media.sha256)" "$LOCAL_SHA"
+expect "source sha256 matches local file" "$(echo "$up" | field media.proof.sourceSha256)" "$LOCAL_SHA"
 echo "proof: $(echo "$up" | field media.proof.signer) at $(echo "$up" | field media.proof.signedAt) sig $(echo "$up" | field media.proof.signature | cut -c1-16)..."
 
 step "read the media back from /media"
