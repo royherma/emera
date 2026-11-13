@@ -75,8 +75,10 @@ footer{max-width:935px;margin:0 auto;padding:24px 16px 40px;color:var(--soft);fo
 
 type Meta = { title: string; description: string; url: string; image?: Still; video?: Media; type?: string; extraHead?: string };
 
+const SHARE_CARD: Still = { url: `https://${BRAND.domain}/assets/og.png`, width: 1200, height: 630 };
+
 function layout(meta: Meta, body: string, status = 200) {
-  const img = meta.image;
+  const img = meta.image ?? SHARE_CARD;
   const full = `${meta.title}`;
   const head = [
     `<meta charset="utf-8">`,
