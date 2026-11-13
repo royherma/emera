@@ -2,7 +2,7 @@ Emera brand kit
 
 Logo: emera-logo.png (dark ink, see-through), emera-logo-white.png (for dark backgrounds),
       emera-logo-on-day.png, emera-logo-on-night.png
-Mark: emera-mark.svg, emera-mark-white.svg, emera-mark-detailed.svg (large sizes)
+Mark: emera-mark.svg (lit), emera-mark-white.svg (lit, for dark backgrounds), emera-mark-ink.svg, emera-mark-detailed-ink.svg
 App icon: emera-icon.png, emera-icon-dark.png, emera-icon-square.png, emera-favicon.svg
 Icons: icons/*.svg (24 px grid, 1.7 stroke, round caps)
 Colors: emera-colors.css, emera-colors.json

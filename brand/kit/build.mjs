@@ -18,13 +18,15 @@ fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, "icons"), { recursive: true });
 
 const recolor = (svg, color) => svg.replace(/currentColor/g, color);
-const small = fs.readFileSync(path.join(FINAL, "mark-small.svg"), "utf8");
+const small = fs.readFileSync(path.join(FINAL, "mark-lit-symbol.svg"), "utf8");
+const ink = fs.readFileSync(path.join(FINAL, "mark-small.svg"), "utf8");
 const full = fs.readFileSync(path.join(FINAL, "mark.svg"), "utf8");
 const write = (name, data) => fs.writeFileSync(path.join(OUT, name), data);
 
 write("emera-mark.svg", recolor(small, INK));
 write("emera-mark-white.svg", recolor(small, CREAM));
-write("emera-mark-detailed.svg", recolor(full, INK));
+write("emera-mark-ink.svg", recolor(ink, INK));
+write("emera-mark-detailed-ink.svg", recolor(full, INK));
 for (const [from, to] of [["icon-1024.png", "emera-icon.png"], ["icon-dark-1024.png", "emera-icon-dark.png"], ["app-icon-1024.png", "emera-icon-square.png"], ["favicon.svg", "emera-favicon.svg"]]) {
   fs.copyFileSync(path.join(FINAL, from), path.join(OUT, to));
 }
@@ -46,8 +48,8 @@ write("emera-colors.json", JSON.stringify(tokens.colors, null, 2) + "\n");
 const inner = small.replace(/^<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "");
 const lockup = (fg, bg) => `<!doctype html><html><head>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600&display=block" rel="stylesheet">
-<style>html,body{margin:0;background:${bg}}#l{display:inline-flex;align-items:center;gap:64px;padding:80px;color:${fg};font:600 400px/1.2 Sora;letter-spacing:-.045em}#l svg{width:508px;height:508px}</style></head>
-<body><div id="l"><svg viewBox="0 0 600 600">${inner}</svg><span>${brand.name}</span></div></body></html>`;
+<style>html,body{margin:0;background:${bg}}#l{display:inline-flex;align-items:center;gap:24px;padding:80px;color:${fg};font:600 400px/1.2 Sora;letter-spacing:-.045em}#l svg{width:640px;height:640px}</style></head>
+<body><div id="l"><svg viewBox="${small.match(/viewBox="([^"]+)"/)[1]}">${inner}</svg><span>${brand.name}</span></div></body></html>`;
 
 const browser = await chromium.launch({ executablePath: process.env.CHROME_HEADLESS || undefined });
 const page = await browser.newPage({ viewport: { width: 2600, height: 800 } });
@@ -64,7 +66,7 @@ const readme = `${brand.name} brand kit
 
 Logo: emera-logo.png (dark ink, see-through), emera-logo-white.png (for dark backgrounds),
       emera-logo-on-day.png, emera-logo-on-night.png
-Mark: emera-mark.svg, emera-mark-white.svg, emera-mark-detailed.svg (large sizes)
+Mark: emera-mark.svg (lit), emera-mark-white.svg (lit, for dark backgrounds), emera-mark-ink.svg, emera-mark-detailed-ink.svg
 App icon: emera-icon.png, emera-icon-dark.png, emera-icon-square.png, emera-favicon.svg
 Icons: icons/*.svg (24 px grid, 1.7 stroke, round caps)
 Colors: emera-colors.css, emera-colors.json
