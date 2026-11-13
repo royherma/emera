@@ -104,7 +104,7 @@ async function main() {
       const res = await call(api, a.token, '/v1/posts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ mediaIds: ids, caption: p.caption }),
+        body: JSON.stringify({ mediaIds: ids, caption: p.caption, ...(p.date ? { createdAt: p.date.toISOString() } : {}) }),
       });
       entry.postId = res.post.id;
       entry.originalDate = p.date?.toISOString() ?? null;
@@ -118,7 +118,6 @@ async function main() {
     }
   }
   console.log(`\ndone: ${ok} posted, ${failed} failed. state: ${stateFile}`);
-  console.log('note: the API stamps every post with the import time; original dates are kept only in the state file');
   if (failed) process.exitCode = 1;
 }
 

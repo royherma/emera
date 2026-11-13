@@ -33,7 +33,7 @@ Limits v0: images up to 25 MB (jpeg, png, webp, heic), video up to 200 MB (mp4, 
 
 | Method | Path | Body | Returns |
 | --- | --- | --- | --- |
-| POST | `/v1/posts` | `{ mediaIds: [], caption }` | `{ post }` |
+| POST | `/v1/posts` | `{ mediaIds: [], caption, createdAt? }` (ISO, past only, for imports) | `{ post }` |
 | GET | `/v1/posts/:id` | - | `{ post }` |
 | DELETE | `/v1/posts/:id` | - | `{ ok: true }` (owner only) |
 | GET | `/v1/users/:handle` | - | `{ user, posts: [] }` newest first, `?cursor=` pages |
@@ -61,7 +61,8 @@ Only the post's author can report a copy of it (403 `forbidden` otherwise). `url
 
 | Method | Path | Body | Returns |
 | --- | --- | --- | --- |
-| POST | `/v1/invites` | - | `{ code, url }` - signed-in users make invite links |
+| POST | `/v1/invites` | `{ maxUses? }` (1 to 10, default 1) | `{ code, url }` - signed-in users make invite links; 409 `invite_limit` after 20 invites, 429 after 10 in a day |
+| GET | `/v1/invites` | - | `{ invites: [{ code, url, uses, maxUses, createdAt, joined: [{ handle, displayName }] }], limit }` - newest first, only the caller's own |
 | GET | `/v1/invites/:code` | - | `{ valid, invitedBy }` |
 
 Sign-up needs an invite code while invites are on (`INVITES_REQUIRED=true`).
