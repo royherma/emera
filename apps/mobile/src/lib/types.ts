@@ -178,9 +178,47 @@ export interface Backend {
   saveChatSettings(input: Partial<ChatSettings>): Promise<ChatSettings>;
   dmWith(handle: string): Promise<DmWith>;
   muteThread(id: string, muted: boolean): Promise<DmThread>;
+  fundPage(): Promise<Fund>;
+  fundMonth(month: string): Promise<FundStatement>;
+  earnings(): Promise<Earnings>;
+  watch(postId: string, seconds: number): Promise<number>;
 }
 
 export type ImportItem = { id: string; url: string; date: string | null; caption: string; photos: number; videos: number; thumb: string | null; onEmera: string | null };
 export type ImportConnector = { id: string; name: string; example: string };
 export type ImportRules = { media: "any" | "photos" | "videos"; tag?: string };
 export type ImportSource = { id: string; from: string; kind: string; label: string; autoPost: boolean; rules: ImportRules; since: string; lastChecked: string | null; lastError: string | null };
+
+export type FundRules = { version: string; creatorShare: number; photoCapS: number; videoCapS: number; creatorCapS: number; minViewerAgeH: number; heartbeatMaxS: number; payoutMinCents: number; closeDay: number };
+
+export type FundMonth = {
+  month: string;
+  status: "open" | "closed";
+  sponsoredCents: number;
+  carryInCents: number;
+  creatorPoolCents: number;
+  emeraCents: number;
+  totalSeconds: number;
+  creators: number;
+  sponsors: number;
+  closedAt: string | null;
+  sha256: string | null;
+};
+
+export type FundSponsor = { name: string; url: string | null; amountCents: number };
+
+export type Sponsorship = { id: string; sponsorName: string; sponsorUrl: string | null; month: string; amountCents: number; status: "pledged" | "paid" | "refunded"; createdAt: string };
+
+export type FundShare = { handle: string | null; seconds: number; sharePpm: number; amountCents: number };
+
+export type FundStatement = FundMonth & { rulesVersion: string; sponsorships: Sponsorship[]; shares: FundShare[]; carryOutCents: number };
+
+export type Fund = { rules: FundRules; month: FundMonth; sponsors: FundSponsor[]; history: FundMonth[] };
+
+export type Earnings = {
+  rules: FundRules;
+  thisMonth: { month: string; seconds: number; totalSeconds: number; sharePpm: number; estimateCents: number };
+  months: { month: string; seconds: number; sharePpm: number; amountCents: number }[];
+  balanceCents: number;
+  topPosts: { post: Post; seconds: number }[];
+};

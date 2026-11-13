@@ -1,5 +1,5 @@
 import { API_URL } from "./config";
-import { ApiError, Backend, FundCards, Sponsor, Comment, Media, Notification, PickedFile, Post, User, UserPage, Channel, ChatMessage, ChatPage, ChatRoomRef, DmThread, ImportItem, ImportSource, ChatSettings, DmWith } from "./types";
+import { ApiError, Backend, Earnings, Fund, FundCards, FundStatement, Sponsor, Comment, Media, Notification, PickedFile, Post, User, UserPage, Channel, ChatMessage, ChatPage, ChatRoomRef, DmThread, ImportItem, ImportSource, ChatSettings, DmWith } from "./types";
 
 let token: string | null = null;
 export const setToken = (t: string | null) => {
@@ -164,4 +164,8 @@ export const http: Backend = {
   saveChatSettings: async (input) => (await send<{ settings: ChatSettings }>("PUT", "/v1/chat/settings", input)).settings,
   dmWith: (handle) => send<DmWith>("GET", `/v1/dms/with/${encodeURIComponent(handle)}`),
   muteThread: async (id, muted) => (await send<{ thread: DmThread }>("POST", `/v1/dms/${encodeURIComponent(id)}/mute`, { muted })).thread,
+  fundPage: () => send<Fund>("GET", "/v1/fund"),
+  fundMonth: async (month) => (await send<{ statement: FundStatement }>("GET", `/v1/fund/months/${encodeURIComponent(month)}`)).statement,
+  earnings: () => send<Earnings>("GET", "/v1/me/earnings"),
+  watch: async (postId, seconds) => (await send<{ counted: number }>("POST", "/v1/watch", { postId, seconds })).counted,
 };

@@ -22,6 +22,7 @@ import { alpha, creatorColors, elevation, radius, space, type } from "@/lib/them
 import { useResource } from "@/state/resource";
 import { useTheme } from "@/state/theme";
 import { RoleBadge } from "@/components/RoleBadge";
+import { useWatchTime } from "@/lib/useWatchTime";
 import type { Post } from "@/lib/types";
 
 const BACK_GUTTER = 60;
@@ -102,6 +103,7 @@ function PostItem({ post, onChange, onDeleted }: { post: Post | null; onChange: 
   const [index, setIndex] = useState(0);
   const pager = useRef<any>(null);
   const menu = usePostMenu(onDeleted);
+  const watchRef = useWatchTime(post);
   const first = post?.media[0];
   const { width: mediaW, height: mediaH } = fitBox(aspect(first, FULL), { width: wide ? inner - 360 - space[6] - BACK_GUTTER : inner, height: wide ? height - 100 : height - 200 });
   const proof = first?.proof;
@@ -111,7 +113,7 @@ function PostItem({ post, onChange, onDeleted }: { post: Post | null; onChange: 
       <View style={{ width: mediaW }}>
         {post ? (
           <>
-            <View style={[{ width: mediaW, height: mediaH, borderRadius: radius.media, overflow: "hidden" }, Platform.OS === "web" ? ({ boxShadow: elevation.media } as object) : null]}>
+            <View ref={watchRef} style={[{ width: mediaW, height: mediaH, borderRadius: radius.media, overflow: "hidden" }, Platform.OS === "web" ? ({ boxShadow: elevation.media } as object) : null]}>
               <ScrollView
                 ref={pager}
                 horizontal

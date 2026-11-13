@@ -3,6 +3,7 @@ import { PUBLIC_ORIGIN } from "./config";
 import { ApiError, Backend, Comment, FeedMode, ImportSource, Invite, Media, Notification, PickedFile, Post, User, UserPage } from "./types";
 import { HANDLE_RE } from "./format";
 import { makeMockChat } from "./mockChat";
+import { mockEarnings, mockFund, mockFundMonth, mockWatch } from "./fundMock";
 
 const wait = (ms = 280) => new Promise((r) => setTimeout(r, ms + Math.random() * 220));
 const iso = (minutesAgo: number) => new Date(Date.now() - minutesAgo * 60000).toISOString();
@@ -551,6 +552,25 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
     banners: [{ name: "Quillfern Paper", url: null, line: "Paper for people who draw" }],
     feedCards: { on: false, posts: 0, needed: 0, every: 8 },
   }),
+  async fundPage() {
+    await wait(160);
+    return mockFund();
+  },
+  async fundMonth(month) {
+    await wait(160);
+    return mockFundMonth(month);
+  },
+  async earnings() {
+    await wait(160);
+    const me = current();
+    return mockEarnings(me.handle, sorted().filter((p) => p.author.id === me.id).map(view));
+  },
+  async watch(postId, seconds) {
+    const me = current();
+    const p = posts.find((x) => x.id === postId);
+    if (!p) throw new ApiError("not_found", "That post isn't here anymore.");
+    return mockWatch(postId, p.author.handle, me.handle, seconds);
+  },
 };
 
 const pending: Media[] = [];
