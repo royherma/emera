@@ -89,3 +89,8 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 - What bit us: emera.social serves the site first and hands missing paths to the app worker, but `"!/assets/*"` made Cloudflare answer missing `/assets/...` itself, so the app's fonts (`/assets/node_modules/...`) 404ed and the page rendered blank.
 - How to spot it: app on emera.social loads with no text; 404s on `/assets/node_modules/` in the network list.
 - Fix: keep `/assets/*` out of the exclude list in `apps/site/wrangler.jsonc` so the worker sees the miss and calls `env.APP`.
+
+## 2026-11-13 - A stray apps/api/wrangler.json shadows wrangler.jsonc
+- **Bit us:** `npx json5 -c wrangler.jsonc` (meant as a syntax check) writes `wrangler.json`; idle autocommit committed it and wrangler reads `.json` first, so deploys shipped a stale config (old post cap, no */15 import cron).
+- **Spot it:** `ls apps/*/wrangler.json`; deploy output vars differ from `wrangler.jsonc`.
+- **Fix:** never run `json5 -c`; check syntax with `npx wrangler deploy --dry-run`.
