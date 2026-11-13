@@ -1,17 +1,17 @@
 export const ADMIN_HTML = String.raw`<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
-<title>Emera admin</title>
+<title>Emera admin</title><link rel="icon" href="data:,">
 <style>
 :root{--bg:#fbf5ea;--card:#fffaf1;--ink:#2a1d14;--ink2:#6b5846;--ink3:#9a8672;--line:rgba(60,35,10,.12);--sun:#ff8a2b;--sun2:#ffc24a;--sunink:#9a4a00;--ok:#2f7d4f;--bad:#b3261e}
 @media (prefers-color-scheme:dark){:root{--bg:#0c0a09;--card:#1a1613;--ink:#fbf3e8;--ink2:#bcae9d;--ink3:#8a7c6d;--line:rgba(255,235,210,.12);--sunink:#ffc98a;--ok:#7fd3a0;--bad:#ff8a80}}
 *{box-sizing:border-box}html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font:13px/1.35 ui-sans-serif,system-ui,-apple-system,"DM Sans",sans-serif;min-height:100vh;display:flex;flex-direction:column}
+body{background:var(--bg);color:var(--ink);font:13px/1.35 ui-sans-serif,system-ui,-apple-system,"DM Sans",sans-serif;height:100vh;min-height:720px;display:flex;flex-direction:column}
 header{display:flex;align-items:center;gap:14px;padding:10px 18px;border-bottom:1px solid var(--line)}
 header b{font:700 17px/1 ui-sans-serif,system-ui;letter-spacing:-.03em}
 header .sp{flex:1}header a{color:var(--sunink);text-decoration:none;font-weight:600}
 .muted{color:var(--ink3)}
-main{flex:1;display:grid;grid-template-rows:auto auto 1fr;gap:10px;padding:10px 18px 14px;min-height:0}
+main{flex:1;display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:10px;padding:10px 18px 14px;min-height:0}
 .tiles{display:grid;grid-template-columns:repeat(8,1fr);gap:8px}
 .tile{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px}
 .tile .n{font:700 24px/1.1 ui-sans-serif,system-ui;letter-spacing:-.03em}
@@ -28,7 +28,7 @@ main{flex:1;display:grid;grid-template-rows:auto auto 1fr;gap:10px;padding:10px 
 .spark i{flex:1;background:var(--sun);border-radius:2px 2px 0 0;min-height:1px;opacity:.85}
 .spark i.z{background:var(--line)}
 .days{display:flex;justify-content:space-between;color:var(--ink3);font-size:10px;grid-column:2}
-.lists{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;min-height:340px}
+.lists{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;min-height:0}
 .scroll{overflow:auto;flex:1;min-height:0}
 table{width:100%;border-collapse:collapse}
 td{padding:5px 4px;border-top:1px solid var(--line);vertical-align:top}

@@ -8,7 +8,7 @@ import { footer, footerCss } from "./footer.mjs";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const brand = JSON.parse(readFileSync(join(root, "../../packages/brand/brand.json"), "utf8"));
 const sources = JSON.parse(readFileSync(join(root, "../../brand/content/sources.json"), "utf8"));
-const GITHUB_URL = process.env.GITHUB_URL || "https://github.com/emera-social/emera";
+const GITHUB_URL = process.env.GITHUB_URL || "https://github.com/royherma/emera";
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const licenseName = (i) => (i.license === "BY" ? `CC BY ${i.license_version}` : i.license === "PDM" ? "Public domain" : `${i.license} ${i.license_version}`);
@@ -23,6 +23,7 @@ const credits = sources.openverse_items
 const vars = {
   name: brand.name,
   tagline: brand.tagline,
+  line: brand.line,
   domain: brand.domain,
   github: GITHUB_URL,
   sprite,

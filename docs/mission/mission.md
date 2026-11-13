@@ -1,6 +1,14 @@
 # Emera mission, values and manifesto
 
-Version 1.1.0, 2026-11-13. Machine copy: `values.json`. How this changes: `how-values-change.md`. History: `CHANGELOG.md`.
+Version 1.2.0, 2026-11-13. Machine copy: `values.json`. How this changes: `how-values-change.md`. History: `CHANGELOG.md`.
+
+## In one line
+
+**Emera is the open source social network.**
+
+Dialed down one step: the code and the algorithm are public and it is run as a nonprofit, so no one can quietly change the rules, what you create keeps your name on it, and the people are real.
+
+Everything below explains that line. If a page, post or pitch can only say one thing, it says this.
 
 ## Why Emera exists
 

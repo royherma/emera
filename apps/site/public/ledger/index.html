@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emera open ledger</title>
+<meta name="description" content="Every account, post and copy report on Emera, counted in public the moment it happens.">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://emera.social/ledger">
+<meta property="og:title" content="Emera open ledger">
+<meta property="og:description" content="Every account, post and copy report on Emera, counted in public the moment it happens.">
+<meta property="og:image" content="https://emera.social/assets/og.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23ffc24a'/%3E%3Cstop offset='1' stop-color='%23ff6a2b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='48' fill='%231c1a17'/%3E%3Cpath d='M2 50a48 48 0 0 1 96 0z' fill='url(%23g)'/%3E%3Cpath d='M0 50h100' stroke='%23fbf5ea' stroke-width='6'/%3E%3C/svg%3E">
+<script>
+(function(){var r=document.documentElement,mq=matchMedia("(prefers-color-scheme: dark)"),s=null;try{s=localStorage.getItem("emera-theme")}catch(e){}
+r.setAttribute("data-theme",s||(mq.matches?"dark":"light"))})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{--sun:#ff8a2b;--sun2:#ffc24a;--bg:#fbf5ea;--ink:#2a1d14;--ink2:#6b5846;--ink3:#9a8672;--card:#fffaf1;--line:rgba(60,35,10,.12);--sunink:#9a4a00;--l1:#ff8a2b;--l2:#2f7d9c;--l3:#9a8672;--disp:"Sora",ui-sans-serif,system-ui,sans-serif;--body:"DM Sans",ui-sans-serif,system-ui,sans-serif;--gutter:clamp(16px,5vw,72px)}
+:root[data-theme="dark"]{--bg:#0c0a09;--ink:#fbf3e8;--ink2:#bcae9d;--ink3:#8a7c6d;--card:#1a1613;--line:rgba(255,235,210,.12);--sunink:#ffc98a;--l2:#7cc4dd;--l3:#8a7c6d}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:17px/1.55 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1100px;margin:0 auto;padding:0 var(--gutter)}
+nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+.mark{display:flex;align-items:center;gap:10px;font:600 1.4rem/1 var(--disp);letter-spacing:-.05em;text-decoration:none;color:var(--ink)}
+.mark svg{width:30px;height:30px;color:var(--ink)}
+.pill{font:600 .95rem var(--body);text-decoration:none;padding:10px 18px;border-radius:999px;color:#1a1008;background:linear-gradient(135deg,var(--sun2),var(--sun))}
+.eyebrow{font:600 .78rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--sunink);margin-top:28px}
+h1{font:800 clamp(2.3rem,6vw,4.4rem)/1 var(--disp);letter-spacing:-.05em;margin:14px 0 0;max-width:15em}
+.lead{color:var(--ink2);max-width:34em;margin:18px 0 0;font-size:clamp(1rem,1.5vw,1.15rem)}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:36px 0 0}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.tile b{display:block;font:800 clamp(1.9rem,4vw,2.8rem)/1 var(--disp);letter-spacing:-.04em}
+.tile span{color:var(--ink2);font-size:.95rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:14px}
+h2{font:700 1.25rem/1.2 var(--disp);letter-spacing:-.03em;margin:0 0 4px}
+.sub{color:var(--ink3);font-size:.9rem;margin:0 0 14px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.9rem;color:var(--ink2);margin-bottom:8px}
+.legend i{display:inline-block;width:12px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+svg.chart{width:100%;height:240px;display:block}
+svg.chart text{fill:var(--ink3);font:12px var(--body)}
+ol{list-style:none;margin:0;padding:0}
+li{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:baseline;padding:11px 0;border-top:1px solid var(--line)}
+li .n{font:600 .85rem var(--disp);color:var(--ink3)}
+li time{color:var(--ink3);font-size:.88rem;white-space:nowrap}
+li a{color:var(--sunink);text-decoration:none;font-weight:600}
+.more{margin-top:12px;background:none;border:1px solid var(--line);color:var(--ink);font:600 .95rem var(--body);padding:9px 16px;border-radius:999px;cursor:pointer}
+.fine{color:var(--ink3);font-size:.88rem;margin:28px 0 48px}
+.fine a{color:var(--ink2)}
+@media (max-width:720px){.tiles{grid-template-columns:1fr 1fr}li{grid-template-columns:40px 1fr}li time{grid-column:2}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc24a"/><stop offset="1" stop-color="#ff6a2b"/></linearGradient>
+<symbol id="mark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="currentColor"/><path d="M4 50a46 46 0 0 1 92 0z" fill="url(#sg)"/><path d="M0 50h100" stroke="var(--bg,#fbf5ea)" stroke-width="6"/></symbol></defs></svg>
+<div class="wrap">
+<nav><a class="mark" href="/" aria-label="Emera"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg>emera</a><a class="pill" href="/">Join Emera</a></nav>
+<div class="eyebrow">Open ledger</div>
+<h1>Every account and every post, counted in public</h1>
+<p class="lead">Rules nobody can read start with numbers nobody can see. On Emera both are open. This page shows Emera growing, one person and one post at a time, the minute it happens.</p>
+<section class="tiles" aria-label="Totals">
+<div class="tile"><b id="t-early">-</b><span>on the early list</span></div>
+<div class="tile"><b id="t-accounts">-</b><span>accounts</span></div>
+<div class="tile"><b id="t-posts">-</b><span>posts</span></div>
+<div class="tile"><b id="t-reports">-</b><span>copies reported by creators</span></div>
+</section>
+<section class="card">
+<h2>Growth over time</h2>
+<p class="sub">Running totals per day</p>
+<div class="legend"><span><i style="background:var(--l1)"></i>Accounts</span><span><i style="background:var(--l2)"></i>Posts</span><span><i style="background:var(--l3)"></i>Early list</span></div>
+<svg class="chart" id="chart" role="img" aria-label="Running totals of accounts, posts and early list sign-ups per day"></svg>
+</section>
+<section class="card">
+<h2>The ledger</h2>
+<p class="sub">Newest first, in your time zone</p>
+<ol id="events"></ol>
+<button class="more" id="more" hidden>Show more</button>
+</section>
+<p class="fine">Counts leave out our own test accounts. Early list sign-ups stay anonymous here. The same numbers are open as data at <a href="/api/ledger">/api/ledger</a>. <span id="upd"></span></p>
+</div>
+<script>
+(function(){
+var shown=40,data=null;
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function when(ms){return new Date(ms).toLocaleString(undefined,{month:"short",day:"numeric",year:"numeric",hour:"numeric",minute:"2-digit"})}
+function who(h){return h?'<a href="/@'+encodeURIComponent(h)+'">@'+esc(h)+"</a>":"Someone"}
+function line(e){
+if(e.type==="account")return who(e.handle)+" opened an account";
+if(e.type==="post")return who(e.handle)+' shared <a href="/p/'+encodeURIComponent(e.id)+'">a post</a>';
+if(e.type==="early")return"Someone joined the early list";
+return"A creator reported a copy of their work";}
+var label={account:"Account",post:"Post",early:"Early list",report:"Report"};
+function list(){
+document.getElementById("events").innerHTML=data.events.slice(0,shown).map(function(e){return'<li><span class="n">#'+e.n+'</span><span>'+line(e)+' <span style="color:var(--ink3);font-size:.85rem">'+label[e.type]+'</span></span><time datetime="'+new Date(e.at).toISOString()+'">'+when(e.at)+"</time></li>"}).join("")||'<li><span></span><span>The first entry lands here soon after launch</span></li>';
+document.getElementById("more").hidden=shown>=data.events.length;}
+function chart(){
+var svg=document.getElementById("chart"),W=svg.clientWidth||900,H=240,p={l:36,r:12,t:10,b:26},c=data.cumulative,days=data.days;
+var max=Math.max(1,Math.max.apply(null,c.accounts.concat(c.posts,c.early)));
+var x=function(i){return p.l+(W-p.l-p.r)*(days.length<2?0:i/(days.length-1))},y=function(v){return H-p.b-(H-p.t-p.b)*v/max};
+var path=function(s){return s.map(function(v,i){return(i?"L":"M")+x(i).toFixed(1)+" "+y(v).toFixed(1)}).join(" ")};
+var grid="",ticks=[0,Math.round(max/2),max];
+ticks.forEach(function(t){grid+='<line x1="'+p.l+'" x2="'+(W-p.r)+'" y1="'+y(t)+'" y2="'+y(t)+'" stroke="var(--line)"/><text x="'+(p.l-8)+'" y="'+(y(t)+4)+'" text-anchor="end">'+t+"</text>"});
+var fmt=function(d){return new Date(d+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"})};
+grid+='<text x="'+p.l+'" y="'+(H-6)+'">'+fmt(days[0])+'</text><text x="'+(W-p.r)+'" y="'+(H-6)+'" text-anchor="end">today</text>';
+svg.setAttribute("viewBox","0 0 "+W+" "+H);
+svg.innerHTML=grid+'<path d="'+path(c.early)+'" fill="none" stroke="var(--l3)" stroke-width="2" stroke-dasharray="4 4"/><path d="'+path(c.posts)+'" fill="none" stroke="var(--l2)" stroke-width="2.5"/><path d="'+path(c.accounts)+'" fill="none" stroke="var(--l1)" stroke-width="3"/>';}
+function render(){var t=data.totals;["early","accounts","posts","reports"].forEach(function(k){document.getElementById("t-"+k).textContent=t[k].toLocaleString()});
+document.getElementById("upd").textContent="Updated "+when(data.at)+".";list();chart();}
+document.getElementById("more").onclick=function(){shown+=60;list()};
+function load(){fetch("/api/ledger").then(function(r){return r.json()}).then(function(j){data=j;render()}).catch(function(){document.getElementById("upd").textContent="Could not load the ledger right now."})}
+addEventListener("resize",function(){if(data)chart()});
+load();setInterval(load,60000);
+})();
+</script>
+</body>
+</html>

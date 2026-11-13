@@ -2,9 +2,11 @@
 
 [![CI](https://github.com/royherma/emera/actions/workflows/ci.yml/badge.svg)](https://github.com/royherma/emera/actions/workflows/ci.yml)
 
-**Where humanity comes together.**
+## The open source social network
 
-Emera is an open-source, nonprofit network for every kind of creator: video makers, illustrators, photographers, musicians, designers and people who make physical things. It runs on the [AT Protocol](https://atproto.com), so your account and your followers are yours.
+Every line of code is public, the algorithm is public, and it is run as a nonprofit, so no one can quietly change the rules on you. What you create keeps your name on it and the people are real.
+
+Emera is for everyone who creates (video, art, photos, music, design, the things people make with their hands) and everyone sharing what is happening around them. It runs on the [AT Protocol](https://atproto.com), so your account and your followers are yours. Where humanity comes together.
 
 Four things we build for:
 

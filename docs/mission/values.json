@@ -1,6 +1,8 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "updated": "2026-11-13",
+  "oneLiner": "Emera is the open source social network.",
+  "oneSentence": "The code and the algorithm are public and it is run as a nonprofit, so no one can quietly change the rules, what you create keeps your name on it, and the people are real.",
   "mission": "Make Emera the open home where humanity's creative work lives: every piece signed by its maker, protected wherever we can see it, shown by rules anyone can read, and paid back to the people who made it.",
   "vision": "In 2036, a song, a drawing or a film posted on Emera carries a signed record of who made it, and that record is the first thing a fan, a court or a newsroom checks. Hundreds of millions of people make a living or a community there, because copies are found and taken down for them, payouts arrive every quarter, and the code that ranks their work is public. Emera is run by the people who use it and owned by no company, and because any member can pick up their account and leave, the network has to keep earning them.",
   "values": [

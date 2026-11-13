@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-import { execSync } from 'node:child_process';
+import { execSync, spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync, statSync, watch, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import YAML from 'yaml';
+import { codeHash } from './codehash.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..');
 const R = (...p) => join(root, ...p);
@@ -442,9 +443,11 @@ function loadShots(screens) {
     s.states = e?.states ?? [];
     s.slug = e?.slug ?? null;
   }
-  const g = git();
+  const now = codeHash(root);
   const missing = screens.filter((s) => !s.shell && !Object.keys(s.shots).length).map((s) => `${s.surface}:${s.route}`);
-  return { capturedAt: idx.capturedAt, git: idx.git, count: idx.count, themeSwitch: idx.themeSwitch, themes: idx.themes, params: idx.params, failed: idx.failed ?? [], shell: idx.shell ?? [], missing, stale: idx.git?.sha !== g.sha || !!idx.git?.dirty };
+  const runsFile = R('data/atlas-shots/runs.jsonl');
+  const runs = existsSync(runsFile) ? readFileSync(runsFile, 'utf8').split('\n').filter(Boolean).slice(-40).map((l) => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean) : [];
+  return { capturedAt: idx.capturedAt, git: idx.git, count: idx.count, ms: idx.ms ?? null, phases: idx.phases ?? [], by: idx.by ?? null, why: idx.why ?? null, themeSwitch: idx.themeSwitch, themes: idx.themes, params: idx.params, failed: idx.failed ?? [], shell: idx.shell ?? [], missing, codeHash: idx.codeHash ?? null, codeHashNow: now, stale: idx.codeHash !== now, runs };
 }
 
 function features(atlas, stories) {
@@ -503,8 +506,8 @@ if (process.argv.includes('--watch')) {
   const kick = (_, f) => {
     if (!f || SKIP.test(f) || /atlas\.json$/.test(f)) return;
     clearTimeout(t);
-    t = setTimeout(once, 300);
+    t = setTimeout(() => spawnSync(process.execPath, [fileURLToPath(import.meta.url)], { stdio: 'inherit' }), 300);
   };
-  for (const p of ['apps', 'lexicons', 'docs/stories.yaml', 'docs/features.yaml', 'data/platforms.json', 'CLAUDE.md']) if (existsSync(R(p))) watch(R(p), { recursive: true }, kick);
+  for (const p of ['apps', 'lexicons', 'docs/stories.yaml', 'docs/features.yaml', 'data/platforms.json', 'data/atlas-shots/index.json', 'tools/atlas/build.mjs', 'CLAUDE.md']) if (existsSync(R(p))) watch(R(p), { recursive: true }, kick);
   console.log('ATLAS watching apps/, lexicons/, docs/stories.yaml, data/platforms.json');
 }
