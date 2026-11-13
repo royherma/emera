@@ -11,10 +11,10 @@ import { useTheme } from "@/state/theme";
 import { ApiError } from "@/lib/types";
 
 export default function SignIn() {
-  const { invite: linkInvite = "" } = useLocalSearchParams<{ invite?: string }>();
+  const { invite: linkInvite = "", email: linkEmail = "" } = useLocalSearchParams<{ invite?: string; email?: string }>();
   const router = useRouter();
   const { c } = useTheme();
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(linkEmail);
   const [invite, setInvite] = useState(linkInvite);
   const [needsInvite, setNeedsInvite] = useState(!!linkInvite);
   const [busy, setBusy] = useState(false);

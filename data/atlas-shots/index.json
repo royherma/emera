@@ -1,8 +1,8 @@
 {
- "capturedAt": "2026-11-13T04:53:00.170Z",
+ "capturedAt": "2026-11-13T05:01:44.161Z",
  "git": {
-  "sha": "51294ab",
-  "dirty": true
+  "sha": "99572e4",
+  "dirty": false
  },
  "themeSwitch": true,
  "viewports": {
@@ -367,8 +367,20 @@
     },
     {
      "name": "error",
+     "tag": "desktop-day",
+     "file": "data/atlas-shots/report/error-desktop-day.png",
+     "note": "a link that is not a link"
+    },
+    {
+     "name": "error",
      "tag": "phone-night",
      "file": "data/atlas-shots/report/error-phone-night.png",
+     "note": "a link that is not a link"
+    },
+    {
+     "name": "error",
+     "tag": "desktop-night",
+     "file": "data/atlas-shots/report/error-desktop-night.png",
      "note": "a link that is not a link"
     }
    ]
@@ -381,16 +393,7 @@
    "reason": "no screen of its own, it wraps every route"
   }
  ],
- "failed": [
-  {
-   "what": "/report (desktop-day)",
-   "why": "locator.click: Timeout 4000ms exceeded."
-  },
-  {
-   "what": "/report (desktop-night)",
-   "why": "locator.click: Timeout 4000ms exceeded."
-  }
- ],
- "count": 82,
+ "failed": [],
+ "count": 84,
  "missing": []
 }

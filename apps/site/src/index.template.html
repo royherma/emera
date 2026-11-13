@@ -287,7 +287,7 @@ footer a.gh:hover{text-decoration-color:var(--sun2)}
       <a class="mark" href="/" aria-label="{{name}}"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg>emera</a>
       <div class="navr">
         <button class="theme" type="button" onclick="__emeraTheme()" aria-label="Switch between day and night"><span class="d"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sun"/></svg></span><span class="n"><svg class="ic" viewBox="0 0 24 24"><use href="#i-moon"/></svg></span></button>
-        <a class="pill" href="#join">Get early access</a>
+        <a class="pill" href="https://app.emera.social/sign-in">Open Emera</a>
       </div>
     </nav>
     <div class="hero-grid">
@@ -299,7 +299,7 @@ footer a.gh:hover{text-decoration-color:var(--sun2)}
         <form class="signup" data-signup novalidate>
           <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address" required>
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button type="submit">Get early access</button>
+          <button type="submit">Create your account</button>
         </form>
         <p class="note" data-note role="status" aria-live="polite"></p>
       </div>
@@ -379,11 +379,11 @@ footer a.gh:hover{text-decoration-color:var(--sun2)}
   <section class="close" id="join">
     <div class="wrap"><div class="inner reveal">
       <h2>Put your work out in the daylight</h2>
-      <p class="lead">Be among the first creators on {{name}}.<span class="count" data-count></span></p>
+      <p class="lead">Join the first creators on {{name}}. It takes a minute.<span class="count" data-count></span></p>
       <form class="signup" data-signup novalidate>
         <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address" required>
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button type="submit">Get early access</button>
+        <button type="submit">Create your account</button>
       </form>
       <p class="note" data-note role="status" aria-live="polite"></p>
     </div></div>
@@ -422,8 +422,8 @@ footer a.gh:hover{text-decoration-color:var(--sun2)}
         .then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j}})})
         .then(function(x){
           if(x.ok&&x.j.ok){
-            note.textContent=x.j.already?"You are already on the list. We will be in touch.":"You are on the list. See you in daylight.";
-            note.classList.add("ok");form.reset();
+            note.textContent="Opening Emera...";note.classList.add("ok");
+            location.href="https://app.emera.social/sign-in?email="+encodeURIComponent(email);
           }else{note.textContent=msgs[x.j&&x.j.error]||msgs.fail;note.classList.add("err")}
         })
         .catch(function(){note.textContent=msgs.fail;note.classList.add("err")})

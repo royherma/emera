@@ -1,19 +1,19 @@
 {
- "builtAt": "2026-11-13T04:56:20.823Z",
+ "builtAt": "2026-11-13T05:04:19.272Z",
  "git": {
-  "sha": "b3101aa",
+  "sha": "5e52cf3",
   "dirty": true,
   "branch": "main"
  },
  "summary": {
   "screens": 16,
-  "endpoints": 23,
-  "tables": 7,
+  "endpoints": 26,
+  "tables": 8,
   "lexicons": 4,
   "stories": 18,
-  "edges": 83,
-  "coverage": 92,
-  "stepsBuilt": 50,
+  "edges": 89,
+  "coverage": 93,
+  "stepsBuilt": 51,
   "stepsCounted": 55
  },
  "screens": [
@@ -456,7 +456,7 @@
    "method": "POST",
    "path": "/v1/auth/handle",
    "file": "apps/api/src/auth.ts",
-   "line": 114,
+   "line": 116,
    "kind": "api",
    "auth": true,
    "needsHandle": false,
@@ -480,7 +480,7 @@
    "method": "GET",
    "path": "/v1/me",
    "file": "apps/api/src/auth.ts",
-   "line": 132,
+   "line": 134,
    "kind": "api",
    "auth": true,
    "needsHandle": false,
@@ -497,7 +497,7 @@
    "method": "POST",
    "path": "/v1/auth/logout",
    "file": "apps/api/src/auth.ts",
-   "line": 134,
+   "line": 136,
    "kind": "api",
    "auth": true,
    "needsHandle": false,
@@ -518,7 +518,7 @@
    "method": "POST",
    "path": "/v1/invites",
    "file": "apps/api/src/auth.ts",
-   "line": 140,
+   "line": 145,
    "kind": "api",
    "auth": true,
    "needsHandle": true,
@@ -530,6 +530,31 @@
     "invites"
    ],
    "r2": [],
+   "bodyFields": [
+    "maxUses"
+   ],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "GET",
+   "path": "/v1/invites",
+   "file": "apps/api/src/auth.ts",
+   "line": 161,
+   "kind": "api",
+   "auth": true,
+   "needsHandle": true,
+   "reads": [
+    "invites",
+    "users"
+   ],
+   "writes": [],
+   "tables": [
+    "invites",
+    "users"
+   ],
+   "r2": [],
    "bodyFields": [],
    "og": false,
    "twitter": false,
@@ -539,7 +564,7 @@
    "method": "GET",
    "path": "/v1/invites/:code",
    "file": "apps/api/src/auth.ts",
-   "line": 150,
+   "line": 183,
    "kind": "api",
    "auth": false,
    "needsHandle": false,
@@ -562,7 +587,7 @@
    "method": "GET",
    "path": "/health",
    "file": "apps/api/src/index.ts",
-   "line": 23,
+   "line": 25,
    "kind": "page",
    "auth": false,
    "needsHandle": false,
@@ -883,6 +908,55 @@
     "posts",
     "media",
     "users"
+   ],
+   "r2": [],
+   "bodyFields": [],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "POST",
+   "path": "/v1/reports",
+   "file": "apps/api/src/reports.ts",
+   "line": 26,
+   "kind": "api",
+   "auth": true,
+   "needsHandle": false,
+   "reads": [
+    "posts"
+   ],
+   "writes": [
+    "reports"
+   ],
+   "tables": [
+    "posts",
+    "reports"
+   ],
+   "r2": [],
+   "bodyFields": [
+    "postId",
+    "url",
+    "note"
+   ],
+   "og": false,
+   "twitter": false,
+   "app": "api"
+  },
+  {
+   "method": "GET",
+   "path": "/v1/reports",
+   "file": "apps/api/src/reports.ts",
+   "line": 52,
+   "kind": "api",
+   "auth": true,
+   "needsHandle": false,
+   "reads": [
+    "reports"
+   ],
+   "writes": [],
+   "tables": [
+    "reports"
    ],
    "r2": [],
    "bodyFields": [],
@@ -1295,6 +1369,64 @@
     {
      "name": "position",
      "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "created_at",
+     "type": "INTEGER",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    }
+   ]
+  },
+  {
+   "name": "reports",
+   "db": "emera-api DB",
+   "app": "api",
+   "file": "apps/api/migrations/0002_reports.sql",
+   "line": 1,
+   "columns": [
+    {
+     "name": "id",
+     "type": "TEXT",
+     "pk": true,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "post_id",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "reporter_user_id",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": "users"
+    },
+    {
+     "name": "copy_url",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "note",
+     "type": "TEXT",
+     "pk": false,
+     "unique": false,
+     "fk": null
+    },
+    {
+     "name": "status",
+     "type": "TEXT",
      "pk": false,
      "unique": false,
      "fk": null
@@ -1881,6 +2013,11 @@
   },
   {
    "from": "screen:app:/report",
+   "to": "ep:POST /v1/reports",
+   "kind": "calls"
+  },
+  {
+   "from": "screen:app:/report",
    "to": "screen:app:/feed",
    "kind": "navigates"
   },
@@ -1968,6 +2105,16 @@
    "from": "ep:POST /v1/invites",
    "to": "table:invites",
    "kind": "writes"
+  },
+  {
+   "from": "ep:GET /v1/invites",
+   "to": "table:invites",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:GET /v1/invites",
+   "to": "table:users",
+   "kind": "reads"
   },
   {
    "from": "ep:GET /v1/invites/:code",
@@ -2132,6 +2279,21 @@
   {
    "from": "ep:GET /v1/feed",
    "to": "table:users",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:POST /v1/reports",
+   "to": "table:posts",
+   "kind": "reads"
+  },
+  {
+   "from": "ep:POST /v1/reports",
+   "to": "table:reports",
+   "kind": "writes"
+  },
+  {
+   "from": "ep:GET /v1/reports",
+   "to": "table:reports",
    "kind": "reads"
   },
   {
@@ -3254,12 +3416,15 @@
       "auth"
      ],
      "i": 1,
-     "status": "partial",
+     "status": "built",
      "screenState": "ok",
-     "epState": "missing",
+     "epState": "ok",
      "problems": [],
      "data": {
-      "tables": [],
+      "tables": [
+       "posts",
+       "reports"
+      ],
       "r2": []
      },
      "platforms": [
@@ -3306,8 +3471,8 @@
      ]
     }
    ],
-   "coverage": 50,
-   "built": 1,
+   "coverage": 67,
+   "built": 2,
    "counted": 3
   },
   {
@@ -3806,18 +3971,6 @@
    "blocks": 1
   },
   {
-   "key": "endpoint:POST /v1/reports",
-   "kind": "endpoint",
-   "label": "endpoint POST /v1/reports",
-   "stories": [
-    "report-a-copy"
-   ],
-   "steps": [
-    "report-a-copy#1"
-   ],
-   "blocks": 1
-  },
-  {
    "key": "screen:app:/admin/reports",
    "kind": "screen",
    "label": "screen /admin/reports",
@@ -3830,11 +3983,24 @@
    "blocks": 1
   }
  ],
- "drift": [],
+ "drift": [
+  {
+   "method": "createInvite",
+   "endpoint": "POST /v1/invites",
+   "sentButIgnored": [],
+   "readButNeverSent": [
+    "maxUses"
+   ],
+   "file": "apps/mobile/src/lib/http.ts",
+   "line": 63
+  }
+ ],
  "unmapped": {
   "endpoints": [
+   "GET /v1/invites",
    "GET /health",
-   "HEAD /media/:key"
+   "HEAD /media/:key",
+   "GET /v1/reports"
   ],
   "screens": [
    "/explore",

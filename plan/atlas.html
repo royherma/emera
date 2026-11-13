@@ -113,25 +113,25 @@ ul.l li{margin:2px 0}
 .s-planned{border-style:dashed;background:var(--bg)}
 .s-idea{border-color:var(--line);color:var(--mute);background:var(--bg)}
 .sw.s-live{background:var(--fg)}.sw.s-in-code{background:var(--soft);border-width:2px}.sw.s-planned{border-style:dashed}.sw.s-idea{border-color:var(--line)}
-.box.scr{display:flex;gap:8px;align-items:flex-start;min-height:93px}
+.box.scr{display:flex;gap:8px;align-items:flex-start;min-height:108px;width:fit-content;max-width:100%;padding:3px}
 .box.scr .lab{padding-top:2px;min-width:0}
 .thumb{display:block;border:1px solid var(--fg);background:var(--soft);object-fit:cover;object-position:top;cursor:zoom-in}
 .nocap{display:grid;place-items:center;border:1px dashed var(--red);color:var(--red);font:9px/1.1 var(--mono);text-align:center;flex:none}
-.box.scr .thumb,.box.scr .nocap{width:40px;height:87px;flex:none}
+.box.scr .thumb,.box.scr .nocap{width:48px;height:102px;flex:none}
 #screens.on{display:block}
 .bar2{display:flex;align-items:center;gap:18px;padding:8px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:3;flex-wrap:wrap}
 .bar2 .pills{margin:0}
 .bar2 .pills button:disabled{opacity:.35;cursor:default}
-.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:10px 12px;padding:12px 20px 20px;align-items:start}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px 12px;padding:12px 20px 20px;align-items:start}
 .sgrid.wide{grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
 .sc{border:1px solid var(--line);padding:6px;cursor:pointer;min-width:0}
 .sc:hover{border-color:var(--fg)}
-.sc .pic{width:100%;aspect-ratio:390/844;border:1px solid var(--fg);background:var(--soft);display:block;object-fit:cover;object-position:top}
-.sgrid.wide .sc .pic{aspect-ratio:1440/900}
-.sc .nocap{width:100%;aspect-ratio:390/844}
-.sgrid.wide .sc .nocap{aspect-ratio:1440/900}
+.sc .pic{height:clamp(200px,calc((100vh - 305px)/2),460px);width:auto;max-width:100%;margin:0 auto;aspect-ratio:390/844;border:1px solid var(--fg);background:var(--soft);display:block;object-fit:cover;object-position:top}
+.sgrid.wide .sc .pic{height:auto;width:100%;aspect-ratio:1440/900}
+.sc .nocap{height:clamp(200px,calc((100vh - 305px)/2),460px);aspect-ratio:390/844;margin:0 auto}
+.sgrid.wide .sc .nocap{height:auto;width:100%;aspect-ratio:1440/900}
 .sc .r{font:600 12px var(--mono);margin-top:5px;word-break:break-all}
-.sc .m{font-size:11px;color:var(--mute);line-height:1.3;margin-top:2px}
+.sc .m{font-size:11px;color:var(--mute);line-height:1.3;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sc .m b{color:var(--fg);font-weight:600}
 #lb{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:20;display:none;grid-template-columns:1fr 320px;gap:0;color:#fff}
 #lb.on{display:grid}
@@ -314,7 +314,7 @@ function renderScreens() {
     const key = `${s.surface}:${s.route}`;
     const p = shotOf(s, vp);
     const pic = p ? `<img class="pic" loading="lazy" src="${shotUrl(p)}" alt="">` : `<div class="nocap">no capture</div>`;
-    return `<div class="sc" data-lb="${esc(key)}">${pic}<div class="r">${s.surface === 'site' ? 'site ' : ''}${esc(s.route)}</div><div class="m">${esc(s.access)}${s.states?.length ? ` - ${new Set(s.states.map((x) => x.name)).size} states` : ''}</div><div class="m"><b>${us.length}</b> ${us.length === 1 ? 'story' : 'stories'}${us.length ? ': ' + esc(us.slice(0, 2).map((x) => x.title).join(', ')) + (us.length > 2 ? ` +${us.length - 2}` : '') : ''}</div><div class="m mono">${calls.length ? esc(calls.slice(0, 2).join(' | ')) + (calls.length > 2 ? ` +${calls.length - 2}` : '') : 'no endpoint'}</div></div>`;
+    return `<div class="sc" data-lb="${esc(key)}">${pic}<div class="r">${s.surface === 'site' ? 'site ' : ''}${esc(s.route)}</div><div class="m">${esc(s.access)}${s.states?.length ? ` - ${new Set(s.states.map((x) => x.name)).size} states` : ''}</div><div class="m" title="${esc(us.map((x) => x.title).join(', '))}"><b>${us.length}</b> ${us.length === 1 ? 'story' : 'stories'}${us.length ? ': ' + esc(us.slice(0, 2).map((x) => x.title).join(', ')) + (us.length > 2 ? ` +${us.length - 2}` : '') : ''}</div><div class="m mono" title="${esc(calls.join(' | '))}">${calls.length ? esc(calls.slice(0, 2).join(' | ')) + (calls.length > 2 ? ` +${calls.length - 2}` : '') : 'no endpoint'}</div></div>`;
   }).join('');
   $('screens').innerHTML = `<div class="bar2">${pills(['phone', 'desktop'], vp, 'v')}${pills(themes.length > 1 ? ['day', 'night'] : ['day', 'night'], th, 't', (x) => !themes.includes(x))}<span class="mute" style="font-size:12px">${info}</span></div><div class="sgrid ${vp === 'desktop' ? 'wide' : ''}">${cards}</div>`;
   $('screens').querySelectorAll('[data-v]').forEach((b) => b.onclick = () => { vp = b.dataset.v; store.set('atlas.vp', vp); renderScreens(); });
