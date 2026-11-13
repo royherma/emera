@@ -17,6 +17,7 @@
     { "binding": "DB", "database_name": "emera-dev", "database_id": "local-dev", "migrations_dir": "migrations" }
   ],
   "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "emera-media-dev" }],
+  "images": { "binding": "IMAGES" },
 
   "env": {
     "staging": {
@@ -30,7 +31,8 @@
       "d1_databases": [
         { "binding": "DB", "database_name": "emera-staging", "database_id": "2fa77b67-d18c-43e8-8839-6c7dc982998e", "migrations_dir": "migrations" }
       ],
-      "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "emera-media-staging" }]
+      "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "emera-media-staging" }],
+      "images": { "binding": "IMAGES" }
     },
     "production": {
       "name": "emera-api-production",
@@ -44,6 +46,7 @@
         { "binding": "DB", "database_name": "emera-prod", "database_id": "e74c4221-f4e7-4304-a1a2-5eceab8f5503", "migrations_dir": "migrations" }
       ],
       "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "emera-media-prod" }],
+      "images": { "binding": "IMAGES" },
       "routes": [
         { "pattern": "api.emera.social", "custom_domain": true },
         { "pattern": "emera.social/@*", "zone_name": "emera.social" },

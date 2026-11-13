@@ -155,7 +155,7 @@ const seedComments: [number, string, string, number, string?][] = [
   [0, "mina", "Left at five, the light lasted about twenty minutes.", 60, "c_1"],
   [0, "tamsin", "Saving this for a colour study.", 40],
   [2, "koji", "The window light is doing so much here.", 100],
-  [0, "jonas_w", "Twenty minutes. Worth the early alarm.", 25, "c_2"],
+  [0, "jonas_w", "Twenty minutes. Worth the early alarm.", 25, "c_1"],
 ];
 seedComments.forEach(([i, handle, body, ago, parentId], n) => {
   comments.push({ id: `c_${n + 1}`, postId: posts[i].id, parentId: parentId ?? null, userId: users.get(handle)!.id, body, createdAt: iso(ago) });

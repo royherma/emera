@@ -1,0 +1,2 @@
+ALTER TABLE media ADD COLUMN source_sha256 TEXT;
+ALTER TABLE media ADD COLUMN source_bytes INTEGER;

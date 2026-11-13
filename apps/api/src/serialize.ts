@@ -8,6 +8,7 @@ export type MediaRow = {
   id: string; user_id: string; kind: string; content_type: string; width: number; height: number;
   sha256: string | null; r2_key: string; signed_at: number | null; signer: string | null; signature: string | null;
   post_id: string | null; position: number; alt: string;
+  source_sha256?: string | null;
 };
 export type PostRow = { id: string; user_id: string; caption: string; created_at: number };
 
@@ -48,6 +49,7 @@ export function mediaJson(origin: string, m: MediaRow) {
       signer: m.signer,
       signature: m.signature,
       alg: 'hmac-sha256',
+      sourceSha256: m.source_sha256 ?? null,
     },
   };
 }
