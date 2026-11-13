@@ -8,6 +8,7 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 - **Roy's own sign-ups were counted as people.** Owner emails live in the `OWN_EMAILS` wrangler secret (never in code, the repo is public); test domains and `X-TG-Tester` traffic are marked `Test` and left out of every count, the admin totals and the public ledger.
 - **An account was announced before it had a handle.** The users feed now waits until a handle is set or 10 minutes pass, and stops the batch there so no later account skips ahead of it.
 - **The site worker now runs before assets for every page** (`run_worker_first` in `apps/site/wrangler.jsonc`) to log visits server-side. A site deploy needs migration `0002_visits.sql` applied first, and the `OPS` service binding needs `emera-notify` deployed in the same env.
+- **Gmail files mail sent to hello@/dmca@ as spam.** Both routing rules now go to the `emera-notify` Worker, which posts sender + subject to #emera-events and then forwards to `MAIL_FORWARD_TO` (secret). A Slack ping with no inbox copy means look in spam. Spot a broken forward: the Slack post says `forward failed`.
 - **The site build needs `brand/` next to `apps/site`.** A `git archive` of only `apps/` fails `scripts/build.mjs`; deploy then ships the committed `public/`, which is what you want, but archive `brand` too if you rebuild.
 
 ## 2026-11-13 - M0: first deploys, open sign-up
