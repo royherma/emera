@@ -133,3 +133,25 @@ Search needs no sign-in. `q` is 1 to 100 characters (`bad_query`), `type` defaul
 `/v1/flags` is the safety report on any post or account, separate from `POST /v1/reports` (a creator reporting a copy of their own work). `reason` is one of `spam`, `harassment`, `hate`, `violence`, `nudity`, `self_harm`, `impersonation`, `scam`, `other` (`bad_reason`). `targetId` is a post id or a user id (`bad_target`, 404 `not_found`). Reporting your own post or account is 400 `own_content`. More than 20 new reports in an hour is 429 `too_many`. `note` up to 1000 characters (`bad_note`).
 
 `flag` = `{ id, targetType, targetId, reason, note, status, createdAt }`. `status` starts as `new`.
+
+## Connect an AI app, import, auto-post
+
+`/mcp` is an MCP server (Streamable HTTP, stateless JSON-RPC, protocol `2025-11-25` back to `2024-11-05`). Add `https://api.emera.social/mcp` as a connector in claude.ai, ChatGPT, Claude Code or Cursor; the app signs in with OAuth 2.1 (dynamic client registration + PKCE S256) and the person approves with an email code on `/oauth/authorize`. Access tokens are `sessions` rows with `client_id` set (30 days), refresh tokens rotate (1 year). Tools: `whoami`, `preview_import`, `import_posts`, `auto_post`, `list_connections`, `create_post`, `list_my_posts`.
+
+| Method | Path | Body | Returns |
+| --- | --- | --- | --- |
+| GET | `/.well-known/oauth-protected-resource` | - | `{ resource, authorization_servers }` |
+| GET | `/.well-known/oauth-authorization-server` | - | OAuth metadata |
+| POST | `/oauth/register` | `{ client_name, redirect_uris }` | `201 { client_id, ... }` public client, no secret |
+| GET | `/oauth/authorize` | query: `response_type=code, client_id, redirect_uri, code_challenge, code_challenge_method=S256, state` | sign-in + Allow page |
+| POST | `/oauth/token` | form: `authorization_code` or `refresh_token` grant | `{ access_token, refresh_token, expires_in }` |
+| POST | `/mcp` | JSON-RPC | `401` + `WWW-Authenticate: Bearer resource_metadata=...` without a token |
+| POST | `/v1/import/preview` | `{ from, limit? }` | `{ source, items: [{ id, url, date, caption, photos, videos, onEmera }] }` |
+| POST | `/v1/import` | `{ from, limit?, only?, autoPost? }` | `{ imported: [{ item, post }], skipped: [{ item, why }] }` |
+| GET | `/v1/sources` | - | `{ sources: [source] }` |
+| POST | `/v1/sources` | `{ from, autoPost? }` | `{ source }` turns auto-post on (default) or off |
+| DELETE | `/v1/sources/:id` | - | `{ ok: true }` |
+
+`from` is a Bluesky handle (`@name.bsky.social`, a `bsky.app/profile/` link or a did), a Mastodon profile link (`/@name` gets `.rss`), or any RSS/Atom feed or page that links one. Instagram, TikTok, X and Facebook links return 422 `source_locked` with what to do instead. Only items with photos or videos come over; captions keep up to 2200 characters, dates keep the original time. Each source item is imported once per person (`imported_items`). Up to 25 posts per import call.
+
+`source` = `{ id, from, label, autoPost, since, lastChecked, lastError }`. A cron every 15 minutes reads the 10 newest items of each auto-post source and posts those made after `since` (the moment auto-post was turned on).
