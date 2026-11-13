@@ -4,7 +4,7 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -17,7 +17,7 @@
     "plugins": [
       "expo-router",
       "expo-image",
-      "expo-secure-store",
+      ["expo-secure-store", { "faceIDPermission": false }],
       "expo-font",
       "expo-splash-screen",
       "expo-video",
