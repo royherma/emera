@@ -1,5 +1,6 @@
 import { useEffect, useSyncExternalStore } from "react";
 import { api } from "@/lib/api";
+import { openLive } from "@/lib/live";
 
 let counts = { inbox: 0, requests: 0 };
 const subs = new Set<() => void>();
@@ -23,7 +24,23 @@ export async function refreshDmUnread() {
   } catch {}
 }
 
+let listeners = 0;
+let closeLive: (() => void) | null = null;
+
+function useLiveDmUnread() {
+  useEffect(() => {
+    if (listeners++ === 0) closeLive = openLive({ kind: "me" }, () => void refreshDmUnread());
+    return () => {
+      if (--listeners === 0) {
+        closeLive?.();
+        closeLive = null;
+      }
+    };
+  }, []);
+}
+
 export function useRefreshDmUnread(dep: unknown) {
+  useLiveDmUnread();
   useEffect(() => {
     void refreshDmUnread();
     const t = setInterval(refreshDmUnread, 30000);

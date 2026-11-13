@@ -208,7 +208,7 @@ const noteView = (n: (typeof notes)[number]): Notification => {
 const sorted = () => [...posts].sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
 
 export const mock: Backend & { _setToken: (t: string | null) => void; _demoSession: () => { token: string; user: User } } = {
-  ...makeMockChat({ current, users, blocked, muted }),
+  ...makeMockChat({ current, users, blocked, muted, postById: (id) => { const p = posts.find((x) => x.id === id); return p ? view(p) : null; } }),
   _setToken: (t) => {
     token = t;
   },

@@ -1,5 +1,5 @@
 import { API_URL } from "./config";
-import { ApiError, Backend, ImportItem, ImportSource, Channel, ChatMessage, ChatPage, ChatRoomRef, Comment, DmThread, Media, Notification, PickedFile, Post, User, UserPage } from "./types";
+import { ApiError, Backend, ImportItem, ImportSource, Channel, ChatMessage, ChatPage, ChatRoomRef, Comment, DmThread, Media, Notification, PickedFile, Post, User, UserPage, ChatSettings, DmWith } from "./types";
 
 let token: string | null = null;
 export const setToken = (t: string | null) => {
@@ -110,12 +110,12 @@ export const http: Backend = {
     const qs = q.toString();
     return send<ChatPage>("GET", `${roomPath(room)}/messages${qs ? `?${qs}` : ""}`);
   },
-  sendMessage: async (room, body) => (await send<{ message: ChatMessage }>("POST", `${roomPath(room)}/messages`, { body })).message,
+  sendMessage: async (room, body, postId) => (await send<{ message: ChatMessage }>("POST", `${roomPath(room)}/messages`, { body, postId })).message,
   deleteMessage: async (room, id) => void (await send("DELETE", `${roomPath(room)}/messages/${encodeURIComponent(id)}`)),
   markRoomRead: async (room) => void (await send("POST", `${roomPath(room)}/read`)),
   flagMessage: async (input) => void (await send("POST", "/v1/chat/flags", input)),
   threads: async (box) => (await send<{ threads: DmThread[] }>("GET", `/v1/dms${box === "requests" ? "?box=requests" : ""}`)).threads,
-  startThread: (handle, body) => send("POST", "/v1/dms", { handle, body }),
+  startThread: (handle, body, postId) => send("POST", "/v1/dms", { handle, body, postId }),
   acceptThread: async (id) => (await send<{ thread: DmThread }>("POST", `/v1/dms/${encodeURIComponent(id)}/accept`)).thread,
   hideThread: async (id) => void (await send("DELETE", `/v1/dms/${encodeURIComponent(id)}`)),
   dmUnread: () => send("GET", "/v1/dms/unread"),
@@ -131,4 +131,13 @@ export const http: Backend = {
   sources: async () => (await send<{ sources: ImportSource[] }>("GET", "/v1/sources")).sources,
   setSource: async (from, autoPost, rules) => (await send<{ source: ImportSource }>("POST", "/v1/sources", { from, autoPost, rules })).source,
   removeSource: async (id) => void (await send("DELETE", `/v1/sources/${encodeURIComponent(id)}`)),
+  liveUrl: async (room) => {
+    if (typeof WebSocket === "undefined" || !token) return null;
+    const { path } = await send<{ path: string }>("POST", "/v1/chat/live", { kind: room.kind, id: room.id });
+    return `${API_URL.replace(/^http/, "ws")}${path}`;
+  },
+  chatSettings: async () => (await send<{ settings: ChatSettings }>("GET", "/v1/chat/settings")).settings,
+  saveChatSettings: async (input) => (await send<{ settings: ChatSettings }>("PUT", "/v1/chat/settings", input)).settings,
+  dmWith: (handle) => send<DmWith>("GET", `/v1/dms/with/${encodeURIComponent(handle)}`),
+  muteThread: async (id, muted) => (await send<{ thread: DmThread }>("POST", `/v1/dms/${encodeURIComponent(id)}/mute`, { muted })).thread,
 };
