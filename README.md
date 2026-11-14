@@ -211,7 +211,7 @@ npm --prefix spikes/provenance run lexicons
 | :-: | --- | --- |
 | ⚡ | [`apps/api`](apps/api) | Hono Worker: accounts, uploads, posts, public pages |
 | 📱 | [`apps/mobile`](apps/mobile) | Expo app for iOS, Android and web |
-| 🌐 | [`apps/site`](apps/site) | emera.social landing page and early list |
+| 🌐 | [`apps/site`](apps/site) | emera.social landing page and sign-up |
 | 🔔 | [`apps/notify`](apps/notify) | Team alerts and the admin page |
 | 🎨 | [`packages/brand`](packages/brand) | Name, tagline, colors and the AT Protocol namespace |
 | 🧬 | [`lexicons`](lexicons) | AT Protocol record definitions, `social.emera.*` |

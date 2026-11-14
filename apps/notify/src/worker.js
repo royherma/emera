@@ -165,9 +165,9 @@ async function sendEarly(env, r) {
   const first = r.visitor ? await env.SITE_DB.prepare("SELECT referrer, utm, ua FROM visits WHERE visitor = ? ORDER BY id LIMIT 1").bind(r.visitor).first().catch(() => null) : null;
   await slack(env, {
     icon: "👋",
-    title: "Early list join",
+    title: "Started sign-up",
     detail: esc(r.email),
-    facts: [place(r), device(r.ua), `from ${source(first || r)}`, r.source && r.source !== "site" ? `form \`${esc(r.source)}\`` : null, `*${n}* on the list`, stamp(toMs(r.created_at))],
+    facts: [place(r), device(r.ua), `from ${source(first || r)}`, r.source && r.source !== "site" ? `form \`${esc(r.source)}\`` : null, `*${n}* started so far`, stamp(toMs(r.created_at))],
     links: [adminLink(env)],
     test,
   }, thread ? { ts: thread, broadcast: true } : null);
@@ -199,7 +199,6 @@ async function sendUser(env, r) {
       r.display_name && esc(r.display_name),
       esc(r.email),
       inviter?.handle ? `invited by @${esc(inviter.handle)}` : r.invited_by ? "invited" : null,
-      early ? `on the early list since ${bangkok(toMs(early.created_at), true)}` : "not on the early list",
       `*${n}* accounts`,
       stamp(r.created_at),
     ],
@@ -315,8 +314,8 @@ export async function dailySummary(env, now = Date.now()) {
     title: `Yesterday on Emera`,
     detail: s.day,
     rows: [
-      `👀 *${s.visitors}* visitors  ·  👋 *${s.early}* early list joins  ·  🎉 *${s.accounts}* accounts  ·  🖼️ *${s.posts}* posts${s.reports ? `  ·  🚨 *${s.reports}* copy reports` : ""}`,
-      `All time: *${s.totals.early}* on the list, *${s.totals.accounts}* accounts, *${s.totals.posts}* posts`,
+      `👀 *${s.visitors}* visitors  ·  👋 *${s.early}* started sign-up  ·  🎉 *${s.accounts}* accounts  ·  🖼️ *${s.posts}* posts${s.reports ? `  ·  🚨 *${s.reports}* copy reports` : ""}`,
+      `All time: *${s.totals.accounts}* accounts, *${s.totals.posts}* posts`,
     ],
     facts: ["test accounts left out", stamp(now)],
     links: [adminLink(env), ["Public ledger", `${site(env)}/ledger`]],

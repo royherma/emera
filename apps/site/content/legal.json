@@ -4,14 +4,14 @@
     "title": "Privacy",
     "description": "What Emera keeps, who else handles it, and how to get a copy or have it deleted. In plain words.",
     "short": "We keep what it takes to run your account and show what you post. We never sell it, there are no ad trackers, and you can ask us to delete all of it.",
-    "updated": "2026-11-13",
+    "updated": "2026-11-14",
     "sections": [
       { "h": "When you join", "html": "<p>Your email address, the page you joined from and the site that sent you there. We use it to send your sign-in code and to tell you when there is news.</p>" },
       { "h": "When you have an account", "html": "<ul><li>Your email, name, handle, bio, photo and links</li><li>What you post: photos, videos, captions and image descriptions, plus the proof attached to each upload (who shared it, when, and a fingerprint of the file)</li><li>Your likes, comments, follows, blocks, mutes and reports</li><li>The sign-in codes we email you and the sessions that keep you signed in</li></ul>" },
       { "h": "When you visit", "html": "<p>The page you opened, the site that linked you here, your rough location from your connection (country, region and city), your browser and your language. One cookie, <strong>em_v</strong>, holds a random ID so we can count return visits. It lasts up to a year and is never used for ads.</p>" },
       { "h": "What is public", "html": "<p>Everything you post, and your name, handle, bio, photo and links. The proof on a post shows who shared it and when. Your email address is never shown to anyone.</p>" },
       { "h": "Who else handles it", "html": "<ul><li><strong>Cloudflare</strong> hosts the site, the app and your files, and counts page views</li><li><strong>Resend</strong> sends our emails, including sign-in codes</li><li><strong>Google Fonts</strong> serves the typefaces on this site and sees your IP address when a page loads</li></ul><p>No ad networks. We never sell or rent what we keep.</p>" },
-      { "h": "Get a copy or delete it", "html": "<p>Email <a href=\"mailto:hello@emera.social\">hello@emera.social</a> from the address on your account and say what you want: a copy of your data, your account deleted, or your email taken off the early list. We answer within 30 days. Deleted posts and accounts leave our backups within 30 days.</p>" },
+      { "h": "Get a copy or delete it", "html": "<p>Email <a href=\"mailto:hello@emera.social\">hello@emera.social</a> from the address on your account and say what you want: a copy of your data, your account deleted, or an email you typed on emera.social removed. We answer within 30 days. Deleted posts and accounts leave our backups within 30 days.</p>" },
       { "h": "Changes", "html": "<p>The date at the top changes when this page does. If a change affects what we keep or who sees it, we email members first.</p>" }
     ]
   },

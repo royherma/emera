@@ -42,7 +42,7 @@
       "exposure": 5,
       "why": "Every link works with no install, so every share reaches a person",
       "outsiders": "yes",
-      "note": "Public pages on staging; emera.social serves the landing page and early list"
+      "note": "Public pages on staging; emera.social serves the landing page and the app"
     },
     {
       "id": "pwa",
@@ -292,7 +292,7 @@
       "path": "Weekly Resend digest of followed creators, built from the same feed query; opt-in",
       "effort": "M",
       "exposure": 3,
-      "why": "Reaches people who never open an app; early list already collects emails",
+      "why": "Reaches people who never open an app; sign-up already collects emails",
       "outsiders": "yes"
     },
     {

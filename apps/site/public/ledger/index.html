@@ -31,7 +31,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0
 .eyebrow{font:600 .78rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--sunink);margin-top:28px}
 h1{font:800 clamp(2.3rem,6vw,4.4rem)/1 var(--disp);letter-spacing:-.05em;margin:14px 0 0;max-width:15em}
 .lead{color:var(--ink2);max-width:34em;margin:18px 0 0;font-size:clamp(1rem,1.5vw,1.15rem)}
-.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:36px 0 0}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:36px 0 0}
 .tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
 .tile b{display:block;font:800 clamp(1.9rem,4vw,2.8rem)/1 var(--disp);letter-spacing:-.04em}
 .tile span{color:var(--ink2);font-size:.95rem}
@@ -62,16 +62,15 @@ li a{color:var(--sunink);text-decoration:none;font-weight:600}
 <h1 data-e="28076880">Every account and every post, counted in public</h1>
 <p data-e="bd1ba45f" class="lead">Rules nobody can read start with numbers nobody can see. On Emera both are open. This page shows Emera growing, one person and one post at a time, the minute it happens.</p>
 <section class="tiles" aria-label="Totals">
-<div class="tile"><b data-e="1f72ff04" id="t-early">-</b><span data-e="002329f3">on the early list</span></div>
-<div class="tile"><b data-e="1f72ff04-2" id="t-accounts">-</b><span data-e="68ead782">accounts</span></div>
-<div class="tile"><b data-e="1f72ff04-3" id="t-posts">-</b><span data-e="5dd63329">posts</span></div>
-<div class="tile"><b data-e="1f72ff04-4" id="t-reports">-</b><span data-e="6682c1bd">copies reported by creators</span></div>
+<div class="tile"><b data-e="1f72ff04" id="t-accounts">-</b><span data-e="68ead782">accounts</span></div>
+<div class="tile"><b data-e="1f72ff04-2" id="t-posts">-</b><span data-e="5dd63329">posts</span></div>
+<div class="tile"><b data-e="1f72ff04-3" id="t-reports">-</b><span data-e="6682c1bd">copies reported by creators</span></div>
 </section>
 <section class="card">
 <h2 data-e="28c3181e">Growth over time</h2>
 <p data-e="60e5abcc" class="sub">Running totals per day</p>
-<div class="legend"><span data-e="c6ef0c21"><i style="background:var(--l1)"></i>Accounts</span><span data-e="69a3c1ad"><i style="background:var(--l2)"></i>Posts</span><span data-e="dd987a98"><i style="background:var(--l3)"></i>Early list</span></div>
-<svg class="chart" id="chart" role="img" aria-label="Running totals of accounts, posts and early list sign-ups per day"></svg>
+<div class="legend"><span data-e="c6ef0c21"><i style="background:var(--l1)"></i>Accounts</span><span data-e="69a3c1ad"><i style="background:var(--l2)"></i>Posts</span></div>
+<svg class="chart" id="chart" role="img" aria-label="Running totals of accounts and posts per day"></svg>
 </section>
 <section class="card">
 <h2 data-e="83c0f917">The ledger</h2>
@@ -79,7 +78,7 @@ li a{color:var(--sunink);text-decoration:none;font-weight:600}
 <ol id="events"></ol>
 <button data-e="7873a908" class="more" id="more" hidden>Show more</button>
 </section>
-<p data-e="cf4e75b8" class="fine">Counts leave out our own test accounts. Early list sign-ups stay anonymous here. The same numbers are open as data at <a href="/api/ledger">/api/ledger</a>. <span id="upd"></span></p>
+<p data-e="1b60d90e" class="fine">Counts leave out our own test accounts. The same numbers are open as data at <a href="/api/ledger">/api/ledger</a>. <span id="upd"></span></p>
 </div>
 <script>
 (function(){
@@ -90,14 +89,14 @@ function who(h){return h?'<a href="/@'+encodeURIComponent(h)+'">@'+esc(h)+"</a>"
 function line(e){
 if(e.type==="account")return who(e.handle)+" opened an account";
 if(e.type==="post")return who(e.handle)+' shared <a href="/p/'+encodeURIComponent(e.id)+'">a post</a>';
-if(e.type==="early")return"Someone joined the early list";
+
 return"A creator reported a copy of their work";}
 function list(){
 document.getElementById("events").innerHTML=data.events.slice(0,shown).map(function(e){return'<li><span class="n">#'+e.n+'</span><span>'+line(e)+'</span><time datetime="'+new Date(e.at).toISOString()+'">'+when(e.at)+"</time></li>"}).join("")||'<li><span></span><span>The first entry lands here soon after launch</span></li>';
 document.getElementById("more").hidden=shown>=data.events.length;}
 function chart(){
 var svg=document.getElementById("chart"),W=svg.clientWidth||900,H=240,p={l:36,r:12,t:10,b:26},c=data.cumulative,days=data.days;
-var max=Math.max(1,Math.max.apply(null,c.accounts.concat(c.posts,c.early)));
+var max=Math.max(1,Math.max.apply(null,c.accounts.concat(c.posts)));
 var x=function(i){return p.l+(W-p.l-p.r)*(days.length<2?0:i/(days.length-1))},y=function(v){return H-p.b-(H-p.t-p.b)*v/max};
 var path=function(s){return s.map(function(v,i){return(i?"L":"M")+x(i).toFixed(1)+" "+y(v).toFixed(1)}).join(" ")};
 var grid="",ticks=[0,Math.round(max/2),max];
@@ -105,8 +104,8 @@ ticks.forEach(function(t){grid+='<line x1="'+p.l+'" x2="'+(W-p.r)+'" y1="'+y(t)+
 var fmt=function(d){return new Date(d+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"})};
 grid+='<text x="'+p.l+'" y="'+(H-6)+'">'+fmt(days[0])+'</text><text x="'+(W-p.r)+'" y="'+(H-6)+'" text-anchor="end">today</text>';
 svg.setAttribute("viewBox","0 0 "+W+" "+H);
-svg.innerHTML=grid+'<path d="'+path(c.early)+'" fill="none" stroke="var(--l3)" stroke-width="2" stroke-dasharray="4 4"/><path d="'+path(c.posts)+'" fill="none" stroke="var(--l2)" stroke-width="2.5"/><path d="'+path(c.accounts)+'" fill="none" stroke="var(--l1)" stroke-width="3"/>';}
-function render(){var t=data.totals;["early","accounts","posts","reports"].forEach(function(k){document.getElementById("t-"+k).textContent=t[k].toLocaleString()});
+svg.innerHTML=grid+'<path d="'+path(c.posts)+'" fill="none" stroke="var(--l2)" stroke-width="2.5"/><path d="'+path(c.accounts)+'" fill="none" stroke="var(--l1)" stroke-width="3"/>';}
+function render(){var t=data.totals;["accounts","posts","reports"].forEach(function(k){document.getElementById("t-"+k).textContent=t[k].toLocaleString()});
 document.getElementById("upd").textContent="Updated "+when(data.at)+".";list();chart();}
 document.getElementById("more").onclick=function(){shown+=60;list()};
 function load(){fetch("/api/ledger").then(function(r){return r.json()}).then(function(j){data=j;render()}).catch(function(){document.getElementById("upd").textContent="Could not load the ledger right now."})}

@@ -53,7 +53,7 @@ label.tg{display:flex;gap:6px;align-items:center;color:var(--ink2);cursor:pointe
 </section>
 <section class="lists">
 <div class="card"><h2>Accounts <span id="na"></span></h2><div class="scroll"><table id="accounts"></table></div></div>
-<div class="card"><h2>Early list <span id="ne"></span></h2><div class="scroll"><table id="early"></table></div></div>
+<div class="card"><h2>Started sign-up <span id="ne"></span></h2><div class="scroll"><table id="early"></table></div></div>
 <div class="card"><h2>Visitors <span>latest 60</span></h2><div class="scroll"><table id="visitors"></table></div></div>
 <div class="card"><h2>Posts, reports, flags</h2><div class="scroll"><table id="posts"></table></div></div>
 <div class="card"><h2>Sponsors <span>banner shows after Approve</span></h2><div class="scroll"><table id="sponsors"></table></div></div>
@@ -74,20 +74,20 @@ function render(){
 var d=data,t=d.totals;
 document.getElementById("upd").textContent="updated "+bkk(d.at)+" Bangkok";
 document.getElementById("tiles").innerHTML=[
-tile(t.visitors30,"visitors","last 30 days"),tile(t.early,"early list",t.earlyTest?"+"+t.earlyTest+" test":""),
+tile(t.visitors30,"visitors","last 30 days"),tile(t.early,"started sign-up",t.earlyTest?"+"+t.earlyTest+" test":""),
 tile(t.accounts,"accounts",t.accountsTest?"+"+t.accountsTest+" test":""),tile(t.posts,"posts",t.postsTest?"+"+t.postsTest+" test":""),
 tile(t.likes,"likes"),tile(t.comments,"comments"),tile(t.follows,"follows"),tile(t.reportsOpen+" / "+t.flagsOpen,"open reports / flags")].join("");
 var top=Math.max(1,d.funnel[0][1]),worst=-1,wi=-1;
 for(var i=1;i<d.funnel.length;i++){var prev=d.funnel[i-1][1];var lost=prev?1-d.funnel[i][1]/prev:0;if(prev&&lost>worst){worst=lost;wi=i}}
 document.getElementById("funnel").innerHTML=d.funnel.map(function(f,i){var pct=i?(d.funnel[i-1][1]?Math.round(100*f[1]/d.funnel[i-1][1])+"%":"-"):"";
 return'<div>'+f[0]+'</div><div class="bar" style="width:'+Math.max(2,100*f[1]/top)+'%"></div><div><b>'+f[1]+'</b> <span class="'+(i===wi?"drop":"muted")+'">'+pct+'</span></div>'}).join("")+(wi>0?'<div class="sm" style="grid-column:1/4">Biggest drop: '+d.funnel[wi-1][0]+' to '+d.funnel[wi][0]+'</div>':"");
-var names={visitors:"visitors",early:"early list",accounts:"accounts",posts:"posts"};
+var names={visitors:"visitors",early:"started sign-up",accounts:"accounts",posts:"posts"};
 document.getElementById("chart").innerHTML=Object.keys(names).map(function(k){var s=d.daily[k],mx=Math.max(1,Math.max.apply(null,s)),sum=s.reduce(function(a,b){return a+b},0);
 return'<div class="sm">'+names[k]+'</div><div class="spark">'+s.map(function(v,i){return'<i class="'+(v?"":"z")+'" style="height:'+(v?Math.max(8,100*v/mx):4)+'%" title="'+d.days[i]+": "+v+'"></i>'}).join("")+'</div><div><b>'+sum+'</b></div>'}).join("")+'<div class="days"><span>'+d.days[0]+'</span><span>today</span></div>';
 document.getElementById("sources").innerHTML='<table>'+(d.sources.map(function(s){return"<tr><td>"+esc(s[0])+'</td><td style="text-align:right"><b>'+s[1]+"</b></td></tr>"}).join("")||'<tr><td class="muted">no visits yet</td></tr>')+"</table>";
 document.getElementById("na").textContent=d.accounts.filter(function(x){return!x.test}).length+" real";
 document.getElementById("ne").textContent=d.early.filter(function(x){return!x.test}).length+" real";
-document.getElementById("accounts").innerHTML=rows(d.accounts,function(a){return'<td><div class="h">'+(a.handle?'<a class="r" target="_blank" href="/@'+esc(a.handle)+'">@'+esc(a.handle)+"</a>":'<span class="muted">no handle</span>')+test(a)+'</div><div class="sm">'+esc(a.name)+" "+esc(a.email)+'</div><div class="sm">'+bkk(a.at)+" · "+a.posts+" posts"+(a.early?" · was on early list":"")+"</div></td>"});
+document.getElementById("accounts").innerHTML=rows(d.accounts,function(a){return'<td><div class="h">'+(a.handle?'<a class="r" target="_blank" href="/@'+esc(a.handle)+'">@'+esc(a.handle)+"</a>":'<span class="muted">no handle</span>')+test(a)+'</div><div class="sm">'+esc(a.name)+" "+esc(a.email)+'</div><div class="sm">'+bkk(a.at)+" · "+a.posts+" posts"++"</div></td>"});
 document.getElementById("early").innerHTML=rows(d.early,function(e){return'<td><div class="h">'+esc(e.email)+test(e)+'</div><div class="sm">'+bkk(e.at)+(e.place?" · "+esc(e.place):"")+'</div><div class="sm">'+esc(e.device||"")+(e.source?" · form "+esc(e.source):"")+"</div></td>"});
 document.getElementById("visitors").innerHTML=rows(d.visitors,function(v){return'<td><div class="h">'+esc(v.place||"somewhere")+' <span class="sm">'+ago(v.last)+'</span></div><div class="sm">'+esc(v.source)+" · "+esc(v.device||"")+'</div><div class="sm">'+v.pages.length+" pages: "+esc(v.pages.slice(0,4).join(" "))+"</div></td>"});
 var feed=d.posts.map(function(p){return{test:p.test,at:p.at,html:'<div class="h">🖼️ <a class="r" target="_blank" href="/p/'+esc(p.id)+'">post</a> by @'+esc(p.handle)+test(p)+'</div><div class="sm">'+esc(p.caption)+'</div><div class="sm">'+bkk(p.at)+(p.media?" · "+esc(p.media):"")+"</div>"}})

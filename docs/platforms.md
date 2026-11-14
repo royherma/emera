@@ -25,7 +25,7 @@ Everything else waits on these: the TV apps and the extension need the share and
 
 | Platform | Status | Tech path | Effort | Exposure | Why it matters | Outsiders |
 | --- | --- | --- | --- | --- | --- | --- |
-| Desktop and mobile web | live | Expo web export (apps/mobile) plus server-rendered /@handle and /p/:id pages from apps/api. Public pages on staging; emera.social serves the landing page and early list. | S | 5 | Every link works with no install, so every share reaches a person | yes |
+| Desktop and mobile web | live | Expo web export (apps/mobile) plus server-rendered /@handle and /p/:id pages from apps/api. Public pages on staging; emera.social serves the landing page and the app. | S | 5 | Every link works with no install, so every share reaches a person | yes |
 | PWA (installable web app) | idea | Web manifest, service worker and icons on the Expo web build; add to home screen on iOS, Android and desktop Chrome. | S | 4 | Installable on every screen that has a browser, with no store review | yes |
 
 ## Desktop apps
@@ -87,7 +87,7 @@ Everything else waits on these: the TV apps and the extension need the share and
 | Platform | Status | Tech path | Effort | Exposure | Why it matters | Outsiders |
 | --- | --- | --- | --- | --- | --- | --- |
 | RSS and Atom per creator | idea | /@handle/feed.xml and /feed.xml from apps/api, with media enclosures. | S | 4 | Readers, podcast apps and automations follow creators with no account | yes |
-| Email digests | idea | Weekly Resend digest of followed creators, built from the same feed query; opt-in. | M | 3 | Reaches people who never open an app; early list already collects emails | yes |
+| Email digests | idea | Weekly Resend digest of followed creators, built from the same feed query; opt-in. | M | 3 | Reaches people who never open an app; sign-up already collects emails | yes |
 
 ## AT Protocol
 

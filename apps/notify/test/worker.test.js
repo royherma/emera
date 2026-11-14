@@ -64,7 +64,7 @@ test("staging never posts unless SLACK_NON_PROD=1", async () => {
   assert.equal(await slackPost(h.env, { text: "hi" }), "ts1");
 });
 
-test("visit opens a thread, the early-list join lands in it with place, device and a real count", async () => {
+test("visit opens a thread, the started sign-up lands in it with place, device and a real count", async () => {
   const h = harness();
   await poll(h.env);
   const now = new Date().toISOString();
@@ -75,10 +75,10 @@ test("visit opens a thread, the early-list join lands in it with place, device a
   assert.deepEqual(await poll(h.env), { visits: 1, early: 2 });
   const [visit, own, join] = h.posted;
   assert.match(JSON.stringify(visit.blocks), /New visitor.*Bangkok, TH.*Instagram.*phone · iPhone iOS 18\.1/);
-  assert.match(JSON.stringify(own.blocks), /Test - Early list join/);
+  assert.match(JSON.stringify(own.blocks), /Test - Started sign-up/);
   assert.equal(join.thread_ts, "ts1");
   assert.equal(join.reply_broadcast, true);
-  assert.match(JSON.stringify(join.blocks), /maya@paint\.org.*Bangkok, TH.*\*1\* on the list.*Bangkok.*emera\.social\/admin/);
+  assert.match(JSON.stringify(join.blocks), /maya@paint\.org.*Bangkok, TH.*\*1\* started so far.*Bangkok.*emera\.social\/admin/);
 });
 
 test("sponsor interest posts company, amount and their link", async () => {
@@ -89,7 +89,7 @@ test("sponsor interest posts company, amount and their link", async () => {
   assert.match(h.text(), /Sponsor interest.*Daylight Paint Co.*hi@daylight\.example.*\$1,500\/mo.*Bangkok, TH.*daylight\.example/);
 });
 
-test("new account waits for a handle, then posts with early-list match and profile link", async () => {
+test("new account waits for a handle, then posts with sign-up thread and profile link", async () => {
   const h = harness();
   await poll(h.env);
   const t = Date.now();
@@ -98,7 +98,7 @@ test("new account waits for a handle, then posts with early-list match and profi
   assert.deepEqual(await poll(h.env, t + 60_000), { early: 1 });
   h.env.API_DB.raw.prepare("UPDATE users SET handle = 'maya', display_name = 'Maya' WHERE id = 'u1'").run();
   assert.deepEqual(await poll(h.env, t + 120_000), { users: 1 });
-  assert.match(h.text(), /New account.*@maya.*Maya.*maya@paint\.org.*on the early list since.*\*1\* accounts.*emera\.social\/@maya/);
+  assert.match(h.text(), /New account.*@maya.*Maya.*maya@paint\.org.*\*1\* accounts.*emera\.social\/@maya/);
 });
 
 test("ledger has no emails and leaves out test accounts", async () => {
@@ -107,7 +107,7 @@ test("ledger has no emails and leaves out test accounts", async () => {
   h.env.API_DB.raw.prepare("INSERT INTO users (id, email, handle, created_at) VALUES ('u1', 'maya@paint.org', 'maya', ?), ('u2', 'owner@gmail.com', 'roy', ?)").run(t, t);
   h.env.API_DB.raw.prepare("INSERT INTO posts (id, user_id, caption, created_at) VALUES ('p1', 'u1', 'hi', ?), ('p2', 'u2', 'test', ?)").run(t, t);
   const l = ledgerView(await load(h.env));
-  assert.deepEqual(l.totals, { accounts: 1, posts: 1, early: 0, reports: 0 });
+  assert.deepEqual(l.totals, { accounts: 1, posts: 1, reports: 0 });
   assert.doesNotMatch(JSON.stringify(l), /@paint|gmail/);
   assert.equal(l.cumulative.accounts.at(-1), 1);
   const a = adminView(await load(h.env));
