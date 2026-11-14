@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="https://emera.social">
+<a href="https://emera.social/?ref=github">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="brand/readme/banner-dark.webp">
     <img alt="Emera, the open source social network" src="brand/readme/banner-light.webp" width="100%">
@@ -11,7 +11,7 @@
 
 [![CI](https://github.com/royherma/emera/actions/workflows/ci.yml/badge.svg)](https://github.com/royherma/emera/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/license-MIT%20%2B%20AGPL--3.0-ff8a2b)](#license) [![AT Protocol](https://img.shields.io/badge/built%20on-AT%20Protocol-0085ff)](https://atproto.com) [![Nonprofit](https://img.shields.io/badge/run%20as-a%20nonprofit-2a1d14)](docs/mission/mission.md) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ffc24a)](CONTRIBUTING.md)
 
-**[✨ Join Emera](https://app.emera.social)** &nbsp;·&nbsp; **[🌐 Website](https://emera.social)** &nbsp;·&nbsp; **[🧭 Mission](docs/mission/mission.md)** &nbsp;·&nbsp; **[🗺️ Roadmap](#roadmap)** &nbsp;·&nbsp; **[💡 Suggest a feature](https://github.com/royherma/emera/issues/new?template=feature.yml)** &nbsp;·&nbsp; **[🙌 Contribute](#contribute)**
+**[✨ Join Emera](https://app.emera.social/?ref=github)** &nbsp;·&nbsp; **[🌐 Website](https://emera.social/?ref=github)** &nbsp;·&nbsp; **[🧭 Mission](docs/mission/mission.md)** &nbsp;·&nbsp; **[🗺️ Roadmap](#roadmap)** &nbsp;·&nbsp; **[💡 Suggest a feature](https://github.com/royherma/emera/issues/new?template=feature.yml)** &nbsp;·&nbsp; **[🙌 Contribute](#contribute)**
 
 </div>
 
@@ -36,9 +36,9 @@ Every line of code is public, so anyone can check we keep these promises.
 
 | 1️⃣ Open the app | 2️⃣ Type your email | 3️⃣ Say your name | 4️⃣ Post |
 | :-: | :-: | :-: | :-: |
-| [app.emera.social](https://app.emera.social), no invite needed | We send a code, no password | Your handle fills itself in | Signed with your name from the first upload |
+| [app.emera.social](https://app.emera.social/?ref=github), no invite needed | We send a code, no password | Your handle fills itself in | Signed with your name from the first upload |
 
-<p align="center"><a href="https://app.emera.social"><img alt="Create your account" src="https://img.shields.io/badge/Create%20your%20account-app.emera.social-ff8a2b?style=for-the-badge"></a></p>
+<p align="center"><a href="https://app.emera.social/?ref=github"><img alt="Create your account" src="https://img.shields.io/badge/Create%20your%20account-app.emera.social-ff8a2b?style=for-the-badge"></a></p>
 
 ## 📸 What you can post
 
@@ -84,7 +84,7 @@ Dates are targets, not limits: the sooner one lands, the sooner the next one sta
 <details>
 <summary><b>🌅 M0 · Live on emera.social</b></summary>
 
-- ✅ [emera.social](https://emera.social), [app.emera.social](https://app.emera.social) and [api.emera.social](https://api.emera.social/health) live
+- ✅ [emera.social](https://emera.social/?ref=github), [app.emera.social](https://app.emera.social/?ref=github) and [api.emera.social](https://api.emera.social/health) live
 - ✅ Sign up with an email code, invite links
 - ✅ Post, follow, like, comment, search, notifications
 - ✅ Report a copy of your work, from any post
@@ -260,7 +260,7 @@ The Emera name, logo and brand artwork (`brand/`) are not covered by either lice
 ---
 
 <div align="center">
-  <a href="https://emera.social"><img src="brand/logo/final/icon-512.png" width="56" alt="Emera"></a>
+  <a href="https://emera.social/?ref=github"><img src="brand/logo/final/icon-512.png" width="56" alt="Emera"></a>
   <br>
   <b>Emera</b> · Where humanity comes together
   <br>

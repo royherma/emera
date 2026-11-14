@@ -66,6 +66,8 @@ Every screen, flow and feature starts from: what is the fewest steps and words a
 
 ## Copy rules
 
+Every emera.social link we put somewhere (bio, post, email, README, store page) carries `?ref=<where>` (`?ref=github`, `?ref=ig-bio`): links opened from apps (Slack, iMessage, WhatsApp, email) send no referrer and show as Direct in #emera-events.
+
 Headings never end in a period. No em dashes. Avoid "unlock", "elevate" and "seamless", "whether you're A or B", and padded lists of three. Never describe a feature as unbuilt or "coming soon" in shipped copy; that goes to Roy.
 
 ## Layout
