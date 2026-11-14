@@ -148,6 +148,10 @@ test("hosting networks, old Chrome and Roy's own browser never post as visitors"
   add("k2", old, "Some Home ISP");
   add("me", fresh, "TOT Public Company Limited Bangkok");
   h.kv.set("own:me", "1");
+  add("q1", fresh, "QuickPacket, LLC");
+  add("q2", fresh, "HostRoyale Technologies Pvt Ltd");
+  add("q3", fresh, "Driftnet Ltd");
+  add("f1", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:70.0) Gecko/20100101 Firefox/70.0", "Some Home ISP");
   add("p1", fresh, "TOT Public Company Limited Bangkok");
   assert.deepEqual(await poll(h.env), { visits: 1 });
   assert.equal(h.posted.length, 1);
@@ -171,7 +175,9 @@ test("visit waits for the page script, then shows screen, connection, their time
   assert.match(t, /Europe\/Berlin  ·  network says Europe\/Stockholm/);
   assert.match(t, /`sv-SE` `en-US`/);
   assert.doesNotMatch(t, /no JavaScript/);
+  assert.match(t, /network\* `residential` · Telia Company AB/);
+  const before = h.posted.length;
   add.run(new Date(now).toISOString(), "s2", mac);
-  assert.deepEqual(await poll(h.env, now + 3 * 60_000), { visits: 1 });
-  assert.match(JSON.stringify(h.posted.at(-1).blocks), /no JavaScript ran, likely a bot/);
+  await poll(h.env, now + 3 * 60_000);
+  assert.equal(h.posted.length, before, "a visit where no JavaScript ran is a bot and never posts");
 });

@@ -1,4 +1,4 @@
-import { bangkok, clockLine, connection, device, isBotVisit, isTest, place, screenLine, screenOf, source, toMs } from "./people.js";
+import { bangkok, clockLine, connection, device, isBotVisit, isTest, networkKind, place, screenLine, screenOf, source, toMs } from "./people.js";
 import { adminView, ledgerView, load, summaryLines } from "./stats.js";
 import { ADMIN_HTML } from "./admin-page.js";
 
@@ -127,7 +127,7 @@ async function threadFor(env, visitor) {
 }
 
 async function sendVisit(env, r) {
-  if (isBotVisit(r) || r.tester || !r.visitor || (await env.STATE.get(`own:${r.visitor}`))) return false;
+  if (isBotVisit(r) || !screenOf(r) || r.tester || !r.visitor || (await env.STATE.get(`own:${r.visitor}`))) return false;
   const prior = await env.SITE_DB.prepare("SELECT COUNT(*) AS n, MAX(created_at) AS last FROM visits WHERE visitor = ? AND id < ? AND bot = 0").bind(r.visitor, r.id).first();
   const thread = await threadFor(env, r.visitor);
   const at = toMs(r.created_at);
@@ -141,14 +141,14 @@ async function sendVisit(env, r) {
   const ts = await slack(env, {
     icon: "👀",
     title: prior?.n ? `Returning visitor (day ${(visits?.d ?? 0) + 1})` : "New visitor",
-    detail: `${place(r) || "somewhere"}${sc ? "" : "  ·  no JavaScript ran, likely a bot"}`,
+    detail: place(r) || "somewhere",
     rows: [
       `🔗 *from* ${source(r)}${r.referrer ? `  _${esc(r.referrer.slice(0, 120))}_` : ""}`,
       `🛬 *landed* \`${esc(r.path)}\`${r.utm ? `  ·  \`${esc(r.utm)}\`` : ""}`,
       clockLine(r, sc) && `🕐 *their time* ${esc(clockLine(r, sc))}`,
       device(r.ua, sc) && `*device* ${esc(device(r.ua, sc))}`,
       screenLine(sc) && `🖥️ *screen* ${screenLine(sc)}`,
-      r.network && `📡 *network* ${esc(r.network)}`,
+      r.network && `📡 *network* \`${networkKind(r.network)}\` · ${esc(r.network)}`,
       connection(sc, r.network) && `📶 *connection* ${connection(sc, r.network)}`,
       langs.length && `🗣️ *language* ${langs.map((l) => `\`${esc(l)}\``).join(" ")}`,
     ],
