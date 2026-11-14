@@ -123,6 +123,7 @@ export interface Backend {
   setHandle(input: { handle: string; displayName: string }): Promise<User>;
   me(): Promise<User>;
   logout(): Promise<void>;
+  deleteAccount(): Promise<void>;
   feed(cursor?: string | null, mode?: FeedMode): Promise<{ posts: Post[]; cursor: string | null }>;
   post(id: string): Promise<Post>;
   deletePost(id: string): Promise<void>;

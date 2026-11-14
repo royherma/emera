@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import type { MiddlewareHandler } from 'hono';
-import type { AppEnv, UserRow } from './env';
+import type { AppEnv, Env, UserRow } from './env';
 import { fail, siteOrigin, readJson } from './http';
 import { hmacHex, newInviteCode, newSixDigitCode, newToken, newId, sha256Hex } from './crypto';
 import { deliveryFor, sendCode } from './mail';
@@ -41,6 +41,11 @@ export async function inviteStatus(env: AppEnv['Bindings'], code: string): Promi
   return { valid: row.uses < row.max_uses, invitedBy: row.handle };
 }
 
+// App Review's demo account: a fixed code from secrets, no email sent.
+function isReviewLogin(env: Env, email: string) {
+  return !!env.REVIEW_EMAIL && /^\d{6}$/.test(env.REVIEW_CODE ?? '') && email === env.REVIEW_EMAIL.trim().toLowerCase();
+}
+
 export const auth = new Hono<AppEnv>();
 
 auth.post('/v1/auth/start', async (c) => {
@@ -62,15 +67,17 @@ auth.post('/v1/auth/start', async (c) => {
   }
 
   const now = Date.now();
-  const recent = await c.env.DB.prepare('SELECT COUNT(*) AS n FROM login_codes WHERE email = ? AND created_at > ?')
-    .bind(email, now - 3_600_000).first<{ n: number }>();
-  if ((recent?.n ?? 0) >= MAX_CODES_PER_HOUR) throw fail(429, 'too_many_codes', 'Too many codes requested. Try again in an hour.');
-
-  await capSigninEmails(c.env);
-  const code = newSixDigitCode();
+  const review = isReviewLogin(c.env, email);
+  if (!review) {
+    const recent = await c.env.DB.prepare('SELECT COUNT(*) AS n FROM login_codes WHERE email = ? AND created_at > ?')
+      .bind(email, now - 3_600_000).first<{ n: number }>();
+    if ((recent?.n ?? 0) >= MAX_CODES_PER_HOUR) throw fail(429, 'too_many_codes', 'Too many codes requested. Try again in an hour.');
+    await capSigninEmails(c.env);
+  }
+  const code = review ? c.env.REVIEW_CODE! : newSixDigitCode();
   await c.env.DB.prepare('INSERT INTO login_codes (email, code_hash, invite_code, expires_at, created_at) VALUES (?, ?, ?, ?, ?)')
     .bind(email, await hmacHex(c.env.PROOF_SECRET, `code:${email}:${code}`), invite, now + CODE_TTL_MS, now).run();
-  await sendCode(c.env, email, code);
+  if (!review) await sendCode(c.env, email, code);
   return c.json({ ok: true });
 });
 

@@ -35,6 +35,7 @@ export const http: Backend = {
   setHandle: async (input) => (await send<{ user: User }>("POST", "/v1/auth/handle", input)).user,
   me: async () => (await send<{ user: User }>("GET", "/v1/me")).user,
   logout: async () => void (await send("POST", "/v1/auth/logout")),
+  deleteAccount: async () => void (await send("DELETE", "/v1/me")),
   feed: async (cursor, mode) => {
     const q = new URLSearchParams();
     if (cursor) q.set("cursor", cursor);
