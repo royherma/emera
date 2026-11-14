@@ -144,7 +144,7 @@ Search needs no sign-in. `q` is 1 to 100 characters (`bad_query`), `type` defaul
 
 Rules and every number: `docs/mission/funding-rules.md`. Constants live in `apps/api/src/fundRules.ts` and are echoed in `rules` below, so screens never hardcode them. Months are UTC `YYYY-MM`. Money is integer cents (USD).
 
-**Switch:** the whole feature is on only when the API var `FUNDING` is `"on"` (dev and staging on, production off). When off, every route in this section returns 404 `not_found`, and the app hides the fund and earnings screens after one `GET /v1/fund` 404.
+**Switch:** the whole feature is on only when the API var `FUNDING` is `"on"` (on in dev, staging and production). When off, every route in this section returns 404 `not_found`, and the app hides the fund and earnings screens after one `GET /v1/fund` 404.
 
 | Method | Path | Auth | Body | Returns |
 | --- | --- | --- | --- | --- |
