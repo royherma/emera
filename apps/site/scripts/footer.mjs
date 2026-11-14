@@ -32,6 +32,9 @@ export const footerCss = `.gh{display:inline-flex;align-items:stretch;border-rad
 .gh .ghl svg{width:14px;height:14px;color:var(--sun)}
 .gh .ghn{display:inline-flex;align-items:center;padding:0 14px;border-left:1px solid var(--gh-line,var(--line));font-variant-numeric:tabular-nums}
 .gh .ghn[hidden]{display:none}
+.navr{display:flex;align-items:center;gap:10px}
+.navr .pill{white-space:nowrap}
+@media (max-width:520px){.navr{gap:8px}.navr .gh .ghl{display:none}.navr .gh>svg{margin:0 11px}.navr .gh{min-height:40px}.navr .pill{padding:10px 14px;font-size:.88rem}}
 .ft .gh{margin-top:18px;--gh-line:rgba(255,235,210,.18);--gh-bg:rgba(255,235,210,.06);--gh-hover:rgba(255,235,210,.12);--gh-ink:#fbf3e8}
 .ft .gh:hover{color:#fbf3e8}
 .ft{background:#0c0a09;color:#f1e7d8;padding:56px 0 36px;font-size:.92rem}

@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { screens, sprite, usedWork } from "./screens.mjs";
+import { screenCss, screens, sprite, usedWork } from "./screens.mjs";
 import { pages, writePages } from "./pages.mjs";
 import { footer, footerCss, starButton } from "./footer.mjs";
 import { tagAll } from "./tag.mjs";
@@ -29,6 +29,7 @@ const vars = {
   domain: brand.domain,
   github: GITHUB_URL,
   sprite,
+  screenCss,
   footerCss,
   star: starButton(GITHUB_URL),
   footer: footer({ pages, mark: `<svg viewBox="${readFileSync(join(root, "../../brand/logo/final/mark-lit-symbol.svg"), "utf8").match(/viewBox="([^"]+)"/)[1]}" aria-hidden="true"><use href="#mark"/></svg>`, github: GITHUB_URL, year: new Date().getFullYear() }),

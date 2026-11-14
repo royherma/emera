@@ -1,8 +1,9 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { footer, footerCss } from "./footer.mjs";
+import { footer, footerCss, starButton } from "./footer.mjs";
 import { pages } from "./pages.mjs";
+import { screenCss, screens, sprite } from "./screens.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const brand = JSON.parse(readFileSync(join(root, "../../packages/brand/brand.json"), "utf8"));
@@ -18,7 +19,7 @@ const litSvg = readFileSync(join(root, "../../brand/logo/final/mark-lit-symbol.s
 const litBox = litSvg.match(/viewBox="([^"]+)"/)[1];
 const litInner = litSvg.replace(/^<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "");
 const mark = `<svg viewBox="${litBox}" aria-hidden="true"><use href="#mark"/></svg>`;
-const sprite = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="${litBox}">${litInner}</symbol></svg>`;
+const EXAMPLE = { name: "Tidewell Paper", line: "Paper for people who draw" };
 
 const css = `:root{--sun:#ff8a2b;--sun2:#ffc24a;--bg:#fbf5ea;--bg2:#f3e8d5;--ink:#2a1d14;--ink2:#6b5846;--ink3:#857260;--card:#fffaf1;--line:rgba(60,35,10,.12);--sunink:#9a4a00;--half:#2a1d14;--halfink:#fbf3e8;--err:#a3240f;--disp:"Sora",ui-sans-serif,system-ui,sans-serif;--body:"DM Sans",ui-sans-serif,system-ui,sans-serif;--gutter:clamp(16px,5vw,72px);color-scheme:light}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0c0a09;--bg2:#14110f;--ink:#fbf3e8;--ink2:#bcae9d;--ink3:#8a7c6d;--card:#1a1613;--line:rgba(255,235,210,.12);--sunink:#ffc98a;--half:#2b241f;--halfink:#fbf3e8;--err:#ff9a85;color-scheme:dark}}
@@ -90,7 +91,7 @@ td code{font:.85rem ui-monospace,SFMono-Regular,Menlo,monospace}
 td a{color:var(--sunink)}
 .join{padding:clamp(24px,4vw,44px);border-radius:28px;background:linear-gradient(180deg,#fff2dc,#f8d3a6);color:#2a1d14}
 .join .sub{color:#5a4634}
-.form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px;max-width:760px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px;max-width:640px}
 .form label{display:grid;gap:6px;font-weight:600;font-size:.92rem}
 .form label small{font-weight:400;color:#7a6450}
 .form input,.form select{width:100%;border:1px solid rgba(60,35,10,.16);border-radius:14px;background:#fffaf1;padding:13px 14px;font:inherit;font-weight:400;color:#2a1d14;outline:none}
@@ -100,10 +101,19 @@ td a{color:var(--sunink)}
 .form button:disabled{opacity:.6;cursor:default}
 .form[hidden]{display:none}
 .hp{position:absolute;left:-9999px}
+.sp{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(24px,4vw,56px);align-items:start;margin-top:22px}
+.sp .form{margin-top:0}
+.pv{order:2;display:flex;flex-direction:column;align-items:center;gap:14px;--k:.66}
+.pv .ph.day{box-shadow:0 30px 50px -24px rgba(120,60,10,.55),0 0 0 1px rgba(90,50,10,.12)}
+.pv .spl{animation:glow 2.6s ease-in-out infinite;box-shadow:inset 0 0 0 2px rgba(255,138,43,.0)}
+@keyframes glow{50%{background:rgba(255,194,74,.28)}}
+@media (prefers-reduced-motion:reduce){.pv .spl{animation:none;background:rgba(255,194,74,.22)}}
+.pv figcaption{font-size:.9rem;font-weight:600;color:#5a4634;text-align:center}
 .note{font-size:.95rem;min-height:1.4em;margin-top:16px;font-weight:600}
 .note.err{color:#a3240f}
 .fine{color:var(--ink3);font-size:.88rem;margin:28px 0 64px;max-width:44em}
 .fine a{color:var(--ink2)}
+@media (max-width:860px){.sp{grid-template-columns:1fr}.pv{order:-1}}
 @media (max-width:760px){.split,.calc,.deal{grid-template-columns:1fr}.tiles{grid-template-columns:1fr 1fr}.tile{padding:16px}.form{grid-template-columns:1fr}.form button{width:100%}}`;
 
 const themeBoot = `<script>(function(){try{var s=localStorage.getItem("emera-theme");if(s)document.documentElement.setAttribute("data-theme",s)}catch(e){}})()</script>`;
@@ -129,7 +139,10 @@ if(hist.length){var h=box.querySelector("[data-history]");h.hidden=false;h.query
 box.hidden=false}
 var api=root&&root.getAttribute("data-api");
 if(api)fetch(api+"/v1/fund").then(function(r){return r.ok?r.json():null}).then(function(d){if(!d)return;if(d.rules&&d.rules.creatorShare>0){share=d.rules.creatorShare;calc()}live(d,api)}).catch(function(){});
-var f=document.querySelector("[data-sponsor]");if(!f)return;var n=document.querySelector("[data-snote]"),b=f.querySelector("button");
+var f=document.querySelector("[data-sponsor]");if(!f)return;
+var pn=document.querySelector("[data-sp-name]"),pl=document.querySelector("[data-sp-line]");
+function pv(){var co=f.company.value.trim(),ln=f.line.value.trim();if(!pn)return;pn.textContent=co||(ln?"Your company":"${EXAMPLE.name}");pl.textContent=co||ln?ln:"${EXAMPLE.line}"}
+f.company.addEventListener("input",pv);f.line.addEventListener("input",pv);var n=document.querySelector("[data-snote]"),b=f.querySelector("button");
 var paid=new URLSearchParams(location.search).get("paid");
 if(paid&&api)fetch(api+"/v1/fund/checkout/"+encodeURIComponent(paid)).then(function(r){return r.json()}).then(function(j){f.hidden=true;n.className="note";n.textContent=j.paid?"Thank you, "+j.sponsorName+". "+usd(j.amountCents)+" is booked over "+j.months+(j.months===1?" month":" months")+". Your banner goes up once we check the words.":"Payment received. It shows here within a minute."}).catch(function(){});
 function err(t,el){n.textContent=t;n.classList.add("err");if(el)el.focus()}
@@ -174,11 +187,12 @@ ${themeBoot}
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>${css}
+${screenCss}
 ${footerCss}</style>
 ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(/</g, "\\u003c")}</script>`).join("\n")}
 </head>
 <body>${sprite}<div class="wrap">
-<nav class="nav"><a class="mk" href="/" aria-label="${esc(brand.name)}">${mark}${esc(brand.name.toLowerCase())}</a><a class="pill" href="/#join">Create your account</a></nav>
+<nav class="nav"><a class="mk" href="/" aria-label="${esc(brand.name)}">${mark}${esc(brand.name.toLowerCase())}</a><div class="navr">${starButton(github)}<a class="pill" href="/#join">Create your account</a></div></nav>
 <main data-api="">
 <div class="eyebrow">${esc(brand.name)} fund</div>
 <h1>The creators people watch get half of every sponsor dollar</h1>
@@ -247,16 +261,19 @@ ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(
 <section id="sponsor" class="join" aria-labelledby="h-sponsor">
 <h2 id="h-sponsor">Put your name behind the people who create</h2>
 <p class="sub">Pick a monthly amount and how many months. You pay once through Stripe. Half goes to the creators people watch each month.</p>
+<div class="sp">
+<figure class="pv" aria-label="Example of the sponsor line at the top of the Emera feed"><div class="ph day" aria-hidden="true"><div class="sw">${screens.feed("day", EXAMPLE)}</div></div><figcaption><p>Your line at the top of everyone's feed</p></figcaption></figure>
 <form class="form" data-sponsor novalidate>
 <label>Company or your name<input name="company" autocomplete="organization" maxlength="80" required></label>
 <label>Email<input type="email" name="email" autocomplete="email" maxlength="254" required></label>
 <label>Monthly amount <small>in dollars, at least $10</small><input name="monthly" inputmode="decimal" value="25" maxlength="9"></label>
 <label>Months<select name="months"><option value="1">1 month</option><option value="3" selected>3 months</option><option value="6">6 months</option><option value="12">12 months</option></select></label>
-<label>Link <small>optional</small><input name="url" inputmode="url" placeholder="acme.com" maxlength="300" autocomplete="url"></label>
+<label>Link <small>optional</small><input name="url" inputmode="url" placeholder="yoursite.com" maxlength="300" autocomplete="url"></label>
 <label>Banner line <small>optional, shown after your name</small><input name="line" maxlength="80" placeholder="Paper for people who draw"></label>
 <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 <div class="go"><button class="pill" type="submit">Sponsor with Stripe</button></div>
 </form>
+</div>
 <p class="note" data-snote role="status" aria-live="polite"></p>
 </section>
 

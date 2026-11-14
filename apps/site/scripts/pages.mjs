@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { footer, footerCss } from "./footer.mjs";
+import { footer, footerCss, starButton } from "./footer.mjs";
 import { costs, costsBody, costsCss, costsShort } from "./costs.mjs";
 import { brandBody, brandCss, hasBrandKit } from "./brandbook.mjs";
 
@@ -111,7 +111,7 @@ ${extraCss}</style>
 ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(/</g, "\\u003c")}</script>`).join("\n")}
 </head>`;
 
-const nav = `<nav class="nav"><a class="mk" href="/">${mark}${esc(brand.name.toLowerCase())}</a><a class="pill" href="/#join">Create your account</a></nav>`;
+const nav = () => `<nav class="nav"><a class="mk" href="/">${mark}${esc(brand.name.toLowerCase())}</a><div class="navr">${starButton(ctx.github)}<a class="pill" href="/#join">Create your account</a></div></nav>`;
 
 const joinBox = (source) => `<section class="join" id="join">
 <h2>Put it out in the daylight</h2>
@@ -143,7 +143,7 @@ function page(p) {
   ];
   const related = (p.related || []).map((s) => bySlug.get(s)).filter(Boolean);
   return `${head({ title: p.title, description: p.description, path: p.path, ld })}
-<body>${markSprite}<div class="wrap">${nav}
+<body>${markSprite}<div class="wrap">${nav()}
 <main>
 ${crumbs}
 <h1>${esc(p.q)}</h1>
@@ -169,7 +169,7 @@ function hub(kind, name, path, intro) {
     { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: brand.name, item: `${SITE}/` }, { "@type": "ListItem", position: 2, name, item: `${SITE}${path}` }] },
   ];
   return `${head({ title: `${name} | ${brand.name}`, description: intro, path, ld })}
-<body>${markSprite}<div class="wrap">${nav}
+<body>${markSprite}<div class="wrap">${nav()}
 <main><div class="crumbs"><a href="/">${esc(brand.name)}</a></div>
 <h1>${esc(name)}</h1><p class="short">${esc(intro)}</p>
 <div class="rel">${list.map((p) => `<a href="${p.path}">${esc(p.q)}</a>`).join("")}</div>
@@ -181,7 +181,7 @@ function plain({ slug, title, description, short, updated, body }) {
   const path = `/${slug}/`;
   const ld = [{ "@context": "https://schema.org", "@type": "WebPage", name: `${title} | ${brand.name}`, url: `${SITE}${path}`, dateModified: updated }];
   return `${head({ title: `${title} | ${brand.name}`, description, path, ld })}
-<body>${markSprite}<div class="wrap">${nav}
+<body>${markSprite}<div class="wrap">${nav()}
 <main><div class="crumbs"><a href="/">${esc(brand.name)}</a></div>
 <h1>${esc(title)}</h1>${updated ? `<p class="updated">Updated ${esc(updated)}</p>` : ""}
 ${short ? `<div class="short">${esc(short)}</div>` : ""}
@@ -195,7 +195,7 @@ function brandPage() {
   const description = `Download the ${brand.name} logo, app icon, colors, fonts and icons.`;
   const ld = [{ "@context": "https://schema.org", "@type": "WebPage", name: title, url: `${SITE}${path}` }];
   return `${head({ title, description, path, ld, css: brandCss })}
-<body>${markSprite}<div class="bw">${nav}
+<body>${markSprite}<div class="bw">${nav()}
 <main><div class="crumbs"><a href="/">${esc(brand.name)}</a></div>
 ${brandBody()}</main>
 </div>${foot()}</body></html>`;
