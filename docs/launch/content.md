@@ -17,9 +17,9 @@ Each is 20 to 45 seconds, vertical, founder to camera plus screen. The hook is t
 | 5 | "Your work got copied. Here is the 60 seconds that gets a takedown started." NEEDS Report a copy live | screen recording of Report a copy: paste a link to the copy, attach proof, a drafted notice appears, send, a person confirms | "You report it. We stand behind you and help file it. That is protection" |
 | 6 | "You can see why every post was shown to you, and the code is public." NEEDS "why am I seeing this" live and the repo public | tap "why am I seeing this" on a post, the plain-language reason; then the ranking code on GitHub | "An open algorithm means nobody has to guess" |
 | 7 | "A social network costs about 6 cents a person each month to run, our estimate." | the cost table from `docs/one-pager.md` on screen, labelled estimate; then the nonprofit structure in one slide | "Nonprofit, public books, nothing to sell you. If it works the surplus goes back to creators" |
-| 8 | "I am building a social network with AI tools, and here is the first screen." | founder's screen: the app on his phone, the Claude session beside it | "Day by day, in public. Follow along, or join the early list and build with us" |
+| 8 | "I am building a social network with AI tools, and here is the first screen." | founder's screen: the app on his phone, the Claude session beside it | "Day by day, in public. Follow along, or make your account and build with us" |
 | 9 | "You can take your account and your followers and leave, whenever you want." NEEDS export live | founder exports his account, opens the file, shows the posts and followers | "You own it. That is not a slogan, here is the file" |
-| 10 | "The first 100 people on Emera get a mark that is never given again." | the Founding Creator mark on a demo profile (invented handle), the reserved-handle screen | "Early list is open. Say what you make in the comments and I will tell you which community to join first" |
+| 10 | "The first 100 people on Emera get a mark that is never given again." | the Founding Creator mark on a demo profile (invented handle), the reserved-handle screen | "Make your account at emera.social. Say what you make in the comments and I will tell you which community to join first" |
 
 Strongest 3 hooks: video 1 (a real number and a real story), video 2 (a concrete injustice with a fix on screen), video 10 (a scarce, true offer with a reason to comment).
 
@@ -47,8 +47,8 @@ emera.social
 ```
 The first 100 creators on Emera get a mark on their profile that nobody can buy later
 It sits next to the proof of who made your work
-Early list is open
-Tell me what you make and I will pick who comes in first
+Make your account today
+Tell me what you make and I will tell you which community to join first
 emera.social
 ```
 
@@ -86,26 +86,26 @@ emera.social
 
 For post 5, list only what was actually posted, with permission to feature. Replace the lines with the real list.
 
-## 3 emails to the early list
+## 3 emails to new accounts
 
 Plain text, from the founder. Subject lines have no trailing period.
 
-### Email 1: you are on the list (sent on sign-up, plus a hand-written follow-up in week 2)
+### Email 1: welcome (sent when the account is made, plus a hand-written follow-up in week 2)
 
-Subject: You are on the Emera list
+Subject: Welcome to Emera
 
 Hi,
 
-You asked to hear when Emera opens. Thank you.
+You made your account. Thank you.
 
 Emera is a free, nonprofit network for everyone who makes things. Every post carries proof of who made it, the feed's ranking is public code, and you own your account. When your work gets copied, you report it and we help you file the takedown.
 
-I would like to know one thing: what do you make, and where does your work get copied? Reply to this email with a line or two. I read every reply, and your answer decides who gets invited first.
+I would like to know one thing: what do you make, and where does your work get copied? Reply to this email with a line or two. I read every reply, and your answer shapes what we build first.
 
 TechGuyver
 Emera, where humanity comes together
 
-### Email 2: founding creator invite (week 3, sent to the hand-picked 100)
+### Email 2: founding creator welcome (week 3, sent to the hand-picked 100)
 
 Subject: Founding Creator spot for you
 
@@ -117,36 +117,36 @@ What you get:
 - A Founding Creator mark on your profile that is never given again and cannot be bought
 - Your handle reserved before anyone else can take it
 - A named person at Emera who helps with your first takedown, answering within 48 hours
-- Five invites for people you want here
+- A link to share with five people you want here
 - A monthly call where you tell us what to build next
 
 What I ask in return: post something you are proud of in your first week, and tell us what is wrong with it.
 
-Your invite: [link]. It works until [date].
+Make your account: [link]. Your reserved handle is held until [date].
 
 Thank you,
 TechGuyver
 
-### Email 3: launch day (Dec 15, to the whole list, in three batches)
+### Email 3: launch day (Dec 15, to people who started sign-up but have no account, in three batches)
 
 Subject: Emera is open
 
 Hi,
 
-Emera is open today, and you are in the first group.
+Emera is open today, and your account is one code away.
 
 Post your work and look at the badge: it says who made it and exactly what we checked. Open the "why am I seeing this" on any post and read the reason. If you ever find a copy of your work, use Report a copy and we will help you file the takedown.
 
-[Open Emera]
+[Make your account]
 
-If you made it onto the Founding list, your mark is already on your profile. If not, you can still be one of the first creators. Post something this week.
+If you made it onto the Founding list, your mark is already waiting on your profile. If not, you can still be one of the first creators. Post something this week.
 
 I would love to see what you make. Reply and tell me one thing that felt wrong.
 
 TechGuyver
 Emera, where humanity comes together
 
-## Founding-creator invite note (for hand-sent DMs, week 3)
+## Founding-creator note (for hand-sent DMs, week 3)
 
 Not for bulk use. One line of real specifics per person, then:
 

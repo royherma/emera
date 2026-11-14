@@ -1,6 +1,6 @@
 # Launch plan, 6 weeks
 
-Written 2026-11-13. Week 1 starts Monday 2026-11-16. Launch day is **Tuesday 2026-12-15** (week 5), so the launch lands before the holiday lull and week 6 is the invite wave and the first-1,000 push. All times Bangkok unless marked. Nothing here is posted, sent or created; every step is a plan for Roy to approve.
+Written 2026-11-13. Week 1 starts Monday 2026-11-16. Launch day is **Tuesday 2026-12-15** (week 5), so the launch lands before the holiday lull and week 6 is the third push and the first-1,000 push. All times Bangkok unless marked. Nothing here is posted, sent or created; every step is a plan for Roy to approve.
 
 Goal: 1,000 creators who have posted (see `first-1000.md`). Protection promise everywhere: **"we stand behind you when your work is copied"** plus a "Report a copy" flow. Never "we watch for copies".
 
@@ -21,17 +21,17 @@ Launch day only happens if these work on production by Friday 2026-12-11. If a g
 
 | Week | Dates (Mon to Sun) | Theme | Done by Sunday |
 | --- | --- | --- | --- |
-| 1 | Nov 16 to 22 | Waitlist opens, stolen-work story built | early list live and counting; 20 cases collected with consent status; 5 partner calls booked; founder analytics pulled |
-| 2 | Nov 23 to 29 | Seed the wedge | 4 community conversations started with mod approval; Copy Report Kit published; first video out; 500 list sign-ups |
-| 3 | Nov 30 to Dec 6 | Founding 100 | first 100 invites sent (hand-picked); Founding Creator mark live; 3 more communities; first guild call done; 1,200 sign-ups |
-| 4 | Dec 7 to 13 | Wave 2 and press prep | 400 more invites; 50 creators have posted; press embargo notes out; launch assets frozen; 2,200 sign-ups |
-| 5 | Dec 14 to 20 | Launch | launch day Dec 15; invites to all who joined before launch in 3 batches; 3,000 sign-ups |
-| 6 | Dec 21 to 27 | Wave 3 and the first 1,000 | all remaining invites; The Wall (public takedown ledger) page; year-end founding list; 1,000 posters |
+| 1 | Nov 16 to 22 | Sign-up open, stolen-work story built | sign-up live on emera.social and counting started sign-ups; 20 cases collected with consent status; 5 partner calls booked; founder analytics pulled |
+| 2 | Nov 23 to 29 | Seed the wedge | 4 community conversations started with mod approval; Copy Report Kit published; first video out; 500 started sign-ups |
+| 3 | Nov 30 to Dec 6 | Founding 100 | first 100 founding creators hand-picked and welcomed; Founding Creator mark live; 3 more communities; first guild call done; 1,200 started sign-ups |
+| 4 | Dec 7 to 13 | Wave 2 and press prep | 400 more creators brought in by personal messages; 50 creators have posted; press embargo notes out; launch assets frozen; 2,200 started sign-ups |
+| 5 | Dec 14 to 20 | Launch | launch day Dec 15; a launch-day email in 3 batches to everyone who started sign-up but has no account; 3,000 started sign-ups |
+| 6 | Dec 21 to 27 | Wave 3 and the first 1,000 | reminder emails to everyone without an account; The Wall (public takedown ledger) page; year-end founding list; 1,000 posters |
 
 ### Week by week
 
 **Week 1 (Nov 16 to 22)**
-- Mon: early list live on emera.social (it already exists; confirm count and email delivery). Founder pulls real analytics: followers and 90-day views on each platform, to replace the ASSUMED number in `first-1000.md`.
+- Mon: sign-up open on emera.social (it already works; confirm the typed-email count and that the code email arrives). Founder pulls real analytics: followers and 90-day views on each platform, to replace the ASSUMED number in `first-1000.md`.
 - Tue to Thu: build the stolen-work file (below): 20 cases, each with a public link, date and whether the person has agreed to be named. Draft the Copy Report Kit.
 - Fri: book 5 calls: Graphic Artists Guild, Concept Art Association, The Animation Guild, National Cartoonists Society, Society of Illustrators. The ask is a 20-minute call, not an endorsement.
 - Reserve the launch handle `emera.social` on Bluesky (it works as a domain handle). Founder does this himself; no account is created by this plan.
@@ -44,13 +44,13 @@ Launch day only happens if these work on production by Friday 2026-12-11. If a g
 
 **Week 3 (Nov 30 to Dec 6): the Founding 100**
 - Hand-pick 100 creators: 60 artists from the wedge, 20 video makers from the founder's audience, 20 from other crafts (tattoo, music, design, physical makers) so the feed is not one niche.
-- Send invites with a personal note (draft in `content.md`). Each gets: the Founding Creator mark, a reserved handle, 5 invites, a named human for takedown help, and a place on the founding wall if they want one.
+- Send a personal note with a sign-up link (draft in `content.md`). Each gets: the Founding Creator mark, a reserved handle, a link to share with 5 friends, a named human for takedown help, and a place on the founding wall if they want one.
 - Mark design: a permanent "Founding Creator" mark on the profile, shown next to the proof-of-maker badge, never sold, never given later. It must be a distinct shape and a word, not only color.
 - Cost check: the mark and handle reservation cost nothing. Takedown help costs time: about 20 minutes per takedown x about 2 per creator x 100 creators = about 67 hours (estimate). Two people over 4 weeks is fine; if it exceeds 4 hours a week per person, cap it.
 - Second wave of community conversations (Krita Artists, r/artstore, r/comic_crits).
 
 **Week 4 (Dec 7 to 13)**
-- 400 more invites, ordered by list position within each wedge community.
+- 400 more personal messages, one by one, within each wedge community.
 - Founders' first posts become launch content. Ask each of the 100 for permission to feature one post.
 - Press prep (below): send embargoed notes Wed Dec 9 to the 6 outlets with the story pack: stolen-work file, a founding creator willing to talk, a demo link.
 - Freeze launch assets Fri Dec 11: landing, Product Hunt page, Hacker News text, Bluesky thread, 3 launch videos.
@@ -64,7 +64,7 @@ Launch day, Tuesday Dec 15 (Pacific time, where Product Hunt and Hacker News liv
 | 3:01 PM Tue Dec 15 | 12:01 AM Tue Dec 15 | Product Hunt page goes live (the Product Hunt day resets at 12:01 AM Pacific); maker comment posted | founder |
 | 3:30 PM Tue | 12:30 AM Tue | Embargo lifts; press notes already in inboxes | founder |
 | 6:00 PM Tue | 3:00 AM Tue | Founder's long video posts on all four platforms | founder |
-| 8:00 PM Tue | 5:00 AM Tue | Bluesky thread, X thread, email 3 to the early list | founder |
+| 8:00 PM Tue | 5:00 AM Tue | Bluesky thread, X thread, email to people who started sign-up but have no account | founder |
 | 9:00 PM Tue | 6:00 AM Tue | Hacker News "Show HN" (only if the repo is public) | founder |
 | 11:00 PM Tue | 8:00 AM Tue | Wedge communities: mods who said yes post | mods or members |
 | 8:00 AM Wed Dec 16 | 5:00 PM Tue | 24-hour check: counts, errors, support queue | team |
@@ -77,7 +77,7 @@ Launch-day rules:
 - Wednesday Dec 16: thank-you post naming (with permission) the first creators and what they posted.
 
 **Week 6 (Dec 21 to 27)**
-- Remaining invites in batches by list position; hold the last 20% for community captains and referrals.
+- Reach the remaining people who started sign-up in batches; hold the last 20% of outreach for community captains and referrals.
 - Publish **The Wall**: resolved takedowns and the story behind each, with consent.
 - Year-end post: "the first 1,000". Only if we hit it; if we land at 700, the post says what the first 700 made.
 - Dec 24 to 26 is quiet: schedule, do not launch anything new.
@@ -87,9 +87,9 @@ Launch-day rules:
 | Item | What it is | Cost to us |
 | --- | --- | --- |
 | Founding Creator mark | permanent mark on the profile, next to the proof badge; never reissued | none |
-| Reserved handle | claim the handle before public sign-up | none |
+| Reserved handle | claim the handle before launch day | none |
 | A person on your side | a named Emera human helps with your first takedown, 48-hour response | about 40 minutes per creator (estimate) |
-| 5 invites | bring 5 people who make things | none |
+| 5 friends | a link to bring 5 people who make things | none |
 | A say | a monthly call on what we build next; votes in the first yearly funding vote | an hour a month |
 
 What the 100 do not get: money, equity or reach boosts. Reach is earned in the open (the public reach log).
@@ -174,7 +174,7 @@ Open work: collect 10 more cases from video and music creators, so the file does
 | Partner calls | yes | notes and follow-up |
 | Takedown help | no | yes |
 | Press notes | send | draft |
-| Invites | approve the first 100 | send waves |
+| Founding 100 | approve the first 100 | send the messages |
 
 ## Open decisions for Roy
 

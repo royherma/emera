@@ -241,10 +241,10 @@
       endpoint: DELETE /v1/posts/:id
       expect: [auth, r2, "table:posts", "table:media"]
 
-- id: join-early-list
-  title: Join the early list
+- id: start-sign-up-from-site
+  title: Start sign-up from the landing page
   actor: visitor
-  goal: Leave an email on emera.social
+  goal: Type an email on emera.social and land on sign-in with it filled
   steps:
     - say: Open emera.social
       site: /
@@ -254,9 +254,8 @@
       endpoint: POST /api/early
       expect: ["table:early_access", public]
       platforms: [browser]
-    - say: See how many are on the list
-      site: /
-      endpoint: GET /api/early/count
+    - say: Land on sign-in with the email already filled
+      site: /sign-in
       platforms: [browser]
 
 - id: edit-profile
@@ -281,15 +280,13 @@
       endpoint: POST /v1/auth/logout
       expect: ["table:sessions"]
 
-- id: team-early-list
-  title: Emera team reads the early list
+- id: team-sign-ups
+  title: Emera team sees who started sign-up
   actor: Emera team
-  goal: See who signed up and how many
+  goal: See who typed an email on the site and who finished an account
   steps:
-    - say: Check the count
-      endpoint: GET /api/early/count
-    - say: Open the signups
-      endpoint: GET /api/early/list
+    - say: Open the admin page
+      site: /admin
       expect: [auth]
 
 - id: team-seed-invites

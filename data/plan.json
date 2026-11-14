@@ -95,7 +95,7 @@
         },
         {
           "id": "b6",
-          "text": "Landing page + early list (deployed, emera.social waiting on registry)",
+          "text": "Landing page + sign-up (deployed on emera.social)",
           "who": "claude",
           "done": true
         }
@@ -1880,7 +1880,7 @@
       "kind": "look",
       "when": "now",
       "title": "Your admin page, public ledger and richer Slack alerts are live",
-      "why": "Every visitor, early-list join, account and post now shows where they came from, their device and Bangkok time. Your own and test accounts are marked Test and never counted.",
+      "why": "Every visitor, sign-up, account and post now shows where they came from, their device and Bangkok time. Your own and test accounts are marked Test and never counted.",
       "links": [
         [
           "Admin (key link is in the terminal reply)",

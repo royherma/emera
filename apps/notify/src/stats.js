@@ -92,7 +92,6 @@ export function adminView(d) {
   const users30 = real(d.users).filter((u) => u.created_at >= since30);
   const sourceCounts = {};
   for (const s of people) sourceCounts[s.source] = (sourceCounts[s.source] || 0) + 1;
-  const earlyEmails = new Map(d.early.map((e) => [e.email.toLowerCase(), e.created_at]));
   const postsBy = {};
   for (const p of d.posts) postsBy[p.user_id] = (postsBy[p.user_id] || 0) + 1;
   return {
@@ -107,7 +106,7 @@ export function adminView(d) {
     },
     funnel: [
       ["Visited", people.length],
-      ["Joined early list", real(d.early).filter((e) => toMs(e.created_at) >= since30).length],
+      ["Started sign-up", real(d.early).filter((e) => toMs(e.created_at) >= since30).length],
       ["Made an account", users30.length],
       ["Posted", users30.filter((u) => posters.has(u.id)).length],
     ],
@@ -122,7 +121,6 @@ export function adminView(d) {
     visitors: people.sort((a, b) => b.last - a.last).slice(0, 60),
     accounts: [...d.users].reverse().slice(0, 300).map((u) => ({
       handle: u.handle, name: u.display_name, email: u.email, at: u.created_at, test: u.test, posts: postsBy[u.id] || 0,
-      early: earlyEmails.get(u.email.toLowerCase()) || null,
     })),
     early: [...d.early].reverse().slice(0, 300).map((e) => ({ email: e.email, at: toMs(e.created_at), source: e.source, referrer: e.referrer, place: place(e), device: device(e.ua), test: e.test })),
     posts: [...d.posts].reverse().slice(0, 60).map((p) => ({ id: p.id, handle: p.handle, caption: (p.caption || "").slice(0, 140), media: p.media, at: p.created_at, test: p.test })),
@@ -136,9 +134,8 @@ export function adminView(d) {
 export function ledgerView(d) {
   const users = d.users.filter((u) => !u.test);
   const posts = d.posts.filter((p) => !p.test);
-  const early = d.early.filter((e) => !e.test).sort((a, b) => toMs(a.created_at) - toMs(b.created_at));
   const reports = d.reports.filter((r) => !r.test);
-  const first = Math.min(...[...users.map((u) => u.created_at), ...early.map((e) => toMs(e.created_at))].filter(Number.isFinite), Date.now());
+  const first = Math.min(...users.map((u) => u.created_at).filter(Number.isFinite), Date.now());
   const span = Math.min(365, Math.max(14, Math.ceil((Date.now() - first) / DAY) + 1));
   const days = lastDays(span);
   const cumulative = (msList) => {
@@ -149,17 +146,15 @@ export function ledgerView(d) {
   const events = [
     ...users.map((u, i) => ({ type: "account", n: i + 1, at: u.created_at, handle: u.handle || null })),
     ...posts.map((p, i) => ({ type: "post", n: i + 1, at: p.created_at, handle: p.handle, id: p.id })),
-    ...early.map((e, i) => ({ type: "early", n: i + 1, at: toMs(e.created_at) })),
     ...reports.map((r, i) => ({ type: "report", n: i + 1, at: r.created_at })),
   ].sort((a, b) => b.at - a.at);
   return {
     at: Date.now(),
-    totals: { accounts: users.length, posts: posts.length, early: early.length, reports: reports.length },
+    totals: { accounts: users.length, posts: posts.length, reports: reports.length },
     days,
     cumulative: {
       accounts: cumulative(users.map((u) => u.created_at)),
       posts: cumulative(posts.map((p) => p.created_at)),
-      early: cumulative(early.map((e) => toMs(e.created_at))),
     },
     events: events.slice(0, 200),
   };
@@ -178,6 +173,6 @@ export function summaryLines(d, now = Date.now()) {
     accounts: real(d.users).filter((u) => inDay(u.created_at)).length,
     posts: real(d.posts).filter((p) => inDay(p.created_at)).length,
     reports: real(d.reports).filter((r) => inDay(r.created_at)).length,
-    totals: { early: real(d.early).length, accounts: real(d.users).length, posts: real(d.posts).length },
+    totals: { accounts: real(d.users).length, posts: real(d.posts).length },
   };
 }

@@ -5,8 +5,8 @@ Written 2026-11-13. Nothing here is posted or sent. Every outside number is a th
 ## Goal in numbers
 
 - **1,000 creators who have posted at least one piece of work**, by the end of week 6 (2026-12-27). Not sign-ups. Posted.
-- Funnel that gets there (targets, see `metrics.md`): 12% of visitors join the early list, 45% of the list accept an invite, 60% of those post.
-- That is about 3,700 early-list sign-ups, about 31,000 visits, and about 1,000 posters.
+- Funnel that gets there (targets, see `metrics.md`): 12% of visitors start sign-up (type their email), 54% of those make an account, 50% of accounts post.
+- That is about 3,700 started sign-ups, about 2,000 accounts, about 31,000 visits, and about 1,000 posters.
 - **10x version:** the 1,000 are not the goal, they are the distribution. Section "The 10x path" at the end turns each founding creator into a source of the next nine.
 
 ## What we promise creators (v1)
@@ -22,7 +22,7 @@ Protection v1 is manual and the copy says so. A creator reports a copy they foun
 3. **Manual protection fits them.** Artists already hunt copies by reverse image search and already file takedowns badly: "Report a copy" with a human helping is a real upgrade for them today, no automation needed.
 4. **They are organised.** Guilds, Discord servers, Bluesky art feeds, subreddits with business sections (r/artbusiness, r/artstore). One trusted post reaches thousands.
 5. **They post public work on a schedule.** A first post is easy to ask for, and every post is a visible proof-of-maker badge that other artists see.
-6. **Small enough to saturate.** We do not need all artists. 1,300 early-list sign-ups from about 15 communities is enough.
+6. **Small enough to saturate.** We do not need all artists. 1,300 started sign-ups from about 15 communities is enough.
 
 Runner-up: **tattoo artists** (designs get traced and AI-copied; reporting in [Futurism](https://futurism.com/ai-generated-tattoo-posters-nyc), [Dazed](https://www.dazeddigital.com/beauty/article/70055/1/ai-help-choose-your-next-tattoo-chatgpt-gemini-image-generation-artist)). Strong need, but the community is split into thousands of shop-level accounts with no central place to reach them. Second wave, not the wedge.
 
@@ -30,19 +30,19 @@ Risk to manage: Cara's identity is strongly anti-AI. Emera's pitch is proof of w
 
 ## Channel plan
 
-Numbers are early-list sign-ups, then posters at the 27% list-to-poster rate (45% accept x 60% post). Totals are rounded.
+Numbers are started sign-ups (an email typed on the site), then posters at the 27% started-to-poster rate (54% make an account x 50% post). Totals are rounded.
 
-| Channel | Early-list sign-ups | Posters | Basis |
+| Channel | Started sign-ups | Posters | Basis |
 | --- | --- | --- | --- |
 | Wedge: illustrators and digital artists | 1,300 | 350 | about 15 communities x 85 each, see below |
 | Founder's own audience | 1,000 | 270 | ASSUMED, see below |
 | Bluesky and other AT Protocol apps | 600 | 160 | feeds, starter packs, app-to-app posts |
 | Guilds, unions and partnerships | 300 | 80 | 4 to 6 partners x 50 to 75 |
 | Press, Product Hunt, Hacker News | 400 | 110 | one good launch day |
-| Founding-creator referrals | 100 | 25 | 5 invites each x 100 founders x 20% |
+| Founding-creator referrals | 100 | 25 | 5 friends each x 100 founders x 20% |
 | **Total** | **3,700** | **~1,000** | |
 
-### 1. Wedge: illustrators and digital artists (1,300 sign-ups)
+### 1. Wedge: illustrators and digital artists (1,300 started sign-ups)
 
 Communities, with sizes. Sizes are third-party aggregates (The Hive Index) and drift; check the live count before posting.
 
@@ -66,12 +66,12 @@ How the 1,300 happens (85 per community across about 15):
 
 - **One real conversation per community, not a post blast.** Ask the mods first. Many subreddits ban self-promotion; where banned, do not post, ask a member who already uses the community to share. A banned post costs us the whole community.
 - The post is a request, not an ad: "We are building a network where every post carries proof of who made it, and where you can report a copy and get help filing the takedown. Founding artists get a permanent mark. What would make you trust it?" Replies are research and sign-ups.
-- Give something first: the **Copy Report Kit** (a free one-page guide: how to find copies of your work, what to put in a takedown, where to send it). Useful without Emera, links to the early list at the bottom.
-- Rate guess: a useful, mod-approved post in a 100K+ community converts 0.05% to 0.1% of members to the list; 30 to 60 of each such community's members. Small Discords convert higher (1% to 2% of members, 100 to 200 for a 10K server with an admin who vouches). These rates are ASSUMED, not measured; the first two communities calibrate the rest.
+- Give something first: the **Copy Report Kit** (a free one-page guide: how to find copies of your work, what to put in a takedown, where to send it). Useful without Emera, links to sign-up at the bottom.
+- Rate guess: a useful, mod-approved post in a 100K+ community converts 0.05% to 0.1% of members to started sign-ups; 30 to 60 of each such community's members. Small Discords convert higher (1% to 2% of members, 100 to 200 for a 10K server with an admin who vouches). These rates are ASSUMED, not measured; the first two communities calibrate the rest.
 
-### 2. Founder's own audience (1,000 sign-ups)
+### 2. Founder's own audience (1,000 started sign-ups)
 
-TechGuyver has audiences on Instagram, TikTok, YouTube and X. **No audience size or recent view counts were available for this plan, so this number is ASSUMED**: it is what about 10 videos at about 60,000 views each plus pinned links would give at 0.15% of views to list sign-ups (about 900) plus about 100 from email and bios. Reverse by replacing the inputs with real analytics: `sign-ups = total views x 0.15%`. If his real numbers are larger, this channel carries more and the wedge needs less.
+TechGuyver has audiences on Instagram, TikTok, YouTube and X. **No audience size or recent view counts were available for this plan, so this number is ASSUMED**: it is what about 10 videos at about 60,000 views each plus pinned links would give at 0.15% of views to started sign-ups (about 900) plus about 100 from email and bios. Reverse by replacing the inputs with real analytics: `started sign-ups = total views x 0.15%`. If his real numbers are larger, this channel carries more and the wedge needs less.
 
 Who this audience is: AI and tech video creators. They are video makers whose clips get re-uploaded and cloned, which fits the product (video is in scope), but they are not the wedge and they do not carry the "artists are hurt most" story. Their job in the plan:
 
@@ -79,9 +79,9 @@ Who this audience is: AI and tech video creators. They are video makers whose cl
 - The visible, repeatable proof-of-maker demo (see `content.md`).
 - Credibility with press and Product Hunt: a founder with a real audience.
 
-Rules for the founder's posts: link in bio and one pinned reply, one clear ask (join the early list), no fake urgency, never claim a user count.
+Rules for the founder's posts: link in bio and one pinned reply, one clear ask (make your account), no fake urgency, never claim a user count.
 
-### 3. Bluesky and other AT Protocol apps (600 sign-ups)
+### 3. Bluesky and other AT Protocol apps (600 started sign-ups)
 
 - Bluesky had an estimated 43.5 to 46 million registered accounts in 2026 but active use has fallen; one tracker shows about 10.4M monthly active mobile users in June 2026, down 27% on the year ([Brussels Signal](https://brusselssignal.eu/2026/08/blueskys-active-user-base-halves-as-the-post-election-exodus-fades/)). Read this as: the registered pool is large, the engaged pool is a fraction. Reach the engaged artists through feeds, not the whole network.
 - **Art feeds and starter packs.** Graze's Art Feed Collection ("Art: What's Hot", "Art: New Posts") curates human-made art. Ask the feed owners for a mention only when we have a real post from a real artist to show. Starter packs: ask artists to add Emera's launch handle to their packs.
@@ -89,7 +89,7 @@ Rules for the founder's posts: link in bio and one pinned reply, one clear ask (
 - Cross-app link: Emera accounts are AT Protocol accounts, so a Bluesky artist can follow an Emera artist. Say this plainly; do not promise a "Bluesky login" (decision: own accounts).
 - Basis: 600 = 20 art-feed and starter-pack mentions x about 20, plus 200 from the launch-day Bluesky thread.
 
-### 4. Guilds, unions and partnerships (300 sign-ups)
+### 4. Guilds, unions and partnerships (300 started sign-ups)
 
 Reach is small, credibility is large.
 
@@ -100,23 +100,23 @@ Reach is small, credibility is large.
 | The Animation Guild and Art Directors Guild (IATSE Locals 839 and 800) | union members whose top concern is AI replacing their work | [Cartoon Brew](https://www.cartoonbrew.com/tech/an-international-coalition-of-worker-unions-declares-emergency-over-ai-use-in-animation-247671.html) |
 | National Cartoonists Society and Society of Illustrators | co-sponsor and peer organisations; sizes not found | ask them |
 
-What we offer a partner: a free partner page, a guild-wide Founding Creator batch (members get the mark), and a say in how takedown help works. What we do not do: ask a union to endorse a product that does not exist yet. The first ask is a call, then a shared invite code for members.
+What we offer a partner: a free partner page, a guild-wide Founding Creator batch (members get the mark), and a say in how takedown help works. What we do not do: ask a union to endorse a product that does not exist yet. The first ask is a call, then a shared sign-up link for members.
 
 Expect 4 to 6 partners and 50 to 75 sign-ups each. Slow, so start in week 1.
 
-### 5. Press, Product Hunt, Hacker News (400 sign-ups)
+### 5. Press, Product Hunt, Hacker News (400 started sign-ups)
 
 One launch day, planned in `launch-plan.md`. 400 = about 150 from press mentions, 150 from Product Hunt, 100 from Hacker News. The Hacker News number assumes the code is public by launch day (see risks).
 
-### 6. Founding-creator referrals (100 sign-ups)
+### 6. Founding-creator referrals (100 started sign-ups)
 
-Each of the first 100 founding creators gets 5 invites. 100 x 5 x 20% accept and sign up = 100. Small now, but the referral loop is what the 10x path builds on.
+Each of the first 100 founding creators gets a personal link to share with 5 friends. 100 x 5 x 20% make an account = 100. Small now, but the referral loop is what the 10x path builds on.
 
 ## Risks to the plan
 
 | Risk | Effect | Mitigation |
 | --- | --- | --- |
-| Product is not ready for posting by week 5 | list grows, no posters | gate launch day on three things working: post with proof badge, "Report a copy", account export |
+| Product is not ready for posting by week 5 | sign-ups grow, no posters | gate launch day on three things working: post with proof badge, "Report a copy", account export |
 | One community bans us for self-promotion | lose that channel | ask mods first; never post to a community we have not read the rules of |
 | Cara loyalists see Emera as a rival | hostile threads | say plainly: use both; Emera is proof and takedown help, not a purity test |
 | Founder audience is smaller than assumed | -300 to -600 sign-ups | wedge and partnerships absorb it; recheck the number in week 1 with real analytics |
@@ -131,7 +131,7 @@ Each of the first 100 founding creators gets 5 invites. 100 x 5 x 20% accept and
 1. **Every post carries a share card.** "Made by @name, proof checked" is the thing a creator pastes into every other app. Each post is an ad for the badge.
 2. **The Wall.** A public page of resolved takedowns (with permission): copy found, report filed, outcome. It is the product proof and the best content we will ever make. Grows with every creator.
 3. **Guild batches.** One guild deal is 500 to 2,000 creators at once. Land two.
-4. **Community captains.** Ten artists, one per community, each with 10 invites a week and a named human at Emera. Ten captains x 50 invited creators = 500.
+4. **Community captains.** Ten artists, one per community, each bringing 10 new creators a week and with a named human at Emera. Ten captains x 50 creators = 500.
 5. **Cases in, stories out.** Every takedown that lands is a press-ready case (with consent). Press then brings the next cohort.
 6. **Video creators second wave.** Once the founder's audience posts video with the badge, the "your video can be cloned too" story opens a second wedge as large as the first.
 

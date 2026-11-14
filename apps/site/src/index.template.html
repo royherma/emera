@@ -104,7 +104,6 @@ h1 .nm{display:block;margin-left:-.05em}
 .note.ok{color:var(--sunink);font-weight:600}
 .note.err{color:#c2381f}
 :root[data-theme=dark] .note.err{color:#ff8e78}
-.count{font-size:.95rem;color:var(--ink2)}
 
 .stage{position:relative;--k:.74;height:calc(800px*var(--k) + 70px);min-width:0}
 .stage .ph{position:absolute;top:0}
@@ -452,7 +451,7 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
   <section class="close" id="join">
     <div class="wrap"><div class="inner reveal">
       <h2>Help build it in daylight</h2>
-      <p class="lead">Join the first people on {{name}} and help write the rules from day one.<span class="count" data-count></span></p>
+      <p class="lead">Join the first people on {{name}} and help write the rules from day one.</p>
       <form class="signup" data-signup novalidate>
         <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address" required>
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -496,9 +495,6 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
     var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add("in");io.unobserve(en.target)}})},{threshold:.12});
     els.forEach(function(el){io.observe(el)});
   }else{els.forEach(function(el){el.classList.add("in")})}
-  fetch("/api/early/count").then(function(r){return r.json()}).then(function(j){
-    if(j&&j.count>=100){var c=document.querySelector("[data-count]");if(c)c.textContent=" "+j.count.toLocaleString("en-US")+" are already on the list."}
-  }).catch(function(){});
 })();
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "e8908260b3f741f084fb1e8297b090a2"}'></script>

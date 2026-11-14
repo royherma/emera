@@ -345,11 +345,6 @@ async function stars(ctx) {
   return res;
 }
 
-async function count(env) {
-  const row = await env.DB.prepare("SELECT COUNT(*) AS n FROM early_access").first();
-  return json({ count: row?.n ?? 0 });
-}
-
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -359,10 +354,6 @@ export default {
     if (pathname === "/admin" || pathname.startsWith("/admin/") || pathname === "/api/ledger") return ops(request, env);
     if (pathname === "/api/early") {
       if (request.method === "POST") return signup(request, env);
-      return json({ ok: false, error: "method_not_allowed" }, 405);
-    }
-    if (pathname === "/api/early/count") {
-      if (request.method === "GET") return count(env);
       return json({ ok: false, error: "method_not_allowed" }, 405);
     }
     if (pathname === "/api/sponsor") {
