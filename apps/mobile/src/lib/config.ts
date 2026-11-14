@@ -18,4 +18,4 @@ function readDemo(): boolean {
 export const API_URL = (process.env.EXPO_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 export const DEMO = readDemo();
 export const MOCK = API_URL === "" || DEMO;
-export const PUBLIC_ORIGIN = API_URL || brand.webOrigin;
+export const PUBLIC_ORIGIN = API_URL ? API_URL.replace(/^(https?:\/\/)api\./, "$1") : brand.webOrigin;
