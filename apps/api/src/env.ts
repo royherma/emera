@@ -8,6 +8,8 @@ export type Env = {
   ENVIRONMENT: string;
   INVITES_REQUIRED: string;
   SEED_INVITE_CODE: string;
+  REVIEW_EMAIL?: string;
+  REVIEW_CODE?: string;
   PROOF_SECRET: string;
   CHAT_KEY?: string;
   CHAT_LIVE: DurableObjectNamespace<import('./live').ChatLive>;

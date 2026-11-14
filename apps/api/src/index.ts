@@ -25,6 +25,7 @@ import { ingestRoutes, runAutoImports, useApp } from './ingest';
 import { oauthRoutes } from './oauth';
 import { mcpRoutes } from './mcp';
 import { writeLimits } from './limits';
+import { accountRoutes } from './account';
 
 const app = new Hono<AppEnv>();
 
@@ -61,6 +62,7 @@ app.route('/', feedRoutes);
 app.route('/', ingestRoutes);
 app.route('/', oauthRoutes);
 app.route('/', mcpRoutes);
+app.route('/', accountRoutes);
 app.route('/', pages);
 
 app.onError((err, c) => {

@@ -29,7 +29,9 @@ export default function Settings() {
   const router = useRouter();
   const toast = useToast();
   const { c, mode, setMode } = useTheme();
-  const { user, signOut } = useAuth();
+  const { user, signOut, deleteAccount } = useAuth();
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [invite, setInvite] = useState<{ code: string; url: string } | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -135,6 +137,31 @@ export default function Settings() {
       <View style={{ height: 1, backgroundColor: c.hair }} />
       <Section title="Account">
         <Button label="Sign out" icon="logout" kind="secondary" onPress={() => (resetChatSettings(), signOut())} style={{ alignSelf: "flex-start" }} />
+        {!confirmDelete ? (
+          <Button label="Delete account" kind="danger" onPress={() => setConfirmDelete(true)} style={{ alignSelf: "flex-start" }} />
+        ) : (
+          <View style={{ gap: space[3] }}>
+            <Text style={[type.body, { color: c.ink }]}>This deletes your account, posts, photos, videos and messages for good.</Text>
+            <View style={{ flexDirection: "row", gap: space[3], flexWrap: "wrap" }}>
+              <Button
+                label="Delete for good"
+                kind="danger"
+                busy={deleting}
+                onPress={async () => {
+                  setDeleting(true);
+                  try {
+                    resetChatSettings();
+                    await deleteAccount();
+                  } catch (e) {
+                    setDeleting(false);
+                    toast(e instanceof ApiError ? e.message : "Couldn't delete your account. Try again.");
+                  }
+                }}
+              />
+              <Button label="Keep my account" kind="secondary" onPress={() => setConfirmDelete(false)} />
+            </View>
+          </View>
+        )}
       </Section>
 
       <View style={{ height: 1, backgroundColor: c.hair }} />

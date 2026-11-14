@@ -13,6 +13,7 @@ type Ctx = {
   signIn: (token: string, user: User, isNew: boolean) => Promise<void>;
   finishHandle: (user: User) => void;
   signOut: () => Promise<void>;
+  deleteAccount: () => Promise<void>;
 };
 
 const AuthCtx = createContext<Ctx | null>(null);
@@ -80,6 +81,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         try {
           await api.logout();
         } catch {}
+        await drop();
+      },
+      deleteAccount: async () => {
+        await api.deleteAccount();
         await drop();
       },
     }),

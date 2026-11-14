@@ -273,6 +273,15 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
     if (token) sessions.delete(token);
     token = null;
   },
+  async deleteAccount() {
+    const id = token ? sessions.get(token) : undefined;
+    if (id) {
+      for (const [k, u] of users) if (u.id === id) users.delete(k);
+      for (let i = posts.length - 1; i >= 0; i--) if (posts[i].author.id === id) posts.splice(i, 1);
+    }
+    if (token) sessions.delete(token);
+    token = null;
+  },
   async feed(cursor, mode?: FeedMode) {
     await wait();
     const me = token && sessions.has(token) ? meHandle() : null;
