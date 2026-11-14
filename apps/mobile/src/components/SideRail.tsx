@@ -15,6 +15,7 @@ import { useDmUnread, useRefreshDmUnread } from "@/state/dmUnread";
 const items: { name: string; label: string; icon: IconName }[] = [
   { name: "feed", label: "Home", icon: "home" },
   { name: "explore", label: "Explore", icon: "compass" },
+  { name: "watch", label: "Watch", icon: "play" },
   { name: "upload", label: "Post", icon: "plus" },
   { name: "me", label: "Profile", icon: "user" },
 ];

@@ -114,3 +114,13 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 - **Bit us:** `PUBLIC_ORIGIN` fell back to `EXPO_PUBLIC_API_URL`, so Share on a profile and the handle hint said `api.emera.social/@name`.
 - **Spot it:** handle screen hint after sign-up.
 - **Fix:** `apps/mobile/src/lib/config.ts` drops the `api.` prefix. The iOS build in review still has it until the next build.
+
+## 2026-11-14 - scrollTo on a ScrollView's DOM node ignores `top`
+- **Bit us:** react-native-web puts its own `scrollTo({ x, y, animated })` on the scroll node, so `el.scrollTo({ top })` read `y` as 0 and every feed settle jumped to the top.
+- **Spot it:** a programmatic scroll lands at 0.
+- **Fix:** call the browser's `el.scroll({ top, behavior })`, or the ScrollView ref's `scrollTo({ y })`.
+
+## 2026-11-14 - `CI=1 expo start` serves stale code
+- **Bit us:** CI mode turns off Metro's file watcher; edits never reached the browser.
+- **Spot it:** the bundle has none of your new code.
+- **Fix:** run the dev server without `CI`, stdin from `/dev/null`.

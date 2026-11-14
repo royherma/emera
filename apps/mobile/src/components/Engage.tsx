@@ -11,9 +11,11 @@ import { useTheme } from "@/state/theme";
 import { useUnread } from "@/state/unread";
 import { useViewCount } from "@/state/views";
 
-const count = (n: number) => (n >= 10000 ? `${Math.round(n / 1000)}k` : n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n));
+const stackStyle = { alignItems: "center", gap: 2, minHeight: 44, justifyContent: "center" } as const;
 
-export function LikeButton({ post }: { post: Post }) {
+export const count = (n: number) => (n >= 10000 ? `${Math.round(n / 1000)}k` : n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n));
+
+export function LikeButton({ post, stacked = false, light = false }: { post: Post; stacked?: boolean; light?: boolean }) {
   const { c } = useTheme();
   const toast = useToast();
   const [liked, setLiked] = useState(post.viewer.liked);
@@ -51,10 +53,10 @@ export function LikeButton({ post }: { post: Post }) {
       accessibilityState={{ selected: liked }}
       onPress={toggle}
       hitSlop={6}
-      style={({ pressed, hovered }: PS) => ({ flexDirection: "row", alignItems: "center", gap: 6, height: 44, paddingRight: space[2], opacity: hovered ? 0.8 : 1, transform: [{ scale: pressed ? 0.94 : 1 }] })}
+      style={({ pressed, hovered }: PS) => [stacked ? stackStyle : { flexDirection: "row", alignItems: "center", gap: 6, height: 44, paddingRight: space[2] }, { opacity: hovered ? 0.8 : 1, transform: [{ scale: pressed ? 0.94 : 1 }] }]}
     >
-      <Icon name="heart" size={24} color={liked ? sun.sun : c.ink} fill={liked ? sun.sun : "none"} strokeWidth={liked ? 1.9 : 1.7} />
-      <Text style={[type.name, { color: liked ? c.sunInk : c.ink2 }]}>{count(n)}</Text>
+      <Icon name="heart" size={stacked ? 26 : 24} color={liked ? sun.sun : light ? "#fff" : c.ink} fill={liked ? sun.sun : "none"} strokeWidth={liked ? 1.9 : 1.7} />
+      <Text style={[type.name, { color: light ? "#fff" : liked ? c.sunInk : c.ink2 }]}>{count(n)}</Text>
     </Pressable>
   );
 }
@@ -76,7 +78,7 @@ export function CommentButton({ post }: { post: Post }) {
   );
 }
 
-export function ViewCount({ post }: { post: Post }) {
+export function ViewCount({ post, stacked = false, light = false }: { post: Post; stacked?: boolean; light?: boolean }) {
   const { c } = useTheme();
   const router = useRouter();
   const n = useViewCount(post);
@@ -86,10 +88,10 @@ export function ViewCount({ post }: { post: Post }) {
       accessibilityLabel={`${n} ${n === 1 ? "person" : "people"} watched. See where the views came from`}
       onPress={() => router.push({ pathname: "/views/[id]", params: { id: post.id } })}
       hitSlop={6}
-      style={({ pressed, hovered }: PS) => ({ flexDirection: "row", alignItems: "center", gap: 6, height: 44, paddingRight: space[2], opacity: hovered ? 0.8 : 1, transform: [{ scale: pressed ? 0.94 : 1 }] })}
+      style={({ pressed, hovered }: PS) => [stacked ? stackStyle : { flexDirection: "row", alignItems: "center", gap: 6, height: 44, paddingRight: space[2] }, { opacity: hovered ? 0.8 : 1, transform: [{ scale: pressed ? 0.94 : 1 }] }]}
     >
-      <Icon name="eye" size={23} color={c.ink} />
-      <Text style={[type.name, { color: c.ink2 }]}>{count(n)}</Text>
+      <Icon name="eye" size={stacked ? 26 : 23} color={light ? "#fff" : c.ink} />
+      <Text style={[type.name, { color: light ? "#fff" : c.ink2 }]}>{count(n)}</Text>
     </Pressable>
   );
 }

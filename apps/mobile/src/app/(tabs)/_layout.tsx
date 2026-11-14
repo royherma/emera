@@ -52,7 +52,10 @@ function TabBar({ state, navigateToTab }: BottomTabBarProps) {
           <Icon name="plus" size={24} color={c.onSun} strokeWidth={2.4} />
         </LinearGradient>
       </Pressable>
-      <View style={{ flex: 1, alignItems: "center" }}>{tab("me", "user", "Profile")}</View>
+      <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-around" }}>
+        {tab("watch", "play", "Watch")}
+        {tab("me", "user", "Profile")}
+      </View>
     </View>
   );
 }
@@ -65,6 +68,7 @@ export default function TabsLayout() {
       <Tabs.Screen name="feed" />
       <Tabs.Screen name="explore" />
       <Tabs.Screen name="upload" />
+      <Tabs.Screen name="watch" />
       <Tabs.Screen name="me" />
     </Tabs>
   );
