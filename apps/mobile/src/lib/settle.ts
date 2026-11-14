@@ -36,7 +36,7 @@ export function settleOnStop(el: HTMLElement) {
     start = to;
     if (Math.abs(to - el.scrollTop) < 2) return;
     target = to;
-    el.scrollTo({ top: to, behavior: "smooth" });
+    el.scroll({ top: to, behavior: "smooth" }); // react-native-web overrides el.scrollTo with its own {x, y} version
   };
   const onScroll = () => {
     if (target != null) {
