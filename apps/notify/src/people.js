@@ -118,8 +118,10 @@ export function theirTime(tz) {
 
 export const toMs = (v) => (typeof v === "number" ? v : Date.parse(v));
 
-const HOSTING = /amazon|aws|google llc|google cloud|microsoft|digitalocean|hetzner|ovh|linode|akamai|vultr|oracle|alibaba|tencent|contabo|leaseweb|scaleway|choopa|m247|datacamp|censys|shodan|palo alto|virtual systems|hosting|datacenter|data center|vps|server|cloud/i;
+const HOSTING = /amazon|aws|google llc|google cloud|microsoft|digitalocean|hetzner|ovh|linode|akamai|vultr|oracle|alibaba|tencent|contabo|leaseweb|scaleway|choopa|m247|datacamp|censys|shodan|palo alto|virtual systems|hosting|host|datacenter|data center|data ?cent|colo|vps|vpn|proxy|server|cloud|packet|driftnet|azure|hostinger/i;
 const currentChrome = () => 120 + Math.floor((Date.now() - Date.UTC(2023, 11, 5)) / (28 * 86_400_000));
+
+export const networkKind = (network) => (network && HOSTING.test(network) ? "hosting" : "residential");
 
 export function isBotVisit(r) {
   if (r.bot) return true;
@@ -128,5 +130,6 @@ export function isBotVisit(r) {
   if (sc?.sw && sc?.vw && sc.vw > sc.sw * 1.05) return true;
   if (r.network && HOSTING.test(r.network)) return true;
   const chrome = Number(String(r.ua || "").match(/Chrome\/(\d+)/)?.[1]);
-  return !!chrome && chrome < currentChrome() - 20;
+  const firefox = Number(String(r.ua || "").match(/Firefox\/(\d+)/)?.[1]);
+  return (!!chrome && chrome < currentChrome() - 20) || (!!firefox && firefox < currentChrome() - 30);
 }
