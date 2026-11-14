@@ -59,7 +59,7 @@ export default function Feed() {
   const dropPost = (id: string) => data && setData({ ...data, posts: data.posts.filter((p) => p.id !== id) });
 
   return (
-    <Screen tabs onRefresh={reload} refreshing={refreshing} maxWidth={wide ? column + 64 : undefined}>
+    <Screen settle tabs onRefresh={reload} refreshing={refreshing} maxWidth={wide ? column + 64 : undefined}>
       <View style={{ width: column, alignSelf: "center", gap: space[4] }}>
         {!wide && (
           <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", minHeight: 44 }}>

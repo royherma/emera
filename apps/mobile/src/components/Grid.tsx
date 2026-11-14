@@ -37,7 +37,7 @@ export function PostRow({ post, width, onDeleted, list }: { post: Post; width: n
   const tag = post.author.category;
   const watchRef = useWatchTime(post);
   return (
-    <View style={{ width, gap: space[2] }}>
+    <View style={{ width, gap: space[2] }} {...({ dataSet: { settle: "post" } } as object)}>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 10, minHeight: 44 }}>
         <Pressable accessibilityRole="link" accessibilityLabel={`${post.author.displayName}'s profile`} onPress={() => router.push({ pathname: "/u/[handle]", params: { handle: post.author.handle } })} style={{ flex: 1, flexDirection: "row", alignItems: "center", gap: 10, minWidth: 0 }}>
           <Avatar user={post.author} size={38} />
