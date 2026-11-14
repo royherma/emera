@@ -21,7 +21,7 @@ const web = typeof document !== "undefined";
 
 export function useFeedColumn() {
   const { column, height, wide } = useLayout();
-  return feedColumn(column, height, wide ? 350 : 300);
+  return feedColumn(column, height, wide ? 110 : 300);
 }
 
 export function PostRow({ post, width, onDeleted, list }: { post: Post; width: number; onDeleted?: (id: string) => void; list?: GridList }) {

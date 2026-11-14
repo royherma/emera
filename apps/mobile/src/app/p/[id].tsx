@@ -9,7 +9,6 @@ import { Icon } from "@/components/Icon";
 import { IndexChip, MediaFull, SignedMark } from "@/components/Media";
 import { watched } from "@/state/views";
 import { Screen } from "@/components/Screen";
-import { SnapItem } from "@/components/Snap";
 import { Thread } from "@/components/Thread";
 import { CategoryTag, ErrorState, IconButton, Pulse, sunGradient } from "@/components/ui";
 import { usePostMenu } from "@/components/postMenu";
@@ -73,8 +72,7 @@ export default function PostDetail() {
   const replace = (p: Post) => next && setNext({ ...next, posts: next.posts.map((x) => (x.id === p.id ? p : x)) });
 
   return (
-    <Screen snap maxWidth={wide ? 1180 : 680}>
-      <SnapItem top />
+    <Screen maxWidth={wide ? 1180 : 680}>
       <View style={[{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: wide ? -44 : space[2], zIndex: 5, alignSelf: "flex-start" }, wide && Platform.OS === "web" ? ({ position: "sticky", top: 0 } as object) : null]}>
         <IconButton icon="back" label="Back" onPress={back} />
       </View>
@@ -85,9 +83,7 @@ export default function PostDetail() {
           <PostItem post={post ?? null} onChange={setData} onDeleted={back} />
           {post &&
             next?.posts.map((p) => (
-              <SnapItem key={p.id}>
-                <PostItem post={p} onChange={replace} onDeleted={drop} />
-              </SnapItem>
+              <PostItem key={p.id} post={p} onChange={replace} onDeleted={drop} />
             ))}
           {post && <FeedEnd cursor={next ? next.cursor : "start"} loading={more || !next} failed={moreError} onMore={() => next && fetchNext(next.cursor, next.posts)} onRefresh={() => fetchNext(null, [])} />}
         </View>

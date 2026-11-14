@@ -8,7 +8,6 @@ import { NotificationBell, UnreadDot } from "@/components/Engage";
 import { useDmUnread, useRefreshDmUnread } from "@/state/dmUnread";
 import { Icon } from "@/components/Icon";
 import { FeedEnd } from "@/components/FeedEnd";
-import { SnapItem } from "@/components/Snap";
 import { Button, EmptyState, ErrorState, Segmented, Wordmark } from "@/components/ui";
 import { api } from "@/lib/api";
 import { useLayout } from "@/lib/layout";
@@ -60,9 +59,8 @@ export default function Feed() {
   const dropPost = (id: string) => data && setData({ ...data, posts: data.posts.filter((p) => p.id !== id) });
 
   return (
-    <Screen snap tabs onRefresh={reload} refreshing={refreshing} maxWidth={wide ? column + 64 : undefined}>
+    <Screen tabs onRefresh={reload} refreshing={refreshing} maxWidth={wide ? column + 64 : undefined}>
       <View style={{ width: column, alignSelf: "center", gap: space[4] }}>
-        <SnapItem top />
         {!wide && (
           <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", minHeight: 44 }}>
             <Wordmark size={22} />
@@ -111,9 +109,7 @@ export default function Feed() {
             <View style={{ gap: space[5] }}>
               {data.posts.map((p, i) => (
                 <View key={p.id} style={{ gap: space[5] }}>
-                  <SnapItem>
-                    <PostRow post={p} width={column} onDeleted={dropPost} list={{ from: `feed:${mode}`, posts: data.posts, cursor: data.cursor }} />
-                  </SnapItem>
+                  <PostRow post={p} width={column} onDeleted={dropPost} list={{ from: `feed:${mode}`, posts: data.posts, cursor: data.cursor }} />
                   {every > 0 && fund && (i + 1) % every === 0 && <SponsorLine card sponsor={pickSponsor(fund.banners, (i + 1) / every)!} />}
                 </View>
               ))}
