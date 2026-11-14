@@ -72,7 +72,7 @@ export default function PostDetail() {
   const replace = (p: Post) => next && setNext({ ...next, posts: next.posts.map((x) => (x.id === p.id ? p : x)) });
 
   return (
-    <Screen settle maxWidth={wide ? 1180 : 680}>
+    <Screen maxWidth={wide ? 1180 : 680}>
       <View style={[{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: wide ? -44 : space[2], zIndex: 5, alignSelf: "flex-start" }, wide && Platform.OS === "web" ? ({ position: "sticky", top: 0 } as object) : null]}>
         <IconButton icon="back" label="Back" onPress={back} />
       </View>
@@ -105,7 +105,7 @@ function PostItem({ post, onChange, onDeleted }: { post: Post | null; onChange: 
   const proof = first?.proof;
 
   return (
-    <View style={{ flexDirection: wide ? "row" : "column", gap: wide ? space[6] : space[4], alignItems: "flex-start", justifyContent: "center", paddingLeft: wide ? BACK_GUTTER : 0 }} {...({ dataSet: { settle: "post" } } as object)}>
+    <View style={{ flexDirection: wide ? "row" : "column", gap: wide ? space[6] : space[4], alignItems: "flex-start", justifyContent: "center", paddingLeft: wide ? BACK_GUTTER : 0 }}>
       <View style={{ width: mediaW }}>
         {post ? (
           <>
