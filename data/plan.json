@@ -180,7 +180,12 @@
           "id": "m0-stripe",
           "text": "Give Emera its own Stripe account",
           "who": "roy",
-          "review": "stripe-emera"
+          "review": "stripe-emera",
+          "done": {
+            "at": "2026-11-14T02:42:55.777Z",
+            "ref": "fee4874",
+            "note": "Emera Stripe account live; $0 live sponsor checkout passed end to end"
+          }
         }
       ]
     },
