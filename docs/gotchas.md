@@ -104,3 +104,13 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 - **Bit us:** idle autocommit pushed chat code that selects `users.role` before migration 0018 reached production; another session deployed the API from HEAD and prod chat returned 500 until 0018 was applied.
 - **Spot it:** chat or profile 500s right after a deploy; `npx wrangler d1 migrations list DB --env production --remote` lists a pending migration.
 - **Fix:** apply a new migration to staging and production remotely in the same step you write it, before the code that reads it is committed.
+
+## 2026-11-14 - Sponsoring has three production switches, not one
+- **Bit us:** turning on `FUNDING` in `apps/api/wrangler.jsonc` opened checkout, but the site worker has its own `FUNDING` (`apps/site/wrangler.jsonc`), so `emera.social/fund/` (Stripe's return page) was 404; and production had no `FUND_ADMIN_KEY` secret, so no sponsor banner could ever be approved.
+- **Spot it:** `curl -s -o /dev/null -w '%{http_code}' https://emera.social/fund/`; `npx wrangler secret list --env production` in `apps/api` lacks `FUND_ADMIN_KEY`.
+- **Fix:** both `FUNDING` vars `on`; key lives in keychain `EMERA_FUND_ADMIN_KEY` and is a production secret.
+
+## 2026-11-14 - The app's public link host was the API host
+- **Bit us:** `PUBLIC_ORIGIN` fell back to `EXPO_PUBLIC_API_URL`, so Share on a profile and the handle hint said `api.emera.social/@name`.
+- **Spot it:** handle screen hint after sign-up.
+- **Fix:** `apps/mobile/src/lib/config.ts` drops the `api.` prefix. The iOS build in review still has it until the next build.
