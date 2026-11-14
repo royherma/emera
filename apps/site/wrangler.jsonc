@@ -29,7 +29,7 @@
     },
     "production": {
       "name": "emera-site",
-      "vars": { "FUNDING": "off", "API_ORIGIN": "https://api.emera.social" },
+      "vars": { "FUNDING": "on", "API_ORIGIN": "https://api.emera.social" },
       "workers_dev": false,
       "routes": [{ "pattern": "emera.social", "custom_domain": true }, { "pattern": "www.emera.social", "custom_domain": true }, { "pattern": "app.emera.social", "custom_domain": true }],
       "assets": {
