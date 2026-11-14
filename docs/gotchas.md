@@ -124,3 +124,8 @@ Every milestone that closes adds its learnings here, and anything stale gets cor
 - **Bit us:** CI mode turns off Metro's file watcher; edits never reached the browser.
 - **Spot it:** the bundle has none of your new code.
 - **Fix:** run the dev server without `CI`, stdin from `/dev/null`.
+
+## 2026-11-14 - Staging skipped migration 0011, every upload 500'd
+- **Bit us:** `0011_media_multipart.sql` was applied to production but never to staging; `POST /v1/uploads` failed for every file type with `table media has no column named multipart_id` (Sentry EMERA-API-7).
+- **Spot it:** `npx wrangler d1 migrations list DB --env staging --remote` lists anything unapplied.
+- **Fix:** `npx wrangler d1 migrations apply DB --env staging --remote`; run the list for both envs before any API deploy.
