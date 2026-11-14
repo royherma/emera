@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Platform, View } from "react-native";
-import { Stack } from "expo-router";
+import { Stack, usePathname } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
@@ -38,6 +38,7 @@ function Routes() {
   const { status } = useAuth();
   const { c, scheme } = useTheme();
   const { wide, rail } = useLayout();
+  const path = usePathname();
   useWebChrome();
   useEffect(() => {
     if (status !== "loading") SplashScreen.hideAsync().catch(() => {});
@@ -82,7 +83,7 @@ function Routes() {
             </Stack.Protected>
           </Stack>
         </View>
-        {rail && status === "in" && <ChatRail />}
+        {rail && status === "in" && path !== "/watch" && <ChatRail />}
       </View>
       <DemoBadge />
     </>
