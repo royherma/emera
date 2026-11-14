@@ -24,6 +24,8 @@ function markSignedIn(on: boolean) {
   document.cookie = on ? "em_in=1; Path=/; Max-Age=31536000; SameSite=Lax" : "em_in=; Path=/; Max-Age=0; SameSite=Lax";
 }
 const KEY = "session.token";
+// Local dev only: /feed?dev_token=<staging token> signs in; production builds drop this.
+const DEV_TOKEN = __DEV__ && typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("dev_token") : null;
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<Status>("loading");
@@ -49,6 +51,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setToken(d.token);
         return apply(d.user);
       }
+      if (DEV_TOKEN) await storage.set(KEY, DEV_TOKEN);
       const t = await storage.get(KEY);
       if (!t) return setStatus("out");
       setToken(t);
