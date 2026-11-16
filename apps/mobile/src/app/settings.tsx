@@ -135,6 +135,12 @@ export default function Settings() {
       </Section>
 
       <View style={{ height: 1, backgroundColor: c.hair }} />
+      {user?.admin ? (
+        <Section title="Admin">
+          <Button label="Roles" icon="shield" kind="secondary" onPress={() => router.push("/roles")} style={{ alignSelf: "flex-start" }} />
+        </Section>
+      ) : null}
+
       <Section title="Account">
         <Button label="Sign out" icon="logout" kind="secondary" onPress={() => (resetChatSettings(), signOut())} style={{ alignSelf: "flex-start" }} />
         {!confirmDelete ? (

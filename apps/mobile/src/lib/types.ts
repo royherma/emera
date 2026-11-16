@@ -7,6 +7,7 @@ export type User = {
   avatarUrl: string | null;
   createdAt: string;
   role?: Role | null;
+  admin?: boolean;
   category?: string;
   followers?: number;
   following?: number;
@@ -86,6 +87,7 @@ export type FlagReason = "spam" | "harassment" | "hate" | "violence" | "nudity" 
 export type SearchKind = "people" | "posts";
 
 export type Role = "admin" | "mod" | "creator";
+export type SettableRole = "member" | "mod" | "creator";
 export type ChatUser = { id: string; handle: string | null; displayName: string; avatarUrl: string | null; role?: Role | null };
 export type ChatMessage = { id: string; user: ChatUser; body: string; createdAt: string; mine: boolean; deleted: boolean; postId?: string | null; post?: Post | null };
 export type Channel = { id: string; name: string; topic: string; slowSeconds: number; unread: boolean };
@@ -122,6 +124,8 @@ export interface Backend {
   authVerify(email: string, code: string): Promise<{ token: string; user: User; isNew: boolean }>;
   setHandle(input: { handle: string; displayName: string }): Promise<User>;
   me(): Promise<User>;
+  adminUsers(q: string): Promise<User[]>;
+  setRole(handle: string, role: SettableRole): Promise<User>;
   logout(): Promise<void>;
   deleteAccount(): Promise<void>;
   feed(cursor?: string | null, mode?: FeedMode): Promise<{ posts: Post[]; cursor: string | null }>;

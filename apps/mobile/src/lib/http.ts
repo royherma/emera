@@ -34,6 +34,8 @@ export const http: Backend = {
   authVerify: (email, code) => send("POST", "/v1/auth/verify", { email, code }),
   setHandle: async (input) => (await send<{ user: User }>("POST", "/v1/auth/handle", input)).user,
   me: async () => (await send<{ user: User }>("GET", "/v1/me")).user,
+  adminUsers: async (q) => (await send<{ users: User[] }>("GET", `/v1/admin/users?q=${encodeURIComponent(q)}`)).users,
+  setRole: async (handle, role) => (await send<{ user: User }>("PUT", `/v1/admin/users/${encodeURIComponent(handle)}/role`, { role })).user,
   logout: async () => void (await send("POST", "/v1/auth/logout")),
   deleteAccount: async () => void (await send("DELETE", "/v1/me")),
   feed: async (cursor, mode) => {

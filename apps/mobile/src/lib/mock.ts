@@ -247,7 +247,7 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
     if (!id) {
       id = `u_${++counter}`;
       emails.set(email, id);
-      users.set(`pending_${id}`, { id, handle: "", displayName: "", bio: "", avatarUrl: null, createdAt: iso(0) });
+      users.set(`pending_${id}`, { id, handle: "", displayName: "", bio: "", avatarUrl: null, createdAt: iso(0), admin: true });
     }
     const user = [...users.values()].find((u) => u.id === id)!;
     const t = `mock_${hex(24)}`;
@@ -268,6 +268,21 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
   async me() {
     await wait(120);
     return current();
+  },
+  async adminUsers(q) {
+    await wait();
+    if (!current().admin) throw new ApiError("not_admin", "Only admins can change roles.");
+    const term = q.trim().toLowerCase().replace(/^@/, "");
+    return [...users.values()].filter((u) => u.handle && (!term || u.handle.includes(term) || u.displayName.toLowerCase().includes(term)));
+  },
+  async setRole(handle, role) {
+    await wait();
+    if (!current().admin) throw new ApiError("not_admin", "Only admins can change roles.");
+    const u = users.get(handle);
+    if (!u) throw new ApiError("not_found", "No such user.");
+    u.role = role === "member" ? null : role;
+    posts.forEach((p) => { if (p.author.id === u.id) p.author = { ...p.author, role: u.role }; });
+    return u;
   },
   async logout() {
     if (token) sessions.delete(token);
