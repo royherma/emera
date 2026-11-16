@@ -11,6 +11,9 @@ export type Env = {
   REVIEW_EMAIL?: string;
   REVIEW_CODE?: string;
   PROOF_SECRET: string;
+  INSTAGRAM_APP_ID?: string;
+  INSTAGRAM_APP_SECRET?: string;
+  INSTAGRAM_STUB_TOKEN?: string;
   CHAT_KEY?: string;
   CHAT_LIVE: DurableObjectNamespace<import('./live').ChatLive>;
   PUBLIC_ORIGIN: string;

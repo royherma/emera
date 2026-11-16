@@ -53,7 +53,8 @@ describe('sources', () => {
     expect(parseFrom('roy.bsky.social').kind).toBe('bluesky');
     expect(parseFrom('example.com')).toMatchObject({ kind: 'feed', spec: 'https://example.com/' });
     expect(parseFrom('https://mastodon.social/@roy')).toMatchObject({ kind: 'mastodon', spec: 'https://mastodon.social/@roy.rss', label: 'mastodon.social/@roy' });
-    expect(() => parseFrom('https://www.instagram.com/roy/')).toThrow(/Instagram/);
+    expect(() => parseFrom('https://www.tiktok.com/@roy')).toThrow(/TikTok/);
+    expect(parseFrom('https://www.instagram.com/roy/').kind).toBe('instagram');
   });
 
   it('reads an RSS item with its photo, caption and date', () => {
@@ -87,8 +88,8 @@ describe('rules and connectors', () => {
   });
   it('lists the connectors and the platforms that block reading', async () => {
     const r = await new Client().json('GET', '/v1/connectors');
-    expect(r.body.connectors.map((c: any) => c.id)).toEqual(['bluesky', 'mastodon', 'feed']);
-    expect(r.body.locked.map((l: any) => l.name)).toContain('Instagram');
+    expect(r.body.connectors.map((c: any) => c.id)).toEqual(['instagram', 'bluesky', 'mastodon', 'feed']);
+    expect(r.body.locked.map((l: any) => l.name)).toContain('TikTok');
   });
 });
 
@@ -127,7 +128,7 @@ describe('connect an AI app with OAuth, then import over MCP', () => {
     const init = await rpc(c, t.access_token, 'initialize', { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 'test', version: '1' } });
     expect(init.body.result).toMatchObject({ protocolVersion: '2025-06-18', serverInfo: { name: 'emera' } });
     const tools = await rpc(c, t.access_token, 'tools/list');
-    expect(tools.body.result.tools.map((x: any) => x.name)).toEqual(['whoami', 'preview_import', 'import_posts', 'auto_post', 'list_connections', 'create_post', 'list_my_posts']);
+    expect(tools.body.result.tools.map((x: any) => x.name)).toEqual(['connect_instagram', 'whoami', 'preview_import', 'import_posts', 'auto_post', 'list_connections', 'create_post', 'list_my_posts']);
     expect((await rpc(c, t.access_token, 'tools/call', { name: 'whoami', arguments: {} })).body.result.content[0].text).toContain('@mcpuser');
 
     const prev = await rpc(c, t.access_token, 'tools/call', { name: 'preview_import', arguments: { from: 'https://pix.test/feed' } });
@@ -143,7 +144,7 @@ describe('connect an AI app with OAuth, then import over MCP', () => {
     const profile = await c.json('GET', '/v1/users/mcpuser');
     expect(profile.body.posts.map((p: any) => [p.caption, p.createdAt])).toEqual([['Second kiln & more', '2026-11-11T08:00:00.000Z'], ['First kiln & more', '2026-11-10T08:00:00.000Z']]);
 
-    const locked = await rpc(c, t.access_token, 'tools/call', { name: 'import_posts', arguments: { from: 'instagram.com/roy' } });
+    const locked = await rpc(c, t.access_token, 'tools/call', { name: 'import_posts', arguments: { from: 'tiktok.com/@roy' } });
     expect(locked.body.result.isError).toBe(true);
 
     const ref = await worker.fetch!(form({ grant_type: 'refresh_token', refresh_token: t.refresh_token, client_id: reg.body.client_id }) as any, c.env, {} as any);
