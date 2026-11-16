@@ -20,6 +20,7 @@ export type Env = {
   REPORTS_TO?: string;
   FUNDING?: string;
   FUND_ADMIN_KEY?: string;
+  ADMIN_IDS?: string;
   STRIPE_SECRET_KEY?: string;
   STRIPE_WEBHOOK_SECRET?: string;
   STRIPE_ACCOUNT_ID?: string;

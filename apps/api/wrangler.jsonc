@@ -33,6 +33,7 @@
       ],
       "vars": {
         "ENVIRONMENT": "staging",
+        "ADMIN_IDS": "demo_techguyver",
         "SENTRY_DSN": "https://f1c13fe2a5084a5d09919d7c213ee80d@o4512099364503552.ingest.us.sentry.io/4512422700449792",
         "INVITES_REQUIRED": "false",
         "PUBLIC_ORIGIN": "",
@@ -63,6 +64,7 @@
       ],
       "vars": {
         "ENVIRONMENT": "production",
+        "ADMIN_IDS": "vZoEEJIUI7oI",
         "SENTRY_DSN": "https://f1c13fe2a5084a5d09919d7c213ee80d@o4512099364503552.ingest.us.sentry.io/4512422700449792",
         "INVITES_REQUIRED": "false",
         "PUBLIC_ORIGIN": "https://emera.social",

@@ -7,6 +7,7 @@ import { newId } from './crypto';
 import { iso, loadPosts, type PostRow } from './serialize';
 import { FLAG_REASONS } from './flags';
 import { liveTicket, poke } from './live';
+import { adminIds } from './roles';
 
 const BODY_MAX = 2000;
 const PER_MINUTE = 20;
@@ -144,7 +145,8 @@ async function channelFor(c: Context<AppEnv>): Promise<ChannelRow> {
 }
 
 const isMod = async (env: Env, channelId: string, userId: string) =>
-  !!(await env.DB.prepare(`SELECT 1 AS x FROM channel_mods WHERE user_id = ?1 AND channel_id IN (?2, '*') UNION SELECT 1 FROM users WHERE id = ?1 AND role IN ('admin', 'mod')`).bind(userId, channelId).first());
+  !!(await env.DB.prepare(`SELECT 1 AS x FROM channel_mods WHERE user_id = ?1 AND channel_id IN (?2, '*') UNION SELECT 1 FROM users WHERE id = ?1 AND role IN ('admin', 'mod')`).bind(userId, channelId).first()) ||
+  adminIds(env).includes(userId);
 
 const markChannelRead = (env: Env, channelId: string, userId: string, at: number) =>
   env.DB.prepare('INSERT INTO channel_reads (channel_id, user_id, read_at) VALUES (?, ?, ?) ON CONFLICT (channel_id, user_id) DO UPDATE SET read_at = MAX(read_at, excluded.read_at)')

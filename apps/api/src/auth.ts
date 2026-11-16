@@ -6,6 +6,7 @@ import { hmacHex, newInviteCode, newSixDigitCode, newToken, newId, sha256Hex } f
 import { deliveryFor, sendCode } from './mail';
 import { userJson } from './serialize';
 import { capSigninEmails } from './limits';
+import { isAdmin } from './roles';
 
 const CODE_TTL_MS = 10 * 60_000;
 const SESSION_TTL_MS = 30 * 86_400_000;
@@ -149,7 +150,7 @@ auth.post('/v1/auth/handle', requireAuth, async (c) => {
   return c.json({ user: userJson(user) });
 });
 
-auth.get('/v1/me', requireAuth, (c) => c.json({ user: userJson(c.get('user')) }));
+auth.get('/v1/me', requireAuth, (c) => c.json({ user: { ...userJson(c.get('user')), admin: isAdmin(c.env, c.get('user')) } }));
 
 auth.post('/v1/auth/logout', requireAuth, async (c) => {
   const token = c.req.header('Authorization')!.slice(7).trim();
