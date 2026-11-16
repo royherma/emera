@@ -1547,8 +1547,13 @@
         [
           "Bring your posts (app)",
           "https://emera.social/connect"
+        ],
+        [
+          "Staging: Connect Claude button (200, 2026-11-16)",
+          "https://emera-app-staging.techguyver1337.workers.dev/connect"
         ]
       ],
+      "updated": "2026-11-16 9:27 AM Bangkok: one-tap Connect Claude on /connect opens claude.ai with Emera filled in (d033375, staging only, not production yet)",
       "list": [
         "claude.ai: Settings, Connectors, Add custom connector, paste https://api.emera.social/mcp (Claude Code is already set up: type /mcp, pick emera, Authenticate)",
         "Use your @techguyver email (the other one has no handle yet), type the 6-digit code, tap Allow",
