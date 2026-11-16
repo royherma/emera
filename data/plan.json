@@ -657,6 +657,26 @@
         "ref": "a2deb3f",
         "note": "live: app logo, app icon, favicons, emera.social, brand page"
       }
+    },
+    {
+      "id": "sidebar-flame",
+      "q": "Sidebar logo: keep the big flame or use a smaller one there?",
+      "why": "Measured on emera.social at 1512x860: the flame is 18px tall next to 19px capitals and pokes 3px above them, so it reads like a second letter. The smaller one is 12px and sits under the cap line. Sidebar only; icons and site stay as they are.",
+      "options": [
+        {
+          "id": "current",
+          "label": "Big flame (live now)",
+          "img": ".claude/artifacts/sidebar-logo/current-dpr3.png"
+        },
+        {
+          "id": "smaller",
+          "label": "Smaller flame (branch)",
+          "img": ".claude/artifacts/sidebar-logo/smaller-dpr3.png",
+          "note": "reads as a lit tip, not a letter"
+        }
+      ],
+      "mine": "smaller",
+      "note": "Branch feat/sidebar-small-flame e751fba, not deployed. Night loop 2026-11-16."
     }
   ],
   "names": {
