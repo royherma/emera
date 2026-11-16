@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pressable, Switch, Text, TextInput, View } from "react-native";
+import { Linking, Pressable, Switch, Text, TextInput, View } from "react-native";
 import { Image } from "expo-image";
 import { Art } from "@/components/Art";
 import { useRouter } from "expo-router";
@@ -16,6 +16,7 @@ import { useTheme } from "@/state/theme";
 import { useToast } from "@/state/toast";
 
 const MCP_URL = `${MOCK || !API_URL ? "https://api.emera.social" : API_URL.replace(/\/$/, "")}/mcp`;
+const CLAUDE_CONNECT = `https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Emera&connectorUrl=${encodeURIComponent(MCP_URL)}`;
 const message = (e: unknown) => (e instanceof ApiError ? e.message : "Something went wrong. Try again.");
 const ruleText = (r: ImportRules) => `${r.media === "photos" ? "Photo posts" : r.media === "videos" ? "Video posts" : "New posts"}${r.tag ? ` tagged #${r.tag}` : ""} come over every 15 minutes`;
 
@@ -210,6 +211,7 @@ export default function Connect() {
       <View style={{ gap: space[3] }}>
         <Text style={[type.section, { color: c.ink }]}>Or ask Claude or ChatGPT</Text>
         <Text style={[type.body, { color: c.ink2 }]}>Add Emera as a connector and sign in. It reads your posts from other places and posts them only to Emera.</Text>
+        <Button label="Connect Claude" icon="plus" size="lg" onPress={() => void Linking.openURL(CLAUDE_CONNECT)} />
         <View style={{ flexDirection: "row", alignItems: "center", gap: space[2], backgroundColor: c.surface, borderRadius: radius.card, borderWidth: 1, borderColor: c.hair, paddingLeft: space[3] }}>
           <Text selectable style={[type.bodySm, { color: c.ink, flex: 1 }]} numberOfLines={1}>{MCP_URL}</Text>
           <IconButton icon="copy" label="Copy connector link" onPress={async () => (await copyText(MCP_URL), toast("Connector link copied"))} filled={false} />
