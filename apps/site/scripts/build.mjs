@@ -26,6 +26,7 @@ const vars = {
   name: brand.name,
   tagline: brand.tagline,
   line: brand.line,
+  promise: brand.promise,
   domain: brand.domain,
   github: GITHUB_URL,
   sprite,

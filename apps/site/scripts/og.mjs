@@ -14,7 +14,7 @@ await page.addStyleTag({
   content: `body{overflow:hidden}.nav,.signup,.note,.lead,.eyebrow{display:none!important}
 .hero{height:630px}.hero-grid{padding:0!important;height:630px;align-items:center}
 .hero .wrap{padding-left:72px}
-h1{font-size:10.6rem!important;margin-top:0!important}.tagline{font-size:2.6rem!important;margin-top:18px!important}
+h1{font-size:10.6rem!important;margin-top:0!important}.tagline{font-size:2.6rem!important;margin-top:18px!important}.promise{font-size:1.9rem!important;margin-top:22px!important;white-space:nowrap}
 .stage{--k:.74!important;height:auto!important;align-self:start;margin-top:30px}
 .stage .ph.a{left:calc(50% - 150px)}.stage .ph.b{left:calc(50% + 130px);top:80px}`,
 });
