@@ -50,7 +50,7 @@ export function device(ua, sc = {}) {
 
 export function screenLine(sc) {
   if (!sc?.sw || !sc?.sh) return null;
-  const hw = [sc.mem && `${sc.mem} GB memory`, sc.cores && `${sc.cores} cores`].filter(Boolean).join(", ");
+  const hw = [sc.mem && `${sc.mem} GB memory`, sc.cores && `${sc.cores} ${sc.cores === 1 ? "core" : "cores"}`].filter(Boolean).join(", ");
   return [
     `${sc.sw}×${sc.sh}${sc.dpr ? ` @${sc.dpr}x` : ""}`,
     sc.vw && sc.vh && `window ${sc.vw}×${sc.vh}`,
@@ -71,7 +71,7 @@ export function connection(sc, network) {
 
 export function clockLine(r, sc) {
   const tz = sc?.tz || r.timezone;
-  const t = theirTime(tz);
+  const t = theirTime(tz, toMs(r.created_at));
   if (!t) return null;
   const vpn = sc?.tz && r.timezone && sc.tz !== r.timezone ? `  ·  network says ${r.timezone} (VPN or travelling)` : "";
   return `${t.replace(" their time", "")} · ${tz}${vpn}`;
@@ -107,10 +107,10 @@ export function bangkok(ms, withDate = false) {
   return `${new Date(ms).toLocaleString("en-US", o)} Bangkok`;
 }
 
-export function theirTime(tz) {
+export function theirTime(tz, ms = Date.now()) {
   if (!tz) return null;
   try {
-    return `${new Date().toLocaleTimeString("en-US", { timeZone: tz, hour: "numeric", minute: "2-digit" })} their time`;
+    return `${new Date(Number.isFinite(ms) ? ms : Date.now()).toLocaleTimeString("en-US", { timeZone: tz, hour: "numeric", minute: "2-digit" })} their time`;
   } catch {
     return null;
   }

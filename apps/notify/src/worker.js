@@ -137,7 +137,7 @@ async function sendVisit(env, r) {
   }
   const visits = await env.SITE_DB.prepare("SELECT COUNT(DISTINCT substr(created_at, 1, 10)) AS d FROM visits WHERE visitor = ? AND id < ? AND bot = 0").bind(r.visitor, r.id).first();
   const sc = screenOf(r);
-  const langs = sc?.langs?.length ? sc.langs : r.lang ? [r.lang] : [];
+  const langs = [...new Set(sc?.langs?.length ? sc.langs : r.lang ? [r.lang] : [])];
   const ts = await slack(env, {
     icon: "👀",
     title: prior?.n ? `Returning visitor (day ${(visits?.d ?? 0) + 1})` : "New visitor",

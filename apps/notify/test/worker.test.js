@@ -181,3 +181,17 @@ test("visit waits for the page script, then shows screen, connection, their time
   await poll(h.env, now + 3 * 60_000);
   assert.equal(h.posted.length, before, "a visit where no JavaScript ran is a bot and never posts");
 });
+
+test("visit alert: their time is the visit's time, languages once each, 1 core", async () => {
+  const h = harness();
+  await poll(h.env);
+  const at = Date.UTC(2026, 10, 15, 20, 32);
+  const ua = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36";
+  const screen = { sw: 1920, sh: 1080, vw: 1920, vh: 1080, dpr: 1, dark: false, touch: false, tz: "UTC", langs: ["en-US", "en", "en"], mem: 4, cores: 1 };
+  h.env.SITE_DB.raw.prepare("INSERT INTO visits (created_at, visitor, path, country, city, timezone, network, ua, lang, bot, screen) VALUES (?, 'c1', '/', 'GB', 'London', 'Europe/London', 'Some Home ISP', ?, 'en-US', 0, ?)").run(new Date(at).toISOString(), ua, JSON.stringify(screen));
+  assert.deepEqual(await poll(h.env, at + 60_000), { visits: 1 });
+  const t = h.text();
+  assert.match(t, /their time\* 8:32 PM · UTC/);
+  assert.match(t, /language\* `en-US` `en`"/);
+  assert.match(t, /4 GB memory, 1 core\\n/);
+});
