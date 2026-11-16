@@ -232,8 +232,9 @@
         },
         {
           "id": "m1-ig-connector",
-          "text": "Instagram connector: creators sign in with Instagram (professional accounts) and bring reels over; needs Meta app review for people other than you",
-          "who": "claude"
+          "text": "Instagram connector: sign in, pick reels, import (API + claude.ai done on feat/instagram-import; app button, IG_APP_ID and Meta review left)",
+          "who": "claude",
+          "running": true
         }
       ]
     },
