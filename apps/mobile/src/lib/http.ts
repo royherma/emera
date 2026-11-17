@@ -1,5 +1,5 @@
 import { API_URL } from "./config";
-import { ApiError, Backend, Earnings, Fund, FundCards, FundStatement, Sponsor, Comment, Media, Notification, PickedFile, Post, User, UserPage, Channel, ChatMessage, ChatPage, ChatRoomRef, DmThread, ImportItem, ImportSource, ChatSettings, DmWith } from "./types";
+import { ApiError, Backend, Earnings, Fund, FundCards, FundStatement, Sponsor, Comment, Media, Notification, PickedFile, Post, User, UserPage, Channel, ChatMessage, ChatPage, ChatRoomRef, DmThread, ImportItem, ImportSource, ChatSettings, DmWith, CopyReport, PostProof } from "./types";
 
 let token: string | null = null;
 export const setToken = (t: string | null) => {
@@ -87,6 +87,10 @@ export const http: Backend = {
   listInvites: () => send("GET", "/v1/invites"),
   createInvite: (maxUses) => send("POST", "/v1/invites", maxUses ? { maxUses } : {}),
   report: async (input) => void (await send("POST", "/v1/reports", input)),
+  proof: async (postId) => (await send<{ proof: PostProof }>("GET", `/v1/posts/${encodeURIComponent(postId)}/proof`)).proof,
+  reports: async () => (await send<{ reports: CopyReport[] }>("GET", "/v1/reports")).reports,
+  modReports: async () => (await send<{ reports: CopyReport[] }>("GET", "/v1/mod/reports")).reports,
+  setReportStatus: async (id, status) => (await send<{ report: CopyReport }>("PATCH", `/v1/mod/reports/${encodeURIComponent(id)}`, { status })).report,
   follow: async (handle) => (await send<{ user: User }>("POST", `/v1/follows/${encodeURIComponent(handle)}`)).user,
   unfollow: async (handle) => (await send<{ user: User }>("DELETE", `/v1/follows/${encodeURIComponent(handle)}`)).user,
   followers: async (handle, cursor) => userPage(await send("GET", `/v1/users/${encodeURIComponent(handle)}/followers${pageQuery(cursor)}`)),

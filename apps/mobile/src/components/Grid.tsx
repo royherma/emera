@@ -54,7 +54,7 @@ export function PostRow({ post, width, onDeleted, list }: { post: Post; width: n
       <Pressable ref={watchRef} accessibilityRole="link" accessibilityLabel={`Open post by ${post.author.displayName}`} onPress={open} style={({ pressed }: PS) => [{ width: box.width, height: box.height, alignSelf: "center", borderRadius: radius.media, overflow: "hidden", transform: [{ scale: pressed ? 0.992 : 1 }] }, web ? ({ boxShadow: elevation.media } as object) : null]}>
         {m.kind === "video" ? <InlineVideo media={m} style={{ flex: 1 }} onWatched={() => watched(post.id)} /> : <MediaImage media={m} style={{ flex: 1 }} playSize={56} />}
         <View style={{ position: "absolute", left: 10, top: 10 }}>
-          <SignedMark />
+          <SignedMark post={post} />
         </View>
         {post.media.length > 1 && (
           <View style={{ position: "absolute", right: 10, top: 10 }}>

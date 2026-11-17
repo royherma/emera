@@ -9,12 +9,15 @@ import { useTheme } from "@/state/theme";
 export type SheetAction = { label: string; icon: IconName; onPress: () => void; destructive?: boolean };
 
 const SheetCtx = createContext<(actions: SheetAction[]) => void>(() => {});
+export type SheetBody = (close: (then?: () => void) => void) => ReactNode;
+const BodyCtx = createContext<(body: SheetBody) => void>(() => {});
 
 export function SheetProvider({ children }: { children: ReactNode }) {
   const { c } = useTheme();
   const { wide } = useLayout();
   const insets = useSafeAreaInsets();
   const [actions, setActions] = useState<SheetAction[] | null>(null);
+  const [body, setBody] = useState<SheetBody | null>(null);
   const v = useRef(new Animated.Value(0)).current;
 
   const open = useCallback(
@@ -24,10 +27,18 @@ export function SheetProvider({ children }: { children: ReactNode }) {
     },
     [v],
   );
+  const openBody = useCallback(
+    (b: SheetBody) => {
+      setBody(() => b);
+      Animated.timing(v, { toValue: 1, duration: motion.sheet, easing: Easing.out(Easing.exp), useNativeDriver: true }).start();
+    },
+    [v],
+  );
   const close = useCallback(
     (then?: () => void) => {
       Animated.timing(v, { toValue: 0, duration: motion.fast, easing: Easing.out(Easing.quad), useNativeDriver: true }).start(() => {
         setActions(null);
+        setBody(null);
         then?.();
       });
     },
@@ -35,16 +46,17 @@ export function SheetProvider({ children }: { children: ReactNode }) {
   );
 
   useEffect(() => {
-    if (Platform.OS !== "web" || !actions) return;
+    if (Platform.OS !== "web" || !(actions || body)) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [actions, close]);
+  }, [actions, body, close]);
 
   return (
     <SheetCtx.Provider value={open}>
+      <BodyCtx.Provider value={openBody}>
       {children}
-      {actions && (
+      {(actions || body) && (
         <View style={{ position: "absolute", top: 0, right: 0, bottom: 0, left: 0, justifyContent: wide ? "center" : "flex-end", alignItems: "center", zIndex: 50 }} accessibilityViewIsModal>
           <Animated.View style={{ position: "absolute", top: 0, right: 0, bottom: 0, left: 0, backgroundColor: "rgba(14,10,8,0.55)", opacity: v }}>
             <Pressable accessibilityLabel="Close" style={{ flex: 1 }} onPress={() => close()} />
@@ -57,7 +69,8 @@ export function SheetProvider({ children }: { children: ReactNode }) {
             ]}
           >
             <View style={{ alignSelf: "center", width: 36, height: 4, borderRadius: 2, backgroundColor: c.hair, marginBottom: space[2] }} />
-            {actions.map((a) => (
+            {body && body(close)}
+            {actions?.map((a) => (
               <Pressable
                 key={a.label}
                 accessibilityRole="button"
@@ -68,14 +81,19 @@ export function SheetProvider({ children }: { children: ReactNode }) {
                 <Text style={[type.body, { fontFamily: type.name.fontFamily, color: a.destructive ? c.danger : c.ink }]}>{a.label}</Text>
               </Pressable>
             ))}
-            <Pressable accessibilityRole="button" onPress={() => close()} style={{ height: 48, marginTop: space[2], borderRadius: radius.field, backgroundColor: c.sunk, alignItems: "center", justifyContent: "center" }}>
-              <Text style={[type.button, { color: c.ink }]}>Cancel</Text>
-            </Pressable>
+            {actions && (
+              <Pressable accessibilityRole="button" onPress={() => close()} style={{ height: 48, marginTop: space[2], borderRadius: radius.field, backgroundColor: c.sunk, alignItems: "center", justifyContent: "center" }}>
+                <Text style={[type.button, { color: c.ink }]}>Cancel</Text>
+              </Pressable>
+            )}
           </Animated.View>
         </View>
       )}
+      </BodyCtx.Provider>
     </SheetCtx.Provider>
   );
 }
 
 export const useSheet = () => useContext(SheetCtx);
+
+export const useSheetBody = () => useContext(BodyCtx);

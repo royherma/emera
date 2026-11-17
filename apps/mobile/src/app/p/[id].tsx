@@ -122,8 +122,8 @@ function PostItem({ post, onChange, onDeleted }: { post: Post | null; onChange: 
                   <MediaFull key={m.id} media={m} style={{ width: mediaW, height: mediaH }} onWatched={() => watched(post.id)} />
                 ))}
               </ScrollView>
-              <View pointerEvents="none" style={{ position: "absolute", left: 12, top: 12 }}>
-                <SignedMark />
+              <View style={{ position: "absolute", left: 12, top: 12 }}>
+                <SignedMark post={post} />
               </View>
               {post.media.length > 1 && (
                 <View pointerEvents="none" style={{ position: "absolute", right: 12, top: 12 }}>

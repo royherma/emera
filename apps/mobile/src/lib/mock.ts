@@ -1,6 +1,6 @@
 import brand from "./brand";
 import { PUBLIC_ORIGIN } from "./config";
-import { ApiError, Backend, Comment, FeedMode, ImportSource, Invite, Media, Notification, PickedFile, Post, User, UserPage } from "./types";
+import { ApiError, Backend, Comment, CopyReport, FeedMode, ImportSource, Invite, Media, Notification, PickedFile, Post, PostProof, ReportStatus, User, UserPage } from "./types";
 import { HANDLE_RE } from "./format";
 import { makeMockChat } from "./mockChat";
 import { mockEarnings, mockFund, mockFundMonth, mockWatch } from "./fundMock";
@@ -89,8 +89,19 @@ const posts: Post[] = seeds.map(([handle, caption, w, h, ago, kind], i) => {
 posts[0].media.push(makeMedia("mina", 1600, 2000, "image", "mock:art/p_100b", posts[0].createdAt));
 posts[0].media.push(makeMedia("mina", 1600, 2000, "image", "mock:art/p_100c", posts[0].createdAt));
 
+const mockImported: Record<string, { from: string; link: string }> = { p_101: { from: "instagram.com", link: "https://www.instagram.com/p/mock-tenmoku/" } };
+const mockReports: { report: CopyReport; reporter: string }[] = [
+  ["p_100", "https://pinboard.example/pins/dawn-on-the-tagus", "taken_down", 60 * 24 * 9, 60 * 24 * 3],
+  ["p_109", "https://shopfront.example/prints/paper-canyon", "filing", 60 * 24 * 4, 60 * 20],
+  ["p_100", "https://reposts.example/gallery/8841", "sent", 60 * 5, 60 * 5],
+  ["p_109", "https://memes.example/t/canyon", "not_removed", 60 * 24 * 15, 60 * 24 * 12],
+].map(([postId, url, status, ago, upd], i) => {
+  return { reporter: "mina", report: { id: `r_${i}`, postId: postId as string, url: url as string, note: "", status: status as ReportStatus, createdAt: iso(ago as number), updatedAt: iso(upd as number), thumbUrl: null } };
+});
+const thumbOf = (postId: string) => posts.find((p) => p.id === postId)?.media[0].url ?? null;
+
 const sessions = new Map<string, string>();
-const emails = new Map<string, string>();
+const emails = new Map<string, string>([["mina@example.com", "u_1"], ["noor@example.com", "u_7"]]);
 const invites = new Map<string, string>([[MOCK_INVITE_CODE, "mina"]]);
 const MOCK_INVITE_LIMIT = 20;
 const mockInvites: Invite[] = [
@@ -343,9 +354,46 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
     mockInvites.unshift({ code, url, uses: 0, maxUses, createdAt: new Date().toISOString(), joined: [] });
     return { code, url };
   },
-  async report({ url }) {
+  async report({ postId, url, note }) {
     await wait();
+    const me = current();
     if (!/^https?:\/\/\S+\.\S+/.test(url)) throw new ApiError("bad_url", "Paste the full link, starting with https://");
+    const post = posts.find((p) => p.id === postId);
+    if (!post) throw new ApiError("not_found", "No such post.");
+    if (post.author.id !== me.id) throw new ApiError("forbidden", "You can only report copies of your own posts.");
+    const now = new Date().toISOString();
+    mockReports.unshift({ report: { id: hex(8), postId, url, note, status: "sent", createdAt: now, updatedAt: now, thumbUrl: null }, reporter: me.handle });
+  },
+  async proof(postId): Promise<PostProof> {
+    await wait(160);
+    const p = posts.find((x) => x.id === postId);
+    if (!p) throw new ApiError("not_found", "That post isn't here anymore.");
+    const imp = mockImported[postId];
+    return {
+      postId,
+      author: { handle: p.author.handle, displayName: p.author.displayName, role: p.author.role ?? null, verifiedBy: "email" },
+      firstPostedAt: p.media[0].proof.signedAt,
+      files: { total: p.media.length, intact: p.media.length },
+      imported: imp ? { from: imp.from, link: imp.link, originalDate: p.createdAt } : null,
+    };
+  },
+  async reports() {
+    await wait(160);
+    const me = current();
+    return mockReports.filter((r) => r.reporter === me.handle).map((r) => ({ ...r.report, thumbUrl: thumbOf(r.report.postId) }));
+  },
+  async modReports() {
+    await wait(160);
+    if (!["admin", "mod"].includes(current().role ?? "")) throw new ApiError("forbidden", "Only moderators can do that.");
+    return mockReports.map((r) => ({ ...r.report, reporter: r.reporter, thumbUrl: thumbOf(r.report.postId) }));
+  },
+  async setReportStatus(id: string, status: ReportStatus) {
+    await wait(160);
+    if (!["admin", "mod"].includes(current().role ?? "")) throw new ApiError("forbidden", "Only moderators can do that.");
+    const r = mockReports.find((x) => x.report.id === id);
+    if (!r) throw new ApiError("not_found", "No such report.");
+    r.report = { ...r.report, status, updatedAt: new Date().toISOString() };
+    return { ...r.report, reporter: r.reporter };
   },
   async follow(handle) {
     await wait(160);

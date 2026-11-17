@@ -133,6 +133,10 @@ export interface Backend {
   listInvites(): Promise<{ invites: Invite[]; limit: number; open?: boolean }>;
   createInvite(maxUses?: number): Promise<{ code: string; url: string }>;
   report(input: { postId: string; url: string; note: string }): Promise<void>;
+  proof(postId: string): Promise<PostProof>;
+  reports(): Promise<CopyReport[]>;
+  modReports(): Promise<CopyReport[]>;
+  setReportStatus(id: string, status: ReportStatus): Promise<CopyReport>;
   follow(handle: string): Promise<User>;
   unfollow(handle: string): Promise<User>;
   followers(handle: string, cursor?: string | null): Promise<UserPage>;
@@ -222,4 +226,14 @@ export type Earnings = {
   months: { month: string; seconds: number; sharePpm: number; amountCents: number }[];
   balanceCents: number;
   topPosts: { post: Post; seconds: number }[];
+};
+
+export type ReportStatus = "sent" | "filing" | "taken_down" | "not_removed";
+export type CopyReport = { id: string; postId: string; url: string; note: string; status: ReportStatus; createdAt: string; updatedAt: string; thumbUrl: string | null; reporter?: string };
+export type PostProof = {
+  postId: string;
+  author: { handle: string | null; displayName: string; role: Role | null; verifiedBy: "email" };
+  firstPostedAt: string;
+  files: { total: number; intact: number };
+  imported: { from: string | null; link: string | null; originalDate: string } | null;
 };
