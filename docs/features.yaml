@@ -11,7 +11,7 @@ features:
     why_core: "Front door: no account, no creators"
     platforms: {instagram: yes, tiktok: yes, youtube: yes, pinterest: yes, bluesky: yes, cara: yes, pixelfed: yes, vsco: yes}
     emera:
-      twist: "Own Emera account on the AT Protocol, no password, no Bluesky login needed"
+      twist: "Own Emera account, no password, no third-party login needed"
       maps_to: {screens: ["/welcome", "/sign-in", "/code"], endpoints: ["POST /v1/auth/start", "POST /v1/auth/verify", "GET /v1/me", "POST /v1/auth/logout"], stories: ["join-with-invite", "sign-in-again", "sign-out"]}
       help_wanted: false
       effort: M
@@ -374,7 +374,7 @@ features:
     usage: "Different people want different feeds"
     platforms: {instagram: partial, tiktok: partial, youtube: partial, pinterest: partial, bluesky: yes, cara: yes, pixelfed: yes, vsco: partial}
     emera:
-      twist: "Swap the ranking like swapping an app; AT Protocol feed generators"
+      twist: "Swap the ranking like swapping an app; open feeds anyone can write"
       maps_to: {screens: [], endpoints: [], stories: []}
       help_wanted: true
       effort: L
@@ -866,7 +866,7 @@ features:
     usage: "Moderation that people choose"
     platforms: {instagram: no, tiktok: no, youtube: no, pinterest: no, bluesky: yes, cara: no, pixelfed: partial, vsco: no}
     emera:
-      twist: "Native on AT Protocol"
+      twist: "Communities pick who moderates their feed"
       maps_to: {screens: [], endpoints: [], stories: []}
       help_wanted: true
       effort: L
@@ -943,7 +943,7 @@ features:
     usage: "Ownership of where your data lives"
     platforms: {instagram: no, tiktok: no, youtube: no, pinterest: no, bluesky: yes, cara: no, pixelfed: yes, vsco: no}
     emera:
-      twist: "Own PDS supported"
+      twist: "Docker image for the API"
       maps_to: {screens: [], endpoints: [], stories: []}
       help_wanted: true
       effort: L
@@ -959,13 +959,13 @@ features:
       help_wanted: true
       effort: M
   - id: account-move
-    name: "Move your account to another host with followers"
+    name: "Export your account with followers"
     area: platform
     tier: unique
     usage: "You own it"
     platforms: {instagram: no, tiktok: no, youtube: no, pinterest: no, bluesky: yes, cara: no, pixelfed: partial, vsco: no}
     emera:
-      twist: "AT Protocol account migration"
+      twist: "Export everything you made and your follower list"
       maps_to: {screens: [], endpoints: [], stories: []}
       help_wanted: true
       effort: L

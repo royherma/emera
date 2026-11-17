@@ -1,8 +1,8 @@
 {
-  "updated": "2026-11-13",
+  "updated": "2026-11-17",
   "filed": "2026-11-13: 8 combined projects posted as royherma/emera #1-#8",
-  "note": "Repo is public. #1-#8 combine 13 of these drafts. Roy 2026-11-13: the other 10 small fixes are built in-house, not posted; only Digital-frame mode (a new feature) stays a contributor draft.",
-  "count": 24,
+  "note": "Repo is public. #1-#8 combine 13 of these drafts. Roy 2026-11-13: the other 10 small fixes are built in-house, not posted; only Digital-frame mode (a new feature) stays a contributor draft. 2026-11-17: 3 drafts that depended on another network's protocol were dropped.",
+  "count": 21,
   "issues": [
     {
       "title": "Replay D1 migrations from empty in CI",
@@ -58,7 +58,7 @@
         "share"
       ],
       "area": "`apps/api/src`",
-      "body": "Blogs and newsletters should embed a post, with a link back. Bluesky does this with its `bskyembed` service.\n\n## Acceptance criteria\n- [ ] `GET /oembed?url=` returns valid oEmbed JSON for `/p/:id` URLs\n- [ ] `/embed/:id` renders a small iframe-safe page\n- [ ] `<link rel=\"alternate\" type=\"application/json+oembed\">` on post pages\n- [ ] Tests for valid, missing and non-Emera URLs\n\n## Where to look\n`apps/api/src`",
+      "body": "Blogs and newsletters should embed a post, with a link back.\n\n## Acceptance criteria\n- [ ] `GET /oembed?url=` returns valid oEmbed JSON for `/p/:id` URLs\n- [ ] `/embed/:id` renders a small iframe-safe page\n- [ ] `<link rel=\"alternate\" type=\"application/json+oembed\">` on post pages\n- [ ] Tests for valid, missing and non-Emera URLs\n\n## Where to look\n`apps/api/src`",
       "inhouse": true
     },
     {
@@ -141,38 +141,6 @@
       ],
       "area": "`extensions/` (new)",
       "body": "Creators find copies on other sites. An extension puts the report flow there.\n\n## Acceptance criteria\n- [ ] Manifest V3 extension for Chrome and Firefox\n- [ ] Toolbar button opens the report form prefilled with the page URL\n- [ ] Screenshot of the visible tab attached with consent\n- [ ] No data leaves the browser until the creator presses send\n\n## Where to look\n`extensions/` (new)"
-    },
-    {
-      "title": "Cross-post to Bluesky as a companion post",
-      "labels": [
-        "help wanted",
-        "atproto",
-        "platform:bluesky"
-      ],
-      "area": "`lexicons/`, `apps/api/src`",
-      "body": "Posts should optionally appear in Bluesky with a link back. Needs a design note first.\n\n## Acceptance criteria\n- [ ] Short design note on how the `social.emera.post` and `app.bsky.feed.post` records stay in sync\n- [ ] Opt-in per creator in settings\n- [ ] Unit tests with a fake PDS\n- [ ] Deleting in Emera deletes the companion\n\n## Where to look\n`lexicons/`, `apps/api/src`"
-    },
-    {
-      "title": "Feed generator for Emera creators",
-      "labels": [
-        "help wanted",
-        "atproto",
-        "platform:bluesky"
-      ],
-      "area": "`services/feedgen` (new), https://github.com/bluesky-social/feed-generator",
-      "body": "A custom feed that Bluesky users can pin. Start from the Bluesky feed-generator starter kit.\n\n## Acceptance criteria\n- [ ] Feed generator service answers `getFeedSkeleton`\n- [ ] Serves the 100 newest Emera posts\n- [ ] Deploy notes for a Worker or a small Node host\n- [ ] README with how to publish the feed record\n\n## Where to look\n`services/feedgen` (new), https://github.com/bluesky-social/feed-generator"
-    },
-    {
-      "title": "Golden test files for social.emera lexicons",
-      "labels": [
-        "good first issue",
-        "help wanted",
-        "atproto",
-        "tests"
-      ],
-      "area": "`lexicons/`, `spikes/provenance`",
-      "body": "Lexicon changes should never silently break records.\n\n## Acceptance criteria\n- [ ] Valid and invalid example records for post, profile and provenance\n- [ ] Test runs them through the validator in `spikes/provenance`\n- [ ] Runs in CI\n\n## Where to look\n`lexicons/`, `spikes/provenance`",
-      "inhouse": true
     },
     {
       "title": "Translation setup with Lingui",

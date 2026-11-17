@@ -16,7 +16,7 @@ type Connector = {
 };
 
 type Item = {
-  id: string;            // stable and unique across connectors: "bsky:at://...", "feed:<guid>"
+  id: string;            // stable and unique across connectors: "bsky:<post uri>", "feed:<guid>"
   url: string;           // the original post, shown to the person
   caption: string;       // plain text, up to 2200 characters
   createdAt: string | null; // ISO date of the original post
@@ -36,7 +36,7 @@ Rules a connector must follow:
 
 | id | Reads | Input |
 | --- | --- | --- |
-| `bluesky` | public AppView feed, images and video blobs from the person's PDS | `@you.bsky.social`, `bsky.app/profile/...`, a did |
+| `bluesky` | the person's public posts with photos and video, through Bluesky's public API | `@you.bsky.social`, `bsky.app/profile/...`, a did |
 | `mastodon` | the profile's RSS | `https://server/@you` |
 | `feed` | any RSS or Atom feed, or a page that links one (Pixelfed, Tumblr, Flickr, blogs) | any link |
 
