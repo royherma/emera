@@ -677,6 +677,31 @@
       ],
       "mine": "smaller",
       "note": "Branch feat/sidebar-small-flame e751fba, not deployed. Night loop 2026-11-16."
+    },
+    {
+      "id": "appstore-shots-b3",
+      "q": "Which App Store screenshot set for Emera 1.0 build 3? (Apple 4.3(b) fix)",
+      "why": "Both lead with the Proof sheet and report-a-copy so a reviewer sees creator protection, not a photo feed; the feed is last. Real @techguyver posts; the My reports rows use invented hosts. Nothing is uploaded until you pick.",
+      "options": [
+        {
+          "id": "a",
+          "label": "A Dark stage: big headline, orange glow",
+          "img": ".claude/artifacts/app-store/v1.0-b3/set-a.png"
+        },
+        {
+          "id": "b",
+          "label": "B Sun field: orange fill, headline low",
+          "img": ".claude/artifacts/app-store/v1.0-b3/set-b.png"
+        },
+        {
+          "id": "full",
+          "label": "Open both sets full size",
+          "href": "/file/.claude/artifacts/app-store/v1.0-b3/compare.png"
+        }
+      ],
+      "mine": "a",
+      "note": "A: the dark stage makes the white Proof sheet pop at small size; full-size frames are in .claude/artifacts/app-store/v1.0-b3/frames-a and frames-b",
+      "pick": null
     }
   ],
   "names": {
