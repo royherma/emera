@@ -9,7 +9,7 @@
 
 <br>
 
-[![CI](https://github.com/royherma/emera/actions/workflows/ci.yml/badge.svg)](https://github.com/royherma/emera/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/license-MIT%20%2B%20AGPL--3.0-ff8a2b)](#license) [![AT Protocol](https://img.shields.io/badge/built%20on-AT%20Protocol-0085ff)](https://atproto.com) [![Nonprofit](https://img.shields.io/badge/run%20as-a%20nonprofit-2a1d14)](docs/mission/mission.md) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ffc24a)](CONTRIBUTING.md)
+[![CI](https://github.com/royherma/emera/actions/workflows/ci.yml/badge.svg)](https://github.com/royherma/emera/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/license-MIT%20%2B%20AGPL--3.0-ff8a2b)](#license) [![Nonprofit](https://img.shields.io/badge/run%20as-a%20nonprofit-2a1d14)](docs/mission/mission.md) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ffc24a)](CONTRIBUTING.md)
 
 **[✨ Join Emera](https://app.emera.social/?ref=github)** &nbsp;·&nbsp; **[🌐 Website](https://emera.social/?ref=github)** &nbsp;·&nbsp; **[🧭 Mission](docs/mission/mission.md)** &nbsp;·&nbsp; **[🗺️ Roadmap](#roadmap)** &nbsp;·&nbsp; **[💡 Suggest a feature](https://github.com/royherma/emera/issues/new?template=feature.yml)** &nbsp;·&nbsp; **[🙌 Contribute](#contribute)**
 
@@ -28,7 +28,7 @@ AI is flooding the internet. Fakes, bots and copies are drowning out real people
 | 🎭 **Fakes**<br>A fake photo, video or voice takes seconds and looks real | Every post carries a signed record of who shared it and when, and the badge says only what was checked. Community notes add context once people who usually disagree both rate them helpful |
 | 🤖 **Bots and spam**<br>Bot crowds, bought followers and machine-written replies talk louder than people | People are marked as people, bots say what they are, and every report reaches a real moderator who tells you what was done and why |
 | 💸 **Pay to win**<br>Whoever pays the most gets seen, and nobody shows what was bought or quietly tested | Reach can't be bought. No ads and no paid boosts in the feed, and every post you see comes with the reason it is there |
-| 🎯 **Manipulation**<br>A hidden ranking decides who gets seen and rewards what divides | The ranking code is public, so anyone can check it. Built on the [AT Protocol](https://atproto.com), so your account and followers leave with you if the rules ever change |
+| 🎯 **Manipulation**<br>A hidden ranking decides who gets seen and rewards what divides | The ranking code is public, so anyone can check it. Export everything you made and your follower list, any time, so you can leave if the rules ever change |
 
 Every line of code is public, so anyone can check we keep these promises.
 
@@ -89,7 +89,7 @@ Dates are targets, not limits: the sooner one lands, the sooner the next one sta
 - ✅ Post, follow, like, comment, search, notifications
 - ✅ Report a copy of your work, from any post
 - 🟡 Sign-in email lands in the inbox, not spam, 3 of 3 tries
-- ⬜ @emerasocial on TikTok, YouTube, Instagram and Bluesky
+- ⬜ @emerasocial on TikTok, YouTube and Instagram
 - ⬜ DMCA agent registered
 - ⬜ Founder profile with the first 10 posts
 
@@ -111,7 +111,7 @@ Dates are targets, not limits: the sooner one lands, the sooner the next one sta
 <details>
 <summary><b>🌍 M2 · 1,000 creators</b></summary>
 
-- ⬜ Own PDS and portable accounts
+- ⬜ Export everything you made and your follower list
 - ⬜ Passkeys
 - ⬜ Creator dashboard: your reports, outcomes, receipts
 - ⬜ Open feeds with "why this post"
@@ -144,7 +144,7 @@ Emera goes on every screen creators and their audiences use. Tech path, effort a
 | 📲 | **Tablets** | iPad, Android tablets | 🟡 In code, layout planned |
 | 📺 | **TVs** | Apple TV, Android TV, Google TV, Fire TV, Roku, Tizen, webOS | ⬜ One `react-native-tvos` build covers three |
 | 💻 | **Desktop** | macOS, Windows, Linux | ⬜ PWA first |
-| 🔗 | **Reach** | Share cards, oEmbed, RSS, email digests, Bluesky feeds, browser extension | ⬜ Planned |
+| 🔗 | **Reach** | Share cards, oEmbed, RSS, email digests, browser extension | ⬜ Planned |
 | ⌚ | **Other** | Watch, car, VR, assistants, smart displays | 💡 Ideas |
 
 ## 🚀 Run it locally
@@ -200,7 +200,6 @@ npm --prefix apps/site run dev
 ```bash
 npm --prefix spikes/provenance install
 npm --prefix spikes/provenance run demo
-npm --prefix spikes/provenance run lexicons
 ```
 
 </details>
@@ -213,8 +212,7 @@ npm --prefix spikes/provenance run lexicons
 | 📱 | [`apps/mobile`](apps/mobile) | Expo app for iOS, Android and web |
 | 🌐 | [`apps/site`](apps/site) | emera.social landing page and sign-up |
 | 🔔 | [`apps/notify`](apps/notify) | Team alerts and the admin page |
-| 🎨 | [`packages/brand`](packages/brand) | Name, tagline, colors and the AT Protocol namespace |
-| 🧬 | [`lexicons`](lexicons) | AT Protocol record definitions, `social.emera.*` |
+| 🎨 | [`packages/brand`](packages/brand) | Name, tagline, colors and bundle id |
 | ✍️ | [`spikes/provenance`](spikes/provenance) | C2PA signing and perceptual-hash matching |
 | 📚 | [`docs`](docs) | Mission, master plan, architecture, API contract, platforms |
 | 🗂️ | [`data`](data) | Machine-readable lists, such as platforms |
@@ -236,7 +234,7 @@ Emera gets better the way it was started: people bringing problems and solving t
 | 🔒 Core team builds | 🙌 You can own |
 | --- | --- |
 | Accounts, sign-in, invites | 🧩 **Browser extension:** report a copy of the page you are on |
-| Posts, feeds, ranking | 🦋 **Bluesky:** feed generator for Emera creators, cross-posts |
+| Posts, feeds, ranking | 🔁 **Import sources:** bring posts over from more platforms |
 | Proof of who made it (signing, badges) | 📺 **TV apps:** Android TV, Fire TV, Apple TV, Roku, Samsung, LG |
 | Report a copy and takedowns | 🌐 **Translations:** Lingui setup and your language |
 | Moderation and safety | ♿ **Accessibility:** screen reader pass, Reduce Motion, font scaling |
@@ -253,7 +251,7 @@ Emera gets better the way it was started: people bringing problems and solving t
 | Folder | License |
 | --- | --- |
 | `apps/api`, `apps/site` (servers) | **AGPL-3.0**, see [`apps/api/LICENSE`](apps/api/LICENSE) and [`apps/site/LICENSE`](apps/site/LICENSE) |
-| Everything else: `apps/mobile`, `packages`, `lexicons`, `spikes`, `tools` | **MIT**, see [`LICENSE`](LICENSE) |
+| Everything else: `apps/mobile`, `packages`, `spikes`, `tools` | **MIT**, see [`LICENSE`](LICENSE) |
 
 The Emera name, logo and brand artwork (`brand/`) are not covered by either license. Details in [CONTRIBUTING.md](CONTRIBUTING.md#licensing).
 

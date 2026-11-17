@@ -6,11 +6,11 @@ Visual version: [whiteboard](https://claude.ai/artifact/S5JCoHY7nfa4H4mUkF8CyL)
 
 ## The bet
 
-Build a creator-first photo/video network on the **AT Protocol**, where identity is verified, every post carries provenance, and the ranking algorithm is public. Users can pick their own feeds and leave with their followers.
+Build a creator-first photo/video network as its own network, where identity is verified, every post carries provenance, and the ranking algorithm is public. Users can pick their own feeds and export everything they made plus their follower list, any time.
 
 Instagram can't copy this. Its business is ad attention, so opacity, engagement bait and tolerated bots all help its numbers. Three things make this the right time:
 
-- **Protocols exist now.** AT Protocol gives portable identity, open data and pluggable feeds and moderation. Flashes already runs a photo app on it and got about 30k downloads on its first day ([TechCrunch](https://techcrunch.com/2025/02/28/bluesky-based-instagram-alternative-flashes-launches-publicly)).
+- **The parts exist now.** Open standards for content credentials, perceptual hashing and cheap edge hosting let a small team build the trust layer itself.
 - **Provenance standards are shipping.** C2PA Content Credentials v2.3 exists. Pixel 10 phones and Leica/Canon cameras sign photos at capture.
 - **Software is commoditized.** A small team with AI tooling can ship a polished client. The moat is no longer code. It is **trust, plus creators' economics**.
 
@@ -24,31 +24,31 @@ The gap: Pixelfed proves people want an alternative. But federation alone isn't 
 | Stolen content, reposts | **Provenance by default** | C2PA signing at capture/upload, perceptual-hash registry, auto "original" link on every copy |
 | No creator protection | **Built-in enforcement** | One-tap takedown across the network, DMCA agent as a service, licensing terms attached to each post |
 | Gamed engagement, scams | **Costly to fake** | Reputation-weighted signals, rate limits by trust tier, public scam/report ledger |
-| Opaque algorithm | **Open algorithm, user choice** | Default feed's ranking code is open source; users subscribe to any third-party feed or moderation labeler |
+| Opaque algorithm | **Open algorithm, user choice** | Default feed's ranking code is open source; users subscribe to any third-party feed |
 
 Rule of thumb: **every ranking or enforcement decision must be explainable to the affected user** ("why am I seeing this" / "why was this removed").
 
 ## Architecture
 
-[embedded diagram in the doc: System architecture · AT Protocol, 10 services]
+[embedded diagram in the doc: System architecture, 10 services]
 
-Writes go to the user's own PDS. A relay streams every event to independent services: AppView, provenance and labelers. Clients read assembled timelines back. The highlighted services are where we differentiate. Everything else is stock AT Protocol that anyone can run or replace.
+Writes go to our API. Events stream to independent services: feeds, provenance and moderation. Clients read assembled timelines back. The highlighted services are where we differentiate.
 
 ## Stack
 
-Cloudflare-first. Its zero-egress storage is the biggest single saving for a photo network. We use stock AT Protocol services wherever we can, and build only the trust layer.
+Cloudflare-first. Its zero-egress storage is the biggest single saving for a photo network. We use stock services wherever we can, and build only the trust layer.
 
 | Layer | Pick | Why |
 | --- | --- | --- |
-| Protocol | **AT Protocol** with our own photo lexicon | Portable identity and data. Bluesky logins and followers work from day one. |
+| Accounts | **Our own accounts** on the API | One place for identity, data and export. |
 | Clients | **Expo** (iOS, Android, web); web on Cloudflare Pages | One codebase. Native camera module so C2PA signing happens on the device. |
-| Identity | did:plc + **passkeys**, App Attest / Play Integrity | Phishing-proof login. Attestation makes bot farms expensive. |
-| PDS (user data) | Bluesky's open PDS on **Cloudflare Containers** | Users can move out with their posts and followers. |
-| APIs, AppView, feeds | **Workers** + **Postgres via Hyperdrive**; KV cache; D1 for small tables | Pay per request, scales to zero, no servers to run early. |
-| Relay | Bluesky's relay + **Jetstream** into **Cloudflare Queues**; mirror our own later | Running a full relay early costs bandwidth for no gain. |
+| Identity | **Passkeys**, App Attest / Play Integrity | Phishing-proof login. Attestation makes bot farms expensive. |
+| User data | **D1** and **R2** | Users can export everything they made and their follower list. |
+| APIs, feeds | **Workers** + **Postgres via Hyperdrive**; KV cache; D1 for small tables | Pay per request, scales to zero, no servers to run early. |
+| Events | **Cloudflare Queues** | Feed, notification and provenance jobs run off one event stream. |
 | Media | **R2**; image sizes made once at upload; our own HLS video encoding | No bandwidth fees, and no per-view or per-minute Images/Stream fees. |
 | Provenance | **c2pa-rs** (WASM in Workers), PDQ hashes, **Vectorize** | Sign and verify credentials; find near-copies across the network. |
-| Moderation | Ozone labeler, PhotoDNA CSAM matching, **Workers AI** classifiers | Labelers can be stacked, and users pick which ones they trust. |
+| Moderation | PhotoDNA CSAM matching, **Workers AI** classifiers, human moderators | Every report gets an answer with what was done and why. |
 | Payments | **Stripe Connect** for creators; Open Collective for donations | Payouts plus a public donation ledger. |
 | License | **AGPL-3.0** servers, MIT client SDKs | Nobody can run a closed fork as a service. Integrations stay easy. |
 
@@ -63,7 +63,7 @@ Cloudflare-first. Its zero-egress storage is the biggest single saving for a pho
 
 **Anti-theft: the original always wins.**
 
-1. On upload, the client signs a C2PA manifest (creator DID, timestamp, edits). Incoming camera credentials (Pixel, Leica, Canon) are verified and shown.
+1. On upload, the client signs a C2PA manifest (creator account, timestamp, edits). Incoming camera credentials (Pixel, Leica, Canon) are verified and shown.
 2. A PDQ perceptual hash and a CLIP-style embedding are added to a network-wide registry.
 3. Any new upload matching an earlier hash is auto-attributed ("Original by @x"). If the original is marked no-reposts, it's held for review.
 4. Creators get a dashboard of matches, including off-network ones found by reverse-image search, with one-click DMCA notices.
@@ -72,13 +72,13 @@ Cloudflare-first. Its zero-egress storage is the biggest single saving for a pho
 
 ## Transparency and accountability
 
-No blockchain. AT Protocol already signs and publishes everything, and we add brakes on virality plus public logs that anyone can audit.
+No blockchain. Every post is signed on upload, and we add brakes on virality plus public logs that anyone can audit.
 
 **Already built into the protocol:**
 
-- Every account's posts, likes and follows are a signed, content-addressed record. Nobody, including us, can quietly edit or backdate them.
-- The relay streams all public activity in real time. Watchdogs and researchers can spot coordinated pushes without asking us for access.
-- Account identities (DIDs) sit in a public directory, so handle and key changes are traceable.
+- Every account's posts, likes and follows are kept in a public, timestamped log. Nobody, including us, can quietly edit or backdate them.
+- A public activity feed streams all public activity in real time. Watchdogs and researchers can spot coordinated pushes without asking us for access.
+- Account identities sit in a public directory, so handle and key changes are traceable.
 
 **Why not a blockchain:** data on a chain can never be deleted. That is fatal for illegal images (CSAM) and for privacy laws like GDPR. Chains are also slow and cost money per write, and tokens attract speculators and scammers. We get the tamper-proof part from an append-only log instead, the way Certificate Transparency works for HTTPS. A daily fingerprint stamped on Bitcoin via OpenTimestamps costs almost nothing.
 
@@ -104,7 +104,7 @@ It's a nonprofit with nobody to pay out. It runs like a healthy business, but su
 | --- | --- |
 | Trust and safety staff (1 per 250k users at $6k/mo) | 2.4¢ |
 | Video encoding + HLS on R2 | 1.0¢ |
-| AppView Postgres | 1.0¢ |
+| Feed database | 1.0¢ |
 | Media storage on R2 (0.5 GB/user) | 0.75¢ |
 | Moderation ML | 0.3¢ |
 | APIs and feeds on Workers | 0.1¢ |
@@ -141,34 +141,32 @@ People cost more than servers. Safety staff are the largest line.
 
 Public beta comes at week 4 and public launch at week 12. Build things in this order:
 
-- [ ] **Days 1–3:** Expo client and photo lexicon. Bluesky logins work from day one.
+- [ ] **Days 1–3:** Expo client and post format. Own accounts from day one.
 - [ ] **Week 1:** upload pipeline: R2, a Worker that makes image sizes, C2PA signing and checking.
 - [ ] **Week 2:** PDQ hash registry that auto-credits "Original by @x".
-- [ ] **Week 2:** basic safety: PhotoDNA, Ozone labeler, reporting.
+- [ ] **Week 2:** basic safety: PhotoDNA, reporting.
 - [ ] **Week 3:** open feeds (chronological plus an open-source default), with "why this post".
 - [ ] **Week 4, beta:** 500 photographers; live cost page and donate button.
 - [ ] **Week 5:** trust tiers and bot labels (App Attest, Play Integrity).
 - [ ] **Week 6:** creator dashboard: theft matches and one-click DMCA.
 - [ ] **Week 7:** tips and subscriptions via Stripe Connect; $4 Premium.
 - [ ] **Week 8:** video: our own HLS encoding on R2, with no per-minute fees.
-- [ ] **Week 10:** our own AppView and relay mirror; a marketplace for third-party feeds.
+- [ ] **Week 10:** a marketplace for third-party feeds.
 - [ ] **Week 12, launch:** licensing marketplace; foundation set up; Open Collective live.
 
 **Top risks**
 
-- **Cold start.** Mitigation: Bluesky interop from day 1. Seed with a niche that is hurt most by theft (photographers, illustrators, tattoo artists).
+- **Cold start.** Mitigation: import from other platforms (Bluesky, Mastodon, feeds and more) so people bring what they made. Seed with a niche that is hurt most by theft (photographers, illustrators, tattoo artists).
 - **Moderation cost and liability (CSAM, harassment).** Mitigation: hash-matching from day 0, a stackable labeler model, and a funded trust-and-safety lead early.
 - **Provenance gaps.** Most phones don't sign yet, and iPhone doesn't sign at capture. Mitigation: we sign at upload, and hash matching covers everything else.
-- **Protocol dependency on Bluesky PBC.** Mitigation: AT Protocol is open and moving to the IETF. We run our own PDS, relay and AppView.
+- **Platform dependency.** Mitigation: we run our own accounts, API and storage; other platforms are import sources only.
 - **Donations fall short.** Mitigation: a live cost page from beta, Premium and creator fees as a second income line, and a 12-month reserve before anything is given back.
 
 ## Sources
 
-- [Flashes launches publicly (TechCrunch)](https://techcrunch.com/2025/02/28/bluesky-based-instagram-alternative-flashes-launches-publicly)
-- [Apps building on AT Protocol (TechCrunch)](https://techcrunch.com/2025/06/13/beyond-bluesky-these-are-the-apps-building-social-experiences-on-the-at-protocol/)
 - [Pixelfed (Wikipedia)](https://en.wikipedia.org/wiki/Pixelfed)
 - [Pixelfed launches mobile apps (TechCrunch)](https://techcrunch.com/2025/01/14/decentralized-instagram-alternative-pixelfed-launches-mobile-apps/)
 - [C2PA adoption in 2026 (SoftwareSeni)](https://softwareseni.com/c2pa-adoption-in-2026-hardware-platforms-and-verification-reality)
 - [C2PA on Pixel 10 (c2paviewer)](https://c2paviewer.com/articles/google-c2pa-pixel-10)
 
-Figures like Bluesky's user count, take rates and the per-user cost model are approximate estimates, from memory and search snippets, not vendor quotes. The whiteboard's calculator lets you change the assumptions.
+Figures like take rates and the per-user cost model are approximate estimates, from memory and search snippets, not vendor quotes. The whiteboard's calculator lets you change the assumptions.

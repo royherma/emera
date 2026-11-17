@@ -34,7 +34,6 @@ Run the pieces (full list in [README.md](README.md#-run-it-locally)):
 | App on :5037 | `npm --prefix apps/mobile run web` | `npm --prefix apps/mobile run check` |
 | Site on :5038 | `npm --prefix apps/site run dev` | open it and look |
 | Provenance spike | `npm --prefix spikes/provenance run demo` | prints PASS |
-| Lexicon golden records | `npm run lexicons:golden` | prints PASS |
 | D1 migrations from empty | `npm run migrations:replay` | prints `ok` for api and site |
 
 Ports 5036 to 5039 must be free. The smoke test starts its own API on :5039 and stops it when it ends; if a run is killed halfway, stop the leftover `workerd` process before running it again.
@@ -47,10 +46,10 @@ Want a full-looking network instead of an empty one? With the API running, `npm 
 
 1. Open the [help-wanted list](docs/help-wanted.json) or the issues labeled `good first issue` and `help wanted`.
 2. Comment that you are taking it. One person per issue; if nothing happens for 14 days, someone else may take it.
-3. For anything bigger than the issue describes, a new dependency, a new framework or a lexicon change, ask first and wait for a yes. Small, focused pull requests get reviewed fastest.
+3. For anything bigger than the issue describes, a new dependency, or a new framework, ask first and wait for a yes. Small, focused pull requests get reviewed fastest.
 4. Want to own a whole platform such as Roku, Apple TV or a browser extension? Read [docs/platforms.md](docs/platforms.md), then open an issue saying which one and how you will start.
 
-Labels you will see: `good first issue`, `help wanted`, `platform:<name>`, `i18n`, `accessibility`, `atproto`, `api`, `docs`, `tests`, `ci`.
+Labels you will see: `good first issue`, `help wanted`, `platform:<name>`, `i18n`, `accessibility`, `api`, `docs`, `tests`, `ci`.
 
 ## Pre-commit hook
 
@@ -85,7 +84,6 @@ A change that alters behavior needs a test in the same pull request.
 - API: vitest in the Workers runtime, in `apps/api/test`. Run `npm --prefix apps/api test`.
 - App: `npm --prefix apps/mobile run check` runs the typecheck and a web export. A unit-test runner is an open issue; until then, add stories for new components.
 - Bug fix: add the test that fails without your fix.
-- Lexicon change: ask for sign-off before writing the implementation, then add valid and invalid example records to `lexicons/golden/valid.json` and `lexicons/golden/invalid.json` and run `npm run lexicons:golden`.
 - Migration: `npm run migrations:replay` applies every API and site migration to an empty local database. CI runs it on every pull request.
 
 ## Stories and coverage
@@ -98,7 +96,7 @@ Strings are being moved to Lingui catalogs. Until that lands, open an issue for 
 
 ## Licensing
 
-Server code (`apps/api`, `apps/site`) is AGPL-3.0. Everything else, including the client app (`apps/mobile`), packages, lexicons and tools, is MIT. The brand name, logo and artwork are not covered by either license. By contributing you agree your work may be released under the license of the folder you changed.
+Server code (`apps/api`, `apps/site`) is AGPL-3.0. Everything else, including the client app (`apps/mobile`), packages and tools, is MIT. The brand name, logo and artwork are not covered by either license. By contributing you agree your work may be released under the license of the folder you changed.
 
 ## Questions
 

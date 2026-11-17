@@ -1,6 +1,6 @@
 # Emera (folder: agora)
 
-**Emera. Where humanity comes together.** An open-source, nonprofit network for every kind of creator, on AT Protocol: every post carries proof of who made it, the people on it are real, the algorithm is open, and creators are protected when their work gets copied. The name comes from the Greek *hemera*, day or daylight. Roy picked it on 2026-11-13 and bought `emera.social` the same day. The folder is still `agora` until the build agents finish. The name lives only in `packages/brand/brand.json`.
+**Emera. Where humanity comes together.** An open-source, nonprofit network for every kind of creator, our own network on our own accounts (no AT Protocol; Bluesky is one import source like any other platform, Roy 2026-11-17): every post carries proof of who made it, the people on it are real, the algorithm is open, and creators are protected when their work gets copied. The name comes from the Greek *hemera*, day or daylight. Roy picked it on 2026-11-13 and bought `emera.social` the same day. The folder is still `agora` until the build agents finish. The name lives only in `packages/brand/brand.json`.
 
 Own git repo inside `techguyver-side-projects`, not a monorepo member. GitHub: `royherma/emera`, **public** since 2026-11-13 (history scrubbed of personal paths; backup bundle in `.claude/artifacts/backup/`). Public-first, see Publishing.
 
@@ -78,8 +78,7 @@ Headings never end in a period. No em dashes. Avoid "unlock", "elevate" and "sea
 | `apps/mobile` | Expo app, iOS + Android + web, mock mode when `EXPO_PUBLIC_API_URL` is unset | `npm --prefix apps/mobile run web` (:5037) | `npm --prefix apps/mobile run check` |
 | `apps/site` | emera.social landing + sign-up email box (Worker + D1) | `npx wrangler dev --local --port 5038` in `apps/site` | screenshots in `.claude/artifacts/site-shots/` |
 | `apps/notify` | Slack #emera-events (`C0CHFF8S47K`): cron polls both D1s each minute (visitors threaded per person, started sign-ups, accounts, posts, reports, flags) with place, device, source and Bangkok time; own/test accounts marked `Test`; 9 AM Bangkok daily summary; staging is silent unless `SLACK_NON_PROD=1`. Also serves `/admin` (key in `.claude/artifacts/admin-key.txt`) and `/api/ledger`, proxied through emera.social; `/github` takes the signed repo webhook | `npm --prefix apps/notify run deploy:production`; local preview with invented data `node apps/notify/scripts/preview.mjs` (:5041) | `npm --prefix apps/notify run deploy:production` | `npm --prefix apps/notify test` |
-| `packages/brand` | name, tagline, colors, NSID - the only place the brand is written | - | - |
-| `lexicons/` | AT Protocol lexicons `social.emera.*` | `npm --prefix spikes/provenance run lexicons` | - |
+| `packages/brand` | name, tagline, colors, bundle id - the only place the brand is written | - | - |
 | `spikes/provenance` | C2PA sign/verify + PDQ copy matching | `npm --prefix spikes/provenance run demo` | prints PASS |
 | `brand/` | brand directions, content for mockups | - | - |
 | `plan/` + `data/plan.json` | Roy's dashboard | `npm run plan` | - |

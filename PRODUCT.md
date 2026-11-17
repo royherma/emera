@@ -8,7 +8,7 @@ adaptive
 
 ## Stack
 
-Expo (iOS, Android, web) in `apps/mobile`, a marketing site in `apps/site`, a Cloudflare Worker API in `apps/api`. Servers on the AT Protocol (own PDS, own accounts), media in R2. Open source later (AGPL servers, MIT client SDKs). Platform and stack are from the founder's brief and `docs/one-pager.md`; the interview was inferred from them because no one could answer in this run (ASSUMED, reverse by re-running init).
+Expo (iOS, Android, web) in `apps/mobile`, a marketing site in `apps/site`, a Cloudflare Worker API in `apps/api`. Our own network: own accounts, own Worker and D1, media in R2. Open source later (AGPL servers, MIT client SDKs). Platform and stack are from the founder's brief and `docs/one-pager.md`; the interview was inferred from them because no one could answer in this run (ASSUMED, reverse by re-running init).
 
 ## Users
 
@@ -34,7 +34,7 @@ Five things a neighboring network cannot truthfully copy, because its business d
 2. **Protected everywhere.** Upload once; we watch other platforms for copies and file the takedowns for the creator. Legal escalation is part of the promise.
 3. **Real, not fake.** The same proof that protects a maker tells a viewer a moment is real: who posted it, when, the original every copy points back to, and whether a person or a bot posted it. The badge never claims more than was checked: no fact-checking promise, no "100% real" seal.
 4. **An open algorithm.** The default feed's ranking is open source, every boost is logged with its reason, users pick their own feeds.
-5. **You own your account.** AT Protocol: leave with your followers and posts at any time. Creators are paid (tips, subscriptions, licensing; surplus is given back each quarter).
+5. **You own your account.** Export everything you made and your follower list, any time. Creators are paid (tips, subscriptions, licensing; surplus is given back each quarter).
 
 Tone is welcoming, never a rival pitch. It is not "screw Instagram"; it is a place to express and share.
 
@@ -47,14 +47,14 @@ Tone is welcoming, never a rival pitch. It is not "screw Instagram"; it is a pla
 
 ## Capabilities and Constraints
 
-- Own accounts (not Bluesky login), phone app and web built together, media in our own R2 storage from day 1 (founder decisions, `docs/ideas.md`).
+- Own accounts (no Bluesky or other third-party login), phone app and web built together, media in our own R2 storage from day 1 (founder decisions, `docs/ideas.md`).
 - Not photo-only: every word, icon and image must work for video, art, music, design and physical objects. No camera, lens or frame metaphors.
 - Provenance uses C2PA content credentials and perceptual hashes; the badge must never claim more than was verified (tiers: attested device, trusted account, verified human).
 - Undecided: pricing of Premium ($4/mo proposed), the payout split (proposal in `docs/one-pager.md`), moderation staffing.
 
 ## Brand Commitments
 
-- Name: Emera. Tagline: Where humanity comes together. Domain emera.social. Meaning: hemera, day, daylight. NSID authority `social.emera`.
+- Name: Emera. Tagline: Where humanity comes together. Domain emera.social. Meaning: hemera, day, daylight.
 - Current placeholder tokens in `packages/brand/brand.json` (paper `#f6f3ec`, ink `#1c1a17`, accent `#e2573a`, accent2 `#2f7a5b`) are not approved; they get replaced by the founder's pick of a direction.
 - Founder rejected anything old school or cringe. Wants epic, iconic, modern, in the spirit of 2025-26 launches, standing for expression, honesty, truth and creators.
 - Public copy never attacks another platform.

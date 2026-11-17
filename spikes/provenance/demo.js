@@ -38,7 +38,7 @@ for (const [name, p] of Object.entries(variants)) {
 
 console.log('\nC2PA manifest (c2pa-node, test certificate, ES256)');
 const { rootPem } = testCerts();
-const signed = await attach(original, { did: 'did:plc:examplecreator123', handle: 'maya.agora.example' });
+const signed = await attach(original, { did: 'creator:examplecreator123', handle: 'maya.agora.example' });
 console.log(`  signed: ${original.length} bytes -> ${signed.length} bytes`);
 
 const ok = await verify(signed);
