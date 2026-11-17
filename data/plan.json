@@ -195,13 +195,6 @@
       "sub": "By Dec 31. Done when: 100 creators with 3+ posts, 40 copy reports",
       "tasks": [
         {
-          "id": "c4",
-          "text": "Your profile + first 10 posts",
-          "who": "roy",
-          "done": false,
-          "review": "profile"
-        },
-        {
           "id": "a8",
           "text": "Claim @emerasocial: TikTok, YouTube, Instagram, Bluesky (your logins)",
           "who": "roy",
@@ -209,21 +202,9 @@
           "review": "handles"
         },
         {
-          "id": "d5",
-          "text": "Invite your first 20 creators",
-          "who": "roy",
-          "review": "founding20"
-        },
-        {
           "id": "d3",
           "text": "CONTRIBUTING.md + 10 starter issues",
           "who": "claude"
-        },
-        {
-          "id": "m1-cfs",
-          "text": "Apply to Cloudflare for Startups",
-          "who": "roy",
-          "review": "cfstartups"
         },
         {
           "id": "m1-orgs",
@@ -261,6 +242,26 @@
       "title": "M2 · 1,000 creators",
       "sub": "By mid-Feb 2027. Done when: 35% still posting after 30 days",
       "tasks": [
+        {
+          "id": "c4",
+          "text": "Your profile + first 10 posts",
+          "who": "roy",
+          "done": false,
+          "review": "profile"
+        },
+        {
+          "id": "d5",
+          "text": "Invite your first 20 creators",
+          "who": "roy",
+          "review": "founding20"
+        },
+        {
+          "id": "m1-cfs",
+          "text": "Apply to Cloudflare for Startups",
+          "who": "roy",
+          "review": "cfstartups",
+          "done": false
+        },
         {
           "id": "m2-pds",
           "text": "Own PDS + did:plc accounts",
@@ -676,10 +677,14 @@
         }
       ],
       "mine": "smaller",
-      "note": "Branch feat/sidebar-small-flame e751fba, not deployed. Night loop 2026-11-16."
+      "note": "Branch feat/sidebar-small-flame e751fba, not deployed. Night loop 2026-11-16.",
+      "pick": "smaller"
     },
     {
       "id": "appstore-shots-b3",
+      "pick": "a",
+      "done": {"at": "2026-11-17T07:18:54Z", "ref": "74376b8", "note": "set A uploaded with build 3; resubmitted 2:18 PM Bangkok, submission fb831508 WAITING_FOR_REVIEW"},
+      "note": "Roy picked A 2:16 PM Bangkok 17 Nov",
       "q": "Which App Store screenshot set for Emera 1.0 build 3? (Apple 4.3(b) fix)",
       "why": "Both lead with the Proof sheet and report-a-copy so a reviewer sees creator protection, not a photo feed; the feed is last. Real @techguyver posts; the My reports rows use invented hosts. Nothing is uploaded until you pick.",
       "options": [
@@ -701,7 +706,7 @@
       ],
       "mine": "a",
       "note": "A: the dark stage makes the white Proof sheet pop at small size; full-size frames are in .claude/artifacts/app-store/v1.0-b3/frames-a and frames-b",
-      "pick": null
+      "pick": "a"
     }
   ],
   "names": {
@@ -1666,7 +1671,7 @@
       ],
       "answer": "later",
       "text": null,
-      "at": "2026-11-13T13:10:53.292Z"
+      "at": "2026-11-17T07:16:09.665Z"
     },
     {
       "id": "founding20",
@@ -1688,8 +1693,8 @@
         }
       ],
       "answer": "later",
-      "text": "No DMs yet",
-      "at": "2026-11-13T07:31:39.329Z"
+      "text": null,
+      "at": "2026-11-17T07:16:08.547Z"
     },
     {
       "id": "issues",
@@ -1844,7 +1849,7 @@
       ],
       "answer": "later",
       "text": null,
-      "at": "2026-11-13T07:43:54.544Z"
+      "at": "2026-11-17T07:16:07.542Z"
     },
     {
       "id": "stores",

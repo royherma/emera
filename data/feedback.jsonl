@@ -37,3 +37,8 @@
 {"at":"2026-11-13T13:28:50.545Z","kind":"pick","id":"lit-mark","pick":"flame","label":"8 Big flame","q":"Light the e: all 8, each with a match flame at the tip"}
 {"at":"2026-11-13T14:19:54.086Z","kind":"review","id":"ios-submit","title":"Submit Emera 1.0 to the App Store","answer":"yes","text":null}
 {"at":"2026-11-13T14:26:59.879Z","kind":"review","id":"ios-privacy","answer":"done","text":"Roy in terminal 9:26 PM: done, published"}
+{"at":"2026-11-17T07:16:07.548Z","kind":"review","id":"cfstartups","title":"Apply to Cloudflare for Startups","answer":"later","text":null,"movedTo":"m2"}
+{"at":"2026-11-17T07:16:08.548Z","kind":"review","id":"founding20","title":"Name 20 creators you can DM","answer":"later","text":null,"movedTo":"m2"}
+{"at":"2026-11-17T07:16:09.665Z","kind":"review","id":"profile","title":"Post your profile + 10 works","answer":"later","text":null,"movedTo":"m2"}
+{"at":"2026-11-17T07:16:23.091Z","kind":"pick","id":"sidebar-flame","pick":"smaller","label":"Smaller flame (branch)","q":"Sidebar logo: keep the big flame or use a smaller one there?"}
+{"at":"2026-11-17T07:16:27.214Z","kind":"pick","id":"appstore-shots-b3","pick":"a","label":"A Dark stage: big headline, orange glow","q":"Which App Store screenshot set for Emera 1.0 build 3? (Apple 4.3(b) fix)"}
