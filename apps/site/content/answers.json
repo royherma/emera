@@ -449,7 +449,7 @@
       },
       {
         "h": "Bluesky",
-        "html": "<p>Bluesky's docs describe the Following feed as the default timeline of accounts you follow, and its <a href=\"https://docs.bsky.app/docs/starter-templates/custom-feeds\">custom feeds</a> let developers publish ranking methods over the AT Protocol that anyone can choose. A feed can be a chronological list or one filtered to a topic. See also the <a href=\"https://atproto.com/guides/feeds\">AT Protocol feeds guide</a>.</p>"
+        "html": "<p>Bluesky's docs describe the Following feed as the default timeline of accounts you follow, and its <a href=\"https://docs.bsky.app/docs/starter-templates/custom-feeds\">custom feeds</a> let developers publish ranking methods that anyone can choose. A feed can be a chronological list or one filtered to a topic.</p>"
       },
       {
         "h": "Mastodon",
@@ -475,7 +475,7 @@
       },
       {
         "q": "What is a custom feed?",
-        "a": "A feed built by someone else, or by you, with its own rules, which you choose to follow. On Bluesky they are published over the open AT Protocol."
+        "a": "A feed built by someone else, or by you, with its own rules, which you choose to follow. On Bluesky anyone can publish one."
       },
       {
         "q": "Do any platforms have no ranking at all?",
@@ -494,10 +494,6 @@
       {
         "label": "Bluesky docs: viewing feeds",
         "url": "https://docs.bsky.app/docs/tutorials/viewing-feeds"
-      },
-      {
-        "label": "AT Protocol guide: custom feeds",
-        "url": "https://atproto.com/guides/feeds"
       },
       {
         "label": "Mastodon docs: network and timelines",

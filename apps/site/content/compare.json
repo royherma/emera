@@ -5,7 +5,7 @@
     "q": "The best Instagram alternatives for artists",
     "title": "Best Instagram alternatives for artists",
     "description": "A fair look at Cara, Bluesky, Pixelfed, ArtStation, Behance and Emera: what each does well, who runs it and how they treat AI.",
-    "short": "The best Instagram alternative for artists depends on what you need: Cara is a live artist community with AI filtering, Bluesky has open feeds and portable accounts, Pixelfed is open source with chronological timelines, and Emera is a new nonprofit network with signed posts. Here is how they compare.",
+    "short": "The best Instagram alternative for artists depends on what you need: Cara is a live artist community with AI filtering, Bluesky has open feeds, Pixelfed is open source with chronological timelines, and Emera is a new nonprofit network with signed posts. Here is how they compare.",
     "sections": [
       {
         "h": "What artists usually want from an alternative",
@@ -17,7 +17,7 @@
       },
       {
         "h": "Bluesky",
-        "html": "<p>Bluesky is run by Bluesky Social, a public benefit corporation, and the app's source code is published under the MIT license. Its FAQ says you can pick from over 40,000 feeds, switch servers without losing your username, followers or posts, and sign up without an invite. Bluesky has said it does not use user content to train generative AI. It is available on web, iOS and Android.</p><p>Bluesky is a general network rather than an art-first one, but apps built on top of it, such as Flashes, give it a photo-and-video look. Flashes is a native Bluesky photo and video app from Birdsong Apps GmbH.</p>"
+        "html": "<p>Bluesky is run by Bluesky Social, a public benefit corporation, and the app's source code is published under the MIT license. Its FAQ says you can pick from over 40,000 feeds, switch servers without losing your username, followers or posts, and sign up without an invite. Bluesky has said it does not use user content to train generative AI. It is available on web, iOS and Android.</p><p>Bluesky is a general network rather than an art-first one, but apps built for it, such as Flashes, give it a photo-and-video look. Flashes is a native Bluesky photo and video app from Birdsong Apps GmbH.</p>"
       },
       {
         "h": "Pixelfed",
@@ -29,7 +29,7 @@
       },
       {
         "h": "Emera",
-        "html": "<p>Emera is an open-source, nonprofit network on AT Protocol, the same protocol Bluesky uses. Every post carries a signed record (C2PA content credentials) of who shared it and when it went up, and people are marked while automated accounts are labeled as automated. If you find a copy of your work elsewhere, you report it and Emera helps you file the takedown, with every step on your dashboard. You own your account and can move it with your followers to another host, and posts show a 'Why you are seeing this' reason.</p><p>Emera is new. If you need a large community today, the other options here are further along.</p>"
+        "html": "<p>Emera is an open-source, nonprofit network with its own accounts. Every post carries a signed record (C2PA content credentials) of who shared it and when it went up, and people are marked while automated accounts are labeled as automated. If you find a copy of your work elsewhere, you report it and Emera helps you file the takedown, with every step on your dashboard. You own your account and can export everything you made and your follower list any time, and posts show a 'Why you are seeing this' reason.</p><p>Emera is new. If you need a large community today, the other options here are further along.</p>"
       }
     ],
     "table": {
@@ -71,7 +71,7 @@
         ],
         [
           "Account portability",
-          "Move your account with followers to another host",
+          "Export everything you made and your follower list",
           "Check cara.app",
           "Change servers, keep username, friends and posts",
           "Federated; confirm migration on pixelfed.org"
@@ -101,7 +101,7 @@
     "faqs": [
       {
         "q": "What is the best Instagram alternative for artists?",
-        "a": "It depends on what matters most to you. Cara is built for artists and filters AI images. Bluesky has open feeds and portable accounts. Pixelfed is open source with chronological timelines. Emera is a new nonprofit network that signs every post with who shared it and when."
+        "a": "It depends on what matters most to you. Cara is built for artists and filters AI images. Bluesky has open feeds. Pixelfed is open source with chronological timelines. Emera is a new nonprofit network that signs every post with who shared it and when."
       },
       {
         "q": "Which alternatives are open source?",
@@ -109,7 +109,7 @@
       },
       {
         "q": "Can I keep my followers if I move accounts?",
-        "a": "On Bluesky and Emera, which both use AT Protocol, your account is yours and can move to another host with your followers. Pixelfed is part of the fediverse, so check pixelfed.org for how moving works on your server."
+        "a": "On Emera you can export everything you made and your follower list any time. On Bluesky, check its help center for how moving works. Pixelfed is part of the fediverse, so check pixelfed.org for how moving works on your server."
       },
       {
         "q": "Do these apps train AI on my art?",
@@ -166,8 +166,8 @@
     "kind": "compare",
     "q": "Open source Instagram alternatives",
     "title": "Open source Instagram alternatives",
-    "description": "Pixelfed, Bluesky photo apps and Emera compared: licenses, who runs them, how feeds work and how to move your account.",
-    "short": "The open source Instagram alternatives are Pixelfed (AGPL-3.0, fediverse, chronological timelines), Bluesky and the photo apps built on it such as Flashes (open protocol, MIT-licensed Bluesky app), and Emera (open-source code, nonprofit, signed posts). Here is what each is like to use.",
+    "description": "Pixelfed, Bluesky photo apps and Emera compared: licenses, who runs them, how feeds work and how feeds work.",
+    "short": "The open source Instagram alternatives are Pixelfed (AGPL-3.0, fediverse, chronological timelines), Bluesky and the photo apps built for it such as Flashes (MIT-licensed Bluesky app), and Emera (open-source code, nonprofit, signed posts). Here is what each is like to use.",
     "sections": [
       {
         "h": "What open source means here",
@@ -178,12 +178,12 @@
         "html": "<p>Pixelfed is a photo-sharing platform released under the AGPL-3.0 license. Its repository describes it as photo sharing for everyone, without algorithmic gatekeeping. It speaks ActivityPub, so you can follow and be followed across Mastodon and other fediverse apps. Timelines are chronological, with Local, Global and Home feeds. Official apps for iOS and Android launched in January 2025, and third-party apps exist too.</p><p>Because Pixelfed is federated, anyone can run a server, and each server sets its own rules. That is the strength of it and also the thing to check before you sign up.</p>"
       },
       {
-        "h": "Bluesky and photo apps built on it",
-        "html": "<p>Bluesky's app source is published under the MIT license, and AT Protocol is described as an open-source framework for building social apps. Bluesky's FAQ says you can change servers without losing your username, friends or posts. Anyone can build a feed, and its FAQ says there are over 40,000 to choose from.</p><p>Because the protocol is open, other apps can read and write the same network. Flashes, from Birdsong Apps GmbH, is a native Bluesky photo and video app for Apple devices with photo filters and portfolio building. We did not find a published Flashes codebase, so treat it as an app on an open protocol rather than an open-source app.</p>"
+        "h": "Bluesky and photo apps built for it",
+        "html": "<p>Bluesky's app source is published under the MIT license. Bluesky's FAQ says you can change servers without losing your username, friends or posts. Anyone can build a feed, and its FAQ says there are over 40,000 to choose from.</p><p>Flashes, from Birdsong Apps GmbH, is a native Bluesky photo and video app for Apple devices with photo filters and portfolio building. We did not find a published Flashes codebase, so treat it as an app for Bluesky rather than an open-source app.</p>"
       },
       {
         "h": "Emera",
-        "html": "<p>Emera is a nonprofit network on AT Protocol with open-source code. Each post carries a signed record (C2PA content credentials) of who shared it and when it went up, people are marked while automated accounts are labeled as automated, and reposts point back to the original post. You can pick feeds, and posts show a 'Why you are seeing this' reason. You own your account and can move it with your followers to another host.</p><p>Emera is new, so it has a small footprint compared with the options above.</p>"
+        "html": "<p>Emera is a nonprofit network with open-source code. Each post carries a signed record (C2PA content credentials) of who shared it and when it went up, people are marked while automated accounts are labeled as automated, and reposts point back to the original post. You can pick feeds, and posts show a 'Why you are seeing this' reason. You own your account and can export everything you made and your follower list any time.</p><p>Emera is new, so it has a small footprint compared with the options above.</p>"
       }
     ],
     "table": {
@@ -207,10 +207,10 @@
           "Bluesky: public benefit corporation; Flashes: Birdsong Apps GmbH"
         ],
         [
-          "Protocol",
-          "AT Protocol",
+          "Network",
+          "Its own network, own accounts",
           "ActivityPub (fediverse)",
-          "AT Protocol"
+          "Bluesky's own network"
         ],
         [
           "Feeds",
@@ -226,7 +226,7 @@
         ],
         [
           "Moving your account",
-          "Move it with your followers to another host",
+          "Export everything you made and your follower list",
           "Federated; confirm migration on pixelfed.org",
           "Change servers, keep username, friends and posts"
         ],
@@ -250,15 +250,15 @@
       },
       {
         "q": "Is Bluesky open source?",
-        "a": "The Bluesky social app's source code is under the MIT license, with some brand assets excluded, and AT Protocol is an open-source framework other apps can build on."
+        "a": "The Bluesky social app's source code is under the MIT license, with some brand assets excluded."
       },
       {
         "q": "Is Flashes open source?",
-        "a": "We could not find a published Flashes codebase. It is a native photo and video app for Bluesky from Birdsong Apps GmbH, built on the open AT Protocol."
+        "a": "We could not find a published Flashes codebase. It is a native photo and video app for Bluesky from Birdsong Apps GmbH."
       },
       {
         "q": "Is Emera open source?",
-        "a": "Yes, Emera's code is open source, and it is run as a nonprofit. It is built on AT Protocol, the same protocol Bluesky uses."
+        "a": "Yes, Emera's code is open source, and it is run as a nonprofit."
       }
     ],
     "sources": [
@@ -304,11 +304,11 @@
       },
       {
         "h": "What Emera is",
-        "html": "<p>Emera is an open-source nonprofit network on AT Protocol for everyone who makes things. Every post carries a signed record (C2PA content credentials) of who shared it and when it went up, and a Signed badge says exactly what was checked and nothing more. People are marked, and automated accounts are labeled as automated. Reposts point back to the original post.</p><p>Found a copy of your work elsewhere? You report it, Emera helps you file the takedown, and every step shows on your dashboard. Because you own your account on AT Protocol, you can move it with your followers to another host.</p>"
+        "html": "<p>Emera is an open-source nonprofit network for everyone who makes things. Every post carries a signed record (C2PA content credentials) of who shared it and when it went up, and a Signed badge says exactly what was checked and nothing more. People are marked, and automated accounts are labeled as automated. Reposts point back to the original post.</p><p>Found a copy of your work elsewhere? You report it, Emera helps you file the takedown, and every step shows on your dashboard. You own your account, and you can export everything you made and your follower list any time.</p>"
       },
       {
         "h": "How to choose",
-        "html": "<p>If you want an art community you can join today, with an AI-image filter and a portfolio built in, Cara is the stronger fit. If you care about a signed record on each post, takedown help for copies, and an account you can carry to another host, Emera is built around those. Many artists will reasonably have a profile on both.</p><p>Emera is new. We do not describe it as bigger or more established than Cara, because it is not.</p>"
+        "html": "<p>If you want an art community you can join today, with an AI-image filter and a portfolio built in, Cara is the stronger fit. If you care about a signed record on each post, takedown help for copies, and an account you can export in full, Emera is built around those. Many artists will reasonably have a profile on both.</p><p>Emera is new. We do not describe it as bigger or more established than Cara, because it is not.</p>"
       }
     ],
     "table": {
@@ -340,7 +340,7 @@
         ],
         [
           "Account portability",
-          "Move your account with followers to another host",
+          "Export everything you made and your follower list",
           "Check cara.app"
         ],
         [
@@ -381,7 +381,7 @@
       },
       {
         "q": "Can I move my account from Emera?",
-        "a": "Yes. Emera is built on AT Protocol, so you own your account and can move it with your followers to another host."
+        "a": "Yes. You own your account, and you can export everything you made and your follower list any time."
       }
     ],
     "sources": [
@@ -406,12 +406,12 @@
     "kind": "compare",
     "q": "Emera vs Bluesky",
     "title": "Emera vs Bluesky: how they differ",
-    "description": "Emera and Bluesky both run on AT Protocol. Compare who runs them, feeds, portability and what Emera adds for people who make things.",
-    "short": "Emera and Bluesky both run on AT Protocol, so they share the same idea of an account you own and can move. Bluesky is a live, general network with apps on web, iOS and Android; Emera is a new nonprofit network that adds a signed record to every post.",
+    "description": "Emera and Bluesky are separate networks. Compare who runs them, feeds, exports and what Emera adds for people who make things. You can import your Bluesky posts into Emera.",
+    "short": "Emera and Bluesky are separate networks with separate accounts. Bluesky is a live, general network with apps on web, iOS and Android; Emera is a new nonprofit network that adds a signed record to every post, and you can import your Bluesky posts.",
     "sections": [
       {
-        "h": "The same foundation",
-        "html": "<p>Emera is built on AT Protocol, the open protocol that Bluesky grew out of, and we are fans of what Bluesky has done to make it real. Bluesky's FAQ says you can change servers without losing your username, friends or posts, and the same idea of an account you own sits under Emera: you can move it with your followers to another host.</p><p>Bluesky is run by Bluesky Social, a public benefit corporation, and its app is available on web, iOS and Android. Its app source code is published under the MIT license, and AT Protocol is described as an open-source framework for building social apps.</p>"
+        "h": "Two separate networks",
+        "html": "<p>Emera has its own accounts, its own app and its own servers. Bluesky is a different network with different accounts, run by Bluesky Social, a public benefit corporation. Its app is available on web, iOS and Android, and its app source code is published under the MIT license.</p><p>Already on Bluesky? Paste your handle in Emera and bring your posts over. It only reads your public posts and never posts, edits or deletes anything on Bluesky.</p>"
       },
       {
         "h": "Feeds and AI",
@@ -430,9 +430,9 @@
       ],
       "rows": [
         [
-          "Protocol",
-          "AT Protocol",
-          "AT Protocol"
+          "Accounts",
+          "Own Emera accounts",
+          "Own Bluesky accounts"
         ],
         [
           "Who runs it",
@@ -442,7 +442,7 @@
         [
           "Open source",
           "Code open source",
-          "App source under MIT; protocol is an open-source framework"
+          "App source under MIT"
         ],
         [
           "Feeds",
@@ -455,9 +455,9 @@
           "Not described on its FAQ"
         ],
         [
-          "Account portability",
-          "Move your account with followers to another host",
-          "Change servers, keep username, friends and posts"
+          "Leaving",
+          "Export everything you made and your follower list, any time",
+          "Check its help center"
         ],
         [
           "Takedown help",
@@ -480,11 +480,11 @@
     "faqs": [
       {
         "q": "Is Emera built on Bluesky?",
-        "a": "Emera is built on AT Protocol, the same open protocol Bluesky uses, but it is its own network with its own accounts and nonprofit organization."
+        "a": "No. Emera is its own network with its own accounts and nonprofit organization. You can import your public Bluesky posts into Emera."
       },
       {
         "q": "Is Bluesky open source?",
-        "a": "The Bluesky social app's source code is under the MIT license, with some brand assets excluded, and AT Protocol is described as an open-source framework for building social apps."
+        "a": "The Bluesky social app's source code is under the MIT license, with some brand assets excluded."
       },
       {
         "q": "What does Emera do that Bluesky does not?",
