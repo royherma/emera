@@ -98,7 +98,7 @@ const kickBuild = (_, f) => {
   clearTimeout(buildTimer);
   buildTimer = setTimeout(build, 400);
 };
-for (const p of ['apps', 'lexicons', 'docs/stories.yaml', 'docs/features.yaml', 'data/platforms.json', 'tools/atlas/build.mjs', 'data/atlas-shots/index.json', 'CLAUDE.md']) {
+for (const p of ['apps', 'docs/stories.yaml', 'docs/features.yaml', 'data/platforms.json', 'tools/atlas/build.mjs', 'data/atlas-shots/index.json', 'CLAUDE.md']) {
   const f = join(root, p);
   if (existsSync(f)) watch(f, { recursive: true }, (e, name) => {
     if (p === 'apps' && name && CAPTURED.some((c) => join('apps', name).startsWith(c))) lastAppEdit = Date.now();

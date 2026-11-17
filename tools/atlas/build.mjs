@@ -246,17 +246,6 @@ function screens(client) {
   return out;
 }
 
-function lexicons() {
-  const files = walk('lexicons', (p) => p.endsWith('.json'));
-  const keys = (o, acc = new Set()) => { if (o && typeof o === 'object') for (const [k, v] of Object.entries(o)) { if (k === 'properties') Object.keys(v).forEach((x) => acc.add(x)); keys(v, acc); } return acc; };
-  const refs = (o, acc = new Set()) => { if (o && typeof o === 'object') for (const [k, v] of Object.entries(o)) { if (k === 'ref' && typeof v === 'string') acc.add(v.split('#')[0]); if (k === 'refs') v.forEach((x) => acc.add(x.split('#')[0])); refs(v, acc); } return acc; };
-  return files.map((f) => {
-    const j = JSON.parse(read(f));
-    const main = j.defs?.main ?? {};
-    return { id: j.id, file: f, type: main.type ?? 'defs', description: main.description ?? '', fields: [...keys(j)], refs: [...refs(j)].filter((x) => x && x !== j.id && !x.startsWith('com.atproto') || x?.startsWith('com.atproto')) };
-  });
-}
-
 function environments() {
   const claude = read('CLAUDE.md');
   const sec = claude.split(/^## Environments/m)[1]?.split(/^## /m)[0] ?? '';
@@ -286,7 +275,7 @@ function environments() {
 
 function git() {
   const run = (c) => { try { return execSync(c, { cwd: root, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim(); } catch { return ''; } };
-  return { sha: run('git rev-parse --short HEAD') || 'none', dirty: !!run('git status --porcelain -- apps lexicons docs/stories.yaml tools'), branch: run('git rev-parse --abbrev-ref HEAD') };
+  return { sha: run('git rev-parse --short HEAD') || 'none', dirty: !!run('git status --porcelain -- apps docs/stories.yaml tools'), branch: run('git rev-parse --abbrev-ref HEAD') };
 }
 
 const normPath = (p) => p.replace(/\[(\w+)\]/g, ':$1');
@@ -360,17 +349,7 @@ function build() {
   const endpoints = [...apiEndpoints(names), ...siteEndpoints(names)];
   const client = clientMethods();
   const scr = screens(client);
-  const lex = lexicons();
-  const lexLinks = [];
-  const camel = (s) => s.replace(/_(\w)/g, (_, c) => c.toUpperCase());
-  for (const l of lex.filter((x) => x.type === 'record')) {
-    const last = l.id.split('.').pop();
-    for (const t of tbl.filter((x) => x.app === 'api')) {
-      const overlap = t.columns.filter((c) => l.fields.includes(camel(c.name))).length;
-      if (t.name === `${last}s` || t.name === last || overlap >= 2) lexLinks.push({ lexicon: l.id, table: t.name, overlap });
-    }
-  }
-  const atlas = { screens: scr.map(({ text, ...s }) => ({ ...s, _text: undefined, text })), endpoints, tables: tbl, lexicons: lex, lexLinks, client, environments: environments() };
+  const atlas = { screens: scr.map(({ text, ...s }) => ({ ...s, _text: undefined, text })), endpoints, tables: tbl, client, environments: environments() };
   const storiesRaw = YAML.parse(read('docs/stories.yaml'));
   const ev = evaluate(storiesRaw, atlas);
   const missingPieces = ev.pop()._missing;
@@ -397,8 +376,6 @@ function build() {
     for (const t of e.writes) edges.push({ from: id, to: `table:${t}`, kind: 'writes' });
     if (e.r2.length) edges.push({ from: id, to: 'r2:MEDIA', kind: e.r2.includes('put') || e.r2.includes('delete') ? 'writes' : 'reads' });
   }
-  for (const l of lexLinks) edges.push({ from: `table:${l.table}`, to: `lex:${l.lexicon}`, kind: 'mirrors' });
-  for (const l of lex) for (const r of l.refs) if (lex.some((x) => x.id === r)) edges.push({ from: `lex:${l.id}`, to: `lex:${r}`, kind: 'refs' });
 
   const drift = [];
   for (const m of Object.values(client)) for (const c of m.calls.slice(0, 1).filter((x) => ['POST', 'PUT', 'PATCH'].includes(x.method))) {
@@ -423,8 +400,8 @@ function build() {
   const slim = (e) => { const { text, ...rest } = e; return rest; };
   const out = {
     builtAt: new Date().toISOString(), git: git(),
-    summary: { screens: scr.length, endpoints: endpoints.length, tables: tbl.length, lexicons: lex.length, stories: stories.length, edges: edges.length, coverage: overall, stepsBuilt, stepsCounted },
-    screens: scr.map(({ text, ...s }) => s), endpoints: endpoints.map(slim), tables: tbl, lexicons: lex, client, environments: atlas.environments,
+    summary: { screens: scr.length, endpoints: endpoints.length, tables: tbl.length, stories: stories.length, edges: edges.length, coverage: overall, stepsBuilt, stepsCounted },
+    screens: scr.map(({ text, ...s }) => s), endpoints: endpoints.map(slim), tables: tbl, client, environments: atlas.environments,
     edges, stories, missing: missingPieces, drift, unmapped, platforms, shots, features: feats,
   };
   mkdirSync(R('data'), { recursive: true });
@@ -485,7 +462,7 @@ function eps(list, c) { return list.some((e) => e.method === c.method && e.path 
 function print(o) {
   const s = o.summary;
   console.log(`ATLAS built from ${o.git.sha}${o.git.dirty ? '+dirty' : ''}`);
-  console.log(`  ${s.screens} screens, ${s.endpoints} endpoints, ${s.tables} tables, ${s.lexicons} lexicons, ${s.edges} edges`);
+  console.log(`  ${s.screens} screens, ${s.endpoints} endpoints, ${s.tables} tables, ${s.edges} edges`);
   console.log(`  ${s.stories} stories, ${s.stepsBuilt}/${s.stepsCounted} steps built, coverage ${s.coverage}%`);
   for (const st of o.stories) console.log(`    ${String(st.coverage).padStart(3)}%  ${st.id}`);
   console.log('  missing, by stories blocked:');
@@ -509,6 +486,6 @@ if (process.argv.includes('--watch')) {
     clearTimeout(t);
     t = setTimeout(() => spawnSync(process.execPath, [fileURLToPath(import.meta.url)], { stdio: 'inherit' }), 300);
   };
-  for (const p of ['apps', 'lexicons', 'docs/stories.yaml', 'docs/features.yaml', 'data/platforms.json', 'data/atlas-shots/index.json', 'tools/atlas/build.mjs', 'CLAUDE.md']) if (existsSync(R(p))) watch(R(p), { recursive: true }, kick);
-  console.log('ATLAS watching apps/, lexicons/, docs/stories.yaml, data/platforms.json');
+  for (const p of ['apps', 'docs/stories.yaml', 'docs/features.yaml', 'data/platforms.json', 'data/atlas-shots/index.json', 'tools/atlas/build.mjs', 'CLAUDE.md']) if (existsSync(R(p))) watch(R(p), { recursive: true }, kick);
+  console.log('ATLAS watching apps/, docs/stories.yaml, data/platforms.json');
 }
