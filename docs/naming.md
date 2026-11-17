@@ -20,7 +20,7 @@ All 24 are on the plan page (http://agora.localhost:5035) with domain checks, as
 
 - SEO picks, research in `names-seo.json`: Shotby, Signedframe (the only one with .com free), Folioproof, Ownshot, Stillproof, Frameproof, Drawnby, Inkedby, Whomade, Atproof, Hallmarked, Truemade.
 - Warm picks: madeby, Shown Here (.com free), Firstframe, Kindframe, Open Porch, Courtyard, Lightbox, Ownframe, Sharekeep, Showfolk, Hearthside, Framekin.
-- Searches we could win: "bluesky photo app", "bluesky instagram alternative", "social media for tattoo artists". "instagram alternative for photographers" has the most demand, but the big roundup sites own it, so the play is to get listed in those roundups.
+- Searches we could win: "social media for tattoo artists". "instagram alternative for photographers" has the most demand, but the big roundup sites own it, so the play is to get listed in those roundups.
 
 ## Round 2 (2026-11-13 11:00)
 
