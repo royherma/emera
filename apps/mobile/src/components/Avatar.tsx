@@ -2,6 +2,7 @@ import { Text, View } from "react-native";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { Art } from "./Art";
+import { imageSource } from "@/lib/mockPhotos";
 import { creatorColors, font } from "@/lib/theme";
 import { useTheme } from "@/state/theme";
 import type { User } from "@/lib/types";
@@ -17,7 +18,7 @@ export function Avatar({ user, size = 40, ring = true }: { user: Who; size?: num
   const inner = size - pad * 2 - gap * 2;
   const face = (
     <View style={{ width: inner, height: inner, borderRadius: inner / 2, overflow: "hidden", alignItems: "center", justifyContent: "center", backgroundColor: c.sunk }}>
-      {user.avatarUrl ? <Image source={{ uri: user.avatarUrl }} style={{ width: inner, height: inner }} /> : <Art seed={`avatar:${user.handle}`} />}
+      {user.avatarUrl ? <Image source={imageSource(user.avatarUrl)} style={{ width: inner, height: inner }} /> : <Art seed={`avatar:${user.handle}`} />}
       {!user.avatarUrl && <Text style={{ fontFamily: font.display.semibold, fontSize: inner * 0.46, color: "#fff", textShadowColor: "rgba(0,0,0,0.3)", textShadowRadius: 4 }}>{initial}</Text>}
     </View>
   );

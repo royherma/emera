@@ -13,7 +13,7 @@ const invitesRequired = process.env.EXPO_PUBLIC_MOCK_INVITES === "1";
 export const MOCK_INVITE_CODE = "DAYLIGHT";
 
 const people: [string, string, string, string][] = [
-  ["mina", "Mina Okafor", "Street and light photographer. Lagos, then Lisbon. Chasing the hour after sunrise.", "Photography"],
+  ["mina", "Mina Okafor", "Filmmaker and speaker. Lagos, then Lisbon. Making things that keep your name on them.", "Film"],
   ["jonas_w", "Jonas Weber", "Ceramics, glazes and kiln notes. Everything here is thrown by hand.", "Ceramics"],
   ["tamsin", "Tamsin Reyes", "Illustrator. Quiet scenes, loud colour.", "Illustration"],
   ["koji", "Koji Arai", "Short films and the stills between them.", "Film"],
@@ -28,15 +28,16 @@ people.forEach(([handle, displayName, bio, category], i) => {
   users.set(handle, { id: `u_${i + 1}`, handle, displayName, bio, avatarUrl: null, createdAt: iso(60 * 24 * (40 + i)), category });
 });
 users.get("noor")!.role = "mod";
+for (const h of ["mina", "jonas_w", "noor"]) users.get(h)!.avatarUrl = `mock:photo/avatar-${h}`;
 users.get("mina")!.role = "creator";
 
 type Seed = [string, string, number, number, number, ("image" | "video")?];
 const seeds: Seed[] = [
-  ["mina", "First light on the Tagus. Shot at 6:12, no edits besides crop.", 4, 5, 8],
-  ["jonas_w", "Tenmoku test tiles, cone 10. The iron really came through this time.", 1, 1, 55],
+  ["mina", "Spoke to a full room today. Thank you for every single question", 4, 5, 8],
+  ["jonas_w", "Opened the kiln and every glaze held. First time all year", 4, 5, 55],
   ["tamsin", "Window seat, late afternoon. Gouache on cotton paper.", 3, 4, 140],
   ["koji", "Frame from the harbour film. 16mm, expired stock.", 16, 9, 260, "video"],
-  ["noor", "Paper canyon, lit from the left. Three days of cutting.", 4, 5, 380],
+  ["noor", "Day three of the paper canyon. Still deciding where the light goes", 4, 5, 380],
   ["ila_makes", "Madder root, indigo and a lot of patience.", 1, 1, 520],
   ["odd_type", "Lowercase g, version nine. The ear finally sits right.", 4, 3, 700],
   ["bram", "Walnut stool, oiled this morning. Joined without a single screw.", 3, 4, 910],
@@ -69,6 +70,8 @@ function makeMedia(signer: string, w: number, h: number, kind: "image" | "video"
   };
 }
 
+const photoFor: Record<string, string> = { p_100: "mina-1", p_101: "jonas-1", p_104: "noor-1" };
+
 const posts: Post[] = seeds.map(([handle, caption, w, h, ago, kind], i) => {
   const author = users.get(handle)!;
   const createdAt = iso(ago);
@@ -83,11 +86,11 @@ const posts: Post[] = seeds.map(([handle, caption, w, h, ago, kind], i) => {
     commentCount: 0,
     viewCount: 0,
     viewer: { liked: false },
-    media: [makeMedia(handle, w * 400, h * 400, kind ?? "image", `mock:art/${id}`, createdAt)],
+    media: [makeMedia(handle, w * 400, h * 400, kind ?? "image", photoFor[id] ? `mock:photo/${photoFor[id]}` : `mock:art/${id}`, createdAt)],
   };
 });
-posts[0].media.push(makeMedia("mina", 1600, 2000, "image", "mock:art/p_100b", posts[0].createdAt));
-posts[0].media.push(makeMedia("mina", 1600, 2000, "image", "mock:art/p_100c", posts[0].createdAt));
+posts[0].media.push(makeMedia("mina", 1600, 2000, "image", "mock:photo/mina-2", posts[0].createdAt));
+posts[0].media.push(makeMedia("mina", 1600, 2000, "image", "mock:photo/mina-3", posts[0].createdAt));
 
 const sessions = new Map<string, string>();
 const emails = new Map<string, string>();

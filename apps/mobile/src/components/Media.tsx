@@ -4,6 +4,7 @@ import { Image } from "expo-image";
 import { VideoView, useVideoPlayer } from "expo-video";
 import { useEvent } from "expo";
 import { Art } from "./Art";
+import { imageSource, isMockArt } from "@/lib/mockPhotos";
 import { Icon } from "./Icon";
 import { Glass } from "./ui";
 import { useTheme } from "@/state/theme";
@@ -16,10 +17,10 @@ import { cueAt, loadCaptions, type Cue } from "@/lib/captions";
 
 export function MediaImage({ media, style, fit = "cover", playSize = 48 }: { media: Media; style?: StyleProp<ViewStyle>; fit?: "cover" | "contain"; playSize?: number }) {
   const { c } = useTheme();
-  const art = media.url.startsWith("mock:");
+  const art = isMockArt(media.url);
   return (
     <View style={[{ overflow: "hidden", backgroundColor: c.sunk }, style]}>
-      {art ? <Art seed={media.url} /> : media.kind === "video" ? <VideoStill media={media} fit={fit} /> : <Image source={{ uri: media.url }} alt={media.alt || undefined} style={{ width: "100%", height: "100%" }} contentFit={fit} transition={180} />}
+      {art ? <Art seed={media.url} /> : media.kind === "video" ? <VideoStill media={media} fit={fit} /> : <Image source={imageSource(media.url)} alt={media.alt || undefined} style={{ width: "100%", height: "100%" }} contentFit={fit} transition={180} />}
       {media.kind === "video" && playSize > 0 && (
         <View pointerEvents="none" style={{ position: "absolute", top: 0, right: 0, bottom: 0, left: 0, alignItems: "center", justifyContent: "center" }}>
           <Glass style={{ width: playSize, height: playSize, borderRadius: playSize / 2, paddingLeft: 3 }}>
