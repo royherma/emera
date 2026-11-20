@@ -54,7 +54,7 @@ Every screen, flow and feature starts from: what is the fewest steps and words a
 - **Never ask twice.** Anything a person already typed (email on the landing page, a code from the link) carries forward; no second click to repeat it.
 - **Plain words a non-creator gets.** "Your name", not "Your name or studio". No jargon, no niche words.
 - **Anything is one click from any page.** The site footer (Emera, Answers, Compare, Legal columns, `apps/site/scripts/footer.mjs`) is the same on every page; a new page gets a footer link or it does not ship.
-- **Lead with one line: "The open source social network"** (`brand.line`), then dial down to the mission. README, site, store text, posts.
+- **"The open source social network" (`brand.line`) is the label, "real people" is the reason** (Roy, 2026-11-20). Headlines and the link card carry the label; every line of text after it sells why Emera is good, in the order of `docs/launch/messaging.md`: hook, proof, contrast, trust. Plumbing (AT Protocol, nonprofit, open source, "in the open") never leads.
 - **Do it like Instagram does (Roy, 2026-11-13).** A post is media plus one caption, nothing else on the screen. No alt-text fields, helper banners, labels over fields, character counters or explainer boxes ("Signed with..."). Accessibility that costs a tap ships as automatic (we write the description), never as a field.
 - **Show the content, not the chrome.** Feeds and mockups are media-first and edge to edge, with every format people use: photo, carousel, portrait video, full-screen video. One line of caption, no paragraphs.
 - **"Creative", never "art".** Labels, pages and copy say creators, creative work, what people make. Art is one kind of it.
@@ -65,6 +65,8 @@ Every screen, flow and feature starts from: what is the fewest steps and words a
 - Before shipping a flow, count the taps from landing page to first post and write the number in the commit. Lower is the goal.
 
 ## Copy rules
+
+**Write it like a launch, not a spec** (Roy, 2026-11-20). Every external line (GitHub, site, store, bios, posts, ads, emails) follows `docs/launch/messaging.md`: modern, sure of itself, one clear benefit first, then the proof. Run its 4 checks before it ships.
 
 Every emera.social link we put somewhere (bio, post, email, README, store page) carries `?ref=<where>` (`?ref=github`, `?ref=ig-bio`): links opened from apps (Slack, iMessage, WhatsApp, email) send no referrer and show as Direct in #emera-events.
 
