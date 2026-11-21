@@ -3,6 +3,8 @@ import { fail } from '../http';
 export type Media = { url: string; type: 'image' | 'video' | null; alt: string };
 export type Item = { id: string; url: string; caption: string; createdAt: string | null; media: Media[] };
 
+export type ReadCtx = { env: import('../env').Env; userId: string };
+
 export type Connector = {
   id: string;
   name: string;
@@ -10,7 +12,7 @@ export type Connector = {
   match(input: string): string | null;
   label(spec: string): string;
   from(spec: string): string;
-  read(spec: string, limit: number): Promise<Item[]>;
+  read(spec: string, limit: number, ctx?: ReadCtx): Promise<Item[]>;
 };
 
 let netFn: typeof fetch = (input, init) => fetch(input, init);

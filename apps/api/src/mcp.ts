@@ -6,6 +6,7 @@ import { resourceMetadataUrl, userForToken } from './oauth';
 import { importItems, listSources, parseFrom, postFromUrls, previewItems, readSource, setAuto, sourceJson } from './ingest';
 import { cleanRules, connectorList } from './connectors';
 import { BRAND } from './brand';
+import { instagramStatus } from './instagram';
 
 const VERSIONS = ['2025-11-25', '2025-06-18', '2025-03-26', '2024-11-05'];
 const str = (description: string) => ({ type: 'string', description });
@@ -13,6 +14,7 @@ const int = (description: string, max: number) => ({ type: 'integer', minimum: 1
 const FROM = str(`Where to import from. Works with: ${connectorList().connectors.map((c) => `${c.name} (${c.example})`).join(', ')}. Pixelfed and blog pages work too when they link a feed.`);
 
 const TOOLS = [
+  { name: 'connect_instagram', description: 'Get the link the person opens to sign in with Instagram (creator or business accounts). Emera only reads their posts there and never posts to Instagram. After they sign in, use preview_import and import_posts with from: "instagram".', inputSchema: { type: 'object', properties: {} }, annotations: { readOnlyHint: true } },
   { name: 'whoami', description: `Show which ${BRAND.name} account this is connected to, with its profile link and post count.`, inputSchema: { type: 'object', properties: {} }, annotations: { readOnlyHint: true } },
   { name: 'preview_import', description: 'List the recent posts with photos or videos at a source, and which are already on Emera. Nothing is posted. Run this first and show the person what will come over.', inputSchema: { type: 'object', properties: { from: FROM, limit: int('How many recent posts to look at, default 12', 50) }, required: ['from'] }, annotations: { readOnlyHint: true } },
   { name: 'import_posts', description: 'Copy posts from a source to Emera, keeping their photos, videos, captions and original dates. Posts already imported are skipped, so it is safe to run again. Up to 25 per call.', inputSchema: { type: 'object', properties: { from: FROM, limit: int('How many of the most recent posts, default 10', 25), only: { type: 'array', items: { type: 'string' }, description: 'Only these item ids from preview_import' }, auto_post: { type: 'boolean', description: 'Also post new ones from this source automatically from now on' } }, required: ['from'] } },
@@ -27,20 +29,24 @@ const text = (t: string, data?: unknown) => ({ content: [{ type: 'text', text: t
 const postLink = (x: Ctx, id: string) => `${x.site}/p/${id}`;
 
 async function call(x: Ctx, name: string, a: Record<string, any>) {
+  if (name === 'connect_instagram') {
+    const s = await instagramStatus(x.env, x.origin, x.user.id);
+    return text(s.connected ? `Instagram is connected as @${s.username}. Use preview_import with from: "instagram" to see the reels.` : `Open this link to sign in with Instagram (good for 15 minutes): ${s.connectUrl}\nEmera only reads your posts there and never posts to Instagram.`, s);
+  }
   if (name === 'whoami') {
     const n = await x.env.DB.prepare('SELECT COUNT(*) AS n FROM posts WHERE user_id = ?').bind(x.user.id).first<{ n: number }>();
     return text(x.user.handle ? `Connected as @${x.user.handle} (${x.user.display_name}). ${n?.n ?? 0} posts. Profile: ${x.site}/@${x.user.handle}` : 'Signed in, but no handle yet. Finish sign-up in the Emera app first.', { handle: x.user.handle, posts: n?.n ?? 0 });
   }
   if (name === 'preview_import') {
     const s = parseFrom(String(a.from ?? ''));
-    const items = await previewItems(x.env, x.user.id, await readSource(s, Math.min(50, Number(a.limit) || 12)));
+    const items = await previewItems(x.env, x.user.id, await readSource(s, Math.min(50, Number(a.limit) || 12), { env: x.env, userId: x.user.id }));
     const lines = items.map((i, k) => `${k + 1}. ${i.date?.slice(0, 10) ?? 'no date'} - ${i.photos} photo${i.photos === 1 ? '' : 's'}${i.videos ? `, ${i.videos} video` : ''} - ${i.caption.replace(/\s+/g, ' ').slice(0, 80) || '(no caption)'}${i.onEmera ? ' - already on Emera' : ''}\n   id: ${i.id}`);
     return text(items.length ? `${items.length} posts with photos or videos at ${s.label}:\n${lines.join('\n')}` : `No posts with photos or videos found at ${s.label}.`, { source: s.label, items });
   }
   if (name === 'import_posts') {
     const s = parseFrom(String(a.from ?? ''));
     const only = Array.isArray(a.only) ? new Set(a.only.map(String)) : null;
-    let items = await readSource(s, only ? 50 : Math.min(25, Number(a.limit) || 10));
+    let items = await readSource(s, only ? 50 : Math.min(25, Number(a.limit) || 10), { env: x.env, userId: x.user.id });
     if (only) items = items.filter((i) => only.has(i.id));
     const r = await importItems(x.env, x.origin, x.token, x.user, s, items);
     if (a.auto_post === true) await setAuto(x.env, x.user.id, s, true);
@@ -51,7 +57,7 @@ async function call(x: Ctx, name: string, a: Record<string, any>) {
   }
   if (name === 'auto_post') {
     const s = parseFrom(String(a.from ?? ''));
-    if (a.on) await readSource(s, 1);
+    if (a.on) await readSource(s, 1, { env: x.env, userId: x.user.id });
     const rules = a.media !== undefined || a.tag !== undefined ? cleanRules({ media: a.media, tag: a.tag }) : undefined;
     const row = await setAuto(x.env, x.user.id, s, !!a.on, rules);
     const r = sourceJson(row).rules;

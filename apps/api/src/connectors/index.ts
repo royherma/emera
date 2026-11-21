@@ -1,7 +1,8 @@
 import { fail } from '../http';
 import { bluesky } from './bluesky';
 import { feed } from './feed';
-import type { Connector, Item } from './types';
+import { instagram } from './instagram';
+import type { Connector, Item, ReadCtx } from './types';
 
 export type { Connector, Item, Media } from './types';
 export { setNet } from './types';
@@ -20,10 +21,9 @@ const mastodon: Connector = {
   label: (spec) => spec.replace(/^https:\/\//, '').replace(/\.rss$/, ''),
 };
 
-export const CONNECTORS: Connector[] = [bluesky, mastodon, feed];
+export const CONNECTORS: Connector[] = [instagram, bluesky, mastodon, feed];
 
 export const LOCKED = [
-  { name: 'Instagram', host: /(^|\.)instagram\.com$/, why: 'Instagram does not share posts with other apps. Download your data from Instagram and bring the zip in with the Emera importer.' },
   { name: 'TikTok', host: /(^|\.)tiktok\.com$/, why: 'TikTok does not share posts with other apps. Download your data from TikTok and bring the videos in one by one.' },
   { name: 'X', host: /(^|\.)(x|twitter)\.com$/, why: 'X does not share posts with other apps for free.' },
   { name: 'Facebook', host: /(^|\.)facebook\.com$/, why: 'Facebook does not share posts with other apps.' },
@@ -49,7 +49,7 @@ export function parseFrom(raw: string): Source {
 }
 
 export const connectorFor = (kind: string) => CONNECTORS.find((c) => c.id === kind) ?? feed;
-export const readSource = (s: Source, limit: number) => connectorFor(s.kind).read(s.spec, limit);
+export const readSource = (s: Source, limit: number, ctx?: ReadCtx) => connectorFor(s.kind).read(s.spec, limit, ctx);
 export const fromOf = (s: Source) => connectorFor(s.kind).from(s.spec);
 
 export type Rules = { media?: 'any' | 'photos' | 'videos'; tag?: string };

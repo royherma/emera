@@ -127,7 +127,7 @@ export async function runAutoImports(env: Env, origin: string, max = 40) {
     const now = Date.now();
     await env.DB.prepare('INSERT INTO sessions (token_hash, user_id, created_at, expires_at, client_id) VALUES (?, ?, ?, ?, ?)').bind(await sha256Hex(token), user.id, now, now + 10 * 60_000, 'auto-import').run();
     try {
-      const items = (await readSource(s, 10)).filter((i) => i.createdAt && Date.parse(i.createdAt) > s.since && passes(i, rulesOf(s)));
+      const items = (await readSource(s, 10, { env, userId: s.user_id })).filter((i) => i.createdAt && Date.parse(i.createdAt) > s.since && passes(i, rulesOf(s)));
       const r = await importItems(env, origin, token, user, s, items);
       await env.DB.prepare('UPDATE sources SET last_checked = ?, last_error = NULL WHERE id = ?').bind(now, s.id).run();
       report.push({ source: s.label, imported: r.imported.length });
@@ -152,7 +152,7 @@ ingestRoutes.get('/v1/connectors', (c) => c.json(connectorList()));
 ingestRoutes.post('/v1/import/preview', requireAuth, async (c) => {
   const body = await readJson(c);
   const source = parseFrom(String(body.from ?? ''));
-  const items = await readSource(source, limitOf(body.limit, 12, 50));
+  const items = await readSource(source, limitOf(body.limit, 12, 50), { env: c.env, userId: c.get('user').id });
   return c.json({ source: { from: fromOf(source), kind: source.kind, label: source.label }, items: await previewItems(c.env, c.get('user').id, items) });
 });
 
@@ -160,7 +160,7 @@ ingestRoutes.post('/v1/import', requireAuth, requireHandle, async (c) => {
   const body = await readJson(c);
   const source = parseFrom(String(body.from ?? ''));
   const only = Array.isArray(body.only) ? new Set(body.only.map(String)) : null;
-  let items = await readSource(source, only ? 50 : limitOf(body.limit, 10, MAX_POSTS));
+  let items = await readSource(source, only ? 50 : limitOf(body.limit, 10, MAX_POSTS), { env: c.env, userId: c.get('user').id });
   if (only) items = items.filter((i) => only.has(i.id));
   const r = await importItems(c.env, originOf(c), bearer(c.req.header('Authorization')), c.get('user'), source, items);
   if (body.autoPost === true) await setAuto(c.env, c.get('user').id, source, true, body.rules === undefined ? undefined : cleanRules(body.rules));
@@ -172,7 +172,7 @@ ingestRoutes.get('/v1/sources', requireAuth, async (c) => c.json({ sources: (awa
 ingestRoutes.post('/v1/sources', requireAuth, requireHandle, async (c) => {
   const body = await readJson(c);
   const source = parseFrom(String(body.from ?? ''));
-  if (body.autoPost !== false) await readSource(source, 1);
+  if (body.autoPost !== false) await readSource(source, 1, { env: c.env, userId: c.get('user').id });
   const rules = body.rules === undefined ? undefined : cleanRules(body.rules);
   return c.json({ source: sourceJson(await setAuto(c.env, c.get('user').id, source, body.autoPost !== false, rules)) });
 });
