@@ -70,7 +70,8 @@ app.route('/', pages);
 app.onError((err, c) => {
   if (err instanceof ApiError) return c.json({ error: { code: err.code, message: err.message } }, err.status as 400);
   console.error('[error]', err);
-  Sentry.captureException(err);
+  const d1Internal = /^D1_ERROR: internal error/.test(String((err as Error)?.message));
+  Sentry.captureException(err, d1Internal ? { fingerprint: ['d1-internal-error'], level: 'warning' } : undefined);
   return c.json({ error: { code: 'internal', message: 'Something went wrong on our side.' } }, 500);
 });
 
