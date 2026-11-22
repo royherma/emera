@@ -1,3 +1,5 @@
+import { cardLayout } from '../../../packages/media/mediaBox';
+import { cardSvg } from '../src/card';
 import { describe, expect, it } from 'vitest';
 import app from '../src/index';
 import { Client, makeEnv, ORIGIN, pngBytes } from './helpers';
@@ -155,5 +157,17 @@ describe('feeds', () => {
     const profile = await (await get(c, '/@shara')).text();
     expect(profile).toContain(`<link rel="alternate" type="application/atom+xml" title="Shara &lt;Lens&gt; &amp; Co on Emera" href="${ORIGIN}/@shara/feed.xml">`);
     expect(await (await get(c, '/')).text()).toContain(`type="application/atom+xml" title="Emera" href="${ORIGIN}/feed.xml"`);
+  });
+});
+
+describe('link card layout', () => {
+  it('shows a portrait post whole instead of cropping its middle band', () => {
+    const tall = cardLayout({ width: 1080, height: 1920 });
+    expect(tall).toEqual({ mode: 'framed', frame: { width: 309, height: 549, x: 851, y: 41 } });
+    expect(cardLayout({ width: 1080, height: 1080 }).mode).toBe('framed');
+    expect(cardLayout({ width: 1920, height: 1080 })).toEqual({ mode: 'cover' });
+    const svg = cardSvg({ photo: 'data:image/jpeg;base64,AA==', layout: tall, name: 'Ana', handle: 'ana', line: 'x' });
+    expect(svg).toContain('x="851" y="41" width="309" height="549" preserveAspectRatio="xMidYMid meet" clip-path="url(#r)"');
+    expect(svg).toContain('filter="url(#b)"');
   });
 });
