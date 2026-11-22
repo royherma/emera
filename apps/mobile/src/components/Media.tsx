@@ -179,7 +179,7 @@ function LivePlayer({ media, fit, tapToPause, onPlaying }: { media: Media; fit: 
   };
   return (
     <>
-      <VideoView player={player} style={[fill, { opacity: started ? 1 : 0 }]} nativeControls={false} contentFit={fit} />
+      <VideoView player={player} style={[fill, { opacity: started ? 1 : 0 }]} nativeControls={false} contentFit={fit} playsInline />
       {line && (
         <View pointerEvents="none" style={{ position: "absolute", left: 16, right: 16, bottom: 50, alignItems: "center" }}>
           <Text style={{ color: "#fff", fontSize: 15, lineHeight: 20, fontWeight: "600", textAlign: "center", backgroundColor: "rgba(0,0,0,0.62)", paddingHorizontal: 8, paddingVertical: 3, borderRadius: 6, overflow: "hidden" }}>{line}</Text>
@@ -250,7 +250,7 @@ export function VideoPreview({ uri, style }: { uri: string; style?: StyleProp<Vi
     p.loop = true;
     p.play();
   });
-  return <VideoView player={player} style={[{ backgroundColor: "#000", width: "100%", height: "100%" }, style]} nativeControls={false} contentFit="cover" />;
+  return <VideoView player={player} style={[{ backgroundColor: "#000", width: "100%", height: "100%" }, style]} nativeControls={false} contentFit="cover" playsInline />;
 }
 
 export function MediaFull({ media, style, onWatched }: { media: Media; style?: StyleProp<ViewStyle>; onWatched?: () => void }) {
