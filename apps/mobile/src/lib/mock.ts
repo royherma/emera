@@ -28,7 +28,7 @@ people.forEach(([handle, displayName, bio, category], i) => {
   users.set(handle, { id: `u_${i + 1}`, handle, displayName, bio, avatarUrl: null, createdAt: iso(60 * 24 * (40 + i)), category });
 });
 users.get("noor")!.role = "mod";
-for (const h of ["mina", "jonas_w", "noor"]) users.get(h)!.avatarUrl = `mock:photo/avatar-${h}`;
+for (const h of ["mina", "jonas_w", "noor", "tamsin", "koji", "ila_makes", "odd_type", "bram"]) users.get(h)!.avatarUrl = `mock:photo/avatar-${h}`;
 users.get("mina")!.role = "creator";
 
 type Seed = [string, string, number, number, number, ("image" | "video")?];
@@ -70,7 +70,7 @@ function makeMedia(signer: string, w: number, h: number, kind: "image" | "video"
   };
 }
 
-const photoFor: Record<string, string> = { p_100: "mina-1", p_101: "jonas-1", p_104: "noor-1" };
+const photoFor: Record<string, string> = { p_100: "mina-1", p_101: "jonas-1", p_104: "noor-1", p_102: "tamsin-1", p_103: "koji-1", p_105: "ila-1", p_106: "oddtype-1", p_107: "bram-1", p_108: "mina-4", p_109: "tamsin-2", p_110: "koji-2", p_111: "jonas-2", p_112: "noor-2", p_113: "ila-2", p_114: "bram-2", p_115: "oddtype-2", p_116: "mina-5", p_117: "tamsin-3", p_118: "koji-3" };
 
 const posts: Post[] = seeds.map(([handle, caption, w, h, ago, kind], i) => {
   const author = users.get(handle)!;
@@ -86,7 +86,7 @@ const posts: Post[] = seeds.map(([handle, caption, w, h, ago, kind], i) => {
     commentCount: 0,
     viewCount: 0,
     viewer: { liked: false },
-    media: [makeMedia(handle, w * 400, h * 400, kind ?? "image", photoFor[id] ? `mock:photo/${photoFor[id]}` : `mock:art/${id}`, createdAt)],
+    media: [makeMedia(handle, w * 400, h * 400, photoFor[id] ? "image" : (kind ?? "image"), photoFor[id] ? `mock:photo/${photoFor[id]}` : `mock:art/${id}`, createdAt)],
   };
 });
 posts[0].media.push(makeMedia("mina", 1600, 2000, "image", "mock:photo/mina-2", posts[0].createdAt));
