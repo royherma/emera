@@ -12,6 +12,7 @@ import { timeAgo } from "@/lib/format";
 import { alpha, radius, space, type } from "@/lib/theme";
 import type { Notification } from "@/lib/types";
 import { useResource } from "@/state/resource";
+import { imageSource, isMockArt } from "@/lib/mockPhotos";
 import { useTheme } from "@/state/theme";
 import { setUnread } from "@/state/unread";
 
@@ -31,7 +32,7 @@ function Thumb({ url }: { url: string }) {
   const { c } = useTheme();
   return (
     <View style={{ width: 48, height: 48, borderRadius: radius.tile - 6, overflow: "hidden", backgroundColor: c.sunk }}>
-      {url.startsWith("mock:") ? <Art seed={url} /> : <Image source={{ uri: url }} style={{ width: 48, height: 48 }} contentFit="cover" />}
+      {isMockArt(url) ? <Art seed={url} /> : <Image source={imageSource(url)} style={{ width: 48, height: 48 }} contentFit="cover" />}
     </View>
   );
 }
