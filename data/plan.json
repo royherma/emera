@@ -2109,6 +2109,61 @@
         "at": "2026-11-13T12:23:23Z",
         "note": "Roy picked 5 (terminal); live in production"
       }
+    },
+    {
+      "id": "native-screens-walk",
+      "kind": "look",
+      "when": "any time, 1 min",
+      "title": "Every screen opens on iOS, Android and web (21 of 21)",
+      "why": "% = the screen opened in the test walk and showed its real content (Maestro on cloud phones, Atlas on web); below 100% says what pulled it down. Pictures: .claude/artifacts/native/cloud-43432339550 (iOS), cloud-43415150991 (Android), data/atlas-shots (web).",
+      "list": [
+        "Welcome: iOS 100%, Android 100%, web 100%",
+        "Sign in: iOS 100%, Android 100%, web 100%",
+        "Code: iOS 100%, Android 100%, web 100%",
+        "Name and handle: iOS 80%, Android 80%, web 80% - shows agora-api.localhost:5036/@handle under the box on all 3",
+        "Feed: iOS 100%, Android 100%, web 100%",
+        "Explore: iOS 100%, Android 100%, web 100%",
+        "Me: iOS 100%, Android 100%, web 100% - empty account only",
+        "Upload: iOS 80%, Android 80%, web 80% - only the empty screen is walked; picking a photo/video is not tested",
+        "Settings: iOS 100%, Android 100%, web 100%",
+        "Search: iOS 100%, Android 100%, web 100%",
+        "Notifications: iOS 100%, Android 100%, web 100%",
+        "Invites: iOS 100%, Android 90%, web 90% - Android and web pictures are 10 days old, still say invite-only",
+        "Edit profile: iOS 100%, Android 100%, web 100%",
+        "Blocked and muted: iOS 100%, Android 100%, web 100% - empty list only",
+        "Post: iOS 100%, Android 100%, web 100%",
+        "Comments: iOS 100%, Android 100%, web 100%",
+        "Profile @mina: iOS 100%, Android 100%, web 100%",
+        "Followers: iOS 100%, Android 100%, web 100%",
+        "Following: iOS 100%, Android 100%, web 100%",
+        "Report a copy: iOS 100%, Android 100%, web 100%",
+        "Report a person: iOS 100%, Android 100%, web 100%"
+      ],
+      "links": [
+        [
+          "iOS walk run (passed)",
+          "https://github.com/royherma/emera/actions/runs/43432339550"
+        ],
+        [
+          "Android walk run (passed)",
+          "https://github.com/royherma/emera/actions/runs/43415150991"
+        ]
+      ],
+      "options": [
+        {
+          "id": "good",
+          "label": "Looks right",
+          "primary": true
+        },
+        {
+          "id": "change",
+          "label": "Change something"
+        }
+      ],
+      "answer": null,
+      "text": null,
+      "owner": "claude 524d1782",
+      "at": "2026-11-22T23:09:57.184Z"
     }
   ],
   "reviewDone": [
