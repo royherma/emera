@@ -379,7 +379,7 @@ export default {
     const url = new URL(request.url);
     const { pathname } = url;
     if (url.hostname === "app.emera.social") return Response.redirect(`https://emera.social${pathname}${url.search}`, 301);
-    if (pathname === "/" && SIGNED_IN.test(request.headers.get("cookie") || "")) return app(request, env, url);
+    if (pathname === "/" && !url.searchParams.has("home") && SIGNED_IN.test(request.headers.get("cookie") || "")) return app(request, env, url);
     if (pathname === "/admin" || pathname.startsWith("/admin/") || pathname === "/api/ledger") return ops(request, env);
     if (pathname === "/api/early") {
       if (request.method === "POST") return signup(request, env);
