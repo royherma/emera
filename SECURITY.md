@@ -8,7 +8,7 @@ We reply within 5 days, tell you what we plan to do, and credit you in the fix u
 
 ## Scope
 
-The API (`apps/api`), the site (`apps/site`), the app (`apps/mobile`) and the AT Protocol lexicons (`lexicons/`). Reports about accounts, uploads, sign-in, provenance checks and takedown handling are especially welcome.
+The API (`apps/api`), the site (`apps/site`) and the app (`apps/mobile`). Reports about accounts, uploads, sign-in, provenance checks and takedown handling are especially welcome.
 
 ## Supported versions
 

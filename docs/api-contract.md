@@ -53,8 +53,11 @@ Videos over 100 MB (104,857,600 bytes) upload in parts of 50 MB, so app builds t
 | --- | --- | --- | --- |
 | POST | `/v1/reports` | `{ postId, url, note? }` | `201 { report: { id, status } }` |
 | GET | `/v1/reports` | - | `{ reports: [{ id, postId, url, note, status, createdAt }] }` the caller's own, newest first |
+| GET | `/v1/posts/:id/proof` | - | `{ proof: { postId, author: { handle, displayName, role, verifiedBy }, firstPostedAt, files: { total, intact }, imported: { from, link, originalDate } \| null } }` public; `intact` counts files whose stored signature still matches (HMAC with `PROOF_SECRET`) |
+| GET | `/v1/mod/reports` | - | every report, newest first, with `reporter`; admin or mod only (403 otherwise) |
+| PATCH | `/v1/mod/reports/:id` | `{ status }` | `{ report }`; `status` is `sent`, `filing`, `taken_down` or `not_removed` (`bad_status`); admin or mod only |
 
-Only the post's author can report a copy of it (403 `forbidden` otherwise). `url` must be http(s), up to 2048 characters; `note` up to 2000. Unknown post is 404, bad input 400 (`bad_post`, `bad_url`, `bad_note`). `status` starts as `new`. Each report is also emailed to `REPORTS_TO` when that variable is set.
+Only the post's author can report a copy of it (403 `forbidden` otherwise). `url` must be http(s), up to 2048 characters; `note` up to 2000. Unknown post is 404, bad input 400 (`bad_post`, `bad_url`, `bad_note`). `status` starts as `sent` (rows from before migration 0022 read `new`, returned as `sent`); report rows also carry `updatedAt` and `thumbUrl`. Each report is also emailed to `REPORTS_TO` when that variable is set.
 
 `user` also carries `followers`, `following` and, when the request is signed in, `viewer: { following, blocked, muted }`.
 
@@ -138,7 +141,7 @@ Search needs no sign-in. `q` is 1 to 100 characters (`bad_query`), `type` defaul
 
 `/v1/flags` is the safety report on any post or account, separate from `POST /v1/reports` (a creator reporting a copy of their own work). `reason` is one of `spam`, `harassment`, `hate`, `violence`, `nudity`, `self_harm`, `impersonation`, `scam`, `other` (`bad_reason`). `targetId` is a post id or a user id (`bad_target`, 404 `not_found`). Reporting your own post or account is 400 `own_content`. More than 20 new reports in an hour is 429 `too_many`. `note` up to 1000 characters (`bad_note`).
 
-`flag` = `{ id, targetType, targetId, reason, note, status, createdAt }`. `status` starts as `new`.
+`flag` = `{ id, targetType, targetId, reason, note, status, createdAt }`. `status` starts as `sent` (rows from before migration 0022 read `new`, returned as `sent`); report rows also carry `updatedAt` and `thumbUrl`.
 
 ## Fund: sponsors, watch time, creator earnings
 

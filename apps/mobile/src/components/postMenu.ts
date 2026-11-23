@@ -17,7 +17,9 @@ export function usePostMenu(onDeleted?: (id: string) => void) {
     const own = user?.id === post.author.id;
     const actions: SheetAction[] = [
       ...(user ? [{ label: "Send in a message", icon: "send" as const, onPress: () => router.push({ pathname: "/messages/compose", params: { postId: post.id } }) }] : []),
-      { label: "Report a copy", icon: "flag", onPress: () => router.push({ pathname: "/report", params: { id: post.id } }) },
+      own
+        ? { label: "Report a copy", icon: "flag" as const, onPress: () => router.push({ pathname: "/report", params: { id: post.id } }) }
+        : { label: "This copies my work", icon: "flag" as const, onPress: () => router.push({ pathname: "/report", params: { url: post.url } }) },
       ...(own ? [] : [{ label: "Report", icon: "flag" as const, onPress: () => router.push({ pathname: "/flag", params: { type: "post", id: post.id } }) }]),
       { label: "Share", icon: "share", onPress: async () => (await shareLink(post.url, `A post by @${post.author.handle}`)) === "copied" && toast("Link copied") },
       { label: "Copy link", icon: "link", onPress: async () => (await copyText(post.url), toast("Link copied")) },

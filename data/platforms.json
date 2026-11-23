@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-13",
+  "updated": "2026-11-17",
   "statusKey": {
     "live": "running for real users",
     "in code": "built in the repo, not shipped to users",
@@ -267,7 +267,7 @@
       "group": "In-browser",
       "name": "oEmbed and embeds",
       "status": "idea",
-      "path": "/oembed endpoint returning JSON for /p/:id plus an iframe embed page, like bskyembed in bluesky-social/social-app",
+      "path": "/oembed endpoint returning JSON for /p/:id plus an iframe embed page",
       "effort": "M",
       "exposure": 4,
       "why": "Blogs, newsletters and Notion embed the post, each one a backlink",
@@ -293,41 +293,6 @@
       "effort": "M",
       "exposure": 3,
       "why": "Reaches people who never open an app; sign-up already collects emails",
-      "outsiders": "yes"
-    },
-    {
-      "id": "atproto-clients",
-      "group": "AT Protocol",
-      "name": "Other AT Protocol clients",
-      "status": "idea",
-      "path": "Publish social.emera.* lexicons and a docs page; clients read posts through the PDS and AppView APIs",
-      "effort": "M",
-      "exposure": 3,
-      "why": "Instant reach into the existing AT Protocol app ecosystem",
-      "outsiders": "yes",
-      "note": "Depends on stage A/B of the own-PDS plan in docs/architecture.md"
-    },
-    {
-      "id": "bluesky-show",
-      "group": "AT Protocol",
-      "name": "Posts visible in Bluesky",
-      "status": "idea",
-      "path": "Write a companion app.bsky.feed.post (image and link card back to Emera) beside each social.emera.post, opt-in per creator",
-      "effort": "M",
-      "exposure": 5,
-      "why": "Bluesky has the audience today; every post carries a link back",
-      "outsiders": "yes",
-      "note": "Design needs a check on how a custom record and the Bluesky record stay in sync [inferred]"
-    },
-    {
-      "id": "feedgen",
-      "group": "AT Protocol",
-      "name": "Feed generator",
-      "status": "idea",
-      "path": "Feed generator from bluesky-social/feed-generator that serves \"Emera creators\" as a custom feed inside Bluesky",
-      "effort": "M",
-      "exposure": 3,
-      "why": "Pinned feeds in Bluesky bring followers without an install",
       "outsiders": "yes"
     },
     {

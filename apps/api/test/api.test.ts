@@ -294,10 +294,10 @@ describe('reports', () => {
     const { c, postId } = await authorWithPost('rep-author@example.test', 'rep_author');
     const r = await c.json('POST', '/v1/reports', { postId, url: 'https://copycat.example/pic', note: ' stole it ' });
     expect(r.status).toBe(201);
-    expect(r.body.report).toMatchObject({ status: 'new' });
+    expect(r.body.report).toMatchObject({ status: 'sent' });
     const list = await c.json('GET', '/v1/reports');
     expect(list.body.reports).toHaveLength(1);
-    expect(list.body.reports[0]).toMatchObject({ postId, url: 'https://copycat.example/pic', note: 'stole it', status: 'new' });
+    expect(list.body.reports[0]).toMatchObject({ postId, url: 'https://copycat.example/pic', note: 'stole it', status: 'sent' });
 
     const other = new Client();
     await other.signIn('rep-other@example.test');

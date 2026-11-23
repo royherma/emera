@@ -76,6 +76,7 @@ function Routes() {
               <Stack.Screen name="settings" options={{ animation: "slide_from_right" }} />
               <Stack.Screen name="report" options={{ animation: "slide_from_right" }} />
               <Stack.Screen name="protect" options={{ animation: "slide_from_right" }} />
+              <Stack.Screen name="reports" options={{ animation: "slide_from_right" }} />
               <Stack.Screen name="invites" options={{ animation: "slide_from_right" }} />
               <Stack.Screen name="search" options={{ animation: "slide_from_right" }} />
               <Stack.Screen name="edit-profile" options={{ animation: "slide_from_right" }} />

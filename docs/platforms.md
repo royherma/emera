@@ -4,13 +4,12 @@ Every screen we want Emera on. Source of truth is [data/platforms.json](../data/
 
 Status: **live** runs for real users, **in code** is built in the repo but not shipped, **planned** is decided, **idea** is worth doing but not decided. Exposure is 1 to 5. Effort is S (days), M (weeks), L (a month or more). "Outsiders" says whether a contributor outside the core team could own it.
 
-## Top 5 for exposure per hour of work
+## Top 4 for exposure per hour of work
 
 1. **Share cards and oEmbed for `/@handle` and `/p/:id`** (effort S). Public pages already exist; a card image and an oEmbed route make every link pasted into X, iMessage, Slack or Discord show the work and its maker. Each share becomes an ad with no extra product.
 2. **PWA install** (S). The Expo web build becomes installable on iOS, Android and desktop with a manifest and a service worker. No store review, works on every screen with a browser, and it is the base for the TV web apps.
 3. **RSS/Atom feeds and email digests** (S then M). A feed per creator and one global feed need almost no UI. They reach readers, newsletters and automations that never open an app.
-4. **Posts visible in Bluesky, plus a feed generator** (M). Bluesky already has the audience we want; a companion post with a link back, and a pinnable "Emera creators" feed, borrow that reach on day one.
-5. **Android TV, Google TV and Fire TV from one `react-native-tvos` build** (L). The founder wants TVs. This is the cheapest way to hit three platforms with the code we already have; Apple TV follows from the same codebase.
+4. **Android TV, Google TV and Fire TV from one `react-native-tvos` build** (L). The founder wants TVs. This is the cheapest way to hit three platforms with the code we already have; Apple TV follows from the same codebase.
 
 Everything else waits on these: the TV apps and the extension need the share and API surface first.
 
@@ -80,7 +79,7 @@ Everything else waits on these: the TV apps and the extension need the share and
 | --- | --- | --- | --- | --- | --- | --- |
 | Browser extension (save and share) | idea | WebExtension (Chrome, Firefox, Safari): "Post this to Emera" and "Report a copy of this" on any page. | M | 3 | Puts the report-a-copy flow where creators find copies | yes |
 | Share cards (Open Graph, Twitter Card) | in code | apps/api renders /@handle and /p/:id with og: tags; add generated card images (title, maker badge) via a Worker image route. Pages exist; per-post card image still to build. | S | 5 | Every link pasted into X, iMessage, Slack and Discord shows the work and the maker | yes |
-| oEmbed and embeds | idea | /oembed endpoint returning JSON for /p/:id plus an iframe embed page, like bskyembed in bluesky-social/social-app. | M | 4 | Blogs, newsletters and Notion embed the post, each one a backlink | yes |
+| oEmbed and embeds | idea | /oembed endpoint returning JSON for /p/:id plus an iframe embed page. | M | 4 | Blogs, newsletters and Notion embed the post, each one a backlink | yes |
 
 ## Feeds
 
@@ -88,14 +87,6 @@ Everything else waits on these: the TV apps and the extension need the share and
 | --- | --- | --- | --- | --- | --- | --- |
 | RSS and Atom per creator | idea | /@handle/feed.xml and /feed.xml from apps/api, with media enclosures. | S | 4 | Readers, podcast apps and automations follow creators with no account | yes |
 | Email digests | idea | Weekly Resend digest of followed creators, built from the same feed query; opt-in. | M | 3 | Reaches people who never open an app; sign-up already collects emails | yes |
-
-## AT Protocol
-
-| Platform | Status | Tech path | Effort | Exposure | Why it matters | Outsiders |
-| --- | --- | --- | --- | --- | --- | --- |
-| Other AT Protocol clients | idea | Publish social.emera.* lexicons and a docs page; clients read posts through the PDS and AppView APIs. Depends on stage A/B of the own-PDS plan in docs/architecture.md. | M | 3 | Instant reach into the existing AT Protocol app ecosystem | yes |
-| Posts visible in Bluesky | idea | Write a companion app.bsky.feed.post (image and link card back to Emera) beside each social.emera.post, opt-in per creator. Design needs a check on how a custom record and the Bluesky record stay in sync [inferred]. | M | 5 | Bluesky has the audience today; every post carries a link back | yes |
-| Feed generator | idea | Feed generator from bluesky-social/feed-generator that serves "Emera creators" as a custom feed inside Bluesky. | M | 3 | Pinned feeds in Bluesky bring followers without an install | yes |
 
 ## Assistants
 
@@ -108,5 +99,4 @@ Everything else waits on these: the TV apps and the extension need the share and
 
 - Roku, Tizen and webOS facts and the CarPlay audio-only restriction are from general knowledge and have not been re-read against the current vendor docs `[inferred]`. Check them before starting.
 - `react-native-tvos` is the community fork that adds Apple TV and Android TV to React Native, and Expo documents TV builds through a config plugin: [react-native-tvos](https://github.com/react-native-tvos/react-native-tvos), [Expo guide](https://docs.expo.dev/guides/building-for-tv).
-- Bluesky ships its own embed, link and share-card services in the open (`bskyembed`, `bskylink`, `bskyogcard` in [social-app](https://github.com/bluesky-social/social-app)); they are the model for share cards and oEmbed.
-- Counts: 30 platforms: 5 in code, 1 live, 24 idea.
+- Counts: 27 platforms: 5 in code, 1 live, 21 idea.

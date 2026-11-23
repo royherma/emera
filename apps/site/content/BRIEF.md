@@ -1,13 +1,13 @@
 # SEO content brief (emera.social)
 
-Emera: open-source nonprofit social network on AT Protocol for everyone who makes things AND everyone sharing what is happening (news, local updates, events). Tagline: Where humanity comes together. Prelaunch.
+Emera: open-source nonprofit social network for everyone who makes things AND everyone sharing what is happening (news, local updates, events). Tagline: Where humanity comes together. Prelaunch.
 
 ## What Emera may be described as doing (present tense, nothing else)
 - Every post carries a signed record (C2PA content credentials) of who shared it and when it went up. A "Signed" badge says exactly what was checked, nothing more.
 - People are marked; automated accounts are labeled as automated. The verified human mark is free.
 - Reposts point back to the original post.
 - Found a copy of your work elsewhere? You report it and Emera helps you file the takedown; every step shows on your dashboard. (Manual. NEVER say Emera scans/watches other platforms automatically.)
-- You own your account (AT Protocol): you can move it with your followers to another host.
+- You own your account: export everything you made and your follower list, any time.
 - A "Why you are seeing this" reason on posts; users can pick feeds.
 - Run as a nonprofit, code open source.
 NEVER claim: fact-checking, "guaranteed real", AI detection, automatic copy scanning, user counts, press, partners, pricing.

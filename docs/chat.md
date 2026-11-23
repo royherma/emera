@@ -1,5 +1,7 @@
 # Chat: channels and messages
 
+> 2026-11-17: Emera dropped AT Protocol; Bluesky is one import source.
+
 Two things, one engine:
 
 - **Channels**: topic rooms everyone signed in can read and talk in, like IRC. On desktop they sit in a right-hand rail next to the feed; on phone they are one tap from the feed header. We start with three (`#lobby`, `#feedback`, `#news`) and add more only when one gets busy enough to split.

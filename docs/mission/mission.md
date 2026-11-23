@@ -1,6 +1,6 @@
 # Emera mission, values and manifesto
 
-Version 1.3.0, 2026-11-13. Machine copy: `values.json`. How this changes: `how-values-change.md`. History: `CHANGELOG.md`.
+Version 1.4.0, 2026-11-17. Machine copy: `values.json`. How this changes: `how-values-change.md`. History: `CHANGELOG.md`.
 
 ## In one line
 
@@ -87,7 +87,7 @@ Never: we will never rank, hide or remove a post for a reason we cannot show the
 **Your account, your followers and your work are yours, and you can leave with all of them.**
 
 What we do because of it:
-- Build on the AT Protocol so an account can move to another host with its posts and followers.
+- Export everything you made and your follower list, any time.
 - Take only the license needed to show your work, and say it in two sentences.
 - Ship export and move as launch features, not roadmap items.
 
@@ -133,4 +133,4 @@ Where humanity comes together.
 
 ## What this borrows and what it does not
 
-Read on 2026-11-13 so Emera is in this league, not copying it: Wikimedia (free knowledge, in perpetuity), the Mozilla Manifesto (principles plus a pledge), Creative Commons (a world where culture is shared equitably), Patagonia ("in business to save our home planet", one concrete sentence), Bluesky (an open foundation for the social internet, as a public benefit corporation), Signal and the Internet Archive from memory. What they share: one sentence a decision can be checked against, and a legal structure that makes it expensive to drop. Emera's version of that structure is the "never" lines in the bylaws and member votes to change them.
+Read on 2026-11-13 so Emera is in this league, not copying it: Wikimedia (free knowledge, in perpetuity), the Mozilla Manifesto (principles plus a pledge), Creative Commons (a world where culture is shared equitably), Patagonia ("in business to save our home planet", one concrete sentence), Signal and the Internet Archive from memory. What they share: one sentence a decision can be checked against, and a legal structure that makes it expensive to drop. Emera's version of that structure is the "never" lines in the bylaws and member votes to change them.

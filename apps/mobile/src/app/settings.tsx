@@ -68,6 +68,15 @@ export default function Settings() {
         </View>
       )}
 
+      <Section title="Protection">
+        <Text style={[type.body, { color: c.ink2 }]}>Found what you made somewhere else? We help file the takedown.</Text>
+        <View style={{ flexDirection: "row", gap: space[2], flexWrap: "wrap" }}>
+          <Button label="I found a copy" icon="flag" onPress={() => router.push("/report")} />
+          <Button label="My reports" kind="secondary" onPress={() => router.push("/reports")} />
+        </View>
+      </Section>
+
+      <View style={{ height: 1, backgroundColor: c.hair }} />
       <Section title="Appearance">
         <Segmented
           value={mode}

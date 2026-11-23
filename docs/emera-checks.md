@@ -1,5 +1,7 @@
 # Emera - name, trademark and handle checks
 
+> 2026-11-17: Emera dropped AT Protocol; Bluesky is one import source (the Bluesky handle rows below are dated checks).
+
 Run Fri 13 Nov 2026, 11:00 AM Bangkok. Facts are what was read this session; judgment calls are marked JUDGMENT (not legal advice, I am not a lawyer). Nothing was registered, bought or signed up for.
 
 **Verdict: workable with care.** Nobody holds a live EMERA mark in classes 9, 38, 41, 42 or 45 in the US; the one big owner (Emera Inc.) has no live EMERA word mark in the US at all. Open items: Canada and EU were not searchable from here, and Emera Inc. will still notice a social network called Emera.

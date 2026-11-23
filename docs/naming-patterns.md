@@ -1,5 +1,7 @@
 # Naming patterns: what 2023-2026 launches did, and rules to name against
 
+> 2026-11-17: Emera dropped AT Protocol; Bluesky is one import source.
+
 Written 2026-11-13. Nothing bought or registered. No availability checked for any name below.
 
 ## Scope (corrected 2026-11-13)

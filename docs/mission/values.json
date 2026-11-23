@@ -1,6 +1,6 @@
 {
-  "version": "1.3.0",
-  "updated": "2026-11-13",
+  "version": "1.4.0",
+  "updated": "2026-11-17",
   "oneLiner": "Emera is the open source social network.",
   "oneSentence": "The code and the algorithm are public and it is run as a nonprofit, so no one can quietly change the rules, what you create keeps your name on it, and the people are real.",
   "mission": "Make Emera the open home where humanity's creative work lives: every piece signed by its maker, protected wherever we can see it, shown by rules anyone can read, and paid back to the people who made it.",
@@ -55,7 +55,7 @@
       "name": "You own it",
       "line": "Your account, your followers and your work are yours, and you can leave with all of them.",
       "commitments": [
-        "Build on the AT Protocol so an account can move to another host with its posts and followers.",
+        "Export everything you made and your follower list, any time.",
         "Take only the license needed to show your work, and say it in two sentences.",
         "Ship export and move as launch features, not roadmap items."
       ],

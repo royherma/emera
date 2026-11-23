@@ -36,7 +36,7 @@ Numbers are started sign-ups (an email typed on the site), then posters at the 2
 | --- | --- | --- | --- |
 | Wedge: illustrators and digital artists | 1,300 | 350 | about 15 communities x 85 each, see below |
 | Founder's own audience | 1,000 | 270 | ASSUMED, see below |
-| Bluesky and other AT Protocol apps | 600 | 160 | feeds, starter packs, app-to-app posts |
+| Bluesky art communities | 600 | 160 | feeds, starter packs, launch-day thread |
 | Guilds, unions and partnerships | 300 | 80 | 4 to 6 partners x 50 to 75 |
 | Press, Product Hunt, Hacker News | 400 | 110 | one good launch day |
 | Founding-creator referrals | 100 | 25 | 5 friends each x 100 founders x 20% |
@@ -57,7 +57,7 @@ Communities, with sizes. Sizes are third-party aggregates (The Hive Index) and d
 | Mooncolony (Discord, concept art) | ~10K | working concept artists | [Hive Index](https://thehiveindex.com/communities/mooncolony/) |
 | New Masters Academy (Discord) | ~25K | serious students and pros | [Hive Index](https://thehiveindex.com/communities/new-masters-academy/) |
 | Krita Artists (forum) | ~13K | digital artists, open-source minded, a natural fit for an AGPL project | [Hive Index](https://thehiveindex.com/topics/art/) |
-| Bluesky art feeds and starter packs | see channel 3 | artists already on AT Protocol | [Starter pack directory](https://blueskystarterpack.com/) |
+| Bluesky art feeds and starter packs | see channel 3 | artists already posting on Bluesky | [Starter pack directory](https://blueskystarterpack.com/) |
 | Cara users | 650K peak in June 2024 (TechCrunch); no current count found | proven to move for creator protection | [Colossal](https://www.thisiscolossal.com/2024/06/cara-app/), [Creative Bloq](https://www.creativebloq.com/art/digital-art/the-rise-of-cara-the-anti-ai-social-media-platform-for-artists) |
 
 Plus artists' own Discords and the studio and print-seller groups we do not have sizes for yet: build the list by asking the first 20 artists "where do you hang out".
@@ -81,12 +81,11 @@ Who this audience is: AI and tech video creators. They are video makers whose cl
 
 Rules for the founder's posts: link in bio and one pinned reply, one clear ask (make your account), no fake urgency, never claim a user count.
 
-### 3. Bluesky and other AT Protocol apps (600 started sign-ups)
+### 3. Bluesky art communities (600 started sign-ups)
 
 - Bluesky had an estimated 43.5 to 46 million registered accounts in 2026 but active use has fallen; one tracker shows about 10.4M monthly active mobile users in June 2026, down 27% on the year ([Brussels Signal](https://brusselssignal.eu/2026/08/blueskys-active-user-base-halves-as-the-post-election-exodus-fades/)). Read this as: the registered pool is large, the engaged pool is a fraction. Reach the engaged artists through feeds, not the whole network.
 - **Art feeds and starter packs.** Graze's Art Feed Collection ("Art: What's Hot", "Art: New Posts") curates human-made art. Ask the feed owners for a mention only when we have a real post from a real artist to show. Starter packs: ask artists to add Emera's launch handle to their packs.
-- **Other AT Protocol apps.** Skylight (video) claimed about 380,000 users in an August 2026 report; Flashes (photos) launched with about 30,000 downloads on day one in 2025 ([TechCrunch](https://techcrunch.com/2025/02/28/bluesky-based-instagram-alternative-flashes-launches-publicly)); Spark is another video app. The framing with their teams is "same protocol, different strength": ask for a launch-day post in both directions, not for their users. Their numbers are not ours to quote as proof for Emera.
-- Cross-app link: Emera accounts are AT Protocol accounts, so a Bluesky artist can follow an Emera artist. Say this plainly; do not promise a "Bluesky login" (decision: own accounts).
+- Bluesky artists can bring their posts over with import; do not promise a "Bluesky login" (decision: own accounts).
 - Basis: 600 = 20 art-feed and starter-pack mentions x about 20, plus 200 from the launch-day Bluesky thread.
 
 ### 4. Guilds, unions and partnerships (300 started sign-ups)
@@ -142,6 +141,5 @@ Check at week 12: if the wedge is not producing 40% of new creators through refe
 - [Cara growth, TechCrunch (June 2024)](https://techcrunch.com/2024/06/06/a-social-app-for-creatives-cara-grew-from-40k-to-650k-users-in-a-week-because-artists-are-fed-up-with-metas-ai-policies/)
 - [Cara passes 300,000 users (80.lv)](https://80.lv/articles/anti-ai-art-portfolio-platform-cara-reaches-300-000-users/)
 - [Bluesky active-user decline (Brussels Signal, Aug 2026)](https://brusselssignal.eu/2026/08/blueskys-active-user-base-halves-as-the-post-election-exodus-fades/)
-- [AT Protocol apps (TechCrunch)](https://techcrunch.com/2025/06/13/beyond-bluesky-these-are-the-apps-building-social-experiences-on-the-at-protocol/)
 - [The Hive Index, art communities](https://thehiveindex.com/topics/art/)
 - All links above returned HTTP 200 on 2026-11-13. Reddit page loads but member counts come from the Hive Index, not Reddit.

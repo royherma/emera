@@ -75,8 +75,8 @@ export async function importItems(env: Env, origin: string, token: string, user:
     const created = it.createdAt && Date.parse(it.createdAt) < Date.now() ? it.createdAt : undefined;
     try {
       const { post } = await api('POST', '/v1/posts', { mediaIds: ids, caption: it.caption, alt, ...(created ? { createdAt: created } : {}) });
-      await env.DB.prepare('INSERT OR IGNORE INTO imported_items (user_id, item_id, source, post_id, created_at) VALUES (?, ?, ?, ?, ?)')
-        .bind(user.id, it.id, `${source.kind}:${source.spec}`, post.id, Date.now()).run();
+      await env.DB.prepare('INSERT OR IGNORE INTO imported_items (user_id, item_id, source, post_id, created_at, item_url) VALUES (?, ?, ?, ?, ?, ?)')
+        .bind(user.id, it.id, `${source.kind}:${source.spec}`, post.id, Date.now(), it.url || null).run();
       out.imported.push({ item: it.url || it.id, post: post.id });
     } catch (e) { out.skipped.push({ item: it.url || it.id, why: e instanceof Error ? e.message : String(e) }); }
   }

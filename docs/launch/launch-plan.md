@@ -100,7 +100,7 @@ No emails here. Find each outlet's tips or contact page; address the reporter by
 
 | Outlet | Beat to aim at | Angle | Evidence the outlet already covers this |
 | --- | --- | --- | --- |
-| TechCrunch (consumer apps) | new social apps and AT Protocol apps; Sarah Perez is the consumer news editor who has covered Bluesky and the AT Protocol app list | "A nonprofit creator network on AT Protocol where every post shows who made it" | [AT Protocol apps round-up](https://techcrunch.com/2025/06/13/beyond-bluesky-these-are-the-apps-building-social-experiences-on-the-at-protocol/), [Flashes launch](https://techcrunch.com/2025/02/28/bluesky-based-instagram-alternative-flashes-launches-publicly), [Cara growth](https://techcrunch.com/2024/06/06/a-social-app-for-creatives-cara-grew-from-40k-to-650k-users-in-a-week-because-artists-are-fed-up-with-metas-ai-policies/) |
+| TechCrunch (consumer apps) | new social apps; Sarah Perez is the consumer news editor who covers them | "A nonprofit creator network where every post shows who made it" | [Cara growth](https://techcrunch.com/2024/06/06/a-social-app-for-creatives-cara-grew-from-40k-to-650k-users-in-a-week-because-artists-are-fed-up-with-metas-ai-policies/) |
 | The Verge | creative-industry and AI news; Jess Weatherbed writes news on AI and creators (confirm) | "Report a copy: what it takes to file a takedown, and a network that helps" | author pages mirrored in search; confirm on theverge.com |
 | 404 Media | AI, copyright and platforms | the stolen-work file as data; how manual takedown reports become the dataset for matching | [Sora 2 and stolen content](https://www.404media.co/openai-cant-fix-soras-copyright-infringement-problem-because-it-was-built-with-stolen-content/) |
 | PetaPixel | photography and creator tools; covered Cara and Zhang v Google | "proof of who made it, checked at upload, never overstated" | [Zhang v Google](https://petapixel.com/2024/05/09/photographer-sues-google-for-using-her-photos-to-train-ai-image-generator), [Cara coverage](https://petapixel.com/2026/08/14/tech-bro-scrapes-anti-ai-photo-app-cara-then-gloats-about-it/) (both return 403 to scripts, open in a browser) |
@@ -152,18 +152,17 @@ Open work: collect 10 more cases from video and music creators, so the file does
 
 - **Gate:** the repo must be public and clean. If not, skip. A "Show HN" without code gets buried.
 - **Title:** "Show HN: Emera, an open-source nonprofit network where every post carries proof of who made it" (under 80 characters; edit to fit).
-- **First comment (founder):** what it is, what is real today and what is not, the AT Protocol choice and why, the nonprofit structure, the cost model (about 6 cents per user per month in the estimate in `docs/one-pager.md`, labelled an estimate), and what feedback we want: where the provenance claim could be wrong, and how to design "Report a copy" so it is hard to abuse.
+- **First comment (founder):** what it is, what is real today and what is not, why we built our own network, the nonprofit structure, the cost model (about 6 cents per user per month in the estimate in `docs/one-pager.md`, labelled an estimate), and what feedback we want: where the provenance claim could be wrong, and how to design "Report a copy" so it is hard to abuse.
 - **Rules:** do not ask for upvotes, do not share the link in a way that suggests voting, no sock accounts, answer technical questions with the code open.
 - **Post time:** Tuesday 6:00 AM Pacific = 9:00 PM Bangkok. Stay online 4 hours.
 
 ## Bluesky plan
 
 - **Handle:** `emera.social` as a domain handle on Bluesky, claimed by the founder. His personal account posts first; the Emera handle posts second.
-- **Launch thread (6 posts):** what it is; proof of who made it; Report a copy; open algorithm; you can leave with your account; link. Copy in `content.md`.
+- **Launch thread (6 posts):** what it is; proof of who made it; Report a copy; open algorithm; export everything you made and your follower list; link. Copy in `content.md`.
 - **Starter pack:** build "Founding Creators on Emera" with the 100 once they agree. Ask each to add it to their profile.
 - **Art feeds:** after launch day, message the maintainers of the human-art feeds with two real posts and a short question: "would this fit your feed". No ask before there is work to show.
-- **Cross-app:** a short note to the Skylight and Flashes teams the week before launch with the launch date and an offer to post for them.
-- Note: Bluesky active use is down on its 2024 peak; expect hundreds of clicks, not thousands, and judge it by artist replies, not views.
+- Note: expect hundreds of clicks, not thousands, and judge it by artist replies, not views.
 
 ## What the founder does vs. what the team does
 

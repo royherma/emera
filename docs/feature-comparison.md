@@ -1,5 +1,7 @@
 # Emera feature comparison
 
+> 2026-11-17: Emera dropped AT Protocol; Bluesky is one import source.
+
 Source of truth: `docs/features.yaml` (90 features). Emera status comes from the code map `data/atlas.json` and `docs/stories.yaml`, so this page changes when the code does. The Features tab in the atlas reads the same file.
 
 Emera is welcome to everyone who makes things, and this list is a map of what people already do every day on the networks they use, plus a few things only Emera does. It is a to-do list for building, not a scorecard against anyone.

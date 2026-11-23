@@ -10,7 +10,8 @@ import { Glass } from "./ui";
 import { useTheme } from "@/state/theme";
 import { sun, type } from "@/lib/theme";
 import { Text } from "react-native";
-import type { Media } from "@/lib/types";
+import type { Media, Post } from "@/lib/types";
+import { useProofSheet } from "./ProofSheet";
 import { storage } from "@/lib/storage";
 import { WATCH_MS } from "@/state/views";
 import { cueAt, loadCaptions, type Cue } from "@/lib/captions";
@@ -32,12 +33,19 @@ export function MediaImage({ media, style, fit = "cover", playSize = 48 }: { med
   );
 }
 
-export function SignedMark({ compact = false }: { compact?: boolean }) {
-  return (
-    <Glass style={{ height: compact ? 20 : 26, paddingHorizontal: compact ? 0 : 10, paddingLeft: compact ? 0 : 7, width: compact ? 20 : undefined, borderRadius: 99, gap: 5 }}>
-      <Icon name="shield" size={compact ? 12 : 14} color={sun.sunHigh} strokeWidth={2} />
-      {!compact && <Text style={[type.label, { color: "#fff", fontSize: 11, letterSpacing: 0.1 }]}>Signed</Text>}
+export function SignedMark({ compact = false, post }: { compact?: boolean; post?: Post }) {
+  const openProof = useProofSheet();
+  const mark = (
+    <Glass style={{ height: compact ? 20 : 28, paddingHorizontal: compact ? 0 : 11, paddingLeft: compact ? 0 : 8, width: compact ? 20 : undefined, borderRadius: 99, gap: 5 }}>
+      <Icon name="shield" size={compact ? 12 : 16} color={sun.sunHigh} strokeWidth={2} />
+      {!compact && <Text style={[type.label, { color: "#fff", fontSize: 12, letterSpacing: 0.1 }]}>Proof</Text>}
     </Glass>
+  );
+  if (!post) return mark;
+  return (
+    <Pressable accessibilityRole="button" accessibilityLabel="Show proof" hitSlop={8} onPress={() => openProof(post)}>
+      {mark}
+    </Pressable>
   );
 }
 

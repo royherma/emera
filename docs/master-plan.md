@@ -6,7 +6,7 @@ Written 2026-11-13 (Bangkok). Replaces the one-pager as the plan; the one-pager 
 
 ## What we are building
 
-Emera. Where humanity comes together. An open-source nonprofit network for everyone who makes things, on AT Protocol, with our own accounts and our own R2 storage, phone app and web together. Four promises, none of which a network built on ad attention can truthfully copy: proof of who made it, help when your work is copied, an open algorithm, and you own your account.
+Emera. Where humanity comes together. An open-source nonprofit network for everyone who makes things, as our own network, with our own accounts and our own R2 storage, phone app and web together. Four promises, none of which a network built on ad attention can truthfully copy: proof of who made it, help when your work is copied, an open algorithm, and you own your account.
 
 What exists: an API Worker (accounts, uploads, posts, profile pages, invites), an Expo app in progress, a landing page with an early-access list, both deployed to staging, and a provenance spike (C2PA signing works; the perceptual hash PDQ survives resize and recompress, tolerates about 1% crop, fails at 2% crop and on a mirror flip). Nothing public yet: no users, no press, no partners. Copy must not imply any.
 
@@ -43,7 +43,7 @@ Why them first, even though the product is for every creator:
 - Illustrators spill over: the same people are friends with video makers, tattoo artists, musicians and designers. The wedge is the first door, not the fence.
 
 Where the first 1,000 come from, in order:
-1. The Bluesky art community (they already use AT Protocol; a handle and an invite is nothing new to them). Founder and team DM 200 by hand.
+1. Art communities already posting on other platforms (they can import what they made in one step). Founder and team DM 200 by hand.
 2. Artist hubs: r/ArtistLounge, illustration Discords, the people who joined Cara in 2024 `[inferred: they are reachable in the same threads]`.
 3. Instagram and TikTok illustrators with 5k to 100k followers, who have the most to lose and the most reach. 100 hand-written DMs offering to file their first takedown free.
 4. Creator orgs (section 4).
@@ -72,27 +72,27 @@ Each has what we build, what we prove, what it costs, the risk that kills it, an
 - Prove: the pipe works end to end on a real domain with a real inbox.
 - Cost: about $6 (DMCA agent) plus domain, already bought. Email on Resend free tier: 3,000 per month, 100 per day, see [Resend pricing](https://resend.com/pricing) (sources agree; confirm on the page). Infra: Cloudflare free tier `[inferred]`.
 - Kill risk: a signup wall or deliverability problem (codes go to spam) that blocks the first creators.
-- **Exit test:** (a) emera.social, api.emera.social and `/@roy` return HTTP 200; (b) a sign-in code reaches an outside Gmail inbox, not spam, in under 60 seconds, 3 of 3 tries; (c) @emerasocial claimed on TikTok, YouTube, Instagram and Bluesky (4 of 4); (d) DMCA agent confirmation number in hand; (e) every Review card for M0 answered.
+- **Exit test:** (a) emera.social, api.emera.social and `/@roy` return HTTP 200; (b) a sign-in code reaches an outside Gmail inbox, not spam, in under 60 seconds, 3 of 3 tries; (c) @emerasocial claimed on TikTok, YouTube and Instagram (3 of 3); (d) DMCA agent confirmation number in hand; (e) every Review card for M0 answered.
 
 ### M1 - first 100 creators (about 6 weeks, by Dec 31, 2026)
 
 - Build: invite links; "Report a copy" in the app and web with the notice builder (creator confirms, we send); a small ops page for us to file and track; dataset table; profile import (bring old posts over); public repo with CONTRIBUTING and 10 starter issues; error alerts and visitor numbers; manual CSAM and abuse basics (below).
 - Prove: creators will report copies and the notices work.
-- Cost: infra under $60 per month `[inferred, free tier plus small PDS box $5 to $20, architecture section 2]`; counsel for terms and notice template $1,500 to $3,000 one-off `[inferred]`; the founder's and our time filing about 100 notices.
+- Cost: infra under $60 per month `[inferred, free tier plus small extras $5 to $20, architecture section 2]`; counsel for terms and notice template $1,500 to $3,000 one-off `[inferred]`; the founder's and our time filing about 100 notices.
 - Kill risk: creators have no copies to report, or hosts ignore us. If fewer than 10 reports come from 100 creators in 30 days, the wedge or the promise is wrong and we rewrite it before M2.
 - **Exit test:** 100 creators each with at least 3 posts; at least 40 reports filed and 30 notices sent; at least 50% of sent notices end in removal within 14 days; median time from report to notice sent under 24 hours; at least 30% of creators have invited someone who signed up; zero unreviewed CSAM reports older than 24 hours.
 
 ### M2 - 1,000 creators (about 14 weeks, by mid-Feb 2027, stretch to Mar)
 
-- Build: own PDS and did:plc accounts (stage A and B in architecture section 1); passkeys; creator dashboard (your reports, outcomes, receipts); public cost page and donate button; open feeds with "why this post"; 12-month plan for the nonprofit home; contributor program with bounties.
+- Build: export of everything you made and your follower list; passkeys; creator dashboard (your reports, outcomes, receipts); public cost page and donate button; open feeds with "why this post"; 12-month plan for the nonprofit home; contributor program with bounties.
 - Prove: creators stay, report volume scales on a small team, outsiders contribute.
 - Cost: hosting about $40 to $60 per month at 1,000 creators ([architecture.md](architecture.md): $40), 0 for scans, manual takedown help about 8 hours a week `[inferred: 30 to 100 reports a month]`, counsel retainer `[inferred]`.
-- Kill risk: a moderation or safety incident (CSAM, harassment) with no staff, or the PDS losing accounts. Mitigation in section 6.
+- Kill risk: a moderation or safety incident (CSAM, harassment) with no staff, or losing accounts. Mitigation in section 6.
 - **Exit test:** 1,000 creators; 30-day retention (posted at least once in days 23 to 30) at least 35% `[target, inferred]`; at least 300 reports in the dataset with at least 100 from outside the open web; 5 outside contributors with merged changes; a 501(c)(3) host or filed Form 1023 in writing; hosting under $150 per month; export-and-leave tested by 10 people.
 
 ### M3 - 10,000 creators (about Q3 2027)
 
-- Build: automatic matcher pilot on opt-in creators only, trained on the dataset; own AppView and relay mirror; tips and Premium on Stripe Connect; first payouts; video on our own HLS encoding; hired trust-and-safety and takedown contractor.
+- Build: automatic matcher pilot on opt-in creators only, trained on the dataset; tips and Premium on Stripe Connect; first payouts; video on our own HLS encoding; hired trust-and-safety and takedown contractor.
 - Prove: a matcher that beats our own bar, and money flows to creators.
 - Cost: hosting $359 per month at 10,000 creators; light scans $697 per month if the matcher uses a paid API, less if self-hosted ([architecture.md](architecture.md) section 5); one contractor about $3,000 per month ([architecture.md](architecture.md): $0.5 person at 10k); total about $4,000 to $4,500 per month `[inferred sum]`.
 - Kill risk: the matcher misses the copies that matter (inside closed platforms stay invisible), so the "protected everywhere" line must stay "the open web and what you report".
@@ -123,7 +123,7 @@ creator finds a copy -> Report a copy -> removed -> Taken-down receipt posted
 | Open source | Public repo at M1, AGPL servers, MIT client SDKs. 10 starter issues, bounties from the community share of surplus at M3. Contributors also write the platform connectors (one per marketplace). | 5 outside contributors by M2, 150 by Y1 |
 | Press | Three honest stories: "the stolen-art takedown desk run by a nonprofit", the public dataset, the public cost page. One story per milestone, no launch hype. Never a rival pitch. | 1 piece per milestone |
 | Creator orgs and unions | The Authors Guild-led coalition, the Graphic Artists Guild, Concept Art Association, Professional Photographers of America ([source](https://www.publishersweekly.com/pw/by-topic/industry-news/licensing/article/91920-authors-guild-meets-with-legislators-over-generative-ai-concerns.html)). Offer: free takedown help for members, their members are our first cohort. Needs an intro. | 1 org partner by M2 |
-| Other AT Protocol apps | Sign-in and followers interop where it makes sense; our dataset and takedown help usable by any app; Free Our Feeds and the Social Web Foundation as allies ([TechCrunch on Free Our Feeds](https://techcrunch.com/2025/01/13/a-new-campaign-aims-to-safeguard-social-media-from-billionaires-using-blueskys-underlying-tech); [Interledger gave $200,000 to the Social Web Foundation](https://interledger.org/es/node/1653)). | 1 joint post by M2 |
+| Other open social projects | Our dataset and takedown help usable by any app; the Social Web Foundation as an ally ([Interledger gave $200,000 to the Social Web Foundation](https://interledger.org/es/node/1653)). | 1 joint post by M2 |
 
 Cold-start rule: no feature goes in the app that does not serve post, report, or invite. Everything else waits.
 
@@ -161,12 +161,12 @@ Who holds the money (decided: `entity` in `data/plan.json`): start under Techguy
 | Moderation and CSAM | Day 0: no uploads public until a hash check runs. Cloudflare's free CSAM Scanning Tool on images served from the cache ([docs](https://developers.cloudflare.com/cache/reference/csam-scanning/)), PhotoDNA application, NCMEC CyberTipline registration; 18 U.S.C. 2258A makes reporting known CSAM a legal duty. Report button, public moderation log, a trust-and-safety contractor by M3, stackable labelers. | Whether Cloudflare's tool alone meets our 2258A duty needs counsel (sources conflict). Staff is the biggest cost at scale. |
 | AI-generated fakes | Signed capture where a camera signs (Pixel, Leica, Canon), sign at upload otherwise, label unverified media in words. Tiers say exactly what was checked. | C2PA is stripped by re-encoding; most phones do not sign at capture. |
 | Registry poisoning (a thief uploads first) | A near match to an earlier hash is held for review, not auto-credited. Earlier public date or camera credential wins. Counter-notice path from day one. | Review is human work. |
-| Cold start | One wedge (section 2), 200 hand-sent DMs, 20 founding creators, free takedowns, invites with receipts. Bluesky accounts already hold a following (login not offered at launch because the founder chose own accounts; reconsider at M2 `[inferred]`). | A feed with 100 people is quiet. Profile pages and shareable receipts work without a feed. |
+| Cold start | One wedge (section 2), 200 hand-sent DMs, 20 founding creators, free takedowns, invites with receipts. Import brings over posts people already made elsewhere (Bluesky, Mastodon, feeds). | A feed with 100 people is quiet. Profile pages and shareable receipts work without a feed. |
 | Legal: DMCA agent | Register a designated agent with the Copyright Office: $6 per designation, renew every 3 years ([FAQ](https://www.copyright.gov/rulemaking/onlinesp/NPR/faq.html), [directory](https://www.copyright.gov/dmca-directory/)); needed to keep safe harbor under 17 U.S.C. 512(c)(2). Do it before any user uploads go public. | Fee and cycle come from the Office FAQ and law-firm summaries; confirm on the filing page. |
 | Legal: wrong takedowns | Creator confirms every report; recorded authorization; counsel-reviewed template; fair-use check; never send on a match alone. Registration is not needed to send a notice but is needed to sue for US works `[inferred]`; "help them sue" is a referral. | Liability under 512(f) is ours as sender. |
 | Legal: nonprofit | LLC now, 501(c)(3) via host or own filing by M2; AGPL code; no equity. | Own 501(c)(3) takes months `[inferred]`. |
 | Legal: name | US search found no live EMERA mark in classes 9, 38, 41, 42, 45; Canada and EU unchecked; Emera Inc. (a big Canadian utility) is the likely objector; an App Store app "Emera" by Emera AI Inc. exists ([emera-checks.md](emera-checks.md)). | Get Canada and EU checked before spending on brand; use "Emera Social" or a descriptor in store listings. |
-| PDS and key custody | Our own PDS on a small VPS (not Cloudflare Containers: container disk is wiped on restart); offline rotation key copy; hourly backups to R2; load test before promoting accounts ([architecture.md](architecture.md) risk 4). | Documented size is 1 to 20 users per 1 GB box; plan boxes accordingly. |
+| Data and key custody | D1 and R2 only; signing key kept offline as a copy; hourly backups to R2. | Backups are tested by restoring into an empty database. |
 
 ## 7. First 90 days, by week
 
@@ -181,7 +181,7 @@ Week 1 starts Monday 2026-11-16. M0 ends week 1. M1 target is week 7. M2 begins 
 | 5 | Dec 14 | Notice builder (creator confirms); counsel-approved template; error alerts and visitor numbers; profile import; Meta IP Reporting API application |
 | 6 | Dec 21 | 50 creators; first Taken-down receipts; open-source repo (leak scan first), CONTRIBUTING, 10 starter issues |
 | 7 | Dec 28 | M1 check: 100 creators, 40 reports, 50% removal. Rewrite the wedge if the kill test hit |
-| 8 | Jan 4 | Own PDS box up, load test; DID at sign-up; dataset terms live |
+| 8 | Jan 4 | Load test; export of posts and followers; dataset terms live |
 | 9 | Jan 11 | 300 creators; first creator-org intro calls; one press story (dataset + takedown desk) |
 | 10 | Jan 18 | Passkeys; dashboard (reports, outcomes, receipts); public cost page and donate button |
 | 11 | Jan 25 | 600 creators; fiscal-host applications sent (2 to 3); first grant applications (Open Technology Fund, Internet Society Foundation, Interledger if open) |

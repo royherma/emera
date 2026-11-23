@@ -2,6 +2,11 @@
 
 Format: `MAJOR.MINOR.PATCH`. Major: a value added, retired, or a "never" changed. Minor: a commitment added, removed or changed. Patch: wording only, same meaning. Every entry names who proposed it, the vote or board decision, and the real decision that prompted it. Rules: `how-values-change.md`.
 
+## 1.4.0 - 2026-11-17
+
+- Value 5 commitment changed: "Build on the AT Protocol so an account can move to another host" becomes "Export everything you made and your follower list, any time." Emera is its own network; Bluesky is one import source.
+- Proposed and decided by: the founder.
+
 ## 1.3.0 - 2026-11-13
 
 - "Why Emera exists" now opens with AI: it is breaking the internet for creators and everyone else, and it is also what lets us build the fix. Emera is for every human being, not one kind of creator. Founder's second quote added.

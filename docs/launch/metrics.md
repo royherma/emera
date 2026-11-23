@@ -43,7 +43,7 @@ Expect different rates per source. Track them separately so we learn which chann
 | --- | --- | --- | --- |
 | Wedge communities | 15% | 30% | they came for the protection promise |
 | Founder audience | 6% | 22% | curious followers, lower intent |
-| Bluesky and AT Protocol apps | 10% | 28% | familiar with accounts they own |
+| Bluesky art communities | 10% | 28% | familiar with accounts they own |
 | Guilds | 20% | 32% | small, high trust |
 | Press, Product Hunt, Hacker News | 4% | 18% | broad, low intent |
 | Referrals | 35% | 40% | sent by a friend |

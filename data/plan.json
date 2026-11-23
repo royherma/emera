@@ -1531,10 +1531,10 @@
         }
       ],
       "links": [
-        ["Home, desktop light", "/Users/royhermannn_new/Desktop/Development/techguyver-side-projects/agora/.claude/worktrees/agent-a20be1b57d435afac/.claude/artifacts/site-shots/polish-home-desk-light.png"],
-        ["Home, desktop dark", "/Users/royhermannn_new/Desktop/Development/techguyver-side-projects/agora/.claude/worktrees/agent-a20be1b57d435afac/.claude/artifacts/site-shots/polish-home-desk-dark.png"],
-        ["Home, phone", "/Users/royhermannn_new/Desktop/Development/techguyver-side-projects/agora/.claude/worktrees/agent-a20be1b57d435afac/.claude/artifacts/site-shots/polish-home-phone-light.png"],
-        ["Protect, desktop", "/Users/royhermannn_new/Desktop/Development/techguyver-side-projects/agora/.claude/worktrees/agent-a20be1b57d435afac/.claude/artifacts/site-shots/polish-protect-desk-light.png"]
+        ["Home, desktop light", ".claude/artifacts/site-shots/polish-home-desk-light.png"],
+        ["Home, desktop dark", ".claude/artifacts/site-shots/polish-home-desk-dark.png"],
+        ["Home, phone", ".claude/artifacts/site-shots/polish-home-phone-light.png"],
+        ["Protect, desktop", ".claude/artifacts/site-shots/polish-protect-desk-light.png"]
       ]
     },
     {

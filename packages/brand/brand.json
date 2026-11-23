@@ -4,7 +4,7 @@
   "tagline": "Where humanity comes together",
   "line": "The open source social network",
   "promise": "Post once. Protected everywhere",
-  "nsidAuthority": "social.emera",
+  "bundleId": "social.emera",
   "webOrigin": "http://agora-api.localhost:5036",
   "colors": {
     "bg": "#fbf5ea",

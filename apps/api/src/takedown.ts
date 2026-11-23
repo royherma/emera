@@ -238,7 +238,7 @@ takedownRoutes.post('/v1/reports/:id/confirm', requireAuth, async (c) => {
     `INSERT INTO takedowns (id, report_id, user_id, post_id, copy_url, site, method, target, recipient_note, notice, signer_name, auth_version, status, created_at, ready_at)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'ready', ?, ?)`,
   ).bind(id, report.id, me.id, report.post_id, report.copy_url, recipient.site, recipient.method, recipient.target, recipient.note, notice, auth.full_name, AUTH_VERSION, now, now).run();
-  await c.env.DB.prepare(`UPDATE reports SET status = 'confirmed' WHERE id = ?`).bind(report.id).run();
+  await c.env.DB.prepare(`UPDATE reports SET status = 'filing', updated_at = ? WHERE id = ?`).bind(Date.now(), report.id).run();
   const row = await c.env.DB.prepare('SELECT * FROM takedowns WHERE id = ?').bind(id).first<TakedownRow>();
   return c.json({ takedown: takedownJson(c.env, row!) }, 201);
 });
