@@ -74,6 +74,29 @@ protectRoutes.post('/v1/protect/checkout', requireAuth, async (c) => {
   return c.json({ url: session.url }, 201);
 });
 
+protectRoutes.post('/v1/protect/start', async (c) => {
+  const body = await readJson(c);
+  if (body.plan !== 'creator' && body.plan !== 'pro') throw fail(400, 'bad_plan', 'Pick the creator or pro plan.');
+  const plan: Plan = body.plan;
+  const env = c.env;
+  await assertEmeraAccount(env);
+  const page = env.PROTECT_RETURN_URL!;
+  const session = await stripeCall<{ id: string; url: string }>(env, 'POST', '/checkout/sessions', {
+    mode: 'subscription',
+    'managed_payments[enabled]': 'false',
+    allow_promotion_codes: 'true',
+    'line_items[0][price]': await priceId(env, plan),
+    'line_items[0][quantity]': 1,
+    'metadata[project]': 'emera',
+    'metadata[plan]': plan,
+    'subscription_data[metadata][project]': 'emera',
+    'subscription_data[metadata][plan]': plan,
+    success_url: `${page}?subscribed={CHECKOUT_SESSION_ID}`,
+    cancel_url: page,
+  });
+  return c.json({ url: session.url }, 201);
+});
+
 protectRoutes.get('/v1/protect/me', requireAuth, async (c) => {
   const row = await c.env.DB.prepare('SELECT plan, plan_until FROM users WHERE id = ?').bind(c.get('user').id).first<{ plan: string; plan_until: number | null }>();
   const until = row?.plan_until ?? null;
@@ -131,14 +154,27 @@ async function onSubscription(env: Env, sub: Sub, deleted: boolean) {
   return setPlan(env, userId, plan, end, sub.customer, sub.id);
 }
 
-type CheckoutSession = { id: string; payment_status?: string; customer?: string; subscription?: string; metadata?: Record<string, string> };
+type CheckoutSession = {
+  id: string; payment_status?: string; customer?: string; subscription?: string; metadata?: Record<string, string>;
+  customer_details?: { email?: string | null } | null; customer_email?: string | null;
+};
 
 async function onCheckout(env: Env, s: CheckoutSession) {
-  if (s.metadata?.project !== 'emera' || !s.metadata.user_id) return 'ignored';
+  if (s.metadata?.project !== 'emera') return 'ignored';
   const plan = s.metadata.plan;
   if ((plan !== 'creator' && plan !== 'pro') || !s.subscription || s.payment_status === 'unpaid') return 'ignored';
+  let userId: string | undefined = s.metadata.user_id;
+  const email = (s.customer_details?.email ?? s.customer_email ?? '').trim().toLowerCase();
+  if (!userId && email) userId = (await env.DB.prepare('SELECT id FROM users WHERE lower(email) = ?').bind(email).first<{ id: string }>())?.id;
   const sub = await stripeCall<Sub>(env, 'GET', `/subscriptions/${s.subscription}`);
-  return onSubscription(env, { ...sub, metadata: { ...sub.metadata, project: 'emera', user_id: s.metadata.user_id, plan } }, false);
+  if (!userId) {
+    if (!email) return 'ignored';
+    const end = (sub.items?.data?.[0]?.current_period_end ?? sub.current_period_end ?? 0) * 1000 || null;
+    await env.DB.prepare('INSERT OR REPLACE INTO protect_pending (email, plan, plan_until, stripe_customer_id, stripe_subscription_id, created_at) VALUES (?, ?, ?, ?, ?, ?)')
+      .bind(email, plan, end, sub.customer ?? s.customer ?? null, sub.id, Date.now()).run();
+    return 'pending';
+  }
+  return onSubscription(env, { ...sub, metadata: { ...sub.metadata, project: 'emera', user_id: userId, plan } }, false);
 }
 
 type Invoice = {

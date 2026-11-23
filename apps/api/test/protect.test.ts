@@ -117,6 +117,30 @@ describe('protect webhook', () => {
     expect((await c.json('GET', '/v1/protect/me')).body).toEqual({ plan: 'pro', planUntil: new Date(1_900_000_000_000).toISOString() });
   });
 
+  it('guest checkout: pays first, plan lands on the account made later with the same email', async () => {
+    fakeStripe();
+    const res = await new Client(env).json('POST', '/v1/protect/start', { plan: 'creator' });
+    expect(res.status).toBe(201);
+    const sent = calls.find((x) => x.url.endsWith('/v1/checkout/sessions'))!.body;
+    expect(sent.get('allow_promotion_codes')).toBe('true');
+    expect(sent.get('customer')).toBeNull();
+    const email = `guest${Date.now().toString(36)}@example.test`;
+    const out = await hook({ type: 'checkout.session.completed', data: { object: { id: 'cs_g', mode: 'subscription', payment_status: 'paid', customer: 'cus_1', subscription: 'sub_1', customer_details: { email }, metadata: { project: 'emera', plan: 'creator' } } } });
+    expect(out.result).toBe('pending');
+    const c = new Client(env);
+    await c.signIn(email);
+    expect((await c.json('GET', '/v1/protect/me')).body.plan).toBe('creator');
+  });
+
+  it('guest checkout with an existing account email sets the plan right away', async () => {
+    fakeStripe();
+    const { id } = await member();
+    const email = (await db.prepare('SELECT email FROM users WHERE id = ?').bind(id).first<{ email: string }>())!.email;
+    const out = await hook({ type: 'checkout.session.completed', data: { object: { id: 'cs_e', mode: 'subscription', payment_status: 'paid', customer: 'cus_1', subscription: 'sub_1', customer_details: { email: email.toUpperCase() }, metadata: { project: 'emera', plan: 'pro' } } } });
+    expect(out.result).toBe('plan_set');
+    expect((await row(id)).plan).toBe('pro');
+  });
+
   it('ignores events without project=emera', async () => {
     fakeStripe();
     const { id } = await member();

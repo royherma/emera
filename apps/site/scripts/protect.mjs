@@ -87,11 +87,17 @@ h2.t{font:700 clamp(1.6rem,3.2vw,2.3rem)/1.1 var(--disp);letter-spacing:-.035em;
 .note{font-size:.95rem;min-height:1.4em;margin-top:12px;font-weight:600}
 .note.err{color:#a3240f}
 .fine{color:var(--ink3);font-size:.88rem;margin:28px 0 64px;max-width:44em}
+.paid{position:sticky;top:0;z-index:9;padding:14px 20px;text-align:center;background:#1c1512;color:#fff7e8;font-size:15px}.paid a{color:#ffb547;margin-left:6px}
 @media (max-width:980px){.tiers{grid-template-columns:1fr 1fr}}
 @media (max-width:820px){.hero{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.ent{grid-template-columns:1fr}}
 @media (max-width:560px){.tiers{grid-template-columns:1fr}.form{grid-template-columns:1fr}.cta a{flex:1 1 100%}}`;
 
-const script = `<script>(function(){var f=document.querySelector("[data-ent]");if(!f)return;var n=document.querySelector("[data-note]"),b=f.querySelector("button");
+const buy = `<script>(function(){var api=/(^|\\.)emera\\.social$/.test(location.hostname)?"https://api.emera.social":"https://emera-api-staging.techguyver1337.workers.dev";
+var q=new URLSearchParams(location.search);if(q.get("subscribed")){var d=document.createElement("div");d.className="paid";d.innerHTML='<strong>You are protected.</strong> Sign in or create your account with the email you paid with and your plan is already there. <a href="/?ref=protect-paid#join">Create your account</a>';document.body.prepend(d)}
+document.querySelectorAll("[data-buy]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();var t=a.textContent;a.textContent="Opening checkout...";
+fetch(api+"/v1/protect/start",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({plan:a.getAttribute("data-buy")})}).then(function(r){return r.json()}).then(function(j){if(j.url)location.href=j.url;else{a.textContent=t;location.href=a.href}}).catch(function(){a.textContent=t;location.href=a.href})})})})()</script>`;
+
+const script =`<script>(function(){var f=document.querySelector("[data-ent]");if(!f)return;var n=document.querySelector("[data-note]"),b=f.querySelector("button");
 function err(t,el){n.textContent=t;n.classList.add("err");if(el)el.focus()}
 f.addEventListener("submit",function(e){e.preventDefault();n.className="note";if(f.website.value)return;
 var nm=f.name.value.trim(),em=f.email.value.trim(),co=f.company.value.trim();
@@ -142,7 +148,7 @@ ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(
 <div class="eyebrow">${esc(brand.name)} Protect</div>
 <h1>Someone copied what you made. We get it taken down</h1>
 <p class="lead">Creators get copied and resold every day. ${esc(brand.name)} Protect finds the copies, files the takedown for you and tracks it until the copy is gone.</p>
-<div class="cta"><a class="pill" href="${plan("hero", "creator")}">Start for $10 a month</a><a class="ghost" href="#plans">See every plan</a></div>
+<div class="cta"><a class="pill" data-buy="creator" href="${plan("hero", "creator")}">Start for $10 a month</a><a class="ghost" href="#plans">See every plan</a></div>
 </div>
 <aside class="trk" aria-label="Example of a takedown being tracked">
 <h2>Takedowns this month, example</h2>
@@ -169,8 +175,8 @@ ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(
 <p class="sub">Start free. Move up when more of what you create is out there.</p>
 <div class="tiers">
 <div class="tier"><h3>Free</h3><div class="for">Found a copy yourself</div><div class="price">$0</div><ul><li>Report a copy you found</li><li>We file the takedown for you</li></ul><a class="ghost" href="${plan("free")}">Start free</a></div>
-<div class="tier"><h3>Creator</h3><div class="for">For people who make things</div><div class="price">$10<small> / month</small></div><ul><li>Unlimited works</li><li>Unlimited takedowns</li><li>Weekly scans</li></ul><a class="pill" href="${plan("creator", "creator")}">Get Creator</a></div>
-<div class="tier pro"><span class="badge">For bigger names</span><h3>Pro</h3><div class="for">Bigger names and brands</div><div class="price">$100<small> / month</small></div><ul><li>Unlimited works and takedowns</li><li>Daily scans of new work</li><li>Video covered</li><li>Automatic filing</li><li>Fake-account takedowns</li><li>Priority help</li><li>Monthly report</li></ul><a class="pill" href="${plan("pro", "pro")}">Get Pro</a></div>
+<div class="tier"><h3>Creator</h3><div class="for">For people who make things</div><div class="price">$10<small> / month</small></div><ul><li>Unlimited works</li><li>Unlimited takedowns</li><li>Weekly scans</li></ul><a class="pill" data-buy="creator" href="${plan("creator", "creator")}">Get Creator</a></div>
+<div class="tier pro"><span class="badge">For bigger names</span><h3>Pro</h3><div class="for">Bigger names and brands</div><div class="price">$100<small> / month</small></div><ul><li>Unlimited works and takedowns</li><li>Daily scans of new work</li><li>Video covered</li><li>Automatic filing</li><li>Fake-account takedowns</li><li>Priority help</li><li>Monthly report</li></ul><a class="pill" data-buy="pro" href="${plan("pro", "pro")}">Get Pro</a></div>
 <div class="tier"><h3>Enterprise</h3><div class="for">Agencies, labels and brands with many creators</div><div class="price">Custom</div><ul><li>Everyone you represent in one place</li><li>Plans built around your list</li></ul><a class="ghost" href="#talk">Talk to us</a></div>
 </div>
 </section>
@@ -189,7 +195,7 @@ ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(
 
 <p class="fine">Plans bill monthly and you can stop any time. Every takedown follows the rules of the place the copy lives, and you can see each step we took.</p>
 </main>
-</div>${footer({ pages, mark, github, year: new Date().getFullYear() })}${script}</body></html>`;
+</div>${footer({ pages, mark, github, year: new Date().getFullYear() })}${script}${buy}</body></html>`;
 }
 
 export function writeProtect(today, { github }) {

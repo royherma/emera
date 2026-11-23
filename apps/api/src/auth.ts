@@ -1,4 +1,5 @@
 import { Hono } from 'hono';
+import { claimPendingPlan } from './protectPending';
 import type { MiddlewareHandler } from 'hono';
 import type { AppEnv, Env, UserRow } from './env';
 import { fail, siteOrigin, readJson } from './http';
@@ -123,6 +124,7 @@ auth.post('/v1/auth/verify', async (c) => {
     }
     const id = newId(12);
     await c.env.DB.prepare('INSERT INTO users (id, email, invited_by, invite_code, created_at) VALUES (?, ?, ?, ?, ?)').bind(id, email, invitedBy, usedCode, now).run();
+    await claimPendingPlan(c.env, id, email);
     user = (await c.env.DB.prepare('SELECT * FROM users WHERE id = ?').bind(id).first<UserRow>())!;
   }
 
