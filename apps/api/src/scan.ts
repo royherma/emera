@@ -5,6 +5,8 @@ import { fail } from './http';
 import { newId } from './crypto';
 import { sendReportToTeam } from './mail';
 import { isAdmin } from './roles';
+import { VIDEO_MAX_INPUT, frame } from './media';
+import { readVideoInfo } from './videoInfo';
 import { PDQ_BITS, PDQ_MAX_DISTANCE, pdqDistance, pdqOf } from './pdq';
 
 const DAY = 86_400_000;
@@ -12,6 +14,8 @@ const HOUR = 3_600_000;
 const OWN_HOSTS = ['emera.social'];
 const MAX_THUMBS = 25;
 const MAX_THUMB_BYTES = 3_000_000;
+const FRAME_AT = [0.15, 0.5, 0.85];
+const MIN_FRAME_SECONDS = 3;
 const PLATFORMS = [
   'instagram.com', 'tiktok.com', 'youtube.com', 'facebook.com', 'fb.com', 'x.com', 'twitter.com', 'threads.net', 'threads.com',
   'pinterest.com', 'linkedin.com', 'bsky.app', 'twitch.tv', 'snapchat.com', 'reddit.com', 'tumblr.com', 'behance.net',
@@ -136,8 +140,8 @@ async function originalHashes(env: Env, keys: (string | null)[]): Promise<Uint8A
   return out;
 }
 
-export async function judge(c: Candidate, originals: Uint8Array[], env: Pick<Env, 'IMAGES'>, site: string): Promise<Verdict & { retry?: boolean }> {
-  if (c.kind === 'exact') return { keep: true, kind: 'exact', score: null, reason: `Lens exact match on ${site}` };
+export async function judge(c: Candidate, originals: Uint8Array[], env: Pick<Env, 'IMAGES'>, site: string, at = ''): Promise<Verdict & { retry?: boolean }> {
+  if (c.kind === 'exact') return { keep: true, kind: 'exact', score: null, reason: `Lens exact match on ${site}${at}` };
   if (!c.thumbnail) return { keep: false, kind: 'visual', score: null, reason: 'auto: not a copy (no thumbnail to compare)' };
   if (!originals.length) return { keep: false, kind: 'visual', score: null, reason: 'auto: not a copy (original not comparable)', retry: true };
   const bytes = await fetchThumb(c.thumbnail);
@@ -147,7 +151,7 @@ export async function judge(c: Candidate, originals: Uint8Array[], env: Pick<Env
   const dist = Math.min(...originals.map((o) => pdqDistance(o, hash)));
   const text = `PDQ distance ${dist} of ${PDQ_BITS} vs your original`;
   return dist <= PDQ_MAX_DISTANCE
-    ? { keep: true, kind: 'visual', score: dist, reason: `${text} (Lens visual match on ${site})` }
+    ? { keep: true, kind: 'visual', score: dist, reason: `${text} (Lens visual match on ${site}${at})` }
     : { keep: false, kind: 'visual', score: dist, reason: `auto: not a copy (${text})` };
 }
 
@@ -167,16 +171,47 @@ async function spendCall(env: Env, now: number) {
   return limit > 0 && res.meta.changes > 0;
 }
 
+export const clock = (sec: number) => `${Math.floor(sec / 60)}:${String(Math.floor(sec % 60)).padStart(2, '0')}`;
+
+type Shot = { key: string; at: string; temp: boolean };
+
+async function videoShots(env: Env, m: Pick<Due, 'id' | 'r2_key' | 'bytes' | 'poster_key'>): Promise<Shot[]> {
+  const fallback: Shot[] = m.poster_key ? [{ key: m.poster_key, at: '', temp: false }] : [];
+  if (!env.VIDEO || m.bytes >= VIDEO_MAX_INPUT) return fallback;
+  const info = await readVideoInfo(env.MEDIA, m.r2_key, m.bytes).catch(() => null);
+  if (!info || info.seconds < MIN_FRAME_SECONDS) return fallback;
+  const shots: Shot[] = [];
+  for (const [i, f] of FRAME_AT.entries()) {
+    const sec = Math.round(info.seconds * f * 10) / 10;
+    try {
+      const jpg = await frame(env, m.r2_key, `${sec}s`);
+      if (!jpg) continue;
+      const key = `${m.id}-f${i + 1}.jpg`;
+      await env.MEDIA.put(key, jpg, { httpMetadata: { contentType: 'image/jpeg' } });
+      shots.push({ key, at: `, frame at ${clock(sec)}`, temp: true });
+    } catch (e) {
+      console.warn('scan: frame failed', m.id, sec, e instanceof Error ? e.message : e);
+    }
+  }
+  return shots.length ? shots : fallback;
+}
+
+async function lensCall(env: Env, origin: string, key: string): Promise<unknown> {
+  const res = await fetch(`https://serpapi.com/search.json?engine=google_lens&type=exact_matches&url=${encodeURIComponent(`${origin}/media/${key}`)}&api_key=${encodeURIComponent(env.SERP_API_KEY!)}`);
+  if (!res.ok && res.status !== 400 && res.status !== 404) throw new Error(`serpapi ${res.status}`);
+  return res.json();
+}
+
 const liveSql = `u.plan IN ('creator', 'pro') AND (u.plan_until IS NULL OR u.plan_until > ?)`;
 
-type Due = { id: string; post_id: string; user_id: string; r2_key: string; poster_key: string | null; kind: string; post_at: number; plan: string; handle: string | null; links: string; other_handles: string | null; ig_username: string | null };
+type Due = { id: string; post_id: string; user_id: string; r2_key: string; poster_key: string | null; bytes: number; kind: string; post_at: number; plan: string; handle: string | null; links: string; other_handles: string | null; ig_username: string | null };
 
 export async function runScan(env: Env, now = Date.now()) {
   const stats = { scanned: 0, found: 0, failed: 0, stoppedByBudget: false, skipped: 0 };
   if (!env.SERP_API_KEY || !env.PUBLIC_ORIGIN) return { ...stats, off: true };
   const batch = Math.max(1, Number(env.SCAN_BATCH) || 5);
   const due = (await env.DB.prepare(
-    `SELECT m.id, m.post_id, m.user_id, m.r2_key, m.poster_key, m.kind, p.created_at AS post_at, u.plan, u.handle, u.links, u.other_handles, il.username AS ig_username
+    `SELECT m.id, m.post_id, m.user_id, m.r2_key, m.poster_key, m.bytes, m.kind, p.created_at AS post_at, u.plan, u.handle, u.links, u.other_handles, il.username AS ig_username
      FROM media m JOIN posts p ON p.id = m.post_id JOIN users u ON u.id = m.user_id
      LEFT JOIN instagram_links il ON il.user_id = m.user_id
      LEFT JOIN scans s ON s.media_id = m.id
@@ -186,7 +221,8 @@ export async function runScan(env: Env, now = Date.now()) {
   const origin = env.PUBLIC_ORIGIN.replace(/\/$/, '');
 
   for (const m of due) {
-    const key = m.kind === 'video' ? m.poster_key : m.r2_key;
+    const shots: Shot[] = m.kind === 'video' ? await videoShots(env, m) : [{ key: m.r2_key, at: '', temp: false }];
+    const key = shots[0]?.key ?? null;
     const weekly = now + 7 * DAY;
     const setNext = (next: number, scanned: boolean) =>
       env.DB.prepare(
@@ -198,36 +234,56 @@ export async function runScan(env: Env, now = Date.now()) {
       stats.skipped++;
       continue;
     }
-    if (!(await spendCall(env, now))) {
-      console.log('scan: monthly SerpAPI budget reached', limitOf(env));
-      stats.stoppedByBudget = true;
-      break;
-    }
-    let json: unknown;
+    const found = new Map<string, { c: Candidate; at: string }>();
+    let answered = 0;
+    let budgetHit = false;
     try {
-      const res = await fetch(`https://serpapi.com/search.json?engine=google_lens&type=exact_matches&url=${encodeURIComponent(`${origin}/media/${key}`)}&api_key=${encodeURIComponent(env.SERP_API_KEY)}`);
-      if (!res.ok && res.status !== 400 && res.status !== 404) throw new Error(`serpapi ${res.status}`);
-      json = await res.json();
-    } catch (e) {
-      console.error('scan: lens call failed', m.id, e);
-      stats.failed++;
-      await setNext(now + HOUR, false);
-      continue;
-    }
-    const own = ownAccounts(env, m);
-    const foreign = keepForeign(parseLens(json), own);
-    const checkable = foreign.filter((c) => c.kind === 'exact').concat(foreign.filter((c) => c.kind === 'visual').slice(0, MAX_THUMBS));
-    const originals = checkable.some((c) => c.kind === 'visual') ? await originalHashes(env, [key]) : [];
-    for (let i = 0; i < checkable.length; i += 5) {
-      const verdicts = await Promise.all(checkable.slice(i, i + 5).map((c) => judge(c, originals, env, c.source || hostOf(c.url))));
-      for (const [j, v] of verdicts.entries()) {
-        if (!v.keep) continue;
-        const c = checkable[i + j];
-        const res = await env.DB.prepare(
-          'INSERT OR IGNORE INTO matches (id, post_id, user_id, url, page_title, site, thumbnail, found_at, reason, score, kind) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        ).bind(newId(10), m.post_id, m.user_id, c.url, c.title, c.source || hostOf(c.url), c.thumbnail, now, v.reason, v.score, v.kind).run();
-        stats.found += res.meta.changes;
+      for (const shot of shots) {
+        if (!(await spendCall(env, now))) {
+          budgetHit = true;
+          break;
+        }
+        try {
+          const json = await lensCall(env, origin, shot.key);
+          answered++;
+          for (const c of parseLens(json)) if (!found.has(c.url)) found.set(c.url, { c, at: shot.at });
+        } catch (e) {
+          console.error('scan: lens call failed', m.id, shot.key, e);
+        }
       }
+      if (budgetHit) {
+        console.log('scan: monthly SerpAPI budget reached', limitOf(env));
+        stats.stoppedByBudget = true;
+      }
+      if (!answered) {
+        if (budgetHit) break;
+        stats.failed++;
+        await setNext(now + HOUR, false);
+        continue;
+      }
+      const own = ownAccounts(env, m);
+      const atOf = new Map([...found.values()].map((f) => [f.c, f.at]));
+      const foreign = keepForeign([...found.values()].map((f) => f.c), own);
+      const checkable = foreign.filter((c) => c.kind === 'exact').concat(foreign.filter((c) => c.kind === 'visual').slice(0, MAX_THUMBS));
+      const originals = checkable.some((c) => c.kind === 'visual') ? await originalHashes(env, shots.map((s) => s.key)) : [];
+      for (let i = 0; i < checkable.length; i += 5) {
+        const verdicts = await Promise.all(checkable.slice(i, i + 5).map((c) => judge(c, originals, env, c.source || hostOf(c.url), atOf.get(c))));
+        for (const [j, v] of verdicts.entries()) {
+          if (!v.keep) continue;
+          const c = checkable[i + j];
+          const res = await env.DB.prepare(
+            'INSERT OR IGNORE INTO matches (id, post_id, user_id, url, page_title, site, thumbnail, found_at, reason, score, kind) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+          ).bind(newId(10), m.post_id, m.user_id, c.url, c.title, c.source || hostOf(c.url), c.thumbnail, now, v.reason, v.score, v.kind).run();
+          stats.found += res.meta.changes;
+        }
+      }
+    } finally {
+      await Promise.all(shots.filter((s) => s.temp).map((s) => env.MEDIA.delete(s.key).catch(() => {})));
+    }
+    if (budgetHit) {
+      await setNext(now + HOUR, true);
+      stats.scanned++;
+      break;
     }
     const fresh = m.plan === 'pro' && now - m.post_at < 30 * DAY;
     await setNext(now + (fresh ? DAY : 7 * DAY), true);

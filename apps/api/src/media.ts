@@ -38,7 +38,7 @@ async function shrinkImage(images: ImagesBinding | undefined, buf: Uint8Array): 
 }
 
 export const VIDEO_MAX_EDGE = 1920;
-const VIDEO_MAX_INPUT = 100 * MB;
+export const VIDEO_MAX_INPUT = 100 * MB;
 const VIDEO_MAX_SECONDS = 60;
 export const VIDEO_MAX_LENGTH = 600;
 const TOO_LONG = 'Videos can be up to 10 minutes.';
@@ -80,7 +80,7 @@ export async function shrinkVideo(env: Env, mediaId: string): Promise<'done' | '
 const POSTER_EDGE = 1280;
 export const posterKey = (id: string) => `${id}-poster.jpg`;
 
-async function frame(env: Env, key: string, time: string): Promise<Uint8Array | null> {
+export async function frame(env: Env, key: string, time: string): Promise<Uint8Array | null> {
   const src = await env.MEDIA.get(key);
   if (!src) return null;
   const res = await env.VIDEO!.input(src.body)

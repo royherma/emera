@@ -213,6 +213,103 @@ describe('scanner', () => {
   });
 });
 
+describe('video frames', () => {
+  const box = (type: string, ...parts: Uint8Array[]) => {
+    const out = new Uint8Array(8 + parts.reduce((n, p) => n + p.length, 0));
+    new DataView(out.buffer).setUint32(0, out.length);
+    out.set(new TextEncoder().encode(type), 4);
+    let o = 8;
+    for (const p of parts) { out.set(p, o); o += p.length; }
+    return out;
+  };
+  const mp4 = (seconds: number) => {
+    const mvhd = new Uint8Array(100);
+    const mv = new DataView(mvhd.buffer);
+    mv.setUint32(12, 1000);
+    mv.setUint32(16, seconds * 1000);
+    const tkhd = new Uint8Array(84);
+    const tk = new DataView(tkhd.buffer);
+    tk.setInt32(40, 0x10000);
+    tk.setInt32(56, 0x10000);
+    tk.setUint32(76, 720 * 65536);
+    tk.setUint32(80, 1280 * 65536);
+    const parts = [box('ftyp', new TextEncoder().encode('isom\0\0\0\0isom')), box('mdat', new Uint8Array(64)), box('moov', box('mvhd', mvhd), box('trak', box('tkhd', tkhd)))];
+    const out = new Uint8Array(parts.reduce((n, p) => n + p.length, 0));
+    let o = 0;
+    for (const p of parts) { out.set(p, o); o += p.length; }
+    return out;
+  };
+
+  async function videoCreator(seconds: number, withVideoBinding: boolean) {
+    const u = await creator('creator');
+    const file = mp4(seconds);
+    const row = await db.prepare('SELECT id FROM media WHERE post_id = ?').bind(u.postId).first<{ id: string }>();
+    await env.MEDIA.put(`${row!.id}.mp4`, file);
+    await env.MEDIA.put(`${row!.id}-poster.jpg`, ORIGINAL);
+    await db.prepare(`UPDATE media SET kind = 'video', r2_key = ?, poster_key = ?, bytes = ? WHERE id = ?`).bind(`${row!.id}.mp4`, `${row!.id}-poster.jpg`, file.length, row!.id).run();
+    const times: string[] = [];
+    const VIDEO = { input: () => ({ transform: () => ({ output: (o: { time: string }) => ({ response: async () => { times.push(o.time); return new Response(ORIGINAL); } }) }) }) };
+    const withVideo = withVideoBinding ? makeEnv({ SERP_API_KEY: 'serp_test', PUBLIC_ORIGIN: 'https://emera.social', SCAN_MONTHLY_LIMIT: '200', IMAGES: undefined, VIDEO: VIDEO as any }) : env;
+    withVideo.DB = db;
+    withVideo.MEDIA = env.MEDIA;
+    return { ...u, mediaId: row!.id, times, scanEnv: withVideo };
+  }
+
+  function lensPerFrame(byFrame: Record<string, object>) {
+    lensCalls = [];
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+      const url = String(input instanceof Request ? input.url : input);
+      if (url.includes('serpapi.com')) {
+        lensCalls.push(decodeURIComponent(url));
+        const hit = Object.keys(byFrame).find((k) => decodeURIComponent(url).includes(k));
+        return Response.json(hit ? byFrame[hit] : {});
+      }
+      return new Response(THUMBS.copy, { headers: { 'content-type': 'image/png' } });
+    });
+  }
+
+  it('searches 3 frames at 15, 50 and 85 percent, merges by URL and names the frame', async () => {
+    const { c, mediaId, times, scanEnv, id } = await videoCreator(20, true);
+    lensPerFrame({
+      [`${mediaId}-f1.jpg`]: { exact_matches: [{ title: 'Repost', link: 'https://repost.example.net/a', source: 'Repost' }] },
+      [`${mediaId}-f2.jpg`]: { exact_matches: [{ title: 'Repost again', link: 'https://repost.example.net/a', source: 'Repost' }] },
+      [`${mediaId}-f3.jpg`]: { exact_matches: [{ title: 'Tok', link: 'https://www.tiktok.com/@thief/video/9', source: 'TikTok' }] },
+    });
+    const stats = await runScan(scanEnv);
+    expect(times).toEqual(['3s', '10s', '17s']);
+    expect(lensCalls).toHaveLength(3);
+    expect(stats.found).toBe(2);
+    const reasons = Object.fromEntries((await c.json('GET', '/v1/protect/matches')).body.matches.map((m: any) => [m.url, m.reason]));
+    expect(reasons['https://repost.example.net/a']).toBe('Lens exact match on Repost, frame at 0:03');
+    expect(reasons['https://www.tiktok.com/@thief/video/9']).toBe('Lens exact match on TikTok, frame at 0:17');
+    expect(await env.MEDIA.head(`${mediaId}-f1.jpg`)).toBeNull();
+    const spent = await db.prepare('SELECT n FROM scan_meta WHERE key = ?').bind(`serp:${new Date().toISOString().slice(0, 7)}`).first<any>();
+    expect(spent.n).toBeGreaterThanOrEqual(3);
+    console.log(`video: ${lensCalls.length} Lens calls, frames ${times.join(' ')}, ${stats.found} matches for ${id.slice(0, 4)}`);
+  });
+
+  it('uses the poster alone when there is no video binding', async () => {
+    const { mediaId, scanEnv } = await videoCreator(20, false);
+    lensPerFrame({});
+    await runScan(scanEnv);
+    expect(lensCalls).toHaveLength(1);
+    expect(lensCalls[0]).toContain(`${mediaId}-poster.jpg`);
+  });
+
+  it('stops mid-video when the monthly budget runs out and keeps what it found', async () => {
+    const { c, mediaId, scanEnv } = await videoCreator(20, true);
+    const month = `serp:${new Date().toISOString().slice(0, 7)}`;
+    const used = (await db.prepare('SELECT n FROM scan_meta WHERE key = ?').bind(month).first<any>())?.n ?? 0;
+    scanEnv.SCAN_MONTHLY_LIMIT = String(used + 2);
+    vi.spyOn(console, 'log').mockImplementation(() => {});
+    lensPerFrame({ [`${mediaId}-f2.jpg`]: { exact_matches: [{ title: 'Repost', link: 'https://repost.example.net/b', source: 'Repost' }] } });
+    const stats = await runScan(scanEnv);
+    expect(lensCalls).toHaveLength(2);
+    expect(stats.stoppedByBudget).toBe(true);
+    expect((await c.json('GET', '/v1/protect/matches')).body.matches.map((m: any) => m.url)).toContain('https://repost.example.net/b');
+  });
+});
+
 describe('rescoreMatches', () => {
   it('dismisses old lookalikes and own accounts with a reason, keeps copies, deletes nothing', async () => {
     const { id, postId, lens } = await creator('creator');
