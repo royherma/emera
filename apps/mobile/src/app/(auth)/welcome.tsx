@@ -50,7 +50,7 @@ export default function Welcome() {
     <View style={{ gap: space[5], maxWidth: 560 }}>
       <Text style={[type.hero, wide && { fontSize: 76, lineHeight: 76, letterSpacing: -3.4 }, { color: c.ink }]}>We protect what you create</Text>
       <Text style={[type.body, { color: c.ink2, fontSize: wide ? 18 : 16, lineHeight: wide ? 27 : 24, maxWidth: 460 }]}>
-        We find the copies and take them down for you, in a fair place where real people grow and reach can't be bought.
+        The open source social network for creators and real people. We find the copies of what you create and get them taken down.
       </Text>
       <View style={{ flexDirection: wide ? "row" : "column", gap: space[3] }}>
         <Button label="Get started" size="lg" onPress={() => router.push("/sign-in")} style={wide ? { minWidth: 190 } : undefined} />

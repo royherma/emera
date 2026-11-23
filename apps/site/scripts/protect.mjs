@@ -13,7 +13,7 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 
 const TITLE = "Emera Protect: we find the copies and get them taken down";
 const OG_TITLE = "Someone copied what you made. We get it taken down";
-const DESCRIPTION = "Emera Protect scans for copies of what you create, files the takedown and tracks it until the copy is gone. Free to report, $10 a month for weekly scans.";
+const DESCRIPTION = "Emera Protect finds copies of what you create on the open web and what you report, files the takedown and tracks it until the copy is gone. Free to report, $10 a month for weekly scans.";
 
 const litSvg = readFileSync(join(root, "../../brand/logo/final/mark-lit-symbol.svg"), "utf8");
 const litBox = litSvg.match(/viewBox="([^"]+)"/)[1];
@@ -35,7 +35,7 @@ a{color:inherit;text-underline-offset:3px}
 .eyebrow{font:600 .78rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--sunink)}
 .hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(24px,5vw,64px);align-items:center;padding:clamp(18px,4vw,48px) 0 0}
 h1{font:800 clamp(2.4rem,6vw,4.6rem)/.98 var(--disp);letter-spacing:-.05em;margin-top:14px;text-wrap:balance}
-.lead{color:var(--ink2);max-width:30em;margin-top:20px;font-size:clamp(1.02rem,1.5vw,1.18rem)}
+.lead{text-wrap:pretty;color:var(--ink2);max-width:32em;margin-top:20px;font-size:clamp(1.02rem,1.5vw,1.18rem)}
 .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
 .trk{background:var(--dark);color:var(--darkink);border-radius:28px;padding:clamp(20px,3vw,30px);box-shadow:0 40px 60px -34px rgba(120,60,10,.6);position:relative;overflow:hidden}
 .trk::before{content:"";position:absolute;inset:-40% -30% auto auto;width:320px;height:320px;background:radial-gradient(circle,rgba(255,170,60,.38),transparent 65%)}
@@ -147,7 +147,7 @@ ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(
 <div>
 <div class="eyebrow">${esc(brand.name)} Protect</div>
 <h1>Someone copied what you made. We get it taken down</h1>
-<p class="lead">Creators get copied and resold every day. ${esc(brand.name)} Protect finds the copies, files the takedown for you and tracks it until the copy is gone.</p>
+<p class="lead">${esc(brand.name)} is the open source social network for creators and real people. Protect finds the copies of what you create, files the takedown for you and tracks it until the copy is gone.</p>
 <div class="cta"><a class="pill" data-buy="creator" href="${plan("hero", "creator")}">Start for $10 a month</a><a class="ghost" href="#plans">See every plan</a></div>
 </div>
 <aside class="trk" aria-label="Example of a takedown being tracked">
@@ -162,10 +162,10 @@ ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(
 </div>
 
 <section aria-labelledby="h-how">
-<h2 class="t" id="h-how">Three steps, then we do the chasing</h2>
+<h2 class="t" id="h-how">You tap once. We chase it to removed</h2>
 <div class="steps">
-<div class="step"><h3>Add what you create</h3><p>Upload it, or bring your Instagram posts in one go.</p></div>
-<div class="step"><h3>We scan for copies</h3><p>Every copy we find lands in your list, next to the original.</p></div>
+<div class="step"><h3>Add what you create</h3><p>Upload it, or bring in what you already posted. Each piece is signed with your name and the date.</p></div>
+<div class="step"><h3>We find the copies</h3><p>We search the open web and what you report. Every match lands in your list, next to the original.</p></div>
 <div class="step"><h3>One tap and it is filed</h3><p>We send the takedown and track it until the copy is removed.</p></div>
 </div>
 </section>
@@ -193,7 +193,7 @@ ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(
 </form><p class="note" data-note role="status" aria-live="polite"></p></div>
 </section>
 
-<p class="fine">Plans bill monthly and you can stop any time. Every takedown follows the rules of the place the copy lives, and you can see each step we took.</p>
+<p class="fine">Plans bill monthly and you can stop any time. Every takedown follows the rules of the place the copy lives, and you can see each step we took. Emera is open source and run as a nonprofit, so the code behind those steps is public.</p>
 </main>
 </div>${footer({ pages, mark, github, year: new Date().getFullYear() })}${script}${buy}</body></html>`;
 }

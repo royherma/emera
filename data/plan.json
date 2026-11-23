@@ -1506,6 +1506,36 @@
   ],
   "review": [
     {
+      "id": "home-subhead",
+      "kind": "pick",
+      "when": "any time, 30 s",
+      "title": "Homepage subheadline",
+      "why": "Sits under \"We protect what you create\". Live now is A (first, marked). Pick one or keep it.",
+      "options": [
+        {
+          "id": "A",
+          "label": "LIVE: The open source social network for creators and real people. We find the copies of what you create and get them taken down.",
+          "primary": true
+        },
+        {
+          "id": "B",
+          "label": "The open source social network where creators come first and every person is real. We find the copies and file the takedowns.",
+          "primary": false
+        },
+        {
+          "id": "C",
+          "label": "An open source social network built for creators and real people, where every copy of what you create is tracked to a removed receipt.",
+          "primary": false
+        }
+      ],
+      "links": [
+        ["Home, desktop light", "/Users/royhermannn_new/Desktop/Development/techguyver-side-projects/agora/.claude/worktrees/agent-a20be1b57d435afac/.claude/artifacts/site-shots/polish-home-desk-light.png"],
+        ["Home, desktop dark", "/Users/royhermannn_new/Desktop/Development/techguyver-side-projects/agora/.claude/worktrees/agent-a20be1b57d435afac/.claude/artifacts/site-shots/polish-home-desk-dark.png"],
+        ["Home, phone", "/Users/royhermannn_new/Desktop/Development/techguyver-side-projects/agora/.claude/worktrees/agent-a20be1b57d435afac/.claude/artifacts/site-shots/polish-home-phone-light.png"],
+        ["Protect, desktop", "/Users/royhermannn_new/Desktop/Development/techguyver-side-projects/agora/.claude/worktrees/agent-a20be1b57d435afac/.claude/artifacts/site-shots/polish-protect-desk-light.png"]
+      ]
+    },
+    {
       "id": "ios-privacy",
       "kind": "do",
       "when": "now, 5 min",
