@@ -120,6 +120,12 @@ const joinBox = (source) => `<section class="join" id="join">
 <p class="note" data-note role="status" aria-live="polite"></p>
 </section>`;
 
+const protectBox = (c) => `<section class="join" id="join">
+<h2>${esc(c.h)}</h2>
+<p>${esc(c.p)}</p>
+<p style="margin-top:18px"><a class="pill" href="/protect/?ref=answers">${esc(c.label)}</a></p>
+</section>`;
+
 const ctx = { github: "", year: new Date().getFullYear() };
 const foot = () => footer({ pages, mark, github: ctx.github, year: ctx.year });
 const legal = load("legal.json");
@@ -157,9 +163,9 @@ ${related.length ? `<h2>Related</h2><div class="rel">${related.map((r) => `<a hr
 ${p.sources?.length ? `<h2>Sources</h2><ol class="src">${p.sources.map((s) => `<li><a href="${esc(s.url)}" rel="noopener">${esc(s.label)}</a></li>`).join("")}</ol>` : ""}
 <p class="checked">Checked ${esc(p.checked)}.</p>
 </div>
-${joinBox(`${p.kind}-${p.slug}`)}
+${p.cta ? protectBox(p.cta) : joinBox(`${p.kind}-${p.slug}`)}
 </main>
-</div>${foot()}${signupJs}</body></html>`;
+</div>${foot()}${p.cta ? "" : signupJs}</body></html>`;
 }
 
 function hub(kind, name, path, intro) {
@@ -212,7 +218,7 @@ export function writePages(today, { credits = "", github = "" } = {}) {
   for (const p of pages) write(p.path, page(p));
   const hubs = [];
   if (pages.some((p) => p.kind === "answer")) {
-    write("/answers/", hub("answer", "Answers", "/answers/", "Plain answers on telling real from fake, protecting your work and finding a feed you control."));
+    write("/answers/", hub("answer", "Answers", "/answers/", "Plain answers on telling real from fake, getting copied work taken down, claiming money for it and finding a feed you control."));
     hubs.push("/answers/");
   }
   if (pages.some((p) => p.kind === "compare")) {

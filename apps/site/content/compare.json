@@ -519,5 +519,106 @@
       "social-media-without-algorithm",
       "instagram-alternative-for-artists"
     ]
+  },
+  {
+    "slug": "pixsy-alternative",
+    "kind": "compare",
+    "q": "Pixsy alternative: Emera Protect compared",
+    "title": "Pixsy alternative: Emera Protect compared",
+    "description": "Pixsy and Emera Protect side by side: what each watches, plan prices, who files takedowns and what you keep from a recovery.",
+    "short": "Pixsy is an established image-monitoring service with a free plan, paid plans from $19 a month and a 50% share of what it recovers. Emera Protect covers videos, music, photos and art, starts with a free report, costs $10 or $100 a month, and you keep 70% of recoveries. Here is where each fits.",
+    "sections": [
+      {
+        "h": "What Pixsy does",
+        "html": "<p>Pixsy scans the public web for copies of your images and emails you when it finds matches, according to its pricing page. Its free plan monitors 500 images and accepts unlimited case submissions but includes no takedown notices. Paid Monitor plans run from $19 a month (2,000 images, 20 takedowns a month) to $89 a month (100,000 images, 900 takedowns), with business pricing on request. On recoveries it takes 50% of the compensation it collects and charges nothing if it recovers nothing. Cases that need legal action go to partner law firms; Pixsy lists 30.</p>"
+      },
+      {
+        "h": "What Emera Protect does",
+        "html": "<p>Emera Protect finds copies and fake accounts, files the takedowns and tracks each one to a Removed receipt. The Creator plan is $10 a month and watches up to 100 posts weekly across videos, music, photos, art and designs on TikTok, Instagram, YouTube and the web. Pro is $100 a month with unlimited posts checked daily, fake accounts using your name or face and automatic filing. Enterprise is custom. For money, Get paid sends a claim letter and partner US copyright lawyers sue if the copier does not pay; it is no win, no fee and you keep 70%. US cases come first.</p>"
+      },
+      {
+        "h": "How to choose",
+        "html": "<p>If your work is mostly still images and you want the longest-running tool with many import sources and takedowns in many countries, Pixsy is built for that. If you make videos, music or mixed work, want the report for free, or want the larger share of a recovery, Emera Protect is built for that. You do not have to pick for life: both let you submit a case without committing to a paid plan. Whatever you use, registering your work early decides what a US court can award (<a href=\"/statutory-damages-for-copyright-infringement\">statutory damages</a>).</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      }
+    ],
+    "table": {
+      "cols": [
+        "",
+        "Emera Protect",
+        "Pixsy"
+      ],
+      "rows": [
+        [
+          "Free option",
+          "Free report of a copy or fake account, we file the takedown",
+          "Free plan: 500 images monitored, unlimited case submissions, no takedown notices"
+        ],
+        [
+          "Paid plans",
+          "$10 a month Creator, $100 a month Pro, Enterprise custom",
+          "$19 to $89 a month, business pricing on request"
+        ],
+        [
+          "What it watches",
+          "Videos, music, photos, art and designs; fake accounts on Pro",
+          "Images across the public web, with sync from photo platforms"
+        ],
+        [
+          "Takedowns",
+          "Unlimited on Creator and Pro",
+          "20 to 900 a month on paid plans"
+        ],
+        [
+          "Money recovery",
+          "No win, no fee, you keep 70%, US cases first",
+          "No recovery, no fee, Pixsy keeps 50%, partner law firms"
+        ],
+        [
+          "Registration help",
+          "We help register when it can raise what a court awards",
+          "Optional US registration from $99 for one image"
+        ]
+      ]
+    },
+    "they_win": [
+      "Pixsy has a longer track record and more import sources for photo libraries.",
+      "Pixsy sends takedown notices addressing legal requirements in 35 or more countries, in 14 languages.",
+      "Pixsy lists 30 partner law firms for cases that need legal action."
+    ],
+    "faqs": [
+      {
+        "q": "Is there a free Pixsy alternative?",
+        "a": "Emera Protect's free report lets you send a copy or fake account you found and we file the takedown. Pixsy's free plan monitors 500 images but does not include takedown notices."
+      },
+      {
+        "q": "Which one takes less of a recovery?",
+        "a": "Pixsy's pricing page says it takes 50% of what it recovers. Emera Protect's Get paid leaves you 70%. What is recovered depends on the case, and neither promises an outcome."
+      },
+      {
+        "q": "Can I use both?",
+        "a": "Yes, but avoid filing the same copy twice. Pick one service per case."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Pixsy pricing",
+        "url": "https://www.pixsy.com/pricing"
+      },
+      {
+        "label": "17 U.S.C. 504, remedies (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/504"
+      }
+    ],
+    "checked": "2026-11-23",
+    "related": [
+      "how-to-find-stolen-photos",
+      "how-much-can-you-sue-for-copyright-infringement",
+      "instagram-alternative-for-artists"
+    ],
+    "cta": {
+      "h": "Try the free report",
+      "p": "Send us one copy or fake account you found. We file the takedown for free and show you every step.",
+      "label": "Start a free report"
+    }
   }
 ]

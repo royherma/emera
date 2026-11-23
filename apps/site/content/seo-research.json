@@ -1,0 +1,1162 @@
+{
+  "collected": "2026-11-23",
+  "method": "Free Google autocomplete for all seeds (5 variants each). SerpAPI Google search (10 searches, free plan, 1 left) for People Also Ask, related searches and top-10 hosts on the 10 highest-value queries. Autocomplete via SerpAPI google_autocomplete not used: it costs searches and the free endpoint returns the same suggestions.",
+  "note": "Autocomplete proves people type it; no volume numbers are claimed. total_results is Google result-count text, a rough competition signal only.",
+  "serp": [
+    {
+      "query": "how much can you sue for copyright infringement",
+      "people_also_ask": [
+        "Is it worth suing for copyright infringement?",
+        "What is the average settlement for copyright infringement?",
+        "Do you go to jail for copyright infringement?",
+        "How hard is it to prove copyright infringement?"
+      ],
+      "related_searches": [
+        "Copyright infringement damages calculation",
+        "Monetary damages for copyright infringement",
+        "Civil remedies for copyright infringement",
+        "Punishment for copyright infringement",
+        "Grounds for copyright infringement",
+        "Attorney's fees for copyright infringement",
+        "Standard for copyright infringement",
+        "Defenses to copyright infringement"
+      ],
+      "top_hosts": [
+        "1. justia.com",
+        "2. antonelli-law.com",
+        "3. kolmogorovlaw.com",
+        "4. ccb.gov",
+        "5. copyrightalliance.org",
+        "6. guides.lndlibrary.org",
+        "7. vgcc.edu",
+        "8. reddit.com",
+        "9. trestlelaw.com"
+      ],
+      "total_results": 253,
+      "beatable": "1 of 10 slots are forums/video/Q&A"
+    },
+    {
+      "query": "someone stole my video on tiktok",
+      "people_also_ask": [
+        "Does TikTok say if someone saved your video?",
+        "How to get someone else's TikTok video taken down?",
+        "How do you report someone who stole your TikTok account?",
+        "Can I remove a copyright claim?"
+      ],
+      "related_searches": [
+        "Someone stole my video on tiktok what should i do",
+        "Someone stole my video on tiktok reddit",
+        "Someone posted a video of me on TikTok without my permission",
+        "How to report stolen content on TikTok",
+        "Someone posted a video of me on TikTok without my permission reddit",
+        "How to avoid copyright on TikTok videos",
+        "TikTok copyright infringement",
+        "TikTok copyright music"
+      ],
+      "top_hosts": [
+        "1. reddit.com",
+        "2. support.tiktok.com",
+        "3. tiktok.com",
+        "4. facebook.com",
+        "5. youtube.com",
+        "6. quora.com",
+        "7. justanswer.com"
+      ],
+      "total_results": 124,
+      "beatable": "5 of 10 slots are forums/video/Q&A"
+    },
+    {
+      "query": "someone made a fake account of me on instagram",
+      "people_also_ask": [
+        "Is it illegal to make a fake Instagram account of someone?",
+        "Why does someone keep making fake Instagram accounts of me?",
+        "What to do if someone creates a duplicate Instagram account?",
+        "Why isn't Instagram removing an account pretending to be me?"
+      ],
+      "related_searches": [
+        "Someone made a fake account of me on instagram reddit",
+        "How to report fake Instagram account to cyber crime",
+        "Someone created a fake Instagram account with my name and pictures",
+        "Someone created an account pretending to be me",
+        "What can I do if someone is impersonating me on Instagram",
+        "How to report an Instagram account and get it deleted",
+        "Instagram report fake account bot",
+        "Instagram impersonation report form Meta"
+      ],
+      "top_hosts": [
+        "1. help.instagram.com",
+        "2. help.instagram.com",
+        "3. reddit.com",
+        "4. quora.com",
+        "5. dset.com.tr",
+        "6. facebook.com",
+        "7. justanswer.com",
+        "8. relyshield.com"
+      ],
+      "total_results": 759000000,
+      "beatable": "4 of 10 slots are forums/video/Q&A"
+    },
+    {
+      "query": "copyright small claims court",
+      "people_also_ask": [
+        "Is it worth suing for copyright infringement?",
+        "How much money can you sue someone for copyright?",
+        "What is the 3 month rule for copyright?",
+        "What happens when you dispute a copyright claim?"
+      ],
+      "related_searches": [
+        "Copyright Claims Board case search",
+        "Copyright Claims Board (CCB)",
+        "Copyright infringement statute of limitations discovery rule",
+        "Copyright claims YouTube",
+        "Copyright Claims Board wiki",
+        "Copyright claim disclaimer",
+        "Copyright statute",
+        "Copyright court case"
+      ],
+      "top_hosts": [
+        "1. copyright.gov",
+        "2. ccb.gov",
+        "3. en.wikipedia.org",
+        "4. ogc.mit.edu",
+        "5. guides.library.cornell.edu",
+        "6. ccb.gov",
+        "7. repository.law.miami.edu",
+        "8. wardandsmith.com",
+        "9. uschamber.com"
+      ],
+      "total_results": 131,
+      "beatable": "0 of 10 slots are forums/video/Q&A"
+    },
+    {
+      "query": "statutory damages copyright infringement",
+      "people_also_ask": [
+        "What is the average settlement for copyright infringement?",
+        "Is it worth suing for copyright infringement?",
+        "What is the difference between actual and statutory damages?",
+        "What is the statute of limitations on a copyright infringement claim?"
+      ],
+      "related_searches": [
+        "Statutory damages for willful copyright infringement",
+        "Copyright infringement damages calculation",
+        "Statutory damages for trademark infringement",
+        "17 U.S.C. 412",
+        "17 U.S.C. 505",
+        "17 U.S.C. 504",
+        "Statutory damages examples",
+        "Copyright damages without registration"
+      ],
+      "top_hosts": [
+        "1. law.cornell.edu",
+        "2. americanbar.org",
+        "3. copyright.gov",
+        "4. copyrightalliance.org",
+        "5. ccb.gov",
+        "6. kolmogorovlaw.com",
+        "7. papers.ssrn.com",
+        "8. mololamken.com",
+        "9. codes.findlaw.com"
+      ],
+      "total_results": 128,
+      "beatable": "0 of 10 slots are forums/video/Q&A"
+    },
+    {
+      "query": "dmca takedown notice template",
+      "people_also_ask": [
+        "How to write a DMCA takedown notice?",
+        "What is a DMCA takedown notice?",
+        "Does a DMCA takedown notice cost money?",
+        "How do I submit a DMCA takedown notice to Google?"
+      ],
+      "related_searches": [
+        "DMCA takedown notice template pdf",
+        "Dmca takedown notice Google",
+        "DMCA takedown notice requirements",
+        "DMCA takedown free",
+        "DMCA notice",
+        "DMCA takedown Facebook",
+        "DMCA takedown notice reddit",
+        "DMCA takedown notice YouTube"
+      ],
+      "top_hosts": [
+        "1. library.georgetown.edu",
+        "2. rwa.org",
+        "3. horror.org",
+        "4. copyright.info.yorku.ca",
+        "5. ahfe.org",
+        "6. reddit.com",
+        "7. websitepolicies.com",
+        "8. app.copyrighted.com"
+      ],
+      "total_results": 127,
+      "beatable": "1 of 10 slots are forums/video/Q&A"
+    },
+    {
+      "query": "dmca takedown youtube",
+      "people_also_ask": [
+        "What is a DMCA on YouTube?",
+        "How to file a DMCA takedown on YouTube?",
+        "How do I remove 3 copyright strikes on YouTube?",
+        "What does a DMCA takedown do?"
+      ],
+      "related_searches": [
+        "Copyright strike remove request Letter",
+        "YouTube copyright report",
+        "YouTube copyright disclaimer",
+        "Submit a copyright removal request YouTube",
+        "How to fix copyright claim on YouTube",
+        "How to Give copyright strike on YouTube",
+        "YouTube copyright removal request form",
+        "YouTube copyright Remover video"
+      ],
+      "top_hosts": [
+        "1. support.google.com",
+        "2. youtube.com",
+        "3. dmca.com",
+        "4. odinlaw.com",
+        "5. eff.org",
+        "6. reddit.com",
+        "7. support.google.com",
+        "8. us-iprs.daeryunlaw.com"
+      ],
+      "total_results": 6810000,
+      "beatable": "2 of 10 slots are forums/video/Q&A"
+    },
+    {
+      "query": "how to copyright my art",
+      "people_also_ask": [
+        "What is the 70/30 rule in art?",
+        "How much does it cost to copyright my artwork?",
+        "How do I protect my art from being copied?",
+        "What is the 3 month rule for copyright?"
+      ],
+      "related_searches": [
+        "How to copyright artwork for free",
+        "U.S. Copyright",
+        "Copyright Office",
+        "U.S. Copyright Office",
+        "How to copyright a song for free",
+        "Copyright application form online",
+        "How to copyright my book",
+        "How to copyright something for free"
+      ],
+      "top_hosts": [
+        "1. copyright.gov",
+        "2. reddit.com",
+        "3. jennarainey.com",
+        "4. facebook.com",
+        "5. copyright.gov",
+        "6. sva.libguides.com",
+        "7. quora.com",
+        "8. youtube.com"
+      ],
+      "total_results": 123,
+      "beatable": "4 of 10 slots are forums/video/Q&A"
+    },
+    {
+      "query": "pixsy alternative",
+      "people_also_ask": [
+        "What is the best site for free images?",
+        "Is there a cheaper alternative to getty images?",
+        "How to respond to Pixsy?",
+        "What is the best alternative to Flickr?"
+      ],
+      "related_searches": [
+        "Pixsy alternative reddit",
+        "Pixsy alternative free",
+        "Pixsy alternative 2022",
+        "Copytrack"
+      ],
+      "top_hosts": [
+        "1. waterphrase.com",
+        "2. alternativeto.net",
+        "3. reddit.com",
+        "4. imagetrace.nl",
+        "5. pixguard.io",
+        "6. copyseeker.net",
+        "7. pixsy.com",
+        "8. scoredetect.com"
+      ],
+      "total_results": 3060,
+      "beatable": "1 of 10 slots are forums/video/Q&A"
+    },
+    {
+      "query": "someone using my photos on instagram",
+      "people_also_ask": [
+        "What to do if someone is using my pictures on Instagram?",
+        "Can my Instagram be hacked without me knowing?",
+        "Why did Instagram randomly use my camera?",
+        "How do I stop Instagram from using my photos?"
+      ],
+      "related_searches": [
+        "What to do if someone using my photos on instagram",
+        "Someone using my photos on instagram reddit",
+        "How to get someone using my photos on instagram",
+        "Someone created a fake Instagram account with my pictures",
+        "Someone made my fake Instagram account",
+        "How to report fake Instagram account to cyber crime",
+        "Instagram impersonation form",
+        "How to report an Instagram account and get it deleted"
+      ],
+      "top_hosts": [
+        "1. help.instagram.com",
+        "2. help.instagram.com",
+        "3. reddit.com",
+        "4. quora.com",
+        "5. instagram.com",
+        "6. help.instagram.com",
+        "7. facebook.com",
+        "8. pixsy.com",
+        "9. cybx.in"
+      ],
+      "total_results": 2970,
+      "beatable": "3 of 10 slots are forums/video/Q&A"
+    }
+  ],
+  "queries": [
+    {
+      "query": "someone stole my video",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 5,
+      "suggestions": [
+        "someone stole my video on instagram",
+        "someone stole my video on tiktok",
+        "someone stole my video on youtube",
+        "someone stole my video on facebook",
+        "someone stole my video",
+        "someone stole my tiktok video and posted it on instagram",
+        "someone stole my weed video",
+        "what do i do if someone stole my video on tiktok",
+        "what to do if someone steals your youtube video",
+        "how to report a stolen youtube video",
+        "what to do if someone took a video of you"
+      ],
+      "serp_checked": "someone stole my video on tiktok",
+      "intent": "harmed now / how-to",
+      "chosen_page": "someone-stole-my-video",
+      "skipped_because": null
+    },
+    {
+      "query": "someone reposted my tiktok",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 2,
+      "suggestions": [
+        "someone reposted my tiktok video",
+        "someone reposted my tiktok",
+        "someone reported my tiktok account",
+        "someone reported my tiktok video",
+        "someone reported my tiktok account for impersonation",
+        "if someone reposted my tiktok do i get the views",
+        "someone posted on my tiktok account",
+        "someone.posted on my tiktok",
+        "someone falsely reported my tiktok account",
+        "someone reposted my post on tiktok",
+        "someone posted videos on my tiktok account",
+        "is it ok to repost on tiktok",
+        "how to see if someone reposted my tiktok",
+        "how do i know if someone reposted my tiktok video",
+        "how to repost on tiktok",
+        "how to repost someone's video on tiktok",
+        "is there a way to repost on tiktok",
+        "someone reposted my video on tiktok",
+        "should i repost on tiktok",
+        "can you repost on tiktok"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": "someone-stole-my-video",
+      "skipped_because": null
+    },
+    {
+      "query": "reposted my video without permission",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": false,
+      "autocomplete_prefix_hits": 0,
+      "suggestions": [],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": null,
+      "skipped_because": "no autocomplete hit"
+    },
+    {
+      "query": "copyright infringement compensation",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 1,
+      "suggestions": [
+        "copyright infringement compensation",
+        "how much can you sue for copyright infringement",
+        "can you sue someone for copyright infringement",
+        "copyright infringement actual damages",
+        "copyright infringement and damages",
+        "what is a copyright infringement claim",
+        "what is the penalty for copyright infringement",
+        "compensation for copyright infringement"
+      ],
+      "serp_checked": "how much can you sue for copyright infringement",
+      "intent": "money",
+      "chosen_page": "how-much-can-you-sue-for-copyright-infringement",
+      "skipped_because": null
+    },
+    {
+      "query": "how much can i sue for copyright infringement",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 1,
+      "suggestions": [
+        "how much can i sue for copyright infringement",
+        "how much can you sue someone for copyright infringement",
+        "how much can you be sued for copyright infringement",
+        "how do i sue for copyright infringement",
+        "how much does it cost to sue for copyright infringement",
+        "how much to sue for copyright infringement",
+        "can you sue someone for copyright infringement",
+        "who can sue for copyright infringement",
+        "how much can you get fined for copyright infringement"
+      ],
+      "serp_checked": null,
+      "intent": "money",
+      "chosen_page": "how-much-can-you-sue-for-copyright-infringement",
+      "skipped_because": null
+    },
+    {
+      "query": "statutory damages copyright",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 5,
+      "suggestions": [
+        "statutory damages copyright",
+        "statutory damages copyright infringement",
+        "statutory damages copyright act",
+        "statutory damages copyright registration",
+        "statutory damages copyright law",
+        "statutory damages in copyright cases",
+        "statutory damages for copyright infringement can be up to",
+        "statutory damages for willful copyright infringement",
+        "copyright statutory damages per infringement",
+        "minimum statutory damages for copyright infringement",
+        "copyright statutory damages attorney fees",
+        "copyright statutory damages amount",
+        "what are statutory copyright damages",
+        "statutory damages for copyright infringement",
+        "statutory damages for copyright",
+        "maximum statutory damages for copyright infringement",
+        "when are statutory damages available for copyright infringement",
+        "how are statutory damages calculated for copyright infringement",
+        "copyright act statutory damages"
+      ],
+      "serp_checked": "statutory damages copyright infringement",
+      "intent": "money",
+      "chosen_page": "statutory-damages-for-copyright-infringement",
+      "skipped_because": null
+    },
+    {
+      "query": "dmca takedown youtube",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 2,
+      "suggestions": [
+        "dmca takedown youtube",
+        "dmca takedown youtube video",
+        "copyright takedown youtube",
+        "dmca notice youtube",
+        "dmca takedown request youtube",
+        "dmca takedown notice youtube",
+        "file dmca takedown youtube",
+        "youtube dmca takedown form",
+        "dmca takedown requirements",
+        "what is dmca takedown",
+        "how to file dmca takedown youtube",
+        "how to file a dmca takedown"
+      ],
+      "serp_checked": "dmca takedown youtube",
+      "intent": "harmed now / how-to",
+      "chosen_page": "how-to-file-a-dmca-takedown-on-youtube",
+      "skipped_because": null
+    },
+    {
+      "query": "dmca takedown tiktok",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 1,
+      "suggestions": [
+        "dmca takedown tiktok",
+        "copyright takedown tiktok",
+        "dmca notice tiktok",
+        "dmca takedown request tiktok",
+        "dmca takedown notice tiktok",
+        "tiktok dmca takedown form",
+        "how to file dmca takedown tiktok",
+        "dmca takedown process",
+        "dmca takedown requirements",
+        "how to file a dmca takedown"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": "how-to-file-a-dmca-takedown-on-tiktok",
+      "skipped_because": null
+    },
+    {
+      "query": "dmca takedown instagram",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 2,
+      "suggestions": [
+        "dmca takedown instagram",
+        "dmca takedown instagram reddit",
+        "dmca notice instagram",
+        "copyright takedown instagram",
+        "dmca takedown request instagram",
+        "dmca takedown notice instagram",
+        "instagram dmca takedown form",
+        "dmca takedown requirements",
+        "dmca takedown process",
+        "dmca takedown on instagram"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": "how-to-file-a-dmca-takedown-on-instagram (existing)",
+      "skipped_because": null
+    },
+    {
+      "query": "dmca takedown notice template",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 2,
+      "suggestions": [
+        "dmca takedown notice template",
+        "dmca takedown notice template pdf",
+        "dmca takedown request template",
+        "copyright takedown notice template",
+        "dmca takedown notice example",
+        "dmca takedown notice form",
+        "sample dmca takedown notice template",
+        "what is a dmca takedown notice"
+      ],
+      "serp_checked": "dmca takedown notice template",
+      "intent": "harmed now / how-to",
+      "chosen_page": "dmca-takedown-notice-template",
+      "skipped_because": null
+    },
+    {
+      "query": "someone using my photos",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 8,
+      "suggestions": [
+        "someone using my photos on tinder",
+        "someone using my photos on hinge",
+        "someone using my photos on facebook",
+        "someone using my photos on instagram",
+        "someone using my photos on vinted",
+        "someone using my photos",
+        "someone using.my photos on grindr",
+        "someone using my photos on ebay",
+        "someone is using my photos to catfish",
+        "someone using my photos on bumble",
+        "report someone using my photo on facebook",
+        "how do i know if someone is using my photos",
+        "using someone photo without permission",
+        "is using someone else's picture illegal"
+      ],
+      "serp_checked": "someone using my photos on instagram",
+      "intent": "harmed now / how-to",
+      "chosen_page": "someone-is-using-my-photos-on-instagram",
+      "skipped_because": null
+    },
+    {
+      "query": "someone stole my photos",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 1,
+      "suggestions": [
+        "someone stole my photos",
+        "someone stole my.photos on ebay",
+        "someone stealing my photos on facebook",
+        "someone stole my photo on facebook",
+        "someone stole my photo on instagram",
+        "oh no someone stole my photos",
+        "can someone steal my photos from instagram",
+        "someone stole my profile picture on facebook",
+        "someone stole my profile picture",
+        "cuties hacked oh no someone stole my photos",
+        "someone took a photo of my license plate",
+        "someone took a photo of my driver's license",
+        "someone took a photo of my house",
+        "what to do when someone steals your pictures on facebook"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": "someone-is-using-my-photos-on-instagram",
+      "skipped_because": null
+    },
+    {
+      "query": "fake account using my pictures",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 1,
+      "suggestions": [
+        "fake account using my pictures",
+        "is it illegal to make a fake account of someone"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": "someone-made-a-fake-account-of-me",
+      "skipped_because": null
+    },
+    {
+      "query": "someone is using my photos on instagram",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 1,
+      "suggestions": [
+        "someone is using my photos on instagram",
+        "someone used my photo without permission on instagram",
+        "what to do if someone is using my pictures on instagram"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": "someone-is-using-my-photos-on-instagram",
+      "skipped_because": null
+    },
+    {
+      "query": "someone made a fake account of me",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 10,
+      "suggestions": [
+        "someone made a fake account of me on instagram",
+        "someone made a fake account of me on tiktok",
+        "someone made a fake account of me on snapchat",
+        "someone made a fake account of me on facebook",
+        "someone made a fake account of me",
+        "someone made a fake account of me on instagram reddit",
+        "someone made a fake account of me on tinder",
+        "someone made a fake account of me on hinge",
+        "someone made a fake profile of me on facebook",
+        "someone created a fake account of me on instagram",
+        "someone made a fake account of me on bumble",
+        "someone made a fake account of me on grindr",
+        "someone made a fake instagram account of me what do i do",
+        "how can i see if someone made a fake tinder account of me",
+        "what to do when someone makes a fake account of you",
+        "is it illegal to make a fake account of someone"
+      ],
+      "serp_checked": "someone made a fake account of me on instagram",
+      "intent": "harmed now / how-to",
+      "chosen_page": "someone-made-a-fake-account-of-me",
+      "skipped_because": null
+    },
+    {
+      "query": "song used without permission",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 1,
+      "suggestions": [
+        "song used without permission",
+        "song trump used without permission",
+        "can you use a song without permission",
+        "list of songs that are not copyrighted"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": "song-used-without-permission",
+      "skipped_because": null
+    },
+    {
+      "query": "someone used my song without permission",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": false,
+      "autocomplete_prefix_hits": 0,
+      "suggestions": [],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": null,
+      "skipped_because": "no autocomplete hit (the shorter \"song used without permission\" hits)"
+    },
+    {
+      "query": "brand using my art without permission",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": false,
+      "autocomplete_prefix_hits": 0,
+      "suggestions": [],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": null,
+      "skipped_because": "no autocomplete hit"
+    },
+    {
+      "query": "someone is selling my art on merch",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": false,
+      "autocomplete_prefix_hits": 0,
+      "suggestions": [],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": null,
+      "skipped_because": "no autocomplete hit"
+    },
+    {
+      "query": "how to find who stole my images",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": false,
+      "autocomplete_prefix_hits": 0,
+      "suggestions": [
+        "how to find who took the photo"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": null,
+      "skipped_because": "no autocomplete hit (find stolen photos hits)"
+    },
+    {
+      "query": "reverse image search my art",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": false,
+      "autocomplete_prefix_hits": 0,
+      "suggestions": [],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": null,
+      "skipped_because": "no autocomplete hit; folded into how-to-find-stolen-photos"
+    },
+    {
+      "query": "find stolen photos",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 1,
+      "suggestions": [
+        "find stolen photos",
+        "find my stolen photos",
+        "how to find stolen photos on the internet",
+        "how to check if a photo is stolen"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": "how-to-find-stolen-photos",
+      "skipped_because": null
+    },
+    {
+      "query": "pixsy alternative",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 1,
+      "suggestions": [
+        "pixsy alternative",
+        "alternatives to pixabay"
+      ],
+      "serp_checked": "pixsy alternative",
+      "intent": "money",
+      "chosen_page": "pixsy-alternative (compare)",
+      "skipped_because": null
+    },
+    {
+      "query": "pixsy",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 11,
+      "suggestions": [
+        "pixsy",
+        "pixsystem",
+        "pixsy inc",
+        "pixsys machine",
+        "pixsy reverse image search",
+        "pixsys login",
+        "pixsy case management team",
+        "pixie cut",
+        "pixsy hair cut",
+        "pixsystem login",
+        "pixsy image search",
+        "pixsy reviews",
+        "pixie haircuts",
+        "pixie sticks",
+        "pixie hollow"
+      ],
+      "serp_checked": null,
+      "intent": "money",
+      "chosen_page": null,
+      "skipped_because": "brand query, people looking for Pixsy itself; covered by the alternative page"
+    },
+    {
+      "query": "copyright claim letter template",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": false,
+      "autocomplete_prefix_hits": 0,
+      "suggestions": [
+        "copyright infringement letter template",
+        "copyright infringement letter sample",
+        "copyright claim example",
+        "copyright letter example"
+      ],
+      "serp_checked": null,
+      "intent": "money",
+      "chosen_page": "copyright-cease-and-desist-letter-template",
+      "skipped_because": null
+    },
+    {
+      "query": "cease and desist letter copyright template",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": false,
+      "autocomplete_prefix_hits": 0,
+      "suggestions": [
+        "cease and desist letter template copyright infringement",
+        "copyright cease and desist letter template",
+        "draft a formal cease and desist letter template for copyright infringement",
+        "can you write your own cease and desist letter",
+        "can i file a cease and desist letter",
+        "example cease and desist letter copyright infringement"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": "copyright-cease-and-desist-letter-template",
+      "skipped_because": null
+    },
+    {
+      "query": "register copyright us",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 1,
+      "suggestions": [
+        "register copyright us",
+        "register us copyright office",
+        "register copyright united states",
+        "copyright registration usa",
+        "copyright registration us",
+        "copyright registration uspto",
+        "copyright registration us search",
+        "copyright registration usa cost",
+        "register script us copyright office",
+        "register book with us copyright office",
+        "copyright registration united states",
+        "cost to register copyright us",
+        "register song with us copyright office",
+        "register screenplay with us copyright office",
+        "register a copyright us",
+        "us copyright office register a work",
+        "us copyright office register a song",
+        "how much does it cost to register a copyright in the us",
+        "how to register us copyright",
+        "register copyright in us",
+        "copyright registration in us"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": "how-to-register-copyright-us",
+      "skipped_because": null
+    },
+    {
+      "query": "how to copyright my art",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 5,
+      "suggestions": [
+        "how to copyright my art",
+        "how to copyright my artist name",
+        "how to copyright my artwork for free",
+        "how to copyright my article",
+        "how to copyright my art uk",
+        "how to copyright your artist name",
+        "how to copyright your artwork uk",
+        "how to copyright your artwork in canada",
+        "how to copyright your art on instagram",
+        "how to copyright your artwork in india",
+        "how to copyright my paintings",
+        "how to copyright your art in canada",
+        "how to copyright my digital art",
+        "how to copyright my own art",
+        "how to copyright your ai art",
+        "how do i get my artwork copyrighted",
+        "how to get copyright for my art"
+      ],
+      "serp_checked": "how to copyright my art",
+      "intent": "harmed now / how-to",
+      "chosen_page": "how-to-register-copyright-us",
+      "skipped_because": null
+    },
+    {
+      "query": "someone stole my artwork",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 1,
+      "suggestions": [
+        "someone stole my artwork",
+        "someone stole my art reddit",
+        "someone stole my pictures on instagram",
+        "someone stole my pictures on facebook",
+        "what to do if someone steals your artwork"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": "what-to-do-if-someone-steals-your-artwork (existing)",
+      "skipped_because": null
+    },
+    {
+      "query": "someone stole my content",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 5,
+      "suggestions": [
+        "someone stole my content on tiktok",
+        "someone stole my content on instagram",
+        "someone stole my content on youtube",
+        "someone stole my content on facebook",
+        "someone stole my content",
+        "someone stealing my content",
+        "people stealing my content",
+        "someone stole my website content",
+        "someone is stealing my content on tiktok",
+        "someone is stealing my content on facebook",
+        "someone is stealing my content on instagram"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": "someone-stole-my-video",
+      "skipped_because": null
+    },
+    {
+      "query": "ai stole my art",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": false,
+      "autocomplete_prefix_hits": 2,
+      "suggestions": [
+        "ai stole my art reddit",
+        "ai stole my art style",
+        "ai steal my art",
+        "artificial intelligence stole my virginity artinya",
+        "can ai steal my art",
+        "ai took my job article",
+        "will ai steal my art",
+        "what to do if someone steals your artwork",
+        "is ai art really art",
+        "what is ai artwork",
+        "what is ai art"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": null,
+      "skipped_because": "intent is grievance about AI training, no takedown or money path we can offer; not a lead"
+    },
+    {
+      "query": "copyright infringement lawyer",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 8,
+      "suggestions": [
+        "copyright infringement lawyer",
+        "copyright infringement lawyer near me",
+        "copyright infringement lawyer south florida",
+        "copyright infringement lawyer free consultation",
+        "copyright infringement lawyer cost",
+        "copyright infringement lawyer los angeles",
+        "copyright infringement lawyer uk",
+        "copyright infringement lawyer nyc",
+        "copyright law lawyer",
+        "copyright infringement attorneys fees",
+        "lawyer for copyright infringement"
+      ],
+      "serp_checked": null,
+      "intent": "money",
+      "chosen_page": null,
+      "skipped_because": "people want a local lawyer; 8 autocomplete hits but we are not a law firm directory; money intent served by how-much page"
+    },
+    {
+      "query": "no win no fee copyright lawyer",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 2,
+      "suggestions": [
+        "no win no fee copyright lawyer uk",
+        "no win no fee copyright lawyer",
+        "no win no fee intellectual property lawyers",
+        "no win now fee lawyer",
+        "is no win no fee legal"
+      ],
+      "serp_checked": null,
+      "intent": "money",
+      "chosen_page": "covered inside how-much-can-you-sue-for-copyright-infringement and Protect Get paid; no own page",
+      "skipped_because": null
+    },
+    {
+      "query": "my art is being sold on amazon",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": false,
+      "autocomplete_prefix_hits": 0,
+      "suggestions": [],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": null,
+      "skipped_because": "no autocomplete hit"
+    },
+    {
+      "query": "someone is selling my photos",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": false,
+      "autocomplete_prefix_hits": 0,
+      "suggestions": [
+        "selling my photos for money"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": null,
+      "skipped_because": "no autocomplete hit"
+    },
+    {
+      "query": "copyright small claims court",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 1,
+      "suggestions": [
+        "copyright small claims court",
+        "copyright infringement small claims court",
+        "copyright office small claims court",
+        "what happens if i win a small claims case",
+        "small claims cases rules",
+        "can you look up small claims cases",
+        "do i have a case for small claims court",
+        "small claims court for copyright"
+      ],
+      "serp_checked": "copyright small claims court",
+      "intent": "money",
+      "chosen_page": "copyright-small-claims-court",
+      "skipped_because": null
+    },
+    {
+      "query": "how to report stolen content",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": false,
+      "autocomplete_prefix_hits": 11,
+      "suggestions": [
+        "how to report stolen content on youtube",
+        "how to report stolen content on tiktok",
+        "how to report stolen content on facebook",
+        "how to report stolen content on youtube as a viewer",
+        "how to report stolen content on facebook reels",
+        "how to report stolen content on x",
+        "how to report stolen content instagram",
+        "how to report stolen content on youtube shorts",
+        "how to report stolen content on twitter",
+        "how to report stolen post",
+        "what to report stolen content as on tiktok",
+        "how to report a website for stolen content",
+        "how to report tiktok account for stolen content",
+        "how to report a youtube video for stolen content",
+        "how to report a tiktok video for stolen content",
+        "how to report a youtube channel for stolen content",
+        "how to report a facebook page for stolen content",
+        "how to report a youtube channel for stealing content",
+        "how to report stolen content on instagram",
+        "how to report stolen content on spotify"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": null,
+      "skipped_because": "viewer intent (reporting other people content), many hits are \"as a viewer\"; the creator version is covered by the stole-my-video page"
+    },
+    {
+      "query": "how to report copied content on tiktok",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 1,
+      "suggestions": [
+        "how to report copied content on tiktok",
+        "how to report copyright on tiktok",
+        "how to copy tiktok comments",
+        "how to report stolen content on tiktok",
+        "how do you report stuff on tiktok",
+        "how to repost content on tiktok"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": "how-to-file-a-dmca-takedown-on-tiktok",
+      "skipped_because": null
+    },
+    {
+      "query": "someone copied my youtube video",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 1,
+      "suggestions": [
+        "someone copied my youtube video",
+        "someone stole my youtube video",
+        "what if someone copied my youtube video",
+        "can you copy someone else's video on youtube",
+        "does youtube pay for copied videos",
+        "someone copied my video on youtube",
+        "what to do if someone steals your youtube video"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": "someone-stole-my-video",
+      "skipped_because": null
+    },
+    {
+      "query": "reuploaded my video",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": false,
+      "autocomplete_prefix_hits": 0,
+      "suggestions": [],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": null,
+      "skipped_because": "no autocomplete hit"
+    },
+    {
+      "query": "tiktok copyright infringement report",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 2,
+      "suggestions": [
+        "tiktok copyright infringement report",
+        "tiktok copyright infringement report form",
+        "tiktok copyright violation report",
+        "tiktok shop report copyright infringement",
+        "tiktok copyright policy",
+        "how to report copyright on tiktok",
+        "report a copyright infringement tiktok"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": "how-to-file-a-dmca-takedown-on-tiktok",
+      "skipped_because": null
+    },
+    {
+      "query": "instagram copyright report",
+      "source": "google autocomplete (suggestqueries.google.com, US/en, variants: seed, +space, +a, +how, +for)",
+      "autocomplete_exact": true,
+      "autocomplete_prefix_hits": 11,
+      "suggestions": [
+        "instagram copyright report",
+        "instagram copyright report form",
+        "instagram copyright report form meta",
+        "instagram copyright report status",
+        "instagram copyright report form facebook",
+        "instagram.copyright report form without login",
+        "instagram copyright report reddit",
+        "instagram copyright report meta",
+        "instagram copyright report email",
+        "instagram copyright report page",
+        "instagram copyright report from",
+        "copyright report appeal form instagram",
+        "how to report copyright on instagram",
+        "how to report trademark infringement on instagram",
+        "instagram how to report copyright infringement",
+        "instagram how to report copyright",
+        "how to report instagram post for copyright",
+        "how to check copyright on instagram",
+        "instagram copyright guidelines",
+        "instagram copyright report for",
+        "instagram copyright infringement report form",
+        "official instagram copyright report form",
+        "instagram content copyright report from",
+        "copyright report form instagram help center",
+        "instagram report for copyright infringement"
+      ],
+      "serp_checked": null,
+      "intent": "harmed now / how-to",
+      "chosen_page": "how-to-file-a-dmca-takedown-on-instagram (existing)",
+      "skipped_because": null
+    }
+  ]
+}

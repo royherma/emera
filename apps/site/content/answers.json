@@ -218,7 +218,9 @@
     "related": [
       "what-to-do-if-someone-steals-your-artwork",
       "how-to-file-a-dmca-takedown-on-instagram",
-      "instagram-alternative-for-artists"
+      "instagram-alternative-for-artists",
+      "how-to-find-stolen-photos",
+      "how-to-register-copyright-us"
     ]
   },
   {
@@ -294,7 +296,9 @@
     "related": [
       "how-to-file-a-dmca-takedown-on-instagram",
       "how-to-prevent-people-from-stealing-your-art-online",
-      "instagram-alternative-for-artists"
+      "instagram-alternative-for-artists",
+      "someone-stole-my-video",
+      "dmca-takedown-notice-template"
     ]
   },
   {
@@ -365,7 +369,9 @@
     "checked": "2026-11-13",
     "related": [
       "what-to-do-if-someone-steals-your-artwork",
-      "how-to-prevent-people-from-stealing-your-art-online"
+      "how-to-prevent-people-from-stealing-your-art-online",
+      "someone-is-using-my-photos-on-instagram",
+      "how-to-file-a-dmca-takedown-on-tiktok"
     ]
   },
   {
@@ -506,5 +512,987 @@
       "open-source-instagram-alternative",
       "instagram-alternative-for-artists"
     ]
+  },
+  {
+    "slug": "how-much-can-you-sue-for-copyright-infringement",
+    "kind": "answer",
+    "q": "How much can you sue for copyright infringement",
+    "title": "How much can you sue for copyright infringement",
+    "description": "In the US a court can award your losses plus the copier's profits, or $750 to $30,000 per work, up to $150,000 if willful. What decides which applies.",
+    "short": "In the US, a court can award either your actual losses plus the copier's profits, or statutory damages of $750 to $30,000 per work, and up to $150,000 per work if the copying was willful. Statutory damages and legal fees generally depend on registering your work early. Courts set the number, so nothing here is a promise.",
+    "sections": [
+      {
+        "h": "Two ways the money is counted",
+        "html": "<p>US law lets a copyright owner pick one of two measures once infringement is proved (<a href=\"https://www.law.cornell.edu/uscode/text/17/504\">17 U.S.C. 504</a>).</p><ul><li><strong>Actual damages and profits.</strong> What you lost because of the copying, plus the infringer's profits from it. You only have to show their gross revenue; they have to prove their costs.</li><li><strong>Statutory damages.</strong> A court-set amount per work instead, from $750 to $30,000. If the copying was willful the court can go up to $150,000 per work. If the copier proves they had no reason to know it was infringing, the court can go as low as $200.</li></ul><p>The count is per work, not per copy. One illustration copied onto fifty shirts is one work.</p>"
+      },
+      {
+        "h": "Registration decides which options you have",
+        "html": "<p>For a US work you generally have to register before you can sue at all (<a href=\"https://www.law.cornell.edu/uscode/text/17/411\">section 411</a>). Statutory damages and attorney's fees are barred if the copying began before you registered, unless you registered within three months of first publishing the work (<a href=\"https://www.law.cornell.edu/uscode/text/17/412\">section 412</a>). Unregistered work can still support a claim for actual losses and profits, which are often small for one creator. See <a href=\"/how-to-register-copyright-us\">how to register a copyright in the US</a>.</p>"
+      },
+      {
+        "h": "Who pays the lawyers",
+        "html": "<p>A court may award costs and a reasonable attorney's fee to the winning side (<a href=\"https://www.law.cornell.edu/uscode/text/17/505\">section 505</a>). That cuts both ways: the loser can be ordered to pay. Some lawyers take cases on contingency, which means they are paid from what is recovered.</p>"
+      },
+      {
+        "h": "A cheaper route for smaller amounts",
+        "html": "<p>The Copyright Claims Board is a three-member tribunal inside the US Copyright Office. Claims are capped at $30,000 total, you do not need a lawyer, and it can award statutory damages of up to $15,000 per work. Details are on <a href=\"/copyright-small-claims-court\">copyright small claims court</a>.</p>"
+      },
+      {
+        "h": "Is it worth it",
+        "html": "<p>It depends on three things: whether the copier made money, whether your work was registered in time, and how many of your works were copied. A single repost with no revenue is often settled faster with a takedown. A brand or shop earning money from your work is the case where a claim letter and a lawyer make sense.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Emera Protect finds copies and fake accounts and files the takedowns. When someone made money from your work, Get paid sends the claim letter, and if they do not pay, partner copyright lawyers in the US take it to court. It is no win, no fee, and you keep 70% of what is recovered. Results depend on the facts of each case.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Is there a minimum I can claim?",
+        "a": "Statutory damages start at $750 per work, and a court can go to $200 if the copier proves they did not know the use was infringing. Actual damages can be any amount you can show."
+      },
+      {
+        "q": "Do I need to register before I send a takedown?",
+        "a": "No. A takedown notice does not need registration. Suing for infringement of a US work generally does."
+      },
+      {
+        "q": "Can I get statutory damages for work I registered after it was copied?",
+        "a": "Generally not, unless you registered within three months of first publishing it. Section 412 bars statutory damages and attorney's fees for copying that began before registration."
+      },
+      {
+        "q": "How long do I have to bring a claim?",
+        "a": "The Copyright Claims Board says three years from when the infringing activity took place. Confirm the deadline for your situation with a lawyer."
+      }
+    ],
+    "sources": [
+      {
+        "label": "17 U.S.C. 504, remedies (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/504"
+      },
+      {
+        "label": "17 U.S.C. 505, costs and attorney's fees (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/505"
+      },
+      {
+        "label": "17 U.S.C. 412, registration as a condition of remedies (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/412"
+      },
+      {
+        "label": "17 U.S.C. 411, registration before suing (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/411"
+      },
+      {
+        "label": "Copyright Claims Board",
+        "url": "https://www.ccb.gov/"
+      }
+    ],
+    "checked": "2026-11-23",
+    "related": [
+      "statutory-damages-for-copyright-infringement",
+      "copyright-small-claims-court",
+      "how-to-register-copyright-us"
+    ],
+    "cta": {
+      "h": "Copied work with money behind it",
+      "p": "Send us the copy and your original. We find the rest, file the takedown, and if they profited, Get paid starts a claim. No win, no fee, you keep 70%.",
+      "label": "Start a free report"
+    }
+  },
+  {
+    "slug": "statutory-damages-for-copyright-infringement",
+    "kind": "answer",
+    "q": "Statutory damages for copyright infringement: how they work",
+    "title": "Statutory damages for copyright: how they work",
+    "description": "Statutory damages are $750 to $30,000 per work, up to $150,000 if willful. When they apply, when they do not, and the 3 month registration rule.",
+    "short": "Statutory damages are a court-set amount per work instead of proving your losses: $750 to $30,000, up to $150,000 per work if the copying was willful. They apply only if you registered the work before the copying began or within three months of first publication. Courts decide each amount.",
+    "sections": [
+      {
+        "h": "What statutory damages are",
+        "html": "<p>Proving what a copy cost you can be hard, especially for a creator whose work was reposted for free. Statutory damages skip that step. Under <a href=\"https://www.law.cornell.edu/uscode/text/17/504\">17 U.S.C. 504(c)</a> the owner can elect, before the court's final judgment, a set sum per work \"as the court considers just\".</p><ul><li>Standard range: $750 to $30,000 per work.</li><li>Willful infringement: up to $150,000 per work.</li><li>Innocent infringement, if the copier proves they had no reason to believe it was infringing: down to $200.</li></ul>"
+      },
+      {
+        "h": "Per work, not per copy",
+        "html": "<p>The unit is the work. A song copied into 20 videos is one work. Ten different registered photos copied by the same shop are ten works, so the range for that set is $7,500 to $300,000 before any willfulness finding. A court picks where in the range. These are limits, not forecasts.</p>"
+      },
+      {
+        "h": "The registration rule that decides everything",
+        "html": "<p>Section 412 bars statutory damages and attorney's fees when copying of a published work starts after publication but before you register, unless you register within three months of first publication. For an unpublished work, the copying must start after registration.</p><p>This is why creators who register late find the big numbers off the table. The fix costs $45 to $65 per application today. See <a href=\"/how-to-register-copyright-us\">how to register a copyright in the US</a>.</p>"
+      },
+      {
+        "h": "What if you missed the window",
+        "html": "<p>You can still claim actual damages and the copier's profits, and you can still send takedowns. And registering now protects you against future copying of the same work, since statutory damages can apply to copying that begins after registration.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Emera Protect finds the copies and documents them, which is the proof any claim starts with. Get paid then sends a claim letter to the copier, and partner copyright lawyers in the US take it further if they do not pay. No win, no fee, and you keep 70%. We help you register your work when it can raise what a court awards.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "What is the difference between actual and statutory damages?",
+        "a": "Actual damages are your proven losses plus the copier's profits. Statutory damages are a set range per work that a court chooses without you proving a dollar loss."
+      },
+      {
+        "q": "Can I get $150,000 for one photo?",
+        "a": "That is the legal ceiling for willful infringement of one registered work, not a typical award. A court decides, and most facts do not reach it."
+      },
+      {
+        "q": "Do statutory damages apply to unregistered work?",
+        "a": "No. Under section 412 they depend on timely registration."
+      },
+      {
+        "q": "Does a takedown need registration?",
+        "a": "No. Only suing over a US work generally does."
+      }
+    ],
+    "sources": [
+      {
+        "label": "17 U.S.C. 504, remedies (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/504"
+      },
+      {
+        "label": "17 U.S.C. 412, registration as a condition of remedies (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/412"
+      },
+      {
+        "label": "U.S. Copyright Office fees",
+        "url": "https://www.copyright.gov/about/fees.html"
+      },
+      {
+        "label": "U.S. Copyright Office: general questions",
+        "url": "https://www.copyright.gov/help/faq/faq-general.html"
+      }
+    ],
+    "checked": "2026-11-23",
+    "related": [
+      "how-much-can-you-sue-for-copyright-infringement",
+      "how-to-register-copyright-us",
+      "copyright-small-claims-court"
+    ],
+    "cta": {
+      "h": "Find out what your copy is worth",
+      "p": "Send a link to the copy and your original. We check it, file the takedown, and tell you if it can become a claim.",
+      "label": "Start a free report"
+    }
+  },
+  {
+    "slug": "someone-stole-my-video",
+    "kind": "answer",
+    "q": "Someone stole my video: what to do",
+    "title": "Someone stole my video: what to do",
+    "description": "Reposted your video without asking? Save proof, use the platform's copyright form, and know when a claim for money makes sense.",
+    "short": "Save the link and a dated screenshot of the copy, keep your original file, then file a copyright report on the platform where it was reposted. A direct message can work for a friendly repost. If the account is making money from your video, ask about a claim for what it earned.",
+    "sections": [
+      {
+        "h": "Step 1: keep proof before anything changes",
+        "html": "<ol><li>Copy the exact link to the repost and the username that posted it.</li><li>Screenshot it with the date, the account name, the caption and the view count.</li><li>Keep your original export or raw file and the link to your first post of it, with its date.</li><li>Note anything that shows income: a sponsor tag, a shop link, an ad.</li></ol>"
+      },
+      {
+        "h": "Step 2: decide whether to message first",
+        "html": "<p>If it looks like a fan repost with no credit, a short note often works: \"This is my video, here is the original, please take it down or credit me.\" Skip this if the account runs many reposts or you expect a fight. Going straight to a copyright report is always fine.</p>"
+      },
+      {
+        "h": "Step 3: use the copyright form, not the general report",
+        "html": "<p>Each large platform has a dedicated copyright report. Steps for the two most common: <a href=\"/how-to-file-a-dmca-takedown-on-tiktok\">TikTok</a>, <a href=\"/how-to-file-a-dmca-takedown-on-youtube\">YouTube</a>, and for Instagram see <a href=\"/how-to-file-a-dmca-takedown-on-instagram\">how to file a takedown on Instagram</a>. A notice needs a few legal parts; <a href=\"/dmca-takedown-notice-template\">the template</a> lists them.</p>"
+      },
+      {
+        "h": "Step 4: check whether it is worth more than a takedown",
+        "html": "<p>If the account earned from your video, or a brand used it in an ad, you may be owed money. Registered work can reach statutory damages of $750 to $30,000 per work. Read <a href=\"/how-much-can-you-sue-for-copyright-infringement\">how much you can sue for</a> before deciding.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Emera Protect finds reposts of your videos, including ones with a new caption, files the takedown and tracks it until you see a Removed receipt. If the copy made money, Get paid sends a claim letter, and partner US copyright lawyers take it to court if they do not pay. No win, no fee, you keep 70%.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can I just report the video in the app?",
+        "a": "For copyright use the platform's dedicated copyright form. General report menus usually lead to other policies."
+      },
+      {
+        "q": "How do I get someone else's TikTok video taken down?",
+        "a": "If it is your content, file a copyright report on TikTok's form with links to the copy and to your original. If it is a video of you that you do not own, use the privacy or impersonation report instead."
+      },
+      {
+        "q": "What if they credited me?",
+        "a": "Credit is not permission. You can still ask for removal or a license fee."
+      },
+      {
+        "q": "Do I need to register the video first?",
+        "a": "Not for a takedown. To sue over a US work you generally do."
+      }
+    ],
+    "sources": [
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      },
+      {
+        "label": "U.S. Copyright Office: Title 17, chapter 5",
+        "url": "https://www.copyright.gov/title17/92chap5.html"
+      },
+      {
+        "label": "17 U.S.C. 504, remedies (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/504"
+      }
+    ],
+    "checked": "2026-11-23",
+    "related": [
+      "how-to-file-a-dmca-takedown-on-tiktok",
+      "how-to-file-a-dmca-takedown-on-youtube",
+      "how-much-can-you-sue-for-copyright-infringement",
+      "what-to-do-if-someone-steals-your-artwork"
+    ],
+    "cta": {
+      "h": "Someone has your video right now",
+      "p": "Send us the link and your original. We file the takedown for you, and if they made money from it, we start a claim.",
+      "label": "Report the copy free"
+    }
+  },
+  {
+    "slug": "how-to-file-a-dmca-takedown-on-tiktok",
+    "kind": "answer",
+    "q": "How to file a DMCA takedown on TikTok",
+    "title": "How to file a DMCA takedown on TikTok",
+    "description": "Use TikTok's copyright report form with links to the copy and your original. What the notice needs and what happens after you send it.",
+    "short": "Use TikTok's copyright report form, not the regular report menu. You must own the work or act for the owner. Have the link to each copy, a link to your original and your contact details ready, and only submit a claim you are sure of. Confirm the current form fields on TikTok's page.",
+    "sections": [
+      {
+        "h": "Before you start",
+        "html": "<p>Only the rights owner or an authorized agent should file. Appearing in a video does not make you its copyright owner. Gather:</p><ul><li>The link to each copy (open the video, tap share, copy link) and the username</li><li>A link or file showing your original and its date</li><li>Your name, address and email</li></ul>"
+      },
+      {
+        "h": "File the report",
+        "html": "<ol><li>Open <a href=\"https://www.tiktok.com/legal/report/Copyright\">TikTok's copyright report form</a>. We could not read its fields from here, so confirm the wording and options on the page, since forms change.</li><li>Say you are the owner or act for the owner.</li><li>Identify your original work and paste the links to the copies.</li><li>Add your contact details and sign electronically.</li></ol>"
+      },
+      {
+        "h": "What a notice has to say",
+        "html": "<p>Under <a href=\"https://www.law.cornell.edu/uscode/text/17/512\">17 U.S.C. 512(c)(3)</a> a notice needs a signature, the work you own, the material to remove with enough detail to find it, your contact details, a good-faith statement that the use is not authorized and a statement, under penalty of perjury, that your information is accurate and you are the owner or authorized. Knowingly lying in a notice can make you liable for damages (section 512(f)). The <a href=\"/dmca-takedown-notice-template\">template</a> has all six.</p>"
+      },
+      {
+        "h": "After you submit",
+        "html": "<p>The platform reviews it and may remove the video. The poster can file a counter-notification; if a valid one arrives, the video can be restored 10 to 14 business days later unless you tell the platform you filed a court action (section 512(g)). Decide beforehand whether you would go to court.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Emera Protect finds reposts of your videos on TikTok, Instagram and YouTube and files the takedown for you with the details already filled in. You see every step on your dashboard.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Is a DMCA takedown the same as reporting a video?",
+        "a": "No. A DMCA takedown is a formal copyright notice with legal statements. The regular report menu handles other kinds of problems."
+      },
+      {
+        "q": "Does it cost anything?",
+        "a": "The form is free to submit. A lawyer is optional."
+      },
+      {
+        "q": "How long does removal take?",
+        "a": "TikTok does not promise a time on the form page. Check its current guidance."
+      },
+      {
+        "q": "Can I report a video that only uses my song or my face?",
+        "a": "Your song can be a copyright claim if you own it. For your face or likeness without your work in it, use TikTok's privacy and impersonation reports instead."
+      }
+    ],
+    "sources": [
+      {
+        "label": "TikTok copyright report form",
+        "url": "https://www.tiktok.com/legal/report/Copyright"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      },
+      {
+        "label": "U.S. Copyright Office: Title 17, chapter 5",
+        "url": "https://www.copyright.gov/title17/92chap5.html"
+      }
+    ],
+    "checked": "2026-11-23",
+    "related": [
+      "someone-stole-my-video",
+      "dmca-takedown-notice-template",
+      "how-to-file-a-dmca-takedown-on-instagram"
+    ],
+    "cta": {
+      "h": "Skip the form",
+      "p": "Send us the TikTok link and your original. We prepare and file the takedown and track it to a Removed receipt.",
+      "label": "Report the copy free"
+    }
+  },
+  {
+    "slug": "how-to-file-a-dmca-takedown-on-youtube",
+    "kind": "answer",
+    "q": "How to file a DMCA takedown on YouTube",
+    "title": "How to file a DMCA takedown on YouTube",
+    "description": "File a copyright removal request in YouTube Studio under Content detection. What it asks for, what the uploader sees and what happens next.",
+    "short": "In YouTube Studio open Content detection, then New removal request. You must own the content or act for the owner, give direct links to the copies, and sign two legal statements. Consider fair use first, since an insufficient answer can make the request invalid. Never submit false information.",
+    "sections": [
+      {
+        "h": "The steps in YouTube Studio",
+        "html": "<ol><li>Sign in to YouTube Studio with the account linked to your channel.</li><li>Open <strong>Content detection</strong> in the left menu.</li><li>Choose <strong>New removal request</strong>.</li><li>Add the links to the videos you want removed and describe your original work.</li></ol><p>YouTube's <a href=\"https://support.google.com/youtube/answer/2807622\">own guide</a> also covers email, fax and mail submissions for videos and for non-video content such as channel banners.</p>"
+      },
+      {
+        "h": "What you must provide",
+        "html": "<ul><li>Contact details: an email, address or phone number.</li><li>A clear description of your copyrighted work, or a representative list.</li><li>Direct links in the format YouTube lists for each content type (watch, Shorts, playlist).</li><li>A good-faith statement and an accuracy statement made under penalty of perjury.</li><li>Your full legal name or an authorized representative's. A company name alone does not meet the signature rule.</li></ul>"
+      },
+      {
+        "h": "Fair use and the 7 day option",
+        "html": "<p>Before you submit, YouTube asks you to consider whether fair use, public domain or another exception applies, and an insufficient answer may make the request invalid. You can also schedule the removal to take effect in 7 days, which gives the uploader time to act and may help them avoid a strike. That is a kind option for a first-time repost.</p>"
+      },
+      {
+        "h": "What the uploader sees and what happens next",
+        "html": "<p>YouTube reviews the request for required information and apparent validity, and removes the content if it passes. If information is missing it contacts you, and the video may stay up meanwhile. Your name, primary email and the description of your work may be shared with the uploader; your physical address and phone number stay confidential unless requested for a lawsuit.</p><p>The uploader can send a counter-notification. A valid one can lead to restoration 10 to 14 business days later unless you file a court action (<a href=\"https://www.law.cornell.edu/uscode/text/17/512\">section 512(g)</a>).</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Emera Protect finds copies of your videos on YouTube, files the removal request for you and tracks it. You approve each takedown and watch its status on your dashboard.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "What is a DMCA takedown on YouTube?",
+        "a": "A copyright removal request under US law that asks YouTube to remove a video that uses your work without permission, with legal statements signed under penalty of perjury."
+      },
+      {
+        "q": "Can the uploader see who filed it?",
+        "a": "YouTube may share your name, primary email and the description of your work with the uploader. Your address and phone stay confidential."
+      },
+      {
+        "q": "What if I made a mistake in the request?",
+        "a": "Do not submit false information. YouTube says misuse can lead to account termination or other legal consequences. If you filed in error, contact YouTube through the same process."
+      },
+      {
+        "q": "Do I need to register my work first?",
+        "a": "No, not for a removal request. To sue over a US work you generally do."
+      }
+    ],
+    "sources": [
+      {
+        "label": "YouTube Help: submit a copyright removal request",
+        "url": "https://support.google.com/youtube/answer/2807622"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      },
+      {
+        "label": "U.S. Copyright Office: Title 17, chapter 5",
+        "url": "https://www.copyright.gov/title17/92chap5.html"
+      }
+    ],
+    "checked": "2026-11-23",
+    "related": [
+      "someone-stole-my-video",
+      "dmca-takedown-notice-template",
+      "how-to-file-a-dmca-takedown-on-tiktok"
+    ],
+    "cta": {
+      "h": "Copied on YouTube",
+      "p": "Send us the video link and your original. We file the removal request and track it until it is done.",
+      "label": "Report the copy free"
+    }
+  },
+  {
+    "slug": "dmca-takedown-notice-template",
+    "kind": "answer",
+    "q": "DMCA takedown notice template",
+    "title": "DMCA takedown notice template (copy and paste)",
+    "description": "A plain DMCA takedown notice you can copy: the six parts US law requires, a fill-in template, and what to do after you send it.",
+    "short": "A DMCA takedown notice needs six parts: a signature, your work, the infringing material with its location, your contact details, a good-faith statement and an accuracy statement under penalty of perjury (17 U.S.C. 512(c)(3)). Copy the template below, fill in the brackets and send it to the platform's copyright agent or form.",
+    "sections": [
+      {
+        "h": "The six parts a notice needs",
+        "html": "<ol><li>A physical or electronic signature of the owner or an authorized agent.</li><li>Identification of the copyrighted work you say was infringed.</li><li>Identification of the infringing material, with enough information for the platform to find it (links).</li><li>Your contact information: address, phone, email.</li><li>A statement that you have a good-faith belief the use is not authorized by the owner, its agent or the law.</li><li>A statement that the information is accurate and, under penalty of perjury, that you are the owner or authorized to act (<a href=\"https://www.law.cornell.edu/uscode/text/17/512\">17 U.S.C. 512(c)(3)</a>).</li></ol>"
+      },
+      {
+        "h": "Template",
+        "html": "<p>Subject: Copyright takedown notice</p><p>To the Copyright Agent of [platform or website]:</p><p>1. I am the owner of the copyright in [title and short description of your work], first published at [link to your original] on [date].</p><p>2. The following material infringes my copyright and is located at: [link 1], [link 2].</p><p>3. I have a good-faith belief that the use of this material is not authorized by me, my agent or the law.</p><p>4. The information in this notice is accurate, and under penalty of perjury, I am the owner of the exclusive right that is allegedly infringed, or am authorized to act on the owner's behalf.</p><p>5. My contact details: [full legal name], [address], [phone], [email].</p><p>Signed: /[full legal name]/ Date: [date]</p><p>Please remove or disable access to the material promptly.</p>"
+      },
+      {
+        "h": "Where to send it",
+        "html": "<p>Most large platforms prefer their own form, which collects the same parts: <a href=\"/how-to-file-a-dmca-takedown-on-instagram\">Instagram</a>, <a href=\"/how-to-file-a-dmca-takedown-on-tiktok\">TikTok</a>, <a href=\"/how-to-file-a-dmca-takedown-on-youtube\">YouTube</a>. For a website, look for a designated copyright agent on its terms page or in the US Copyright Office directory, or send the notice to its hosting company.</p>"
+      },
+      {
+        "h": "Before you send it",
+        "html": "<p>Only send a notice you are sure of. Knowingly misrepresenting that material is infringing can make you liable for damages (section 512(f)). Consider whether the use might be fair use. Expect a possible counter-notice, after which the material can be restored in 10 to 14 business days unless you file a court action (section 512(g)).</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Emera Protect fills in these parts for you from the copy and your original, files the notice and tracks it. Nothing is sent until you confirm.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Does a DMCA takedown notice cost money?",
+        "a": "No. Sending one is free. A lawyer is optional."
+      },
+      {
+        "q": "Do I need a lawyer to write it?",
+        "a": "No. The law lists what it must contain, and the template covers each part. For a dispute about money, talk to a lawyer."
+      },
+      {
+        "q": "Does it have to be notarized?",
+        "a": "No. The statute asks for a signature, physical or electronic, and the statements above."
+      },
+      {
+        "q": "Is this the same as a cease and desist letter?",
+        "a": "No. A takedown notice goes to the platform or host under a specific law. A cease and desist goes to the person who copied your work. See the separate template."
+      }
+    ],
+    "sources": [
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      },
+      {
+        "label": "U.S. Copyright Office: Title 17, chapter 5",
+        "url": "https://www.copyright.gov/title17/92chap5.html"
+      }
+    ],
+    "checked": "2026-11-23",
+    "related": [
+      "copyright-cease-and-desist-letter-template",
+      "someone-stole-my-video",
+      "what-to-do-if-someone-steals-your-artwork"
+    ],
+    "cta": {
+      "h": "Let us send it",
+      "p": "Give us the link to the copy and to your original. We fill in the notice, file it and track the result.",
+      "label": "Report the copy free"
+    }
+  },
+  {
+    "slug": "someone-made-a-fake-account-of-me",
+    "kind": "answer",
+    "q": "Someone made a fake account of me: what to do",
+    "title": "Someone made a fake account of me: what to do",
+    "description": "A fake account using your name or photos: save proof, report it as impersonation, file a copyright report for your photos, and warn your followers.",
+    "short": "Save the profile link and screenshots, then report the account as impersonation on the platform. If it uses photos or videos you made, file a copyright report too, since that route can be faster. Tell your followers which account is real. Impersonation rules differ by place, so ask a lawyer about legal action.",
+    "sections": [
+      {
+        "h": "Step 1: capture the account",
+        "html": "<ol><li>Copy the profile link and the exact username.</li><li>Screenshot the profile, bio, posts and follower count with the date visible.</li><li>Screenshot any messages it sent to your friends or followers, and who reported them to you.</li><li>Do not reply to the account. Replying can push it to change its name and hide.</li></ol>"
+      },
+      {
+        "h": "Step 2: report it as impersonation",
+        "html": "<p>Instagram has a Help Center article, <a href=\"https://help.instagram.com/446663175382270\">how to report an account that is pretending to be you or using your photos</a>. Confirm the current steps and form on that page. Other platforms have a similar impersonation or fake-profile report; use that rather than the general report menu.</p>"
+      },
+      {
+        "h": "Step 3: add a copyright report if your photos are used",
+        "html": "<p>Photos and videos you took or made are your copyright. A copyright report is a separate, formal route that platforms process under US law. See <a href=\"/how-to-file-a-dmca-takedown-on-instagram\">how to file a takedown on Instagram</a> and <a href=\"/dmca-takedown-notice-template\">the notice template</a>. Appearing in a photo someone else took does not make you its owner, so this route is for pictures you made.</p>"
+      },
+      {
+        "h": "Step 4: tell people which account is real",
+        "html": "<p>Post on your real account, in a story or pinned post, that a fake account exists, with its username. Ask people to report it and not to send money or details. Mention it to anyone the fake account has contacted.</p>"
+      },
+      {
+        "h": "Is it illegal",
+        "html": "<p>Making a fake account of someone breaks platform rules, and some places treat impersonation as a crime or a civil wrong, especially when it is used for fraud or harassment. Laws differ by country and state. If the account is scamming people or harassing you, report it to local police and ask a lawyer.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>On the Pro plan, Emera Protect looks for fake accounts using your name or face and files the takedown. On the free report you send us the account you found and we file it for you. Every step shows on your dashboard.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Is it illegal to make a fake Instagram account of someone?",
+        "a": "It breaks the platform's rules, and some places treat impersonation as a crime or a civil wrong. It depends on where you live and how the account is used."
+      },
+      {
+        "q": "Why does someone keep making fake accounts of me?",
+        "a": "Often it is scam accounts copying public photos. Keep your real account's followers informed and report each new account as it appears."
+      },
+      {
+        "q": "Why isn't the platform removing the fake?",
+        "a": "Reports can be rejected when they do not show impersonation clearly. Add proof such as your real profile link and, for photos you took, a copyright report."
+      },
+      {
+        "q": "Do I need an account to report?",
+        "a": "That differs by platform. Check the Help Center article for the current answer."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Instagram Help: report an account pretending to be you",
+        "url": "https://help.instagram.com/446663175382270"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      },
+      {
+        "label": "U.S. Copyright Office: Title 17, chapter 5",
+        "url": "https://www.copyright.gov/title17/92chap5.html"
+      }
+    ],
+    "checked": "2026-11-23",
+    "related": [
+      "someone-is-using-my-photos-on-instagram",
+      "how-to-file-a-dmca-takedown-on-instagram",
+      "what-to-do-if-someone-steals-your-artwork"
+    ],
+    "cta": {
+      "h": "Fake account using your face",
+      "p": "Send us the account you found and your real profile. We file the takedown, and on Pro we keep watching for new ones.",
+      "label": "Report the fake account"
+    }
+  },
+  {
+    "slug": "someone-is-using-my-photos-on-instagram",
+    "kind": "answer",
+    "q": "Someone is using my photos on Instagram: what to do",
+    "title": "Someone is using my photos on Instagram",
+    "description": "Two different problems need two different reports: your photos posted as someone's own, or an account pretending to be you. Here is which to use.",
+    "short": "First decide which problem you have. If someone posted photos you took, file a copyright report with your original. If an account pretends to be you or uses your face, file an impersonation report. Save screenshots and links before you report, since either post may disappear.",
+    "sections": [
+      {
+        "h": "Which problem is it",
+        "html": "<ul><li><strong>They posted photos I took.</strong> That is copyright. Use the copyright report form.</li><li><strong>They made an account that looks like me.</strong> That is impersonation. Use the impersonation report. See <a href=\"/someone-made-a-fake-account-of-me\">someone made a fake account of me</a>.</li><li><strong>Both.</strong> File both reports. They go to different teams.</li></ul>"
+      },
+      {
+        "h": "Step 1: save proof",
+        "html": "<ol><li>Copy the link to each post and the username.</li><li>Screenshot each with the date, caption and account name.</li><li>Keep the original file and the link to where you first posted it.</li></ol>"
+      },
+      {
+        "h": "Step 2: file the copyright report",
+        "html": "<p>Use the <a href=\"https://help.instagram.com/contact/552695131608132\">Instagram Copyright Report Form</a>, not the three-dot Report menu. Full steps are in <a href=\"/how-to-file-a-dmca-takedown-on-instagram\">how to file a takedown on Instagram</a>.</p>"
+      },
+      {
+        "h": "Step 3: if they are selling or profiting",
+        "html": "<p>A shop selling prints of your photo, or an account running ads with it, may owe you money. Read <a href=\"/how-much-can-you-sue-for-copyright-infringement\">how much you can sue for</a> and <a href=\"/how-to-register-copyright-us\">how to register your photos</a>; a group registration for photographs costs $55 at the US Copyright Office today.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Emera Protect finds copies of your photos and fake accounts using your face, files the takedowns and tracks each one. If someone made money from your photos, Get paid sends a claim letter and partner US copyright lawyers take it further. No win, no fee, you keep 70%.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "What to do if someone is using my pictures on Instagram?",
+        "a": "Save proof, then file the copyright report form if you took the pictures, or the impersonation report if an account pretends to be you."
+      },
+      {
+        "q": "Can I make them take the photos down myself?",
+        "a": "You can ask politely first. If that fails, the copyright report form is the formal route."
+      },
+      {
+        "q": "What if the photos are of me but someone else took them?",
+        "a": "The photographer usually owns the copyright, not the person in the photo. Use the impersonation or privacy reports instead."
+      },
+      {
+        "q": "Does Instagram tell them it was me?",
+        "a": "Meta's reports process may share details with the other party. Check the form's notices before you submit."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Instagram Copyright Report Form",
+        "url": "https://help.instagram.com/contact/552695131608132"
+      },
+      {
+        "label": "Instagram Help: report an account pretending to be you",
+        "url": "https://help.instagram.com/446663175382270"
+      },
+      {
+        "label": "U.S. Copyright Office fees",
+        "url": "https://www.copyright.gov/about/fees.html"
+      }
+    ],
+    "checked": "2026-11-23",
+    "related": [
+      "someone-made-a-fake-account-of-me",
+      "how-to-file-a-dmca-takedown-on-instagram",
+      "how-to-find-stolen-photos"
+    ],
+    "cta": {
+      "h": "Your photos, their account",
+      "p": "Send us the Instagram links and your originals. We file the right report for each and keep it on your dashboard.",
+      "label": "Report the copy free"
+    }
+  },
+  {
+    "slug": "song-used-without-permission",
+    "kind": "answer",
+    "q": "Song used without permission: what you can do",
+    "title": "Song used without permission: what you can do",
+    "description": "Your song in a video or ad without a license? Find who owns what, document the use, file a takedown, and ask for a license fee or a claim.",
+    "short": "If your song is used without permission, document the exact use, check who owns the recording and the composition, then ask the platform to remove it with a copyright report. If a brand or business used it to sell something, a claim letter asking for a license fee is the next step.",
+    "sections": [
+      {
+        "h": "Know what you own",
+        "html": "<p>The US Copyright Office treats a musical composition and a sound recording as two separate works. A copyright in the recording is not the same as one in the song underneath it. If you wrote and recorded it yourself, you may own both. If a label or distributor holds the recording, or a publisher holds the composition, they may be the ones who file. Check your contracts first.</p>"
+      },
+      {
+        "h": "Step 1: document the use",
+        "html": "<ol><li>Save the link to the video or ad and a screen recording that includes the sound.</li><li>Write the timestamp where your song plays and how long it runs.</li><li>Note who posted it, whether it is a brand, and any views, sponsorship or sales tied to it.</li><li>Keep proof you own it: release date, stems, session files, distributor receipt.</li></ol>"
+      },
+      {
+        "h": "Step 2: ask for removal",
+        "html": "<p>File the platform's copyright form with the links and your proof. Notice rules are in the <a href=\"/dmca-takedown-notice-template\">template</a>, and the steps for <a href=\"/how-to-file-a-dmca-takedown-on-youtube\">YouTube</a> and <a href=\"/how-to-file-a-dmca-takedown-on-tiktok\">TikTok</a> are written out.</p>"
+      },
+      {
+        "h": "Step 3: ask to be paid",
+        "html": "<p>When a business used the track to sell something, removal alone leaves the money question open. A claim letter says what was used, where, and the license fee you want for it. A license that pairs music with video is usually called a sync license; your letter can say what you would have charged. Registering the song early helps if this ends in court (see <a href=\"/statutory-damages-for-copyright-infringement\">statutory damages</a>).</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Emera Protect finds your songs in other people's videos and files the takedown. When a brand used your music, Get paid sends the claim letter, and if they do not pay, partner copyright lawyers in the US take it to court. No win, no fee, and you keep 70% of what is recovered.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can you use a song without permission?",
+        "a": "Not generally. Using a recording usually needs permission from the owners involved, and some uses fall under licenses a platform has arranged. A short length or a credit does not make it free."
+      },
+      {
+        "q": "Do I need to register a song before I send a takedown?",
+        "a": "No. To sue over a US work you generally do."
+      },
+      {
+        "q": "Is credit enough?",
+        "a": "No. Credit is not a license."
+      },
+      {
+        "q": "What if my distributor or label owns it?",
+        "a": "Ask them who files. They may handle takedowns for you under your agreement."
+      }
+    ],
+    "sources": [
+      {
+        "label": "U.S. Copyright Office Circular 56A: musical compositions and sound recordings",
+        "url": "https://www.copyright.gov/circs/circ56a.pdf"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      },
+      {
+        "label": "17 U.S.C. 504, remedies (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/504"
+      }
+    ],
+    "checked": "2026-11-23",
+    "related": [
+      "dmca-takedown-notice-template",
+      "statutory-damages-for-copyright-infringement",
+      "how-to-register-copyright-us"
+    ],
+    "cta": {
+      "h": "Your song, their ad",
+      "p": "Send us the link and your release. We file the takedown, and if a brand profited, we start the claim. No win, no fee.",
+      "label": "Start a free report"
+    }
+  },
+  {
+    "slug": "copyright-small-claims-court",
+    "kind": "answer",
+    "q": "Copyright small claims court: how the CCB works",
+    "title": "Copyright small claims court: how the CCB works",
+    "description": "The Copyright Claims Board decides copyright claims up to $30,000 without a lawyer. Fees, limits, who can opt out and the 3 year deadline.",
+    "short": "The Copyright Claims Board (CCB) is a US tribunal for copyright claims up to $30,000 in total, with statutory damages capped at $15,000 per work. You do not need a lawyer. It costs $40 to file and $60 more if the other side does not opt out. You need a registration or a submitted application.",
+    "sections": [
+      {
+        "h": "What the CCB is",
+        "html": "<p>The Copyright Claims Board is a three-member tribunal in the US Copyright Office, described as a streamlined alternative to federal court. It hears copyright claims where you want money, and it is built for people without a lawyer.</p>"
+      },
+      {
+        "h": "Limits you should know",
+        "html": "<ul><li>Total damages are capped at $30,000.</li><li>Statutory damages are capped at $15,000 per work.</li><li>Claims of $5,000 or less can use the Smaller Claims procedure.</li><li>You need a registration or an application filed before or with your claim. If the application is refused, the claim is dismissed without prejudice.</li><li>You have three years from when the infringing activity took place.</li><li>The CCB can order a party who acted in bad faith to pay costs and fees, up to $5,000, or $2,500 for a party without a lawyer.</li></ul>"
+      },
+      {
+        "h": "What it costs",
+        "html": "<p>The fee table shows $40 when you file and $60 more only if the respondent does not opt out by the end of the opt-out period. If every respondent opts out, you do not pay the second fee. An expedited registration for the CCB route costs $50 per work.</p>"
+      },
+      {
+        "h": "The catch: the other side can opt out",
+        "html": "<p>The person you name can choose to opt out, and the case then does not proceed at the CCB. Your other option is federal court, where a lawyer is practical. Weigh that before you pay for registration.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Emera Protect gathers the proof of the copy. Get paid then sends a claim letter, and if the copier does not pay, partner US copyright lawyers take the case on, with no win, no fee and you keep 70%. We help you register your work when that can raise what a court awards.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Is it worth suing for copyright infringement?",
+        "a": "It depends on how much the copier earned and whether your work is registered. For smaller amounts the CCB is a lower-cost option; for larger ones or a business copier, a lawyer may be worth it."
+      },
+      {
+        "q": "What is the 3 month rule for copyright?",
+        "a": "Registering within three months of first publishing a work keeps statutory damages and attorney's fees available for copying that began before you registered (17 U.S.C. 412)."
+      },
+      {
+        "q": "Do I need a lawyer at the CCB?",
+        "a": "No. You can file or respond without one."
+      },
+      {
+        "q": "Can the CCB take a video down?",
+        "a": "The pages we read describe money awards only. Use a platform takedown to remove content."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Copyright Claims Board",
+        "url": "https://www.ccb.gov/"
+      },
+      {
+        "label": "Copyright Claims Board FAQ",
+        "url": "https://www.ccb.gov/faq/"
+      },
+      {
+        "label": "Copyright Claims Board: about and fees",
+        "url": "https://www.ccb.gov/about/"
+      },
+      {
+        "label": "17 U.S.C. 412, registration as a condition of remedies (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/412"
+      }
+    ],
+    "checked": "2026-11-23",
+    "related": [
+      "how-much-can-you-sue-for-copyright-infringement",
+      "how-to-register-copyright-us",
+      "statutory-damages-for-copyright-infringement"
+    ],
+    "cta": {
+      "h": "They made money from your work",
+      "p": "Start with a free report. We document the copy, file the takedown and tell you if it can become a claim.",
+      "label": "Start a free report"
+    }
+  },
+  {
+    "slug": "how-to-register-copyright-us",
+    "kind": "answer",
+    "q": "How to register a copyright in the US",
+    "title": "How to register a copyright in the US",
+    "description": "Register art, photos, music or video at the US Copyright Office for $45 to $65 online. Why timing matters and what it lets you claim.",
+    "short": "Register at the US Copyright Office online. One work by one author costs $45, a standard application $65. Your work is protected from the moment you create it, but registering is required to sue over a US work and decides whether statutory damages and fees are available. Fees change on January 5, 2027.",
+    "sections": [
+      {
+        "h": "Protected already, registered for the courtroom",
+        "html": "<p>The Copyright Office says work is under copyright protection the moment it is created and fixed in a tangible form, and that registration is generally voluntary. But you will have to register to bring a lawsuit over a US work, and registered works may be eligible for statutory damages and attorney's fees.</p>"
+      },
+      {
+        "h": "What it costs",
+        "html": "<ul><li>$45: electronic filing, one author, one work, not made for hire.</li><li>$65: standard electronic application.</li><li>$55: group of published or unpublished photographs.</li><li>$85: group of unpublished works.</li><li>$125: paper forms.</li></ul><p>The office says its fees change on January 5, 2027, so check <a href=\"https://www.copyright.gov/about/fees.html\">the current table</a> before you file.</p>"
+      },
+      {
+        "h": "When to register",
+        "html": "<p>Register within three months of first publishing a work, or before anyone copies it. Past that, copying that began before your registration cannot get statutory damages or attorney's fees (<a href=\"https://www.law.cornell.edu/uscode/text/17/412\">17 U.S.C. 412</a>). Photographers and artists who post often can use a group option to keep this cheap.</p>"
+      },
+      {
+        "h": "Steps",
+        "html": "<ol><li>Create an account on the US Copyright Office's registration site.</li><li>Pick the right type of work and whether it is published.</li><li>Fill in the author, year and any earlier versions.</li><li>Upload a copy of the work and pay the fee.</li><li>Keep the confirmation. The office says processing times are on a separate page and change by period.</li></ol>"
+      },
+      {
+        "h": "What does not work",
+        "html": "<p>Mailing a copy to yourself is not a substitute for registration. The Copyright Office says copyright law has no provision for it.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>When registering can raise what a court awards, Emera Protect helps you do it, so the proof of the copy and your registration end up in the same case.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "How much does it cost to copyright my artwork?",
+        "a": "Your work has copyright when you make it. Registering it online costs $45 for one work by one author or $65 for a standard application, per the Copyright Office's current table."
+      },
+      {
+        "q": "Can I copyright my art for free?",
+        "a": "Copyright exists for free the moment you create it. Registration, which is what lets you sue, has a fee."
+      },
+      {
+        "q": "What is the 3 month rule?",
+        "a": "Register within three months of first publication and you keep access to statutory damages and fees even for copying that began before you registered."
+      },
+      {
+        "q": "Do I need to register to send a takedown?",
+        "a": "No. Only suing generally requires it."
+      }
+    ],
+    "sources": [
+      {
+        "label": "U.S. Copyright Office fees",
+        "url": "https://www.copyright.gov/about/fees.html"
+      },
+      {
+        "label": "U.S. Copyright Office: general questions",
+        "url": "https://www.copyright.gov/help/faq/faq-general.html"
+      },
+      {
+        "label": "U.S. Copyright Office: registration",
+        "url": "https://www.copyright.gov/registration/"
+      },
+      {
+        "label": "17 U.S.C. 412, registration as a condition of remedies (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/412"
+      }
+    ],
+    "checked": "2026-11-23",
+    "related": [
+      "statutory-damages-for-copyright-infringement",
+      "how-much-can-you-sue-for-copyright-infringement",
+      "how-to-prevent-people-from-stealing-your-art-online"
+    ],
+    "cta": {
+      "h": "Register once, then get covered",
+      "p": "Protect watches for copies and helps with registration when it can raise what a court awards. Start free.",
+      "label": "Start a free report"
+    }
+  },
+  {
+    "slug": "copyright-cease-and-desist-letter-template",
+    "kind": "answer",
+    "q": "Copyright cease and desist letter template",
+    "title": "Copyright cease and desist letter template",
+    "description": "A plain cease and desist letter for copied work: what to include, a fill-in template and how it differs from a DMCA takedown.",
+    "short": "A copyright cease and desist letter tells the person who copied your work what they used, asks them to stop and remove it by a date, and may ask for payment. It has no legal force by itself. A DMCA takedown goes to the platform instead. Use the template below and keep a copy.",
+    "sections": [
+      {
+        "h": "What goes in it",
+        "html": "<ul><li>Who you are and that you own the work, with a link to your original and its first publication date.</li><li>Exactly where the copy is, with links and screenshots.</li><li>What you want: remove it, stop using it, credit or pay a license fee.</li><li>A date to respond, such as 10 days.</li><li>A line saying you reserve your rights.</li></ul><p>Keep it calm and factual. Do not threaten anything you will not do.</p>"
+      },
+      {
+        "h": "Template",
+        "html": "<p>[Date]</p><p>To [name or business]:</p><p>I am the creator and copyright owner of [title and description of your work], first published on [date] at [link to original].</p><p>I found my work being used without my permission at: [link 1], [link 2]. I have not licensed this use to you.</p><p>I ask that you (1) remove the work from every place you posted or sold it, (2) stop using it, and (3) [pay a license fee of $___ / confirm in writing that you have done so] by [date].</p><p>This letter does not waive any of my rights or remedies.</p><p>[Full name, email, phone]</p>"
+      },
+      {
+        "h": "Cease and desist versus takedown",
+        "html": "<p>A cease and desist is a letter to the person. A <a href=\"/dmca-takedown-notice-template\">DMCA takedown notice</a> is sent to the platform or host under a specific law and can get content removed without the copier doing anything. Many creators send the takedown first and a letter only when money is involved.</p>"
+      },
+      {
+        "h": "When a letter is not enough",
+        "html": "<p>If they ignore it or the copier made money, a lawyer's letter carries more weight, and registered work can support statutory damages of $750 to $30,000 per work (<a href=\"/statutory-damages-for-copyright-infringement\">how they work</a>). A lawyer can also tell you whether the copier has a fair use argument.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>When someone made money from your work, Emera Protect's Get paid sends the claim letter for you. If they do not pay, partner copyright lawyers in the US take it to court. No win, no fee, and you keep 70% of what is recovered.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can I write my own cease and desist letter?",
+        "a": "Yes. There is no required form. State your ownership, the use, your request and a deadline."
+      },
+      {
+        "q": "Is a cease and desist legally binding?",
+        "a": "No. It is a demand and a record that you asked. It can matter later in a dispute."
+      },
+      {
+        "q": "Should I send it to the platform or the person?",
+        "a": "To the person for a cease and desist; to the platform for a DMCA takedown. You can do both."
+      },
+      {
+        "q": "What if they respond and refuse?",
+        "a": "You can still file a platform takedown, and talk to a copyright lawyer about a claim."
+      }
+    ],
+    "sources": [
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      },
+      {
+        "label": "17 U.S.C. 504, remedies (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/504"
+      },
+      {
+        "label": "U.S. Copyright Office: Title 17, chapter 5",
+        "url": "https://www.copyright.gov/title17/92chap5.html"
+      }
+    ],
+    "checked": "2026-11-23",
+    "related": [
+      "dmca-takedown-notice-template",
+      "how-much-can-you-sue-for-copyright-infringement",
+      "someone-stole-my-video"
+    ],
+    "cta": {
+      "h": "Skip writing the letter",
+      "p": "If they made money from your work, Get paid sends the claim for you. No win, no fee, you keep 70%.",
+      "label": "Start a free report"
+    }
+  },
+  {
+    "slug": "how-to-find-stolen-photos",
+    "kind": "answer",
+    "q": "How to find stolen photos and who is using them",
+    "title": "How to find stolen photos and who is using them",
+    "description": "Run a reverse image search, search your captions, check marketplaces and set alerts. Then save proof and report. Free steps that take 20 minutes.",
+    "short": "Run your photo through a reverse image search such as Google Lens or TinEye, search a distinctive caption or watermark text, and check shops where your style sells. Save the link and a dated screenshot of each hit. Then file a takedown or ask for a license fee.",
+    "sections": [
+      {
+        "h": "Step 1: reverse image search",
+        "html": "<p>Upload the photo or paste its link into <a href=\"https://support.google.com/websearch/answer/1325808\">Google search by image</a> (in Chrome, right-click and choose Search with Google Lens) and into TinEye. Try the full image and a crop of the most distinctive part. A new copy may not show up yet, and an empty result is not proof that no copy exists.</p>"
+      },
+      {
+        "h": "Step 2: search by words",
+        "html": "<p>Search a distinctive caption you wrote, a watermark text, a title or your handle in quotes. Copies often keep the caption. Check the Images tab and the date filters.</p>"
+      },
+      {
+        "h": "Step 3: look where copies are sold",
+        "html": "<p>Search your subject plus words such as \"print\", \"poster\", \"canvas\" and \"t-shirt\" on large marketplaces and print-on-demand shops. Many shops list products by keyword, so a few searches cover a lot.</p>"
+      },
+      {
+        "h": "Step 4: save proof",
+        "html": "<ol><li>Copy each link and take a dated screenshot.</li><li>Keep your original file and the link to your first post.</li><li>Note any price, sales or ad that shows the copier is earning.</li></ol>"
+      },
+      {
+        "h": "Step 5: act",
+        "html": "<p>Use the platform's copyright form (<a href=\"/how-to-file-a-dmca-takedown-on-instagram\">Instagram</a>, <a href=\"/how-to-file-a-dmca-takedown-on-tiktok\">TikTok</a>, <a href=\"/how-to-file-a-dmca-takedown-on-youtube\">YouTube</a>) or send the <a href=\"/dmca-takedown-notice-template\">takedown notice</a> to the website's host. If they made money, read <a href=\"/how-much-can-you-sue-for-copyright-infringement\">how much you can sue for</a>. Searches done by hand have to be repeated; automatic monitoring tools exist, and one is compared on <a href=\"/pixsy-alternative\">the Pixsy alternative page</a>.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Emera Protect does the searching for you. Creator plan watches up to 100 of your posts every week for reposts and copies across TikTok, Instagram, YouTube and the web, and Pro checks every new post daily. Each find comes with a one-tap takedown.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "How can I check if a photo is stolen?",
+        "a": "Run a reverse image search with Google Lens and TinEye, then search its caption or watermark text. If you find a copy you did not license, save proof and report it."
+      },
+      {
+        "q": "Is reverse image search free?",
+        "a": "Google's image search is free. TinEye's site says what it offers; confirm its current limits on tineye.com."
+      },
+      {
+        "q": "Why does my search find nothing?",
+        "a": "A new or private copy may not be indexed, and edited or cropped copies can slip past a simple search. Empty is not proof of absence."
+      },
+      {
+        "q": "Can I set up alerts?",
+        "a": "Some search tools offer alerts. Emera Protect's Creator and Pro plans check your posts on a schedule."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Google Search Help: search with an image",
+        "url": "https://support.google.com/websearch/answer/1325808"
+      },
+      {
+        "label": "TinEye reverse image search",
+        "url": "https://tineye.com/"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-23",
+    "related": [
+      "someone-is-using-my-photos-on-instagram",
+      "pixsy-alternative",
+      "how-to-prevent-people-from-stealing-your-art-online"
+    ],
+    "cta": {
+      "h": "Let us do the searching",
+      "p": "Creator watches your posts every week and files the takedowns. Start with a free report on a copy you already found.",
+      "label": "Start a free report"
+    }
   }
 ]
