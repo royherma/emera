@@ -305,6 +305,59 @@
           "who": "claude"
         }
       ]
+    },
+    {
+      "id": "protect",
+      "title": "Protect · Sell protection now",
+      "sub": "Plan: docs/protection-plan.md. Done when: first paying creator, Roy has 3 real takedowns removed with receipts",
+      "tasks": [
+        {
+          "id": "pr-page",
+          "text": "/protect page: hook, $10 Creator, $100 Pro/Brand unlimited, Enterprise form to Slack",
+          "who": "claude"
+        },
+        {
+          "id": "pr-stripe",
+          "text": "Stripe subscriptions on the Emera account ($10, $100), plan on each user",
+          "who": "claude"
+        },
+        {
+          "id": "pr-add",
+          "text": "Add work: merge Instagram import, bulk upload, ends on \"We are watching N works\"",
+          "who": "claude"
+        },
+        {
+          "id": "pr-scan",
+          "text": "Weekly scan per work: Google Lens + PDQ + Claude vision judge, Found copies screen",
+          "who": "claude"
+        },
+        {
+          "id": "pr-takedown",
+          "text": "Takedown engine: notice builder, email host DMCA agent, platform-form desk queue, daily recheck, receipt card",
+          "who": "claude"
+        },
+        {
+          "id": "pr-desk",
+          "text": "Desk page in /admin: every open takedown, one-click file, status",
+          "who": "claude"
+        },
+        {
+          "id": "pr-roy",
+          "text": "Roy = customer zero: import his Instagram, scan, file real takedowns, publish receipts",
+          "who": "claude"
+        },
+        {
+          "id": "pr-seo",
+          "text": "SEO: how-to-take-down answer pages + case pages from receipts",
+          "who": "claude"
+        },
+        {
+          "id": "pr-asks",
+          "text": "Your part: Instagram app keys + Meta review, SerpAPI paid plan, Meta Rights Manager application",
+          "who": "roy",
+          "review": "protect-asks"
+        }
+      ]
     }
   ],
   "decisions": [
@@ -2164,6 +2217,19 @@
       "text": null,
       "owner": "claude 524d1782",
       "at": "2026-11-22T23:09:57.184Z"
+    },
+    {
+      "id": "protect-asks",
+      "kind": "do",
+      "when": "this week, ~20 min",
+      "title": "3 things only you can do for Emera Protect",
+      "why": "Scanner and Instagram import are blocked on these. Measured: Google Lens returned 60 matches on a widely copied image, 0 from Instagram/TikTok, so Meta Rights Manager is how we see inside Instagram.",
+      "list": [
+        "1. key set IG_APP_ID and IG_APP_SECRET (Meta app dashboard), then submit review with docs/meta/instagram-app-review.md",
+        "2. Yes to SerpAPI Developer plan, $75/mo for 5,000 scans (now Free, 16 left this month)",
+        "3. Apply to Meta Rights Manager as agent for Emera creators (your Facebook login)"
+      ],
+      "pick": "All 3; #2 first, it unblocks the scanner"
     }
   ],
   "reviewDone": [
