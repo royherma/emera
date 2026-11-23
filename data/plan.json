@@ -332,7 +332,8 @@
         {
           "id": "pr-scan",
           "text": "Weekly scan per work: Google Lens + PDQ + Claude vision judge, Found copies screen",
-          "who": "claude"
+          "who": "claude",
+        "done": {"at": "2026-11-23T05:00:00Z", "ref": "a2b4aa6", "note": "live: cron every 30 min, Found copies in app Settings > Protect; budget 5/month until SerpAPI paid plan"}
         },
         {
           "id": "pr-takedown",
