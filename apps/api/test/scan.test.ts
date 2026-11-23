@@ -1,26 +1,94 @@
+import { deflateSync } from 'node:zlib';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { Client, makeEnv, pngBytes } from './helpers';
-import { keepForeign, parseLens, runScan } from '../src/scan';
+import { Client, crc32, makeEnv, pngBytes } from './helpers';
+import { isOwnUrl, keepForeign, ownAccounts, parseLens, rescoreMatches, runScan } from '../src/scan';
+import { pdqDistance, pdqOf } from '../src/pdq';
 
-const env = makeEnv({ SERP_API_KEY: 'serp_test', PUBLIC_ORIGIN: 'https://emera.social', SCAN_MONTHLY_LIMIT: '200' });
+const env = makeEnv({ SERP_API_KEY: 'serp_test', PUBLIC_ORIGIN: 'https://emera.social', SCAN_MONTHLY_LIMIT: '200', IMAGES: undefined });
 const db = env.DB;
 let seq = 0;
 let lensCalls: string[] = [];
+let thumbCalls: string[] = [];
+
+function grayPng(size: number, pixel: (x: number, y: number) => number): Uint8Array {
+  const chunk = (type: string, data: Uint8Array) => {
+    const out = new Uint8Array(12 + data.length);
+    const dv = new DataView(out.buffer);
+    dv.setUint32(0, data.length);
+    out.set(new TextEncoder().encode(type), 4);
+    out.set(data, 8);
+    dv.setUint32(8 + data.length, crc32(out.subarray(4, 8 + data.length)));
+    return out;
+  };
+  const ihdr = new Uint8Array(13);
+  const dv = new DataView(ihdr.buffer);
+  dv.setUint32(0, size);
+  dv.setUint32(4, size);
+  ihdr.set([8, 0, 0, 0, 0], 8);
+  const raw = new Uint8Array((size + 1) * size);
+  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) raw[y * (size + 1) + 1 + x] = pixel(x, y);
+  const parts = [new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]), chunk('IHDR', ihdr), chunk('IDAT', deflateSync(raw)), chunk('IEND', new Uint8Array())];
+  const out = new Uint8Array(parts.reduce((n, p) => n + p.length, 0));
+  let o = 0;
+  for (const part of parts) { out.set(part, o); o += part.length; }
+  return out;
+}
+
+const blocks = (seed: number) => {
+  const level: number[] = [];
+  let r = seed;
+  for (let i = 0; i < 64; i++) { r = (r * 1103515245 + 12345) & 0x7fffffff; level.push(r % 256); }
+  return level;
+};
+const picture = (seed: number, size = 128, noise = 0) => {
+  const level = blocks(seed);
+  return grayPng(size, (x, y) => {
+    const base = level[Math.floor((y * 8) / size) * 8 + Math.floor((x * 8) / size)];
+    return Math.max(0, Math.min(255, base + (noise ? ((x * 7 + y * 13) % (2 * noise + 1)) - noise : 0)));
+  });
+};
+const ORIGINAL = picture(11);
+const THUMBS: Record<string, Uint8Array> = {
+  copy: picture(11, 128, 4),
+  smallcopy: picture(11, 96),
+  other1: picture(22),
+  other2: picture(33),
+  other3: picture(44),
+};
 
 const LENS = {
   visual_matches: [
-    { title: 'Stolen print', link: 'https://shop.example.org/p/1', source: 'Example Shop', thumbnail: 'https://t.example.org/1.jpg' },
-    { title: 'Mine', link: 'https://emera.social/p/abc', source: 'Emera' },
-    { title: 'Own site', link: 'https://www.myart.test/work', source: 'myart' },
+    { title: 'Stolen print', link: 'https://shop.example.org/p/1', source: 'Example Shop', thumbnail: 'https://t.example.org/copy.png' },
+    { title: 'Snyk', link: 'https://snyk.io/blog/x', source: 'Snyk', thumbnail: 'https://t.example.org/other1.png' },
+    { title: 'Pictory', link: 'https://pictory.ai/', source: 'Pictory', thumbnail: 'https://t.example.org/other2.png' },
+    { title: 'Spotify', link: 'https://www.spotify.com/premium', source: 'Spotify', thumbnail: 'https://t.example.org/other3.png' },
+    { title: 'Random video', link: 'https://www.youtube.com/watch?v=abc', source: 'YouTube', thumbnail: 'https://t.example.org/other1.png' },
+    { title: 'My TikTok', link: 'https://www.tiktok.com/@TIKHANDLE', source: 'TikTok', thumbnail: 'https://t.example.org/copy.png' },
+    { title: 'My IG', link: 'https://www.instagram.com/IGHANDLE/', source: 'Instagram', thumbnail: 'https://t.example.org/copy.png' },
+    { title: 'My Emera', link: 'https://emera.social/p/abc', source: 'Emera', thumbnail: 'https://t.example.org/copy.png' },
+    { title: 'Own site', link: 'https://www.myart.test/work', source: 'myart', thumbnail: 'https://t.example.org/copy.png' },
+    { title: 'Reposter', link: 'https://www.instagram.com/p/XyZ/', source: 'Instagram', thumbnail: 'https://t.example.org/smallcopy.png' },
+    { title: 'No picture', link: 'https://nopic.example.org/a', source: 'NoPic' },
+    { title: 'Dead thumb', link: 'https://dead.example.org/a', source: 'Dead', thumbnail: 'https://t.example.org/missing.png' },
   ],
-  exact_matches: [{ title: 'Exact copy', link: 'https://blog.example.net/x', source: 'Blog' }],
+  exact_matches: [
+    { title: 'Exact copy', link: 'https://blog.example.net/x', source: 'Blog' },
+    { title: 'Exact on my own YouTube', link: 'https://www.youtube.com/@YTHANDLE/videos', source: 'YouTube' },
+  ],
 };
 
 function fakeLens(body: unknown = LENS, status = 200) {
   lensCalls = [];
+  thumbCalls = [];
   vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
-    lensCalls.push(String(input instanceof Request ? input.url : input));
-    return Response.json(body as object, { status });
+    const url = String(input instanceof Request ? input.url : input);
+    if (url.includes('serpapi.com')) {
+      lensCalls.push(url);
+      return Response.json(body as object, { status });
+    }
+    thumbCalls.push(url);
+    const name = /\/([a-z0-9]+)\.png$/.exec(url)?.[1] ?? '';
+    return THUMBS[name] ? new Response(THUMBS[name], { headers: { 'content-type': 'image/png' } }) : new Response('nope', { status: 404 });
   });
 }
 
@@ -28,48 +96,86 @@ async function creator(plan: string | null, until: number | null = Date.now() + 
   const c = new Client(env);
   const tag = `${Date.now().toString(36)}${seq++}`;
   await c.signIn(`s${tag}@example.test`);
-  const me = await c.withHandle(`s${tag}`.slice(0, 20), 'S');
+  const handle = `s${tag}`.slice(0, 20);
+  const me = await c.withHandle(handle, 'S');
   const id = me.body.user.id as string;
-  await db.prepare('UPDATE users SET links = ? WHERE id = ?').bind(JSON.stringify(['https://myart.test']), id).run();
+  await db.prepare('UPDATE users SET links = ?, other_handles = ? WHERE id = ?')
+    .bind(JSON.stringify(['https://myart.test', 'https://www.tiktok.com/@tk' + tag]), `yt${tag}, @unused`, id).run();
+  await db.prepare('INSERT INTO instagram_links (user_id, ig_user_id, username, token, expires_at, created_at) VALUES (?, ?, ?, ?, ?, ?)')
+    .bind(id, '1', `ig${tag}`, 't', Date.now() + 1e9, Date.now()).run();
   if (plan) await db.prepare('UPDATE users SET plan = ?, plan_until = ? WHERE id = ?').bind(plan, until, id).run();
   const up = await c.upload(pngBytes(8, 8));
   const post = await c.json('POST', '/v1/posts', { mediaIds: [up.body.media.id], caption: 'x' });
-  return { c, id, postId: post.body.post.id as string };
+  const postId = post.body.post.id as string;
+  const media = await db.prepare('SELECT r2_key FROM media WHERE post_id = ?').bind(postId).first<{ r2_key: string }>();
+  await env.MEDIA.put(media!.r2_key, ORIGINAL);
+  const lens = JSON.parse(
+    JSON.stringify(LENS).replace('TIKHANDLE', `tk${tag}`).replace('IGHANDLE', `ig${tag}`).replace('YTHANDLE', `yt${tag}`),
+  );
+  return { c, id, postId, handle, lens };
 }
 
 afterEach(() => vi.restoreAllMocks());
 
-describe('lens parsing', () => {
-  it('drops own domains and creator links', () => {
-    const kept = keepForeign(parseLens(LENS), ['emera.social', 'myart.test']);
-    expect(kept.map((k) => k.url)).toEqual(['https://blog.example.net/x', 'https://shop.example.org/p/1']);
+describe('own accounts', () => {
+  const own = ownAccounts({ PUBLIC_ORIGIN: 'https://emera.social' }, {
+    handle: 'roy', links: JSON.stringify(['https://myart.test', 'https://www.tiktok.com/@royt', 'https://youtube.com/channel/royyt']), other_handles: '@roy_alt, https://www.instagram.com/roy.ig/', ig_username: 'royig',
+  });
+  it('collects handles from every source and hosts only from non-platform links', () => {
+    expect(own.handles.sort()).toEqual(['roy', 'roy.ig', 'roy_alt', 'royig', 'royt', 'royyt'].sort());
+    expect(own.hosts).toEqual(['emera.social', 'myart.test']);
+  });
+  it('matches /@handle and /handle/ on platforms, never other people', () => {
+    for (const u of ['https://www.tiktok.com/@royt/video/1', 'https://instagram.com/roy.ig/', 'https://www.instagram.com/royig', 'https://youtube.com/@roy', 'https://m.myart.test/x'])
+      expect(isOwnUrl(u, own), u).toBe(true);
+    for (const u of ['https://www.tiktok.com/@someoneelse', 'https://instagram.com/p/roy/', 'https://random.example/roy/', 'https://www.instagram.com/royig2/'])
+      expect(isOwnUrl(u, own), u).toBe(false);
+  });
+  it('keepForeign drops the creator own pages', () => {
+    expect(keepForeign(parseLens(LENS), own).map((c) => c.url)).toContain('https://shop.example.org/p/1');
+    expect(keepForeign(parseLens(LENS), own).map((c) => c.url)).not.toContain('https://emera.social/p/abc');
+  });
+});
+
+describe('pdq', () => {
+  it('is close for a recompressed copy and far for another picture', async () => {
+    const a = (await pdqOf({}, ORIGINAL))!;
+    expect(pdqDistance(a, (await pdqOf({}, THUMBS.copy))!)).toBeLessThanOrEqual(31);
+    expect(pdqDistance(a, (await pdqOf({}, THUMBS.smallcopy))!)).toBeLessThanOrEqual(31);
+    expect(pdqDistance(a, (await pdqOf({}, THUMBS.other1))!)).toBeGreaterThan(60);
   });
 });
 
 describe('scanner', () => {
-  it('scans live-plan posts, stores explained matches, and reschedules', async () => {
-    fakeLens();
-    const { c, id, postId } = await creator('creator');
+  it('asks Lens for exact matches once and keeps only likely copies, each explained', async () => {
+    const { c, id, postId, lens } = await creator('creator');
+    fakeLens(lens);
     const stats = await runScan(env);
     expect(stats.scanned).toBeGreaterThanOrEqual(1);
-    expect(lensCalls[0]).toContain('engine=google_lens');
-    expect(lensCalls[0]).toContain(encodeURIComponent('https://emera.social/media/'));
+    expect(lensCalls.filter((u) => u.includes(encodeURIComponent('https://emera.social/media/')))).toHaveLength(1);
+    expect(lensCalls[0]).toContain('type=exact_matches');
     const list = await c.json('GET', '/v1/protect/matches');
-    expect(list.status).toBe(200);
-    expect(list.body.matches).toHaveLength(2);
-    expect(list.body.matches.map((m: any) => m.reason).sort()).toEqual(['Lens exact match on Blog', 'Lens visual match on Example Shop']);
+    expect(list.body.matches).toHaveLength(3);
+    const byUrl = Object.fromEntries(list.body.matches.map((m: any) => [m.url, m.reason]));
+    expect(byUrl['https://blog.example.net/x']).toBe('Lens exact match on Blog');
+    expect(byUrl['https://shop.example.org/p/1']).toMatch(/^PDQ distance \d+ of 256 vs your original/);
+    expect(byUrl['https://www.instagram.com/p/XyZ/']).toMatch(/^PDQ distance/);
     expect(list.body.matches[0].postId).toBe(postId);
+    const rows = (await db.prepare('SELECT kind, score FROM matches WHERE user_id = ?').bind(id).all<any>()).results;
+    expect(rows.map((r) => r.kind).sort()).toEqual(['exact', 'visual', 'visual']);
+    expect(rows.filter((r) => r.kind === 'visual').every((r) => r.score <= 31)).toBe(true);
     const scan = await db.prepare('SELECT last_scanned_at, next_scan_at FROM scans WHERE user_id = ?').bind(id).first<any>();
     expect(scan.next_scan_at - scan.last_scanned_at).toBe(7 * 86_400_000);
     lensCalls = [];
     await runScan(env);
     expect(lensCalls).toHaveLength(0);
-    expect((await c.json('GET', '/v1/protect/matches')).body.matches).toHaveLength(2);
+    expect((await c.json('GET', '/v1/protect/matches')).body.matches).toHaveLength(3);
+    console.log(`fixture: ${lens.visual_matches.length + lens.exact_matches.length} Lens results, ${list.body.matches.length} survive`);
   });
 
   it('pro scans new posts daily', async () => {
-    fakeLens();
-    const { id } = await creator('pro');
+    const { id, lens } = await creator('pro');
+    fakeLens(lens);
     await runScan(env);
     const scan = await db.prepare('SELECT last_scanned_at, next_scan_at FROM scans WHERE user_id = ?').bind(id).first<any>();
     expect(scan.next_scan_at - scan.last_scanned_at).toBe(86_400_000);
@@ -105,10 +211,32 @@ describe('scanner', () => {
   });
 });
 
+describe('rescoreMatches', () => {
+  it('dismisses old lookalikes and own accounts with a reason, keeps copies, deletes nothing', async () => {
+    const { id, postId, lens } = await creator('creator');
+    const all = [...lens.exact_matches.map((m: any) => ({ ...m, k: 'exact' })), ...lens.visual_matches.map((m: any) => ({ ...m, k: 'visual' }))];
+    for (const [i, m] of all.entries()) {
+      await db.prepare('INSERT INTO matches (id, post_id, user_id, url, page_title, site, thumbnail, found_at, reason) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)')
+        .bind(`old${seq}-${i}`, postId, id, m.link, m.title, m.source, m.thumbnail ?? null, Date.now(), `Lens ${m.k} match on ${m.source}`).run();
+    }
+    fakeLens();
+    const stats = await rescoreMatches(env, id);
+    expect(stats).toMatchObject({ checked: 14, kept: 3, dismissed: 11, retry: 0, remaining: 0 });
+    const rows = (await db.prepare('SELECT url, status, reason FROM matches WHERE user_id = ?').bind(id).all<any>()).results;
+    expect(rows).toHaveLength(14);
+    expect(rows.filter((r) => r.status === 'new')).toHaveLength(3);
+    const snyk = rows.find((r) => r.url.includes('snyk.io'));
+    expect(snyk.status).toBe('dismissed');
+    expect(snyk.reason).toMatch(/^auto: not a copy \(PDQ distance \d+ of 256 vs your original\)$/);
+    expect(rows.find((r) => r.url.includes('instagram.com/ig')).reason).toBe('auto: not a copy (your own account)');
+    expect((await rescoreMatches(env, id)).checked).toBe(0);
+  });
+});
+
 describe('matches API', () => {
   async function withMatch() {
-    fakeLens();
     const u = await creator('creator');
+    fakeLens(u.lens);
     await runScan(env);
     const list = await u.c.json('GET', '/v1/protect/matches');
     return { ...u, matches: list.body.matches as any[] };
@@ -135,10 +263,10 @@ describe('matches API', () => {
   it('dismiss hides the match and rescans do not bring it back', async () => {
     const { c, id, matches } = await withMatch();
     await c.json('POST', `/v1/protect/matches/${matches[0].id}/dismiss`);
-    expect((await c.json('GET', '/v1/protect/matches')).body.matches).toHaveLength(1);
+    expect((await c.json('GET', '/v1/protect/matches')).body.matches).toHaveLength(2);
     await db.prepare('UPDATE scans SET next_scan_at = 0 WHERE user_id = ?').bind(id).run();
     await runScan(env);
-    expect((await c.json('GET', '/v1/protect/matches')).body.matches).toHaveLength(1);
+    expect((await c.json('GET', '/v1/protect/matches')).body.matches).toHaveLength(2);
   });
 
   it("cannot touch someone else's match", async () => {
@@ -156,8 +284,8 @@ describe('scan-now', () => {
   });
 
   it('queues the posts and allows once an hour', async () => {
-    fakeLens();
-    const { c, id } = await creator('creator');
+    const { c, id, lens } = await creator('creator');
+    fakeLens(lens);
     await runScan(env);
     const first = await c.json('POST', '/v1/protect/scan-now');
     expect(first.status).toBe(202);

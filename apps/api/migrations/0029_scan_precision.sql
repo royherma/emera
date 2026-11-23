@@ -1,0 +1,3 @@
+ALTER TABLE matches ADD COLUMN score INTEGER;
+ALTER TABLE matches ADD COLUMN kind TEXT;
+ALTER TABLE users ADD COLUMN other_handles TEXT;
