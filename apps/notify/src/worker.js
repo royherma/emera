@@ -480,7 +480,7 @@ const ACTIONS = new Set(["send-email", "mark-filed", "reject", "counter-notice"]
 async function takedownList(env) {
   const rows = (await env.API_DB.prepare(
     `SELECT t.id, t.copy_url, t.site, t.method, t.target, t.recipient_note, t.notice, t.status, t.created_at, t.sent_at, t.last_http, t.check_reason, u.handle
-     FROM takedowns t JOIN users u ON u.id = t.user_id WHERE t.status IN ('ready', 'sent', 'still_up') ORDER BY CASE t.status WHEN 'ready' THEN 0 ELSE 1 END, t.created_at LIMIT 100`,
+     FROM takedowns t JOIN users u ON u.id = t.user_id WHERE t.status IN ('ready', 'sent', 'still_up', 'removed') ORDER BY CASE t.status WHEN 'ready' THEN 0 ELSE 1 END, t.created_at DESC LIMIT 200`,
   ).all()).results;
   return rows.map((r) => ({ id: r.id, url: r.copy_url, site: r.site, method: r.method, target: r.target, note: r.recipient_note, notice: r.notice, status: r.status, at: r.created_at, sentAt: r.sent_at, http: r.last_http, reason: r.check_reason, handle: r.handle }));
 }
