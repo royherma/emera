@@ -97,6 +97,27 @@ test("enterprise lead posts company, contact and creator count", async () => {
   assert.match(h.text(), /Enterprise Protect lead.*North Studio.*Ana.*ana@studio\.example.*1,200 creators.*Bangkok, TH/);
 });
 
+test("protect events: new plan, copies found, takedown waiting, sent, removed", async () => {
+  const h = harness();
+  await poll(h.env);
+  const t = Date.now();
+  const db = h.env.API_DB.raw;
+  db.exec("PRAGMA foreign_keys = OFF");
+  db.prepare("INSERT INTO users (id, email, handle, created_at, plan, plan_until) VALUES ('u9', 'maya@paint.org', 'maya', ?, 'pro', ?)").run(t - 1000, t + 30 * 86400000);
+  db.prepare("INSERT INTO plan_events (user_id, plan, plan_until, kind, created_at) VALUES ('u9', 'pro', ?, 'active', ?)").run(t + 30 * 86400000, t);
+  db.prepare("INSERT INTO scans (media_id, post_id, user_id, media_key, last_scanned_at, next_scan_at) VALUES ('m1', 'p1', 'u9', 'k.webp', ?, ?)").run(t, t + 86400000);
+  db.prepare("INSERT INTO matches (id, post_id, user_id, url, site, found_at, reason) VALUES ('x1', 'p1', 'u9', 'https://cheapprints.example/a', 'cheapprints.example', ?, 'Lens visual match')").run(t);
+  db.prepare("INSERT INTO reports (id, post_id, reporter_user_id, copy_url, created_at) VALUES ('r1', 'p1', 'u9', 'https://cheapprints.example/a', ?)").run(t);
+  db.prepare("INSERT INTO takedowns (id, report_id, user_id, post_id, copy_url, site, method, target, notice, signer_name, auth_version, status, created_at, sent_at, sent_via, removed_at, check_reason) VALUES ('t1', 'r1', 'u9', 'p1', 'https://cheapprints.example/a', 'cheapprints.example', 'email', 'abuse@host.example', 'notice', 'Maya Paint', 'v1', 'removed', ?, ?, 'email', ?, 'HTTP 404')").run(t, t + 1, t + 2 * 86400000);
+  const sent = await poll(h.env, t + 3 * 86400000);
+  assert.deepEqual(sent, { users: 1, plans: 1, scans: 1, takedown_ready: 1, takedown_sent: 1, takedown_removed: 1, reports: 1 });
+  const text = h.text();
+  assert.match(text, /New Protect Pro plan.*maya.*\$100\/mo/);
+  assert.match(text, /1 possible copy found.*cheapprints\.example/);
+  assert.match(text, /Takedown waiting for your OK.*Maya Paint.*abuse@host\.example/);
+  assert.match(text, /Copy removed.*cheapprints\.example.*HTTP 404.*2 days after filing/);
+});
+
 test("new account waits for a handle, then posts with sign-up thread and profile link", async () => {
   const h = harness();
   await poll(h.env);

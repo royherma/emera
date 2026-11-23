@@ -197,6 +197,97 @@ async function sendEnterprise(env, r) {
   }, thread ? { ts: thread, broadcast: true } : null);
 }
 
+const PLAN_PRICE = { creator: "$10/mo", pro: "$100/mo" };
+const userOf = (env, id) => (id ? env.API_DB.prepare("SELECT email, handle FROM users WHERE id = ?").bind(id).first() : null);
+const ago = (from, to) => { const d = Math.round((to - from) / 86400000); return d <= 0 ? "same day" : `${d} day${d === 1 ? "" : "s"}`; };
+
+async function sendPlanEvent(env, r) {
+  const u = await userOf(env, r.user_id);
+  const email = u?.email || r.email;
+  const live = await env.API_DB.prepare("SELECT COUNT(*) AS n FROM users WHERE plan != 'free' AND (plan_until IS NULL OR plan_until > ?)").bind(r.created_at).first();
+  const title = r.kind === "ended" ? "Protect plan ended" : r.kind === "paid_no_account" ? "Protect paid, account not made yet" : `New Protect ${r.plan === "pro" ? "Pro" : "Creator"} plan`;
+  await slack(env, {
+    icon: r.kind === "ended" ? "👋" : "💰",
+    title,
+    detail: u?.handle ? `*@${esc(u.handle)}*` : esc(email || "?"),
+    facts: [r.kind !== "ended" && PLAN_PRICE[r.plan], esc(email || ""), r.plan_until && `paid until ${stamp(r.plan_until)}`, `*${live?.n ?? "?"}* on a paid plan`, stamp(r.created_at)],
+    links: [profileLink(env, u?.handle), adminLink(env)],
+    test: isTest(env, email),
+  });
+}
+
+async function sendScan(env, r) {
+  const { results } = await env.API_DB.prepare("SELECT site, url FROM matches WHERE post_id = ? AND user_id = ? AND found_at = ? LIMIT 50").bind(r.post_id, r.user_id, r.last_scanned_at).all();
+  if (!results.length) return false;
+  const u = await userOf(env, r.user_id);
+  const sites = [...new Set(results.map((m) => m.site))];
+  await slack(env, {
+    icon: "🔎",
+    title: `${results.length} possible cop${results.length === 1 ? "y" : "ies"} found`,
+    detail: `@${esc(u?.handle || "?")}`,
+    rows: results.slice(0, 5).map((m) => `• <${m.url}|${esc(m.site)}>`),
+    facts: [sites.length > 5 ? `${sites.length} sites` : sites.map(esc).join(", "), stamp(r.last_scanned_at)],
+    links: [["Original", `${site(env)}/p/${r.post_id}`], adminLink(env)],
+    test: isTest(env, u?.email),
+  });
+}
+
+const takedownFacts = (t) => [esc(t.site), t.method === "email" ? `email to ${esc(t.target || "?")}` : "platform form"];
+
+async function sendTakedownReady(env, r) {
+  const u = await userOf(env, r.user_id);
+  const waiting = await env.API_DB.prepare("SELECT COUNT(*) AS n FROM takedowns WHERE status = 'ready'").first();
+  await slack(env, {
+    icon: "⚖️",
+    title: "Takedown waiting for your OK",
+    detail: `@${esc(u?.handle || "?")} signed as ${esc(r.signer_name)}`,
+    rows: [`Copy: <${r.copy_url}|${esc(r.copy_url.slice(0, 80))}>`, r.recipient_note && `_${esc(r.recipient_note)}_`],
+    facts: [...takedownFacts(r), `*${waiting?.n ?? "?"}* waiting`, stamp(r.created_at)],
+    links: [["Open the desk", `${site(env)}/admin`], ["Original", `${site(env)}/p/${r.post_id}`]],
+    test: isTest(env, u?.email),
+  });
+}
+
+async function sendTakedownSent(env, r) {
+  const u = await userOf(env, r.user_id);
+  await slack(env, {
+    icon: "📨",
+    title: r.sent_via === "form" ? "Takedown filed by form" : "Takedown sent",
+    detail: `@${esc(u?.handle || "?")}`,
+    rows: [`Copy: <${r.copy_url}|${esc(r.copy_url.slice(0, 80))}>`],
+    facts: [...takedownFacts(r), "rechecked daily", stamp(r.sent_at)],
+    links: [adminLink(env)],
+    test: isTest(env, u?.email),
+  });
+}
+
+async function sendTakedownRemoved(env, r) {
+  const u = await userOf(env, r.user_id);
+  const total = await env.API_DB.prepare("SELECT COUNT(*) AS n FROM takedowns WHERE status = 'removed'").first();
+  await slack(env, {
+    icon: "🏆",
+    title: "Copy removed",
+    detail: `@${esc(u?.handle || "?")} on ${esc(r.site)}`,
+    rows: [esc(r.check_reason || "")],
+    facts: [`${ago(r.sent_at || r.created_at, r.removed_at)} after filing`, `*${total?.n ?? "?"}* removed so far`, stamp(r.removed_at)],
+    links: [["Receipt", `${site(env)}/takedown/${r.id}`], profileLink(env, u?.handle)],
+    test: isTest(env, u?.email),
+  });
+}
+
+async function sendTakedownStuck(env, r) {
+  const u = await userOf(env, r.user_id);
+  await slack(env, {
+    icon: "⚠️",
+    title: "Copy still up after 30 days",
+    detail: `@${esc(u?.handle || "?")} on ${esc(r.site)}`,
+    rows: [`Copy: <${r.copy_url}|${esc(r.copy_url.slice(0, 80))}>`, esc(r.check_reason || "")],
+    facts: [...takedownFacts(r), stamp(r.last_check_at)],
+    links: [["Open the desk", `${site(env)}/admin`]],
+    test: isTest(env, u?.email),
+  });
+}
+
 async function sendUser(env, r) {
   const test = isTest(env, r.email);
   const n = await realCount(env, env.API_DB, "SELECT email FROM users");
@@ -291,6 +382,12 @@ export const FEEDS = [
     max: "SELECT COALESCE(MAX(created_at), 0) AS m FROM sponsorships",
     send: sendPaid,
   },
+  { key: "plans", db: "API_DB", sql: "SELECT *, id AS cursor FROM plan_events WHERE id > ? ORDER BY id LIMIT 20", max: "SELECT COALESCE(MAX(id), 0) AS m FROM plan_events", send: sendPlanEvent },
+  { key: "scans", db: "API_DB", sql: "SELECT *, last_scanned_at AS cursor FROM scans WHERE last_scanned_at > ? ORDER BY last_scanned_at LIMIT 20", max: "SELECT COALESCE(MAX(last_scanned_at), 0) AS m FROM scans", send: sendScan },
+  { key: "takedown_ready", db: "API_DB", sql: "SELECT *, created_at AS cursor FROM takedowns WHERE created_at > ? ORDER BY created_at LIMIT 20", max: "SELECT COALESCE(MAX(created_at), 0) AS m FROM takedowns", send: sendTakedownReady },
+  { key: "takedown_sent", db: "API_DB", sql: "SELECT *, sent_at AS cursor FROM takedowns WHERE sent_at > ? ORDER BY sent_at LIMIT 20", max: "SELECT COALESCE(MAX(sent_at), 0) AS m FROM takedowns", send: sendTakedownSent },
+  { key: "takedown_removed", db: "API_DB", sql: "SELECT *, removed_at AS cursor FROM takedowns WHERE removed_at > ? ORDER BY removed_at LIMIT 20", max: "SELECT COALESCE(MAX(removed_at), 0) AS m FROM takedowns", send: sendTakedownRemoved },
+  { key: "takedown_stuck", db: "API_DB", sql: "SELECT *, last_check_at AS cursor FROM takedowns WHERE status = 'still_up' AND last_check_at > ? ORDER BY last_check_at LIMIT 20", max: "SELECT COALESCE(MAX(last_check_at), 0) AS m FROM takedowns WHERE status = 'still_up'", send: sendTakedownStuck },
   { key: "flags", db: "API_DB", sql: "SELECT *, created_at AS cursor FROM flags WHERE created_at > ? ORDER BY created_at LIMIT 20", max: "SELECT COALESCE(MAX(created_at), 0) AS m FROM flags", send: sendFlag },
 ];
 

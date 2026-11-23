@@ -141,10 +141,20 @@ async function userIdFor(env: Env, metaUser: string | undefined, subId: string |
   return row?.id ?? null;
 }
 
+async function logPlanEvent(env: Env, e: { userId?: string; email?: string; plan: string; until: number | null; kind: string }) {
+  const last = e.userId
+    ? await env.DB.prepare('SELECT plan, kind FROM plan_events WHERE user_id = ? ORDER BY id DESC LIMIT 1').bind(e.userId).first<{ plan: string; kind: string }>()
+    : null;
+  if (last && last.plan === e.plan && last.kind === e.kind) return;
+  await env.DB.prepare('INSERT INTO plan_events (user_id, email, plan, plan_until, kind, created_at) VALUES (?, ?, ?, ?, ?, ?)')
+    .bind(e.userId ?? null, e.email ?? null, e.plan, e.until, e.kind, Date.now()).run().catch((err) => console.error('plan event', err));
+}
+
 async function setPlan(env: Env, userId: string, plan: string, until: number | null, customer: string | undefined, subId: string | null) {
   const res = await env.DB.prepare(
     `UPDATE users SET plan = ?, plan_until = ?, stripe_customer_id = COALESCE(?, stripe_customer_id), stripe_subscription_id = ? WHERE id = ?`,
   ).bind(plan, until, customer ?? null, subId, userId).run();
+  if (res.meta.changes) await logPlanEvent(env, { userId, plan, until, kind: plan === 'free' ? 'ended' : 'active' });
   return res.meta.changes ? 'plan_set' : 'ignored';
 }
 
@@ -178,6 +188,7 @@ async function onCheckout(env: Env, s: CheckoutSession) {
     const end = (sub.items?.data?.[0]?.current_period_end ?? sub.current_period_end ?? 0) * 1000 || null;
     await env.DB.prepare('INSERT OR REPLACE INTO protect_pending (email, plan, plan_until, stripe_customer_id, stripe_subscription_id, created_at) VALUES (?, ?, ?, ?, ?, ?)')
       .bind(email, plan, end, sub.customer ?? s.customer ?? null, sub.id, Date.now()).run();
+    await logPlanEvent(env, { email, plan, until: end, kind: 'paid_no_account' });
     return 'pending';
   }
   return onSubscription(env, { ...sub, metadata: { ...sub.metadata, project: 'emera', user_id: userId, plan } }, false);
