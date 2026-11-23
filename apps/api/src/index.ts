@@ -17,6 +17,7 @@ import { fundRoutes, runFundCron } from './fund';
 import { stripeRoutes } from './stripe';
 import { protectRoutes } from './protect';
 import { scanRoutes, runScan } from './scan';
+import { takedownRoutes, runTakedownRecheck } from './takedown';
 import { chatRoutes } from './chat';
 import { adminRoutes } from './admin';
 import { liveSocket } from './live';
@@ -62,6 +63,7 @@ app.route('/', fundRoutes);
 app.route('/', stripeRoutes);
 app.route('/', protectRoutes);
 app.route('/', scanRoutes);
+app.route('/', takedownRoutes);
 app.route('/', chatRoutes);
 app.route('/', cardRoutes);
 app.route('/', embedRoutes);
@@ -91,6 +93,7 @@ useApp(app.fetch);
 
 const FUND_CRON = '0 1 3 * *';
 const SCAN_CRON = '*/30 * * * *';
+const TAKEDOWN_CRON = '0 3 * * *';
 
 export default Sentry.withSentry(
   (env: Env) => ({ dsn: env.SENTRY_DSN, environment: env.ENVIRONMENT, tracesSampleRate: 0.1 }),
@@ -104,6 +107,10 @@ export default Sentry.withSentry(
       }
       if (event.cron === SCAN_CRON) {
         console.log('scan', JSON.stringify(await runScan(env)));
+        return;
+      }
+      if (event.cron === TAKEDOWN_CRON) {
+        console.log('takedown recheck', JSON.stringify(await runTakedownRecheck(env)));
         return;
       }
       console.log('auto-import', JSON.stringify(await runAutoImports(env, 'https://internal.emera')));

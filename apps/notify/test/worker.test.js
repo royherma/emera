@@ -4,7 +4,7 @@ import { createHmac } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { verifyGithub, githubText, poll, slackPost, inboundMail } from "../src/worker.js";
+import worker, { verifyGithub, githubText, poll, slackPost, inboundMail } from "../src/worker.js";
 import { adminView, ledgerView, load } from "../src/stats.js";
 import { device, source } from "../src/people.js";
 
@@ -202,4 +202,35 @@ test("visit alert: their time is the visit's time, languages once each, 1 core",
   assert.match(t, /their time\* 8:32 PM · UTC/);
   assert.match(t, /language\* `en-US` `en`"/);
   assert.match(t, /4 GB memory, 1 core\\n/);
+});
+
+test("admin takedowns: lists ready and sent with the full notice, actions go through the API with the key", async () => {
+  const h = harness();
+  const db = h.env.API_DB.raw;
+  db.prepare("INSERT INTO users (id, email, handle, display_name, created_at) VALUES ('u1', 'a@example.test', 'ada', 'Ada', 1)").run();
+  db.prepare("INSERT INTO reports (id, post_id, reporter_user_id, copy_url, created_at) VALUES ('r1', 'p1', 'u1', 'https://blog.example.net/x', 1)").run();
+  db.prepare("INSERT INTO takedowns (id, report_id, user_id, post_id, copy_url, site, method, target, notice, signer_name, auth_version, status, created_at) VALUES ('tdone1', 'r1', 'u1', 'p1', 'https://blog.example.net/x', 'example.net', 'email', 'abuse@host.example', 'FULL NOTICE TEXT', 'Ada Lovelace', 'v1', 'ready', 5)").run();
+  const env = { ...h.env, ADMIN_KEY: "k", FUND_ADMIN_KEY: "fk", API_URL: "https://api.test" };
+  const get = (key) => worker.fetch(new Request("https://n.test/admin/takedowns", { headers: key ? { "x-admin-key": key } : {} }), env);
+  assert.equal((await get(null)).status, 401);
+  const list = await (await get("k")).json();
+  assert.equal(list.takedowns.length, 1);
+  assert.match(list.takedowns[0].notice, /FULL NOTICE TEXT/);
+  assert.equal(list.takedowns[0].handle, "ada");
+
+  const calls = [];
+  globalThis.fetch = async (url, init) => {
+    calls.push({ url, init });
+    return Response.json({ takedown: { status: "sent" } });
+  };
+  const post = (action, key = "k", body) => worker.fetch(new Request(`https://n.test/admin/takedowns/tdone1/${action}`, { method: "POST", headers: { "x-admin-key": key }, body }), env);
+  assert.equal((await post("send-email", "bad")).status, 401);
+  assert.equal((await post("delete")).status, 400);
+  assert.equal(calls.length, 0);
+  const ok = await (await post("send-email")).json();
+  assert.deepEqual(ok, { ok: true, status: "sent" });
+  assert.equal(calls[0].url, "https://api.test/v1/admin/takedowns/tdone1/send-email");
+  assert.equal(calls[0].init.headers.authorization, "Bearer fk");
+  await post("reject", "k", JSON.stringify({ reason: "own shop" }));
+  assert.equal(JSON.parse(calls[1].init.body).reason, "own shop");
 });

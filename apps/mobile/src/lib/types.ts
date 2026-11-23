@@ -97,6 +97,33 @@ export type FoundCopy = {
   foundAt: string;
 };
 
+export type TakedownStatus = "ready" | "sent" | "removed" | "still_up" | "counter_notice" | "rejected";
+
+export type Takedown = {
+  id: string;
+  reportId: string;
+  postId: string;
+  url: string;
+  site: string;
+  method: "form" | "email";
+  status: TakedownStatus;
+  rejectReason: string | null;
+  createdAt: string;
+  sentAt: string | null;
+  removedAt: string | null;
+  daysToRemoval: number | null;
+  receiptUrl: string | null;
+};
+
+export type TakedownPreview = {
+  takedown: Takedown | null;
+  authorization: { required: boolean; version: string; text: string; name: string | null };
+  recipient: { site: string; method: "form" | "email" };
+  notice: string;
+};
+
+export type TakedownSignature = { name: string; agree: true; version: string };
+
 export type FlagReason = "spam" | "harassment" | "hate" | "violence" | "nudity" | "self_harm" | "impersonation" | "scam" | "other";
 
 export type SearchKind = "people" | "posts";
@@ -151,7 +178,10 @@ export interface Backend {
   createPost(input: { mediaIds: string[]; caption: string; alt?: Record<string, string> }): Promise<Post>;
   listInvites(): Promise<{ invites: Invite[]; limit: number; open?: boolean }>;
   createInvite(maxUses?: number): Promise<{ code: string; url: string }>;
-  report(input: { postId: string; url: string; note: string }): Promise<void>;
+  report(input: { postId: string; url: string; note: string }): Promise<{ id: string }>;
+  takedownPreview(reportId: string): Promise<TakedownPreview>;
+  confirmTakedown(reportId: string, authorization?: TakedownSignature): Promise<Takedown>;
+  takedowns(): Promise<Takedown[]>;
   protectMe(): Promise<ProtectPlan>;
   foundCopies(): Promise<FoundCopy[]>;
   dismissCopy(id: string): Promise<void>;

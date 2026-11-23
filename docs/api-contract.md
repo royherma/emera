@@ -165,9 +165,21 @@ Rules and every number: `docs/mission/funding-rules.md`. Constants live in `apps
 | POST | `/v1/protect/matches/:id/dismiss` | user | - | `{ match }`; 404 `not_found` (also for another user's match); 409 `already_reported` |
 | POST | `/v1/protect/matches/:id/takedown` | user | - | `201 { match, report: { id, status } }` - same report as `POST /v1/reports` (note starts "Found by Emera scan"); repeat call returns the same report |
 | POST | `/v1/protect/scan-now` | user | - | `202 { queued, rescan }` re-queues your posts for the next cron run; 403 `plan_required`; 429 `too_soon` (once an hour) |
+| POST | `/v1/protect/authorize` | user | `{ name, agree: true, version }` | `201 { authorization }` - the creator's one-time statement (good faith, accuracy, under penalty of perjury, authorizes Emera to send notices); stored with name, text, version, time and IP country (`CF-IPCountry`); 400 `not_agreed` / `bad_name` (full name, two words); 409 `text_changed` when `version` is not the current text (`2026-11-23.1`) |
+| GET | `/v1/reports/:id/takedown` | user | - | `{ takedown: null\|takedown, authorization: { required, version, text, name }, recipient: { site, method: "form"\|"email" }, notice }` - the confirm step's preview; 404 `not_found` for another user's report |
+| POST | `/v1/reports/:id/confirm` | user | `{ authorization?: same body as authorize }` | `201 { takedown }` status `ready` (waits for the desk; nothing leaves Emera before a person approves it); 403 `authorization_required` when never signed and no inline `authorization`; repeat call returns the same takedown |
+| GET | `/v1/protect/takedowns` | user | - | `{ takedowns: [{ id, reportId, postId, url, site, method, status: "ready"\|"sent"\|"removed"\|"still_up"\|"counter_notice"\|"rejected", rejectReason, createdAt, sentAt, removedAt, daysToRemoval, lastCheck: { at, http, reason }\|null, receiptUrl }] }` newest first; `receiptUrl` (`/takedown/<id>`, public, handle + site + days only) is set once removed |
+| GET | `/v1/admin/takedowns?status=ready\|sent\|all` | admin key | - | `{ takedowns: [... + handle, target, recipientNote, notice, signerName] }` oldest first (admin key = `FUND_ADMIN_KEY` as Bearer, 404 otherwise) |
+| POST | `/v1/admin/takedowns/:id/send-email` | admin key | - | email takedowns only: sends the notice from `Emera Takedowns <takedowns@emera.social>` (reply-to takedowns@emera.social) to the host's RDAP abuse contact, status `sent`; 409 `not_email` / `not_ready`; 503 `email_off` without `RESEND_API_KEY`; 502 `send_failed` leaves it `ready` |
+| POST | `/v1/admin/takedowns/:id/mark-filed` | admin key | - | the desk filed the host's form by hand: `ready` to `sent` |
+| POST | `/v1/admin/takedowns/:id/reject` | admin key | `{ reason }` | status `rejected`; the creator sees `rejectReason` |
+| POST | `/v1/admin/takedowns/:id/counter-notice` | admin key | - | `sent`/`still_up` to `counter_notice` |
+| GET | `/takedown/:id` | - | - | public HTML receipt (OG tags) for a removed takedown, no personal data beyond the handle; 404 otherwise |
 | GET | `/v1/admin/fund/sponsors` | admin | - | `{ sponsors: [{ id, name, url, line, banner, email, paid_cents }] }` |
 | POST | `/v1/admin/fund/sponsors/:id/banner` | admin | `{ banner: "approved"\|"rejected"\|"pending" }` | `{ id, banner }` |
 | GET | `/v1/admin/fund/checkouts` | admin | - | `{ checkouts: [...] }` - started, paid, expired, with promo code and discount |
+
+Recipients: instagram, facebook, tiktok, youtube, pinterest, etsy, redbubble, amazon, x/twitter and reddit are `form` (desk files by hand). Any other host is `email` to the abuse contact in `https://rdap.org/domain/<domain>`, else `form` with no target. Daily cron `0 3 * * *` re-fetches every `sent` copy URL (20 h apart, 30 days): HTTP 404/410, or a 200 page that no longer contains the page's `og:image` seen on the first check, marks it `removed`; the deciding HTTP status is stored. After 30 days it becomes `still_up`.
 
 The webhook also handles Protect: `checkout.session.completed` (mode subscription), `customer.subscription.updated` / `deleted` and `invoice.paid` set `users.plan` / `plan_until`, only when the subscription carries `metadata.project = "emera"`.
 

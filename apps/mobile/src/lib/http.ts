@@ -1,5 +1,5 @@
 import { API_URL } from "./config";
-import { ApiError, Backend, Earnings, Fund, FundCards, FundStatement, Sponsor, Comment, Media, Notification, PickedFile, Post, User, UserPage, Channel, ChatMessage, ChatPage, ChatRoomRef, DmThread, ImportItem, ImportSource, ChatSettings, DmWith, FoundCopy } from "./types";
+import { ApiError, Backend, Earnings, Fund, FundCards, FundStatement, Sponsor, Comment, Media, Notification, PickedFile, Post, User, UserPage, Channel, ChatMessage, ChatPage, ChatRoomRef, DmThread, ImportItem, ImportSource, ChatSettings, DmWith, FoundCopy, Takedown, TakedownPreview } from "./types";
 
 let token: string | null = null;
 export const setToken = (t: string | null) => {
@@ -88,7 +88,10 @@ export const http: Backend = {
   createPost: async (input) => (await send<{ post: Post }>("POST", "/v1/posts", input)).post,
   listInvites: () => send("GET", "/v1/invites"),
   createInvite: (maxUses) => send("POST", "/v1/invites", maxUses ? { maxUses } : {}),
-  report: async (input) => void (await send("POST", "/v1/reports", input)),
+  report: async (input) => (await send<{ report: { id: string } }>("POST", "/v1/reports", input)).report,
+  takedownPreview: (reportId) => send<TakedownPreview>("GET", `/v1/reports/${encodeURIComponent(reportId)}/takedown`),
+  confirmTakedown: async (reportId, authorization) => (await send<{ takedown: Takedown }>("POST", `/v1/reports/${encodeURIComponent(reportId)}/confirm`, authorization ? { authorization } : {})).takedown,
+  takedowns: async () => (await send<{ takedowns: Takedown[] }>("GET", "/v1/protect/takedowns")).takedowns,
   protectMe: () => send("GET", "/v1/protect/me"),
   foundCopies: async () => (await send<{ matches: FoundCopy[] }>("GET", "/v1/protect/matches")).matches,
   dismissCopy: async (id) => void (await send("POST", `/v1/protect/matches/${encodeURIComponent(id)}/dismiss`)),

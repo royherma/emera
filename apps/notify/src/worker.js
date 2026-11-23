@@ -377,11 +377,37 @@ async function setBanner(request, env) {
   return Response.json({ ok: !!res.meta?.changes, banner: body.banner }, { status: res.meta?.changes ? 200 : 404 });
 }
 
+const ACTIONS = new Set(["send-email", "mark-filed", "reject", "counter-notice"]);
+
+async function takedownList(env) {
+  const rows = (await env.API_DB.prepare(
+    `SELECT t.id, t.copy_url, t.site, t.method, t.target, t.recipient_note, t.notice, t.status, t.created_at, t.sent_at, t.last_http, t.check_reason, u.handle
+     FROM takedowns t JOIN users u ON u.id = t.user_id WHERE t.status IN ('ready', 'sent', 'still_up') ORDER BY CASE t.status WHEN 'ready' THEN 0 ELSE 1 END, t.created_at LIMIT 100`,
+  ).all()).results;
+  return rows.map((r) => ({ id: r.id, url: r.copy_url, site: r.site, method: r.method, target: r.target, note: r.recipient_note, notice: r.notice, status: r.status, at: r.created_at, sentAt: r.sent_at, http: r.last_http, reason: r.check_reason, handle: r.handle }));
+}
+
+async function takedownAct(request, env, id, action) {
+  if (!authed(request, env)) return Response.json({ ok: false, error: "bad_key" }, { status: 401 });
+  if (!ACTIONS.has(action) || !/^[\w-]{4,40}$/.test(id)) return Response.json({ ok: false, error: "bad_action" }, { status: 400 });
+  if (!env.API_URL || !env.FUND_ADMIN_KEY) return Response.json({ ok: false, error: "not_configured" }, { status: 503 });
+  const body = action === "reject" ? JSON.stringify({ reason: String((await request.json().catch(() => ({}))).reason || "") }) : undefined;
+  const res = await fetch(`${env.API_URL}/v1/admin/takedowns/${id}/${action}`, {
+    method: "POST",
+    headers: { authorization: `Bearer ${env.FUND_ADMIN_KEY}`, "content-type": "application/json" },
+    body,
+  });
+  const json = await res.json().catch(() => ({}));
+  return Response.json({ ok: res.ok, status: json.takedown?.status, error: json.error?.message }, { status: res.ok ? 200 : res.status });
+}
+
 function authed(request, env) {
   return !!env.ADMIN_KEY && request.headers.get("x-admin-key") === env.ADMIN_KEY;
 }
 
 const cors = { "access-control-allow-origin": "*", "cache-control": "public, max-age=60" };
+
+export { takedownList, takedownAct };
 
 export default {
   async fetch(request, env) {
@@ -391,6 +417,12 @@ export default {
     if (pathname === "/api/ledger") return Response.json(ledgerView(await load(env, { visitDays: 1 })), { headers: cors });
     if (pathname === "/admin" || pathname === "/admin/") return new Response(ADMIN_HTML, { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store", "x-robots-tag": "noindex" } });
     if (request.method === "POST" && pathname === "/admin/sponsor") return setBanner(request, env);
+    if (pathname === "/admin/takedowns" && request.method === "GET") {
+      if (!authed(request, env)) return Response.json({ ok: false, error: "bad_key" }, { status: 401 });
+      return Response.json({ takedowns: await takedownList(env) }, { headers: { "cache-control": "no-store" } });
+    }
+    const act = request.method === "POST" && pathname.match(/^\/admin\/takedowns\/([\w-]+)\/([\w-]+)$/);
+    if (act) return takedownAct(request, env, act[1], act[2]);
     if (pathname === "/admin/data") {
       if (!authed(request, env)) return Response.json({ ok: false, error: "bad_key" }, { status: 401 });
       const mine = (request.headers.get("cookie") || "").match(/(?:^|;\s*)em_v=([\w-]{8,64})/)?.[1];

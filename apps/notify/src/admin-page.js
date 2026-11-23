@@ -56,6 +56,7 @@ label.tg{display:flex;gap:6px;align-items:center;color:var(--ink2);cursor:pointe
 <div class="card"><h2>Started sign-up <span id="ne"></span></h2><div class="scroll"><table id="early"></table></div></div>
 <div class="card"><h2>Visitors <span>latest 60</span></h2><div class="scroll"><table id="visitors"></table></div></div>
 <div class="card"><h2>Posts, reports, flags</h2><div class="scroll"><table id="posts"></table></div></div>
+<div class="card" style="grid-column:span 2"><h2>Takedowns <span id="ntd"></span></h2><div class="scroll" id="takedowns"></div></div>
 <div class="card"><h2>Sponsors <span>banner shows after Approve</span></h2><div class="scroll"><table id="sponsors"></table></div></div>
 <div class="card"><h2>Sponsor checkouts <span id="nk"></span></h2><div class="scroll"><table id="checkouts"></table></div></div>
 </section>
@@ -99,7 +100,22 @@ document.getElementById("nk").textContent=ks.length+" started · "+kc("paid")+" 
 document.getElementById("checkouts").innerHTML=rows(d.checkouts||[],function(x){return'<td><div class="h">'+esc(x.name)+' <span class="tag">'+esc(x.status)+"</span>"+test(x)+'</div><div class="sm">$'+(x.monthlyCents/100)+" x "+x.months+" mo"+(x.totalCents!=null?" · paid $"+(x.totalCents/100):"")+(x.promo?" · code "+esc(x.promo):"")+'</div><div class="sm">'+esc(x.email)+" · "+bkk(x.at)+"</div></td>"});
 document.getElementById("sponsors").innerHTML=rows(d.sponsors||[],function(x){return'<td><div class="h">'+(x.url?'<a class="r" target="_blank" rel="noopener" href="'+esc(x.url)+'">'+esc(x.name)+"</a>":esc(x.name))+' <span class="tag">'+esc(x.banner)+"</span>"+test(x)+'</div><div class="sm">'+esc(x.line||"no banner line")+'</div><div class="sm">$'+(x.paidCents/100).toLocaleString("en-US")+" paid"+(x.lastMonth?" · to "+esc(x.lastMonth):"")+(x.email?" · "+esc(x.email):"")+'</div><div class="sm"><button data-sp="'+esc(x.id)+'" data-b="approved">Approve</button> <button data-sp="'+esc(x.id)+'" data-b="rejected">Reject</button></div></td>'});
 }
-function load(){var key=store().getItem(K);if(!key){gate();return}
+function renderTd(list){
+var ready=list.filter(function(x){return x.status==="ready"}).length;
+document.getElementById("ntd").textContent=ready+" to approve · "+(list.length-ready)+" watching";
+document.getElementById("takedowns").innerHTML=list.map(function(x){
+var act=x.status==="ready"?(x.method==="email"&&x.target?'<button data-td="'+esc(x.id)+'" data-a="send-email">Send email</button> ':"")+'<button data-td="'+esc(x.id)+'" data-a="mark-filed">Mark form filed</button> <button data-td="'+esc(x.id)+'" data-a="reject">Reject</button>':'<span class="sm">'+esc(x.status)+(x.http?" · HTTP "+x.http:"")+(x.reason?" · "+esc(x.reason):"")+'</span>';
+return'<div style="border-top:1px solid var(--line);padding:6px 0"><div class="h">@'+esc(x.handle)+" to "+esc(x.site)+' <span class="tag">'+esc(x.method)+"</span></div>"
++'<div class="sm">'+(x.method==="email"?"email "+esc(x.target||"no contact"):'form <a class="r" target="_blank" rel="noopener" href="'+esc(x.target||"#")+'">'+esc(x.target||"no link, find the host page")+"</a>")+" · "+esc(x.note)+'</div>'
++'<div class="sm"><a class="r" target="_blank" rel="noopener" href="'+esc(x.url)+'">'+esc(x.url)+'</a> · '+bkk(x.at)+"</div>"
++'<details><summary class="sm">Full notice</summary><pre style="white-space:pre-wrap;font:11.5px/1.4 ui-monospace,Menlo,monospace;margin:4px 0">'+esc(x.notice)+"</pre></details>"
++'<div class="sm">'+act+"</div></div>"}).join("")||'<div class="muted">nothing to approve</div>'}
+function loadTd(){fetch("/admin/takedowns",{headers:{"x-admin-key":store().getItem(K)}}).then(function(r){return r.ok?r.json():null}).then(function(j){if(j)renderTd(j.takedowns)})}
+document.getElementById("takedowns").addEventListener("click",function(e){var b=e.target.closest("button[data-td]");if(!b)return;var a=b.getAttribute("data-a"),reason=null;
+if(a==="reject"){reason=prompt("Why? The creator sees this.");if(!reason)return}
+if(a==="send-email"&&!confirm("Send this notice by email now?"))return;
+b.disabled=true;fetch("/admin/takedowns/"+b.getAttribute("data-td")+"/"+a,{method:"POST",headers:{"x-admin-key":store().getItem(K),"content-type":"application/json"},body:JSON.stringify({reason:reason})}).then(function(r){return r.json()}).then(function(j){if(!j.ok)alert(j.error||"failed");loadTd()})});
+function load(){loadTd();var key=store().getItem(K);if(!key){gate();return}
 fetch("/admin/data",{headers:{"x-admin-key":key}}).then(function(r){if(r.status===401){gate("That key did not work");return null}return r.json()}).then(function(j){if(!j)return;data=j;document.getElementById("gate").style.display="none";document.getElementById("app").hidden=false;render()}).catch(function(e){document.getElementById("upd").textContent="could not load: "+e})}
 function gate(msg){document.getElementById("app").hidden=true;document.getElementById("gate").style.display="block";document.getElementById("gmsg").textContent=msg||""}
 document.getElementById("key").addEventListener("change",function(e){store().setItem(K,e.target.value.trim());load()});

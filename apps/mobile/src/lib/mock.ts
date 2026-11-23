@@ -1,6 +1,6 @@
 import brand from "./brand";
 import { PUBLIC_ORIGIN } from "./config";
-import { ApiError, Backend, FoundCopy, Comment, FeedMode, ImportSource, Invite, Media, Notification, PickedFile, Post, User, UserPage } from "./types";
+import { ApiError, Backend, FoundCopy, Takedown, TakedownPreview, Comment, FeedMode, ImportSource, Invite, Media, Notification, PickedFile, Post, User, UserPage } from "./types";
 import { HANDLE_RE } from "./format";
 import { makeMockChat } from "./mockChat";
 import { mockEarnings, mockFund, mockFundMonth, mockWatch } from "./fundMock";
@@ -361,9 +361,43 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
     mockInvites.unshift({ code, url, uses: 0, maxUses, createdAt: new Date().toISOString(), joined: [] });
     return { code, url };
   },
-  async report({ url }) {
+  async report({ postId, url }) {
     await wait();
     if (!/^https?:\/\/\S+\.\S+/.test(url)) throw new ApiError("bad_url", "Paste the full link, starting with https://");
+    const id = hex(10);
+    mockReports.set(id, { postId, url });
+    return { id };
+  },
+  async takedownPreview(reportId): Promise<TakedownPreview> {
+    await wait(160);
+    const r = mockReports.get(reportId);
+    if (!r) throw new ApiError("not_found", "No such report.");
+    const site = mockSite(r.url);
+    return {
+      takedown: mockTakedowns.find((t) => t.reportId === reportId) ?? null,
+      authorization: { required: !mockSigned, version: "2026-11-23.1", text: MOCK_AUTH_TEXT, name: mockSigned },
+      recipient: { site, method: MOCK_FORMS.has(site) ? "form" : "email" },
+      notice: `Notice of copyright infringement (DMCA, 17 U.S.C. 512(c)(3))\n\n1. The copyrighted work\nThe original work was first published on Emera at ${PUBLIC_ORIGIN}/p/${r.postId}.\n\n2. The infringing material\n${r.url}\n\n3. Statements\n${MOCK_AUTH_TEXT.split("\n").map((l) => `- ${l}`).join("\n")}\n\n4. Contact\nEmera, authorized agent of ${mockSigned ?? "(your full name)"}. Email takedowns@emera.social.\n\n5. Electronic signature\n/${mockSigned ?? "(your full name)"}/`,
+    };
+  },
+  async confirmTakedown(reportId, authorization) {
+    await wait();
+    const r = mockReports.get(reportId);
+    if (!r) throw new ApiError("not_found", "No such report.");
+    const had = mockTakedowns.find((t) => t.reportId === reportId);
+    if (had) return had;
+    if (!mockSigned) {
+      if (!authorization) throw new ApiError("authorization_required", "Sign the statement once before we send notices for you.");
+      mockSigned = authorization.name;
+    }
+    const site = mockSite(r.url);
+    const t: Takedown = { id: hex(10), reportId, postId: r.postId, url: r.url, site, method: MOCK_FORMS.has(site) ? "form" : "email", status: "ready", rejectReason: null, createdAt: new Date().toISOString(), sentAt: null, removedAt: null, daysToRemoval: null, receiptUrl: null };
+    mockTakedowns.unshift(t);
+    return t;
+  },
+  async takedowns() {
+    await wait(160);
+    return mockTakedowns;
   },
   async protectMe() {
     await wait();
@@ -384,6 +418,7 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
     if (!m) throw new ApiError("not_found", "No such match.");
     m.status = "reported";
     m.reportId = hex(5);
+    mockReports.set(m.reportId, { postId: m.postId, url: m.url });
     return m;
   },
   async scanNow() {
@@ -626,6 +661,21 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
 
 const pending: Media[] = [];
 const imported = new Set<string>();
+const MOCK_AUTH_TEXT = [
+  "I have a good faith belief that the use of my work at the web addresses I report is not authorized by me, my agent, or the law.",
+  "The information I give in each notice is accurate.",
+  "Under penalty of perjury, I am the owner of the work, or I am authorized to act on behalf of the owner of the exclusive right that is allegedly infringed.",
+  "I authorize Emera to send copyright notices for me, as my agent, about the copies I confirm.",
+].join("\n");
+const MOCK_FORMS = new Set(["instagram.com", "facebook.com", "tiktok.com", "youtube.com", "pinterest.com", "etsy.com", "redbubble.com", "amazon.com", "x.com", "reddit.com"]);
+const mockSite = (url: string) => (url.match(/^https?:\/\/(?:www\.)?([^/]+)/)?.[1] ?? "").split(".").slice(-2).join(".");
+const mockReports = new Map<string, { postId: string; url: string }>();
+let mockSigned: string | null = null;
+const mockTakedowns: Takedown[] = [
+  { id: "tdmock0001", reportId: "rmock1", postId: "mock", url: "https://prints.example.org/listing/88", site: "example.org", method: "email", status: "removed", rejectReason: null, createdAt: iso(60 * 24 * 6), sentAt: iso(60 * 24 * 5), removedAt: iso(60 * 24 * 3), daysToRemoval: 3, receiptUrl: `${PUBLIC_ORIGIN}/takedown/tdmock0001` },
+  { id: "tdmock0002", reportId: "rmock2", postId: "mock", url: "https://www.etsy.com/listing/204", site: "etsy.com", method: "form", status: "sent", rejectReason: null, createdAt: iso(60 * 24 * 2), sentAt: iso(60 * 24), removedAt: null, daysToRemoval: null, receiptUrl: null },
+];
+
 const mockCopies: FoundCopy[] = [
   { id: "mc1", postId: "mock", url: "https://prints.example.org/listing/204", title: "Sunrise over the harbour, canvas print", site: "Example Prints", thumbnail: null, reason: "Lens visual match on Example Prints", status: "new", reportId: null, foundAt: new Date(Date.now() - 3_600_000).toISOString() },
   { id: "mc2", postId: "mock", url: "https://blog.example.net/best-photos", title: "Best photos of the year", site: "Example Blog", thumbnail: null, reason: "Lens exact match on Example Blog", status: "new", reportId: null, foundAt: new Date(Date.now() - 86_400_000).toISOString() },
