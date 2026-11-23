@@ -79,7 +79,7 @@
         "FUND_PAGE_URL": "https://emera.social/fund/",
         "PROTECT_RETURN_URL": "https://emera.social/protect/",
         "POSTS_PER_DAY": "5",
-        "SCAN_MONTHLY_LIMIT": "200"
+        "SCAN_MONTHLY_LIMIT": "5"
       },
       "triggers": { "crons": ["*/15 * * * *", "0 1 3 * *", "*/30 * * * *"] },
       "d1_databases": [
