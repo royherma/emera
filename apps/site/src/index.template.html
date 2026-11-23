@@ -85,7 +85,7 @@ a{color:inherit}
 .theme span{display:grid;place-items:center;width:34px;height:30px;border-radius:99px}
 .theme .ic{width:17px;height:17px}
 :root:not([data-theme=dark]) .theme .d,:root[data-theme=dark] .theme .n{background:var(--ink);color:var(--bg)}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center;padding:clamp(24px,5vh,64px) 0 clamp(56px,9vh,110px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center;padding:clamp(24px,4vh,48px) 0 clamp(40px,6vh,72px)}
 .eyebrow{display:inline-flex;gap:10px;align-items:center;font:600 .78rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--sunink)}
 .eyebrow b{display:inline-block;width:28px;height:1.5px;background:currentColor}
 .lead{font-size:clamp(1.02rem,1.5vw,1.2rem);color:var(--ink2);max-width:29em;margin-top:16px}
@@ -105,8 +105,9 @@ a{color:inherit}
 
 h1{font:800 clamp(3rem,5.5vw,5.5rem)/.96 var(--disp);letter-spacing:-.06em;margin:20px 0 0;text-wrap:balance}
 .sub{font-size:clamp(1.08rem,1.6vw,1.3rem);color:var(--ink2);max-width:31em;margin-top:22px;text-wrap:pretty}
-.plans{display:inline-block;margin:0 0 0 22px;font:600 .98rem var(--body);color:var(--sunink)}
-.pz{position:relative;min-height:620px;min-width:0}
+.note:empty{display:none}
+.plans{display:inline-block;margin:16px 0 0 8px;font:600 .98rem var(--body);color:var(--sunink)}
+.pz{position:relative;min-height:560px;min-width:0}
 .pc{position:absolute;background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:18px}
 .pc .hd{display:flex;align-items:center;justify-content:space-between;font:700 .95rem var(--disp);letter-spacing:-.02em;margin-bottom:12px}
 .pc .hd span{font:600 .74rem var(--body);padding:5px 10px;border-radius:99px;background:color-mix(in srgb,var(--sun) 22%,transparent);color:var(--sunink)}
@@ -132,6 +133,7 @@ h1{font:800 clamp(3rem,5.5vw,5.5rem)/.96 var(--disp);letter-spacing:-.06em;margi
 .stp h3{font:700 clamp(1.3rem,1.9vw,1.65rem)/1.08 var(--disp);letter-spacing:-.045em;margin:8px 0 10px}
 .stp p{color:var(--ink2);font-size:.98rem}
 .stp .viz{margin-top:auto;padding-top:22px}
+.stp .pane{min-height:120px;justify-content:center}
 .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .tiles img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;display:block}
 .fair{position:relative;overflow:hidden;isolation:isolate;background:#0c0a09;color:#fbf3e8;padding:clamp(72px,11vw,150px) 0}
@@ -147,8 +149,9 @@ h1{font:800 clamp(3rem,5.5vw,5.5rem)/.96 var(--disp);letter-spacing:-.06em;margi
 .trust{padding:clamp(56px,8vw,100px) 0 clamp(40px,6vw,70px)}
 .trust .head{margin-bottom:0}
 .trust .row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.8vw,24px);margin-top:clamp(24px,4vw,44px)}
-.trust .row div{border-top:2px solid var(--sun);padding-top:16px}
-.trust h3{font:700 1.35rem/1.1 var(--disp);letter-spacing:-.04em}
+.trust .row div{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--sun);border-radius:24px;padding:26px;box-shadow:var(--shadow)}
+.trust .head p{color:var(--ink2);margin-top:14px;max-width:34em}
+.trust h3{font:700 clamp(1.35rem,2vw,1.7rem)/1.1 var(--disp);letter-spacing:-.04em}
 .trust p{color:var(--ink2);margin-top:8px;font-size:1rem}
 
 .stage{position:relative;--k:.74;height:calc(800px*var(--k) + 70px);min-width:0}
@@ -308,7 +311,7 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
         <article class="card reveal">
           <h3>Reach you earn, never buy</h3>
           <p>No ads and no paid boosts. The ranking code is public and every post tells you why you are seeing it.</p>
-          <div class="viz"><div class="pane"><div class="r"><svg class="ic" viewBox="0 0 24 24" style="color:#ffc98a"><use href="#i-eye"/></svg><span><strong>Why you are seeing this</strong><small>You follow Sabine Aquarelle, who reposted it</small></span></div></div></div>
+          <div class="viz"><div class="pane"><div class="r"><svg class="ic" viewBox="0 0 24 24" style="color:#ffc98a"><use href="#i-eye"/></svg><span><strong>Why you are seeing this</strong><small>You follow Sabine Aquarelle, who reposted it</small></span></div><div class="r"><svg class="ic" viewBox="0 0 24 24" style="color:#ffc98a"><use href="#i-flag"/></svg><span><strong>Paid boosts</strong><small>None. Ranking code is public</small></span><span class="tg">Off</span></div></div></div>
         </article>
       </div>
     </div>
@@ -331,7 +334,7 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
 
   <section class="trust" id="trust">
     <div class="wrap">
-      <div class="head reveal"><h2>Don't take our word. Read the code</h2></div>
+      <div class="head reveal"><h2>Don't take our word. Read the code</h2><p>Every promise on this page is backed by something you can open and check.</p></div>
       <div class="row reveal">
         <div><h3>Open source</h3><p>The code behind every promise is public, ranking included.</p></div>
         <div><h3>Run as a nonprofit</h3><p>No investors to please and no ads to sell.</p></div>
