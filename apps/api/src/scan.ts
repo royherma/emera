@@ -104,7 +104,7 @@ export function parseLens(json: any): Candidate[] {
     }
   };
   take(json?.exact_matches, 'exact');
-  take(json?.visual_matches, 'visual');
+  take(json?.visual_matches, json?.search_parameters?.type === 'exact_matches' ? 'exact' : 'visual');
   return out;
 }
 

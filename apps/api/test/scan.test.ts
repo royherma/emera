@@ -133,6 +133,8 @@ describe('own accounts', () => {
   });
   it('keepForeign drops the creator own pages', () => {
     expect(keepForeign(parseLens(LENS), own).map((c) => c.url)).toContain('https://shop.example.org/p/1');
+    const exactMode = parseLens({ search_parameters: { type: 'exact_matches' }, visual_matches: [{ link: 'https://avatar.example/x', title: 'cropped avatar' }] });
+    expect(exactMode[0].kind).toBe('exact');
     expect(keepForeign(parseLens(LENS), own).map((c) => c.url)).not.toContain('https://emera.social/p/abc');
   });
 });
