@@ -64,4 +64,19 @@ describe('Instagram', () => {
     expect((await c.json('DELETE', '/v1/instagram')).status).toBe(200);
     expect((await c.json('GET', '/v1/instagram')).body.connected).toBe(false);
   });
+
+  it('is locked with a plain sentence when Meta keys are not set', async () => {
+    const c = new Client(makeEnv());
+    await c.signIn('lock@example.test');
+    await c.withHandle('locked', 'Locked');
+    c.env = makeEnv({ ENVIRONMENT: 'production' });
+    const list = await c.json('GET', '/v1/connectors');
+    expect(list.body.connectors.map((k: any) => k.id)).not.toContain('instagram');
+    expect(list.body.locked.map((l: any) => l.name)).toContain('Instagram');
+    const prev = await c.json('POST', '/v1/import/preview', { from: 'instagram' });
+    expect(prev.body.error.code).toBe('source_locked');
+    expect((await c.json('GET', '/v1/instagram')).body).toMatchObject({ connected: false, connectUrl: null });
+    const live = await new Client(makeEnv({ ENVIRONMENT: 'production', INSTAGRAM_APP_ID: 'id', INSTAGRAM_APP_SECRET: 's' })).json('GET', '/v1/connectors');
+    expect(live.body.connectors.map((k: any) => k.id)).toContain('instagram');
+  });
 });

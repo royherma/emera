@@ -1,10 +1,14 @@
 import { fail } from '../http';
+import type { Env } from '../env';
 import { net, type Connector, type Item, type Media, type ReadCtx } from './types';
 
 export const IG_GRAPH = 'https://graph.instagram.com/v21.0';
 const FIELDS = 'id,caption,media_type,media_url,permalink,timestamp,children{media_type,media_url}';
 
 type IgMedia = { id: string; caption?: string; media_type: string; media_url?: string; permalink?: string; timestamp?: string; children?: { data: { media_type: string; media_url?: string }[] } };
+
+export const IG_LOCKED_WHY = 'Instagram sign-in is not open yet. Until it is, download your data from Instagram and bring the zip in with the Emera importer.';
+export const igEnabled = (env: Env) => (!!env.INSTAGRAM_APP_ID && !!env.INSTAGRAM_APP_SECRET) || (!env.INSTAGRAM_APP_ID && (env.ENVIRONMENT === 'dev' || env.ENVIRONMENT === 'test'));
 
 const kind = (t: string): Media['type'] => (t === 'VIDEO' ? 'video' : t === 'IMAGE' ? 'image' : null);
 
@@ -24,6 +28,7 @@ export async function igToken(ctx: ReadCtx): Promise<string> {
 
 async function read(_spec: string, limit: number, ctx?: ReadCtx): Promise<Item[]> {
   if (!ctx) throw fail(409, 'instagram_not_connected', 'Sign in with Instagram first.');
+  if (!igEnabled(ctx.env)) throw fail(422, 'source_locked', IG_LOCKED_WHY);
   const token = await igToken(ctx);
   const res = await net(`${IG_GRAPH}/me/media?fields=${encodeURIComponent(FIELDS)}&limit=${Math.min(50, Math.max(limit, 1))}&access_token=${encodeURIComponent(token)}`);
   const json: any = await res.json().catch(() => ({}));

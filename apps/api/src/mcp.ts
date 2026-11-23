@@ -1,12 +1,13 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import type { AppEnv, Env, UserRow } from './env';
-import { ApiError, originOf } from './http';
+import { ApiError, fail, originOf } from './http';
 import { resourceMetadataUrl, userForToken } from './oauth';
 import { importItems, listSources, parseFrom, postFromUrls, previewItems, readSource, setAuto, sourceJson } from './ingest';
 import { cleanRules, connectorList } from './connectors';
 import { BRAND } from './brand';
 import { instagramStatus } from './instagram';
+import { IG_LOCKED_WHY, igEnabled } from './connectors/instagram';
 
 const VERSIONS = ['2025-11-25', '2025-06-18', '2025-03-26', '2024-11-05'];
 const str = (description: string) => ({ type: 'string', description });
@@ -30,6 +31,7 @@ const postLink = (x: Ctx, id: string) => `${x.site}/p/${id}`;
 
 async function call(x: Ctx, name: string, a: Record<string, any>) {
   if (name === 'connect_instagram') {
+    if (!igEnabled(x.env)) throw fail(422, 'source_locked', IG_LOCKED_WHY);
     const s = await instagramStatus(x.env, x.origin, x.user.id);
     return text(s.connected ? `Instagram is connected as @${s.username}. Use preview_import with from: "instagram" to see the reels.` : `Open this link to sign in with Instagram (good for 15 minutes): ${s.connectUrl}\nEmera only reads your posts there and never posts to Instagram.`, s);
   }

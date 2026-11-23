@@ -1,7 +1,8 @@
 import { fail } from '../http';
 import { bluesky } from './bluesky';
 import { feed } from './feed';
-import { instagram } from './instagram';
+import type { Env } from '../env';
+import { igEnabled, IG_LOCKED_WHY, instagram } from './instagram';
 import type { Connector, Item, ReadCtx } from './types';
 
 export type { Connector, Item, Media } from './types';
@@ -69,7 +70,10 @@ export function passes(item: Item, rules: Rules): boolean {
   return true;
 }
 
-export const connectorList = () => ({
-  connectors: CONNECTORS.map((c) => ({ id: c.id, name: c.name, example: c.example })),
-  locked: LOCKED.map((l) => ({ name: l.name, why: l.why })),
-});
+export const connectorList = (env?: Env) => {
+  const off = !!env && !igEnabled(env);
+  return {
+    connectors: CONNECTORS.filter((c) => !(off && c.id === 'instagram')).map((c) => ({ id: c.id, name: c.name, example: c.example })),
+    locked: [...(off ? [{ name: 'Instagram', why: IG_LOCKED_WHY }] : []), ...LOCKED.map((l) => ({ name: l.name, why: l.why }))],
+  };
+};

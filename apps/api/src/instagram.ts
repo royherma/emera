@@ -4,7 +4,7 @@ import { requireAuth } from './auth';
 import { fail, originOf, siteOrigin } from './http';
 import { hmacHex } from './crypto';
 import { net } from './connectors/types';
-import { IG_GRAPH } from './connectors/instagram';
+import { IG_GRAPH, IG_LOCKED_WHY, igEnabled } from './connectors/instagram';
 import { BRAND } from './brand';
 
 const STATE_TTL_MS = 15 * 60_000;
@@ -48,7 +48,7 @@ const page = (title: string, body: string, back: string) => `<!doctype html><htm
 
 export const instagramRoutes = new Hono<AppEnv>();
 
-instagramRoutes.get('/v1/instagram', requireAuth, async (c) => c.json(await instagramStatus(c.env, originOf(c), c.get('user').id)));
+instagramRoutes.get('/v1/instagram', requireAuth, async (c) => igEnabled(c.env) ? c.json(await instagramStatus(c.env, originOf(c), c.get('user').id)) : c.json({ connected: false, username: null, connectUrl: null, locked: IG_LOCKED_WHY }));
 
 instagramRoutes.delete('/v1/instagram', requireAuth, async (c) => {
   await c.env.DB.prepare('DELETE FROM instagram_links WHERE user_id = ?').bind(c.get('user').id).run();

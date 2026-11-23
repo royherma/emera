@@ -147,7 +147,7 @@ const limitOf = (v: unknown, def: number, max: number) => Math.max(1, Math.min(m
 
 export const ingestRoutes = new Hono<AppEnv>();
 
-ingestRoutes.get('/v1/connectors', (c) => c.json(connectorList()));
+ingestRoutes.get('/v1/connectors', (c) => c.json(connectorList(c.env)));
 
 ingestRoutes.post('/v1/import/preview', requireAuth, async (c) => {
   const body = await readJson(c);
