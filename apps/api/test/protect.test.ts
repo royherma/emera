@@ -17,6 +17,7 @@ function fakeStripe(accountId = 'acct_emera') {
     calls.push({ url, method: init?.method ?? 'GET', body: new URLSearchParams(String(init?.body ?? '')) });
     if (url.endsWith('/v1/account')) return Response.json({ id: accountId });
     if (url.includes('/v1/prices')) return Response.json({ data: [{ id: url.includes('pro') ? 'price_pro' : 'price_creator' }] });
+    if (url.includes('/v1/promotion_codes')) return Response.json({ data: [{ id: 'promo_1' }] });
     if (url.endsWith('/v1/customers')) return Response.json({ id: 'cus_1' });
     if (url.endsWith('/v1/checkout/sessions')) return Response.json({ id: 'cs_1', url: 'https://checkout.stripe.com/c/pay/cs_1' });
     if (url.endsWith('/v1/billing_portal/sessions')) return Response.json({ url: 'https://billing.stripe.com/p/session/x' });
@@ -130,6 +131,14 @@ describe('protect webhook', () => {
     const c = new Client(env);
     await c.signIn(email);
     expect((await c.json('GET', '/v1/protect/me')).body.plan).toBe('creator');
+  });
+
+  it('a ?code link applies that promotion code directly', async () => {
+    fakeStripe();
+    expect((await new Client(env).json('POST', '/v1/protect/start', { plan: 'pro', code: 'FOUNDER' })).status).toBe(201);
+    const sent = calls.find((x) => x.url.endsWith('/v1/checkout/sessions'))!.body;
+    expect(sent.get('discounts[0][promotion_code]')).toBe('promo_1');
+    expect(sent.get('allow_promotion_codes')).toBeNull();
   });
 
   it('guest checkout with an existing account email sets the plan right away', async () => {

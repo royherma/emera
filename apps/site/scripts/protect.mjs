@@ -95,7 +95,7 @@ h2.t{font:700 clamp(1.6rem,3.2vw,2.3rem)/1.1 var(--disp);letter-spacing:-.035em;
 const buy = `<script>(function(){var api=/(^|\\.)emera\\.social$/.test(location.hostname)?"https://api.emera.social":"https://emera-api-staging.techguyver1337.workers.dev";
 var q=new URLSearchParams(location.search);if(q.get("subscribed")){var d=document.createElement("div");d.className="paid";d.innerHTML='<strong>You are protected.</strong> Sign in or create your account with the email you paid with and your plan is already there. <a href="/?ref=protect-paid#join">Create your account</a>';document.body.prepend(d)}
 document.querySelectorAll("[data-buy]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();var t=a.textContent;a.textContent="Opening checkout...";
-fetch(api+"/v1/protect/start",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({plan:a.getAttribute("data-buy")})}).then(function(r){return r.json()}).then(function(j){if(j.url)location.href=j.url;else{a.textContent=t;location.href=a.href}}).catch(function(){a.textContent=t;location.href=a.href})})})})()</script>`;
+fetch(api+"/v1/protect/start",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({plan:a.getAttribute("data-buy"),code:q.get("code")||undefined})}).then(function(r){return r.json()}).then(function(j){if(j.url)location.href=j.url;else{a.textContent=t;location.href=a.href}}).catch(function(){a.textContent=t;location.href=a.href})})})})()</script>`;
 
 const script =`<script>(function(){var f=document.querySelector("[data-ent]");if(!f)return;var n=document.querySelector("[data-note]"),b=f.querySelector("button");
 function err(t,el){n.textContent=t;n.classList.add("err");if(el)el.focus()}

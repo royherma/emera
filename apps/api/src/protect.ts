@@ -82,10 +82,14 @@ protectRoutes.post('/v1/protect/start', async (c) => {
   const env = c.env;
   await assertEmeraAccount(env);
   const page = env.PROTECT_RETURN_URL!;
+  const code = typeof body.code === 'string' ? body.code.trim().slice(0, 64) : '';
+  const promo = code
+    ? (await stripeCall<{ data: { id: string }[] }>(env, 'GET', `/promotion_codes?code=${encodeURIComponent(code)}&active=true&limit=1`)).data[0]?.id
+    : undefined;
   const session = await stripeCall<{ id: string; url: string }>(env, 'POST', '/checkout/sessions', {
     mode: 'subscription',
     'managed_payments[enabled]': 'false',
-    allow_promotion_codes: 'true',
+    ...(promo ? { 'discounts[0][promotion_code]': promo } : { allow_promotion_codes: 'true' }),
     payment_method_collection: 'if_required',
     'line_items[0][price]': await priceId(env, plan),
     'line_items[0][quantity]': 1,
