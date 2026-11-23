@@ -6,6 +6,7 @@ import { pages, writePages } from "./pages.mjs";
 import { footer, footerCss, starButton } from "./footer.mjs";
 import { tagAll } from "./tag.mjs";
 import { writeFund } from "./fund.mjs";
+import { writeProtect } from "./protect.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const brand = JSON.parse(readFileSync(join(root, "../../packages/brand/brand.json"), "utf8"));
@@ -53,5 +54,6 @@ writeFileSync(join(root, "public/index.html"), html);
 console.log("built public/index.html", html.length, "bytes");
 console.log("built", writePages(new Date().toISOString().slice(0, 10), { credits, github: GITHUB_URL }), "sitemap urls");
 writeFund(new Date().toISOString().slice(0, 10), { github: GITHUB_URL });
+writeProtect(new Date().toISOString().slice(0, 10), { github: GITHUB_URL });
 const tagged = tagAll(join(root, "public"));
 console.log("tagged", tagged.total, "editable texts in", tagged.files, "pages");

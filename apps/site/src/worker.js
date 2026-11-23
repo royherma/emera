@@ -329,6 +329,35 @@ async function sponsor(request, env) {
   return json({ ok: true });
 }
 
+async function enterprise(request, env) {
+  let body;
+  try {
+    body = await readBody(request);
+  } catch {
+    return json({ ok: false, error: "invalid_body" }, 400);
+  }
+  if (clip(body.website, 200)) return json({ ok: true });
+  const name = clip(body.name, 120);
+  if (!name) return json({ ok: false, error: "missing_name" }, 400);
+  const email = clip(body.email, 254)?.toLowerCase();
+  if (!email || !EMAIL.test(email)) return json({ ok: false, error: "invalid_email" }, 400);
+  const company = clip(body.company, 120);
+  if (!company) return json({ ok: false, error: "missing_company" }, 400);
+  const n = Math.round(Number(String(body.creators ?? "").replace(/[,\s]/g, "")));
+  const creators = Number.isFinite(n) && n > 0 ? Math.min(n, 10000000) : null;
+  const visitor = cookie(request, "em_v");
+  const since = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
+  const recent = await env.DB.prepare("SELECT COUNT(*) AS n FROM enterprise_interest WHERE (email = ? OR visitor = ?) AND created_at > ?").bind(email, visitor, since).first();
+  if ((recent?.n ?? 0) >= 3) return json({ ok: false, error: "too_many" }, 429);
+  const s = seen(request);
+  await env.DB.prepare(
+    "INSERT INTO enterprise_interest (created_at, name, email, company, creators, referrer, visitor, country, city, ua, tester) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+  )
+    .bind(new Date().toISOString(), name, email, company, creators, clip(body.referrer, 500) || clip(request.headers.get("referer"), 500), visitor, s.country, s.city, s.ua, s.tester)
+    .run();
+  return json({ ok: true });
+}
+
 const REPO = "royherma/emera";
 
 async function stars(ctx) {
@@ -359,6 +388,10 @@ export default {
     if (pathname === "/api/sponsor") {
       if (!fundingOn(env)) return json({ ok: false, error: "not_found" }, 404);
       if (request.method === "POST") return sponsor(request, env);
+      return json({ ok: false, error: "method_not_allowed" }, 405);
+    }
+    if (pathname === "/api/enterprise") {
+      if (request.method === "POST") return enterprise(request, env);
       return json({ ok: false, error: "method_not_allowed" }, 405);
     }
     if (FUND_PAGE.test(pathname) && !fundingOn(env)) return notFound(request, env, url);
