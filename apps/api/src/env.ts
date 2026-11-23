@@ -26,6 +26,7 @@ export type Env = {
   STRIPE_ACCOUNT_ID?: string;
   STRIPE_SPONSOR_PRODUCT?: string;
   FUND_PAGE_URL?: string;
+  PROTECT_RETURN_URL?: string;
   SIGNIN_LIMIT?: RateLimit;
   WRITE_LIMIT?: RateLimit;
   POSTS_PER_DAY?: string;
@@ -44,6 +45,10 @@ export type UserRow = {
   invited_by: string | null;
   created_at: number;
   role?: Role | null;
+  plan?: string;
+  plan_until?: number | null;
+  stripe_customer_id?: string | null;
+  stripe_subscription_id?: string | null;
 };
 
 export type Role = 'admin' | 'mod' | 'creator';

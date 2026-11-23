@@ -3,6 +3,7 @@ import type { AppEnv, Env } from './env';
 import { fail, readJson } from './http';
 import { EMAIL_RE, bookSponsorship, cleanUrl, fundAdmin, fundOn, monthOf, refundSponsorship, shiftMonth } from './fund';
 import { MAX_CHECKOUT_MONTHS, MIN_MONTHLY_CENTS } from './fundRules';
+import { handleProtectEvent } from './protect';
 
 const STRIPE = 'https://api.stripe.com/v1';
 const SIG_TOLERANCE_S = 300;
@@ -14,7 +15,7 @@ function form(params: Record<string, string | number | undefined>) {
   return body;
 }
 
-async function stripeCall<T>(env: Env, method: 'GET' | 'POST', path: string, params?: Record<string, string | number | undefined>): Promise<T> {
+export async function stripeCall<T>(env: Env, method: 'GET' | 'POST', path: string, params?: Record<string, string | number | undefined>): Promise<T> {
   const res = await fetch(`${STRIPE}${path}`, {
     method,
     headers: { Authorization: `Bearer ${env.STRIPE_SECRET_KEY}`, 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -200,7 +201,9 @@ stripeRoutes.post('/v1/stripe/webhook', async (c) => {
     throw fail(400, 'bad_signature', 'Signature check failed.');
   }
   const event = JSON.parse(payload) as { type: string; data: { object: any } };
-  let result = 'ignored';
+  let result = await handleProtectEvent(c.env, event);
+  if (result !== 'not_protect') return c.json({ received: true, result });
+  result = 'ignored';
   if (event.type === 'checkout.session.completed' || event.type === 'checkout.session.async_payment_succeeded') {
     result = await onPaid(c.env, event.data.object);
   } else if (event.type === 'checkout.session.expired') {

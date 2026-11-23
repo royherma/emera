@@ -158,9 +158,14 @@ Rules and every number: `docs/mission/funding-rules.md`. Constants live in `apps
 | POST | `/v1/fund/checkout` | - | `{ sponsorName, contactEmail, monthlyCents, months?: 1-12, sponsorUrl?, line?: max 80 }` | `201 { url }` - Stripe Checkout (promotion codes on); 503 `payments_off` without Stripe config or when the key is not the `STRIPE_ACCOUNT_ID` account; every start is saved in `fund_checkouts` |
 | GET | `/v1/fund/checkout/:sessionId` | - | - | `{ paid: false }` or `{ paid: true, sponsorName, amountCents, months, banner }` - for the thank-you note on the fund page |
 | POST | `/v1/stripe/webhook` | Stripe signature | Stripe event | `{ received, result }` - books `checkout.session.completed` (paid or 100% off), marks `checkout.session.expired` as left, refunds on full `charge.refunded`; ignores events without `metadata.project = "emera"` |
+| POST | `/v1/protect/checkout` | user | `{ plan: "creator"\|"pro" }` | `201 { url }` - Stripe Checkout subscription, price found by lookup key `protect_creator_monthly` / `protect_pro_monthly`; 400 `bad_plan`; 503 `payments_off` without config or on a key from another account |
+| GET | `/v1/protect/me` | user | - | `{ plan: "free"\|"creator"\|"pro", planUntil: ISO\|null }` |
+| POST | `/v1/protect/portal` | user | - | `{ url }` - Stripe billing portal; 404 `no_subscription` before the first checkout |
 | GET | `/v1/admin/fund/sponsors` | admin | - | `{ sponsors: [{ id, name, url, line, banner, email, paid_cents }] }` |
 | POST | `/v1/admin/fund/sponsors/:id/banner` | admin | `{ banner: "approved"\|"rejected"\|"pending" }` | `{ id, banner }` |
 | GET | `/v1/admin/fund/checkouts` | admin | - | `{ checkouts: [...] }` - started, paid, expired, with promo code and discount |
+
+The webhook also handles Protect: `checkout.session.completed` (mode subscription), `customer.subscription.updated` / `deleted` and `invoice.paid` set `users.plan` / `plan_until`, only when the subscription carries `metadata.project = "emera"`.
 
 `GET /v1/fund` also returns `banners: [{ name, url, line }]` (approved sponsors paid for this month, biggest first) and `feedCards: { on, posts, needed, every }` (in-feed sponsor cards only when `on`).
 
