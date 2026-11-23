@@ -11,9 +11,9 @@ const SITE = `https://${brand.domain}`;
 const PATH = "/protect/";
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-const TITLE = "Emera Protect: we find the copies and get them taken down";
-const OG_TITLE = "Someone copied what you made. We get it taken down";
-const DESCRIPTION = "Emera Protect finds copies of what you create on the open web and what you report, files the takedown and tracks it until the copy is gone. Free to report, $10 a month for weekly scans.";
+const TITLE = "Emera Protect: we find re-uploads of your reels and photos and get them taken down";
+const OG_TITLE = "Someone re&#8209;uploaded your reel. We get it taken down";
+const DESCRIPTION = "Emera Protect finds re-uploads of your reels, TikToks and Shorts, and reposted photos and designs, where Google can see them. We file the takedown and track it until it is gone. Free to report, $10 a month for weekly scans.";
 
 const litSvg = readFileSync(join(root, "../../brand/logo/final/mark-lit-symbol.svg"), "utf8");
 const litBox = litSvg.match(/viewBox="([^"]+)"/)[1];
@@ -33,7 +33,7 @@ a{color:inherit;text-underline-offset:3px}
 .pill{display:inline-block;background:linear-gradient(180deg,var(--sun2),var(--sun));color:#2a1406;font-weight:700;text-decoration:none;padding:12px 20px;border-radius:999px;font-size:.98rem;border:0;cursor:pointer;font-family:var(--body);text-align:center}
 .ghost{display:inline-block;padding:12px 20px;border-radius:999px;border:1px solid var(--line);text-decoration:none;font-weight:600;font-size:.98rem;text-align:center}
 .eyebrow{font:600 .78rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--sunink)}
-.hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(24px,5vw,64px);align-items:center;padding:clamp(18px,4vw,48px) 0 0}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:center;padding:clamp(18px,4vw,48px) 0 0}
 h1{font:800 clamp(2.3rem,4.7vw,4rem)/1 var(--disp);letter-spacing:-.05em;margin-top:14px;text-wrap:balance}
 .lead{text-wrap:pretty;color:var(--ink2);max-width:32em;margin-top:20px;font-size:clamp(1.02rem,1.5vw,1.18rem)}
 .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
@@ -92,6 +92,8 @@ h2.t{font:700 clamp(1.6rem,3.2vw,2.3rem)/1.1 var(--disp);letter-spacing:-.035em;
 @media (max-width:820px){.hero{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.ent{grid-template-columns:1fr}}
 @media (max-width:560px){.tiers{grid-template-columns:1fr}.form{grid-template-columns:1fr}.cta a{flex:1 1 100%}}`;
 
+const HM = "<div class=\"hm\" role=\"img\" aria-label=\"A reel you posted, the same reel re-uploaded on TikTok with 2.1 million views and a Take it down button, then a Removed receipt. Below it, your photo reposted without credit and your design on a T-shirt shop.\">\n<div class=\"hm-card\" aria-hidden=\"true\">\n<div class=\"hm-hd\">Found copies<span>3 new</span></div>\n<div class=\"hm-vid\">\n<div class=\"hm-col\"><div class=\"hm-lbl\">Original</div>\n<div class=\"hm-reel\"><img src=\"/assets/work/nightstreet.jpg\" alt=\"\"><span class=\"hm-play\"><svg viewBox=\"0 0 24 24\"><path d=\"M7 4.5v15l13-7.5z\"/></svg></span><div class=\"hm-meta\"><b>184K views</b><span>@marlowe.moves</span></div></div>\n<span class=\"hm-act dim\">Posted 12 Nov</span></div>\n<div class=\"hm-col\"><div class=\"hm-lbl bad\">TikTok copy</div>\n<div class=\"hm-reel hm-copy\"><img src=\"/assets/work/nightstreet.jpg\" alt=\"\"><span class=\"hm-wm\"></span><span class=\"hm-play\"><svg viewBox=\"0 0 24 24\"><path d=\"M7 4.5v15l13-7.5z\"/></svg></span><span class=\"hm-bar\">wait for it</span><div class=\"hm-meta\"><b>2.1M views</b><span>@reposts.by.nilo</span></div></div>\n<span class=\"hm-act\">Take it down</span></div>\n<div class=\"hm-col\"><div class=\"hm-lbl ok\">Removed</div>\n<div class=\"hm-reel hm-copy hm-rm\"><img src=\"/assets/work/nightstreet.jpg\" alt=\"\"><span class=\"hm-seal\"><svg viewBox=\"0 0 24 24\"><path d=\"M5 12.5l4.5 4.5L19 7.5\"/></svg></span><div class=\"hm-meta\"><b>Taken down</b><span>Receipt saved</span></div></div>\n<span class=\"hm-act done\">Receipt ready</span></div>\n</div>\n<div class=\"hm-rows\">\n<div class=\"hm-row\"><span class=\"t\"><img src=\"/assets/work/stairs.jpg\" alt=\"\" style=\"transform:scale(1.3) translateX(4%)\"></span><div><strong>Your photo, reposted without credit</strong><small>pinterest.com, 96% match</small></div><span class=\"hm-act\">Take it down</span></div>\n<div class=\"hm-row\"><span class=\"t hm-shirt\"><svg viewBox=\"0 0 64 64\" aria-hidden=\"true\"><defs><clipPath id=\"hm-c\"><rect x=\"21\" y=\"22\" width=\"22\" height=\"20\" rx=\"2\"/></clipPath></defs><path d=\"M22 8l10 5 10-5 18 9-7 14-7-3v27H18V28l-7 3L4 17z\" fill=\"#e9ddc9\" stroke=\"#cdbb9f\" stroke-width=\"1.2\" stroke-linejoin=\"round\"/><image href=\"/assets/work/swirl3d.jpg\" x=\"18\" y=\"20\" width=\"28\" height=\"24\" preserveAspectRatio=\"xMidYMid slice\" clip-path=\"url(#hm-c)\"/></svg></span><div><strong>Your design on a T-shirt shop</strong><small>shirtbarn.example, 93% match</small></div><span class=\"hm-act\">Take it down</span></div>\n</div>\n</div>\n</div>";
+const HM_CSS = ".hm{position:relative;min-width:0;width:100%;max-width:560px;margin-left:auto}\n.hm-card{background:var(--card);border:1px solid var(--line);border-radius:28px;box-shadow:0 30px 60px -36px rgba(90,45,10,.45);padding:18px}\n.hm-hd{display:flex;align-items:center;justify-content:space-between;font:700 .95rem var(--disp,inherit);letter-spacing:-.02em;margin-bottom:14px;color:var(--ink)}\n.hm-hd span{font:600 .74rem var(--body);padding:5px 10px;border-radius:99px;background:color-mix(in srgb,var(--sun) 22%,transparent);color:var(--sunink)}\n.hm-vid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}\n.hm-col{min-width:0;display:flex;flex-direction:column;gap:7px}\n.hm-lbl{font:700 .68rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\n.hm-lbl.bad{color:#b4321a}\n.hm-lbl.ok{color:#2f7a3d}\n:root[data-theme=dark] .hm-lbl.bad{color:#ff9a85}\n:root[data-theme=dark] .hm-lbl.ok{color:#7bd68a}\n.hm-reel{position:relative;aspect-ratio:9/16;border-radius:16px;overflow:hidden;background:#000;color:#fff}\n.hm-reel>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}\n.hm-reel:after{content:\"\";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.28),transparent 28%,transparent 55%,rgba(0,0,0,.72))}\n.hm-play{position:absolute;z-index:2;left:50%;top:42%;width:42px;height:42px;margin:-21px 0 0 -21px;border-radius:50%;background:rgba(255,255,255,.88);display:grid;place-items:center;color:#111}\n.hm-play svg{width:18px;height:18px;margin-left:2px;fill:currentColor}\n.hm-meta{position:absolute;z-index:2;left:9px;right:9px;bottom:9px;font:600 .72rem/1.25 var(--body)}\n.hm-meta b{display:block;font:800 1.02rem/1.1 var(--disp,inherit);letter-spacing:-.03em}\n.hm-meta span{opacity:.85}\n.hm-copy>img{transform:scale(1.28);transform-origin:50% 30%;filter:saturate(.8) contrast(1.05)}\n.hm-bar{position:absolute;z-index:3;left:0;right:0;bottom:30%;background:#000;color:#fff;font:700 .7rem var(--body);text-align:center;padding:6px 4px}\n.hm-wm{position:absolute;z-index:3;right:0;top:0;width:46%;height:16%;background:rgba(40,30,25,.92);filter:blur(6px)}\n.hm-rm>img{filter:grayscale(1) brightness(.55)}\n.hm-rm:after{background:rgba(12,10,9,.4)}\n.hm-seal{position:absolute;z-index:3;left:50%;top:44%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:#7bd68a;display:grid;place-items:center;color:#0f2a14}\n.hm-seal svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}\n.hm-act{display:block;text-align:center;font:700 .78rem var(--body);padding:10px 6px;border-radius:99px;color:#1a1008;background:linear-gradient(135deg,var(--sun2),var(--sun));white-space:nowrap}\n.hm-act.done{background:color-mix(in srgb,#7bd68a 28%,transparent);color:var(--ink)}\n.hm-act.dim{background:transparent;color:var(--ink2);border:1px solid var(--line)}\n.hm-rows{display:grid;gap:8px;margin-top:14px}\n.hm-row{display:flex;align-items:center;gap:12px;padding:9px 10px;border-radius:16px;background:var(--bg2);border:1px solid var(--line)}\n.hm-row .t{flex:none;width:50px;height:50px;border-radius:11px;overflow:hidden;position:relative}\n.hm-row .t img{width:100%;height:100%;object-fit:cover;display:block}\n.hm-row>div{min-width:0;flex:1}\n.hm-row strong{display:block;font-weight:600;font-size:.9rem;line-height:1.25;color:var(--ink)}\n.hm-row small{display:block;color:var(--ink2);font-size:.78rem}\n.hm-row .hm-act{flex:none;padding:9px 12px}\n.hm-shirt{background:#f4efe6;display:grid;place-items:center}\n.hm-shirt svg{width:100%;height:100%}\n@media (max-width:560px){.hm-card{padding:14px}.hm-play{width:34px;height:34px;margin:-17px 0 0 -17px}.hm-meta b{font-size:.9rem}.hm-meta{font-size:.64rem}.hm-bar{font-size:.6rem}.hm-act{font-size:.72rem;padding:9px 4px}.hm-row .hm-act{padding:8px 10px}}";
 const buy = `<script>(function(){var api=/(^|\\.)emera\\.social$/.test(location.hostname)?"https://api.emera.social":"https://emera-api-staging.techguyver1337.workers.dev";
 var q=new URLSearchParams(location.search);if(q.get("subscribed")){var d=document.createElement("div");d.className="paid";d.innerHTML='<strong>You are protected.</strong> Sign in or create your account with the email you paid with and your plan is already there. <a href="/?ref=protect-paid#join">Create your account</a>';document.body.prepend(d)}
 document.querySelectorAll("[data-buy]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();var t=a.textContent;a.textContent="Opening checkout...";
@@ -137,6 +139,7 @@ function html(github) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>${css}
+${HM_CSS}
 ${footerCss}</style>
 ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(/</g, "\\u003c")}</script>`).join("\n")}
 </head>
@@ -146,37 +149,29 @@ ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(
 <div class="hero">
 <div>
 <div class="eyebrow">${esc(brand.name)} Protect</div>
-<h1>Someone copied what you made. We get it taken down</h1>
-<p class="lead">${esc(brand.name)} is the open source social network for creators and real people. Protect finds the copies of what you create, files the takedown for you and tracks it until the copy is gone.</p>
+<h1>Someone re&#8209;uploaded your reel. We get it taken down</h1>
+<p class="lead">${esc(brand.name)} is the open source social network for creators and real people. Someone posts your reel or TikTok on their own account and gets the views. Protect finds it, files the takedown for you and tracks it until the copy is gone. Photos, designs and art too.</p>
 <div class="cta"><a class="pill" data-buy="creator" href="${plan("hero", "creator")}">Start for $10 a month</a><a class="ghost" href="#plans">See every plan</a></div>
 </div>
-<aside class="trk" aria-label="Example of a takedown being tracked">
-<h2>Takedowns this month, example</h2>
-<div class="big">12<small>copies found and taken down for one illustrator</small></div>
-<ol>
-<li><div>Print listing of a ceramic series<span>Filed Tuesday</span></div><b class="st rm">Removed</b></li>
-<li><div>Re-upload of a travel film<span>Filed Thursday</span></div><b class="st fl">Filed</b></li>
-<li><div>Cloned portrait account<span>Found this morning</span></div><b class="st nw">One tap</b></li>
-</ol>
-</aside>
+${HM}
 </div>
 
 <section aria-labelledby="h-how">
-<h2 class="t" id="h-how">You tap once. We chase it to removed</h2>
+<h2 class="t" id="h-how">You tap once. We chase the repost to removed</h2>
 <div class="steps">
-<div class="step"><h3>Add what you create</h3><p>Upload it, or bring in what you already posted. Each piece is signed with your name and the date.</p></div>
-<div class="step"><h3>We find the copies</h3><p>We search the open web and what you report. Every match lands in your list, next to the original.</p></div>
-<div class="step"><h3>One tap and it is filed</h3><p>We send the takedown and track it until the copy is removed.</p></div>
+<div class="step"><h3>Add your reels, TikToks and photos</h3><p>Upload them, or bring in what you already posted. Each one is signed with your name and the date.</p></div>
+<div class="step"><h3>We find re-uploads and reposts</h3><p>We check where Google can see them, plus anything you report. Every match lands in your list, next to the original.</p></div>
+<div class="step"><h3>One tap takedown</h3><p>We send the notice to the platform and track it until you get a Removed receipt.</p></div>
 </div>
 </section>
 
 <section id="plans" aria-labelledby="h-plans">
 <h2 class="t" id="h-plans">Pick how much you want covered</h2>
-<p class="sub">Start free. Move up when more of what you create is out there.</p>
+<p class="sub">Start free. Move up when more of your reels and photos are out there.</p>
 <div class="tiers">
-<div class="tier"><h3>Free</h3><div class="for">Found a copy yourself</div><div class="price">$0</div><ul><li>Report a copy you found</li><li>We file the takedown for you</li></ul><a class="ghost" href="${plan("free")}">Start free</a></div>
-<div class="tier"><h3>Creator</h3><div class="for">For people who make things</div><div class="price">$10<small> / month</small></div><ul><li>Unlimited works</li><li>Unlimited takedowns</li><li>Weekly scans</li></ul><a class="pill" data-buy="creator" href="${plan("creator", "creator")}">Get Creator</a></div>
-<div class="tier pro"><span class="badge">For bigger names</span><h3>Pro</h3><div class="for">Bigger names and brands</div><div class="price">$100<small> / month</small></div><ul><li>Unlimited works and takedowns</li><li>Daily scans of new work</li><li>Video covered</li><li>Automatic filing</li><li>Fake-account takedowns</li><li>Priority help</li><li>Monthly report</li></ul><a class="pill" data-buy="pro" href="${plan("pro", "pro")}">Get Pro</a></div>
+<div class="tier"><h3>Free</h3><div class="for">Found a copy yourself</div><div class="price">$0</div><ul><li>Report a repost you found</li><li>We file the takedown for you</li></ul><a class="ghost" href="${plan("free")}">Start free</a></div>
+<div class="tier"><h3>Creator</h3><div class="for">For reel, TikTok and photo creators</div><div class="price">$10<small> / month</small></div><ul><li>Videos and photos</li><li>Re-uploads found across TikTok, Instagram, YouTube and the open web, where Google can see them</li><li>Unlimited takedowns</li><li>Weekly scans</li></ul><a class="pill" data-buy="creator" href="${plan("creator", "creator")}">Get Creator</a></div>
+<div class="tier pro"><span class="badge">For bigger names</span><h3>Pro</h3><div class="for">Bigger names and brands</div><div class="price">$100<small> / month</small></div><ul><li>Videos and photos</li><li>Unlimited takedowns</li><li>Every new reel checked daily</li><li>Automatic filing</li><li>Fake-account takedowns</li><li>Priority help</li><li>Monthly report</li></ul><a class="pill" data-buy="pro" href="${plan("pro", "pro")}">Get Pro</a></div>
 <div class="tier"><h3>Enterprise</h3><div class="for">Agencies, labels and brands with many creators</div><div class="price">Custom</div><ul><li>Everyone you represent in one place</li><li>Plans built around your list</li></ul><a class="ghost" href="#talk">Talk to us</a></div>
 </div>
 </section>
