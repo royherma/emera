@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Emera | The open source social network</title>
-<meta name="description" content="Emera is the open source social network. AI is flooding the internet with fakes and bots; Emera is a fair, honest place where people are real and what you share keeps your name on it.">
+<title>Emera: we protect what you create | The open source social network</title>
+<meta name="description" content="We protect what you create. Emera finds the copies and takes them down for you, in a fair place where real people grow and reach can't be bought.">
 <meta name="theme-color" content="#fbf5ea" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0c0a09" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
@@ -12,15 +12,15 @@
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","name":"Emera","url":"https://emera.social/","logo":"https://emera.social/assets/og.png","description":"Open-source, nonprofit social network for people who make things and people sharing what is happening, with proof of who posted on every post."},{"@context":"https://schema.org","@type":"WebSite","name":"Emera","url":"https://emera.social/"}]</script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Emera">
-<meta property="og:title" content="Emera, the open source social network">
-<meta property="og:description" content="AI is breaking the internet. Emera uses it to build the fix: real people, proof on every post, rules anyone can read.">
+<meta property="og:title" content="Emera: we protect what you create">
+<meta property="og:description" content="We find the copies and take them down for you. A fair place where people are real and reach can't be bought.">
 <meta property="og:url" content="https://emera.social/">
 <meta property="og:image" content="https://emera.social/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Emera: create in the open and keep your name on it">
-<meta name="twitter:description" content="AI is breaking the internet. Emera uses it to build the fix: real people, proof on every post, rules anyone can read.">
+<meta name="twitter:title" content="Emera: we protect what you create">
+<meta name="twitter:description" content="We find the copies and take them down for you. A fair place where people are real and reach can't be bought.">
 <meta name="twitter:image" content="https://emera.social/assets/og.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -88,10 +88,6 @@ a{color:inherit}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center;padding:clamp(24px,5vh,64px) 0 clamp(56px,9vh,110px)}
 .eyebrow{display:inline-flex;gap:10px;align-items:center;font:600 .78rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--sunink)}
 .eyebrow b{display:inline-block;width:28px;height:1.5px;background:currentColor}
-h1{font:800 clamp(4.6rem,13.4vw,11.5rem)/.86 var(--disp);letter-spacing:-.065em;margin:20px 0 0}
-h1 .nm{display:block;margin-left:-.05em}
-.tagline{display:block;font:600 clamp(1.5rem,3.1vw,2.5rem)/1.1 var(--disp);letter-spacing:-.04em;margin-top:clamp(14px,2.4vh,26px);max-width:14em}
-.promise{font:600 clamp(1.1rem,1.9vw,1.45rem)/1.2 var(--disp);letter-spacing:-.02em;color:var(--sunink);margin-top:clamp(12px,1.8vh,18px)}
 .lead{font-size:clamp(1.02rem,1.5vw,1.2rem);color:var(--ink2);max-width:29em;margin-top:16px}
 .signup{display:flex;gap:8px;margin-top:30px;max-width:520px;padding:6px;border-radius:999px;background:color-mix(in srgb,var(--card) 82%,transparent);border:1px solid var(--line);backdrop-filter:blur(12px);box-shadow:var(--shadow)}
 .signup input[type=email]{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:1.02rem;color:var(--ink);padding:0 8px 0 20px;outline:none}
@@ -105,6 +101,55 @@ h1 .nm{display:block;margin-left:-.05em}
 .note.ok{color:var(--sunink);font-weight:600}
 .note.err{color:#c2381f}
 :root[data-theme=dark] .note.err{color:#ff8e78}
+
+
+h1{font:800 clamp(3.1rem,6.6vw,6.4rem)/.94 var(--disp);letter-spacing:-.06em;margin:20px 0 0;text-wrap:balance}
+.sub{font-size:clamp(1.08rem,1.6vw,1.3rem);color:var(--ink2);max-width:27em;margin-top:20px}
+.plans{display:inline-block;margin:6px 0 0 22px;font:600 .98rem var(--body);color:var(--sunink)}
+.pz{position:relative;min-height:620px;min-width:0}
+.pc{position:absolute;background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:18px}
+.pc .hd{display:flex;align-items:center;justify-content:space-between;font:700 .95rem var(--disp);letter-spacing:-.02em;margin-bottom:12px}
+.pc .hd span{font:600 .74rem var(--body);padding:5px 10px;border-radius:99px;background:color-mix(in srgb,var(--sun) 22%,transparent);color:var(--sunink)}
+.pc.found{left:0;top:10px;width:min(430px,92%)}
+.pc.done{right:0;bottom:0;width:min(330px,76%);transform:rotate(2.2deg)}
+.orig{display:flex;gap:12px;align-items:center;padding:10px;border-radius:16px;background:var(--bg2);border:1px solid var(--line);margin-bottom:10px}
+.orig img{width:64px;height:64px;border-radius:12px;object-fit:cover}
+.orig small,.cp small{display:block;color:var(--ink2);font-size:.8rem}
+.orig strong,.cp strong{display:block;font-weight:600;font-size:.92rem;line-height:1.25}
+.cp{display:flex;gap:12px;align-items:center;padding:10px;border-radius:16px;border:1px solid var(--line);margin-top:8px;background:var(--card)}
+.cp .ci{flex:none;width:56px;height:56px;border-radius:11px;overflow:hidden}
+.cp .ci img{width:100%;height:100%;object-fit:cover;display:block}
+.cp .go{margin-left:auto;flex:none;font:700 .78rem var(--body);padding:9px 13px;border-radius:99px;color:#1a1008;background:linear-gradient(135deg,var(--sun2),var(--sun));white-space:nowrap}
+.cp .m{margin-left:auto;font:700 .78rem var(--disp);color:var(--sunink)}
+.rc img{width:100%;height:150px;object-fit:cover;border-radius:14px;filter:grayscale(.9) contrast(.9);opacity:.55;display:block}
+.rc .stamp{display:flex;align-items:center;gap:10px;margin-top:14px;font:700 1.25rem var(--disp);letter-spacing:-.03em}
+.rc .stamp .sealc{width:38px;height:38px}
+.rc p{font-size:.88rem;color:var(--ink2);margin-top:6px;line-height:1.4}
+.loop{padding:clamp(64px,10vw,130px) 0 clamp(40px,6vw,80px);background:var(--bg)}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,1.8vw,24px)}
+.stp{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.stp .n{font:700 .85rem var(--disp);color:var(--sunink)}
+.stp h3{font:700 clamp(1.3rem,1.9vw,1.65rem)/1.08 var(--disp);letter-spacing:-.045em;margin:8px 0 10px}
+.stp p{color:var(--ink2);font-size:.98rem}
+.stp .viz{margin-top:auto;padding-top:22px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.tiles img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;display:block}
+.fair{position:relative;overflow:hidden;isolation:isolate;background:#0c0a09;color:#fbf3e8;padding:clamp(72px,11vw,150px) 0}
+.fair:before{content:"";position:absolute;z-index:-1;left:50%;bottom:-48vmin;width:90vmin;height:90vmin;margin-left:-45vmin;border-radius:50%;background:radial-gradient(circle,rgba(255,150,50,.8),rgba(255,100,30,.28) 40%,transparent 66%)}
+.fair .lbl{font:600 .78rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:#ffc98a}
+.fair h2{margin-top:20px;max-width:13em;font-size:clamp(2.4rem,6vw,5rem);line-height:.98;color:#fbf3e8}
+.fair .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,1.8vw,22px);margin-top:clamp(36px,5vw,64px)}
+.fair .card{background:rgba(255,240,220,.06);border-color:rgba(255,235,210,.14);grid-column:auto;box-shadow:none}
+.fair .card h3{color:#fbf3e8}.fair .card p{color:#e6d8c6}
+.fair .pane{background:rgba(255,240,220,.05);border-color:rgba(255,235,210,.12)}
+.fair .r{background:rgba(255,240,220,.07);border-color:rgba(255,235,210,.12);color:#fbf3e8}.fair .r small{color:#bcae9d}
+.fair .tg{color:#ffc98a}
+.trust{padding:clamp(56px,8vw,100px) 0 clamp(40px,6vw,70px)}
+.trust .head{margin-bottom:0}
+.trust .row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.8vw,24px);margin-top:clamp(24px,4vw,44px)}
+.trust .row div{border-top:2px solid var(--sun);padding-top:16px}
+.trust h3{font:700 1.35rem/1.1 var(--disp);letter-spacing:-.04em}
+.trust p{color:var(--ink2);margin-top:8px;font-size:1rem}
 
 .stage{position:relative;--k:.74;height:calc(800px*var(--k) + 70px);min-width:0}
 .stage .ph{position:absolute;top:0}
@@ -323,7 +368,9 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
   .stage{height:calc(800px*var(--k) + 70px);overflow:hidden;margin:0 calc(var(--gutter)*-1)}
   .stage .ph.a{left:var(--gutter)}
   .stage .ph.b{left:calc(var(--gutter) + 240px)}
-  .bento,.probs{grid-template-columns:1fr}
+  .bento,.probs,.fair .two,.trust .row{grid-template-columns:1fr}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pz{min-height:640px}
   .card,.card.w{grid-column:auto}
   .signup{border-radius:28px;flex-direction:column;padding:8px}
   .signup input[type=email]{padding:16px 14px}
@@ -331,6 +378,7 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
   .nav .pill{display:none}
   .nav .gh .ghl{padding-right:12px}
 }
+@media (max-width:560px){.steps{grid-template-columns:1fr}.pc.found{width:100%}.pc.done{width:86%}.plans{display:block;margin:12px 0 0 6px}.pz{min-height:660px}}
 </style>
 </head>
 <body>
@@ -387,133 +435,65 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
     </nav>
     <div class="hero-grid">
       <div class="copy">
-        <div data-e="6161ea71" class="eyebrow"><b></b>Where humanity comes together</div>
-        <h1><span data-e="acfdd57c" class="nm">Emera</span><span data-e="6dc38497" class="tagline">The open source social network</span></h1>
-        <p data-e="62ca2c79" class="promise">Post once. Protected everywhere</p>
-        <p data-e="290a9294" class="lead">Fakes, bots and copies are drowning out real people online. Emera is a fair, honest place to share and talk, where the people are real, what you post keeps your name on it, and the rules are public.</p>
+        <div data-e="b85d47c9" class="eyebrow"><b></b>The open source social network</div>
+        <h1 data-e="2a97f066">We protect what you create</h1>
+        <p data-e="bacfc057" class="sub">We find the copies and take them down for you, in a fair place where real people grow and reach can't be bought.</p>
         <form class="signup" data-signup novalidate>
           <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address" required>
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button data-e="4ee06b89" type="submit">Create your account</button>
+          <button data-e="52f6f325" type="submit">Get protected</button>
         </form>
         <p class="note" data-note role="status" aria-live="polite"></p>
+        <a data-e="f83e46af" class="plans" href="/protect?ref=home">See plans</a>
       </div>
-      <div class="stage" role="img" aria-label="Two Emera screens: a following feed with a photo carousel and a video, and a full screen video with its proof of who made it">
-        <div class="ph day a" aria-hidden="true"><div class="sw"><div class="scr day"><div class="sb"><b data-e="d987ca3c">9:41</b><span><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2"/></svg></span></div>
-<div class="top"><div data-e="0942a56d" class="lg"><svg viewBox="0 0 100 100"><use href="#mark"/></svg>emera</div><div class="tr"><svg class="ic " viewBox="0 0 24 24"><use href="#i-search"/></svg><svg class="ic " viewBox="0 0 24 24"><use href="#i-bell"/></svg></div></div>
-<div class="seg"><a data-e="4d55fa9a" class="on">Following</a><a data-e="ee4e329d">Open feeds</a><a data-e="4d163344">Newest</a></div>
-<div class="ip"><div class="ph2"><span class="av" style="--s:32px;--c1:#3dbcf0;--c2:#8a7bff"><i><img src="/assets/work/lanterns.jpg" alt=""></i></span><div class="who"><b data-e="9453cd25">Mei Lin</b><span class="vh"><svg class="ic " viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span data-e="1ab63426" class="tm">9m</span></div><span class="dt"><svg class="ic " viewBox="0 0 24 24"><use href="#i-dots"/></svg></span></div>
-<div class="m" style="height:292px"><img src="/assets/work/lanterns.jpg" alt=""><span data-e="25e727e6" class="gl pmk"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg>Signed</span><span data-e="2986712a" class="gl cr">Photo: Visible Hand, CC BY</span><span data-e="d1e1ec8f" class="gl cnt">1/4</span></div><div class="dots"><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></div>
-<div class="acts sm"><span data-e="28fe9770"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>3.4k</span><span data-e="3575c601"><svg class="ic " viewBox="0 0 24 24"><use href="#i-chat"/></svg>412</span><span data-e="5e8bf1ff"><svg class="ic " viewBox="0 0 24 24"><use href="#i-repeat"/></svg>889</span><span data-e="c38a3c21" class="chip" style="--c:#3dc6c0"><s></s>Events</span></div>
-<p data-e="0a99a363" class="cap"><b>meilin.reports</b>Labyrinth of Light tonight. The whole square is candles.</p></div>
-<div class="ip"><div class="ph2"><span class="av" style="--s:32px;--c1:#ff9a3c;--c2:#ff4f8b"><i><img src="/assets/work/reddance.jpg" alt=""></i></span><div class="who"><b data-e="f12f57e2">Ama Dance Co</b><span class="vh"><svg class="ic " viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span data-e="cd6720f4" class="tm">21m</span></div><span class="dt"><svg class="ic " viewBox="0 0 24 24"><use href="#i-dots"/></svg></span></div>
-<div class="m" style="height:292px"><img src="/assets/work/reddance.jpg" alt=""><span data-e="25e727e6-2" class="gl pmk"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg>Signed</span><span data-e="800af7c8" class="gl cr">Still: Steven Pisano, CC BY</span><span data-e="95aaa7f8" class="gl vt"><svg class="ic " viewBox="0 0 24 24"><use href="#i-volume"/></svg>0:24</span><span class="vbar"><i></i></span></div>
-<div class="acts sm"><span data-e="dd590443"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>8.1k</span><span data-e="b785638e"><svg class="ic " viewBox="0 0 24 24"><use href="#i-chat"/></svg>530</span><span data-e="687debea"><svg class="ic " viewBox="0 0 24 24"><use href="#i-repeat"/></svg>1.2k</span><span data-e="08d30344" class="chip" style="--c:#ff6a5b"><s></s>Dance</span></div>
-<p data-e="5ba23b09" class="cap"><b>ama.dance</b>Opening night, one take from the wings.</p></div>
-<nav class="tabs"><a class="on"><svg class="ic " viewBox="0 0 24 24"><use href="#i-home"/></svg></a><a class=""><svg class="ic " viewBox="0 0 24 24"><use href="#i-compass"/></svg></a><a class="plus"><span><svg class="ic " viewBox="0 0 24 24"><use href="#i-plus"/></svg></span></a><a><svg class="ic " viewBox="0 0 24 24"><use href="#i-bell"/></svg><em></em></a><a><span class="av" style="--s:28px;--c1:#ff9a3c;--c2:#ffc24a"><i><img src="/assets/work/yarn.jpg" alt=""></i></span></a></nav></div></div></div>
-        <div class="ph night b" aria-hidden="true"><div class="sw"><div class="scr night wt"><div class="bg"><img src="/assets/work/nightstreet.jpg" alt=""></div><div class="sb"><b data-e="d987ca3c-2">9:41</b><span><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2"/></svg></span></div>
-<div class="wtop"><a data-e="4d55fa9a-2" class="on">Following</a><a data-e="ee4e329d-2">Open feeds</a></div>
-<div class="rail"><span class="rav"><span class="av" style="--s:44px;--c1:#ff9a3c;--c2:#ffc24a"><i><img src="/assets/work/nightstreet.jpg" alt=""></i></span><b class="pl"><svg class="ic " viewBox="0 0 24 24"><use href="#i-plus"/></svg></b></span><span data-e="099eada7"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>48.2k</span><span data-e="ad79b9a9"><svg class="ic " viewBox="0 0 24 24"><use href="#i-chat"/></svg>1.1k</span><span data-e="28fe9770-2"><svg class="ic " viewBox="0 0 24 24"><use href="#i-repeat"/></svg>3.4k</span><span data-e="79c1c91c"><svg class="ic " viewBox="0 0 24 24"><use href="#i-share"/></svg>Share</span></div>
-<div class="winfo"><div class="who"><b data-e="bf51aa24">Haru Walks</b><span class="vh"><svg class="ic " viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span data-e="c2622cfe" class="hd">@haru.walks</span></div><p data-e="34ee8993">Old town after the rain, the alleys nobody films. Part 3 of 5.</p><span data-e="1347137a" class="gl st"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg>Signed by a verified human</span><div data-e="49419f8c" class="snd"><svg class="ic " viewBox="0 0 24 24"><use href="#i-note"/></svg>Original sound, Haru Walks</div><small data-e="e398893b" class="wcr">Still: dalecruse, CC BY</small></div>
-<div class="wbar"><i style="width:44%"></i></div>
-<nav class="tabs"><a class=""><svg class="ic " viewBox="0 0 24 24"><use href="#i-home"/></svg></a><a class="on"><svg class="ic " viewBox="0 0 24 24"><use href="#i-compass"/></svg></a><a class="plus"><span><svg class="ic " viewBox="0 0 24 24"><use href="#i-plus"/></svg></span></a><a><svg class="ic " viewBox="0 0 24 24"><use href="#i-bell"/></svg><em></em></a><a><span class="av" style="--s:28px;--c1:#ff9a3c;--c2:#ffc24a"><i><img src="/assets/work/yarn.jpg" alt=""></i></span></a></nav></div></div></div>
+      <div class="pz" role="img" aria-label="A Found copies card with copies of a lettering piece and a Take it down button, and a Removed receipt">
+        <div class="pc found" aria-hidden="true">
+          <div data-e="bf64ce52" class="hd">Found copies<span>2 new</span></div>
+          <div class="orig"><img src="/assets/work/lettering.jpg" alt=""><div><strong data-e="3823a236">Your original</strong><small data-e="59f3d056">Signed by Nour Letters, 13 Nov 2026</small></div></div>
+          <div class="cp"><span class="ci"><img src="/assets/work/lettering.jpg" alt="" style="transform:scale(1.35);filter:saturate(.7)"></span><div><strong data-e="81eb0269">cheapprints.example</strong><small data-e="9a853185">Sold on a poster shop</small></div><span data-e="4d71d1d1" class="go">Take it down</span></div>
+          <div class="cp"><span class="ci"><img src="/assets/work/lettering.jpg" alt="" style="object-position:20% 60%;transform:scale(1.7);filter:hue-rotate(25deg)"></span><div><strong data-e="73e55e54">reposts.example</strong><small data-e="903f498d">Posted without credit</small></div><span data-e="39409213" class="m">96% match</span></div>
+        </div>
+        <div class="pc done rc" aria-hidden="true">
+          <img src="/assets/work/lettering.jpg" alt="">
+          <div data-e="90e70454" class="stamp"><span class="sealc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg></span>Removed</div>
+          <p data-e="c68b7ccb">cheapprints.example took the copy down. Receipt saved to your account.</p>
+        </div>
       </div>
     </div>
   </div>
 </header>
 
 <main>
-  <section class="why-q" id="why">
+  <section class="loop" id="how">
     <div class="wrap">
-      <div data-e="625b2230" class="lbl">Why Emera exists</div>
-      <h2 data-e="4882bc8b" class="mani reveal">AI is breaking the internet. We are using it to build the fix</h2>
-      <p data-e="63045f84" class="mani-p reveal">Fake photos, cloned voices, bot crowds and stolen work now spread faster than anyone can check them. The people who make things lose the credit, everyone else loses track of what is real, and the outcry keeps growing while little changes. The same AI that floods the internet lets a small team build the answer. We refuse to believe a fair, honest place to talk and share is out of reach, so we are building one in the open, for every human being.</p>
-      <div class="probs">
-        <article class="prob reveal">
-          <h3 data-e="7b33444a">Real work gets buried</h3>
-          <p data-e="326cebc1" class="was">Machine-made filler floods every feed and buries what people actually make.</p>
-          <p data-e="8f76b9f4" class="fix"><b>On Emera</b>Posts are signed by the person who made them, and the verified human mark is free, so filler can't pass as people.</p>
-        </article>
-        <article class="prob reveal">
-          <h3 data-e="a6859edb">What you make gets taken</h3>
-          <p data-e="676f8844" class="was">Copies spread faster than credit, and the person who made it is the last to hear about it.</p>
-          <p data-e="cc5c9cbc" class="fix"><b>On Emera</b>Copies point back to the original, and we help you take down the ones you find.</p>
-        </article>
-        <article class="prob reveal">
-          <h3 data-e="94d275dc">You can't tell what is real</h3>
-          <p data-e="bf877c72" class="was">AI makes a fake photo, video or voice in seconds, and it looks just like the real thing.</p>
-          <p data-e="04db5074" class="fix"><b>On Emera</b>Every post carries a signed record of who shared it and when, and the badge says only what was checked.</p>
-        </article>
-        <article class="prob reveal">
-          <h3 data-e="f7a553bd">Bots talk louder than people</h3>
-          <p data-e="40753ce8" class="was">Bot accounts, bought followers and machine-written replies drown out the humans.</p>
-          <p data-e="0453f5b4" class="fix"><b>On Emera</b>People are marked, bots say what they are, and the verified human mark is free for everyone.</p>
-        </article>
-        <article class="prob reveal">
-          <h3 data-e="f1700765">Whoever pays more wins</h3>
-          <p data-e="ed8b2b0e" class="was">Reach goes to whoever pays the most, and nobody shows what was bought or quietly tested.</p>
-          <p data-e="e574d854" class="fix"><b>On Emera</b>Reach can't be bought. No ads, no paid boosts, and every post can tell you why you are seeing it.</p>
-        </article>
-        <article class="prob reveal">
-          <h3 data-e="46c3a88f">Rules nobody can read</h3>
-          <p data-e="af53a7f7" class="was">A hidden ranking decides who gets seen, and it too often rewards what pushes people apart.</p>
-          <p data-e="2c34d86c" class="fix"><b>On Emera</b>The ranking code is public, so anyone can check it, and your account and followers leave with you if the rules ever change.</p>
-        </article>
+      <div class="head reveal"><h2 data-e="11fc777e">Add it once. We chase the copies</h2><p data-e="46bad5d9">From the first upload to a removed receipt, you tap once.</p></div>
+      <div class="steps">
+        <article class="stp reveal"><span data-e="ab903dcc" class="n">01</span><h3 data-e="af324eb8">Add what you create</h3><p data-e="2972aca8">Upload it or link it. Each piece is signed with your name and the date.</p>
+          <div class="viz"><div class="pane"><div class="tiles"><img src="/assets/work/lettering.jpg" alt="" loading="lazy"><img src="/assets/work/ceramics.jpg" alt="" loading="lazy"><img src="/assets/work/watercolor.jpg" alt="" loading="lazy"><img src="/assets/work/kimono.jpg" alt="" loading="lazy"></div></div></div></article>
+        <article class="stp reveal"><span data-e="c0bca411" class="n">02</span><h3 data-e="5ee6f53a">We find the copies</h3><p data-e="1a670c86">We search the web for matches and put them in one inbox.</p>
+          <div class="viz"><div class="pane"><div class="r"><span class="th"><img src="/assets/work/ceramics.jpg" alt="" style="transform:scale(1.4)" loading="lazy"></span><span><strong data-e="e8bd2068">shopmugs.example</strong><small data-e="55392cb9">93% match</small></span></div></div></div></article>
+        <article class="stp reveal"><span data-e="99a3d626" class="n">03</span><h3 data-e="9633339a">One tap takedown</h3><p data-e="6f096d4d">Tap it. We send the notice to the site that hosts it.</p>
+          <div class="viz"><div class="pane"><div class="r"><span class="sealc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-flag"/></svg></span><span><strong data-e="da1b586e">Notice sent</strong><small data-e="45c94be3">Rechecked every day</small></span></div></div></div></article>
+        <article class="stp reveal"><span data-e="54ec6d81" class="n">04</span><h3 data-e="8b2db5f2">Removed, with a receipt</h3><p data-e="41dfdc5e">When the copy is gone you get a receipt you can share.</p>
+          <div class="viz"><div class="pane"><div class="r"><span class="sealc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span><strong data-e="b32e0724">Removed</strong><small data-e="c855b10f">Your ceramics</small></span></div></div></div></article>
       </div>
-      <blockquote class="reveal">
-        <p data-e="2d55f3b3">AI is destroying the internet, for the people who create and for everyone who reads, watches and listens. The outcry is already beyond belief.</p>
-        <p data-e="05f7b20f">But AI also lets us build the solutions. I refuse to believe there is no way to give people a fair, authentic place to express themselves and talk to each other. So we are building it.</p>
-      </blockquote>
-      <div data-e="fcc74db5" class="who-q">Roy, founder of Emera</div>
-      <p data-e="f887a27b" class="mission reveal"><b>Our mission</b>A fair, authentic place on the internet for every human being, where the people are real, what you share keeps your name on it, and the rules are written where everyone can read them.</p>
     </div>
   </section>
 
-  <section class="claims">
+  <section class="fair" id="fair">
     <div class="wrap">
-      <div class="head reveal"><h2 data-e="11f56622">Promises written into the code</h2><p data-e="d4a0f30a">The code behind every one is public, so anyone can check we keep them.</p></div>
-      <div class="bento">
-        <article class="card w reveal">
-          <span data-e="ab903dcc" class="n">01</span>
-          <h3 data-e="66a9ae43">Protected here and everywhere</h3>
-          <p data-e="0dfa613b">Upload once. We scan the web for copies of what you post, file the takedown on whatever platform they turn up, and when a takedown is not enough, our agents take the legal steps with you.</p>
-          <div class="viz"><div class="pane"><div class="r step"><i data-e="d66d4808">1</i><span data-e="18c5add1">We find the copy</span></div><div class="r step"><i data-e="f2e36911">2</i><span data-e="134855bc">We file the takedown there</span></div><div class="r step"><i data-e="ab1708fa">3</i><span data-e="8fcddb17">Legal steps if it stays up</span></div></div></div>
-        </article>
-        <article class="card w reveal">
-          <span data-e="c0bca411" class="n">02</span>
-          <h3 data-e="c482a8e1">Proof of who made it</h3>
-          <p data-e="3349cd23">Every post carries a signed record of who shared it and the moment it went up. The badge says exactly what was checked, nothing more.</p>
-          <div class="viz"><div class="pane"><div class="r"><span class="th"><img src="/assets/work/lettering.jpg" alt="" loading="lazy"></span><span><strong data-e="cafb4e57">Made by Nour Letters</strong><small data-e="3954b8e5">Signed 13 Nov 2026, original</small></span><span data-e="25e727e6-3" class="tg">Signed</span></div></div></div>
+      <div data-e="2a11855a" class="lbl">A fair place</div>
+      <h2 data-e="e24f836e" class="reveal">Where real people grow</h2>
+      <div class="two">
+        <article class="card reveal">
+          <h3 data-e="f4cf753c">Real people only</h3>
+          <p data-e="d63b8ba2">People are marked as people. Bots say what they are. The verified human mark is free for everyone.</p>
+          <div class="viz"><div class="pane"><div class="r"><span class="sealc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></span><span><strong data-e="1912505b">Wren Fiber Co</strong><small data-e="2ea813a5">Passed the human check</small></span><span data-e="cb17524f" class="tg">Verified human</span></div><div class="r"><span class="sealc" style="background:rgba(255,240,220,.12);color:#bcae9d"><svg class="ic" viewBox="0 0 24 24"><use href="#i-grid"/></svg></span><span><strong data-e="ef6dc754">Daily Dawn Bot</strong><small data-e="f05c1eb9">Posts on a schedule</small></span><span data-e="2ec127ff" class="tg">Automated</span></div></div></div>
         </article>
         <article class="card reveal">
-          <span data-e="99a3d626" class="n">03</span>
-          <h3 data-e="54960b2c">Real people, real moments</h3>
-          <p data-e="382d9b70">When news breaks, you can see who shared it, when, and whether a person or a bot posted it. The verified human mark is free for everyone.</p>
-          <div class="viz"><div class="pane"><div class="r"><span class="sealc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></span><span><strong data-e="1912505b">Wren Fiber Co</strong><small data-e="2ea813a5">Passed the human check</small></span><span data-e="cb17524f" class="tg">Verified human</span></div><div class="r"><span class="sealc" style="background:var(--bg2);color:var(--ink2)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-grid"/></svg></span><span><strong data-e="ef6dc754">Daily Dawn Bot</strong><small data-e="f05c1eb9">Posts on a schedule</small></span><span data-e="2ec127ff" class="tg" style="background:var(--bg);color:var(--ink2)">Automated</span></div></div></div>
-        </article>
-        <article class="card reveal">
-          <span data-e="54ec6d81" class="n">04</span>
-          <h3 data-e="d9a9632d">An open algorithm</h3>
-          <p data-e="8c706a86">The ranking code is public. Every boost your post gets comes with its reason, and you can read it.</p>
-          <div class="viz"><div class="pane"><div class="r"><svg class="ic" viewBox="0 0 24 24" style="color:var(--sunink)"><use href="#i-eye"/></svg><span><strong data-e="0770e4a6">Why you are seeing this</strong><small data-e="4b238a4d">You follow Sabine Aquarelle, who reposted it</small></span></div></div></div>
-        </article>
-        <article class="card reveal">
-          <span data-e="bda50acb" class="n">05</span>
-          <h3 data-e="0330a2be">You own your account</h3>
-          <p data-e="350be3c5">Your account, your followers and your work are yours. Take all of them to another host any day.</p>
-          <div class="viz"><div class="pane"><div class="r mv"><span data-e="9deb6d89" class="mono">mara.emera.social</span><svg class="ic" viewBox="0 0 24 24"><use href="#i-arrow"/></svg><span data-e="71668cc3" class="mono">mara.example.com</span></div></div></div>
-        </article>
-        <article class="card w reveal">
-          <span data-e="dbc235b3" class="n">06</span>
-          <h3 data-e="d56415ec">Community notes</h3>
-          <p data-e="dcd36051">Trusted members add context to a post. A note shows only once people who usually disagree both rate it helpful.</p>
-          <div class="viz"><div class="pane"><div class="r"><span class="sealc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></span><span><strong data-e="f77aab9c">Context added by trusted members</strong><small data-e="447b5e0f">Rated helpful by people who usually disagree</small></span><span data-e="48e85b2c" class="tg">Note</span></div></div></div>
-        </article>
-        <article class="card w reveal">
-          <span data-e="b62e3f4c" class="n">07</span>
-          <h3 data-e="fefc5758">Moderators who care</h3>
-          <p data-e="6f7f966a">Every report reaches a real person, and you hear back what was done and why.</p>
-          <div class="viz"><div class="pane"><div class="r"><span class="sealc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-flag"/></svg></span><span><strong data-e="03c0e6ed">Your report</strong><small data-e="6c581eed">Reviewed by a person, post removed</small></span><span data-e="639ec5ca" class="tg">Answered</span></div></div></div>
+          <h3 data-e="72a17cc6">Reach can't be bought</h3>
+          <p data-e="738e3838">No ads and no paid boosts. The ranking code is public and every post tells you why you are seeing it.</p>
+          <div class="viz"><div class="pane"><div class="r"><svg class="ic" viewBox="0 0 24 24" style="color:#ffc98a"><use href="#i-eye"/></svg><span><strong data-e="0770e4a6">Why you are seeing this</strong><small data-e="4b238a4d">You follow Sabine Aquarelle, who reposted it</small></span></div></div></div>
         </article>
       </div>
     </div>
@@ -526,15 +506,15 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
         <p data-e="fcf7a624">Screens from the Emera app: photos, carousels, video and full-screen clips, shown with openly licensed work. The creators on them are invented.</p>
       </div>
       <div class="shelf reveal" role="list">
-        <figure role="listitem"><div class="ph night" aria-hidden="true"><div class="sw"><div class="scr night"><div class="sb"><b data-e="d987ca3c-3">9:41</b><span><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2"/></svg></span></div>
+        <figure role="listitem"><div class="ph night" aria-hidden="true"><div class="sw"><div class="scr night"><div class="sb"><b data-e="d987ca3c">9:41</b><span><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2"/></svg></span></div>
 <div class="top solo"><span data-e="a83f0482" class="h1">Explore</span></div>
 <div class="search"><svg class="ic " viewBox="0 0 24 24"><use href="#i-search"/></svg><span data-e="98923bb9">Search makers, works, mediums</span><i><svg class="ic " viewBox="0 0 24 24"><use href="#i-sliders"/></svg></i></div>
 <div class="chips"><a data-e="b4b71a59" class="on"><s style="--c:#ff8a2b"></s>All</a><a data-e="27a9264d"><s style="--c:#ff6a5b"></s>Illustration</a><a data-e="68e30cd9"><s style="--c:#8a7bff"></s>Film</a><a data-e="920b62b5"><s style="--c:#ffc24a"></s>Music</a><a data-e="674fb60c"><s style="--c:#3dc6c0"></s>News</a></div>
 <div class="sec"><b data-e="d698ac39">Colors of today</b><span data-e="8fcecf16">From works signed since dawn</span></div>
 <div class="swr"><i style="background:#ffd21f"></i><i style="background:#f2634a"></i><i style="background:#d8201f"></i><i style="background:#9b6bff"></i><i style="background:#3b6ea5"></i><i style="background:#2c9a6b"></i><i style="background:#e0a263"></i><i style="background:#8b5a3c"></i><i style="background:#e8a89a"></i><i style="background:#ffd21f"></i></div>
-<div class="mas"><div><div class="t" style="height:128px"><img src="/assets/work/reddance.jpg" alt=""><span data-e="04307fcb" class="ct"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>2.3k</span><span class="pm" style="--c:#ff6a5b"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg></span></div><div class="t" style="height:94px"><img src="/assets/work/ceramics.jpg" alt=""><span data-e="e42db644" class="ct"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>4.6k</span><span class="pm" style="--c:#ffc24a"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg></span></div><div class="t" style="height:104px"><img src="/assets/work/lettering.jpg" alt=""><span data-e="ef9851e3" class="ct"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>4.8k</span><span class="pm" style="--c:#ff8a2b"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg></span></div></div><div><div class="t" style="height:232px"><img src="/assets/work/kimono.jpg" alt=""><span data-e="629b5cb9" class="ct"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>4.4k</span><span class="pm" style="--c:#ff6a5b"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg></span></div><div class="t" style="height:70px"><img src="/assets/work/swirl3d.jpg" alt=""><span data-e="28fe9770-3" class="ct"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>3.4k</span><span class="pm" style="--c:#8a7bff"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg></span></div><div class="t" style="height:80px"><img src="/assets/work/balletfeet.jpg" alt=""><span data-e="b4f3f12b" class="ct"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>2.9k</span><span class="pm" style="--c:#ff8a2b"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg></span></div></div></div>
+<div class="mas"><div><div class="t" style="height:128px"><img src="/assets/work/reddance.jpg" alt=""><span data-e="04307fcb" class="ct"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>2.3k</span><span class="pm" style="--c:#ff6a5b"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg></span></div><div class="t" style="height:94px"><img src="/assets/work/ceramics.jpg" alt=""><span data-e="e42db644" class="ct"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>4.6k</span><span class="pm" style="--c:#ffc24a"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg></span></div><div class="t" style="height:104px"><img src="/assets/work/lettering.jpg" alt=""><span data-e="ef9851e3" class="ct"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>4.8k</span><span class="pm" style="--c:#ff8a2b"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg></span></div></div><div><div class="t" style="height:232px"><img src="/assets/work/kimono.jpg" alt=""><span data-e="629b5cb9" class="ct"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>4.4k</span><span class="pm" style="--c:#ff6a5b"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg></span></div><div class="t" style="height:70px"><img src="/assets/work/swirl3d.jpg" alt=""><span data-e="28fe9770" class="ct"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>3.4k</span><span class="pm" style="--c:#8a7bff"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg></span></div><div class="t" style="height:80px"><img src="/assets/work/balletfeet.jpg" alt=""><span data-e="b4f3f12b" class="ct"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>2.9k</span><span class="pm" style="--c:#ff8a2b"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg></span></div></div></div>
 <nav class="tabs"><a class=""><svg class="ic " viewBox="0 0 24 24"><use href="#i-home"/></svg></a><a class="on"><svg class="ic " viewBox="0 0 24 24"><use href="#i-compass"/></svg></a><a class="plus"><span><svg class="ic " viewBox="0 0 24 24"><use href="#i-plus"/></svg></span></a><a><svg class="ic " viewBox="0 0 24 24"><use href="#i-bell"/></svg><em></em></a><a><span class="av" style="--s:28px;--c1:#ff9a3c;--c2:#ffc24a"><i><img src="/assets/work/yarn.jpg" alt=""></i></span></a></nav></div></div></div><figcaption data-e="00534658"><b>Explore</b> everything people make</figcaption></figure>
-        <figure role="listitem"><div class="ph day" aria-hidden="true"><div class="sw"><div class="scr day"><div class="sb"><b data-e="d987ca3c-4">9:41</b><span><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2"/></svg></span></div>
+        <figure role="listitem"><div class="ph day" aria-hidden="true"><div class="sw"><div class="scr day"><div class="sb"><b data-e="d987ca3c-2">9:41</b><span><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2"/></svg></span></div>
 <div class="top pf"><span class="lg2"><svg class="ic " viewBox="0 0 24 24"><use href="#i-back"/></svg></span><span data-e="f97e77f6" class="hnd">wrenfiber.emera.social</span><span><svg class="ic " viewBox="0 0 24 24"><use href="#i-dots"/></svg></span></div>
 <div class="phead"><div class="pr1"><span class="av" style="--s:82px;--c1:#ff9a3c;--c2:#ffc24a"><i><img src="/assets/work/yarn.jpg" alt=""></i></span><div class="stats"><div><b data-e="30951da7">148</b><small data-e="7dc919c5">Works</small></div><div><b data-e="ba68fd4a">12.4k</b><small data-e="bac9786f">Followers</small></div><div><b data-e="01d177dd">312</b><small data-e="c905e42c">Following</small></div></div></div>
 <div class="pn"><b data-e="7c13ac89">Wren Fiber Co</b><span class="vh"><svg class="ic " viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span data-e="cb17524f-2" class="gl3">Verified human</span></div>
@@ -543,34 +523,45 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
 <div class="ptabs"><a data-e="12294246" class="on"><svg class="ic " viewBox="0 0 24 24"><use href="#i-grid"/></svg>Works</a><a data-e="d40e01cf"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg>Signed</a></div>
 <div class="g3" style="--gg:3px;--gp:0px"><div class="t"><img src="/assets/work/yarn.jpg" alt=""></div><div class="t"><img src="/assets/work/watercolor.jpg" alt=""></div><div class="t"><img src="/assets/work/lettering.jpg" alt=""></div><div class="t"><img src="/assets/work/kimono.jpg" alt=""></div><div class="t"><img src="/assets/work/ceramics.jpg" alt=""></div><div class="t"><img src="/assets/work/ramen.jpg" alt=""></div><div class="t"><img src="/assets/work/mural.jpg" alt=""></div><div class="t"><img src="/assets/work/records.jpg" alt=""></div><div class="t"><img src="/assets/work/stairs.jpg" alt=""></div></div>
 <nav class="tabs"><a class=""><svg class="ic " viewBox="0 0 24 24"><use href="#i-home"/></svg></a><a class=""><svg class="ic " viewBox="0 0 24 24"><use href="#i-compass"/></svg></a><a class="plus"><span><svg class="ic " viewBox="0 0 24 24"><use href="#i-plus"/></svg></span></a><a><svg class="ic " viewBox="0 0 24 24"><use href="#i-bell"/></svg><em></em></a><a><span class="av" style="--s:28px;--c1:#ff9a3c;--c2:#ffc24a"><i><img src="/assets/work/yarn.jpg" alt=""></i></span></a></nav></div></div></div><figcaption data-e="941dc38b"><b>Profiles</b> with signed works</figcaption></figure>
-        <figure role="listitem"><div class="ph day" aria-hidden="true"><div class="sw"><div class="scr day"><div class="sb"><b data-e="d987ca3c-5">9:41</b><span><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2"/></svg></span></div>
+        <figure role="listitem"><div class="ph day" aria-hidden="true"><div class="sw"><div class="scr day"><div class="sb"><b data-e="d987ca3c-3">9:41</b><span><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2"/></svg></span></div>
 <div class="top pf"><span><svg class="ic " viewBox="0 0 24 24"><use href="#i-back"/></svg></span><span data-e="49fb0d97" class="hnd">Post</span><span><svg class="ic " viewBox="0 0 24 24"><use href="#i-dots"/></svg></span></div>
 <div class="post"><div class="row"><span class="av" style="--s:38px;--c1:#ff9a3c;--c2:#ffc24a"><i><img src="/assets/work/lettering.jpg" alt=""></i></span><div class="who2"><div class="who"><b data-e="ba6e6223">Nour Letters</b><span class="vh"><svg class="ic " viewBox="0 0 24 24"><use href="#i-check"/></svg></span></div><span data-e="e09c0e1e" class="hd">@nour.letters.emera.social</span></div><a data-e="87bdc182-2" class="fol sm">Follow</a></div>
-<div class="media big"><img src="/assets/work/lettering.jpg" alt=""><span data-e="25e727e6-4" class="gl pmk"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg>Signed</span></div></div>
-<div class="acts" style="padding:9px 18px 2px"><span data-e="687debea-2"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>1.2k</span><span data-e="94d55420"><svg class="ic " viewBox="0 0 24 24"><use href="#i-chat"/></svg>144</span><span data-e="327027b9"><svg class="ic " viewBox="0 0 24 24"><use href="#i-repeat"/></svg>97</span><span class="sv"><svg class="ic " viewBox="0 0 24 24"><use href="#i-bookmark"/></svg></span></div>
+<div class="media big"><img src="/assets/work/lettering.jpg" alt=""><span data-e="25e727e6" class="gl pmk"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg>Signed</span></div></div>
+<div class="acts" style="padding:9px 18px 2px"><span data-e="687debea"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>1.2k</span><span data-e="94d55420"><svg class="ic " viewBox="0 0 24 24"><use href="#i-chat"/></svg>144</span><span data-e="327027b9"><svg class="ic " viewBox="0 0 24 24"><use href="#i-repeat"/></svg>97</span><span class="sv"><svg class="ic " viewBox="0 0 24 24"><use href="#i-bookmark"/></svg></span></div>
 <div class="pt"><b data-e="4a282e3f">Burn the boats, in brush and ink</b><p data-e="0cf2e675">28 letters, drawn in one sitting.</p></div>
 <div class="proof"><span class="seal"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg></span><div><b data-e="050f368c">Made by Nour Letters, a verified human</b><span data-e="67dd4709">Signed 13 Nov 2026, original</span><small data-e="00810156">Photo: SevenSeventyFive, CC BY</small></div></div>
 <div data-e="7841ad93" class="why"><svg class="ic " viewBox="0 0 24 24"><use href="#i-eye"/></svg>Seen because you follow Sabine Aquarelle, who reposted it</div>
 <div class="reps"><div class="rp"><span class="av" style="--s:26px;--c1:#ff9a3c;--c2:#ff4f8b"><i><img src="/assets/work/mural.jpg" alt=""></i></span><div><div class="who"><b data-e="ea911128">Kofi Walls</b><span class="vh"><svg class="ic " viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span data-e="ba903711" class="tm">8m</span></div><p data-e="ccc741a8">Those serifs breathe. Is this one pass or two?</p></div></div></div>
 <div class="comp"><span data-e="0f530bf7" class="rpl">Reply to Nour</span><i><svg class="ic " viewBox="0 0 24 24"><use href="#i-send"/></svg></i></div></div></div></div><figcaption data-e="f4fad2cf"><b>Posts</b> with their proof</figcaption></figure>
-        <figure role="listitem"><div class="ph night" aria-hidden="true"><div class="sw"><div class="scr night wt"><div class="bg"><img src="/assets/work/tattooleg.jpg" alt=""></div><div class="sb"><b data-e="d987ca3c-6">9:41</b><span><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2"/></svg></span></div>
-<div class="wtop"><a data-e="4d55fa9a-3" class="on">Following</a><a data-e="ee4e329d-3">Open feeds</a></div>
-<div class="rail"><span class="rav"><span class="av" style="--s:44px;--c1:#ff9a3c;--c2:#ffc24a"><i><img src="/assets/work/tattooleg.jpg" alt=""></i></span><b class="pl"><svg class="ic " viewBox="0 0 24 24"><use href="#i-plus"/></svg></b></span><span data-e="d796b878"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>21.7k</span><span data-e="06744d7c"><svg class="ic " viewBox="0 0 24 24"><use href="#i-chat"/></svg>684</span><span data-e="69c8d071"><svg class="ic " viewBox="0 0 24 24"><use href="#i-repeat"/></svg>1.9k</span><span data-e="79c1c91c-2"><svg class="ic " viewBox="0 0 24 24"><use href="#i-share"/></svg>Share</span></div>
-<div class="winfo"><div class="who"><b data-e="2e7fa12b">Ivy Needle</b><span class="vh"><svg class="ic " viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span data-e="58d98e65" class="hd">@ivy.needle</span></div><p data-e="41852213">Six hours of linework in 30 seconds. Healed shot next week.</p><span data-e="1347137a-2" class="gl st"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg>Signed by a verified human</span><div data-e="e07273b0" class="snd"><svg class="ic " viewBox="0 0 24 24"><use href="#i-note"/></svg>Original sound, Ivy Needle</div><small data-e="dbcf064e" class="wcr">Still: Carrie Capri, PDM</small></div>
+        <figure role="listitem"><div class="ph night" aria-hidden="true"><div class="sw"><div class="scr night wt"><div class="bg"><img src="/assets/work/tattooleg.jpg" alt=""></div><div class="sb"><b data-e="d987ca3c-4">9:41</b><span><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2"/></svg></span></div>
+<div class="wtop"><a data-e="4d55fa9a" class="on">Following</a><a data-e="ee4e329d">Open feeds</a></div>
+<div class="rail"><span class="rav"><span class="av" style="--s:44px;--c1:#ff9a3c;--c2:#ffc24a"><i><img src="/assets/work/tattooleg.jpg" alt=""></i></span><b class="pl"><svg class="ic " viewBox="0 0 24 24"><use href="#i-plus"/></svg></b></span><span data-e="d796b878"><svg class="ic " viewBox="0 0 24 24"><use href="#i-heart"/></svg>21.7k</span><span data-e="06744d7c"><svg class="ic " viewBox="0 0 24 24"><use href="#i-chat"/></svg>684</span><span data-e="69c8d071"><svg class="ic " viewBox="0 0 24 24"><use href="#i-repeat"/></svg>1.9k</span><span data-e="79c1c91c"><svg class="ic " viewBox="0 0 24 24"><use href="#i-share"/></svg>Share</span></div>
+<div class="winfo"><div class="who"><b data-e="2e7fa12b">Ivy Needle</b><span class="vh"><svg class="ic " viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span data-e="58d98e65" class="hd">@ivy.needle</span></div><p data-e="41852213">Six hours of linework in 30 seconds. Healed shot next week.</p><span data-e="1347137a" class="gl st"><svg class="ic " viewBox="0 0 24 24"><use href="#i-shield"/></svg>Signed by a verified human</span><div data-e="e07273b0" class="snd"><svg class="ic " viewBox="0 0 24 24"><use href="#i-note"/></svg>Original sound, Ivy Needle</div><small data-e="dbcf064e" class="wcr">Still: Carrie Capri, PDM</small></div>
 <div class="wbar"><i style="width:72%"></i></div>
 <nav class="tabs"><a class=""><svg class="ic " viewBox="0 0 24 24"><use href="#i-home"/></svg></a><a class="on"><svg class="ic " viewBox="0 0 24 24"><use href="#i-compass"/></svg></a><a class="plus"><span><svg class="ic " viewBox="0 0 24 24"><use href="#i-plus"/></svg></span></a><a><svg class="ic " viewBox="0 0 24 24"><use href="#i-bell"/></svg><em></em></a><a><span class="av" style="--s:28px;--c1:#ff9a3c;--c2:#ffc24a"><i><img src="/assets/work/yarn.jpg" alt=""></i></span></a></nav></div></div></div><figcaption data-e="7276c226"><b>Watch</b> full screen, proof included</figcaption></figure>
       </div>
     </div>
   </section>
 
+  <section class="trust" id="trust">
+    <div class="wrap">
+      <div class="head reveal"><h2 data-e="ff96aa2b">Built so you can check it</h2></div>
+      <div class="row reveal">
+        <div><h3 data-e="eeffa3ce">Open source</h3><p data-e="9be6578a">The code behind every promise is public, ranking included.</p></div>
+        <div><h3 data-e="30ec1523">Run as a nonprofit</h3><p data-e="133ae6d3">No investors to please and no ads to sell.</p></div>
+        <div><h3 data-e="6039416b">Your account is yours</h3><p data-e="ef670177">Take your account, followers and work to another host any day.</p></div>
+      </div>
+    </div>
+  </section>
+
   <section class="close" id="join">
     <div class="wrap"><div class="inner reveal">
-      <h2 data-e="ceb3b779">Help build it in daylight</h2>
-      <p data-e="77d89f79" class="lead">Join the first people on Emera and help write the rules from day one.</p>
+      <h2 data-e="cb7dbea4">Get protected today</h2>
+      <p data-e="43e201ed" class="lead">Add what you create and we start looking for copies.</p>
       <form class="signup" data-signup novalidate>
         <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address" required>
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button data-e="4ee06b89-2" type="submit">Create your account</button>
+        <button data-e="52f6f325-2" type="submit">Get protected</button>
       </form>
       <p class="note" data-note role="status" aria-live="polite"></p>
     </div></div>

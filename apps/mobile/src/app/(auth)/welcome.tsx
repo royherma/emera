@@ -6,7 +6,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Art } from "@/components/Art";
 import { Icon, IconName } from "@/components/Icon";
 import { Button, Wordmark, sunGradient } from "@/components/ui";
-import brand from "@/lib/brand";
 import { MOCK } from "@/lib/config";
 import { alpha, radius, space, type } from "@/lib/theme";
 import { useLayout } from "@/lib/layout";
@@ -14,8 +13,8 @@ import { useAuth } from "@/state/auth";
 import { useTheme } from "@/state/theme";
 
 const points: { icon: IconName; title: string; body: string }[] = [
+  { icon: "flag", title: "Copies taken down", body: "We find the copies of what you create and file the takedown with one tap." },
   { icon: "shield", title: "Signed by you", body: "Every upload carries proof of who made it and when." },
-  { icon: "flag", title: "Protected when copied", body: "Found your work somewhere else? Report the copy and we help file the takedown." },
 ];
 
 function Collage({ size }: { size: number }) {
@@ -49,9 +48,9 @@ export default function Welcome() {
 
   const copy = (
     <View style={{ gap: space[5], maxWidth: 560 }}>
-      <Text style={[type.hero, wide && { fontSize: 76, lineHeight: 76, letterSpacing: -3.4 }, { color: c.ink }]}>{brand.tagline}</Text>
+      <Text style={[type.hero, wide && { fontSize: 76, lineHeight: 76, letterSpacing: -3.4 }, { color: c.ink }]}>We protect what you create</Text>
       <Text style={[type.body, { color: c.ink2, fontSize: wide ? 18 : 16, lineHeight: wide ? 27 : 24, maxWidth: 460 }]}>
-        A home for photos, film, art, design and everything you make. Share it openly and know it is yours.
+        We find the copies and take them down for you, in a fair place where real people grow and reach can't be bought.
       </Text>
       <View style={{ flexDirection: wide ? "row" : "column", gap: space[3] }}>
         <Button label="Get started" size="lg" onPress={() => router.push("/sign-in")} style={wide ? { minWidth: 190 } : undefined} />
