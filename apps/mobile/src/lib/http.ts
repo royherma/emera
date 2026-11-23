@@ -1,5 +1,5 @@
 import { API_URL } from "./config";
-import { ApiError, Backend, Earnings, Fund, FundCards, FundStatement, Sponsor, Comment, Media, Notification, PickedFile, Post, User, UserPage, Channel, ChatMessage, ChatPage, ChatRoomRef, DmThread, ImportItem, ImportSource, ChatSettings, DmWith } from "./types";
+import { ApiError, Backend, Earnings, Fund, FundCards, FundStatement, Sponsor, Comment, Media, Notification, PickedFile, Post, User, UserPage, Channel, ChatMessage, ChatPage, ChatRoomRef, DmThread, ImportItem, ImportSource, ChatSettings, DmWith, FoundCopy } from "./types";
 
 let token: string | null = null;
 export const setToken = (t: string | null) => {
@@ -89,6 +89,11 @@ export const http: Backend = {
   listInvites: () => send("GET", "/v1/invites"),
   createInvite: (maxUses) => send("POST", "/v1/invites", maxUses ? { maxUses } : {}),
   report: async (input) => void (await send("POST", "/v1/reports", input)),
+  protectMe: () => send("GET", "/v1/protect/me"),
+  foundCopies: async () => (await send<{ matches: FoundCopy[] }>("GET", "/v1/protect/matches")).matches,
+  dismissCopy: async (id) => void (await send("POST", `/v1/protect/matches/${encodeURIComponent(id)}/dismiss`)),
+  takedownCopy: async (id) => (await send<{ match: FoundCopy }>("POST", `/v1/protect/matches/${encodeURIComponent(id)}/takedown`)).match,
+  scanNow: async () => void (await send("POST", "/v1/protect/scan-now")),
   follow: async (handle) => (await send<{ user: User }>("POST", `/v1/follows/${encodeURIComponent(handle)}`)).user,
   unfollow: async (handle) => (await send<{ user: User }>("DELETE", `/v1/follows/${encodeURIComponent(handle)}`)).user,
   followers: async (handle, cursor) => userPage(await send("GET", `/v1/users/${encodeURIComponent(handle)}/followers${pageQuery(cursor)}`)),

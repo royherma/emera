@@ -129,6 +129,12 @@ export default function Settings() {
       </Section>
 
       <View style={{ height: 1, backgroundColor: c.hair }} />
+      <Section title="Protect">
+        <Text style={[type.body, { color: c.ink2 }]}>We scan the web for copies of what you create and help you take them down.</Text>
+        <Button label="Emera Protect" icon="shield" kind="secondary" onPress={() => router.push("/protect")} style={{ alignSelf: "flex-start" }} />
+      </Section>
+
+      <View style={{ height: 1, backgroundColor: c.hair }} />
       <Section title="Privacy">
         <Text style={[type.body, { color: c.ink2 }]}>See who you have blocked or muted, and undo it any time.</Text>
         <Button label="Blocked and muted" icon="shield" kind="secondary" onPress={() => router.push("/blocked")} style={{ alignSelf: "flex-start" }} />

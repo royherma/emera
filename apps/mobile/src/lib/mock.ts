@@ -1,6 +1,6 @@
 import brand from "./brand";
 import { PUBLIC_ORIGIN } from "./config";
-import { ApiError, Backend, Comment, FeedMode, ImportSource, Invite, Media, Notification, PickedFile, Post, User, UserPage } from "./types";
+import { ApiError, Backend, FoundCopy, Comment, FeedMode, ImportSource, Invite, Media, Notification, PickedFile, Post, User, UserPage } from "./types";
 import { HANDLE_RE } from "./format";
 import { makeMockChat } from "./mockChat";
 import { mockEarnings, mockFund, mockFundMonth, mockWatch } from "./fundMock";
@@ -365,6 +365,30 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
     await wait();
     if (!/^https?:\/\/\S+\.\S+/.test(url)) throw new ApiError("bad_url", "Paste the full link, starting with https://");
   },
+  async protectMe() {
+    await wait();
+    return { plan: "creator" as const, planUntil: new Date(Date.now() + 20 * 86_400_000).toISOString() };
+  },
+  async foundCopies() {
+    await wait();
+    return mockCopies.filter((m) => m.status !== "dismissed");
+  },
+  async dismissCopy(id) {
+    await wait(160);
+    const m = mockCopies.find((x) => x.id === id);
+    if (m) m.status = "dismissed";
+  },
+  async takedownCopy(id) {
+    await wait();
+    const m = mockCopies.find((x) => x.id === id);
+    if (!m) throw new ApiError("not_found", "No such match.");
+    m.status = "reported";
+    m.reportId = hex(5);
+    return m;
+  },
+  async scanNow() {
+    await wait();
+  },
   async follow(handle) {
     await wait(160);
     const user = target(handle);
@@ -602,6 +626,10 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
 
 const pending: Media[] = [];
 const imported = new Set<string>();
+const mockCopies: FoundCopy[] = [
+  { id: "mc1", postId: "mock", url: "https://prints.example.org/listing/204", title: "Sunrise over the harbour, canvas print", site: "Example Prints", thumbnail: null, reason: "Lens visual match on Example Prints", status: "new", reportId: null, foundAt: new Date(Date.now() - 3_600_000).toISOString() },
+  { id: "mc2", postId: "mock", url: "https://blog.example.net/best-photos", title: "Best photos of the year", site: "Example Blog", thumbnail: null, reason: "Lens exact match on Example Blog", status: "new", reportId: null, foundAt: new Date(Date.now() - 86_400_000).toISOString() },
+];
 const sources: ImportSource[] = [];
 const upload = mock.uploadMedia;
 mock.uploadMedia = async (file) => {

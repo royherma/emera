@@ -82,6 +82,21 @@ export type Invite = {
   joined: { handle: string; displayName: string }[];
 };
 
+export type ProtectPlan = { plan: "free" | "creator" | "pro"; planUntil: string | null };
+
+export type FoundCopy = {
+  id: string;
+  postId: string;
+  url: string;
+  title: string;
+  site: string;
+  thumbnail: string | null;
+  reason: string;
+  status: "new" | "reported" | "dismissed";
+  reportId: string | null;
+  foundAt: string;
+};
+
 export type FlagReason = "spam" | "harassment" | "hate" | "violence" | "nudity" | "self_harm" | "impersonation" | "scam" | "other";
 
 export type SearchKind = "people" | "posts";
@@ -137,6 +152,11 @@ export interface Backend {
   listInvites(): Promise<{ invites: Invite[]; limit: number; open?: boolean }>;
   createInvite(maxUses?: number): Promise<{ code: string; url: string }>;
   report(input: { postId: string; url: string; note: string }): Promise<void>;
+  protectMe(): Promise<ProtectPlan>;
+  foundCopies(): Promise<FoundCopy[]>;
+  dismissCopy(id: string): Promise<void>;
+  takedownCopy(id: string): Promise<FoundCopy>;
+  scanNow(): Promise<void>;
   follow(handle: string): Promise<User>;
   unfollow(handle: string): Promise<User>;
   followers(handle: string, cursor?: string | null): Promise<UserPage>;

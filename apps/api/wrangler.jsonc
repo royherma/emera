@@ -5,7 +5,7 @@
   "compatibility_date": "2026-05-03",
   "compatibility_flags": ["nodejs_compat"],
   "observability": { "enabled": true },
-  "triggers": { "crons": ["*/15 * * * *"] },
+  "triggers": { "crons": ["*/15 * * * *", "*/30 * * * *"] },
 
   "vars": {
     "ENVIRONMENT": "dev",
@@ -16,7 +16,8 @@
     "FUNDING": "on",
     "FUND_ADMIN_KEY": "dev-fund-admin",
     "STRIPE_ACCOUNT_ID": "acct_1UbIhCKHBWaOwymS",
-    "PROTECT_RETURN_URL": "http://localhost:8787/protect/"
+    "PROTECT_RETURN_URL": "http://localhost:8787/protect/",
+    "SCAN_MONTHLY_LIMIT": "200"
   },
   "d1_databases": [
     { "binding": "DB", "database_name": "emera-dev", "database_id": "local-dev", "migrations_dir": "migrations" }
@@ -43,9 +44,10 @@
         "STRIPE_ACCOUNT_ID": "acct_1UbIhCKHBWaOwymS",
         "STRIPE_SPONSOR_PRODUCT": "prod_VcXsDVeaSNHptM",
         "FUND_PAGE_URL": "https://emera-site-staging.techguyver1337.workers.dev/fund/",
-        "PROTECT_RETURN_URL": "https://emera-site-staging.techguyver1337.workers.dev/protect/"
+        "PROTECT_RETURN_URL": "https://emera-site-staging.techguyver1337.workers.dev/protect/",
+        "SCAN_MONTHLY_LIMIT": "200"
       },
-      "triggers": { "crons": ["*/15 * * * *", "0 1 3 * *"] },
+      "triggers": { "crons": ["*/15 * * * *", "0 1 3 * *", "*/30 * * * *"] },
       "d1_databases": [
         { "binding": "DB", "database_name": "emera-staging", "database_id": "2fa77b67-d18c-43e8-8839-6c7dc982998e", "migrations_dir": "migrations" }
       ],
@@ -76,9 +78,10 @@
         "STRIPE_SPONSOR_PRODUCT": "prod_VcZ3xZomuIgfft",
         "FUND_PAGE_URL": "https://emera.social/fund/",
         "PROTECT_RETURN_URL": "https://emera.social/protect/",
-        "POSTS_PER_DAY": "5"
+        "POSTS_PER_DAY": "5",
+        "SCAN_MONTHLY_LIMIT": "200"
       },
-      "triggers": { "crons": ["*/15 * * * *", "0 1 3 * *"] },
+      "triggers": { "crons": ["*/15 * * * *", "0 1 3 * *", "*/30 * * * *"] },
       "d1_databases": [
         { "binding": "DB", "database_name": "emera-prod", "database_id": "e74c4221-f4e7-4304-a1a2-5eceab8f5503", "migrations_dir": "migrations" }
       ],

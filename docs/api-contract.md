@@ -161,6 +161,10 @@ Rules and every number: `docs/mission/funding-rules.md`. Constants live in `apps
 | POST | `/v1/protect/checkout` | user | `{ plan: "creator"\|"pro" }` | `201 { url }` - Stripe Checkout subscription, price found by lookup key `protect_creator_monthly` / `protect_pro_monthly`; 400 `bad_plan`; 503 `payments_off` without config or on a key from another account |
 | GET | `/v1/protect/me` | user | - | `{ plan: "free"\|"creator"\|"pro", planUntil: ISO\|null }` |
 | POST | `/v1/protect/portal` | user | - | `{ url }` - Stripe billing portal; 404 `no_subscription` before the first checkout |
+| GET | `/v1/protect/matches` | user | - | `{ matches: [{ id, postId, url, title, site, thumbnail, reason, status: "new"\|"reported", reportId, foundAt }] }` newest first, dismissed hidden. Found by the */30 min cron (Google Lens via SerpAPI, secret `SERP_API_KEY`) on posts of live creator/pro plans: creator weekly, pro daily for posts under 30 days old; `reason` says why ("Lens visual match on <site>"); emera.social and the creator's own links are dropped. Budget `SCAN_MONTHLY_LIMIT` (default 200 calls) |
+| POST | `/v1/protect/matches/:id/dismiss` | user | - | `{ match }`; 404 `not_found` (also for another user's match); 409 `already_reported` |
+| POST | `/v1/protect/matches/:id/takedown` | user | - | `201 { match, report: { id, status } }` - same report as `POST /v1/reports` (note starts "Found by Emera scan"); repeat call returns the same report |
+| POST | `/v1/protect/scan-now` | user | - | `202 { queued, rescan }` re-queues your posts for the next cron run; 403 `plan_required`; 429 `too_soon` (once an hour) |
 | GET | `/v1/admin/fund/sponsors` | admin | - | `{ sponsors: [{ id, name, url, line, banner, email, paid_cents }] }` |
 | POST | `/v1/admin/fund/sponsors/:id/banner` | admin | `{ banner: "approved"\|"rejected"\|"pending" }` | `{ id, banner }` |
 | GET | `/v1/admin/fund/checkouts` | admin | - | `{ checkouts: [...] }` - started, paid, expired, with promo code and discount |

@@ -16,6 +16,7 @@ import { flagRoutes } from './flags';
 import { fundRoutes, runFundCron } from './fund';
 import { stripeRoutes } from './stripe';
 import { protectRoutes } from './protect';
+import { scanRoutes, runScan } from './scan';
 import { chatRoutes } from './chat';
 import { adminRoutes } from './admin';
 import { liveSocket } from './live';
@@ -60,6 +61,7 @@ app.route('/', flagRoutes);
 app.route('/', fundRoutes);
 app.route('/', stripeRoutes);
 app.route('/', protectRoutes);
+app.route('/', scanRoutes);
 app.route('/', chatRoutes);
 app.route('/', cardRoutes);
 app.route('/', embedRoutes);
@@ -88,6 +90,7 @@ app.notFound((c) => {
 useApp(app.fetch);
 
 const FUND_CRON = '0 1 3 * *';
+const SCAN_CRON = '*/30 * * * *';
 
 export default Sentry.withSentry(
   (env: Env) => ({ dsn: env.SENTRY_DSN, environment: env.ENVIRONMENT, tracesSampleRate: 0.1 }),
@@ -97,6 +100,10 @@ export default Sentry.withSentry(
       if (event.cron === FUND_CRON) {
         const closed = await runFundCron(env);
         if (closed) console.log('fund month closed', closed.month, closed.sha256);
+        return;
+      }
+      if (event.cron === SCAN_CRON) {
+        console.log('scan', JSON.stringify(await runScan(env)));
         return;
       }
       console.log('auto-import', JSON.stringify(await runAutoImports(env, 'https://internal.emera')));

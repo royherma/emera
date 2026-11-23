@@ -30,6 +30,9 @@ export type Env = {
   STRIPE_SPONSOR_PRODUCT?: string;
   FUND_PAGE_URL?: string;
   PROTECT_RETURN_URL?: string;
+  SERP_API_KEY?: string;
+  SCAN_MONTHLY_LIMIT?: string;
+  SCAN_BATCH?: string;
   SIGNIN_LIMIT?: RateLimit;
   WRITE_LIMIT?: RateLimit;
   POSTS_PER_DAY?: string;
