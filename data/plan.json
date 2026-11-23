@@ -314,12 +314,14 @@
         {
           "id": "pr-page",
           "text": "/protect page: hook, $10 Creator, $100 Pro/Brand unlimited, Enterprise form to Slack",
-          "who": "claude"
+          "who": "claude",
+        "done": {"at": "2026-11-23T04:40:00Z", "ref": "ce900bf", "note": "live on emera.social, tested with PROTECTTEST100 on live and test"}
         },
         {
           "id": "pr-stripe",
           "text": "Stripe subscriptions on the Emera account ($10, $100), plan on each user",
-          "who": "claude"
+          "who": "claude",
+        "done": {"at": "2026-11-23T04:40:00Z", "ref": "ce900bf", "note": "live on emera.social, tested with PROTECTTEST100 on live and test"}
         },
         {
           "id": "pr-add",
