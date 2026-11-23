@@ -50,13 +50,13 @@ export default function Views() {
           )}
           <View>
             {data.ledger.map((r) => (
-              <View key={r.viewer} style={{ flexDirection: "row", alignItems: "center", gap: space[2], paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: c.hair }}>
-                <Text style={[type.meta, { color: c.ink, fontFamily: "monospace", width: 120 }]}>{r.viewer}</Text>
-                <Text style={[type.meta, { color: c.ink2, flex: 1 }]}>{when(r.hour)}</Text>
-                <Text style={[type.meta, { color: c.ink2, width: 60 }]}>{r.plays} {r.plays === 1 ? "play" : "plays"}</Text>
-                <Text style={[type.meta, { color: c.ink3, width: 90 }]}>{r.sameDevice ? "same device" : r.sameNetwork ? "same network" : ""}</Text>
-                <Text style={[type.meta, { color: c.ink2, width: 90 }]}>{r.follower ? "follower" : "not following"}</Text>
-                <Text style={[type.meta, { color: c.ink3, width: 120, textAlign: "right" }]}>{r.accountAge}</Text>
+              <View key={r.viewer} style={{ gap: 2, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: c.hair }}>
+                <View style={{ flexDirection: "row", alignItems: "center", gap: space[2] }}>
+                  <Text style={[type.meta, { color: c.ink, fontFamily: "monospace", flex: 1 }]}>{r.viewer}</Text>
+                  {(r.sameDevice || r.sameNetwork) && <Text style={[type.meta, { color: c.ink2 }]}>{r.sameDevice ? "same device" : "same network"}</Text>}
+                  <Text style={[type.meta, { color: c.ink }]}>{r.plays} {r.plays === 1 ? "play" : "plays"}</Text>
+                </View>
+                <Text style={[type.meta, { color: c.ink3 }]}>{[when(r.hour), r.follower ? "follower" : "not following", r.accountAge].join(" · ")}</Text>
               </View>
             ))}
           </View>

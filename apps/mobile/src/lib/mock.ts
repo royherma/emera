@@ -163,7 +163,7 @@ const seedLikes: [number, string[]][] = [
 ];
 for (const [i, who] of seedLikes) likes.set(posts[i].id, new Set(who.map((h) => users.get(h)!.id)));
 const watchers = ["jonas_w", "tamsin", "noor", "bram", "mina", "ila_makes", "odd_type"];
-posts.filter((p) => p.media.some((m) => m.kind === "video")).forEach((p, i) => {
+posts.filter((p, n) => seeds[n]?.[5] === "video").forEach((p, i) => {
   const who = watchers.filter((h) => h !== p.author.handle).slice(0, 3 + i * 2);
   views.set(p.id, new Map(who.map((h, j) => [users.get(h)!.id, Date.now() - (j + 1) * 47 * 60_000])));
 });
