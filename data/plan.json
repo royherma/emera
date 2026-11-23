@@ -2266,6 +2266,30 @@
         "3. Apply to Meta Rights Manager as agent for Emera creators (your Facebook login)"
       ],
       "pick": "All 3; #2 first, it unblocks the scanner"
+    },
+    {
+      "id": "protect-issues",
+      "kind": "approve",
+      "when": "any time, 2 min",
+      "title": "4 contributor issues for Emera Protect matching",
+      "why": "Copy finder, copy check and notices are open code now (README section 'Emera Protect: open code, run for you'). These invite people to improve the matcher; nothing is filed until you approve.",
+      "list": [
+        "Copy matching: catch cropped copies (crops score ~120 of 256 today)",
+        "Copy matching: an open benchmark of real copies",
+        "Copy matching: video copies (key frames, max 3 searches per video)",
+        "Takedowns: where to send notices for 10 more sites"
+      ],
+      "links": [
+        [
+          "Drafts",
+          "docs/help-wanted.json"
+        ],
+        [
+          "README section",
+          "https://github.com/royherma/emera#protect"
+        ]
+      ],
+      "pick": "File all 4 on royherma/emera"
     }
   ],
   "reviewDone": [

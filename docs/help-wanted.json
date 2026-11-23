@@ -1,8 +1,8 @@
 {
-  "updated": "2026-11-17",
+  "updated": "2026-11-23",
   "filed": "2026-11-13: 8 combined projects posted as royherma/emera #1-#8",
   "note": "Repo is public. #1-#8 combine 13 of these drafts. Roy 2026-11-13: the other 10 small fixes are built in-house, not posted; only Digital-frame mode (a new feature) stays a contributor draft. 2026-11-17: 3 drafts that depended on another network's protocol were dropped.",
-  "count": 21,
+  "count": 25,
   "issues": [
     {
       "title": "Replay D1 migrations from empty in CI",
@@ -219,6 +219,48 @@
       ],
       "area": "`apps/api/src`",
       "body": "A fullscreen slideshow of one creator's work for an Echo Show, Nest Hub or spare tablet.\n\n## Acceptance criteria\n- [ ] Route `/@handle/frame` cycles posts every 10 seconds\n- [ ] Hides all controls and shows the maker line\n- [ ] Works in a TV browser with arrow keys\n\n## Where to look\n`apps/api/src`"
+    },
+    {
+      "title": "Copy matching: catch cropped copies",
+      "labels": [
+        "help wanted",
+        "protect",
+        "matching"
+      ],
+      "area": "`apps/api/src/pdq.ts`, `apps/api/src/scan.ts`",
+      "body": "A cropped avatar of the same photo scores ~120 of 256 on our image fingerprint today, the same as an unrelated image, so crops are only caught when Google calls them exact.\n\n## Acceptance criteria\n- [ ] A cropped copy (10-40% cut away) of an original scores under the keep threshold\n- [ ] Unrelated images still score above it (no more false matches on the benchmark)\n- [ ] Runs inside a Cloudflare Worker within the CPU limit\n\n## Where to look\n`apps/api/src/pdq.ts` (fingerprint), `matchFor` in `apps/api/src/scan.ts`. Ideas: fingerprint several crops of the original, or local feature matching."
+    },
+    {
+      "title": "Copy matching: an open benchmark of real copies",
+      "labels": [
+        "help wanted",
+        "protect",
+        "matching",
+        "good first issue"
+      ],
+      "area": "`apps/api/test/`",
+      "body": "Every matcher change should be scored on the same set.\n\n## Acceptance criteria\n- [ ] A folder of openly licensed originals with their real copies (uncropped, cropped, recolored, mirrored, screenshotted) and unrelated look-alikes\n- [ ] A script that prints, per kind, how many copies are caught and how many look-alikes are wrongly flagged\n- [ ] Only CC0 / CC BY / public-domain images, credits kept\n\n## Where to look\n`apps/api/test/scan.test.ts`, `apps/api/src/pdq.ts`"
+    },
+    {
+      "title": "Copy matching: video copies",
+      "labels": [
+        "help wanted",
+        "protect",
+        "matching",
+        "video"
+      ],
+      "area": "`apps/api/src/scan.ts`",
+      "body": "Today a video is searched by its poster frame only.\n\n## Acceptance criteria\n- [ ] Pick 3-5 key frames per video and search them\n- [ ] A re-upload with a different crop or caption bar is still found on the benchmark\n- [ ] Costs at most 3 searches per video per scan\n\n## Where to look\n`runScan` in `apps/api/src/scan.ts`, poster frames in `apps/api/src/media.ts`"
+    },
+    {
+      "title": "Takedowns: where to send notices for more sites",
+      "labels": [
+        "help wanted",
+        "protect",
+        "good first issue"
+      ],
+      "area": "`apps/api/src/takedown.ts`",
+      "body": "Notices go to a platform form or to the abuse contact we look up, which is sometimes the domain seller instead of the host.\n\n## Acceptance criteria\n- [ ] Add the right form or address for 10 more sites where copies show up (print-on-demand shops, marketplaces, image hosts)\n- [ ] Each entry links the page that says it is the copyright contact\n- [ ] Tests cover the new entries\n\n## Where to look\nThe host table in `apps/api/src/takedown.ts`"
     }
   ]
 }

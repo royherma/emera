@@ -32,6 +32,32 @@ AI is flooding the internet. Fakes, bots and copies are drowning out real people
 
 Every line of code is public, so anyone can check we keep these promises.
 
+<a id="protect"></a>
+
+## 🛡️ Emera Protect: open code, run for you
+
+Everything that finds copies and files takedowns is in this repo. Read it, run it yourself, make it better. [Emera Protect](https://emera.social/protect?ref=github) is the same code run for you: we scan what you post, a person checks each notice, we send it and follow the copy until it is gone.
+
+```mermaid
+flowchart LR
+    A["📸 Your work"] --> B["🔍 Google Lens search<br/>exact copies"]
+    B --> C["🧮 Copy check<br/>image fingerprint"]
+    C --> D["📋 Found copies"]
+    D --> E["✍️ You sign once"]
+    E --> F["🧑‍⚖️ A person approves"]
+    F --> G["📨 Notice sent<br/>form or host email"]
+    G --> H["🔁 Rechecked daily"]
+    H --> I["🏆 Removed receipt"]
+```
+
+| Piece | Where | What it does |
+| --- | --- | --- |
+| Copy finder | [`apps/api/src/scan.ts`](apps/api/src/scan.ts) | Searches each image, drops your own accounts, keeps likely copies with the reason |
+| Copy check | [`apps/api/src/pdq.ts`](apps/api/src/pdq.ts) | Fingerprints both images. Uncropped copies score 0-10 of 256, unrelated images 130+ |
+| Notices | [`apps/api/src/takedown.ts`](apps/api/src/takedown.ts) | Writes the notice, finds where it goes (platform form or the host's abuse contact), tracks it to removed |
+
+The hard open problem is crops and edits: a cropped avatar of the same photo scored ~120 in our tests, so today we rely on Google's exact matches for those. Better matching for crops, recolors and video is the best place to help (see [Build it with us](#build-with-us)).
+
 ## 🚀 Join in four steps
 
 | 1️⃣ Open the app | 2️⃣ Type your email | 3️⃣ Say your name | 4️⃣ Post |
@@ -57,7 +83,7 @@ Every line of code is public, so anyone can check we keep these promises.
 
 ```mermaid
 flowchart LR
-    A["📸 You post"] --> B["✍️ Signed<br/>C2PA + AT record"]
+    A["📸 You post"] --> B["✍️ Signed<br/>C2PA record"]
     B --> C["🗄️ Your account<br/>portable, yours"]
     C --> D["🔍 Open feeds<br/>every boost explained"]
     D --> E["🛡️ Anyone checks<br/>the badge"]
@@ -219,6 +245,8 @@ npm --prefix spikes/provenance run demo
 
 <a id="contribute"></a>
 
+<a id="build-with-us"></a>
+
 ## 🙌 Build it with us
 
 Emera gets better the way it was started: people bringing problems and solving them together. Three ways in:
@@ -236,7 +264,8 @@ Emera gets better the way it was started: people bringing problems and solving t
 | Accounts, sign-in, invites | 🧩 **Browser extension:** report a copy of the page you are on |
 | Posts, feeds, ranking | 🔁 **Import sources:** bring posts over from more platforms |
 | Proof of who made it (signing, badges) | 📺 **TV apps:** Android TV, Fire TV, Apple TV, Roku, Samsung, LG |
-| Report a copy and takedowns | 🌐 **Translations:** Lingui setup and your language |
+| Report a copy and takedowns | 🛡️ **Copy matching:** catch crops, recolors and video copies, scored on an open benchmark |
+| | 🌐 **Translations:** Lingui setup and your language |
 | Moderation and safety | ♿ **Accessibility:** screen reader pass, Reduce Motion, font scaling |
 | Payments and payouts | 📲 **Tablet layout** for iPad and Android tablets |
 | | 🐳 **Self-hosting:** Docker image for the API |

@@ -193,7 +193,7 @@ ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(
 </form><p class="note" data-note role="status" aria-live="polite"></p></div>
 </section>
 
-<p class="fine">Plans bill monthly and you can stop any time. Every takedown follows the rules of the place the copy lives, and you can see each step we took. Emera is open source and run as a nonprofit, so the code behind those steps is public.</p>
+<p class="fine">Plans bill monthly and you can stop any time. Every takedown follows the rules of the place the copy lives, and you can see each step we took. Emera is open source and run as a nonprofit: the code that finds copies and writes the notices is <a href="https://github.com/royherma/emera?ref=protect#protect">public</a>, so you can run it yourself or let us run it and file for you.</p>
 </main>
 </div>${footer({ pages, mark, github, year: new Date().getFullYear() })}${script}${buy}</body></html>`;
 }
