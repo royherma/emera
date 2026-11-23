@@ -26,12 +26,14 @@ What they share: the headline number grew in 2025 because replays and zero-secon
 | Only signed-in accounts | A logged-out play is one curl away from a fake view |
 | The maker never counts | Your own plays are not reach |
 | Public ledger per post (`GET /v1/posts/:id/views`) | Anyone can check the count: one row per view with a code that changes per post (so nobody can follow a person across posts), the hour, follower or not, account age. Totals match the rows |
+| Plays per person (2026-11-23) | Watching again 1 minute or more after that person's last play adds a play to their row, never a view. A loop or refresh script gets at most 60 plays an hour and still 1 view |
+| Same device / same network flags (2026-11-23) | Each view stores a keyed hash of the app's install id and of the connection's network (IPv4 /24, IPv6 /48). The ledger shows only "same device" or "same network" when two viewers of that post share one; no id or IP leaves the database. One phone with five accounts shows as five rows marked "same device" |
 
-The app starts the 2 s timer only while the video plays and at least 60% of it is on screen (`apps/mobile/src/components/Media.tsx`), and sends the view once per post per app session (`apps/mobile/src/state/views.ts`).
+The app starts the 2 s timer only while the video plays and at least 60% of it is on screen (`apps/mobile/src/components/Media.tsx`), and sends a play at most once a minute per post with the install id (`apps/mobile/src/state/views.ts`).
 
 ## Next
 
-- Weight each view by the viewer's trust tier once tiers exist (values: "weight every like and follow by the giver's tier").
+- Weight each view by the viewer's trust tier once tiers exist (values: "weight every like and follow by the giver's tier"). Same-device viewers are flagged today, not removed from the count.
 - Exclude accounts that declare themselves automated, and show them as a separate number in the ledger.
 - A clip shorter than 2 s never counts today; count it when played to the end.
 - Watch-time and finish rate for the maker only, under Insights.
