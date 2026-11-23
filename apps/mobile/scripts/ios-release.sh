@@ -16,6 +16,7 @@ if [ -n "${1:-}" ]; then build="$1"; else
 fi
 echo "Emera build $build from $sha"
 
+export LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 export PATH="$HOME/.nvm/versions/node/v22.22.1/bin:$PATH"
 export NODE_BINARY="$(command -v node)"
 export EXPO_PUBLIC_API_URL=https://api.emera.social
