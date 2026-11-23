@@ -4,11 +4,11 @@ The playbook for every line a stranger reads: GitHub, site, store text, bios, po
 
 ## The position
 
-**Emera is the social network for real people.**
+**Emera protects what you create** (Roy, 2026-11-23: protection is the main hook and the front door, not one slide).
 
-AI made fakes, bots and filler free. Every feed is now full of them, and reach goes to whoever pays or games the ranking. Emera is the place where the person behind a post is real, their name stays on what they make, and nobody can buy their way to the top.
+Creators get copied, reposted and resold every day, and AI made it free. Emera is a fair place to make things and grow: we find the copies and take them down for you, the people here are real, and nobody can buy their way to the top.
 
-Category: the open source social network (`brand.line`). That is the label on the box, not the reason to open it. The reason is always "real".
+Category: the open source social network (`brand.line`). That is the label on the box. The reason to open it is "we protect what you make", and "real people" is the proof that this is a fair place.
 
 ## The ladder
 
@@ -16,10 +16,10 @@ Every surface climbs it in this order and stops when space runs out.
 
 | Step | Job | Say it like this |
 | --- | --- | --- |
-| 1. Hook | The win the reader wants, in their words | "The social network for real people" |
-| 2. Proof | How it is true, in one concrete line | "Every post signed by the person who made it" |
-| 3. Contrast | What is gone, short and punchy | "No bots posing as people, no ads, no bought reach" |
-| 4. Trust | Why to believe us | "Open source", "run as a nonprofit", "the ranking code is public" |
+| 1. Hook | The win the reader wants, in their words | "We protect what you create" |
+| 2. Proof | How it is true, in one concrete line | "We find the copies and take them down for you" |
+| 3. Contrast | The fair place, short and punchy | "Real people only. Reach can't be bought" |
+| 4. Trust | Why to believe us | "Signed from the first upload", "open source", "run as a nonprofit" |
 
 Trust is the last step, never the first. "Nonprofit", "open source" and "in the open" make a skeptic believe the hook; they do not make anyone want it.
 
@@ -27,8 +27,8 @@ Trust is the last step, never the first. "Nonprofit", "open source" and "in the 
 
 | Pillar | The line | The proof behind it |
 | --- | --- | --- |
+| Protected | "We find the copies and take them down for you" | scans, takedowns, Taken-down receipts, Emera Protect plans |
 | Real people | "People are marked as people. Bots say what they are" | free verified-human mark, bot labels |
-| Your name stays on it | "Signed by you from the first upload" | signed at upload, Report a copy, takedowns |
 | Earned, not bought | "Reach can't be bought" | no ads or paid boosts in the feed, public ranking code, a reason on every post |
 
 ## Sound
