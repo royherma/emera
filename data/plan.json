@@ -2262,7 +2262,7 @@
       "why": "Scanner and Instagram import are blocked on these. Measured: Google Lens returned 60 matches on a widely copied image, 0 from Instagram/TikTok, so Meta Rights Manager is how we see inside Instagram.",
       "list": [
         "1. key set IG_APP_ID and IG_APP_SECRET (Meta app dashboard), then submit review with docs/meta/instagram-app-review.md",
-        "2. Yes to SerpAPI Developer plan, $75/mo for 5,000 scans (now Free, 16 left this month)",
+        "2. SerpAPI Developer $75/mo: ON HOLD until the first real person pays (Roy, 2026-11-23 1:18 PM). Scans stay at 5/month until then; Slack posts New Protect plan the moment someone pays",
         "3. Apply to Meta Rights Manager as agent for Emera creators (your Facebook login)"
       ],
       "pick": "All 3; #2 first, it unblocks the scanner"
