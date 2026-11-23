@@ -23,13 +23,17 @@ export function igItems(data: IgMedia[]): Item[] {
 export async function igToken(ctx: ReadCtx): Promise<string> {
   const row = await ctx.env.DB.prepare('SELECT token, expires_at FROM instagram_links WHERE user_id = ?').bind(ctx.userId).first<{ token: string; expires_at: number }>();
   if (!row || row.expires_at < Date.now()) throw fail(409, 'instagram_not_connected', 'Sign in with Instagram first: Settings, Bring your posts, Instagram.');
-  return row.token;
+  if (row.expires_at - Date.now() > 7 * 86_400_000) return row.token;
+  const res = await net(`https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${encodeURIComponent(row.token)}`);
+  const json: any = await res.json().catch(() => ({}));
+  if (!res.ok || !json.access_token) return row.token;
+  await ctx.env.DB.prepare('UPDATE instagram_links SET token = ?, expires_at = ? WHERE user_id = ?').bind(json.access_token, Date.now() + (json.expires_in ?? 5_184_000) * 1000, ctx.userId).run();
+  return json.access_token;
 }
 
 async function read(_spec: string, limit: number, ctx?: ReadCtx): Promise<Item[]> {
   if (!ctx) throw fail(409, 'instagram_not_connected', 'Sign in with Instagram first.');
-  if (!igEnabled(ctx.env)) throw fail(422, 'source_locked', IG_LOCKED_WHY);
-  const token = await igToken(ctx);
+  const token = await igToken(ctx).catch((e) => { throw igEnabled(ctx.env) ? e : fail(422, 'source_locked', IG_LOCKED_WHY); });
   const res = await net(`${IG_GRAPH}/me/media?fields=${encodeURIComponent(FIELDS)}&limit=${Math.min(50, Math.max(limit, 1))}&access_token=${encodeURIComponent(token)}`);
   const json: any = await res.json().catch(() => ({}));
   if (!res.ok) throw fail(502, 'source_failed', json?.error?.message ?? `Instagram answered ${res.status}.`);
