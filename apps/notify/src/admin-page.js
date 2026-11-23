@@ -7,11 +7,12 @@ export const ADMIN_HTML = String.raw`<!doctype html>
 @media (prefers-color-scheme:dark){:root{--bg:#0c0a09;--card:#1a1613;--ink:#fbf3e8;--ink2:#bcae9d;--ink3:#8a7c6d;--line:rgba(255,235,210,.12);--sunink:#ffc98a;--ok:#7fd3a0;--bad:#ff8a80}}
 *{box-sizing:border-box}html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font:13px/1.35 ui-sans-serif,system-ui,-apple-system,"DM Sans",sans-serif;height:100vh;min-height:720px;display:flex;flex-direction:column}
+main{overflow-y:auto}
 header{display:flex;align-items:center;gap:14px;padding:10px 18px;border-bottom:1px solid var(--line)}
 header b{font:700 17px/1 ui-sans-serif,system-ui;letter-spacing:-.03em}
 header .sp{flex:1}header a{color:var(--sunink);text-decoration:none;font-weight:600}
 .muted{color:var(--ink3)}
-main{flex:1;display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:10px;padding:10px 18px 14px;min-height:0}
+main{flex:1;display:grid;grid-auto-rows:auto;align-content:start;gap:10px;padding:10px 18px 14px;min-height:0}
 .tiles{display:grid;grid-template-columns:repeat(8,1fr);gap:8px}
 .tile{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px}
 .tile .n{font:700 24px/1.1 ui-sans-serif,system-ui;letter-spacing:-.03em}
@@ -28,7 +29,13 @@ main{flex:1;display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:10px;pad
 .spark i{flex:1;background:var(--sun);border-radius:2px 2px 0 0;min-height:1px;opacity:.85}
 .spark i.z{background:var(--line)}
 .days{display:flex;justify-content:space-between;color:var(--ink3);font-size:10px;grid-column:2}
-.lists{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;min-height:0}
+.lists{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(240px,300px);gap:10px}
+.pro{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:minmax(170px,230px);gap:10px}
+.tiles.p7{grid-template-columns:repeat(7,1fr)}
+.sec{font:700 11px/1 ui-sans-serif,system-ui;letter-spacing:.08em;text-transform:uppercase;color:var(--sunink);margin:2px 0 -4px}
+.thumb{width:34px;height:34px;object-fit:cover;border-radius:5px;background:var(--line);display:block}
+button.b{font:inherit;font-size:11px;padding:1px 6px;border-radius:5px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+button.b:hover{border-color:var(--sun)}
 .scroll{overflow:auto;flex:1;min-height:0}
 table{width:100%;border-collapse:collapse}
 td{padding:5px 4px;border-top:1px solid var(--line);vertical-align:top}
@@ -45,6 +52,16 @@ label.tg{display:flex;gap:6px;align-items:center;color:var(--ink2);cursor:pointe
 <a href="/ledger">Public ledger</a></header>
 <div id="gate"><p>Paste the admin key</p><input id="key" type="password" autocomplete="off"><p class="muted" id="gmsg"></p></div>
 <main id="app" hidden>
+<div class="sec">Emera Protect</div>
+<section class="tiles p7" id="ptiles"></section>
+<section class="pro">
+<div class="card" style="grid-column:span 4"><h2>Paying creators <span id="npc"></span></h2><div class="scroll"><table id="creators"></table></div></div>
+<div class="card" style="grid-column:span 2"><h2>Copies found <span>latest 100</span></h2><div class="scroll"><table id="matches"></table></div></div>
+<div class="card" style="grid-column:span 3"><h2>Takedowns <span id="ntd"></span></h2><div class="scroll" id="takedowns"></div></div>
+<div class="card" style="grid-column:span 2"><h2>Paid, no account yet <span id="npp"></span></h2><div class="scroll"><table id="pending"></table></div></div>
+<div class="card"><h2>Enterprise leads <span id="nel"></span></h2><div class="scroll"><table id="leads"></table></div></div>
+</section>
+<div class="sec">Site and community</div>
 <section class="tiles" id="tiles"></section>
 <section class="mid">
 <div class="card"><h2>Funnel <span>last 30 days, real people only</span></h2><div class="fun" id="funnel"></div></div>
@@ -56,7 +73,6 @@ label.tg{display:flex;gap:6px;align-items:center;color:var(--ink2);cursor:pointe
 <div class="card"><h2>Started sign-up <span id="ne"></span></h2><div class="scroll"><table id="early"></table></div></div>
 <div class="card"><h2>Visitors <span>latest 60</span></h2><div class="scroll"><table id="visitors"></table></div></div>
 <div class="card"><h2>Posts, reports, flags</h2><div class="scroll"><table id="posts"></table></div></div>
-<div class="card" style="grid-column:span 2"><h2>Takedowns <span id="ntd"></span></h2><div class="scroll" id="takedowns"></div></div>
 <div class="card"><h2>Sponsors <span>banner shows after Approve</span></h2><div class="scroll"><table id="sponsors"></table></div></div>
 <div class="card"><h2>Sponsor checkouts <span id="nk"></span></h2><div class="scroll"><table id="checkouts"></table></div></div>
 </section>
@@ -88,7 +104,7 @@ return'<div class="sm">'+names[k]+'</div><div class="spark">'+s.map(function(v,i
 document.getElementById("sources").innerHTML='<table>'+(d.sources.map(function(s){return"<tr><td>"+esc(s[0])+'</td><td style="text-align:right"><b>'+s[1]+"</b></td></tr>"}).join("")||'<tr><td class="muted">no visits yet</td></tr>')+"</table>";
 document.getElementById("na").textContent=d.accounts.filter(function(x){return!x.test}).length+" real";
 document.getElementById("ne").textContent=d.early.filter(function(x){return!x.test}).length+" real";
-document.getElementById("accounts").innerHTML=rows(d.accounts,function(a){return'<td><div class="h">'+(a.handle?'<a class="r" target="_blank" href="/@'+esc(a.handle)+'">@'+esc(a.handle)+"</a>":'<span class="muted">no handle</span>')+test(a)+'</div><div class="sm">'+esc(a.name)+" "+esc(a.email)+'</div><div class="sm">'+bkk(a.at)+" · "+a.posts+" posts"++"</div></td>"});
+document.getElementById("accounts").innerHTML=rows(d.accounts,function(a){return'<td><div class="h">'+(a.handle?'<a class="r" target="_blank" href="/@'+esc(a.handle)+'">@'+esc(a.handle)+"</a>":'<span class="muted">no handle</span>')+test(a)+'</div><div class="sm">'+esc(a.name)+" "+esc(a.email)+'</div><div class="sm">'+bkk(a.at)+" · "+a.posts+" posts"+"</div></td>"});
 document.getElementById("early").innerHTML=rows(d.early,function(e){return'<td><div class="h">'+esc(e.email)+test(e)+'</div><div class="sm">'+bkk(e.at)+(e.place?" · "+esc(e.place):"")+'</div><div class="sm">'+esc(e.device||"")+(e.source?" · form "+esc(e.source):"")+"</div></td>"});
 document.getElementById("visitors").innerHTML=rows(d.visitors,function(v){return'<td><div class="h">'+esc(v.place||"somewhere")+' <span class="sm">'+ago(v.last)+'</span></div><div class="sm">'+esc(v.source)+" · "+esc(v.device||"")+'</div><div class="sm">'+v.pages.length+" pages: "+esc(v.pages.slice(0,4).join(" "))+"</div></td>"});
 var feed=d.posts.map(function(p){return{test:p.test,at:p.at,html:'<div class="h">🖼️ <a class="r" target="_blank" href="/p/'+esc(p.id)+'">post</a> by @'+esc(p.handle)+test(p)+'</div><div class="sm">'+esc(p.caption)+'</div><div class="sm">'+bkk(p.at)+(p.media?" · "+esc(p.media):"")+"</div>"}})
@@ -115,11 +131,40 @@ document.getElementById("takedowns").addEventListener("click",function(e){var b=
 if(a==="reject"){reason=prompt("Why? The creator sees this.");if(!reason)return}
 if(a==="send-email"&&!confirm("Send this notice by email now?"))return;
 b.disabled=true;fetch("/admin/takedowns/"+b.getAttribute("data-td")+"/"+a,{method:"POST",headers:{"x-admin-key":store().getItem(K),"content-type":"application/json"},body:JSON.stringify({reason:reason})}).then(function(r){return r.json()}).then(function(j){if(!j.ok)alert(j.error||"failed");loadTd()})});
-function load(){loadTd();var key=store().getItem(K);if(!key){gate();return}
+var pdata=null;
+function until(ms){return ms?bkk(ms):"no end"}
+function stripeLink(id){return id?'<a class="r" target="_blank" rel="noopener" href="https://dashboard.stripe.com/customers/'+esc(id)+'">'+esc(id)+"</a>":'<span class="muted">none</span>'}
+function renderP(){
+var d=pdata,t=d.tiles,c=t.copies,k=t.takedowns;
+document.getElementById("ptiles").innerHTML=[
+tile(t.creator+t.pro,"paying creators",t.creator+" Creator · "+t.pro+" Pro"),
+tile("$"+t.revenue,"per month","$10 Creator · $100 Pro"+(t.revenueReal!==t.revenue?" · $"+t.revenueReal+" real":"")),
+tile(t.pending,"paid, no account","waiting to sign up"),
+tile(t.scans+" / "+t.scanLimit,"scans in "+t.scanMonth,t.scans>=t.scanLimit?"budget used up":(t.scanLimit-t.scans)+" left"),
+tile(c.new+c.reported+c.dismissed,"copies found",c.new+" new · "+c.reported+" reported · "+c.dismissed+" dismissed"),
+tile(k.ready+" / "+k.sent+" / "+k.removed+" / "+k.still_up,"takedowns","waiting / sent / removed / still up"),
+tile(t.leads,"Enterprise leads")].join("");
+var real=d.creators.filter(function(x){return!x.test}).length;
+document.getElementById("npc").textContent=real+" real";
+document.getElementById("creators").innerHTML=rows(d.creators,function(x){var u=x.id;return'<td><div class="h">'+(x.handle?'<a class="r" target="_blank" href="/@'+esc(x.handle)+'">@'+esc(x.handle)+"</a>":'<span class="muted">no handle</span>')+test(x)+' <span class="tag">'+esc(x.plan)+'</span></div><div class="sm">'+esc(x.email)+"</div></td>"
++'<td class="sm">until<br>'+until(x.until)+'</td><td class="sm">'+x.works+" works<br>"+x.scanned+' scanned</td><td class="sm">'+x.found+" copies<br>"+x.takedowns+' takedowns</td><td class="sm">last scan<br>'+(x.last?bkk(x.last):"never")+'</td><td class="sm">'+stripeLink(x.stripe)+'</td>'
++'<td class="sm"><button class="b" data-pu="'+esc(u)+'" data-a="scan-now">Scan now</button> <button class="b" data-pu="'+esc(u)+'" data-a="give-plan" data-plan="creator">Give Creator</button> <button class="b" data-pu="'+esc(u)+'" data-a="give-plan" data-plan="pro">Give Pro</button> <button class="b" data-pu="'+esc(u)+'" data-a="end-plan">End plan</button></td>'});
+document.getElementById("matches").innerHTML=rows(d.matches,function(m){return'<td>'+(m.thumbnail?'<img class="thumb" loading="lazy" referrerpolicy="no-referrer" src="'+esc(m.thumbnail)+'" alt="">':'<div class="thumb"></div>')+'</td><td><div class="h">'+esc(m.site)+' <span class="tag">'+esc(m.status)+"</span>"+test(m)+'</div><div class="sm">@'+esc(m.handle||"?")+" · "+bkk(m.at)+'</div><div class="sm"><a class="r" target="_blank" rel="noopener" href="'+esc(m.url)+'">'+esc(m.url.replace(/^https?:\/\//,"").slice(0,48))+"</a> · "+esc(m.reason)+'</div></td><td>'+(m.status==="new"?'<button class="b" data-pm="'+esc(m.id)+'">Dismiss</button>':"")+"</td>"});
+document.getElementById("npp").textContent=d.pending.length;
+document.getElementById("pending").innerHTML=rows(d.pending,function(p){return'<td><div class="h">'+esc(p.email)+test(p)+' <span class="tag">'+esc(p.plan)+'</span></div><div class="sm">paid '+bkk(p.at)+" · until "+until(p.until)+'</div><div class="sm">'+stripeLink(p.stripe)+"</div></td>"});
+document.getElementById("nel").textContent=d.leads.length;
+document.getElementById("leads").innerHTML=rows(d.leads,function(l){return'<td><div class="h">'+esc(l.name)+" · "+esc(l.company)+test(l)+'</div><div class="sm">'+esc(l.email)+(l.creators?" · "+l.creators+" creators":"")+'</div><div class="sm">'+bkk(l.at)+(l.place?" · "+esc(l.place):"")+"</div></td>"})}
+function loadP(){fetch("/admin/protect",{headers:{"x-admin-key":store().getItem(K)}}).then(function(r){return r.ok?r.json():null}).then(function(j){if(j){pdata=j;renderP()}})}
+function pAct(path,body){return fetch("/admin/protect/"+path,{method:"POST",headers:{"x-admin-key":store().getItem(K),"content-type":"application/json"},body:JSON.stringify(body)}).then(function(r){return r.json()}).then(function(j){if(!j.ok)alert(j.error||"failed");loadP()})}
+document.getElementById("creators").addEventListener("click",function(e){var b=e.target.closest("button[data-pu]");if(!b)return;var a=b.getAttribute("data-a"),id=b.getAttribute("data-pu"),plan=b.getAttribute("data-plan");
+if(a==="give-plan"&&!confirm("Give "+plan+" for 30 days, free?"))return;if(a==="end-plan"&&!confirm("End this plan now?"))return;
+b.disabled=true;pAct(a,{id:id,plan:plan})});
+document.getElementById("matches").addEventListener("click",function(e){var b=e.target.closest("button[data-pm]");if(!b)return;b.disabled=true;pAct("dismiss",{id:b.getAttribute("data-pm")})});
+function load(){loadTd();loadP();var key=store().getItem(K);if(!key){gate();return}
 fetch("/admin/data",{headers:{"x-admin-key":key}}).then(function(r){if(r.status===401){gate("That key did not work");return null}return r.json()}).then(function(j){if(!j)return;data=j;document.getElementById("gate").style.display="none";document.getElementById("app").hidden=false;render()}).catch(function(e){document.getElementById("upd").textContent="could not load: "+e})}
 function gate(msg){document.getElementById("app").hidden=true;document.getElementById("gate").style.display="block";document.getElementById("gmsg").textContent=msg||""}
 document.getElementById("key").addEventListener("change",function(e){store().setItem(K,e.target.value.trim());load()});
-document.getElementById("showTest").addEventListener("change",function(){if(data)render()});
+document.getElementById("showTest").addEventListener("change",function(){if(data)render();if(pdata)renderP()});
 document.getElementById("sponsors").addEventListener("click",function(e){var b=e.target.closest("button[data-sp]");if(!b)return;b.disabled=true;fetch("/admin/sponsor",{method:"POST",headers:{"x-admin-key":store().getItem(K),"content-type":"application/json"},body:JSON.stringify({id:b.getAttribute("data-sp"),banner:b.getAttribute("data-b")})}).then(function(){load()})});
 load();setInterval(load,60000);
 </script></body></html>`;

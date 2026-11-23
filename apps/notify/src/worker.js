@@ -1,5 +1,5 @@
 import { bangkok, clockLine, connection, device, isBotVisit, isTest, networkKind, place, screenLine, screenOf, source, toMs } from "./people.js";
-import { adminView, ledgerView, load, summaryLines } from "./stats.js";
+import { adminView, ledgerView, load, protectView, summaryLines } from "./stats.js";
 import { ADMIN_HTML } from "./admin-page.js";
 
 const enc = new TextEncoder();
@@ -205,12 +205,13 @@ async function sendPlanEvent(env, r) {
   const u = await userOf(env, r.user_id);
   const email = u?.email || r.email;
   const live = await env.API_DB.prepare("SELECT COUNT(*) AS n FROM users WHERE plan != 'free' AND (plan_until IS NULL OR plan_until > ?)").bind(r.created_at).first();
-  const title = r.kind === "ended" ? "Protect plan ended" : r.kind === "paid_no_account" ? "Protect paid, account not made yet" : `New Protect ${r.plan === "pro" ? "Pro" : "Creator"} plan`;
+  const ended = r.kind === "ended" || r.kind === "admin_end";
+  const title = ended ? (r.kind === "admin_end" ? "Protect plan ended by admin" : "Protect plan ended") : r.kind === "admin_comp" ? `Protect ${r.plan === "pro" ? "Pro" : "Creator"} plan given by admin` : r.kind === "paid_no_account" ? "Protect paid, account not made yet" : `New Protect ${r.plan === "pro" ? "Pro" : "Creator"} plan`;
   await slack(env, {
-    icon: r.kind === "ended" ? "👋" : "💰",
+    icon: ended ? "👋" : "💰",
     title,
     detail: u?.handle ? `*@${esc(u.handle)}*` : esc(email || "?"),
-    facts: [r.kind !== "ended" && PLAN_PRICE[r.plan], esc(email || ""), r.plan_until && `paid until ${stamp(r.plan_until)}`, `*${live?.n ?? "?"}* on a paid plan`, stamp(r.created_at)],
+    facts: [!ended && r.kind !== "admin_comp" && PLAN_PRICE[r.plan], esc(email || ""), r.plan_until && `paid until ${stamp(r.plan_until)}`, `*${live?.n ?? "?"}* on a paid plan`, stamp(r.created_at)],
     links: [profileLink(env, u?.handle), adminLink(env)],
     test: isTest(env, email),
   });
@@ -498,6 +499,39 @@ async function takedownAct(request, env, id, action) {
   return Response.json({ ok: res.ok, status: json.takedown?.status, error: json.error?.message }, { status: res.ok ? 200 : res.status });
 }
 
+const DAY30 = 30 * 86_400_000;
+
+async function protectAct(request, env, action, body) {
+  if (!authed(request, env)) return Response.json({ ok: false, error: "bad_key" }, { status: 401 });
+  const id = typeof body.id === "string" && /^[\w-]{1,64}$/.test(body.id) ? body.id : null;
+  if (!id) return Response.json({ ok: false, error: "bad_body" }, { status: 400 });
+  const db = env.API_DB;
+  if (action === "dismiss") {
+    const res = await db.prepare("UPDATE matches SET status = 'dismissed' WHERE id = ? AND status = 'new'").bind(id).run();
+    return Response.json({ ok: !!res.meta?.changes }, { status: res.meta?.changes ? 200 : 404 });
+  }
+  const u = await db.prepare("SELECT id, email FROM users WHERE id = ?").bind(id).first();
+  if (!u) return Response.json({ ok: false, error: "no_user" }, { status: 404 });
+  const now = Date.now();
+  if (action === "scan-now") {
+    const res = await db.prepare("UPDATE scans SET next_scan_at = 0 WHERE user_id = ?").bind(id).run();
+    return Response.json({ ok: true, queued: res.meta?.changes ?? 0 });
+  }
+  if (action === "give-plan") {
+    if (!["creator", "pro"].includes(body.plan)) return Response.json({ ok: false, error: "bad_plan" }, { status: 400 });
+    const until = now + DAY30;
+    await db.prepare("UPDATE users SET plan = ?, plan_until = ? WHERE id = ?").bind(body.plan, until, id).run();
+    await db.prepare("INSERT INTO plan_events (user_id, email, plan, plan_until, kind, created_at) VALUES (?, ?, ?, ?, 'admin_comp', ?)").bind(id, u.email, body.plan, until, now).run();
+    return Response.json({ ok: true, plan: body.plan, until });
+  }
+  if (action === "end-plan") {
+    await db.prepare("UPDATE users SET plan = 'free', plan_until = NULL WHERE id = ?").bind(id).run();
+    await db.prepare("INSERT INTO plan_events (user_id, email, plan, plan_until, kind, created_at) VALUES (?, ?, 'free', NULL, 'admin_end', ?)").bind(id, u.email, now).run();
+    return Response.json({ ok: true, plan: "free" });
+  }
+  return Response.json({ ok: false, error: "bad_action" }, { status: 400 });
+}
+
 function authed(request, env) {
   return !!env.ADMIN_KEY && request.headers.get("x-admin-key") === env.ADMIN_KEY;
 }
@@ -518,6 +552,12 @@ export default {
       if (!authed(request, env)) return Response.json({ ok: false, error: "bad_key" }, { status: 401 });
       return Response.json({ takedowns: await takedownList(env) }, { headers: { "cache-control": "no-store" } });
     }
+    if (pathname === "/admin/protect" && request.method === "GET") {
+      if (!authed(request, env)) return Response.json({ ok: false, error: "bad_key" }, { status: 401 });
+      return Response.json(await protectView(env), { headers: { "cache-control": "no-store" } });
+    }
+    const pact = request.method === "POST" && pathname.match(/^\/admin\/protect\/(scan-now|give-plan|end-plan|dismiss)$/);
+    if (pact) return protectAct(request, env, pact[1], await request.json().catch(() => ({})));
     const act = request.method === "POST" && pathname.match(/^\/admin\/takedowns\/([\w-]+)\/([\w-]+)$/);
     if (act) return takedownAct(request, env, act[1], act[2]);
     if (pathname === "/admin/data") {

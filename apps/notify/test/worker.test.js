@@ -33,7 +33,7 @@ function d1(dir) {
     bind: (...a) => stmt(sql, a),
     first: async () => db.prepare(sql).get(...args) ?? null,
     all: async () => ({ results: db.prepare(sql).all(...args) }),
-    run: async () => db.prepare(sql).run(...args),
+    run: async () => ({ meta: { changes: db.prepare(sql).run(...args).changes } }),
   });
   return { prepare: (sql) => stmt(sql), raw: db };
 }
@@ -254,4 +254,38 @@ test("admin takedowns: lists ready and sent with the full notice, actions go thr
   assert.equal(calls[0].init.headers.authorization, "Bearer fk");
   await post("reject", "k", JSON.stringify({ reason: "own shop" }));
   assert.equal(JSON.parse(calls[1].init.body).reason, "own shop");
+});
+
+test("admin protect: tiles, creators, actions write plan_events and are key-guarded", async () => {
+  const h = harness();
+  const db = h.env.API_DB.raw;
+  const now = Date.now();
+  db.prepare("INSERT INTO users (id, email, handle, created_at, plan, plan_until, stripe_customer_id) VALUES ('u1', 'ada@example.test', 'ada', 1, 'creator', ?, 'cus_1'), ('u2', 'bo@example.test', 'bo', 1, 'free', NULL, NULL)").run(now + 86_400_000);
+  db.prepare("INSERT INTO media (id, user_id, kind, content_type, declared_bytes, r2_key, created_at) VALUES ('m1', 'u1', 'image', 'image/jpeg', 1, 'k', 1)").run();
+  db.prepare("INSERT INTO scans (media_id, post_id, user_id, media_key, last_scanned_at, next_scan_at) VALUES ('m1', 'p1', 'u1', 'k', 5, ?)").run(now + 1e9);
+  db.prepare("INSERT INTO matches (id, post_id, user_id, url, site, found_at, status, reason) VALUES ('mt1', 'p1', 'u1', 'https://x.example/a', 'x.example', 5, 'new', 'r')").run();
+  db.prepare("INSERT INTO scan_meta (key, n) VALUES (?, 7)").run(`serp:${new Date(now).toISOString().slice(0, 7)}`);
+  db.prepare("INSERT INTO protect_pending (email, plan, plan_until, stripe_subscription_id, created_at) VALUES ('new@example.test', 'pro', NULL, 'sub_1', 1)").run();
+  h.env.SITE_DB.raw.prepare("INSERT INTO enterprise_interest (created_at, name, email, company, creators) VALUES (?, 'Dee', 'dee@corp.example', 'Corp', 50)").run(new Date().toISOString());
+  const env = { ...h.env, ADMIN_KEY: "k", SCAN_MONTHLY_LIMIT: "50" };
+  const get = (key) => worker.fetch(new Request("https://n.test/admin/protect", { headers: key ? { "x-admin-key": key } : {} }), env);
+  assert.equal((await get(null)).status, 401);
+  const v = await (await get("k")).json();
+  assert.deepEqual([v.tiles.creator, v.tiles.pro, v.tiles.revenue, v.tiles.pending, v.tiles.scans, v.tiles.scanLimit, v.tiles.leads], [1, 0, 10, 1, 7, 50, 1]);
+  assert.deepEqual(v.tiles.copies, { new: 1, reported: 0, dismissed: 0 });
+  assert.deepEqual([v.creators[0].works, v.creators[0].scanned, v.creators[0].found, v.matches[0].handle], [1, 1, 1, "ada"]);
+
+  const act = (path, body, key = "k") => worker.fetch(new Request(`https://n.test/admin/protect/${path}`, { method: "POST", headers: { "x-admin-key": key }, body: JSON.stringify(body) }), env);
+  assert.equal((await act("scan-now", { id: "u1" }, "bad")).status, 401);
+  assert.equal((await act("give-plan", { id: "u2", plan: "gold" })).status, 400);
+  assert.equal((await act("give-plan", { id: "nobody1", plan: "pro" })).status, 404);
+  assert.equal((await act("scan-now", { id: "u1" })).status, 200);
+  assert.equal(db.prepare("SELECT next_scan_at FROM scans WHERE media_id = 'm1'").get().next_scan_at, 0);
+  assert.equal((await act("give-plan", { id: "u2", plan: "pro" })).status, 200);
+  assert.equal(db.prepare("SELECT plan FROM users WHERE id = 'u2'").get().plan, "pro");
+  assert.equal((await act("end-plan", { id: "u1" })).status, 200);
+  assert.equal(db.prepare("SELECT plan FROM users WHERE id = 'u1'").get().plan, "free");
+  assert.deepEqual(db.prepare("SELECT kind, plan FROM plan_events ORDER BY id").all().map((r) => `${r.kind}:${r.plan}`), ["admin_comp:pro", "admin_end:free"]);
+  assert.equal((await act("dismiss", { id: "mt1" })).status, 200);
+  assert.equal(db.prepare("SELECT status FROM matches WHERE id = 'mt1'").get().status, "dismissed");
 });

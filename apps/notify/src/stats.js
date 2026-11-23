@@ -176,3 +176,49 @@ export function summaryLines(d, now = Date.now()) {
     totals: { accounts: real(d.users).length, posts: real(d.posts).length },
   };
 }
+
+const PLAN_USD = { creator: 10, pro: 100 };
+const monthKey = (now) => `serp:${new Date(now).toISOString().slice(0, 7)}`;
+const scanLimit = (env) => (env.SCAN_MONTHLY_LIMIT !== undefined && env.SCAN_MONTHLY_LIMIT !== "" && Number.isFinite(Number(env.SCAN_MONTHLY_LIMIT)) ? Number(env.SCAN_MONTHLY_LIMIT) : 200);
+
+export async function protectView(env, now = Date.now()) {
+  const [users, mediaN, scanN, matchN, tdN, matchStatus, tdStatus, meta, matches, pending, leads] = await Promise.all([
+    all(env.API_DB, "SELECT id, email, handle, plan, plan_until, stripe_customer_id FROM users WHERE plan != 'free' AND (plan_until IS NULL OR plan_until > ?) ORDER BY plan DESC, plan_until", now),
+    all(env.API_DB, "SELECT user_id, COUNT(*) AS n FROM media GROUP BY user_id"),
+    all(env.API_DB, "SELECT user_id, SUM(last_scanned_at IS NOT NULL) AS scanned, MAX(last_scanned_at) AS last FROM scans GROUP BY user_id"),
+    all(env.API_DB, "SELECT user_id, COUNT(*) AS n FROM matches GROUP BY user_id"),
+    all(env.API_DB, "SELECT user_id, COUNT(*) AS n FROM takedowns GROUP BY user_id"),
+    all(env.API_DB, "SELECT status, COUNT(*) AS n FROM matches GROUP BY status"),
+    all(env.API_DB, "SELECT status, COUNT(*) AS n FROM takedowns GROUP BY status"),
+    all(env.API_DB, "SELECT n FROM scan_meta WHERE key = ?", monthKey(now)),
+    all(env.API_DB, `SELECT m.id, m.url, m.site, m.thumbnail, m.reason, m.found_at, m.status, m.post_id, u.handle, u.email
+      FROM matches m LEFT JOIN users u ON u.id = m.user_id ORDER BY m.found_at DESC LIMIT 100`),
+    all(env.API_DB, "SELECT email, plan, plan_until, stripe_customer_id, created_at FROM protect_pending ORDER BY created_at DESC LIMIT 100"),
+    all(env.SITE_DB, "SELECT id, created_at, name, email, company, creators, country, city, tester FROM enterprise_interest ORDER BY id DESC LIMIT 100"),
+  ]);
+  const by = (rows, k = "n") => new Map(rows.map((r) => [r.user_id, r]));
+  const media = by(mediaN), scan = by(scanN), found = by(matchN), tds = by(tdN);
+  const count = (rows, key) => rows.find((r) => r.status === key)?.n || 0;
+  const creators = users.map((u) => ({
+    id: u.id, handle: u.handle, email: u.email, plan: u.plan, until: u.plan_until, stripe: u.stripe_customer_id,
+    works: media.get(u.id)?.n || 0, scanned: scan.get(u.id)?.scanned || 0, last: scan.get(u.id)?.last || null,
+    found: found.get(u.id)?.n || 0, takedowns: tds.get(u.id)?.n || 0, test: isTest(env, u.email),
+  }));
+  const real = creators.filter((c) => !c.test);
+  const sum = (xs) => xs.reduce((a, c) => a + (c.stripe ? PLAN_USD[c.plan] || 0 : 0), 0);
+  const n = (plan) => creators.filter((c) => c.plan === plan).length;
+  return {
+    at: now,
+    tiles: {
+      creator: n("creator"), pro: n("pro"), revenue: sum(creators), revenueReal: sum(real),
+      pending: pending.length, scans: meta[0]?.n || 0, scanLimit: scanLimit(env), scanMonth: monthKey(now).slice(5),
+      copies: { new: count(matchStatus, "new"), reported: count(matchStatus, "reported"), dismissed: count(matchStatus, "dismissed") },
+      takedowns: { ready: count(tdStatus, "ready"), sent: count(tdStatus, "sent"), removed: count(tdStatus, "removed"), still_up: count(tdStatus, "still_up") },
+      leads: leads.length,
+    },
+    creators,
+    matches: matches.map((m) => ({ id: m.id, url: m.url, site: m.site, thumbnail: m.thumbnail, reason: m.reason, at: m.found_at, status: m.status, handle: m.handle, test: isTest(env, m.email || "") })),
+    pending: pending.map((p) => ({ email: p.email, plan: p.plan, until: p.plan_until, stripe: p.stripe_customer_id, at: p.created_at, test: isTest(env, p.email) })),
+    leads: leads.map((l) => ({ name: l.name, email: l.email, company: l.company, creators: l.creators, place: place(l), at: toMs(l.created_at), test: isTest(env, l.email, !!l.tester) })),
+  };
+}
