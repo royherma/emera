@@ -89,6 +89,14 @@ test("sponsor interest posts company, amount and their link", async () => {
   assert.match(h.text(), /Sponsor interest.*Daylight Paint Co.*hi@daylight\.example.*\$1,500\/mo.*Bangkok, TH.*daylight\.example/);
 });
 
+test("enterprise lead posts company, contact and creator count", async () => {
+  const h = harness();
+  await poll(h.env);
+  h.env.SITE_DB.raw.prepare("INSERT INTO enterprise_interest (created_at, name, email, company, creators, country, city, ua) VALUES (?, 'Ana', 'ana@studio.example', 'North Studio', 1200, 'TH', 'Bangkok', ?)").run(new Date().toISOString(), IPHONE);
+  assert.deepEqual(await poll(h.env), { enterprise: 1 });
+  assert.match(h.text(), /Enterprise Protect lead.*North Studio.*Ana.*ana@studio\.example.*1,200 creators.*Bangkok, TH/);
+});
+
 test("new account waits for a handle, then posts with sign-up thread and profile link", async () => {
   const h = harness();
   await poll(h.env);
