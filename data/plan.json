@@ -2290,6 +2290,32 @@
         ]
       ],
       "pick": "File all 4 on royherma/emera"
+    },
+    {
+      "id": "recovery-split",
+      "kind": "pick",
+      "when": "before the first case, 2 min",
+      "title": "Get paid: how much of recovered money Emera keeps",
+      "why": "Live on /protect as 'You keep 70%'. Pixsy, the best-known service, keeps 50% (GetApp listing). Lower than them is the selling point; enough left to pay partner lawyers. Before the first real case a US copyright lawyer must set the structure: lawyers generally cannot split their fees with a non-lawyer company (ABA Model Rule 5.4).",
+      "options": [
+        [
+          "creator70",
+          "Creator keeps 70%, Emera 30% (live now)"
+        ],
+        [
+          "creator80",
+          "Creator keeps 80%, Emera 20%"
+        ],
+        [
+          "creator60",
+          "Creator keeps 60%, Emera 40%"
+        ],
+        [
+          "creator50",
+          "50/50 like Pixsy"
+        ]
+      ],
+      "pick": "creator70"
     }
   ],
   "reviewDone": [
