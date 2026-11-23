@@ -4,17 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Emera Protect: someone stole your work? We take it down</title>
-<meta name="description" content="Reposted reels, copied photos and art, your design on a shirt, a fake account using your face. Emera Protect finds it, files the takedown and follows it until it is gone. For every kind of creator. Free to report, $10 a month for weekly scans.">
+<meta name="description" content="Reposted reels, songs used without permission, copied photos and art, your design on a shirt, a fake account using your face. Emera Protect files the takedown, follows it until it is gone and, when they made money, goes after it. For every kind of creator. Free to report, $10 a month for weekly scans.">
 <link rel="canonical" href="https://emera.social/protect/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Emera">
 <meta property="og:title" content="Someone stole your work. We take it down">
-<meta property="og:description" content="Reposted reels, copied photos and art, your design on a shirt, a fake account using your face. Emera Protect finds it, files the takedown and follows it until it is gone. For every kind of creator. Free to report, $10 a month for weekly scans.">
+<meta property="og:description" content="Reposted reels, songs used without permission, copied photos and art, your design on a shirt, a fake account using your face. Emera Protect files the takedown, follows it until it is gone and, when they made money, goes after it. For every kind of creator. Free to report, $10 a month for weekly scans.">
 <meta property="og:url" content="https://emera.social/protect/">
 <meta property="og:image" content="https://emera.social/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Someone stole your work. We take it down">
-<meta name="twitter:description" content="Reposted reels, copied photos and art, your design on a shirt, a fake account using your face. Emera Protect finds it, files the takedown and follows it until it is gone. For every kind of creator. Free to report, $10 a month for weekly scans.">
+<meta name="twitter:description" content="Reposted reels, songs used without permission, copied photos and art, your design on a shirt, a fake account using your face. Emera Protect files the takedown, follows it until it is gone and, when they made money, goes after it. For every kind of creator. Free to report, $10 a month for weekly scans.">
 <meta name="twitter:image" content="https://emera.social/assets/og.png">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -85,13 +85,28 @@ h2.t{font:700 clamp(1.6rem,3.2vw,2.3rem)/1.1 var(--disp);letter-spacing:-.035em;
 .form button{padding:14px 26px;font-size:1rem;grid-column:1/-1}
 .form button:disabled{opacity:.6;cursor:default}
 .form[hidden]{display:none}
+.pay{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(20px,4vw,48px);padding:clamp(24px,4vw,44px);border-radius:28px;background:var(--dark);color:var(--darkink);position:relative;overflow:hidden}
+.pay::before{content:"";position:absolute;inset:-40% auto auto -10%;width:380px;height:380px;background:radial-gradient(circle,rgba(255,170,60,.3),transparent 65%)}
+.pay>*{position:relative}
+.pay .eyebrow{color:var(--sun2)}
+.pay h2{font:800 clamp(1.8rem,3.8vw,2.8rem)/1.05 var(--disp);letter-spacing:-.045em;margin-top:10px;text-wrap:balance}
+.pay h2 em{font-style:normal;color:var(--sun2)}
+.pay p{color:rgba(251,243,232,.82);margin-top:12px;max-width:34em}
+.pay .split{font:800 clamp(2.6rem,6vw,4rem)/1 var(--disp);letter-spacing:-.05em;color:var(--sun2);margin-top:20px}
+.pay .split small{display:block;font:600 1rem/1.4 var(--body);letter-spacing:0;color:rgba(251,243,232,.85);margin-top:6px}
+.pay .form label{color:var(--darkink)}
+.pay .form input[type=checkbox]{width:18px;height:18px;padding:0;accent-color:var(--sun)}
+.pay .form label.chk{display:flex;align-items:center;gap:10px}
+.pay .note{color:var(--darkink)}
+.pay .note.err{color:#ff9a85}
+.pay .fine2{font-size:.88rem;margin-top:16px;color:rgba(251,243,232,.72)}
 .hp{position:absolute;left:-9999px}
 .note{font-size:.95rem;min-height:1.4em;margin-top:12px;font-weight:600}
 .note.err{color:#a3240f}
 .fine{color:var(--ink3);font-size:.88rem;margin:28px 0 64px;max-width:44em}
 .paid{position:sticky;top:0;z-index:9;padding:14px 20px;text-align:center;background:#1c1512;color:#fff7e8;font-size:15px}.paid a{color:#ffb547;margin-left:6px}
 @media (max-width:980px){.tiers{grid-template-columns:1fr 1fr}}
-@media (max-width:820px){.hero{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.ent{grid-template-columns:1fr}}
+@media (max-width:820px){.hero{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.ent,.pay{grid-template-columns:1fr}}
 @media (max-width:560px){.tiers{grid-template-columns:1fr}.form{grid-template-columns:1fr}.cta a{flex:1 1 100%}}
 .hm{position:relative;min-width:0;width:100%;max-width:560px;margin-left:auto}
 .hm-card{background:var(--card);border:1px solid var(--line);border-radius:28px;box-shadow:0 30px 60px -36px rgba(90,45,10,.45);padding:18px}
@@ -122,7 +137,7 @@ h2.t{font:700 clamp(1.6rem,3.2vw,2.3rem)/1.1 var(--disp);letter-spacing:-.035em;
 .hm-act{display:block;text-align:center;font:700 .78rem var(--body);padding:10px 6px;border-radius:99px;color:#1a1008;background:linear-gradient(135deg,var(--sun2),var(--sun));white-space:nowrap}
 .hm-act.done{background:color-mix(in srgb,#7bd68a 28%,transparent);color:var(--ink)}
 .hm-act.dim{background:transparent;color:var(--ink2);border:1px solid var(--line)}
-.hm-rows{display:grid;gap:8px;margin-top:14px}
+.hm-rows{display:grid;grid-template-columns:minmax(0,1fr);gap:7px;margin-top:12px}
 .hm-row{display:flex;align-items:center;gap:12px;padding:9px 10px;border-radius:16px;background:var(--bg2);border:1px solid var(--line)}
 .hm-row .t{flex:none;width:50px;height:50px;border-radius:11px;overflow:hidden;position:relative}
 .hm-row .t img{width:100%;height:100%;object-fit:cover;display:block}
@@ -132,6 +147,8 @@ h2.t{font:700 clamp(1.6rem,3.2vw,2.3rem)/1.1 var(--disp);letter-spacing:-.035em;
 .hm-row .hm-act{flex:none;padding:9px 12px}
 .hm-shirt{background:#f4efe6;display:grid;place-items:center}
 .hm-shirt svg{width:100%;height:100%}
+.hm-song{background:color-mix(in srgb,var(--sun) 24%,var(--bg2));display:grid;place-items:center;color:var(--sunink)}
+.hm-song svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 @media (max-width:560px){.hm-card{padding:14px}.hm-play{width:34px;height:34px;margin:-17px 0 0 -17px}.hm-meta b{font-size:.9rem}.hm-meta{font-size:.64rem}.hm-bar{font-size:.6rem}.hm-act{font-size:.72rem;padding:9px 4px}.hm-row .hm-act{padding:8px 10px}}
 .gh{display:inline-flex;align-items:stretch;border-radius:999px;border:1px solid var(--gh-line,var(--line));background:var(--gh-bg,color-mix(in srgb,var(--ink) 6%,transparent));color:var(--gh-ink,var(--ink));font:600 .92rem/1 var(--body);text-decoration:none;overflow:hidden;transition:background .15s,border-color .15s}
 .gh:hover{background:var(--gh-hover,color-mix(in srgb,var(--ink) 12%,transparent))}
@@ -158,7 +175,7 @@ h2.t{font:700 clamp(1.6rem,3.2vw,2.3rem)/1.1 var(--disp);letter-spacing:-.035em;
 .ft a:hover{color:#ffc24a}
 .ft .base{margin-top:44px;padding-top:20px;border-top:1px solid rgba(255,235,210,.12);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-size:.82rem;color:rgba(241,231,216,.5)}
 @media (max-width:900px){.ft .cols{grid-template-columns:1fr 1fr}.ft .brandcol{grid-column:1/-1}}</style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Someone stole your work. We take it down","description":"Reposted reels, copied photos and art, your design on a shirt, a fake account using your face. Emera Protect finds it, files the takedown and follows it until it is gone. For every kind of creator. Free to report, $10 a month for weekly scans.","url":"https://emera.social/protect/"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Someone stole your work. We take it down","description":"Reposted reels, songs used without permission, copied photos and art, your design on a shirt, a fake account using your face. Emera Protect files the takedown, follows it until it is gone and, when they made money, goes after it. For every kind of creator. Free to report, $10 a month for weekly scans.","url":"https://emera.social/protect/"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Emera","item":"https://emera.social/"},{"@type":"ListItem","position":2,"name":"Emera Protect","item":"https://emera.social/protect/"}]}</script>
 </head>
 <body><svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -208,10 +225,10 @@ h2.t{font:700 clamp(1.6rem,3.2vw,2.3rem)/1.1 var(--disp);letter-spacing:-.035em;
 <div>
 <div data-e="f5a31749" class="eyebrow">Emera Protect</div>
 <h1 data-e="51bad3a3">Someone stole your work. We take it down</h1>
-<p data-e="e842c26e" class="lead">Your reel reposted on another account. Your art sold as a print. Your design on someone else's shirt. A fake account using your face. We find it, file the takedown and follow it until it is gone. For video creators, photographers, artists, designers and makers.</p>
+<p data-e="da4a89b5" class="lead">Your reel reposted on another account. Your song used without permission. Your art sold as a print. Your design on someone else's shirt. A fake account using your face. We find it, file the takedown and follow it until it is gone. For video creators, musicians, photographers, artists, designers and makers.</p>
 <div class="cta"><a data-e="d59a7488" class="pill" data-buy="creator" href="https://emera.social/?ref=protect-hero&plan=creator">Start for $10 a month</a><a data-e="6641f6f1" class="ghost" href="#plans">See every plan</a></div>
 </div>
-<div class="hm" role="img" aria-label="A reel by @techguyver, the same reel re-uploaded on TikTok by another account with 1.2 million views and a Take it down button, then a Removed receipt. Below it, a fake account using your face and a design on a T-shirt shop.">
+<div class="hm" role="img" aria-label="A reel by @techguyver, the same reel re-uploaded on TikTok by another account with 1.2 million views and a Take it down button, then a Removed receipt. Below it, a fake account using your face, a design on a T-shirt shop and a song in a brand's ad with a claim sent for $2,400.">
 <div class="hm-card" aria-hidden="true">
 <div data-e="210684b2" class="hm-hd">Found copies<span>3 new</span></div>
 <div class="hm-vid">
@@ -228,6 +245,7 @@ h2.t{font:700 clamp(1.6rem,3.2vw,2.3rem)/1.1 var(--disp);letter-spacing:-.035em;
 <div class="hm-rows">
 <div class="hm-row"><span class="t"><img src="/assets/work/techguyver-avatar.jpg" alt=""></span><div><strong data-e="5641faec">A fake account using your face</strong><small data-e="15edcd34">instagram.com/techguyver.official</small></div><span data-e="4d71d1d1-2" class="hm-act">Take it down</span></div>
 <div class="hm-row"><span class="t hm-shirt"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><clipPath id="hm-c"><rect x="21" y="22" width="22" height="20" rx="2"/></clipPath></defs><path d="M22 8l10 5 10-5 18 9-7 14-7-3v27H18V28l-7 3L4 17z" fill="#e9ddc9" stroke="#cdbb9f" stroke-width="1.2" stroke-linejoin="round"/><image href="/assets/work/swirl3d.jpg" x="18" y="20" width="28" height="24" preserveAspectRatio="xMidYMid slice" clip-path="url(#hm-c)"/></svg></span><div><strong data-e="ae74e20e">Your design on a T-shirt shop</strong><small data-e="5626dc4e">shirtbarn.example, 93% match</small></div><span data-e="4d71d1d1-3" class="hm-act">Take it down</span></div>
+<div class="hm-row"><span class="t hm-song"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l11-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></svg></span><div><strong data-e="7254941d">Your song in a brand's ad</strong><small data-e="5021081e">Claim sent: $2,400</small></div><span data-e="11872c76" class="hm-act done">Claim sent</span></div>
 </div>
 </div>
 </div>
@@ -246,11 +264,27 @@ h2.t{font:700 clamp(1.6rem,3.2vw,2.3rem)/1.1 var(--disp);letter-spacing:-.035em;
 <h2 data-e="c5b07ef8" class="t" id="h-plans">Pick how much you want covered</h2>
 <p data-e="772c492b" class="sub">Start free. Move up as you post more.</p>
 <div class="tiers">
-<div class="tier"><h3 data-e="372f3d00">Free</h3><div data-e="fa046214" class="for">Found a copy yourself</div><div data-e="c83695fa" class="price">$0</div><ul><li data-e="930d6635">Report a copy or fake account you found</li><li data-e="66c9f5b0">We file the takedown for you</li></ul><a data-e="7d0935c8" class="ghost" href="https://emera.social/?ref=protect-free">Start free</a></div>
-<div class="tier"><h3 data-e="5badb621">Creator</h3><div data-e="2ad699b2" class="for">Your work, watched every week</div><div data-e="c1ad48f8" class="price">$10<small> / month</small></div><ul><li data-e="96cbdc5c">Up to 100 posts watched</li><li data-e="a7d965dc">Videos, photos, art and designs</li><li data-e="e4183d19">Reposts and copies found across TikTok, Instagram, YouTube and the web</li><li data-e="9244b512">Unlimited takedowns</li><li data-e="8058565f">Weekly scans</li></ul><a data-e="7a28cb20" class="pill" data-buy="creator" href="https://emera.social/?ref=protect-creator&plan=creator">Get Creator</a></div>
-<div class="tier pro"><span data-e="6934826c" class="badge">Most coverage</span><h3 data-e="decd40fa">Pro</h3><div data-e="42911cba" class="for">For creators who post a lot</div><div data-e="11d75185" class="price">$100<small> / month</small></div><ul><li data-e="e595bd33">Unlimited posts watched</li><li data-e="67227af6">Every new post checked daily</li><li data-e="2092ffab">Videos checked across the whole clip</li><li data-e="9d15393d">Fake accounts using your name or face</li><li data-e="10c6b9d3">Automatic filing</li><li data-e="2cd4079e">Priority help and a monthly report</li></ul><a data-e="efcfe57f" class="pill" data-buy="pro" href="https://emera.social/?ref=protect-pro&plan=pro">Get Pro</a></div>
-<div class="tier"><h3 data-e="d8aecdb7">Enterprise</h3><div data-e="b9a22f53" class="for">Agencies, labels and brands with many creators</div><div data-e="7df0b07a" class="price">Custom</div><ul><li data-e="763d1aa3">Everyone you represent in one place</li><li data-e="dd632fbb">Plans built around your list</li></ul><a data-e="7a6396a4" class="ghost" href="#talk">Talk to us</a></div>
+<div class="tier"><h3 data-e="372f3d00">Free</h3><div data-e="fa046214" class="for">Found a copy yourself</div><div data-e="c83695fa" class="price">$0</div><ul><li data-e="930d6635">Report a copy or fake account you found</li><li data-e="66c9f5b0">We file the takedown for you</li><li data-e="9ccd5447">Money recovery: no win, no fee, you keep 70%</li></ul><a data-e="7d0935c8" class="ghost" href="https://emera.social/?ref=protect-free">Start free</a></div>
+<div class="tier"><h3 data-e="5badb621">Creator</h3><div data-e="2ad699b2" class="for">Your work, watched every week</div><div data-e="c1ad48f8" class="price">$10<small> / month</small></div><ul><li data-e="96cbdc5c">Up to 100 posts watched</li><li data-e="90a3a2c4">Videos, music, photos, art and designs</li><li data-e="e4183d19">Reposts and copies found across TikTok, Instagram, YouTube and the web</li><li data-e="9244b512">Unlimited takedowns</li><li data-e="8058565f">Weekly scans</li><li data-e="dd2ea663">Money recovery: you keep 70%</li></ul><a data-e="7a28cb20" class="pill" data-buy="creator" href="https://emera.social/?ref=protect-creator&plan=creator">Get Creator</a></div>
+<div class="tier pro"><span data-e="6934826c" class="badge">Most coverage</span><h3 data-e="decd40fa">Pro</h3><div data-e="42911cba" class="for">For creators who post a lot</div><div data-e="11d75185" class="price">$100<small> / month</small></div><ul><li data-e="e595bd33">Unlimited posts watched</li><li data-e="67227af6">Every new post checked daily</li><li data-e="2092ffab">Videos checked across the whole clip</li><li data-e="9d15393d">Fake accounts using your name or face</li><li data-e="10c6b9d3">Automatic filing</li><li data-e="2cd4079e">Priority help and a monthly report</li><li data-e="dd2ea663-2">Money recovery: you keep 70%</li></ul><a data-e="efcfe57f" class="pill" data-buy="pro" href="https://emera.social/?ref=protect-pro&plan=pro">Get Pro</a></div>
+<div class="tier"><h3 data-e="d8aecdb7">Enterprise</h3><div data-e="b9a22f53" class="for">Agencies, labels and brands with many creators</div><div data-e="7df0b07a" class="price">Custom</div><ul><li data-e="763d1aa3">Everyone you represent in one place</li><li data-e="dd632fbb">Plans built around your list</li><li data-e="dd2ea663-3">Money recovery: you keep 70%</li></ul><a data-e="7a6396a4" class="ghost" href="#talk">Talk to us</a></div>
 </div>
+</section>
+
+<section id="paid" class="pay" aria-labelledby="h-pay">
+<div><div data-e="08eb9d62" class="eyebrow">Money recovery</div><h2 data-e="23026bab" id="h-pay">They made money with your work. <em>Get paid</em></h2>
+<p data-e="71c05603">We send the claim for the money they owe you. If they do not pay, partner copyright lawyers in the US take it to court.</p>
+<div data-e="18e0a9b0" class="split">70%<small>No win, no fee. You keep 70% of what we recover.</small></div>
+<p data-e="b82c7dd2" class="fine2">US cases first. Registering your work with the US Copyright Office can raise what a court awards; we help you do it.</p></div>
+<div><form class="form" data-case novalidate>
+<label data-e="01775658" class="wide">Your email<input type="email" name="email" autocomplete="email" maxlength="254" required></label>
+<label data-e="8973cc8e" class="wide">Link to the copy<input name="copy_url" inputmode="url" maxlength="500" placeholder="https://" required></label>
+<label data-e="5de7a510" class="wide">Link to your original<input name="original_url" inputmode="url" maxlength="500" placeholder="https://" required></label>
+<label data-e="5f6c2ac5" class="wide">What they made, or what it is (optional)<input name="note" maxlength="1000" placeholder="A brand ad with 2M views"></label>
+<label data-e="a6fdfd3f" class="chk wide"><input type="checkbox" name="owns" required>I made this or own the rights</label>
+<input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+<button data-e="ec971a41" class="pill" type="submit">Check my case</button>
+</form><p class="note" data-case-note role="status" aria-live="polite"></p></div>
 </section>
 
 <section id="talk" class="ent" aria-labelledby="h-ent">
@@ -281,7 +315,16 @@ if(!nm)return err("Add your name.",f.name);
 if(!/^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/.test(em))return err("That email does not look right. Check it and try again.",f.email);
 if(!co)return err("Add your company.",f.company);
 b.disabled=true;fetch("/api/enterprise",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({name:nm,email:em,company:co,creators:f.creators.value,referrer:document.referrer})}).then(function(r){return r.json().then(function(j){return{s:r.status,j:j}})}).then(function(x){if(x.j.ok){f.hidden=true;n.textContent="Thanks "+nm.split(" ")[0]+". We will email "+em+" within one working day.";return}
-err(x.s===429?"We already have your details. We will be in touch.":"Something went wrong on our side. Try again in a moment.");b.disabled=false}).catch(function(){err("Something went wrong on our side. Try again in a moment.");b.disabled=false})})})()</script><script>(function(){var api=/(^|\.)emera\.social$/.test(location.hostname)?"https://api.emera.social":"https://emera-api-staging.techguyver1337.workers.dev";
+err(x.s===429?"We already have your details. We will be in touch.":"Something went wrong on our side. Try again in a moment.");b.disabled=false}).catch(function(){err("Something went wrong on our side. Try again in a moment.");b.disabled=false})})})()</script><script>(function(){var f=document.querySelector("[data-case]");if(!f)return;var n=document.querySelector("[data-case-note]"),b=f.querySelector("button");
+function err(t,el){n.textContent=t;n.classList.add("err");if(el)el.focus()}
+f.addEventListener("submit",function(e){e.preventDefault();n.className="note";if(f.website.value)return;
+var em=f.email.value.trim(),cu=f.copy_url.value.trim(),ou=f.original_url.value.trim();
+if(!/^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/.test(em))return err("That email does not look right. Check it and try again.",f.email);
+if(!cu)return err("Add the link to the copy.",f.copy_url);
+if(!ou)return err("Add the link to your original.",f.original_url);
+if(!f.owns.checked)return err("Tick the box to confirm this is yours.",f.owns);
+b.disabled=true;fetch("/api/case",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({email:em,copy_url:cu,original_url:ou,note:f.note.value,owns:true,referrer:document.referrer})}).then(function(r){return r.json().then(function(j){return{s:r.status,j:j}})}).then(function(x){if(x.j.ok){f.hidden=true;n.textContent="Thanks. We read every case and reply within two working days.";return}
+err(x.s===429?"We already have your case. We will be in touch.":x.j.error==="invalid_copy_url"?"That link to the copy does not look right.":x.j.error==="invalid_original_url"?"That link to your original does not look right.":"Something went wrong on our side. Try again in a moment.");b.disabled=false}).catch(function(){err("Something went wrong on our side. Try again in a moment.");b.disabled=false})})})()</script><script>(function(){var api=/(^|\.)emera\.social$/.test(location.hostname)?"https://api.emera.social":"https://emera-api-staging.techguyver1337.workers.dev";
 var q=new URLSearchParams(location.search);if(q.get("subscribed")){var d=document.createElement("div");d.className="paid";d.innerHTML='<strong>You are protected.</strong> Sign in or create your account with the email you paid with and your plan is already there. <a href="/?ref=protect-paid#join">Create your account</a>';document.body.prepend(d)}
 document.querySelectorAll("[data-buy]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();var t=a.textContent;a.textContent="Opening checkout...";
 fetch(api+"/v1/protect/start",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({plan:a.getAttribute("data-buy"),code:q.get("code")||undefined})}).then(function(r){return r.json()}).then(function(j){if(j.url)location.href=j.url;else{a.textContent=t;location.href=a.href}}).catch(function(){a.textContent=t;location.href=a.href})})})})()</script></body></html>

@@ -97,6 +97,14 @@ test("enterprise lead posts company, contact and creator count", async () => {
   assert.match(h.text(), /Enterprise Protect lead.*North Studio.*Ana.*ana@studio\.example.*1,200 creators.*Bangkok, TH/);
 });
 
+test("recovery case posts email, copy link, original link, note and place", async () => {
+  const h = harness();
+  await poll(h.env);
+  h.env.SITE_DB.raw.prepare("INSERT INTO recovery_cases (created_at, email, copy_url, original_url, note, owns, country, city, ua) VALUES (?, 'mia@music.example', 'https://ads.example/spot', 'https://mia.example/song', 'used in an ad, about $2,400', 1, 'TH', 'Bangkok', ?)").run(new Date().toISOString(), IPHONE);
+  assert.deepEqual(await poll(h.env), { cases: 1 });
+  assert.match(h.text(), /New money-recovery case.*mia@music\.example.*about \$2,400.*Bangkok, TH.*ads\.example\/spot.*mia\.example\/song/);
+});
+
 test("protect events: new plan, copies found, takedown waiting, sent, removed", async () => {
   const h = harness();
   await poll(h.env);

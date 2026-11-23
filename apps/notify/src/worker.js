@@ -197,6 +197,18 @@ async function sendEnterprise(env, r) {
   }, thread ? { ts: thread, broadcast: true } : null);
 }
 
+async function sendCase(env, r) {
+  const thread = await threadFor(env, r.visitor);
+  await slack(env, {
+    icon: "⚖️",
+    title: "New money-recovery case",
+    detail: `*${esc(r.email)}*${r.note ? `: ${esc(r.note)}` : ""}`,
+    facts: [esc(r.email), place(r), device(r.ua), stamp(toMs(r.created_at))],
+    links: [["Copy", r.copy_url], ["Original", r.original_url], adminLink(env)],
+    test: isTest(env, r.email, !!r.tester),
+  }, thread ? { ts: thread, broadcast: true } : null);
+}
+
 const PLAN_PRICE = { creator: "$10/mo", pro: "$100/mo" };
 const userOf = (env, id) => (id ? env.API_DB.prepare("SELECT email, handle FROM users WHERE id = ?").bind(id).first() : null);
 const ago = (from, to) => { const d = Math.round((to - from) / 86400000); return d <= 0 ? "same day" : `${d} day${d === 1 ? "" : "s"}`; };
@@ -365,6 +377,7 @@ export const FEEDS = [
   { key: "early", db: "SITE_DB", sql: "SELECT *, id AS cursor FROM early_access WHERE id > ? ORDER BY id LIMIT 20", max: "SELECT COALESCE(MAX(id), 0) AS m FROM early_access", send: sendEarly },
   { key: "sponsors", db: "SITE_DB", sql: "SELECT *, id AS cursor FROM sponsor_interest WHERE id > ? ORDER BY id LIMIT 20", max: "SELECT COALESCE(MAX(id), 0) AS m FROM sponsor_interest", send: sendSponsor },
   { key: "enterprise", db: "SITE_DB", sql: "SELECT *, id AS cursor FROM enterprise_interest WHERE id > ? ORDER BY id LIMIT 20", max: "SELECT COALESCE(MAX(id), 0) AS m FROM enterprise_interest", send: sendEnterprise },
+  { key: "cases", db: "SITE_DB", sql: "SELECT *, id AS cursor FROM recovery_cases WHERE id > ? ORDER BY id LIMIT 20", max: "SELECT COALESCE(MAX(id), 0) AS m FROM recovery_cases", send: sendCase },
   {
     key: "users", db: "API_DB",
     sql: "SELECT id, email, handle, display_name, invited_by, created_at, created_at AS cursor FROM users WHERE created_at > ? ORDER BY created_at LIMIT 20",

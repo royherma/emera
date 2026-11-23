@@ -358,6 +358,44 @@ async function enterprise(request, env) {
   return json({ ok: true });
 }
 
+async function recoveryCase(request, env) {
+  let body;
+  try {
+    body = await readBody(request);
+  } catch {
+    return json({ ok: false, error: "invalid_body" }, 400);
+  }
+  if (clip(body.website, 200)) return json({ ok: true });
+  const email = clip(body.email, 254)?.toLowerCase();
+  if (!email || !EMAIL.test(email)) return json({ ok: false, error: "invalid_email" }, 400);
+  const link = (v) => {
+    const t = clip(v, 500);
+    if (!t) return null;
+    try {
+      const u = new URL(/^https?:\/\//i.test(t) ? t : `https://${t}`);
+      return u.hostname.includes(".") ? u.href : null;
+    } catch {
+      return null;
+    }
+  };
+  const copyUrl = link(body.copy_url);
+  if (!copyUrl) return json({ ok: false, error: "invalid_copy_url" }, 400);
+  const originalUrl = link(body.original_url);
+  if (!originalUrl) return json({ ok: false, error: "invalid_original_url" }, 400);
+  if (!body.owns) return json({ ok: false, error: "missing_owns" }, 400);
+  const visitor = cookie(request, "em_v");
+  const since = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
+  const recent = await env.DB.prepare("SELECT COUNT(*) AS n FROM recovery_cases WHERE (email = ? OR visitor = ?) AND created_at > ?").bind(email, visitor, since).first();
+  if ((recent?.n ?? 0) >= 3) return json({ ok: false, error: "too_many" }, 429);
+  const s = seen(request);
+  await env.DB.prepare(
+    "INSERT INTO recovery_cases (created_at, email, copy_url, original_url, note, owns, referrer, visitor, country, city, ua, tester) VALUES (?, ?, ?, ?, ?, 1, ?, ?, ?, ?, ?, ?)"
+  )
+    .bind(new Date().toISOString(), email, copyUrl, originalUrl, clip(body.note, 1000), clip(body.referrer, 500) || clip(request.headers.get("referer"), 500), visitor, s.country, s.city, s.ua, s.tester)
+    .run();
+  return json({ ok: true });
+}
+
 const REPO = "royherma/emera";
 
 async function stars(ctx) {
@@ -392,6 +430,10 @@ export default {
     }
     if (pathname === "/api/enterprise") {
       if (request.method === "POST") return enterprise(request, env);
+      return json({ ok: false, error: "method_not_allowed" }, 405);
+    }
+    if (pathname === "/api/case") {
+      if (request.method === "POST") return recoveryCase(request, env);
       return json({ ok: false, error: "method_not_allowed" }, 405);
     }
     if (FUND_PAGE.test(pathname) && !fundingOn(env)) return notFound(request, env, url);
