@@ -8,7 +8,7 @@ module.exports = ({ config }) => ({
   version: "1.0",
   icon: "./assets/icon.png",
   backgroundColor: brand.colors.bg,
-  ios: { ...config.ios, bundleIdentifier: brand.bundleId, buildNumber: process.env.IOS_BUILD_NUMBER ?? "1" },
+  ios: { ...config.ios, bundleIdentifier: brand.bundleId, buildNumber: process.env.IOS_BUILD_NUMBER ?? "4" },
   android: { package: brand.bundleId, adaptiveIcon: { backgroundColor: brand.colors.bg, foregroundImage: "./assets/icon.png" } },
   web: { ...config.web, name: brand.name + " - " + brand.line, shortName: brand.name, description: brand.line, themeColor: brand.colors.bg, favicon: "./assets/icon.png" },
   plugins: [
