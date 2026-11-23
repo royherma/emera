@@ -49,7 +49,7 @@ app.use('/media/*', cors({ origin: '*', allowMethods: ['GET', 'HEAD', 'OPTIONS']
 
 app.use('*', writeLimits);
 
-app.get('/health', (c) => c.json({ ok: true }));
+app.get('/health', (c) => c.json({ ok: true, commit: c.env.GIT_SHA ?? null }));
 app.route('/', auth);
 app.route('/', mediaRoutes);
 app.route('/', postRoutes);

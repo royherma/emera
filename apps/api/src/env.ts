@@ -1,4 +1,5 @@
 export type Env = {
+  GIT_SHA?: string;
   DB: D1Database;
   MEDIA: R2Bucket;
   IMAGES?: ImagesBinding;
