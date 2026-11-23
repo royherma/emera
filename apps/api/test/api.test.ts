@@ -231,6 +231,14 @@ describe('uploads, posts, profiles, pages', () => {
     expect(postPage).toContain(`og:image" content="${ORIGIN}/p/${post.body.post.id}/card.png"`);
     expect(postPage).toContain('First light &lt;b&gt;over&lt;/b&gt; the bay');
     expect(postPage).toContain(digest);
+    expect(postPage).toContain('"@type":"SocialMediaPosting"');
+    expect(postPage).toContain(`"url":"${ORIGIN}/@ana"`);
+    expect(postPage).toContain('<h1 class="caption">');
+    expect(html).toContain('"@type":"ProfilePage"');
+
+    const sitemap = await (await app.fetch(new Request(`${ORIGIN}/sitemap-creators.xml`), c.env)).text();
+    expect(sitemap).toContain(`<loc>${ORIGIN}/@ana</loc>`);
+    expect(sitemap).toContain(`<loc>${ORIGIN}/p/${post.body.post.id}</loc>`);
 
     expect((await app.fetch(new Request(`${ORIGIN}/@nobody`), c.env)).status).toBe(404);
 

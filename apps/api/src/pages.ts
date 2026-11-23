@@ -61,6 +61,8 @@ h1{margin:0;font-size:28px;line-height:1.15;letter-spacing:-.02em}
 .author b{display:block;line-height:1.2}
 .author span{color:var(--soft);font-size:14px}
 .caption{white-space:pre-wrap;font-size:18px;margin:0 0 8px}
+.post h1.caption{font:inherit;font-size:18px;line-height:1.45;font-weight:400}
+.transcript{margin:16px 0 0;color:var(--soft);font-size:14px}.transcript summary{cursor:pointer}
 .date{color:var(--soft);font-size:14px;margin:0 0 24px}
 .proof{border:1px solid var(--line);border-left:4px solid var(--accent2);border-radius:10px;padding:14px 16px;font-size:14px;background:color-mix(in srgb,var(--accent2) 6%,var(--bg))}
 .proof strong{color:var(--accent2)}
@@ -142,6 +144,17 @@ export function notFoundPage(message = 'We could not find that page.') {
   );
 }
 
+const ldJson = (v: unknown) => `<script type="application/ld+json">${JSON.stringify(v).replace(/</g, '\\u003c')}</script>`;
+
+async function transcriptOf(c: Context<AppEnv>, media: Media[]): Promise<string> {
+  const url = media.find((m) => m.captionsUrl)?.captionsUrl;
+  const key = url?.split('/media/')[1];
+  if (!key) return '';
+  const obj = await c.env.MEDIA.get(key).catch(() => null);
+  if (!obj) return '';
+  return (await obj.text()).split(/\r?\n/).filter((l) => l && l !== 'WEBVTT' && !l.includes('-->') && !/^\d+$/.test(l.trim())).join(' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim().slice(0, 5000);
+}
+
 export const pages = new Hono<AppEnv>();
 
 const GUARD = `for (const t of ['contextmenu', 'dragstart']) document.addEventListener(t, (e) => { if (e.target.closest && e.target.closest('.media')) e.preventDefault(); });`;
@@ -175,10 +188,11 @@ pages.get('/:seg{@[A-Za-z0-9_]+}', async (c) => {
   const posts = await loadPosts(c, rows);
   const total = (await c.env.DB.prepare('SELECT COUNT(*) AS n FROM posts WHERE user_id = ?').bind(user.id).first<{ n: number }>())?.n ?? 0;
   const origin = siteOrigin(c);
+  const links = (() => { try { const v = JSON.parse(user.links ?? '[]'); return Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string' && /^https?:\/\//.test(x)) : []; } catch { return []; } })();
   const avatar = user.avatar_url ? `<img src="${esc(user.avatar_url)}" alt="">` : initial(user.display_name || handle);
   const body = `<section class="profile"><div class="avatar serif">${avatar}</div><div>
 <h1 class="serif">${esc(user.display_name || handle)}</h1><p class="handle">@${esc(handle)}</p>
-${user.bio ? `<p class="bio">${esc(user.bio)}</p>` : ''}<p class="count">${total} ${total === 1 ? 'post' : 'posts'}</p></div></section>` +
+${user.bio ? `<p class="bio">${esc(user.bio)}</p>` : ''}${links.map((l) => `<p class="bio"><a href="${esc(l)}" rel="me">${esc(l.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))}</a></p>`).join('')}<p class="count">${total} ${total === 1 ? 'post' : 'posts'}</p></div></section>` +
     (posts.length ? `<div class="grid">${posts.map(tile).join('')}</div>` : `<p class="empty">Nothing shared yet.</p>`);
   return layout({
     title: `${user.display_name || handle} (@${handle}) on ${BRAND.name}`,
@@ -186,7 +200,23 @@ ${user.bio ? `<p class="bio">${esc(user.bio)}</p>` : ''}<p class="count">${total
     url: `${origin}/@${handle}`,
     image: cover(posts.flatMap((p) => p.media)),
     type: 'profile',
-    extraHead: `<link rel="alternate" type="application/atom+xml" title="${esc(`${user.display_name || handle} on ${BRAND.name}`)}" href="${esc(origin)}/@${esc(handle)}/feed.xml">`,
+    extraHead: `<link rel="alternate" type="application/atom+xml" title="${esc(`${user.display_name || handle} on ${BRAND.name}`)}" href="${esc(origin)}/@${esc(handle)}/feed.xml">` + ldJson({
+      '@context': 'https://schema.org',
+      '@type': 'ProfilePage',
+      url: `${origin}/@${handle}`,
+      dateCreated: new Date(user.created_at).toISOString(),
+      mainEntity: {
+        '@type': 'Person',
+        name: user.display_name || handle,
+        alternateName: `@${handle}`,
+        identifier: handle,
+        description: user.bio || undefined,
+        image: user.avatar_url || undefined,
+        url: `${origin}/@${handle}`,
+        sameAs: links.length ? links : undefined,
+        interactionStatistic: { '@type': 'InteractionCounter', interactionType: 'https://schema.org/WriteAction', userInteractionCount: total },
+      },
+    }),
   }, body);
 });
 
@@ -201,12 +231,13 @@ pages.get('/p/:id', async (c) => {
     ? `<img class="media" src="${esc(m.url)}" width="${m.width}" height="${m.height}" style="${fitted(m)}" draggable="false" alt="${esc(m.alt || trim(post.caption || `Photo by @${a.handle}`, 120))}">`
     : `<video class="media" src="${esc(m.url)}"${m.posterUrl ? ` poster="${esc(m.posterUrl)}"` : ''} width="${m.width}" height="${m.height}" style="${fitted(m)}"${m.alt ? ` aria-label="${esc(m.alt)}"` : ''} controls controlslist="nodownload noplaybackrate noremoteplayback" disablepictureinpicture disableremoteplayback playsinline preload="metadata">${m.captionsUrl ? `<track kind="captions" src="${esc(m.captionsUrl)}" label="Captions">` : ''}</video>`).join('');
   const proof = first?.proof;
+  const transcript = await transcriptOf(c, post.media);
   const proofHtml = proof?.sha256
     ? `<div class="proof"><strong>Proof of origin.</strong> Uploaded by @${esc(proof.signer)} on ${esc(day(proof.signedAt!))}, signed by ${esc(BRAND.name)}.<br><code>sha256 ${esc(proof.sha256)}</code></div>`
     : '';
   const body = `<article class="post">${mediaHtml}
 <a class="author" href="/@${esc(a.handle)}"><span class="avatar sm serif">${a.avatarUrl ? `<img src="${esc(a.avatarUrl)}" alt="">` : initial(name)}</span><div><b>${esc(name)}</b><span>@${esc(a.handle)}</span></div></a>
-${post.caption ? `<p class="caption">${esc(post.caption)}</p>` : ''}<p class="date">${esc(day(post.createdAt))}</p>${proofHtml}</article>`;
+${post.caption ? `<h1 class="caption">${esc(post.caption)}</h1>` : ''}<p class="date">${esc(day(post.createdAt))}</p>${proofHtml}${transcript ? `<details class="transcript"><summary>Transcript</summary><p>${esc(transcript)}</p></details>` : ''}</article>`;
   const snippet = post.caption ? trim(post.caption.replace(/\s+/g, ' '), 90) : '';
   return layout({
     title: snippet ? `${snippet} - ${name} on ${BRAND.name}` : `A post by ${name} on ${BRAND.name}`,
@@ -215,6 +246,38 @@ ${post.caption ? `<p class="caption">${esc(post.caption)}</p>` : ''}<p class="da
     image: { url: `${post.url}/card.png`, width: 1200, height: 630 },
     video: post.media.find((m) => m.kind === 'video'),
     type: 'article',
-    extraHead: `<link rel="alternate" type="application/json+oembed" href="${esc(`${siteOrigin(c)}/oembed?format=json&url=${encodeURIComponent(post.url)}`)}" title="${esc(`${name} on ${BRAND.name}`)}">`,
+    extraHead: postLd(post, name, transcript, siteOrigin(c)) + `<link rel="alternate" type="application/json+oembed" href="${esc(`${siteOrigin(c)}/oembed?format=json&url=${encodeURIComponent(post.url)}`)}" title="${esc(`${name} on ${BRAND.name}`)}">`,
   }, body);
+});
+
+function postLd(post: Post, name: string, transcript: string, origin: string) {
+  const a = post.author;
+  const author = { '@type': 'Person', name, alternateName: `@${a.handle}`, url: `${origin}/@${a.handle}` };
+  const text = post.caption ? trim(post.caption.replace(/\s+/g, ' '), 300) : `Shared by @${a.handle} on ${BRAND.name}`;
+  const media = post.media.map((m) => m.kind === 'video'
+    ? { '@type': 'VideoObject', name: trim(text, 100), description: text, uploadDate: post.createdAt, contentUrl: m.url, embedUrl: `${origin}/embed/${post.id}`, thumbnailUrl: m.posterUrl ?? `${post.url}/card.png`, width: m.width, height: m.height, author, creator: author, copyrightHolder: author, ...(transcript ? { transcript } : {}) }
+    : { '@type': 'ImageObject', contentUrl: m.url, caption: m.alt || text, width: m.width, height: m.height, author, creator: author, copyrightHolder: author, creditText: `${name} (@${a.handle})` });
+  return ldJson({
+    '@context': 'https://schema.org',
+    '@type': 'SocialMediaPosting',
+    '@id': post.url,
+    url: post.url,
+    headline: trim(text, 110),
+    articleBody: post.caption || undefined,
+    datePublished: post.createdAt,
+    author,
+    publisher: { '@type': 'Organization', name: BRAND.name, url: origin },
+    image: `${post.url}/card.png`,
+    ...(post.media.some((m) => m.kind === 'video') ? { video: media.filter((m) => m['@type'] === 'VideoObject') } : {}),
+    ...(post.media.some((m) => m.kind === 'image') ? { associatedMedia: media.filter((m) => m['@type'] === 'ImageObject') } : {}),
+  });
+}
+
+pages.get('/sitemap-creators.xml', async (c) => {
+  const origin = siteOrigin(c);
+  const users = (await c.env.DB.prepare('SELECT u.handle, MAX(p.created_at) AS last FROM users u JOIN posts p ON p.user_id = u.id WHERE u.handle IS NOT NULL GROUP BY u.id ORDER BY last DESC LIMIT 5000').all<{ handle: string; last: number }>()).results;
+  const posts = (await c.env.DB.prepare('SELECT p.id, p.created_at FROM posts p JOIN users u ON u.id = p.user_id WHERE u.handle IS NOT NULL ORDER BY p.created_at DESC LIMIT 45000').all<{ id: string; created_at: number }>()).results;
+  const url = (loc: string, at: number) => `<url><loc>${esc(loc)}</loc><lastmod>${new Date(at).toISOString().slice(0, 10)}</lastmod></url>`;
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...users.map((u) => url(`${origin}/@${u.handle}`, u.last)), ...posts.map((p) => url(`${origin}/p/${p.id}`, p.created_at))].join('\n')}\n</urlset>`;
+  return new Response(xml, { headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=3600' } });
 });

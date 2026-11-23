@@ -102,7 +102,8 @@
         { "pattern": "emera.social/embed/*", "zone_name": "emera.social" },
         { "pattern": "emera.social/takedown/*", "zone_name": "emera.social" },
         { "pattern": "emera.social/oembed*", "zone_name": "emera.social" },
-        { "pattern": "emera.social/feed.xml*", "zone_name": "emera.social" }
+        { "pattern": "emera.social/feed.xml*", "zone_name": "emera.social" },
+        { "pattern": "emera.social/sitemap-creators.xml", "zone_name": "emera.social" }
       ]
     }
   }
