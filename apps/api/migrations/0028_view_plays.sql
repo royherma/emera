@@ -1,0 +1,4 @@
+ALTER TABLE post_views ADD COLUMN plays INTEGER NOT NULL DEFAULT 1;
+ALTER TABLE post_views ADD COLUMN last_at INTEGER;
+ALTER TABLE post_views ADD COLUMN device TEXT;
+ALTER TABLE post_views ADD COLUMN network TEXT;

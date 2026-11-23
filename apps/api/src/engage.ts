@@ -56,29 +56,53 @@ engageRoutes.delete('/v1/posts/:id/like', requireAuth, async (c) => {
   return c.json({ liked: false, likeCount: await likeTotal(c, post.id) });
 });
 
+const PLAY_GAP_MS = 60_000;
+
+const networkOf = (ip: string | undefined) => {
+  if (!ip) return null;
+  return ip.includes(':') ? ip.split(':').slice(0, 3).join(':') : ip.split('.').slice(0, 3).join('.');
+};
+
 engageRoutes.post('/v1/posts/:id/view', requireAuth, async (c) => {
   const me = c.get('user');
   const post = await postRow(c, c.req.param('id'));
   const video = await c.env.DB.prepare("SELECT 1 FROM media WHERE post_id = ? AND kind = 'video' LIMIT 1").bind(post.id).first();
   if (!video) throw fail(400, 'not_video', 'Only videos count views.');
   if (post.user_id !== me.id) {
-    await c.env.DB.prepare('INSERT OR IGNORE INTO post_views (post_id, user_id, created_at) VALUES (?, ?, ?)').bind(post.id, me.id, Date.now()).run();
+    const body = await c.req.json<{ device?: unknown }>().catch(() => ({} as { device?: unknown }));
+    const deviceId = typeof body.device === 'string' && /^[\w-]{8,64}$/.test(body.device) ? body.device : null;
+    const net = networkOf(c.req.header('CF-Connecting-IP'));
+    const device = deviceId ? await hmacHex(c.env.PROOF_SECRET, `device:${deviceId}`) : null;
+    const network = net ? await hmacHex(c.env.PROOF_SECRET, `network:${net}`) : null;
+    const now = Date.now();
+    await c.env.DB.prepare(
+      `INSERT INTO post_views (post_id, user_id, created_at, last_at, device, network) VALUES (?1, ?2, ?3, ?3, ?4, ?5)
+       ON CONFLICT (post_id, user_id) DO UPDATE SET plays = plays + 1, last_at = ?3,
+         device = COALESCE(?4, device), network = COALESCE(?5, network)
+       WHERE ?3 - COALESCE(post_views.last_at, post_views.created_at) >= ?6`,
+    ).bind(post.id, me.id, now, device, network, PLAY_GAP_MS).run();
   }
   const r = await c.env.DB.prepare('SELECT COUNT(*) AS n FROM post_views WHERE post_id = ?').bind(post.id).first<{ n: number }>();
   return c.json({ viewCount: r?.n ?? 0 });
 });
 
-export const VIEW_RULE = "A view is one signed-in person who watched at least 2 seconds with half the video on screen. Each person counts once and the maker's own plays don't count.";
+export const VIEW_RULE = "A view is one signed-in person who watched at least 2 seconds with half the video on screen. Each person counts once and the maker's own plays don't count. Watching again a minute or more later adds a play to that person's row, not a view.";
 const LEDGER_MAX = 500;
 const HOUR = 3_600_000;
 const DAY = 24 * HOUR;
 
-type ViewRow = { user_id: string; created_at: number; joined: number; follows: number };
+type ViewRow = { user_id: string; created_at: number; joined: number; follows: number; plays: number; device: string | null; network: string | null };
+
+const shared = (rows: ViewRow[], key: 'device' | 'network') => {
+  const n = new Map<string, number>();
+  for (const r of rows) if (r[key]) n.set(r[key]!, (n.get(r[key]!) ?? 0) + 1);
+  return (r: ViewRow) => !!r[key] && n.get(r[key]!)! > 1;
+};
 
 engageRoutes.get('/v1/posts/:id/views', async (c) => {
   const post = await postRow(c, c.req.param('id'));
   const rows = (await c.env.DB.prepare(
-    `SELECT v.user_id, v.created_at, u.created_at AS joined,
+    `SELECT v.user_id, v.created_at, v.plays, v.device, v.network, u.created_at AS joined,
        EXISTS (SELECT 1 FROM follows f WHERE f.follower_id = v.user_id AND f.followee_id = ?) AS follows
      FROM post_views v JOIN users u ON u.id = v.user_id
      WHERE v.post_id = ? ORDER BY v.created_at DESC`,
@@ -87,17 +111,25 @@ engageRoutes.get('/v1/posts/:id/views', async (c) => {
     const days = (r.created_at - r.joined) / DAY;
     return days < 7 ? 'under a week' : days < 30 ? 'under a month' : 'a month or more';
   };
+  const sameDevice = shared(rows, 'device');
+  const sameNetwork = shared(rows, 'network');
   const ledger = await Promise.all(rows.slice(0, LEDGER_MAX).map(async (r) => ({
     viewer: (await hmacHex(c.env.PROOF_SECRET, `view:${post.id}:${r.user_id}`)).slice(0, 12),
     hour: iso(Math.floor(r.created_at / HOUR) * HOUR),
     follower: r.follows === 1,
     accountAge: age(r),
+    plays: r.plays,
+    sameDevice: sameDevice(r),
+    sameNetwork: sameNetwork(r),
   })));
   return c.json({
     postId: post.id,
     viewCount: rows.length,
+    plays: rows.reduce((n, r) => n + r.plays, 0),
     followers: rows.filter((r) => r.follows === 1).length,
     newAccounts: rows.filter((r) => age(r) === 'under a week').length,
+    sameDevice: rows.filter(sameDevice).length,
+    sameNetwork: rows.filter(sameNetwork).length,
     rule: VIEW_RULE,
     ledger,
     more: rows.length > LEDGER_MAX,

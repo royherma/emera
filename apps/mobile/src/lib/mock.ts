@@ -149,7 +149,8 @@ const pageOf = (handles: string[], cursor?: string | null): UserPage => {
 
 const likes = new Map<string, Set<string>>();
 const views = new Map<string, Map<string, number>>();
-const VIEW_RULE = "A view is one signed-in person who watched at least 2 seconds with half the video on screen. Each person counts once and the maker's own plays don't count.";
+const plays = new Map<string, number>();
+const VIEW_RULE = "A view is one signed-in person who watched at least 2 seconds with half the video on screen. Each person counts once and the maker's own plays don't count. Watching again a minute or more later adds a play to that person's row, not a view.";
 const comments: { id: string; postId: string; parentId: string | null; userId: string; body: string; createdAt: string }[] = [];
 const notes: { id: string; kind: Notification["kind"]; actor: string; count: number; postId: string | null; commentId: string | null; createdAt: string; read: boolean }[] = [];
 const COMMENT_MAX = 500;
@@ -503,15 +504,18 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
     const post = posts.find((p) => p.id === postId);
     if (!post) throw new ApiError("not_found", "That post isn't here anymore.");
     const seen = views.get(postId) ?? new Map<string, number>();
-    if (post.author.id !== me.id) seen.set(me.id, seen.get(me.id) ?? Date.now());
+    if (post.author.id !== me.id) {
+      if (seen.has(me.id)) plays.set(`${postId}:${me.id}`, (plays.get(`${postId}:${me.id}`) ?? 1) + 1);
+      seen.set(me.id, seen.get(me.id) ?? Date.now());
+    }
     views.set(postId, seen);
     return { viewCount: seen.size };
   },
   async views(postId) {
     await wait();
     const seen = [...(views.get(postId) ?? new Map<string, number>())].sort((a, b) => b[1] - a[1]);
-    const ledger = seen.map(([id, at], i) => ({ viewer: [...`${postId}:${id}`].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) >>> 0, 7).toString(16).padStart(8, "0") + String(i).padStart(4, "0"), hour: new Date(Math.floor(at / 3_600_000) * 3_600_000).toISOString(), follower: i % 2 === 0, accountAge: "a month or more" }));
-    return { postId, viewCount: seen.length, followers: ledger.filter((r) => r.follower).length, newAccounts: 0, rule: VIEW_RULE, ledger, more: false };
+    const ledger = seen.map(([id, at], i) => ({ viewer: [...`${postId}:${id}`].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) >>> 0, 7).toString(16).padStart(8, "0") + String(i).padStart(4, "0"), hour: new Date(Math.floor(at / 3_600_000) * 3_600_000).toISOString(), follower: i % 2 === 0, accountAge: "a month or more", plays: plays.get(`${postId}:${id}`) ?? 1 + (i % 3 === 0 ? 2 : 0), sameDevice: false, sameNetwork: i === 1 || i === 2 }));
+    return { postId, viewCount: seen.length, plays: ledger.reduce((n, r) => n + r.plays, 0), followers: ledger.filter((r) => r.follower).length, newAccounts: 0, sameDevice: 0, sameNetwork: ledger.filter((r) => r.sameNetwork).length, rule: VIEW_RULE, ledger, more: false };
   },
   async comments(postId) {
     await wait();

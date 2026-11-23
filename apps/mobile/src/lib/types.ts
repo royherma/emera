@@ -49,10 +49,13 @@ export type Post = {
 export type ViewLedger = {
   postId: string;
   viewCount: number;
+  plays: number;
   followers: number;
   newAccounts: number;
+  sameDevice: number;
+  sameNetwork: number;
   rule: string;
-  ledger: { viewer: string; hour: string; follower: boolean; accountAge: string }[];
+  ledger: { viewer: string; hour: string; follower: boolean; accountAge: string; plays: number; sameDevice: boolean; sameNetwork: boolean }[];
   more: boolean;
 };
 
@@ -199,7 +202,7 @@ export interface Backend {
   mutes(cursor?: string | null): Promise<UserPage>;
   like(postId: string): Promise<{ liked: boolean; likeCount: number }>;
   unlike(postId: string): Promise<{ liked: boolean; likeCount: number }>;
-  view(postId: string): Promise<{ viewCount: number }>;
+  view(postId: string, device?: string): Promise<{ viewCount: number }>;
   views(postId: string): Promise<ViewLedger>;
   comments(postId: string, cursor?: string | null): Promise<{ comments: Comment[]; cursor: string | null; total: number }>;
   addComment(input: { postId: string; body: string; parentId?: string }): Promise<Comment>;

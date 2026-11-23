@@ -37,15 +37,24 @@ export default function Views() {
         <ScrollView contentContainerStyle={{ gap: space[3], paddingBottom: space[4] }}>
           <View style={{ flexDirection: "row", gap: space[3] }}>
             {stat(data.viewCount, "people watched")}
+            {stat(data.plays, "plays")}
             {stat(data.followers, "follow the maker")}
             {stat(data.newAccounts, "joined this week")}
           </View>
           <Text style={[type.meta, { color: c.ink2 }]}>{data.rule} Every view is listed below without the name.</Text>
+          {(data.sameDevice > 0 || data.sameNetwork > 0) && (
+            <Text style={[type.meta, { color: c.ink2 }]}>
+              {data.sameDevice > 0 && `${data.sameDevice} came from a phone or computer another viewer also used. `}
+              {data.sameNetwork > 0 && `${data.sameNetwork} came from an internet connection another viewer also used.`}
+            </Text>
+          )}
           <View>
             {data.ledger.map((r) => (
               <View key={r.viewer} style={{ flexDirection: "row", alignItems: "center", gap: space[2], paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: c.hair }}>
                 <Text style={[type.meta, { color: c.ink, fontFamily: "monospace", width: 120 }]}>{r.viewer}</Text>
                 <Text style={[type.meta, { color: c.ink2, flex: 1 }]}>{when(r.hour)}</Text>
+                <Text style={[type.meta, { color: c.ink2, width: 60 }]}>{r.plays} {r.plays === 1 ? "play" : "plays"}</Text>
+                <Text style={[type.meta, { color: c.ink3, width: 90 }]}>{r.sameDevice ? "same device" : r.sameNetwork ? "same network" : ""}</Text>
                 <Text style={[type.meta, { color: c.ink2, width: 90 }]}>{r.follower ? "follower" : "not following"}</Text>
                 <Text style={[type.meta, { color: c.ink3, width: 120, textAlign: "right" }]}>{r.accountAge}</Text>
               </View>

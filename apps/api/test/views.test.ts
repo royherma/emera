@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { Client, makeEnv, pngBytes } from './helpers';
 
 const box = (type: string, ...parts: Uint8Array[]) => {
@@ -105,5 +105,43 @@ describe('view ledger', () => {
     const otherLedger = (await new Client(env).json('GET', `/v1/posts/${other}/views`)).body.ledger;
     expect(res.body.ledger.map((r: any) => r.viewer)).not.toContain(otherLedger[0].viewer);
     expect((await new Client(env).json('GET', '/v1/posts/nope/views')).status).toBe(404);
+  });
+
+  it('adds a play per person at most once a minute and flags shared devices and networks', async () => {
+    const env = makeEnv();
+    const s = Math.random().toString(36).slice(2, 7);
+    const maya = await member(env, `maya_${s}`);
+    const theo = await member(env, `theo_${s}`);
+    const ines = await member(env, `ines_${s}`);
+    const farm = await member(env, `farm_${s}`);
+    const id = await post(maya, mp4(), 'video/mp4');
+    const view = (who: Client, device: string, ip: string) =>
+      who.call('POST', `/v1/posts/${id}/view`, { device }, undefined, { 'CF-Connecting-IP': ip });
+    const t0 = Date.now();
+    const clock = vi.spyOn(Date, 'now');
+    try {
+      clock.mockReturnValue(t0);
+      await view(theo, 'device-theo-1', '203.0.113.5');
+      await view(ines, 'device-ines-1', '198.51.100.7');
+      await view(farm, 'device-theo-1', '203.0.113.9');
+      clock.mockReturnValue(t0 + 30_000);
+      await view(theo, 'device-theo-1', '203.0.113.5');
+      clock.mockReturnValue(t0 + 61_000);
+      await view(theo, 'device-theo-1', '203.0.113.5');
+      clock.mockReturnValue(t0 + 200_000);
+      await view(theo, 'device-theo-1', '203.0.113.5');
+      await view(maya, 'device-maya-1', '203.0.113.5');
+    } finally {
+      clock.mockRestore();
+    }
+    const res = (await new Client(env).json('GET', `/v1/posts/${id}/views`)).body;
+    expect(res).toMatchObject({ viewCount: 3, plays: 5, sameDevice: 2, sameNetwork: 2 });
+    const plays = res.ledger.map((r: any) => r.plays).sort();
+    expect(plays).toEqual([1, 1, 3]);
+    const ines_ = res.ledger.find((r: any) => !r.sameNetwork);
+    expect(ines_).toMatchObject({ sameDevice: false, plays: 1 });
+    const text = JSON.stringify(res);
+    expect(text).not.toContain('203.0.113');
+    expect(text).not.toContain('device-theo');
   });
 });

@@ -109,7 +109,7 @@ export const http: Backend = {
   mutes: async (cursor) => userPage(await send("GET", `/v1/me/mutes${pageQuery(cursor)}`)),
   like: (postId) => send("POST", `/v1/posts/${encodeURIComponent(postId)}/like`),
   unlike: (postId) => send("DELETE", `/v1/posts/${encodeURIComponent(postId)}/like`),
-  view: (postId) => send("POST", `/v1/posts/${encodeURIComponent(postId)}/view`),
+  view: (postId, device) => send("POST", `/v1/posts/${encodeURIComponent(postId)}/view`, { device }),
   views: (postId) => send("GET", `/v1/posts/${encodeURIComponent(postId)}/views`),
   comments: async (postId, cursor) => {
     const r = await send<{ comments: Comment[]; cursor?: string | null; total: number }>("GET", `/v1/posts/${encodeURIComponent(postId)}/comments${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`);
