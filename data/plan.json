@@ -338,12 +338,14 @@
         {
           "id": "pr-takedown",
           "text": "Takedown engine: notice builder, email host DMCA agent, platform-form desk queue, daily recheck, receipt card",
-          "who": "claude"
+          "who": "claude",
+        "done": {"at": "2026-11-23T05:20:00Z", "ref": "889857e", "note": "live: signed statement once, notice built, form or abuse email, daily recheck, Removed receipt at emera.social/takedown/<id>"}
         },
         {
           "id": "pr-desk",
           "text": "Desk page in /admin: every open takedown, one-click file, status",
-          "who": "claude"
+          "who": "claude",
+        "done": {"at": "2026-11-23T05:20:00Z", "ref": "889857e", "note": "live: Takedowns on emera.social/admin, Send / Mark filed / Reject; nothing leaves without a person"}
         },
         {
           "id": "pr-roy",
