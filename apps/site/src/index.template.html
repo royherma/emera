@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{name}} | {{line}}</title>
-<meta name="description" content="Emera is the open source social network. AI is flooding the internet with fakes and bots; Emera is a fair, honest place where people are real and what you share keeps your name on it.">
+<title>{{name}}: we protect what you create | {{line}}</title>
+<meta name="description" content="We protect what you create. Emera finds the copies and takes them down for you, in a fair place where real people grow and reach can't be bought.">
 <meta name="theme-color" content="#fbf5ea" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0c0a09" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
@@ -12,15 +12,15 @@
 <script type="application/ld+json">{{ld}}</script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{{name}}">
-<meta property="og:title" content="{{name}}, the open source social network">
-<meta property="og:description" content="AI is breaking the internet. Emera uses it to build the fix: real people, proof on every post, rules anyone can read.">
+<meta property="og:title" content="{{name}}: we protect what you create">
+<meta property="og:description" content="We find the copies and take them down for you. A fair place where people are real and reach can't be bought.">
 <meta property="og:url" content="https://{{domain}}/">
 <meta property="og:image" content="https://{{domain}}/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{name}}: create in the open and keep your name on it">
-<meta name="twitter:description" content="AI is breaking the internet. Emera uses it to build the fix: real people, proof on every post, rules anyone can read.">
+<meta name="twitter:title" content="{{name}}: we protect what you create">
+<meta name="twitter:description" content="We find the copies and take them down for you. A fair place where people are real and reach can't be bought.">
 <meta name="twitter:image" content="https://{{domain}}/assets/og.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -88,10 +88,6 @@ a{color:inherit}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center;padding:clamp(24px,5vh,64px) 0 clamp(56px,9vh,110px)}
 .eyebrow{display:inline-flex;gap:10px;align-items:center;font:600 .78rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--sunink)}
 .eyebrow b{display:inline-block;width:28px;height:1.5px;background:currentColor}
-h1{font:800 clamp(4.6rem,13.4vw,11.5rem)/.86 var(--disp);letter-spacing:-.065em;margin:20px 0 0}
-h1 .nm{display:block;margin-left:-.05em}
-.tagline{display:block;font:600 clamp(1.5rem,3.1vw,2.5rem)/1.1 var(--disp);letter-spacing:-.04em;margin-top:clamp(14px,2.4vh,26px);max-width:14em}
-.promise{font:600 clamp(1.1rem,1.9vw,1.45rem)/1.2 var(--disp);letter-spacing:-.02em;color:var(--sunink);margin-top:clamp(12px,1.8vh,18px)}
 .lead{font-size:clamp(1.02rem,1.5vw,1.2rem);color:var(--ink2);max-width:29em;margin-top:16px}
 .signup{display:flex;gap:8px;margin-top:30px;max-width:520px;padding:6px;border-radius:999px;background:color-mix(in srgb,var(--card) 82%,transparent);border:1px solid var(--line);backdrop-filter:blur(12px);box-shadow:var(--shadow)}
 .signup input[type=email]{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:1.02rem;color:var(--ink);padding:0 8px 0 20px;outline:none}
@@ -105,6 +101,55 @@ h1 .nm{display:block;margin-left:-.05em}
 .note.ok{color:var(--sunink);font-weight:600}
 .note.err{color:#c2381f}
 :root[data-theme=dark] .note.err{color:#ff8e78}
+
+
+h1{font:800 clamp(3.1rem,6.6vw,6.4rem)/.94 var(--disp);letter-spacing:-.06em;margin:20px 0 0;text-wrap:balance}
+.sub{font-size:clamp(1.08rem,1.6vw,1.3rem);color:var(--ink2);max-width:27em;margin-top:20px}
+.plans{display:inline-block;margin:6px 0 0 22px;font:600 .98rem var(--body);color:var(--sunink)}
+.pz{position:relative;min-height:540px;min-width:0}
+.pc{position:absolute;background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:18px}
+.pc .hd{display:flex;align-items:center;justify-content:space-between;font:700 .95rem var(--disp);letter-spacing:-.02em;margin-bottom:12px}
+.pc .hd span{font:600 .74rem var(--body);padding:5px 10px;border-radius:99px;background:color-mix(in srgb,var(--sun) 22%,transparent);color:var(--sunink)}
+.pc.found{left:0;top:10px;width:min(430px,92%)}
+.pc.done{right:0;bottom:0;width:min(330px,76%);transform:rotate(2.2deg)}
+.orig{display:flex;gap:12px;align-items:center;padding:10px;border-radius:16px;background:var(--bg2);border:1px solid var(--line);margin-bottom:10px}
+.orig img{width:64px;height:64px;border-radius:12px;object-fit:cover}
+.orig small,.cp small{display:block;color:var(--ink2);font-size:.8rem}
+.orig strong,.cp strong{display:block;font-weight:600;font-size:.92rem;line-height:1.25}
+.cp{display:flex;gap:12px;align-items:center;padding:10px;border-radius:16px;border:1px solid var(--line);margin-top:8px;background:var(--card)}
+.cp .ci{flex:none;width:56px;height:56px;border-radius:11px;overflow:hidden}
+.cp .ci img{width:100%;height:100%;object-fit:cover;display:block}
+.cp .go{margin-left:auto;flex:none;font:700 .78rem var(--body);padding:9px 13px;border-radius:99px;color:#1a1008;background:linear-gradient(135deg,var(--sun2),var(--sun));white-space:nowrap}
+.cp .m{margin-left:auto;font:700 .78rem var(--disp);color:var(--sunink)}
+.rc img{width:100%;height:150px;object-fit:cover;border-radius:14px;filter:grayscale(.9) contrast(.9);opacity:.55;display:block}
+.rc .stamp{display:flex;align-items:center;gap:10px;margin-top:14px;font:700 1.25rem var(--disp);letter-spacing:-.03em}
+.rc .stamp .sealc{width:38px;height:38px}
+.rc p{font-size:.88rem;color:var(--ink2);margin-top:6px;line-height:1.4}
+.loop{padding:clamp(64px,10vw,130px) 0 clamp(40px,6vw,80px);background:var(--bg)}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,1.8vw,24px)}
+.stp{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.stp .n{font:700 .85rem var(--disp);color:var(--sunink)}
+.stp h3{font:700 clamp(1.3rem,1.9vw,1.65rem)/1.08 var(--disp);letter-spacing:-.045em;margin:8px 0 10px}
+.stp p{color:var(--ink2);font-size:.98rem}
+.stp .viz{margin-top:auto;padding-top:22px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.tiles img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;display:block}
+.fair{position:relative;overflow:hidden;isolation:isolate;background:#0c0a09;color:#fbf3e8;padding:clamp(72px,11vw,150px) 0}
+.fair:before{content:"";position:absolute;z-index:-1;left:50%;bottom:-48vmin;width:90vmin;height:90vmin;margin-left:-45vmin;border-radius:50%;background:radial-gradient(circle,rgba(255,150,50,.8),rgba(255,100,30,.28) 40%,transparent 66%)}
+.fair .lbl{font:600 .78rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:#ffc98a}
+.fair h2{margin-top:20px;max-width:13em;font-size:clamp(2.4rem,6vw,5rem);line-height:.98;color:#fbf3e8}
+.fair .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,1.8vw,22px);margin-top:clamp(36px,5vw,64px)}
+.fair .card{background:rgba(255,240,220,.06);border-color:rgba(255,235,210,.14);grid-column:auto;box-shadow:none}
+.fair .card h3{color:#fbf3e8}.fair .card p{color:#e6d8c6}
+.fair .pane{background:rgba(255,240,220,.05);border-color:rgba(255,235,210,.12)}
+.fair .r{background:rgba(255,240,220,.07);border-color:rgba(255,235,210,.12);color:#fbf3e8}.fair .r small{color:#bcae9d}
+.fair .tg{color:#ffc98a}
+.trust{padding:clamp(56px,8vw,100px) 0 clamp(40px,6vw,70px)}
+.trust .head{margin-bottom:0}
+.trust .row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.8vw,24px);margin-top:clamp(24px,4vw,44px)}
+.trust .row div{border-top:2px solid var(--sun);padding-top:16px}
+.trust h3{font:700 1.35rem/1.1 var(--disp);letter-spacing:-.04em}
+.trust p{color:var(--ink2);margin-top:8px;font-size:1rem}
 
 .stage{position:relative;--k:.74;height:calc(800px*var(--k) + 70px);min-width:0}
 .stage .ph{position:absolute;top:0}
@@ -178,7 +223,9 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
   .stage{height:calc(800px*var(--k) + 70px);overflow:hidden;margin:0 calc(var(--gutter)*-1)}
   .stage .ph.a{left:var(--gutter)}
   .stage .ph.b{left:calc(var(--gutter) + 240px)}
-  .bento,.probs{grid-template-columns:1fr}
+  .bento,.probs,.fair .two,.trust .row{grid-template-columns:1fr}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pz{min-height:500px}
   .card,.card.w{grid-column:auto}
   .signup{border-radius:28px;flex-direction:column;padding:8px}
   .signup input[type=email]{padding:16px 14px}
@@ -186,6 +233,7 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
   .nav .pill{display:none}
   .nav .gh .ghl{padding-right:12px}
 }
+@media (max-width:560px){.steps{grid-template-columns:1fr}.pc.found{width:100%}.pc.done{width:86%}.plans{display:block;margin:12px 0 0 6px}.pz{min-height:470px}}
 </style>
 </head>
 <body>
@@ -202,117 +250,65 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
     </nav>
     <div class="hero-grid">
       <div class="copy">
-        <div class="eyebrow"><b></b>{{tagline}}</div>
-        <h1><span class="nm">{{name}}</span><span class="tagline">{{line}}</span></h1>
-        <p class="promise">{{promise}}</p>
-        <p class="lead">Fakes, bots and copies are drowning out real people online. {{name}} is a fair, honest place to share and talk, where the people are real, what you post keeps your name on it, and the rules are public.</p>
+        <div class="eyebrow"><b></b>{{line}}</div>
+        <h1>We protect what you create</h1>
+        <p class="sub">We find the copies and take them down for you, in a fair place where real people grow and reach can't be bought.</p>
         <form class="signup" data-signup novalidate>
           <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address" required>
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button type="submit">Create your account</button>
+          <button type="submit">Get protected</button>
         </form>
         <p class="note" data-note role="status" aria-live="polite"></p>
+        <a class="plans" href="/protect?ref=home">See plans</a>
       </div>
-      <div class="stage" role="img" aria-label="Two Emera screens: a following feed with a photo carousel and a video, and a full screen video with its proof of who made it">
-        <div class="ph day a" aria-hidden="true"><div class="sw">{{screen:feed:day}}</div></div>
-        <div class="ph night b" aria-hidden="true"><div class="sw">{{screen:watch:night}}</div></div>
+      <div class="pz" role="img" aria-label="A Found copies card with copies of a lettering piece and a Take it down button, and a Removed receipt">
+        <div class="pc found" aria-hidden="true">
+          <div class="hd">Found copies<span>2 new</span></div>
+          <div class="orig"><img src="/assets/work/lettering.jpg" alt=""><div><strong>Your original</strong><small>Signed by Nour Letters, 13 Nov 2026</small></div></div>
+          <div class="cp"><span class="ci"><img src="/assets/work/lettering.jpg" alt="" style="transform:scale(1.35);filter:saturate(.7)"></span><div><strong>cheapprints.example</strong><small>Sold on a poster shop</small></div><span class="go">Take it down</span></div>
+          <div class="cp"><span class="ci"><img src="/assets/work/lettering.jpg" alt="" style="object-position:20% 60%;transform:scale(1.7);filter:hue-rotate(25deg)"></span><div><strong>reposts.example</strong><small>Posted without credit</small></div><span class="m">96% match</span></div>
+        </div>
+        <div class="pc done rc" aria-hidden="true">
+          <img src="/assets/work/lettering.jpg" alt="">
+          <div class="stamp"><span class="sealc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg></span>Removed</div>
+          <p>cheapprints.example took the copy down. Receipt saved to your account.</p>
+        </div>
       </div>
     </div>
   </div>
 </header>
 
 <main>
-  <section class="why-q" id="why">
+  <section class="loop" id="how">
     <div class="wrap">
-      <div class="lbl">Why {{name}} exists</div>
-      <h2 class="mani reveal">AI is breaking the internet. We are using it to build the fix</h2>
-      <p class="mani-p reveal">Fake photos, cloned voices, bot crowds and stolen work now spread faster than anyone can check them. The people who make things lose the credit, everyone else loses track of what is real, and the outcry keeps growing while little changes. The same AI that floods the internet lets a small team build the answer. We refuse to believe a fair, honest place to talk and share is out of reach, so we are building one in the open, for every human being.</p>
-      <div class="probs">
-        <article class="prob reveal">
-          <h3>Real work gets buried</h3>
-          <p class="was">Machine-made filler floods every feed and buries what people actually make.</p>
-          <p class="fix"><b>On {{name}}</b>Posts are signed by the person who made them, and the verified human mark is free, so filler can't pass as people.</p>
-        </article>
-        <article class="prob reveal">
-          <h3>What you make gets taken</h3>
-          <p class="was">Copies spread faster than credit, and the person who made it is the last to hear about it.</p>
-          <p class="fix"><b>On {{name}}</b>Copies point back to the original, and we help you take down the ones you find.</p>
-        </article>
-        <article class="prob reveal">
-          <h3>You can't tell what is real</h3>
-          <p class="was">AI makes a fake photo, video or voice in seconds, and it looks just like the real thing.</p>
-          <p class="fix"><b>On {{name}}</b>Every post carries a signed record of who shared it and when, and the badge says only what was checked.</p>
-        </article>
-        <article class="prob reveal">
-          <h3>Bots talk louder than people</h3>
-          <p class="was">Bot accounts, bought followers and machine-written replies drown out the humans.</p>
-          <p class="fix"><b>On {{name}}</b>People are marked, bots say what they are, and the verified human mark is free for everyone.</p>
-        </article>
-        <article class="prob reveal">
-          <h3>Whoever pays more wins</h3>
-          <p class="was">Reach goes to whoever pays the most, and nobody shows what was bought or quietly tested.</p>
-          <p class="fix"><b>On {{name}}</b>Reach can't be bought. No ads, no paid boosts, and every post can tell you why you are seeing it.</p>
-        </article>
-        <article class="prob reveal">
-          <h3>Rules nobody can read</h3>
-          <p class="was">A hidden ranking decides who gets seen, and it too often rewards what pushes people apart.</p>
-          <p class="fix"><b>On {{name}}</b>The ranking code is public, so anyone can check it, and your account and followers leave with you if the rules ever change.</p>
-        </article>
+      <div class="head reveal"><h2>Add it once. We chase the copies</h2><p>From the first upload to a removed receipt, you tap once.</p></div>
+      <div class="steps">
+        <article class="stp reveal"><span class="n">01</span><h3>Add what you create</h3><p>Upload it or link it. Each piece is signed with your name and the date.</p>
+          <div class="viz"><div class="pane"><div class="tiles"><img src="/assets/work/lettering.jpg" alt="" loading="lazy"><img src="/assets/work/ceramics.jpg" alt="" loading="lazy"><img src="/assets/work/watercolor.jpg" alt="" loading="lazy"><img src="/assets/work/kimono.jpg" alt="" loading="lazy"></div></div></div></article>
+        <article class="stp reveal"><span class="n">02</span><h3>We find the copies</h3><p>We search the web for matches and put them in one inbox.</p>
+          <div class="viz"><div class="pane"><div class="r"><span class="th"><img src="/assets/work/ceramics.jpg" alt="" style="transform:scale(1.4)" loading="lazy"></span><span><strong>shopmugs.example</strong><small>Copy of your ceramics</small></span><span class="tg">93%</span></div></div></div></article>
+        <article class="stp reveal"><span class="n">03</span><h3>One tap takedown</h3><p>Tap it. We send the notice to the site that hosts it.</p>
+          <div class="viz"><div class="pane"><div class="r"><span class="sealc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-flag"/></svg></span><span><strong>Notice sent</strong><small>Rechecked every day</small></span></div></div></div></article>
+        <article class="stp reveal"><span class="n">04</span><h3>Removed, with a receipt</h3><p>When the copy is gone you get a receipt you can share.</p>
+          <div class="viz"><div class="pane"><div class="r"><span class="sealc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span><strong>Removed</strong><small>Copy of your ceramics</small></span><span class="tg">Receipt</span></div></div></div></article>
       </div>
-      <blockquote class="reveal">
-        <p>AI is destroying the internet, for the people who create and for everyone who reads, watches and listens. The outcry is already beyond belief.</p>
-        <p>But AI also lets us build the solutions. I refuse to believe there is no way to give people a fair, authentic place to express themselves and talk to each other. So we are building it.</p>
-      </blockquote>
-      <div class="who-q">Roy, founder of {{name}}</div>
-      <p class="mission reveal"><b>Our mission</b>A fair, authentic place on the internet for every human being, where the people are real, what you share keeps your name on it, and the rules are written where everyone can read them.</p>
     </div>
   </section>
 
-  <section class="claims">
+  <section class="fair" id="fair">
     <div class="wrap">
-      <div class="head reveal"><h2>Promises written into the code</h2><p>The code behind every one is public, so anyone can check we keep them.</p></div>
-      <div class="bento">
-        <article class="card w reveal">
-          <span class="n">01</span>
-          <h3>Protected here and everywhere</h3>
-          <p>Upload once. We scan the web for copies of what you post, file the takedown on whatever platform they turn up, and when a takedown is not enough, our agents take the legal steps with you.</p>
-          <div class="viz"><div class="pane"><div class="r step"><i>1</i><span>We find the copy</span></div><div class="r step"><i>2</i><span>We file the takedown there</span></div><div class="r step"><i>3</i><span>Legal steps if it stays up</span></div></div></div>
-        </article>
-        <article class="card w reveal">
-          <span class="n">02</span>
-          <h3>Proof of who made it</h3>
-          <p>Every post carries a signed record of who shared it and the moment it went up. The badge says exactly what was checked, nothing more.</p>
-          <div class="viz"><div class="pane"><div class="r"><span class="th"><img src="/assets/work/lettering.jpg" alt="" loading="lazy"></span><span><strong>Made by Nour Letters</strong><small>Signed 13 Nov 2026, original</small></span><span class="tg">Signed</span></div></div></div>
+      <div class="lbl">A fair place</div>
+      <h2 class="reveal">Where real people grow</h2>
+      <div class="two">
+        <article class="card reveal">
+          <h3>Real people only</h3>
+          <p>People are marked as people. Bots say what they are. The verified human mark is free for everyone.</p>
+          <div class="viz"><div class="pane"><div class="r"><span class="sealc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></span><span><strong>Wren Fiber Co</strong><small>Passed the human check</small></span><span class="tg">Verified human</span></div><div class="r"><span class="sealc" style="background:rgba(255,240,220,.12);color:#bcae9d"><svg class="ic" viewBox="0 0 24 24"><use href="#i-grid"/></svg></span><span><strong>Daily Dawn Bot</strong><small>Posts on a schedule</small></span><span class="tg">Automated</span></div></div></div>
         </article>
         <article class="card reveal">
-          <span class="n">03</span>
-          <h3>Real people, real moments</h3>
-          <p>When news breaks, you can see who shared it, when, and whether a person or a bot posted it. The verified human mark is free for everyone.</p>
-          <div class="viz"><div class="pane"><div class="r"><span class="sealc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-person"/></svg></span><span><strong>Wren Fiber Co</strong><small>Passed the human check</small></span><span class="tg">Verified human</span></div><div class="r"><span class="sealc" style="background:var(--bg2);color:var(--ink2)"><svg class="ic" viewBox="0 0 24 24"><use href="#i-grid"/></svg></span><span><strong>Daily Dawn Bot</strong><small>Posts on a schedule</small></span><span class="tg" style="background:var(--bg);color:var(--ink2)">Automated</span></div></div></div>
-        </article>
-        <article class="card reveal">
-          <span class="n">04</span>
-          <h3>An open algorithm</h3>
-          <p>The ranking code is public. Every boost your post gets comes with its reason, and you can read it.</p>
-          <div class="viz"><div class="pane"><div class="r"><svg class="ic" viewBox="0 0 24 24" style="color:var(--sunink)"><use href="#i-eye"/></svg><span><strong>Why you are seeing this</strong><small>You follow Sabine Aquarelle, who reposted it</small></span></div></div></div>
-        </article>
-        <article class="card reveal">
-          <span class="n">05</span>
-          <h3>You own your account</h3>
-          <p>Your account, your followers and your work are yours. Take all of them to another host any day.</p>
-          <div class="viz"><div class="pane"><div class="r mv"><span class="mono">mara.emera.social</span><svg class="ic" viewBox="0 0 24 24"><use href="#i-arrow"/></svg><span class="mono">mara.example.com</span></div></div></div>
-        </article>
-        <article class="card w reveal">
-          <span class="n">06</span>
-          <h3>Community notes</h3>
-          <p>Trusted members add context to a post. A note shows only once people who usually disagree both rate it helpful.</p>
-          <div class="viz"><div class="pane"><div class="r"><span class="sealc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></span><span><strong>Context added by trusted members</strong><small>Rated helpful by people who usually disagree</small></span><span class="tg">Note</span></div></div></div>
-        </article>
-        <article class="card w reveal">
-          <span class="n">07</span>
-          <h3>Moderators who care</h3>
-          <p>Every report reaches a real person, and you hear back what was done and why.</p>
-          <div class="viz"><div class="pane"><div class="r"><span class="sealc"><svg class="ic" viewBox="0 0 24 24"><use href="#i-flag"/></svg></span><span><strong>Your report</strong><small>Reviewed by a person, post removed</small></span><span class="tg">Answered</span></div></div></div>
+          <h3>Reach can't be bought</h3>
+          <p>No ads and no paid boosts. The ranking code is public and every post tells you why you are seeing it.</p>
+          <div class="viz"><div class="pane"><div class="r"><svg class="ic" viewBox="0 0 24 24" style="color:#ffc98a"><use href="#i-eye"/></svg><span><strong>Why you are seeing this</strong><small>You follow Sabine Aquarelle, who reposted it</small></span></div></div></div>
         </article>
       </div>
     </div>
@@ -333,14 +329,25 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
     </div>
   </section>
 
+  <section class="trust" id="trust">
+    <div class="wrap">
+      <div class="head reveal"><h2>Built so you can check it</h2></div>
+      <div class="row reveal">
+        <div><h3>Open source</h3><p>The code behind every promise is public, ranking included.</p></div>
+        <div><h3>Run as a nonprofit</h3><p>No investors to please and no ads to sell.</p></div>
+        <div><h3>Your account is yours</h3><p>Take your account, followers and work to another host any day.</p></div>
+      </div>
+    </div>
+  </section>
+
   <section class="close" id="join">
     <div class="wrap"><div class="inner reveal">
-      <h2>Help build it in daylight</h2>
-      <p class="lead">Join the first people on {{name}} and help write the rules from day one.</p>
+      <h2>Get protected today</h2>
+      <p class="lead">Add what you create and we start looking for copies.</p>
       <form class="signup" data-signup novalidate>
         <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address" required>
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button type="submit">Create your account</button>
+        <button type="submit">Get protected</button>
       </form>
       <p class="note" data-note role="status" aria-live="polite"></p>
     </div></div>
