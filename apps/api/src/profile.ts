@@ -57,6 +57,10 @@ profileRoutes.patch('/v1/me', requireAuth, requireHandle, async (c) => {
       sets.push('avatar_url = ?'); args.push(`${originOf(c)}/media/${m.r2_key}`);
     }
   }
+  if (body.onWall !== undefined) {
+    if (typeof body.onWall !== 'boolean') throw fail(400, 'bad_on_wall', 'onWall is true or false.');
+    sets.push('on_wall = ?'); args.push(body.onWall ? '1' : '0');
+  }
   if (!sets.length) throw fail(400, 'nothing_to_change', 'Send at least one field to change.');
 
   await c.env.DB.prepare(`UPDATE users SET ${sets.join(', ')} WHERE id = ?`).bind(...args, me.id).run();

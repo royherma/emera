@@ -41,6 +41,7 @@ export type Env = {
 };
 
 export type UserRow = {
+  on_wall?: number;
   id: string;
   email: string;
   handle: string | null;

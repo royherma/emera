@@ -402,6 +402,10 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
   .nav .gh .ghl{padding-right:12px}
 }
 @media (max-width:560px){.steps{grid-template-columns:1fr}.plans{display:block;margin:12px 0 0 6px}}
+.wall-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:22px 16px;margin-top:28px}
+.wall-grid a{display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;color:var(--ink);text-align:center;font:600 .9rem var(--disp)}
+.wall-grid img{width:88px;height:88px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 3px var(--bg),0 0 0 5px #f0a93a}
+.wall-grid span{color:var(--ink3);font:500 .8rem var(--body,inherit)}
 </style>
 </head>
 <body>
@@ -573,6 +577,13 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
     </div>
   </section>
 
+  <section class="wall" id="protected" hidden>
+    <div class="wrap">
+      <div class="head reveal"><h2 data-e="ef2335c7">Creators protected here</h2><p data-e="efbc50d4">Every one of them posts with proof of who made it, and we watch for copies.</p></div>
+      <div class="wall-grid" role="list"></div>
+    </div>
+  </section>
+
   <section class="trust" id="trust">
     <div class="wrap">
       <div class="head reveal"><h2 data-e="fc701293">Don't take our word. Read the code</h2><p data-e="fc2f9700">Every promise on this page is backed by something you can open and check.</p></div>
@@ -638,6 +649,20 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
     els.forEach(function(el){io.observe(el)});
   }else{els.forEach(function(el){el.classList.add("in")})}
 })();
+</script>
+<script>
+fetch("https://api.emera.social/v1/wall").then(function(r){return r.ok?r.json():null}).then(function(d){
+  if(!d||!d.show)return;
+  var sec=document.getElementById("protected"),g=sec.querySelector(".wall-grid");
+  d.creators.forEach(function(c){
+    var a=document.createElement("a");a.href=c.url+"?ref=wall";a.setAttribute("role","listitem");
+    var img=document.createElement("img");img.src=c.avatarUrl;img.alt="";img.loading="lazy";img.width=88;img.height=88;
+    var b=document.createElement("b");b.textContent=c.name;
+    var h=document.createElement("span");h.textContent="@"+c.handle;
+    a.append(img,b,h);g.append(a);
+  });
+  sec.hidden=false;
+}).catch(function(){});
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "e8908260b3f741f084fb1e8297b090a2"}'></script>
 </body>

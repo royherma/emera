@@ -23,6 +23,7 @@ import { chatRoutes } from './chat';
 import { adminRoutes } from './admin';
 import { liveSocket } from './live';
 import { pages, notFoundPage } from './pages';
+import { wallRoutes } from './wall';
 import { cardRoutes } from './card';
 import { embedRoutes } from './embed';
 import { feedRoutes } from './feeds';
@@ -75,6 +76,7 @@ app.route('/', oauthRoutes);
 app.route('/', mcpRoutes);
 app.route('/', instagramRoutes);
 app.route('/', accountRoutes);
+app.route('/', wallRoutes);
 app.route('/', pages);
 
 app.onError((err, c) => {

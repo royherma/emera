@@ -242,6 +242,12 @@ describe('uploads, posts, profiles, pages', () => {
 
     expect((await app.fetch(new Request(`${ORIGIN}/@nobody`), c.env)).status).toBe(404);
 
+    const wall = await c.json('GET', '/v1/wall');
+    expect(wall.status).toBe(200);
+    expect(wall.body.show).toBe(false);
+    expect((await c.json('PATCH', '/v1/me', { onWall: false })).body.user.onWall).toBe(false);
+    expect((await c.json('PATCH', '/v1/me', { onWall: 'yes' })).status).toBe(400);
+
     const other = new Client();
     await other.signIn('bo@example.test');
     await other.withHandle('bo');
