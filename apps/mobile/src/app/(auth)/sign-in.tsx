@@ -6,13 +6,15 @@ import { Banner, Button, Field } from "@/components/ui";
 import { api } from "@/lib/api";
 import { MOCK } from "@/lib/config";
 import { MOCK_INVITE_CODE } from "@/lib/mock";
+import { safeNext } from "@/lib/next";
 import { pendingSignup } from "@/lib/signup";
 import { space, type } from "@/lib/theme";
 import { useTheme } from "@/state/theme";
 import { ApiError } from "@/lib/types";
 
 export default function SignIn() {
-  const { invite: linkInvite = "", email: linkEmail = "" } = useLocalSearchParams<{ invite?: string; email?: string }>();
+  const { invite: linkInvite = "", email: linkEmail = "", next: linkNext } = useLocalSearchParams<{ invite?: string; email?: string; next?: string }>();
+  const next = safeNext(linkNext);
   const router = useRouter();
   const { c } = useTheme();
   const [email, setEmail] = useState(linkEmail);
@@ -31,7 +33,7 @@ export default function SignIn() {
       const code = invite.trim();
       await api.authStart(clean, code || undefined);
       pendingSignup.email = clean;
-      router.push({ pathname: "/code", params: code ? { email: clean, invite: code } : { email: clean } });
+      router.push({ pathname: "/code", params: { email: clean, ...(code ? { invite: code } : {}), ...(next ? { next } : {}) } });
     } catch (e) {
       if (e instanceof ApiError && /^invite_/.test(e.code)) setNeedsInvite(true);
       setError(e instanceof ApiError ? e.message : "Something went wrong. Try again.");

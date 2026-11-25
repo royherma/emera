@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { AuthShell } from "@/components/AuthShell";
 import { Banner, Button, Field } from "@/components/ui";
 import { api } from "@/lib/api";
@@ -6,12 +7,15 @@ import { HANDLE_RE } from "@/lib/format";
 import { PUBLIC_ORIGIN } from "@/lib/config";
 import { ApiError } from "@/lib/types";
 import { useAuth } from "@/state/auth";
+import { safeNext } from "@/lib/next";
 import { pendingSignup } from "@/lib/signup";
 
 const toHandle = (s: string) => s.toLowerCase().replace(/[^a-z0-9_]/g, "").slice(0, 20);
 
 export default function Handle() {
   const { finishHandle } = useAuth();
+  const router = useRouter();
+  const next = safeNext(useLocalSearchParams<{ next?: string }>().next);
   const [name, setName] = useState("");
   const [handle, setHandle] = useState(() => toHandle(pendingSignup.email.split("@")[0] ?? ""));
   const [handleEdited, setHandleEdited] = useState(false);
@@ -33,6 +37,7 @@ export default function Handle() {
     try {
       const user = await api.setHandle({ handle, displayName: name.trim() || handle });
       finishHandle(user);
+      if (next) router.replace(next as never);
     } catch (e) {
       setError(e instanceof ApiError ? e.message : "Something went wrong. Try again.");
     } finally {

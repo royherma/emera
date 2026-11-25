@@ -6,11 +6,13 @@ import { Banner, Button } from "@/components/ui";
 import { api } from "@/lib/api";
 import { font, radius, space, type } from "@/lib/theme";
 import { useTheme } from "@/state/theme";
+import { safeNext } from "@/lib/next";
 import { ApiError } from "@/lib/types";
 import { useAuth } from "@/state/auth";
 
 export default function Code() {
-  const { email = "", invite = "" } = useLocalSearchParams<{ email: string; invite?: string }>();
+  const { email = "", invite = "", next: linkNext } = useLocalSearchParams<{ email: string; invite?: string; next?: string }>();
+  const next = safeNext(linkNext);
   const router = useRouter();
   const { c } = useTheme();
   const { signIn } = useAuth();
@@ -26,7 +28,8 @@ export default function Code() {
     try {
       const r = await api.authVerify(email, value);
       await signIn(r.token, r.user, r.isNew);
-      if (r.isNew || !r.user.handle) router.replace("/handle");
+      if (r.isNew || !r.user.handle) router.replace(next ? { pathname: "/handle", params: { next } } : "/handle");
+      else if (next) router.replace(next as never);
     } catch (e) {
       setError(e instanceof ApiError ? e.message : "Something went wrong. Try again.");
       setCode("");
