@@ -2316,6 +2316,29 @@
         ]
       ],
       "pick": "creator70"
+    },
+    {
+      "id": "mod-queue-prod",
+      "kind": "approve",
+      "when": "morning, 1 min",
+      "title": "Ship the moderator queue to production",
+      "why": "Live on staging since 1:58 AM Bangkok: moderators and admins see open copy reports and flags at /mod and resolve or dismiss each; members get 403 from the server. Tested: 211 API tests pass, staging report filed, listed, resolved. Production needs migration 0031 (adds who-resolved columns to reports and flags; no data removed) and an API deploy.",
+      "list": [
+        "npx wrangler d1 migrations apply DB --env production --remote (0031_mod_queue.sql)",
+        "npm --prefix apps/api run deploy:production, from commit 411cbfb or later",
+        "Then open https://api.emera.social/mod signed in as @techguyver (admin)"
+      ],
+      "links": [
+        [
+          "Queue page (staging)",
+          "https://emera-api-staging.techguyver1337.workers.dev/mod"
+        ],
+        [
+          "Screenshot",
+          ".claude/artifacts/modqueue-staging/queue-1512x860.png"
+        ]
+      ],
+      "pick": "Approve: apply 0031 and deploy the API to production"
     }
   ],
   "reviewDone": [
