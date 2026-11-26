@@ -620,5 +620,462 @@
       "p": "Send us one copy or fake account you found. We file the takedown for free and show you every step.",
       "label": "Start a free report"
     }
+  },
+  {
+    "slug": "red-points-alternative",
+    "kind": "compare",
+    "q": "Red Points alternative: Emera Protect compared",
+    "title": "Red Points alternative: Emera Protect compared",
+    "description": "Red Points and Emera Protect side by side: who each is built for, how pricing works and what you get as a single creator.",
+    "short": "Red Points is a managed brand and content protection program sold by quote, aimed at brands and rights owners with a set scope. Emera Protect is for individual creators: a free report, $10 or $100 a month, and 70% of what is recovered. Pick by size and how you like to buy.",
+    "sections": [
+      {
+        "h": "What Red Points does",
+        "html": "<p>Red Points sells a managed protection program. Its FAQ says it charges a flat fee based on the scope of the program, with detections and takedowns unlimited inside that scope, and that the scope is agreed with each customer before signing. Pricing is not published, so a creator needs to request a quote.</p>"
+      },
+      {
+        "h": "What Emera Protect does",
+        "html": "<p>Emera Protect finds copies and fake accounts you report, files the takedowns and tracks each one to a Removed receipt. Creator is $10 a month and watches up to 100 posts weekly, Pro is $100 a month with unlimited posts checked daily, fake accounts using your name or face and automatic filing, and Enterprise is custom. Get paid sends a claim letter and partner US copyright lawyers sue if the copier does not pay; no win, no fee, and you keep 70%.</p>"
+      },
+      {
+        "h": "How to choose",
+        "html": "<p>If you are a company with a catalogue, many brands or marketplaces to cover and want a managed team, Red Points is built for that. If you are one creator or a small studio, want to start free and see a price before you commit, Emera Protect is built for that.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      }
+    ],
+    "table": {
+      "cols": [
+        "",
+        "Emera Protect",
+        "Red Points"
+      ],
+      "rows": [
+        [
+          "Who it is for",
+          "Individual creators and small studios",
+          "Brands and rights owners with a managed program"
+        ],
+        [
+          "Price",
+          "Free report, $10 and $100 a month, Enterprise custom",
+          "Quote only, flat fee by scope"
+        ],
+        [
+          "Start",
+          "Free report of a copy, no sales call",
+          "Request a quote"
+        ],
+        [
+          "Money recovery",
+          "Get paid: no win, no fee, you keep 70%",
+          "Not a published part of pricing"
+        ]
+      ]
+    },
+    "they_win": [
+      "Red Points runs a managed program with a team, which suits a catalogue of products or many marketplaces.",
+      "Red Points covers brand and trademark work as well as content."
+    ],
+    "faqs": [
+      {
+        "q": "Is there a Red Points price?",
+        "a": "Red Points does not publish one. Its pricing page and FAQ describe flat-fee, scope-based quotes."
+      },
+      {
+        "q": "Which is cheaper for one creator?",
+        "a": "Emera Protect starts free and has public prices. A Red Points quote depends on the scope you agree."
+      },
+      {
+        "q": "Can I use both?",
+        "a": "Yes. Avoid filing the same copy twice."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Red Points pricing",
+        "url": "https://www.redpoints.com/pricing/"
+      },
+      {
+        "label": "Red Points FAQs",
+        "url": "https://www.redpoints.com/faqs/"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "how-to-find-stolen-photos",
+      "how-much-can-you-sue-for-copyright-infringement",
+      "someone-stole-my-video"
+    ],
+    "cta": {
+      "h": "Try the free report",
+      "p": "Send us one copy or fake account you found. We file the takedown for free and show every step.",
+      "label": "Start a free report"
+    }
+  },
+  {
+    "slug": "rulta-alternative",
+    "kind": "compare",
+    "q": "Rulta alternative: Emera Protect compared",
+    "title": "Rulta alternative: Emera Protect compared",
+    "description": "Rulta and Emera Protect side by side: what each covers for creators, how pricing is set and what you can try for free.",
+    "short": "Rulta is a takedown service for creators with plans priced per protected username, covering infringement and fake profiles. Emera Protect covers videos, music, photos, art and designs, starts with a free report and has two public plans. Here is where each fits.",
+    "sections": [
+      {
+        "h": "What Rulta does",
+        "html": "<p>Rulta describes a service that protects a creator's content and brand using software and trained agents to find infringements on many platforms and sites. Its help center shows three plans, Pro, Premier and Legend, priced per username with extra usernames added at an extra charge. Higher plans add fake profile and impersonation coverage and copyright registration help. We found conflicting prices across sources, so we do not print a number here; check rulta.com for current prices.</p>"
+      },
+      {
+        "h": "What Emera Protect does",
+        "html": "<p>Emera Protect finds copies and fake accounts you report, files the takedowns and tracks each one to a Removed receipt. Creator is $10 a month and watches up to 100 posts weekly, Pro is $100 a month with unlimited posts checked daily, fake accounts using your name or face and automatic filing, and Enterprise is custom. Get paid sends a claim letter and partner US copyright lawyers sue if the copier does not pay; no win, no fee, and you keep 70%.</p>"
+      },
+      {
+        "h": "How to choose",
+        "html": "<p>If you want a service where agents run the monitoring for a username and you are comfortable with that price, Rulta is built for that. If you want to start with a free report, pay $10 or $100 a month or only pay when money is recovered, Emera Protect is built for that.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      }
+    ],
+    "table": {
+      "cols": [
+        "",
+        "Emera Protect",
+        "Rulta"
+      ],
+      "rows": [
+        [
+          "Free option",
+          "Free report of a copy or fake account, we file it",
+          "Check rulta.com for a free tier"
+        ],
+        [
+          "Plans",
+          "$10 Creator, $100 Pro, Enterprise custom",
+          "Pro, Premier, Legend, priced per username"
+        ],
+        [
+          "What it watches",
+          "Videos, music, photos, art and designs; fake accounts on Pro",
+          "Content and fake profiles on many platforms"
+        ],
+        [
+          "Money recovery",
+          "No win, no fee, you keep 70%",
+          "Not a core part of the plans"
+        ]
+      ]
+    },
+    "they_win": [
+      "Rulta is built around agents who monitor named usernames on many platforms.",
+      "Rulta's higher plans bundle copyright registration help."
+    ],
+    "faqs": [
+      {
+        "q": "Which has public prices?",
+        "a": "Emera Protect lists its prices. Rulta's plan prices differ between sources, so check its site."
+      },
+      {
+        "q": "Is Rulta for one creator?",
+        "a": "Yes, pricing is per username, with more usernames costing extra."
+      },
+      {
+        "q": "Can I use both?",
+        "a": "Yes, but avoid filing the same copy twice."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Rulta help center: pricing",
+        "url": "https://help.rulta.com/en/article/whats-your-pricing-how-it-works-how-much-does-it-cost-stw4fc/"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "how-to-find-stolen-photos",
+      "how-much-can-you-sue-for-copyright-infringement",
+      "someone-stole-my-video"
+    ],
+    "cta": {
+      "h": "Try the free report",
+      "p": "Send us one copy or fake account you found. We file the takedown for free and show every step.",
+      "label": "Start a free report"
+    }
+  },
+  {
+    "slug": "meta-content-protection-vs-emera",
+    "kind": "compare",
+    "q": "Meta Content Protection vs Emera Protect",
+    "title": "Meta Content Protection vs Emera Protect",
+    "description": "Meta's content protection tool for Reels beside Emera Protect: who gets it, what it detects, what each lets you do and how they work together.",
+    "short": "Meta's content protection tool, launched in November 2025, matches enrolled Reels against uploads across Facebook and Instagram and lets approved creators track, block or release each match. Emera Protect works for your videos, music, photos, art and designs on any platform and the open web, and helps you file takedowns and recover money. Use both if you can.",
+    "sections": [
+      {
+        "h": "What Meta's tool does",
+        "html": "<p>Meta says content protection uses the same matching technology as Rights Manager and continuously looks for full or partial matches to your Reels across Facebook and Instagram. In the dashboard you choose to track a match, block it or release it. Access is automatic for creators in Facebook's Content Monetization program who meet its originality standards, and for creators who use Rights Manager. Others can apply through a form. It works for Reels you post on Facebook, including ones shared from Instagram.</p>"
+      },
+      {
+        "h": "What Emera Protect does",
+        "html": "<p>Emera Protect finds copies and fake accounts you report, files the takedowns and tracks each one to a Removed receipt. Creator is $10 a month and watches up to 100 posts weekly, Pro is $100 a month with unlimited posts checked daily, fake accounts using your name or face and automatic filing, and Enterprise is custom. Get paid sends a claim letter and partner US copyright lawyers sue if the copier does not pay; no win, no fee, and you keep 70%. It does not need approval to start.</p>"
+      },
+      {
+        "h": "How they fit together",
+        "html": "<p>Meta's tool is a good fit for a Reels creator who is approved, since it covers the two Meta apps with their own matching. It covers Meta's apps, and it does not itself file takedowns on other platforms. Emera Protect covers a repost on TikTok, YouTube, X, a store listing or a website, and the money side. If you are approved for Meta's tool, keep using it and send Emera what shows up elsewhere.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      }
+    ],
+    "table": {
+      "cols": [
+        "",
+        "Emera Protect",
+        "Meta content protection"
+      ],
+      "rows": [
+        [
+          "Who can use it",
+          "Anyone, free report first",
+          "Approved creators: Content Monetization program or Rights Manager, or by application"
+        ],
+        [
+          "What it covers",
+          "Videos, music, photos, art and designs",
+          "Reels"
+        ],
+        [
+          "Where",
+          "Platforms and the open web, what you report",
+          "Facebook and Instagram"
+        ],
+        [
+          "Your options",
+          "Takedown, fake account report, claim letter, lawyers",
+          "Track, block or release each match"
+        ],
+        [
+          "Cost",
+          "Free report, $10 or $100 a month",
+          "No separate price found"
+        ],
+        [
+          "Money",
+          "Get paid, you keep 70%",
+          "Not offered"
+        ]
+      ]
+    },
+    "they_win": [
+      "Meta's tool matches your Reels inside its own apps, which no outside tool can see.",
+      "A block through Meta's dashboard is quick and does not need a formal notice, and Meta says it does not lead to penalties on the other account.",
+      "It is built into the app you already post from."
+    ],
+    "faqs": [
+      {
+        "q": "Do I need Emera if I have Meta's tool?",
+        "a": "For copies on Facebook and Instagram Reels, Meta's tool may be enough. Emera covers other platforms, photos, art and money."
+      },
+      {
+        "q": "Does Meta's tool find photos?",
+        "a": "Meta describes it as a tool for Reels."
+      },
+      {
+        "q": "Can I use both?",
+        "a": "Yes. They cover different places."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Meta for creators: content protection on Facebook",
+        "url": "https://creators.facebook.com/blog/content-protection-your-new-creative-guardian-on-facebook/"
+      },
+      {
+        "label": "TechCrunch: Meta releases a tool to protect Reels creators",
+        "url": "https://techcrunch.com/2025/11/17/meta-releases-a-new-tool-to-protect-reels-creators-from-having-their-work-stolen"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "someone-reposted-my-reel-on-instagram",
+      "someone-stole-my-video",
+      "how-to-file-a-dmca-takedown-on-instagram"
+    ],
+    "cta": {
+      "h": "Try the free report",
+      "p": "Send us one copy you found, on any platform. We file the takedown for free and show every step.",
+      "label": "Start a free report"
+    }
+  },
+  {
+    "slug": "dmca-com-alternative",
+    "kind": "compare",
+    "q": "DMCA.com alternative: Emera Protect compared",
+    "title": "DMCA.com alternative: Emera Protect compared",
+    "description": "DMCA.com and Emera Protect side by side: self-serve tools, monitoring plans, who files the takedowns and what you can recover.",
+    "short": "DMCA.com sells a self-serve toolkit for $10 a month and monitoring plans from $129 to $599 a month, per its help center. Emera Protect starts with a free report, files the takedowns for you on $10 and $100 plans and adds a no win, no fee money claim where you keep 70%.",
+    "sections": [
+      {
+        "h": "What DMCA.com does",
+        "html": "<p>DMCA.com's help center describes Protection Pro, a do-it-yourself toolkit with unlimited takedowns for $10 a month or $100 a year, and monitoring plans: Gold at $129 a month with one search a month, Platinum at $349 and VIP at $599, with more searches at each level. Its professionally managed takedown service has been priced per takedown, and we could not confirm the current price, so we leave it out.</p>"
+      },
+      {
+        "h": "What Emera Protect does",
+        "html": "<p>Emera Protect finds copies and fake accounts you report, files the takedowns and tracks each one to a Removed receipt. Creator is $10 a month and watches up to 100 posts weekly, Pro is $100 a month with unlimited posts checked daily, fake accounts using your name or face and automatic filing, and Enterprise is custom. Get paid sends a claim letter and partner US copyright lawyers sue if the copier does not pay; no win, no fee, and you keep 70%.</p>"
+      },
+      {
+        "h": "How to choose",
+        "html": "<p>If you like writing and sending notices yourself and want the cheapest toolkit, DMCA.com's $10 plan is built for that. If you want the notice prepared and tracked for you, or a claim for money, Emera Protect is built for that.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      }
+    ],
+    "table": {
+      "cols": [
+        "",
+        "Emera Protect",
+        "DMCA.com"
+      ],
+      "rows": [
+        [
+          "Free option",
+          "Free report, we file the takedown",
+          "Not stated on the help pages we read"
+        ],
+        [
+          "Self-serve",
+          "Not needed: we prepare the notice",
+          "Protection Pro, $10 a month or $100 a year"
+        ],
+        [
+          "Monitoring",
+          "$10 Creator, $100 Pro",
+          "Gold $129, Platinum $349, VIP $599 a month"
+        ],
+        [
+          "Money recovery",
+          "No win, no fee, you keep 70%",
+          "Not a core service"
+        ]
+      ]
+    },
+    "they_win": [
+      "DMCA.com is the lowest-cost self-serve toolkit with unlimited takedowns.",
+      "DMCA.com has long been the name for website badges and takedown help."
+    ],
+    "faqs": [
+      {
+        "q": "Is $10 a month enough?",
+        "a": "If you are comfortable filing the notices yourself, it can be. The work of finding copies and writing each notice stays with you."
+      },
+      {
+        "q": "Which is cheaper?",
+        "a": "DMCA.com's toolkit is the cheaper tool. Emera Protect's free report and public $10 and $100 plans do more of the work."
+      },
+      {
+        "q": "Can I use both?",
+        "a": "Yes. Avoid filing the same copy twice."
+      }
+    ],
+    "sources": [
+      {
+        "label": "DMCA.com help: how much will my takedown cost",
+        "url": "https://intercom.help/dmca/en/articles/857603-how-much-will-my-takedown-cost"
+      },
+      {
+        "label": "DMCA.com help: personal reputation monitoring services",
+        "url": "https://intercom.help/dmca/en/articles/840646-personal-reputation-monitoring-services"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "dmca-takedown-notice-template",
+      "how-to-find-stolen-photos",
+      "how-much-can-you-sue-for-copyright-infringement"
+    ],
+    "cta": {
+      "h": "Try the free report",
+      "p": "Send us one copy you found. We prepare the notice and track it, free.",
+      "label": "Start a free report"
+    }
+  },
+  {
+    "slug": "loti-alternative",
+    "kind": "compare",
+    "q": "Loti alternative: Emera Protect compared",
+    "title": "Loti alternative: Emera Protect compared",
+    "description": "Loti protects a person's likeness from deepfakes. Emera Protect protects what you create and fake accounts. Where each fits.",
+    "short": "Loti focuses on a person's likeness: faces and deepfakes, with a free consumer tier and, per press reports, a top plan of $2,500 a month with unlimited takedowns. Emera Protect protects what you make (videos, music, photos, art, designs) and, on Pro, fake accounts using your name or face. They overlap on fake accounts only.",
+    "sections": [
+      {
+        "h": "What Loti does",
+        "html": "<p>Loti describes likeness protection for everyone, with a free Everyone plan and 24/7 monitoring on its site. Press reports put its standard monthly fee for high-profile clients at $2,500 with unlimited takedowns. We could not verify its middle plans, so we leave them out.</p>"
+      },
+      {
+        "h": "What Emera Protect does",
+        "html": "<p>Emera Protect finds copies and fake accounts you report, files the takedowns and tracks each one to a Removed receipt. Creator is $10 a month and watches up to 100 posts weekly, Pro is $100 a month with unlimited posts checked daily, fake accounts using your name or face and automatic filing, and Enterprise is custom. Get paid sends a claim letter and partner US copyright lawyers sue if the copier does not pay; no win, no fee, and you keep 70%.</p>"
+      },
+      {
+        "h": "How to choose",
+        "html": "<p>If your worry is that your face or voice is being cloned or used in fake videos, Loti is built for that. If your worry is that your work is being copied, reposted or sold, Emera Protect is built for that. A person with a public face and a body of work may want both.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      }
+    ],
+    "table": {
+      "cols": [
+        "",
+        "Emera Protect",
+        "Loti"
+      ],
+      "rows": [
+        [
+          "Protects",
+          "What you make, plus fake accounts on Pro",
+          "Your likeness: face and deepfakes"
+        ],
+        [
+          "Free option",
+          "Free report, we file the takedown",
+          "Free Everyone plan"
+        ],
+        [
+          "Top plan",
+          "$100 a month Pro, Enterprise custom",
+          "$2,500 a month, unlimited takedowns, per press reports"
+        ],
+        [
+          "Money recovery",
+          "No win, no fee, you keep 70%",
+          "Not a core service"
+        ]
+      ]
+    },
+    "they_win": [
+      "Loti is built for deepfakes and cloned faces, which is a different job from copyright.",
+      "Loti has a free consumer tier for likeness protection."
+    ],
+    "faqs": [
+      {
+        "q": "Does copyright cover my face?",
+        "a": "Not by itself. A photo or video of you is covered if you own it. A likeness claim is a different set of laws, so ask a lawyer."
+      },
+      {
+        "q": "Which should I pick?",
+        "a": "Pick by the problem: likeness for Loti, your work for Emera Protect."
+      },
+      {
+        "q": "Can I use both?",
+        "a": "Yes. They cover different things."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Loti",
+        "url": "https://lotiai.com/"
+      },
+      {
+        "label": "TheWrap: the AI ground war against celebrity deepfakes",
+        "url": "https://www.thewrap.com/ai-celebrity-deepfakes-protection-loti-explained"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "fake-account-using-my-name",
+      "someone-made-a-fake-account-of-me",
+      "how-to-tell-if-a-video-is-real-or-fake"
+    ],
+    "cta": {
+      "h": "Try the free report",
+      "p": "Send us one fake account or copy you found. We file the takedown for free and show every step.",
+      "label": "Start a free report"
+    }
   }
 ]

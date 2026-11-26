@@ -1494,5 +1494,1402 @@
       "p": "Creator watches your posts every week and files the takedowns. Start with a free report on a copy you already found.",
       "label": "Start a free report"
     }
+  },
+  {
+    "slug": "someone-reposted-my-reel-on-instagram",
+    "kind": "answer",
+    "q": "Someone reposted my reel on Instagram: how to get it removed",
+    "title": "Someone reposted my reel on Instagram: how to get it removed",
+    "description": "Someone posted your reel as their own on Instagram. Save the proof, file Instagram's copyright report, and know what to do when the account keeps reposting.",
+    "short": "Save the link to the repost and to your original, then file Instagram's copyright report form, not the three-dot Report menu. Only the rights owner or an authorized agent can file. If the same account keeps reposting, report each link and add the account to your notes.",
+    "sections": [
+      {
+        "h": "Step 1: save the proof",
+        "html": "<p>Reposts get deleted when the poster sees you noticed. Before you report, collect:</p><ul><li>The link to the repost and the username that posted it</li><li>A screen recording of the repost playing, with the account name visible</li><li>The link to your original reel and its post date</li></ul>"
+      },
+      {
+        "h": "Step 2: file the copyright report",
+        "html": "<ol><li>Open the <a href=\"https://help.instagram.com/contact/552695131608132\">Instagram Copyright Report Form</a>. Confirm the fields on that page, since forms change.</li><li>Say you are the owner or act for the owner.</li><li>Paste the link to each repost and describe your original reel.</li><li>Add your contact details and sign electronically.</li></ol><p>Instagram's help page on <a href=\"https://help.instagram.com/1624041234305603\">what to consider before submitting an IP report</a> covers false reports and counter notices. The full walk-through is in <a href=\"/answers/how-to-file-a-dmca-takedown-on-instagram/\">how to file a DMCA takedown on Instagram</a>.</p>"
+      },
+      {
+        "h": "If your reel was reposted on Facebook too",
+        "html": "<p>Meta says its content protection tool for Reels looks for matches across Facebook and Instagram, but it is open to approved creators only (see <a href=\"/compare/meta-content-protection-vs-emera/\">Meta Content Protection vs Emera</a>). If you do not have it, the copyright report form is the route.</p>"
+      },
+      {
+        "h": "What you should expect",
+        "html": "<p>Meta reviews the report and may remove the reel. The poster is told and can file a counter-notification; if a valid one arrives, the reel can be restored 10 to 14 business days later unless you file a court action first (section 512(g)).</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Send Emera the link to the repost and your original. We prepare the notice with the details filled in, you confirm it, and we track it to a Removed receipt. Emera Protect also helps you find more copies of your reels on the open web and what you report.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Is using the Report button enough?",
+        "a": "For copyright, no. Instagram sends copyright claims through its own form. The three-dot menu is for other problems."
+      },
+      {
+        "q": "What if the repost credits me?",
+        "a": "A credit is not a license. If you did not agree to the use, you can still report it, though you may prefer to ask for removal first."
+      },
+      {
+        "q": "What about reposts in Stories or Remixes?",
+        "a": "Report them the same way with the link to the story or remix. Stories vanish after 24 hours, so screen record first."
+      },
+      {
+        "q": "Can I get paid for the repost?",
+        "a": "Sometimes. If a business used your reel to sell something, a claim letter for a license fee can follow the takedown. See what to do if someone steals your video."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Instagram Copyright Report Form",
+        "url": "https://help.instagram.com/contact/552695131608132"
+      },
+      {
+        "label": "Instagram Help: before you submit an IP report",
+        "url": "https://help.instagram.com/1624041234305603"
+      },
+      {
+        "label": "Meta: content protection on Facebook",
+        "url": "https://creators.facebook.com/blog/content-protection-your-new-creative-guardian-on-facebook/"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "how-to-file-a-dmca-takedown-on-instagram",
+      "someone-stole-my-video",
+      "dmca-takedown-notice-template"
+    ],
+    "cta": {
+      "h": "Skip the form",
+      "p": "Send us the Instagram link and your original reel. We prepare and file the takedown and track it to a Removed receipt.",
+      "label": "Report the copy free"
+    }
+  },
+  {
+    "slug": "someone-reposted-my-video-on-tiktok",
+    "kind": "answer",
+    "q": "Someone reposted my video on TikTok: how to take down a repost",
+    "title": "Someone reposted my video on TikTok: how to take down a repost",
+    "description": "A repost of your video on TikTok: save the proof, use TikTok's copyright form, and see what happens next, including the counter-notification step.",
+    "short": "Copy the repost's link and your original's link, then file TikTok's copyright report form. Only the owner or an authorized agent should file. If you are unsure the clip is yours alone (a duet, a stitch, a trend sound), check that first so you do not file a claim you cannot back up.",
+    "sections": [
+      {
+        "h": "Check what kind of repost it is",
+        "html": "<ul><li>A re-upload of your whole video: a clear copyright case</li><li>A duet or stitch you allowed through TikTok's settings: not a clean takedown, so consider turning those settings off</li><li>Your clip inside someone's compilation: still your work, report the compilation link</li><li>Only your audio used: your claim depends on whether you own the sound</li></ul>"
+      },
+      {
+        "h": "Step 1: save the proof",
+        "html": "<p>Copy the repost link (open it, tap share, copy link), note the username and screen record it playing. Keep the link to your original and its post date.</p>"
+      },
+      {
+        "h": "Step 2: file the report",
+        "html": "<ol><li>Open <a href=\"https://www.tiktok.com/legal/report/Copyright\">TikTok's copyright report form</a>. We could not read its fields from here, so confirm the options on the page.</li><li>Say you are the owner or act for the owner.</li><li>Identify your original and paste the repost link.</li><li>Add contact details and sign electronically.</li></ol><p>The legal minimum for a notice, the counter-notification timeline and a ready template are in <a href=\"/answers/how-to-file-a-dmca-takedown-on-tiktok/\">how to file a DMCA takedown on TikTok</a>.</p>"
+      },
+      {
+        "h": "When the repost comes back",
+        "html": "<p>Accounts that repost are often back under a new name. Keep one note per account with each link and date. Repeated reports against the same account give you a clearer record if you later escalate. A repeat-infringer policy exists on most platforms, and TikTok does not publish the number of strikes that ends an account.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Send the TikTok link and your original. We prepare the takedown, you confirm, and every step shows on your dashboard. Emera Protect also looks for more copies on the open web and what you report.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can I just report it as spam or stolen content?",
+        "a": "The regular menu can start something, but the copyright form is the formal route with the legal statements."
+      },
+      {
+        "q": "Will the other person know it was me?",
+        "a": "A counter-notification, if they send one, includes contact information for you. Platforms can also share your name and email with the uploader. Check the form's wording."
+      },
+      {
+        "q": "How long does it take?",
+        "a": "TikTok does not promise a time on its form page."
+      }
+    ],
+    "sources": [
+      {
+        "label": "TikTok copyright report form",
+        "url": "https://www.tiktok.com/legal/report/Copyright"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "how-to-file-a-dmca-takedown-on-tiktok",
+      "someone-stole-my-video",
+      "dmca-takedown-notice-template"
+    ],
+    "cta": {
+      "h": "Skip the form",
+      "p": "Send us the TikTok link and your original. We file the takedown and track it to a Removed receipt.",
+      "label": "Report the copy free"
+    }
+  },
+  {
+    "slug": "someone-reuploaded-my-video-on-youtube-shorts",
+    "kind": "answer",
+    "q": "Someone re-uploaded my video as a YouTube Short: what to do",
+    "title": "Someone re-uploaded my video as a YouTube Short: what to do",
+    "description": "Your video re-uploaded as a Short or a full video on YouTube: use the removal request in YouTube Studio, with the 7-day delay option, and what to expect.",
+    "short": "Open YouTube Studio, go to Content detection, choose New removal request and paste the link to the Short with a description of your original. Use the standard video link for a Short. You can schedule the removal to take effect in 7 days, which gives the uploader time to take it down themselves.",
+    "sections": [
+      {
+        "h": "Get the link right",
+        "html": "<p>A Short has a link of its own. Open it, tap share and copy the link. YouTube lists the link formats it accepts for each type of content, so use the form's examples.</p>"
+      },
+      {
+        "h": "File the removal request",
+        "html": "<ol><li>Sign in to YouTube Studio with the channel account.</li><li>Open <strong>Content detection</strong> in the left menu.</li><li>Choose <strong>New removal request</strong>.</li><li>Add the link to the Short and describe your original.</li></ol><p>The complete steps, the fields YouTube asks for and the fair use question are in <a href=\"/answers/how-to-file-a-dmca-takedown-on-youtube/\">how to file a DMCA takedown on YouTube</a>.</p>"
+      },
+      {
+        "h": "A kinder option first",
+        "html": "<p>YouTube lets you schedule the removal to take effect in 7 days, which can help the uploader avoid a strike. For a first-time repost that is a fair way to start. If the account is clearly a repost farm, remove it right away.</p>"
+      },
+      {
+        "h": "Content ID is a different tool",
+        "html": "<p>Content ID is an automatic matching system for approved rights holders. Most solo creators file removal requests by hand. Both exist and they are not interchangeable.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Send the Shorts link and your original. We prepare the removal request with the details filled in, you approve it and we track the result.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Does the uploader get a strike?",
+        "a": "A valid removal request can lead to a copyright strike on their channel. The 7-day option is how you give them a chance to remove it first."
+      },
+      {
+        "q": "What if the Short only borrows a few seconds?",
+        "a": "YouTube asks you to consider fair use before you submit. A short clip used for commentary is a harder case than a full re-upload."
+      },
+      {
+        "q": "Is my name shared?",
+        "a": "YouTube says your name, primary email and the description of your work may be shared with the uploader, while your address and phone stay confidential unless requested for a lawsuit."
+      }
+    ],
+    "sources": [
+      {
+        "label": "YouTube Help: submit a copyright removal request",
+        "url": "https://support.google.com/youtube/answer/2807622"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "how-to-file-a-dmca-takedown-on-youtube",
+      "someone-stole-my-video",
+      "dmca-takedown-notice-template"
+    ],
+    "cta": {
+      "h": "Skip the form",
+      "p": "Send us the YouTube link and your original. We prepare the removal request and track it.",
+      "label": "Report the copy free"
+    }
+  },
+  {
+    "slug": "someone-reposted-my-video-on-facebook",
+    "kind": "answer",
+    "q": "Someone reposted my video or reel on Facebook: how to report it",
+    "title": "Someone reposted my video or reel on Facebook: how to report it",
+    "description": "Your video or reel was posted again on Facebook: use Meta's copyright report, see how Meta's content protection tool fits, and what happens after you report.",
+    "short": "File Meta's copyright report for the link to the repost, as the owner or an authorized agent. Meta's own content protection tool for Reels watches Facebook and Instagram, but it is open to approved creators only. Meta says it cannot give legal advice.",
+    "sections": [
+      {
+        "h": "Step 1: collect the links",
+        "html": "<p>Open the repost, copy its link and note the Page or profile that posted it. Screen record it with the account name visible. Keep the link to your original.</p>"
+      },
+      {
+        "h": "Step 2: report it",
+        "html": "<p>Facebook's help page for copyright points to an online report form at help.meta.com. Start at <a href=\"https://www.facebook.com/help/1020633957973118\">Facebook's copyright help page</a> and follow the form link there. Use it, not the general Report menu. The same Meta process, with the same legal statements, applies to Instagram (<a href=\"/answers/how-to-file-a-dmca-takedown-on-instagram/\">Instagram walk-through</a>).</p>"
+      },
+      {
+        "h": "If you have Meta's content protection tool",
+        "html": "<p>Creators approved for the tool see matches to their Reels on Facebook and Instagram in a dashboard and choose to track, block or release each one. Access is automatic for creators in Facebook's Content Monetization program who meet Meta's originality standards, and for creators who use Rights Manager. A creator who thinks they qualify can apply through a form.</p>"
+      },
+      {
+        "h": "What to expect",
+        "html": "<p>Meta reviews the report and may remove the post. The poster can file a counter-notification, and the post can be restored unless you file a court action (section 512(g)).</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Send the Facebook link and your original. We prepare the notice, you confirm it, and we track it to a Removed receipt.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Do I need Meta's content protection to report a repost?",
+        "a": "No. Anyone who owns the work can use the copyright report form."
+      },
+      {
+        "q": "What if the repost is a Page with many followers?",
+        "a": "Report it the same way. Size does not change the form, but save the follower count and post date for your notes."
+      },
+      {
+        "q": "Does Facebook tell me the outcome?",
+        "a": "Meta's help page lists what happens after you submit a report. Check your Support Inbox for updates."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Facebook Help: copyright",
+        "url": "https://www.facebook.com/help/1020633957973118"
+      },
+      {
+        "label": "Meta: content protection on Facebook",
+        "url": "https://creators.facebook.com/blog/content-protection-your-new-creative-guardian-on-facebook/"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "someone-reposted-my-reel-on-instagram",
+      "someone-stole-my-video",
+      "how-to-file-a-dmca-takedown-on-instagram"
+    ],
+    "cta": {
+      "h": "Skip the form",
+      "p": "Send us the Facebook link and your original. We file the report and track it.",
+      "label": "Report the copy free"
+    }
+  },
+  {
+    "slug": "dmca-takedown-on-x-twitter",
+    "kind": "answer",
+    "q": "DMCA takedown on X (Twitter): how to report a copied video or image",
+    "title": "DMCA takedown on X (Twitter): how to report a copied video or image",
+    "description": "How to file a copyright complaint on X for a reposted video, image or art: the direct link rule, what happens to the account and how to retract.",
+    "short": "File a copyright complaint through the X Help Center and give a direct link to each post, since a profile link alone is not enough. Only the rights owner or an authorized agent should file. You can also ask the account to remove the post first. X confirms by email and processes complaints in the order received.",
+    "sections": [
+      {
+        "h": "Before you file",
+        "html": "<ul><li>Copy the link to each post that holds your work (open the post, share, copy link)</li><li>Screenshot it in case it is deleted</li><li>Have your original's link or file ready</li><li>Consider fair use: X asks reporters to think about it</li></ul><p>X also notes that a reporter who knowingly misrepresents material may be liable under 17 U.S.C. 512(f).</p>"
+      },
+      {
+        "h": "File the complaint",
+        "html": "<ol><li>Open the <a href=\"https://help.x.com/en/rules-and-policies/copyright-policy\">X copyright policy page</a> and use the copyright complaint form it links to. Confirm the fields there.</li><li>Give a direct link to each post. A profile link alone is not enough.</li><li>Describe your work, add your details and the legal statements, and sign.</li></ol><p>Submit each complaint once. X says duplicates slow processing.</p>"
+      },
+      {
+        "h": "What happens next",
+        "html": "<p>X sends a ticket confirmation by email. If it removes the post, the account owner receives a copy of the complaint and instructions for a counter-notice. Only the original reporter can retract a complaint. If you do not want your details shared with the account, you can appoint an agent to file for you.</p><p>A copyright notice under <a href=\"https://www.law.cornell.edu/uscode/text/17/512\">17 U.S.C. 512(c)(3)</a> needs a signature, the work you own, the material to remove with enough detail to find it, your contact details, a good-faith statement that the use is not authorized and a statement, under penalty of perjury, that your information is accurate and you own the work or act for the owner. Knowingly lying in a notice can make you liable for damages (section 512(f)). The <a href=\"/answers/dmca-takedown-notice-template/\">template</a> has all six.</p>"
+      },
+      {
+        "h": "Try asking first",
+        "html": "<p>X lists a direct request as an option: reply to the post or send a direct message asking for removal. That works with honest mistakes and fails with copy farms, so use judgment.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Send the X link and your original. We prepare the complaint with a direct link to each post, you confirm it and we track the result.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can I report an account instead of a post?",
+        "a": "A profile link is not enough for a copyright complaint. Link each post that holds your work."
+      },
+      {
+        "q": "What if someone removes the post themselves after I file?",
+        "a": "X says removing the material does not by itself resolve a complaint, so check your ticket."
+      },
+      {
+        "q": "Does a quote post or a repost count?",
+        "a": "Report the post that contains your media. If it is a plain repost of the original poster's tweet, ask who owns the media."
+      }
+    ],
+    "sources": [
+      {
+        "label": "X Help Center: copyright policy",
+        "url": "https://help.x.com/en/rules-and-policies/copyright-policy"
+      },
+      {
+        "label": "U.S. Copyright Office: Title 17, chapter 5",
+        "url": "https://www.copyright.gov/title17/92chap5.html"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "someone-stole-my-video",
+      "dmca-takedown-notice-template",
+      "what-to-do-if-someone-steals-your-artwork"
+    ],
+    "cta": {
+      "h": "Skip the form",
+      "p": "Send us the X link and your original. We prepare the complaint and track it.",
+      "label": "Report the copy free"
+    }
+  },
+  {
+    "slug": "someone-pinned-my-work-on-pinterest",
+    "kind": "answer",
+    "q": "Someone pinned my work on Pinterest: how to get it taken down",
+    "title": "Someone pinned my work on Pinterest: how to get it taken down",
+    "description": "Your image or art was pinned without your permission: Pinterest's copyright report, why it only removes identical pins, and what a strike does.",
+    "short": "Pinterest takes copyright reports through its reporting form or its designated agent. Only the owner or an authorized agent can file. For images, ask Pinterest to remove all Pins that contain the image. It can only remove identical copies, so resized or edited versions need their own reports.",
+    "sections": [
+      {
+        "h": "Know the limit",
+        "html": "<p>Pinterest says it can remove only identical copies of an image. A crop, a screenshot or a version with a logo on it is a different file, so report each one.</p>"
+      },
+      {
+        "h": "Step 1: collect the Pin links",
+        "html": "<p>Open each Pin and copy its link. Keep the link to your original and note who owns the source page the Pin points to. A Pin often links to a store or a blog that also holds your work, which may need its own report.</p>"
+      },
+      {
+        "h": "Step 2: file the report",
+        "html": "<p>Use Pinterest's reporting form or send the notice to its copyright agent. Its <a href=\"https://help.pinterest.com/en/article/copyright\">copyright help page</a> and policy page list both. A notice by email or mail needs the work, the Pin's URL, your contact details, the good-faith and accuracy statements and your signature. Begin an image report by asking Pinterest to remove all Pins that contain the image.</p><p>A copyright notice under <a href=\"https://www.law.cornell.edu/uscode/text/17/512\">17 U.S.C. 512(c)(3)</a> needs a signature, the work you own, the material to remove with enough detail to find it, your contact details, a good-faith statement that the use is not authorized and a statement, under penalty of perjury, that your information is accurate and you own the work or act for the owner. Knowingly lying in a notice can make you liable for damages (section 512(f)). The <a href=\"/answers/dmca-takedown-notice-template/\">template</a> has all six.</p>"
+      },
+      {
+        "h": "After the report",
+        "html": "<p>Pins removed after a report give the account holder a strike under Pinterest's repeat infringer policy, and repeat offenders can lose the account. The account can send a counter notification. If you do not tell Pinterest you filed a court or Copyright Claims Board action, the content is reinstated, which can take up to 14 business days. Pinterest does not know who owns a Pin and will not share copyright owners' details.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Send us the Pin link and your original. We prepare the report, ask for all Pins with the image and track the result.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Do I have to report every Pin?",
+        "a": "Pinterest removes identical copies when you ask for all Pins with the image, but edited versions need separate links."
+      },
+      {
+        "q": "What if the source website is the real thief?",
+        "a": "Report the website to its host and to Google too. Removing Pins does not remove the page they point to."
+      },
+      {
+        "q": "Is saving someone's image to a board always theft?",
+        "a": "Not always: people pin their own and other people's work all the time. It is a copyright problem when you did not allow it and a commercial use or a store is involved."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Pinterest Help: copyright",
+        "url": "https://help.pinterest.com/en/article/copyright"
+      },
+      {
+        "label": "Pinterest copyright policy",
+        "url": "https://policy.pinterest.com/copyright"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "how-to-find-stolen-photos",
+      "what-to-do-if-someone-steals-your-artwork",
+      "dmca-takedown-notice-template"
+    ],
+    "cta": {
+      "h": "Skip the form",
+      "p": "Send us the Pin link and your original. We prepare the report and track it.",
+      "label": "Report the copy free"
+    }
+  },
+  {
+    "slug": "fake-account-using-my-name",
+    "kind": "answer",
+    "q": "Fake account using my name: how to report impersonation on TikTok, Facebook and X",
+    "title": "Fake account using my name: how to report impersonation on TikTok, Facebook and X",
+    "description": "When a profile uses your name or brand to sell, scam or confuse your followers: where to report on TikTok, Facebook and X, and what proof to bring.",
+    "short": "Impersonation reports are different from copyright reports: you prove the account pretends to be you or your brand. Report from the profile itself on TikTok, Facebook and X, bring your official links and screenshots, and warn your followers. Keep copyright for the photos and videos the fake copied.",
+    "sections": [
+      {
+        "h": "Name and brand impersonation versus a copied profile",
+        "html": "<p>Our page on <a href=\"/answers/someone-made-a-fake-account-of-me/\">a fake account of you</a> walks through a cloned profile with your photos. This page covers the case where the name, handle or brand is the problem: a lookalike handle selling something, an account DMing your followers or a page that claims to be your shop.</p>"
+      },
+      {
+        "h": "What to bring to every report",
+        "html": "<ul><li>The profile link, the handle and screenshots of the name, bio and posts</li><li>Examples of it contacting or selling to people, if you have them</li><li>Your official profile links, and a government ID where a form asks for one</li><li>For a brand: a trademark registration, if you have one, speeds up some brand forms</li></ul>"
+      },
+      {
+        "h": "TikTok",
+        "html": "<p>TikTok's Help Center has a page for reporting an impersonation account, and the in-app report on the profile offers a pretending-to-be-someone reason where you say it is you. Menu labels change, so search the Help Center for impersonation if yours differ. Fake profiles doing real damage may need an online form that asks for proof of identity.</p>"
+      },
+      {
+        "h": "Facebook",
+        "html": "<p>Open the profile or Page, use the menu, choose Report and pick impersonation, saying it is you. Facebook also has a Report an Imposter Account form in the Help Center that works without an account. Track what you reported in your Support Inbox under Reports About Others. Brand cases can use Meta's trademark form and need the registration details.</p>"
+      },
+      {
+        "h": "X",
+        "html": "<p>Report the account from its profile menu and choose the impersonation option, and see X's Help Center for the current impersonation policy. If the fake copied your photos or videos, file a copyright complaint as well, since that route is separate and often faster.</p>"
+      },
+      {
+        "h": "Tell your followers",
+        "html": "<p>Post one clear line from your real account with the real link, pin it and ask people to report the fake. Do not engage with the fake account.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Send us the fake profile link. We prepare the impersonation report for the platform and, if it copied your photos or videos, the copyright notice too. On Pro, Emera checks for accounts using your name or face.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Is a lookalike handle always impersonation?",
+        "a": "No. Platforms look at whether the account is trying to be taken for you or confuse people, such as the same photo, a scam or selling as you. A fan account that says it is a fan is different."
+      },
+      {
+        "q": "Can I get the handle for myself?",
+        "a": "Platforms handle handle transfers differently. Trademark holders have an easier path, and most do not hand a handle over because of a report alone."
+      },
+      {
+        "q": "What if the fake messages my followers?",
+        "a": "Tell your followers on your real account, and ask them to report the DMs. Never send money back to a fake account."
+      }
+    ],
+    "sources": [
+      {
+        "label": "TikTok Help Center: report an impersonation account",
+        "url": "https://support.tiktok.com/en/safety-hc/account-and-user-safety/account-security"
+      },
+      {
+        "label": "Facebook Help Center",
+        "url": "https://www.facebook.com/help/"
+      },
+      {
+        "label": "X Help Center: impersonation policy",
+        "url": "https://help.x.com/en/rules-and-policies/x-impersonation-policy"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "someone-made-a-fake-account-of-me",
+      "someone-is-using-my-photos-on-instagram",
+      "how-to-find-stolen-photos"
+    ],
+    "cta": {
+      "h": "Skip the form",
+      "p": "Send us the fake profile. We prepare the reports and track each one.",
+      "label": "Report the fake free"
+    }
+  },
+  {
+    "slug": "my-art-was-stolen-by-ai",
+    "kind": "answer",
+    "q": "My art was stolen by AI: what actually works",
+    "title": "My art was stolen by AI: what actually works",
+    "description": "AI copies of an artist's style, AI resellers and training on your work: what takedowns can reach, what Glaze does and does not do, and the honest limits.",
+    "short": "You can act on an AI output that copies a specific work of yours, a store selling it and a platform hosting it. You usually cannot stop training that already happened. Takedowns of the copies work best, Glaze and similar tools make future training harder, and the law on training is still being decided.",
+    "sections": [
+      {
+        "h": "Three different problems",
+        "html": "<ul><li>An AI output that copies one of your pieces closely or sells it: a copy of a work, so a takedown can apply</li><li>Someone using AI to make work in your style: usually not copyright infringement by itself, since a style is not owned</li><li>Your work used to train a model: the legal question, still open</li></ul>"
+      },
+      {
+        "h": "What takedowns can reach",
+        "html": "<p>If an AI image looks like your piece, or a store sells an AI print of it, file a notice to the platform or store as you would any copy. Follow <a href=\"/answers/what-to-do-if-someone-steals-your-artwork/\">what to do if someone steals your artwork</a>. For listings, see the store pages for <a href=\"/answers/someone-selling-my-designs-on-etsy/\">Etsy</a>, <a href=\"/answers/someone-selling-my-designs-on-redbubble/\">Redbubble</a> and <a href=\"/answers/someone-selling-my-designs-on-amazon/\">Amazon</a>. Keep a side by side of your piece and the output with dates.</p>"
+      },
+      {
+        "h": "What the law says about training",
+        "html": "<p>The U.S. Copyright Office published a pre-publication report on generative AI training in May 2025. It says fair use is fact-specific: some training uses qualify and others do not, and it names lost sales, lost licensing and market dilution as kinds of harm. It is a report, not a ruling, and the final version and the court cases may change the picture. Registering your work matters here too (<a href=\"/answers/how-to-register-copyright-us/\">how to register copyright</a>).</p>"
+      },
+      {
+        "h": "Tools that make training harder",
+        "html": "<p>Glaze, from the University of Chicago, adds small changes to an image so a model trained on it learns a distorted version of your style. Its makers say it is not a permanent solution, it is not a cure-all and the changes show more on flat colors and smooth backgrounds. It only helps for work you post after cloaking it, not for what a model already saw. Some platforms also offer settings to opt out of AI training. We could not confirm a single universal setting, so check each platform's current settings page.</p>"
+      },
+      {
+        "h": "What we would not promise",
+        "html": "<p>No tool undoes training, and nobody can promise an AI company will delete what it learned. Spend effort where there is a copy to act on: the outputs, the listings and the accounts that sell them.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Send us the link to an AI output or listing that copies your work, with your original. We prepare the takedown and track it. Emera Protect can also find more copies of what you report on the open web.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can I sue an AI company for training on my art?",
+        "a": "Court cases are underway and the answers are not settled. A lawyer who knows your country can say whether a claim fits your facts."
+      },
+      {
+        "q": "Is my style protected by copyright?",
+        "a": "A style on its own is not. A specific piece, or a close copy of it, is."
+      },
+      {
+        "q": "Does Glaze stop all copying?",
+        "a": "No. Its makers describe it as a first step, not a permanent fix."
+      },
+      {
+        "q": "Should I stop posting online?",
+        "a": "That is your call. Cloaking, watermarking, registering and keeping originals dated lower the cost of acting later."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Glaze: what is Glaze",
+        "url": "https://glaze.cs.uchicago.edu/whatis.html"
+      },
+      {
+        "label": "U.S. Copyright Office: Copyright and AI, Part 3 (generative AI training), pre-publication",
+        "url": "https://www.copyright.gov/ai/Copyright-and-Artificial-Intelligence-Part-3-Generative-AI-Training-Report-Pre-Publication-Version.pdf"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "what-to-do-if-someone-steals-your-artwork",
+      "how-to-prevent-people-from-stealing-your-art-online",
+      "how-to-register-copyright-us"
+    ],
+    "cta": {
+      "h": "Skip the form",
+      "p": "Send us an AI copy or a listing selling your work. We prepare the takedown and track it.",
+      "label": "Report a copy free"
+    }
+  },
+  {
+    "slug": "someone-selling-my-designs-on-etsy",
+    "kind": "answer",
+    "q": "Someone is selling my designs on Etsy: how to report it",
+    "title": "Someone is selling my designs on Etsy: how to report it",
+    "description": "Your art or design is on an Etsy listing without your permission: Etsy's reporting portal, what you need, and what happens to the shop.",
+    "short": "Etsy takes reports from the IP owner or an authorized agent through its Reporting Portal at etsy.com/ipreporting, not a simple listing form. You register, add your work, then add the listings. Reports about shop names, usernames and some videos go to legal@etsy.com. Etsy can remove the listing and contact the seller.",
+    "sections": [
+      {
+        "h": "Before you report",
+        "html": "<ul><li>The URLs or listing IDs of every listing with your work</li><li>Your original with its date, and a registration if you have one</li><li>A letter of authorization if you act for the owner, since Etsy may ask for it</li></ul>"
+      },
+      {
+        "h": "File the report",
+        "html": "<ol><li>Open <a href=\"https://www.etsy.com/ipreporting\">Etsy's Reporting Portal</a> and register.</li><li>Add your intellectual property: the work you own.</li><li>Create a report and search Etsy for listings to add, or paste listing IDs or URLs in bulk.</li><li>Submit it and answer any follow-up. Etsy may ask for identity verification or documents.</li></ol><p>See Etsy's own <a href=\"https://help.etsy.com/hc/en-us/articles/360000344448-How-to-Report-Intellectual-Property-Infringement\">report guide</a> for the current steps.</p>"
+      },
+      {
+        "h": "After you report",
+        "html": "<p>Etsy says that if the report complies with its policy it removes the reported content and contacts the affected members. Etsy warns that false or abusive reports can lead to account termination or other legal consequences, so only report what you own.</p><p>A copyright notice under <a href=\"https://www.law.cornell.edu/uscode/text/17/512\">17 U.S.C. 512(c)(3)</a> needs a signature, the work you own, the material to remove with enough detail to find it, your contact details, a good-faith statement that the use is not authorized and a statement, under penalty of perjury, that your information is accurate and you own the work or act for the owner. Knowingly lying in a notice can make you liable for damages (section 512(f)). The <a href=\"/answers/dmca-takedown-notice-template/\">template</a> has all six.</p>"
+      },
+      {
+        "h": "Selling is a money case",
+        "html": "<p>A seller who made money from your design owes more than a removal. A claim letter, and for a registered work <a href=\"/answers/statutory-damages-for-copyright-infringement/\">statutory damages</a>, are the next step if the seller will not pay.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Send us the Etsy listing links and your original. We prepare the report for you and track each listing to a Removed receipt. If the seller earned money from it, Get paid sends a claim letter and you keep 70% of what is recovered.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can I report a whole shop?",
+        "a": "Report the listings that copy your work. Shop names and usernames go by email to legal@etsy.com."
+      },
+      {
+        "q": "What if they remade my design a little?",
+        "a": "Etsy decides on the report you give it. A close copy still counts as a copy of your work, so show the side by side."
+      },
+      {
+        "q": "Is it expensive?",
+        "a": "The portal is free to use. A lawyer is optional."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Etsy: Intellectual property infringement report",
+        "url": "https://www.etsy.com/legal/ip/report"
+      },
+      {
+        "label": "Etsy Help: report IP infringement",
+        "url": "https://help.etsy.com/hc/en-us/articles/360000344448-How-to-Report-Intellectual-Property-Infringement"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "what-to-do-if-someone-steals-your-artwork",
+      "someone-selling-my-designs-on-redbubble",
+      "print-on-demand-t-shirt-site-selling-my-design"
+    ],
+    "cta": {
+      "h": "Skip the form",
+      "p": "Send us the Etsy listing and your original. We prepare the report and track it.",
+      "label": "Report the copy free"
+    }
+  },
+  {
+    "slug": "someone-selling-my-designs-on-redbubble",
+    "kind": "answer",
+    "q": "Someone is selling my art on Redbubble: how to report it",
+    "title": "Someone is selling my art on Redbubble: how to report it",
+    "description": "Your art is on Redbubble products you did not make: how to file the notice, what to include and what happens to the seller.",
+    "short": "Redbubble handles copyright claims through a DMCA notice and takedown process. Only the rights holder or someone acting for them can file. Redbubble's help center lists a notice form, and a notice should include the listing URLs, a description of your work, ownership details, your signature and the legal statements.",
+    "sections": [
+      {
+        "h": "Gather the evidence",
+        "html": "<ul><li>The URL of each listing and the artist's shop page</li><li>Your original, its title and where it was first published</li><li>A copyright registration, if you have one</li><li>Proof you act for the owner, if you file for someone else</li></ul>"
+      },
+      {
+        "h": "File the notice",
+        "html": "<p>Use the notice and takedown form on <a href=\"https://help.redbubble.com/hc/en-us/articles/360052266331\">Redbubble's help page on infringement</a>, or send a complete notice to the DMCA address it lists. Confirm both on that page. Include every listing URL in one notice if several copy your work.</p><p>A copyright notice under <a href=\"https://www.law.cornell.edu/uscode/text/17/512\">17 U.S.C. 512(c)(3)</a> needs a signature, the work you own, the material to remove with enough detail to find it, your contact details, a good-faith statement that the use is not authorized and a statement, under penalty of perjury, that your information is accurate and you own the work or act for the owner. Knowingly lying in a notice can make you liable for damages (section 512(f)). The <a href=\"/answers/dmca-takedown-notice-template/\">template</a> has all six.</p>"
+      },
+      {
+        "h": "After you file",
+        "html": "<p>Redbubble reviews the notice and may remove the listings. The seller can send a counter notice, which Redbubble's counter notice FAQ describes. Third-party guides quote a reply within 48 hours; we could not confirm that on Redbubble's own page, so do not count on a speed.</p>"
+      },
+      {
+        "h": "Also check the other print shops",
+        "html": "<p>A design copied to Redbubble is usually on other print-on-demand sites too. See <a href=\"/answers/print-on-demand-t-shirt-site-selling-my-design/\">print-on-demand sites selling your design</a>.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Send us the Redbubble listing links and your original. We prepare the notice, you confirm it and we track it. If the seller earned money from your art, Get paid sends a claim letter and you keep 70% of what is recovered.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can the seller say they made it themselves?",
+        "a": "They can send a counter notice. A dated original and a side by side are what decide it."
+      },
+      {
+        "q": "What if they traced my art?",
+        "a": "A close trace is still a copy of the original, so report it."
+      },
+      {
+        "q": "Do I need a registration?",
+        "a": "No, to file a notice. A US registration matters when you want to sue for money."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Redbubble Help: what if a user is infringing my rights",
+        "url": "https://help.redbubble.com/hc/en-us/articles/360052266331"
+      },
+      {
+        "label": "Redbubble Help: counter notice FAQ",
+        "url": "https://help.redbubble.com/hc/en-us/articles/20181954084500-Counter-Notice-FAQ"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "what-to-do-if-someone-steals-your-artwork",
+      "someone-selling-my-designs-on-etsy",
+      "print-on-demand-t-shirt-site-selling-my-design"
+    ],
+    "cta": {
+      "h": "Skip the form",
+      "p": "Send us the Redbubble link and your original. We prepare the notice and track it.",
+      "label": "Report the copy free"
+    }
+  },
+  {
+    "slug": "someone-selling-my-designs-on-amazon",
+    "kind": "answer",
+    "q": "Someone is selling my design on Amazon: how to report copyright infringement",
+    "title": "Someone is selling my design on Amazon: how to report copyright infringement",
+    "description": "Your design is on an Amazon listing or an Amazon Merch shirt you did not make: the Report Infringement form, Brand Registry and what you need.",
+    "short": "A rights owner without a Brand Registry brand can use Amazon's Report Infringement form. File copyright and trademark in separate reports, and give the listing's ASIN and a link to your original. Brand Registry's Report a Violation tool is the faster route but needs a registered trademark.",
+    "sections": [
+      {
+        "h": "What you need",
+        "html": "<ul><li>The ASIN or listing URL of each product that carries your design</li><li>A link to your original work with its date</li><li>Proof you own the work, or are authorized to act for the owner</li></ul>"
+      },
+      {
+        "h": "Choose the route",
+        "html": "<ul><li><strong>Report Infringement form</strong>: for rights owners not enrolled in Brand Registry. Start at <a href=\"https://www.amazon.com/report/infringement\">Amazon's report page</a>, say whom you file for and choose copyright as the type.</li><li><strong>Brand Registry</strong>: faster and stronger tools, but it needs a registered trademark, so it fits shops and brands more than a single design.</li></ul>"
+      },
+      {
+        "h": "Amazon Merch listings",
+        "html": "<p>Merch on Demand shirts are listed under the seller's name like any other product. File against the listing with the same form. We did not find a separate Merch-only route in Amazon's own pages, so confirm on the form whether it offers one.</p>"
+      },
+      {
+        "h": "After you file",
+        "html": "<p>Amazon reviews the report and can remove the listing. A third-party guide puts processing at 1 to 3 days, which is an estimate, not a promise. Keep copyright and trademark claims in separate reports. Amazon does not allow them to be combined.</p><p>A copyright notice under <a href=\"https://www.law.cornell.edu/uscode/text/17/512\">17 U.S.C. 512(c)(3)</a> needs a signature, the work you own, the material to remove with enough detail to find it, your contact details, a good-faith statement that the use is not authorized and a statement, under penalty of perjury, that your information is accurate and you own the work or act for the owner. Knowingly lying in a notice can make you liable for damages (section 512(f)). The <a href=\"/answers/dmca-takedown-notice-template/\">template</a> has all six.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Send us the Amazon listing link and your original. We prepare the report, you confirm it and we track it. If the seller earned money from your design, Get paid sends a claim letter and you keep 70% of what is recovered.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Do I need a trademark?",
+        "a": "Not for a copyright report through the Report Infringement form. Brand Registry does need one."
+      },
+      {
+        "q": "What if I sell the same design on Amazon myself?",
+        "a": "Brand your listing, keep dated originals and report the copy. Amazon decides on the evidence you give it."
+      },
+      {
+        "q": "Will Amazon tell the seller who reported?",
+        "a": "Check the form's wording before you submit."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Amazon Seller blog: how to report an IP violation",
+        "url": "https://sell.amazon.com/blog/report-a-violation-to-amazon"
+      },
+      {
+        "label": "Amazon Report Infringement",
+        "url": "https://www.amazon.com/report/infringement"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "what-to-do-if-someone-steals-your-artwork",
+      "print-on-demand-t-shirt-site-selling-my-design",
+      "how-to-register-copyright-us"
+    ],
+    "cta": {
+      "h": "Skip the form",
+      "p": "Send us the Amazon listing and your original. We prepare the report and track it.",
+      "label": "Report the copy free"
+    }
+  },
+  {
+    "slug": "someone-selling-my-designs-on-temu-or-shein",
+    "kind": "answer",
+    "q": "Someone is selling my design on Temu or Shein: how to report it",
+    "title": "Someone is selling my design on Temu or Shein: how to report it",
+    "description": "Your design appears on a Temu or Shein product: each site's IP portal, what a copyright notice needs and the one catch about which country's rights count.",
+    "short": "Both Temu and Shein take reports from the rights owner or an authorized agent through their own IP portals, not the Report This Item button. Temu prefers its IP Portal for DMCA notices. Shein's portal needs an account first, and the right you rely on must be in force in the country where the infringement is reported.",
+    "sections": [
+      {
+        "h": "Temu",
+        "html": "<p>Use Temu's IP Portal. Its <a href=\"https://www.temu.com/intellectual-property-policy.html\">intellectual property policy</a> says a notice must identify each copyrighted work, include a good-faith statement and an accuracy statement under penalty of perjury. If it accepts a notice, Temu removes the content, takes action against those responsible and tells both the reporter and the seller. You can withdraw a report through the portal. Anyone can flag a product with Report This Item, but that is not a rights-owner notice.</p>"
+      },
+      {
+        "h": "Shein",
+        "html": "<p>Use the Intellectual Property Notice Portal described on <a href=\"https://m.shein.com/copyright-noticeam-a-379.html\">Shein's IP notice page</a>. You create an account there, declare that you are the rights holder or its representative and add proof of ownership and of the infringement. You can track reports in the portal. Shein may ask for more documents.</p>"
+      },
+      {
+        "h": "The country catch",
+        "html": "<p>Shein says the right you rely on must be in force in the country where the infringement is reported. So check that your copyright or trademark applies in the market where the product sells, and ask a lawyer if it is a different country from yours.</p>"
+      },
+      {
+        "h": "Expect more than one copy",
+        "html": "<p>Items on these sites are often listed by many sellers using the same stolen image. Report each listing, and keep the images with their dates.</p><p>A copyright notice under <a href=\"https://www.law.cornell.edu/uscode/text/17/512\">17 U.S.C. 512(c)(3)</a> needs a signature, the work you own, the material to remove with enough detail to find it, your contact details, a good-faith statement that the use is not authorized and a statement, under penalty of perjury, that your information is accurate and you own the work or act for the owner. Knowingly lying in a notice can make you liable for damages (section 512(f)). The <a href=\"/answers/dmca-takedown-notice-template/\">template</a> has all six.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Send us the product links and your original. We prepare the notice for each portal and track each listing to a Removed receipt.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Why did my report on the product page do nothing?",
+        "a": "The product button flags a concern. A rights-owner notice goes through the IP portal."
+      },
+      {
+        "q": "Can I report if I am not the artist but the licensee?",
+        "a": "Only if the license lets you enforce it, or the artist authorizes you in writing."
+      },
+      {
+        "q": "Will they pay me?",
+        "a": "Takedown notices do not pay anything. A claim letter or a lawsuit is a separate step."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Temu intellectual property policy",
+        "url": "https://www.temu.com/intellectual-property-policy.html"
+      },
+      {
+        "label": "Shein intellectual property notice",
+        "url": "https://m.shein.com/copyright-noticeam-a-379.html"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "what-to-do-if-someone-steals-your-artwork",
+      "print-on-demand-t-shirt-site-selling-my-design",
+      "how-to-find-stolen-photos"
+    ],
+    "cta": {
+      "h": "Skip the form",
+      "p": "Send us the Temu or Shein link and your original. We prepare the notice and track it.",
+      "label": "Report the copy free"
+    }
+  },
+  {
+    "slug": "print-on-demand-t-shirt-site-selling-my-design",
+    "kind": "answer",
+    "q": "A print-on-demand site is selling my design on T-shirts: what to do",
+    "title": "A print-on-demand site is selling my design on T-shirts: what to do",
+    "description": "A T-shirt or mug site is selling your design: find every shop, send a copyright notice to the site's host and the print provider, and plan the money claim.",
+    "short": "Print-on-demand sites run on user uploads, so a stolen design usually appears on many shops at once. Report each listing to the site through its copyright process, find the print provider behind it and ask the web host or payment provider too if the site ignores you. Every legal site has a designated agent for these notices.",
+    "sections": [
+      {
+        "h": "Find every copy",
+        "html": "<ul><li>Search your design with a reverse image search and by your signature or title</li><li>Search the main marketplaces: Etsy, Redbubble, Amazon, Temu and Shein have their own pages in this series</li><li>Smaller T-shirt and mug sites: check the footer for a copyright or DMCA link</li></ul>"
+      },
+      {
+        "h": "Who to send the notice to",
+        "html": "<ul><li>The shop or marketplace that lists the product</li><li>The print provider that makes it, since its terms bar infringing designs</li><li>The web host, if the site is its own store</li><li>The payment processor, in a clear case of repeated selling</li></ul>"
+      },
+      {
+        "h": "Finding the right inbox",
+        "html": "<p>In the US, a service provider that wants safe harbor registers a designated agent with the Copyright Office, and the directory is public. Search the site's name in the <a href=\"https://www.copyright.gov/dmca-directory/\">DMCA designated agent directory</a>. The footer of most shops names an address too.</p><p>A copyright notice under <a href=\"https://www.law.cornell.edu/uscode/text/17/512\">17 U.S.C. 512(c)(3)</a> needs a signature, the work you own, the material to remove with enough detail to find it, your contact details, a good-faith statement that the use is not authorized and a statement, under penalty of perjury, that your information is accurate and you own the work or act for the owner. Knowingly lying in a notice can make you liable for damages (section 512(f)). The <a href=\"/answers/dmca-takedown-notice-template/\">template</a> has all six.</p>"
+      },
+      {
+        "h": "Then the money",
+        "html": "<p>Sellers who sold shirts with your design earned from it. See <a href=\"/answers/how-much-can-you-sue-for-copyright-infringement/\">how much you can sue for</a> and <a href=\"/answers/copyright-small-claims-court/\">copyright small claims</a>. A registration before the copying began raises what a court can award.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Send us each listing link and your original. We prepare a notice for each site and track every one. Get paid sends a claim letter where the seller earned money, and you keep 70% of what is recovered.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "What if the site is overseas?",
+        "a": "Many sites follow the US process to stay in the market. If not, the host and payment provider are other routes."
+      },
+      {
+        "q": "Do I report the shop or the product?",
+        "a": "Report each product link. Say in the notice that the shop sells many copies if you found them."
+      },
+      {
+        "q": "Will taking one down stop the rest?",
+        "a": "Often not. Copy sellers reupload. Keep a log of accounts and dates."
+      }
+    ],
+    "sources": [
+      {
+        "label": "U.S. Copyright Office: DMCA designated agent directory",
+        "url": "https://www.copyright.gov/dmca-directory/"
+      },
+      {
+        "label": "U.S. Copyright Office: Title 17, chapter 5",
+        "url": "https://www.copyright.gov/title17/92chap5.html"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "someone-selling-my-designs-on-etsy",
+      "someone-selling-my-designs-on-redbubble",
+      "someone-selling-my-designs-on-amazon"
+    ],
+    "cta": {
+      "h": "Skip the form",
+      "p": "Send us the listings and your original. We prepare each notice and track it.",
+      "label": "Report the listings free"
+    }
+  },
+  {
+    "slug": "copyright-claim-on-instagram",
+    "kind": "answer",
+    "q": "Copyright claim on Instagram: file one, or answer one you received",
+    "title": "Copyright claim on Instagram: file one, or answer one you received",
+    "description": "Two sides of an Instagram copyright claim: how to file one on a post that copies you, and what to do when someone filed one against you.",
+    "short": "To file: use Instagram's copyright report form as the owner or an authorized agent. To answer one: follow the appeal or counter-notification link in the message Instagram sent you, and only use it if you believe the removal was a mistake. A counter-notification is a formal legal step, not a second request.",
+    "sections": [
+      {
+        "h": "If you want to file a claim",
+        "html": "<p>Use the <a href=\"https://help.instagram.com/contact/552695131608132\">Instagram Copyright Report Form</a> with the link to the post, a description of your original and your signature. The full steps are in <a href=\"/answers/how-to-file-a-dmca-takedown-on-instagram/\">how to file a DMCA takedown on Instagram</a>.</p>"
+      },
+      {
+        "h": "If you got a copyright claim",
+        "html": "<ol><li>Read the message. It says what was removed and what you can do.</li><li>Use the link in that message for the appeal or counter-notification. Instagram says the form must be reached from the link sent to your account, or it cannot process it. The <a href=\"https://help.instagram.com/contact/3504278336481044\">U.S. copyright appeal form</a> is where that link leads.</li><li>Counter-notify only if you believe the removal was a mistake or misidentification, for example the music or video is yours or licensed. It is a legal statement under penalty of perjury.</li></ol>"
+      },
+      {
+        "h": "What happens after a counter-notification",
+        "html": "<p>Instagram forwards a valid counter-notification to the person who reported, and your contact details go with it. If they do not file a court action, the content can be restored. Content restored this way is not counted against you if your account is reviewed for repeat infringement.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Filing is the same as any copy: send Emera the link and your original and we prepare the notice. For a claim against you, we cannot respond for you, so talk to a lawyer if the stakes are high.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Is a copyright claim the same as a strike?",
+        "a": "A removal after a claim counts toward Instagram's repeat infringer policy. A successful appeal means it is not counted."
+      },
+      {
+        "q": "What if the claim is about a song?",
+        "a": "Check whether the song was licensed in Instagram's music library. A different rule applies to music you add from outside the app."
+      },
+      {
+        "q": "Can someone falsely claim my work?",
+        "a": "Yes. A knowingly false notice can make the sender liable (section 512(f)). Counter-notify if you have the rights."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Instagram U.S. Copyright Appeal Form",
+        "url": "https://help.instagram.com/contact/3504278336481044"
+      },
+      {
+        "label": "Instagram Copyright Report Form",
+        "url": "https://help.instagram.com/contact/552695131608132"
+      },
+      {
+        "label": "Meta: how we protect IP rights",
+        "url": "https://transparency.meta.com/data/intellectual-property/protecting-intellectual-property-rights/"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "how-to-file-a-dmca-takedown-on-instagram",
+      "someone-reposted-my-reel-on-instagram",
+      "dmca-takedown-notice-template"
+    ],
+    "cta": {
+      "h": "Skip the form",
+      "p": "Send us the Instagram link and your original. We prepare the claim and track it.",
+      "label": "Report the copy free"
+    }
+  },
+  {
+    "slug": "copyright-claim-on-tiktok",
+    "kind": "answer",
+    "q": "Copyright claim on TikTok: file one, or answer one you received",
+    "title": "Copyright claim on TikTok: file one, or answer one you received",
+    "description": "How to file a copyright claim on TikTok against a copy, and what to do when a claim removed your own video: the counter-notification step.",
+    "short": "To file: use TikTok's copyright report form as the owner or an authorized agent. To answer one: use TikTok's counter notification form only if you believe the claim was a mistake. TikTok's policy warns that missing information can lead to a counter-notification being denied and that false reports can create liability.",
+    "sections": [
+      {
+        "h": "If you want to file a claim",
+        "html": "<p>Use <a href=\"https://www.tiktok.com/legal/report/Copyright\">TikTok's copyright report form</a> and paste the link to each copy. The steps are in <a href=\"/answers/how-to-file-a-dmca-takedown-on-tiktok/\">how to file a DMCA takedown on TikTok</a>, and for reposts see <a href=\"/answers/someone-reposted-my-video-on-tiktok/\">someone reposted my video on TikTok</a>.</p>"
+      },
+      {
+        "h": "If you got a copyright claim",
+        "html": "<ol><li>Open the notice in your TikTok inbox to see which video and which claim.</li><li>Check if the claim is right: did you use someone's song, clip or image without a license?</li><li>If you believe it is a mistake, use TikTok's counter notification form and fill it in completely.</li></ol><p>A counter-notification is a legal statement. Guides say TikTok can restore the video if the claimant does not take court action within about 10 business days, and that your contact details are passed to the claimant. We could not confirm those figures on TikTok's own current page, so read the form before you send it.</p>"
+      },
+      {
+        "h": "Strikes",
+        "html": "<p>TikTok has a repeat infringer policy and accounts that keep infringing can be banned. TikTok does not publish how many strikes lead to a ban.</p><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "How Emera handles this",
+        "html": "<p>Filing is the same as any copy: send Emera the TikTok link and your original. For a claim against you, ask a lawyer if the account or money is at stake.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can I use trending sounds without a claim?",
+        "a": "Sounds from TikTok's library are licensed for use inside the app within its terms. Audio you upload from outside is a different case."
+      },
+      {
+        "q": "Does deleting the video clear the claim?",
+        "a": "Check the notice. Deleting the video yourself does not necessarily cancel a strike."
+      },
+      {
+        "q": "Can someone file a claim to harm me?",
+        "a": "A knowingly false notice is a legal risk for the sender (section 512(f))."
+      }
+    ],
+    "sources": [
+      {
+        "label": "TikTok copyright report form",
+        "url": "https://www.tiktok.com/legal/report/Copyright"
+      },
+      {
+        "label": "TikTok copyright policy (archived 2020 copy)",
+        "url": "https://webarchive.library.unt.edu/web/20201218135412/https://www.tiktok.com/legal/copyright-policy?lang=en"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "how-to-file-a-dmca-takedown-on-tiktok",
+      "someone-reposted-my-video-on-tiktok",
+      "song-used-without-permission"
+    ],
+    "cta": {
+      "h": "Skip the form",
+      "p": "Send us the TikTok link and your original. We prepare the claim and track it.",
+      "label": "Report the copy free"
+    }
+  },
+  {
+    "slug": "content-protection-for-video-creators",
+    "kind": "answer",
+    "q": "Content protection for video creators",
+    "title": "Content protection for video creators",
+    "description": "Where reposts of videos show up, how to save the proof and how to take them down on TikTok, Instagram, YouTube and the open web.",
+    "short": "Video gets re-uploaded whole, cropped, mirrored and inside compilations. Keep your project file and first-post date, report each copy through the platform's copyright form and ask for payment when a business used it. Emera Protect files the takedowns and tracks them.",
+    "sections": [
+      {
+        "h": "Where video creators work gets taken",
+        "html": "<ul><li>Reposts on TikTok, Instagram Reels, YouTube Shorts and Facebook, often with a crop or a mirror</li><li>Compilation channels that stitch your clip into theirs</li><li>AI reedits and dubbed copies that keep your footage</li><li>Ads that use your clip to sell a product</li></ul>"
+      },
+      {
+        "h": "What to do when you find a copy",
+        "html": "<ol><li>Save the link, a screenshot or screen recording and the date</li><li>Keep your original with its date: the file, the project folder, the first post</li><li>Report it to the platform with its copyright form (<a href=\"/answers/dmca-takedown-notice-template/\">template</a>)</li><li>Check the same clip on the other platforms: reposters post to several</li><li>If the copier earned money, ask to be paid</li></ol><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "Protect it before it gets taken",
+        "html": "<ul><li>Post the original first on a channel you control, with the date visible</li><li>Keep the project file and raw takes</li><li>Register the best work (<a href=\"/answers/how-to-register-copyright-us/\">US registration</a>) before copies appear</li></ul>"
+      },
+      {
+        "h": "What Emera Protect does",
+        "html": "<p>Report any copy free and we file the takedown and track it to a Removed receipt. The Creator plan is $10 a month and watches up to 100 posts weekly; Pro is $100 a month with unlimited posts checked daily, fake accounts using your name or face and automatic filing. Get paid sends a claim letter and partner US copyright lawyers sue if the copier does not pay: no win, no fee, and you keep 70%. Checks cover the open web and what you report.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Do cropped or mirrored copies count?",
+        "a": "They are still your footage. Say so in the notice and show both."
+      },
+      {
+        "q": "What about a duet or stitch?",
+        "a": "If you allowed it in the platform's settings, it is not a clean takedown. Turn the setting off for the future."
+      }
+    ],
+    "sources": [
+      {
+        "label": "U.S. Copyright Office: Title 17, chapter 5",
+        "url": "https://www.copyright.gov/title17/92chap5.html"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "someone-stole-my-video",
+      "someone-reposted-my-reel-on-instagram",
+      "someone-reposted-my-video-on-tiktok"
+    ],
+    "cta": {
+      "h": "Protect what you make",
+      "p": "Send us one copy of your video you found. We file the takedown for free and show every step.",
+      "label": "Start a free report"
+    }
+  },
+  {
+    "slug": "content-protection-for-illustrators-and-artists",
+    "kind": "answer",
+    "q": "Content protection for illustrators and artists",
+    "title": "Content protection for illustrators and artists",
+    "description": "Where art gets copied: print-on-demand shops, AI outputs, reposts without credit. What to do and what Emera Protect does.",
+    "short": "Art gets copied onto shirts, into AI outputs and onto reposts with the credit cropped out. Report listings through the store's notice process, report reposts through the platform and keep dated originals. Registering your work raises what a court can award.",
+    "sections": [
+      {
+        "h": "Where illustrators and artists work gets taken",
+        "html": "<ul><li>Print-on-demand listings on Etsy, Redbubble, Amazon, Temu and Shein</li><li>Reposts with your signature cropped out</li><li>AI outputs that copy a specific piece</li><li>Pins, reblogs and aggregator pages</li></ul>"
+      },
+      {
+        "h": "What to do when you find a copy",
+        "html": "<ol><li>Save the link, a screenshot or screen recording and the date</li><li>Keep your original with its date: the file, the project folder, the first post</li><li>Report it to the platform with its copyright form (<a href=\"/answers/dmca-takedown-notice-template/\">template</a>)</li><li>Check the stores: a repost is often also a shirt</li><li>If the copier earned money, ask to be paid</li></ol><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "Protect it before it gets taken",
+        "html": "<ul><li>Keep layered files with dates, they prove you made it</li><li>Sign the image where a crop cannot remove it</li><li>Think about <a href=\"/answers/my-art-was-stolen-by-ai/\">Glaze for work you post online</a> and register the best pieces</li></ul>"
+      },
+      {
+        "h": "What Emera Protect does",
+        "html": "<p>Report any copy free and we file the takedown and track it to a Removed receipt. The Creator plan is $10 a month and watches up to 100 posts weekly; Pro is $100 a month with unlimited posts checked daily, fake accounts using your name or face and automatic filing. Get paid sends a claim letter and partner US copyright lawyers sue if the copier does not pay: no win, no fee, and you keep 70%. Checks cover the open web and what you report.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Is a style protected?",
+        "a": "A style on its own is not. A specific piece, or a close copy of it, is."
+      },
+      {
+        "q": "What if they changed it a little?",
+        "a": "A close copy of your work can still be infringement. Show the side by side."
+      }
+    ],
+    "sources": [
+      {
+        "label": "U.S. Copyright Office: Title 17, chapter 5",
+        "url": "https://www.copyright.gov/title17/92chap5.html"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "what-to-do-if-someone-steals-your-artwork",
+      "my-art-was-stolen-by-ai",
+      "someone-selling-my-designs-on-etsy"
+    ],
+    "cta": {
+      "h": "Protect what you make",
+      "p": "Send us one copy of your artwork you found. We file the takedown for free and show every step.",
+      "label": "Start a free report"
+    }
+  },
+  {
+    "slug": "content-protection-for-photographers",
+    "kind": "answer",
+    "q": "Content protection for photographers",
+    "title": "Content protection for photographers",
+    "description": "Where photos get used without a license: sites, stores, social posts, AI. What to do, and how a license fee claim works.",
+    "short": "Photos get used by blogs, businesses and stores with no license. Find uses with a reverse image search, ask the site to remove it or pay, and send a copyright notice to its host. A US registration before the use is what makes a lawsuit worth it.",
+    "sections": [
+      {
+        "h": "Where photographers work gets taken",
+        "html": "<ul><li>Business sites, blogs and listings that use a photo for free</li><li>Instagram and Pinterest reposts with no credit</li><li>Stock sites and stores selling prints</li><li>Images fed to AI tools</li></ul>"
+      },
+      {
+        "h": "What to do when you find a copy",
+        "html": "<ol><li>Save the link, a screenshot or screen recording and the date</li><li>Keep your original with its date: the file, the project folder, the first post</li><li>Report it to the platform with its copyright form (<a href=\"/answers/dmca-takedown-notice-template/\">template</a>)</li><li>Find the page's host and send the notice to the host too, not only the site</li><li>If the copier earned money, ask to be paid</li></ol><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "Protect it before it gets taken",
+        "html": "<ul><li>Keep raw files and metadata, they prove who shot it</li><li>Put contact details in the file metadata</li><li><a href=\"/answers/how-to-register-copyright-us/\">Register</a> your best photos, and in groups to save money</li></ul>"
+      },
+      {
+        "h": "What Emera Protect does",
+        "html": "<p>Report any copy free and we file the takedown and track it to a Removed receipt. The Creator plan is $10 a month and watches up to 100 posts weekly; Pro is $100 a month with unlimited posts checked daily, fake accounts using your name or face and automatic filing. Get paid sends a claim letter and partner US copyright lawyers sue if the copier does not pay: no win, no fee, and you keep 70%. Checks cover the open web and what you report.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can I charge a license fee after the fact?",
+        "a": "Often a claim letter asking for a fee is the first step, and a registered photo raises what a court can award."
+      },
+      {
+        "q": "Does Emera find the photos?",
+        "a": "You report the copies you find, and Emera helps you file. Emera Protect also helps find more on the open web."
+      }
+    ],
+    "sources": [
+      {
+        "label": "U.S. Copyright Office: Title 17, chapter 5",
+        "url": "https://www.copyright.gov/title17/92chap5.html"
+      },
+      {
+        "label": "17 U.S.C. 504, remedies (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/504"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "how-to-find-stolen-photos",
+      "someone-is-using-my-photos-on-instagram",
+      "statutory-damages-for-copyright-infringement"
+    ],
+    "cta": {
+      "h": "Protect what you make",
+      "p": "Send us one copy of your photo you found. We file the takedown for free and show every step.",
+      "label": "Start a free report"
+    }
+  },
+  {
+    "slug": "content-protection-for-designers",
+    "kind": "answer",
+    "q": "Content protection for designers",
+    "title": "Content protection for designers",
+    "description": "Where designs get copied: knockoff shops, templates, mockups. What to do and what each notice needs.",
+    "short": "Designs get copied into knockoff products, template marketplaces and ads. Report each listing to the store, send a notice to its host and print provider, and keep dated source files. Copyright covers the design as drawn, a trademark covers a brand name.",
+    "sections": [
+      {
+        "h": "Where designers work gets taken",
+        "html": "<ul><li>Knockoff products on Amazon, Etsy, Temu and Shein</li><li>Template and mockup sites that resell your files</li><li>Competitors' sites and ads using your layouts</li><li>Print-on-demand shops</li></ul>"
+      },
+      {
+        "h": "What to do when you find a copy",
+        "html": "<ol><li>Save the link, a screenshot or screen recording and the date</li><li>Keep your original with its date: the file, the project folder, the first post</li><li>Report it to the platform with its copyright form (<a href=\"/answers/dmca-takedown-notice-template/\">template</a>)</li><li>Send the same notice to the print provider behind the product</li><li>If the copier earned money, ask to be paid</li></ol><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "Protect it before it gets taken",
+        "html": "<ul><li>Keep source files with version history</li><li>Mark delivered files and send previews, not finals</li><li><a href=\"/answers/how-to-register-copyright-us/\">Register</a> signature designs, and a trademark covers a brand name</li></ul>"
+      },
+      {
+        "h": "What Emera Protect does",
+        "html": "<p>Report any copy free and we file the takedown and track it to a Removed receipt. The Creator plan is $10 a month and watches up to 100 posts weekly; Pro is $100 a month with unlimited posts checked daily, fake accounts using your name or face and automatic filing. Get paid sends a claim letter and partner US copyright lawyers sue if the copier does not pay: no win, no fee, and you keep 70%. Checks cover the open web and what you report.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Is a logo protected by copyright?",
+        "a": "The artwork can be. A brand name or mark is a trademark question, so check both."
+      },
+      {
+        "q": "What if a client reuses my design after the project?",
+        "a": "That is a contract question. Your agreement decides who owns what."
+      }
+    ],
+    "sources": [
+      {
+        "label": "U.S. Copyright Office: Title 17, chapter 5",
+        "url": "https://www.copyright.gov/title17/92chap5.html"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "someone-selling-my-designs-on-amazon",
+      "print-on-demand-t-shirt-site-selling-my-design",
+      "how-to-register-copyright-us"
+    ],
+    "cta": {
+      "h": "Protect what you make",
+      "p": "Send us one copy of your design you found. We file the takedown for free and show every step.",
+      "label": "Start a free report"
+    }
+  },
+  {
+    "slug": "content-protection-for-musicians",
+    "kind": "answer",
+    "q": "Content protection for musicians",
+    "title": "Content protection for musicians",
+    "description": "Where songs get used without permission: videos, ads, re-uploads, AI covers. What to do and which rights you own.",
+    "short": "Songs get used in videos and ads, re-uploaded as audio and cloned by AI. Know whether you own the recording, the composition or both, document the exact use, and report it. A business that used the song to sell something is the case for a license fee.",
+    "sections": [
+      {
+        "h": "Where musicians work gets taken",
+        "html": "<ul><li>Videos on TikTok, Instagram and YouTube that use your track</li><li>Re-uploads of the audio and lyric videos</li><li>Ads that use your song to sell something</li><li>AI covers and cloned voices</li></ul>"
+      },
+      {
+        "h": "What to do when you find a copy",
+        "html": "<ol><li>Save the link, a screenshot or screen recording and the date</li><li>Keep your original with its date: the file, the project folder, the first post</li><li>Report it to the platform with its copyright form (<a href=\"/answers/dmca-takedown-notice-template/\">template</a>)</li><li>Check which right is yours: the recording, the composition or both</li><li>If the copier earned money, ask to be paid</li></ol><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "Protect it before it gets taken",
+        "html": "<ul><li>Keep session files and dated bounces</li><li>Register the recording and the composition</li><li>Know who owns what if a label or publisher is involved</li></ul>"
+      },
+      {
+        "h": "What Emera Protect does",
+        "html": "<p>Report any copy free and we file the takedown and track it to a Removed receipt. The Creator plan is $10 a month and watches up to 100 posts weekly; Pro is $100 a month with unlimited posts checked daily, fake accounts using your name or face and automatic filing. Get paid sends a claim letter and partner US copyright lawyers sue if the copier does not pay: no win, no fee, and you keep 70%. Checks cover the open web and what you report.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Who can file the claim?",
+        "a": "The owner of the right in question, or its authorized agent. A label or distributor may control the recording."
+      },
+      {
+        "q": "What about an AI voice cover?",
+        "a": "Whether a claim fits depends on what was copied. Talk to a lawyer about your facts."
+      }
+    ],
+    "sources": [
+      {
+        "label": "U.S. Copyright Office Circular 56A: musical compositions and sound recordings",
+        "url": "https://www.copyright.gov/circs/circ56a.pdf"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "song-used-without-permission",
+      "copyright-claim-on-tiktok",
+      "copyright-claim-on-instagram"
+    ],
+    "cta": {
+      "h": "Protect what you make",
+      "p": "Send us one copy of your song you found. We file the takedown for free and show every step.",
+      "label": "Start a free report"
+    }
+  },
+  {
+    "slug": "content-protection-for-tattoo-artists",
+    "kind": "answer",
+    "q": "Content protection for tattoo artists",
+    "title": "Content protection for tattoo artists",
+    "description": "Where tattoo flash and designs get copied: other shops, stores, reposts. What to do and what copyright covers.",
+    "short": "Flash sheets and custom designs get reposted by other shops, sold on shirts and stickers and copied by AI. A design you drew is your copyright even when the tattoo is on a client, so report copies like any art. A client's rights to the tattoo on their skin are a separate matter.",
+    "sections": [
+      {
+        "h": "Where tattoo artists work gets taken",
+        "html": "<ul><li>Reposts of flash and sleeves on Instagram, TikTok and Pinterest</li><li>Other shops that post your design as theirs</li><li>Shirts, stickers and prints on Etsy, Redbubble and Amazon</li><li>AI images that copy a specific design</li></ul>"
+      },
+      {
+        "h": "What to do when you find a copy",
+        "html": "<ol><li>Save the link, a screenshot or screen recording and the date</li><li>Keep your original with its date: the file, the project folder, the first post</li><li>Report it to the platform with its copyright form (<a href=\"/answers/dmca-takedown-notice-template/\">template</a>)</li><li>Check for the same design on shirts and stickers</li><li>If the copier earned money, ask to be paid</li></ol><p>This page is general information, not legal advice. For your own case, talk to a copyright lawyer.</p>"
+      },
+      {
+        "h": "Protect it before it gets taken",
+        "html": "<ul><li>Date your sketches and keep the originals</li><li>Put your name where a crop cannot remove it</li><li>Put ownership in your client forms, and register signature flash</li></ul>"
+      },
+      {
+        "h": "What Emera Protect does",
+        "html": "<p>Report any copy free and we file the takedown and track it to a Removed receipt. The Creator plan is $10 a month and watches up to 100 posts weekly; Pro is $100 a month with unlimited posts checked daily, fake accounts using your name or face and automatic filing. Get paid sends a claim letter and partner US copyright lawyers sue if the copier does not pay: no win, no fee, and you keep 70%. Checks cover the open web and what you report.</p>"
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Do I own a design I tattooed on a client?",
+        "a": "You own the design as you drew it. What a client may do with it is for your agreement and a lawyer to say."
+      },
+      {
+        "q": "Can I report another artist's copy?",
+        "a": "If you are the owner of the design. A similar style is not enough."
+      }
+    ],
+    "sources": [
+      {
+        "label": "U.S. Copyright Office: Title 17, chapter 5",
+        "url": "https://www.copyright.gov/title17/92chap5.html"
+      },
+      {
+        "label": "17 U.S.C. 512, takedown notices (Cornell LII)",
+        "url": "https://www.law.cornell.edu/uscode/text/17/512"
+      }
+    ],
+    "checked": "2026-11-26",
+    "related": [
+      "what-to-do-if-someone-steals-your-artwork",
+      "someone-pinned-my-work-on-pinterest",
+      "someone-selling-my-designs-on-redbubble"
+    ],
+    "cta": {
+      "h": "Protect what you make",
+      "p": "Send us one copy of your tattoo design you found. We file the takedown for free and show every step.",
+      "label": "Start a free report"
+    }
   }
 ]
