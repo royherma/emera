@@ -2293,6 +2293,7 @@
     },
     {
       "id": "recovery-split",
+      "done": {"at": "2026-11-26T09:50:00+07:00", "ref": "3aa6b1d", "note": "Roy 9:32 AM: Free 50/50, paid plans creator keeps 80%"},
       "kind": "pick",
       "when": "before the first case, 2 min",
       "title": "Get paid: how much of recovered money Emera keeps",
