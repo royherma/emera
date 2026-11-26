@@ -412,6 +412,84 @@ async function stars(ctx) {
   return res;
 }
 
+const HOST_LIMIT = new Map();
+const CDNS = [[/cloudflare/i, "Cloudflare", "https://abuse.cloudflare.com/"], [/akamai/i, "Akamai", null], [/fastly/i, "Fastly", null], [/sucuri/i, "Sucuri", null]];
+
+function limited(ip) {
+  const now = Date.now();
+  const hits = (HOST_LIMIT.get(ip) || []).filter((t) => t > now - 60_000);
+  hits.push(now);
+  HOST_LIMIT.set(ip, hits);
+  if (HOST_LIMIT.size > 2000) HOST_LIMIT.clear();
+  return hits.length > 12;
+}
+
+const timed = (url, accept) => fetch(url, { headers: { accept, "user-agent": "emera-site/1.0 (+https://emera.social/tools/who-hosts/)" }, signal: AbortSignal.timeout(5000), redirect: "follow" }).then((r) => (r.ok ? r.json() : (console.log("[who-hosts]", url, r.status), null))).catch((e) => (console.log("[who-hosts]", url, String(e)), null));
+
+function vcardValue(entity, field) {
+  const row = (entity?.vcardArray?.[1] || []).find((r) => r[0] === field);
+  return typeof row?.[3] === "string" ? row[3] : null;
+}
+
+function findEntity(entities, role) {
+  for (const e of entities || []) {
+    if ((e.roles || []).includes(role)) return e;
+    const inner = findEntity(e.entities, role);
+    if (inner) return inner;
+  }
+  return null;
+}
+
+function abuseEmail(rdap) {
+  const e = findEntity(rdap?.entities, "abuse");
+  const mail = vcardValue(e, "email");
+  return mail && EMAIL.test(mail) ? mail.slice(0, 254) : null;
+}
+
+function hostTarget(raw) {
+  const t = clip(raw, 500);
+  if (!t) return null;
+  try {
+    const u = new URL(/^https?:\/\//i.test(t) ? t : `https://${t}`);
+    const h = u.hostname.toLowerCase().replace(/\.$/, "");
+    if (!/^https?:$/.test(u.protocol) || !h.includes(".") || /^[\d.]+$/.test(h) || !/^[a-z0-9.-]+$/.test(h)) return null;
+    return { host: h, url: u.href.slice(0, 500) };
+  } catch {
+    return null;
+  }
+}
+
+async function whoHosts(request, ctx, url) {
+  if (request.method !== "GET") return json({ ok: false, error: "method_not_allowed" }, 405);
+  const target = hostTarget(url.searchParams.get("url"));
+  if (!target) return json({ ok: false, error: "invalid_url" }, 400);
+  const ipKey = request.headers.get("cf-connecting-ip") || "local";
+  const cache = caches.default;
+  const key = new Request(`https://emera.social/__whohosts/${encodeURIComponent(target.host)}`);
+  const hit = await cache.match(key);
+  if (hit) return json({ ...(await hit.json()), url: target.url });
+  if (limited(ipKey)) return json({ ok: false, error: "rate_limited" }, 429);
+  const dns = await timed(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(target.host)}&type=A`, "application/dns-json");
+  let ip = (dns?.Answer || []).find((a) => a.type === 1 && /^\d{1,3}(\.\d{1,3}){3}$/.test(a.data))?.data;
+  if (!ip) {
+    const v6 = await timed(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(target.host)}&type=AAAA`, "application/dns-json");
+    ip = (v6?.Answer || []).find((a) => a.type === 28 && /^[0-9a-f:]+$/i.test(a.data))?.data;
+  }
+  if (!ip) return json({ ok: false, error: "no_address" }, 404);
+  const parts = target.host.split(".");
+  const apex = parts.length > 2 && !/^(co|com|org|net|gov|ac)$/.test(parts[parts.length - 2]) ? parts.slice(-2).join(".") : parts.length > 3 ? parts.slice(-3).join(".") : target.host;
+  const [ipInfo, domInfo] = await Promise.all([timed(`https://rdap.org/ip/${ip}`, "application/rdap+json"), timed(`https://rdap.org/domain/${apex}`, "application/rdap+json")]);
+  const registrar = vcardValue(findEntity(domInfo?.entities, "registrar"), "fn");
+  const org = vcardValue(findEntity(ipInfo?.entities, "registrant"), "fn") || ipInfo?.name || null;
+  const cdn = CDNS.find(([re]) => re.test(`${org || ""} ${ipInfo?.name || ""}`));
+  const out = {
+    ok: true, domain: target.host, ip, host: org ? String(org).slice(0, 120) : null, network: ipInfo?.name ? String(ipInfo.name).slice(0, 80) : null,
+    registrar: registrar ? String(registrar).slice(0, 120) : null, abuseEmail: abuseEmail(ipInfo), cdn: cdn ? cdn[1] : null, cdnForm: cdn ? cdn[2] : null,
+  };
+  if (ipInfo) ctx.waitUntil(cache.put(key, new Response(JSON.stringify(out), { headers: { "cache-control": "public, max-age=600", "content-type": "application/json" } })));
+  return json({ ...out, url: target.url });
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -442,6 +520,7 @@ export default {
     if (pathname === "/api/stars") return stars(ctx);
     if (pathname === "/api/seen") return seenApi(request, env);
     if (pathname === "/api/copy" || pathname.startsWith("/api/copy/")) return copyApi(request, env, url);
+    if (pathname === "/api/tools/who-hosts") return whoHosts(request, ctx, url);
     if (pathname.startsWith("/api/")) return json({ ok: false, error: "not_found" }, 404);
     return page(request, env, ctx, url);
   },
