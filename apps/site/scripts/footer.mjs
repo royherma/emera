@@ -30,6 +30,32 @@ const SHORT = {
   "copyright-cease-and-desist-letter-template": "Cease and desist template",
   "how-to-find-stolen-photos": "Find stolen photos",
   "pixsy-alternative": "Pixsy alternative",
+  "someone-reposted-my-reel-on-instagram": "Reel reposted on Instagram",
+  "someone-reposted-my-video-on-tiktok": "Video reposted on TikTok",
+  "someone-reuploaded-my-video-on-youtube-shorts": "Re-uploaded on YouTube Shorts",
+  "someone-reposted-my-video-on-facebook": "Video reposted on Facebook",
+  "dmca-takedown-on-x-twitter": "Takedown on X",
+  "someone-pinned-my-work-on-pinterest": "Your work on Pinterest",
+  "fake-account-using-my-name": "Fake account using my name",
+  "my-art-was-stolen-by-ai": "Stolen by AI",
+  "someone-selling-my-designs-on-etsy": "Designs sold on Etsy",
+  "someone-selling-my-designs-on-redbubble": "Designs sold on Redbubble",
+  "someone-selling-my-designs-on-amazon": "Designs sold on Amazon",
+  "someone-selling-my-designs-on-temu-or-shein": "Designs on Temu or Shein",
+  "print-on-demand-t-shirt-site-selling-my-design": "My design on T-shirts",
+  "copyright-claim-on-instagram": "Copyright claim on Instagram",
+  "copyright-claim-on-tiktok": "Copyright claim on TikTok",
+  "content-protection-for-video-creators": "For video creators",
+  "content-protection-for-illustrators-and-artists": "For illustrators",
+  "content-protection-for-photographers": "For photographers",
+  "content-protection-for-designers": "For designers",
+  "content-protection-for-musicians": "For musicians",
+  "content-protection-for-tattoo-artists": "For tattoo artists",
+  "red-points-alternative": "Red Points alternative",
+  "rulta-alternative": "Rulta alternative",
+  "meta-content-protection-vs-emera": "Meta Content Protection",
+  "dmca-com-alternative": "DMCA.com alternative",
+  "loti-alternative": "Loti alternative",
 };
 
 const GH_MARK = '<svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>';
@@ -53,7 +79,9 @@ export const footerCss = `.gh{display:inline-flex;align-items:stretch;border-rad
 .ft .gh:hover{color:#fbf3e8}
 .ft{background:#0c0a09;color:#f1e7d8;padding:56px 0 36px;font-size:.92rem}
 .ft .fw{max-width:1360px;margin:0 auto;padding:0 var(--gutter)}
-.ft .cols{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:32px 28px}
+.ft .cols{display:grid;grid-template-columns:1.2fr 1fr 2.2fr 1fr 1fr 1fr;gap:32px 28px}
+.ft nav.many ul{display:block;columns:2;column-gap:28px}
+.ft nav.many li{break-inside:avoid;margin-bottom:10px}
 .ft .fmk{display:inline-flex;align-items:center;gap:10px;font:700 1.35rem var(--disp);letter-spacing:-.04em;color:#fbf3e8;text-decoration:none}
 .ft .fmk svg{width:38px;height:38px;color:#fbf3e8;--bg:#0c0a09}
 .ft .about{margin-top:12px;max-width:22em;color:rgba(241,231,216,.7);line-height:1.5}
@@ -67,14 +95,15 @@ export const footerCss = `.gh{display:inline-flex;align-items:stretch;border-rad
 
 export function footer({ pages, mark, github, year }) {
   const link = (p) => `<li><a href="${p.path}">${esc(SHORT[p.slug] || p.q)}</a></li>`;
-  const col = (title, href, items) => `<nav aria-label="${esc(title)}"><h3>${href ? `<a href="${href}">${esc(title)}</a>` : esc(title)}</h3><ul>${items}</ul></nav>`;
+  const col = (title, href, items, cls = "") => `<nav${cls ? ` class="${cls}"` : ""} aria-label="${esc(title)}"><h3>${href ? `<a href="${href}">${esc(title)}</a>` : esc(title)}</h3><ul>${items}</ul></nav>`;
   const answers = pages.filter((p) => p.kind === "answer").map(link).join("");
   const compare = pages.filter((p) => p.kind === "compare").map(link).join("");
   return `<footer class="ft"><div class="fw"><div class="cols">
 <div class="brandcol"><a class="fmk" href="/" aria-label="${esc(brand.name)}">${mark}${esc(brand.name.toLowerCase())}</a><p class="about">Open source and run as a nonprofit. The code is public and so is the algorithm.</p>${starButton(github)}</div>
 ${col(brand.name, "", `<li><a href="/#why">Why ${esc(brand.name)}</a></li><li><a href="/#join">Create your account</a></li><li><a href="/costs/">What Emera costs</a></li><li><a href="/protect/">Emera Protect</a></li><li><a href="/brand/">Brand</a></li><li data-fund><a href="/fund/">Fund</a></li><li><a href="/sign-in">Sign in</a></li><li><a href="${esc(github)}" rel="noopener">GitHub</a></li>`)}
-${col("Answers", "/answers/", answers)}
+${col("Answers", "/answers/", answers, "many")}
 ${col("Compare", "/compare/", compare)}
+${col("Free tools", "/tools/", `<li><a href="/tools/takedown-notice/">Takedown notice</a></li><li><a href="/tools/case-worth/">What your case is worth</a></li><li><a href="/tools/who-hosts/">Who hosts this site</a></li><li><a href="/tools/ai-opt-out/">Stop AI training</a></li>`)}
 ${col("Legal", "", `<li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms</a></li><li><a href="/credits/">Image credits</a></li>`)}
 </div><div class="base"><span>&copy; ${year} ${esc(brand.name)}</span><span>${esc(brand.name)} comes from hemera, the Greek word for day</span></div></div></footer>${starScript}`;
 }
