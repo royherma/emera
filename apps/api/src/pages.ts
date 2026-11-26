@@ -6,6 +6,8 @@ import { siteOrigin } from './http';
 import { inviteStatus } from './auth';
 import { pagePosts } from './posts';
 import { loadPosts, type PostRow } from './serialize';
+import { submitSpotted } from './spotted';
+import { ApiError } from './http';
 
 type Post = Awaited<ReturnType<typeof loadPosts>>[number];
 type Media = Post['media'][number];
@@ -63,6 +65,8 @@ h1{margin:0;font-size:28px;line-height:1.15;letter-spacing:-.02em}
 .caption{white-space:pre-wrap;font-size:18px;margin:0 0 8px}
 .post h1.caption{font:inherit;font-size:18px;line-height:1.45;font-weight:400}
 .transcript{margin:16px 0 0;color:var(--soft);font-size:14px}.transcript summary{cursor:pointer}
+.spot{margin:0 0 20px;font-size:14px}.spot a{color:var(--soft)}
+form.spotf{display:grid;gap:12px;max-width:460px;margin:16px 0}form.spotf input{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);width:100%}form.spotf button{font:inherit;font-weight:600;padding:10px 16px;border:0;border-radius:999px;background:var(--ink);color:var(--bg);cursor:pointer;justify-self:start}.err{color:#b3261e}
 .date{color:var(--soft);font-size:14px;margin:0 0 24px}
 .proof{border:1px solid var(--line);border-left:4px solid var(--accent2);border-radius:10px;padding:14px 16px;font-size:14px;background:color-mix(in srgb,var(--accent2) 6%,var(--bg))}
 .proof strong{color:var(--accent2)}
@@ -75,7 +79,7 @@ footer{max-width:935px;margin:0 auto;padding:24px 16px 40px;color:var(--soft);fo
 @media(max-width:520px){.profile{gap:16px}.avatar{width:72px;height:72px;font-size:30px}h1{font-size:22px}}
 `;
 
-type Meta = { title: string; description: string; url: string; image?: Still; video?: Media; type?: string; extraHead?: string };
+type Meta = { formSelf?: boolean; title: string; description: string; url: string; image?: Still; video?: Media; type?: string; extraHead?: string };
 
 const SHARE_CARD: Still = { url: `https://${BRAND.domain}/assets/og.png`, width: 1200, height: 630 };
 
@@ -118,7 +122,7 @@ ${head}
     headers: {
       'Content-Type': 'text/html; charset=utf-8',
       'Cache-Control': status === 200 ? 'public, max-age=60' : 'no-store',
-      'Content-Security-Policy': "default-src 'none'; img-src 'self' https: data:; media-src 'self' https:; style-src 'unsafe-inline'; script-src 'self'; base-uri 'none'; form-action 'none'",
+      'Content-Security-Policy': `default-src 'none'; img-src 'self' https: data:; media-src 'self' https:; style-src 'unsafe-inline'; script-src 'self'; base-uri 'none'; form-action ${meta.formSelf ? "'self'" : "'none'"}`,
     },
   });
 }
@@ -237,7 +241,7 @@ pages.get('/p/:id', async (c) => {
     : '';
   const body = `<article class="post">${mediaHtml}
 <a class="author" href="/@${esc(a.handle)}"><span class="avatar sm serif">${a.avatarUrl ? `<img src="${esc(a.avatarUrl)}" alt="">` : initial(name)}</span><div><b>${esc(name)}</b><span>@${esc(a.handle)}</span></div></a>
-${post.caption ? `<h1 class="caption">${esc(post.caption)}</h1>` : ''}<p class="date">${esc(day(post.createdAt))}</p>${proofHtml}${transcript ? `<details class="transcript"><summary>Transcript</summary><p>${esc(transcript)}</p></details>` : ''}</article>`;
+${post.caption ? `<h1 class="caption">${esc(post.caption)}</h1>` : ''}<p class="date">${esc(day(post.createdAt))}</p>${proofHtml}<p class="spot"><a href="/p/${esc(post.id)}/spotted" rel="nofollow">Spotted a copy?</a></p>${transcript ? `<details class="transcript"><summary>Transcript</summary><p>${esc(transcript)}</p></details>` : ''}</article>`;
   const snippet = post.caption ? trim(post.caption.replace(/\s+/g, ' '), 90) : '';
   return layout({
     title: snippet ? `${snippet} - ${name} on ${BRAND.name}` : `A post by ${name} on ${BRAND.name}`,
@@ -248,6 +252,37 @@ ${post.caption ? `<h1 class="caption">${esc(post.caption)}</h1>` : ''}<p class="
     type: 'article',
     extraHead: postLd(post, name, transcript, siteOrigin(c)) + `<link rel="alternate" type="application/json+oembed" href="${esc(`${siteOrigin(c)}/oembed?format=json&url=${encodeURIComponent(post.url)}`)}" title="${esc(`${name} on ${BRAND.name}`)}">`,
   }, body);
+});
+
+function spottedForm(id: string, error = '', url = '', email = '') {
+  return `<section class="post"><h1 class="serif">Spotted a copy?</h1><p class="count">Paste the link to where you saw it. The creator checks it before anything is sent.</p>${error ? `<p class="err">${esc(error)}</p>` : ''}
+<form class="spotf" method="post" action="/p/${esc(id)}/spotted"><input type="url" name="url" placeholder="Link to the copy" required maxlength="2048" value="${esc(url)}" aria-label="Link to the copy"><input type="email" name="email" placeholder="Your email (optional)" maxlength="254" value="${esc(email)}" aria-label="Your email, optional"><button type="submit">Send</button></form>
+<p class="count"><a href="/p/${esc(id)}">Back to the post</a></p></section>`;
+}
+
+const spottedMeta = (c: Context<AppEnv>, id: string): Meta => ({ title: `Spotted a copy? - ${BRAND.name}`, description: 'Tell the creator where you saw a copy of their post.', url: `${siteOrigin(c)}/p/${id}/spotted`, formSelf: true, extraHead: '<meta name="robots" content="noindex">' });
+
+pages.get('/p/:id/spotted', async (c) => {
+  const id = c.req.param('id');
+  const row = await c.env.DB.prepare('SELECT id FROM posts WHERE id = ?').bind(id).first();
+  if (!row) return notFoundPage('We could not find that post.');
+  return layout(spottedMeta(c, id), spottedForm(id));
+});
+
+pages.post('/p/:id/spotted', async (c) => {
+  const id = c.req.param('id');
+  const form = await c.req.parseBody().catch(() => ({} as Record<string, unknown>));
+  const url = typeof form.url === 'string' ? form.url : '';
+  const email = typeof form.email === 'string' ? form.email : '';
+  const meta = spottedMeta(c, id);
+  try {
+    await submitSpotted(c, id, { url, email });
+  } catch (e) {
+    if (!(e instanceof ApiError)) throw e;
+    if (e.status === 404) return notFoundPage('We could not find that post.');
+    return layout(meta, spottedForm(id, e.message, url, email), e.status);
+  }
+  return layout(meta, `<section class="post"><h1 class="serif">Thank you</h1><p class="count">The creator will see it and decide what to do. <a href="/p/${esc(id)}">Back to the post</a></p></section>`);
 });
 
 function postLd(post: Post, name: string, transcript: string, origin: string) {

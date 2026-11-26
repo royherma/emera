@@ -34,6 +34,8 @@ import { mcpRoutes } from './mcp';
 import { instagramRoutes } from './instagram';
 import { writeLimits } from './limits';
 import { accountRoutes } from './account';
+import { spottedRoutes } from './spotted';
+import { badgeRoutes } from './badge';
 
 const app = new Hono<AppEnv>();
 
@@ -78,6 +80,8 @@ app.route('/', oauthRoutes);
 app.route('/', mcpRoutes);
 app.route('/', instagramRoutes);
 app.route('/', accountRoutes);
+app.route('/', spottedRoutes);
+app.route('/', badgeRoutes);
 app.route('/', wallRoutes);
 app.route('/', pages);
 
