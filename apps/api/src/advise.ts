@@ -68,7 +68,7 @@ const template = (routes: Route[], plan: Advice['plan']) =>
 async function aiSummary(env: AppEnv['Bindings'], a: Answers, routes: Route[], plan: Advice['plan']): Promise<string | null> {
   if (!env.AI) return null;
   const facts = routes.map((r, i) => `${i + 1}. ${r.title} - cost ${r.cost}, time ${r.time}, result ${r.outcome}. ${r.why}`).join('\n');
-  const prompt = `A creator's work was copied. Situation: kind=${a.kind}, country=${a.where}, registered=${a.registered}, copier made money=${a.madeMoney}, posts=${a.posts}.\nRanked routes (cheapest that works first, do not reorder or add any):\n${facts}\nRecommended plan: ${plan.title} - ${plan.why}\nWrite 2 or 3 short plain sentences telling them what to do first and why, using only the facts above. No legal advice disclaimers, no dashes, no lists.`;
+  const prompt = `A creator's work was copied. Situation: kind=${a.kind}, country=${a.where}, registered=${a.registered}, copier made money=${a.madeMoney}, posts=${a.posts}.\nRanked routes (cheapest that works first, do not reorder or add any):\n${facts}\nRecommended plan: ${plan.title} - ${plan.why}\nTalk to the creator directly as "you". Write 2 or 3 short plain sentences telling them what to do first and why, using only the facts above. No legal advice disclaimers, no dashes, no lists.`;
   try {
     const r = (await Promise.race([
       env.AI.run(MODEL, { messages: [{ role: 'user', content: prompt }], max_tokens: 160, temperature: 0.2 }),
