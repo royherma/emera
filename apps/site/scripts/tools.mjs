@@ -341,7 +341,7 @@ else{h+='<h2>It depends on one date</h2><div class="range"><div class="rng"><b>'
 if(money==="yes")h+='<p class="small">Their profit from your work counts, so keep proof of what they earned: ad revenue, sales, a brand deal.</p>';
 else if(money==="no")h+='<p class="small">If they made nothing, your own loss may be small. Statutory damages (if you registered in time) do not depend on profit.</p>';
 h+='<div class="rng"><b>Copyright Claims Board: up to $30,000</b><span><a href="https://ccb.gov" rel="noopener" style="color:inherit">ccb.gov</a> is the cheaper route. $30,000 per case, $15,000 per work, $100 to file. Not registered in time: $7,500 per work, $15,000 in total. The work must be registered or an application filed</span></div>';
-h+='<div class="acts"><a class="pill" href="/protect/?ref=tool-case-worth#paid">Get paid</a><span class="small" style="align-self:center">You keep 70%, no win no fee</span></div><p class="small">Ranges, not predictions: courts pick the number. Not legal advice.</p>';
+h+='<div class="acts"><a class="pill" href="/protect/?ref=tool-case-worth#paid">Get paid</a><span class="small" style="align-self:center">You keep up to 80%, no win no fee</span></div><p class="small">Ranges, not predictions: courts pick the number. Not legal advice.</p>';
 o.innerHTML=h}
 f.addEventListener("input",render);f.addEventListener("change",render);render()})()</script>`;
 
@@ -360,8 +360,8 @@ function caseWorthPage(github) {
       desc: "Four questions, a plain answer: what a court can award when someone copies your work. US statutory damages, the Copyright Claims Board, and what changes if you did not register.",
       h1: "What is your stolen work worth", lead: "Four questions. You get the ranges US law allows, in plain words, with the sources.",
       crumbs: [[brand.name, "/"], ["Free tools", "/tools/"], ["Case worth", "/tools/case-worth/"]],
-      body: CW_BODY, how: [["Answer four questions", "Where you are, whether you registered in time, whether they made money, how many works."], ["See the ranges", "Statutory damages, the Copyright Claims Board and real loss, each with its limit."], ["Decide", "Send a takedown, make a claim, or let Emera chase the money for a 70% share."]],
-      faqs: CW_FAQ, cta: { h: "They made money with your work. Get paid", p: "We send the claim for what they owe you. No win, no fee, you keep 70%.", label: "Get paid", href: "/protect/?ref=tool-case-worth-cta#paid" },
+      body: CW_BODY, how: [["Answer four questions", "Where you are, whether you registered in time, whether they made money, how many works."], ["See the ranges", "Statutory damages, the Copyright Claims Board and real loss, each with its limit."], ["Decide", "Send a takedown, make a claim, or let Emera chase the money: you keep up to 80%."]],
+      faqs: CW_FAQ, cta: { h: "They made money with your work. Get paid", p: "We send the claim for what they owe you. No win, no fee, you keep up to 80%.", label: "Get paid", href: "/protect/?ref=tool-case-worth-cta#paid" },
       script: CW_SCRIPT, github, appName: "What is your stolen work worth",
       // sources
     }).replace("<p class=\"fine\"></p>", `<p class="fine">Sources: <a href="https://www.law.cornell.edu/uscode/text/17/504" rel="noopener">17 U.S.C. 504</a>, <a href="https://www.law.cornell.edu/uscode/text/17/412" rel="noopener">17 U.S.C. 412</a>, <a href="https://www.law.cornell.edu/uscode/text/17/1504" rel="noopener">17 U.S.C. 1504</a>, <a href="https://ccb.gov/about/" rel="noopener">ccb.gov</a>, <a href="https://www.copyright.gov/title17/92chap5.html" rel="noopener">copyright.gov chapter 5</a>.</p>`),
