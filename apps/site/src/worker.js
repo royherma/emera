@@ -412,8 +412,19 @@ async function stars(ctx) {
   return res;
 }
 
+const NOINDEX = /^\/(sign-in|sign-up|signin|login)(\/|$)/;
+
 export default {
   async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    if (url.hostname === "www.emera.social" || (url.protocol === "http:" && url.hostname === "emera.social")) return Response.redirect(`https://emera.social${url.pathname}${url.search}`, 301);
+    const res = await this.route(request, env, ctx);
+    if (!NOINDEX.test(url.pathname) && !url.searchParams.has("email")) return res;
+    const out = new Response(res.body, res);
+    out.headers.set("x-robots-tag", "noindex");
+    return out;
+  },
+  async route(request, env, ctx) {
     const url = new URL(request.url);
     const { pathname } = url;
     if (url.hostname === "app.emera.social") return Response.redirect(`https://emera.social${pathname}${url.search}`, 301);

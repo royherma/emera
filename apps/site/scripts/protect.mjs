@@ -5,6 +5,7 @@ import { footer, footerCss, starButton } from "./footer.mjs";
 import { pages } from "./pages.mjs";
 import { sprite } from "./screens.mjs";
 
+const FAQS = [{"q": "Someone reposted my reel or TikTok. Can you get it removed?", "a": "Yes. Send us the link to the copy and your original. We file the copyright notice with the app that hosts it and check it every day until it is gone, then you get a Removed receipt."}, {"q": "Do I need to register my work first?", "a": "No. You own the copyright the moment you make something, and that is enough for a takedown. In the US, registering with the Copyright Office matters if you want to sue for damages, and we help you do it."}, {"q": "What about a fake account using my name or face?", "a": "We report it to the app under its impersonation rules with your proof. Pro also watches for new accounts using your name or face."}, {"q": "Can I get paid when someone made money with my work?", "a": "Often, yes. We send the claim for what they owe you, and partner copyright lawyers in the US go to court when needed. No win, no fee, you keep 70%."}, {"q": "Where do you look for copies?", "a": "Anywhere Google can see, including shops selling prints and shirts, plus every copy you or your followers report from inside the apps."}, {"q": "Is it free?", "a": "Reporting a copy you found and having us file it is free. Creator ($10 a month) and Pro ($100 a month) add the watching and more coverage."}];
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const brand = JSON.parse(readFileSync(join(root, "../../packages/brand/brand.json"), "utf8"));
 const SITE = `https://${brand.domain}`;
@@ -137,6 +138,7 @@ err(x.s===429?"We already have your case. We will be in touch.":x.j.error==="inv
 
 function html(github) {
   const ld = [
+    { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: FAQS.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) },
     { "@context": "https://schema.org", "@type": "WebPage", name: OG_TITLE, description: DESCRIPTION, url: `${SITE}${PATH}` },
     { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: brand.name, item: `${SITE}/` }, { "@type": "ListItem", position: 2, name: "Emera Protect", item: `${SITE}${PATH}` }] },
   ];
@@ -181,6 +183,16 @@ ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(
 </div>
 ${HM}
 </div>
+
+<section aria-labelledby="h-prob">
+<h2 class="t" id="h-prob">Copied in seconds. Fighting it takes weeks</h2>
+<p class="sub">A different form on every app, an ID check, legal wording, and nobody tells you if it worked.</p>
+<div class="steps">
+<div class="step"><h3>75%</h3><p>of creative professionals have had work stolen, copied or not credited online (<a href="https://blog.adobe.com/en/publish/2020/12/08/adobe-research-disinformation" rel="noopener">Adobe</a>)</p></div>
+<div class="step"><h3>10M</h3><p>fake profiles posing as big creators, removed by one app in six months (<a href="https://www.nbcchicago.com/news/business/money-report/meta-removes-10-million-facebook-profiles-in-effort-to-combat-spam/3788949/" rel="noopener">report</a>)</p></div>
+<div class="step"><h3>$4,000</h3><p>a month one designer pays to take down fake listings of her work (<a href="https://www.fox19.com/2025/09/08/fashion-graphic-designers-say-their-work-is-being-stolen-marketed-with-ai/" rel="noopener">FOX19</a>)</p></div>
+</div>
+</section>
 
 <section aria-labelledby="h-how">
 <h2 class="t" id="h-how">You tap once. We chase it until it is gone</h2>
@@ -228,6 +240,11 @@ ${HM}
 <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 <button class="pill" type="submit">Talk to us</button>
 </form><p class="note" data-note role="status" aria-live="polite"></p></div>
+</section>
+
+<section aria-labelledby="h-faq">
+<h2 class="t" id="h-faq">Questions creators ask</h2>
+${FAQS.map((f) => `<details class="step" style="margin:10px 0"><summary><h3 style="display:inline">${esc(f.q)}</h3></summary><p>${esc(f.a)}</p></details>`).join("")}
 </section>
 
 <p class="fine">Plans bill monthly and you can stop any time. Every takedown follows the rules of the place the copy lives, and you can see each step we took. Emera is open source and run as a nonprofit: the code that finds copies and writes the notices is <a href="https://github.com/royherma/emera?ref=protect#protect">public</a>, so you can run it yourself or let us run it and file for you.</p>

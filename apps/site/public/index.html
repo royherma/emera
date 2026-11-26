@@ -147,6 +147,16 @@ h1{font:800 clamp(3rem,5.5vw,5.5rem)/.96 var(--disp);letter-spacing:-.06em;margi
 .hm-shirt{background:#f4efe6;display:grid;place-items:center}
 .hm-shirt svg{width:100%;height:100%}
 @media (max-width:560px){.hm-card{padding:14px}.hm-play{width:34px;height:34px;margin:-17px 0 0 -17px}.hm-meta b{font-size:.9rem}.hm-meta{font-size:.64rem}.hm-bar{font-size:.6rem}.hm-act{font-size:.72rem;padding:9px 4px}.hm-row .hm-act{padding:8px 10px}}
+.prob{padding:clamp(64px,10vw,130px) 0 0;background:var(--bg)}
+.prob .pgrid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,5vw,72px);align-items:end}
+.prob .ptxt{color:var(--ink2);font-size:clamp(1.02rem,1.5vw,1.2rem);max-width:30em;text-wrap:pretty}
+.prob .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:clamp(32px,5vw,56px)}
+.prob .stat{border-top:1.5px solid var(--ink);padding-top:16px}
+.prob .stat b{display:block;font:700 clamp(2.4rem,5vw,4rem)/1 var(--disp);letter-spacing:-.05em}
+.prob .stat span{display:block;margin-top:10px;color:var(--ink2);font-size:.98rem;max-width:18em}
+.prob .stat a{color:var(--ink3);font-size:.8rem}
+.prob .fix{margin-top:clamp(28px,4vw,44px);font:700 clamp(1.15rem,2vw,1.5rem)/1.3 var(--disp);letter-spacing:-.02em}
+@media (max-width:760px){.prob .pgrid,.prob .stats{grid-template-columns:1fr}}
 .loop{padding:clamp(64px,10vw,130px) 0 clamp(40px,6vw,80px);background:var(--bg)}
 .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,1.8vw,24px)}
 .stp{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column}
@@ -498,6 +508,21 @@ blockquote p+p{margin-top:.7em;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight
 </header>
 
 <main>
+  <section class="prob" id="problem">
+    <div class="wrap">
+      <div class="pgrid">
+        <h2 data-e="7f9cd2d2" class="reveal">Copied in seconds. Fighting it takes weeks</h2>
+        <p data-e="ab184533" class="ptxt reveal">Repost accounts take your reel and get the views. Shops print your design. AI copies your style. Fake accounts use your face. Getting it down means a different form on every app, an ID check, legal wording, and nobody tells you if it worked.</p>
+      </div>
+      <div class="stats">
+        <div class="stat reveal"><b data-e="3d0d48de">75%</b><span data-e="7b796b81">of creative professionals have had work stolen, copied or not credited online</span><a data-e="303f30cf" href="https://blog.adobe.com/en/publish/2020/12/08/adobe-research-disinformation" rel="noopener">Adobe survey</a></div>
+        <div class="stat reveal"><b data-e="4e375b68">10M</b><span data-e="e5662160">fake profiles posing as big creators, removed by one app in six months</span><a data-e="db47463c" href="https://www.nbcchicago.com/news/business/money-report/meta-removes-10-million-facebook-profiles-in-effort-to-combat-spam/3788949/" rel="noopener">Report, 2025</a></div>
+        <div class="stat reveal"><b data-e="e8f639e2">$4,000</b><span data-e="9ac9e1f9">a month one designer pays to take down fake listings of her work: 2,500 in under a year</span><a data-e="578addf7" href="https://www.fox19.com/2025/09/08/fashion-graphic-designers-say-their-work-is-being-stolen-marketed-with-ai/" rel="noopener">FOX19</a></div>
+      </div>
+      <p data-e="ae3dad58" class="fix reveal">Emera does the slow part. We find the copies, file every notice and chase it until it's gone.</p>
+    </div>
+  </section>
+
   <section class="loop" id="how">
     <div class="wrap">
       <div class="head reveal"><h2 data-e="1577de4e">Add it once. We chase every copy to a receipt</h2><p data-e="1f6214f3">Videos, photos, art and designs. We look across TikTok, Instagram, YouTube and the open web. You tap once.</p></div>
