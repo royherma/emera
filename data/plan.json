@@ -2320,6 +2320,7 @@
     },
     {
       "id": "mod-queue-prod",
+      "done": {"at": "2026-11-26T10:40:00+07:00", "ref": "7fb4f35", "note": "0031 applied and API deployed to production with the Protect upgrades (Roy: ship it all to prod)"},
       "kind": "approve",
       "when": "morning, 1 min",
       "title": "Ship the moderator queue to production",
