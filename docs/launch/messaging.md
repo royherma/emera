@@ -8,6 +8,8 @@ The playbook for every line a stranger reads: GitHub, site, store text, bios, po
 
 Creators get copied, reposted and resold every day, and AI made it free. Emera is a fair place to make things and grow: we find the copies and take them down for you, the people here are real, and nobody can buy their way to the top.
 
+The offer (Roy, 2026-11-26): **free protection**. Sign in, turn it on, no card. Paid plans watch more and you keep 80% of money we recover (50% on Free). Lead CTAs with "Get free protection".
+
 Category: the open source social network (`brand.line`). That is the label on the box. The reason to open it is "we protect what you make", and "real people" is the proof that this is a fair place.
 
 ## The ladder
