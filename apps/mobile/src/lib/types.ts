@@ -61,7 +61,7 @@ export type ViewLedger = {
 
 export type Comment = { id: string; postId: string; parentId: string | null; author: User; body: string; createdAt: string; replies: Comment[] };
 
-export type NotificationKind = "like" | "comment" | "reply" | "follow";
+export type NotificationKind = "like" | "comment" | "reply" | "follow" | "spotted";
 
 export type Notification = {
   id: string;
@@ -86,6 +86,18 @@ export type Invite = {
 };
 
 export type ProtectPlan = { plan: "free" | "creator" | "pro"; planUntil: string | null; optedIn: boolean; split: 50 | 80 };
+
+export type SpottedCopy = {
+  id: string;
+  postId: string;
+  url: string;
+  email: string | null;
+  status: "new" | "filed" | "dismissed";
+  reportId: string | null;
+  createdAt: string;
+  updatedAt: string | null;
+  thumbUrl: string | null;
+};
 
 export type FoundCopy = {
   id: string;
@@ -192,6 +204,8 @@ export interface Backend {
   dismissCopy(id: string): Promise<void>;
   takedownCopy(id: string): Promise<FoundCopy>;
   scanNow(): Promise<void>;
+  spotted(): Promise<SpottedCopy[]>;
+  handleSpotted(id: string, action: "file" | "dismiss"): Promise<SpottedCopy>;
   proof(postId: string): Promise<PostProof>;
   reports(): Promise<CopyReport[]>;
   modReports(): Promise<CopyReport[]>;

@@ -1,6 +1,6 @@
 import brand from "./brand";
 import { PUBLIC_ORIGIN } from "./config";
-import { ApiError, Backend, FoundCopy, Takedown, TakedownPreview, Comment, CopyReport, FeedMode, ImportSource, Invite, Media, Notification, PickedFile, Post, PostProof, ProtectPlan, ReportStatus, User, UserPage } from "./types";
+import { ApiError, Backend, FoundCopy, Takedown, TakedownPreview, Comment, CopyReport, FeedMode, ImportSource, Invite, Media, Notification, PickedFile, Post, PostProof, ProtectPlan, ReportStatus, User, UserPage, SpottedCopy } from "./types";
 import { HANDLE_RE } from "./format";
 import { makeMockChat } from "./mockChat";
 import { mockEarnings, mockFund, mockFundMonth, mockWatch } from "./fundMock";
@@ -452,6 +452,23 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
   async scanNow() {
     await wait();
   },
+  async spotted() {
+    await wait();
+    return mockSpotted;
+  },
+  async handleSpotted(id, action) {
+    await wait(160);
+    const s = mockSpotted.find((x) => x.id === id);
+    if (!s) throw new ApiError("not_found", "No such copy.");
+    if (s.status !== "new") throw new ApiError("already_handled", "You already handled this one.");
+    s.status = action === "file" ? "filed" : "dismissed";
+    s.updatedAt = new Date().toISOString();
+    if (action === "file") {
+      s.reportId = hex(5);
+      mockReportSources.set(s.reportId, { postId: s.postId, url: s.url });
+    }
+    return s;
+  },
   async proof(postId): Promise<PostProof> {
     await wait(160);
     const p = posts.find((x) => x.id === postId);
@@ -746,6 +763,10 @@ const mockTakedowns: Takedown[] = [
 const mockCopies: FoundCopy[] = [
   { id: "mc1", postId: "mock", url: "https://prints.example.org/listing/204", title: "Sunrise over the harbour, canvas print", site: "Example Prints", thumbnail: null, reason: "Lens visual match on Example Prints", status: "new", reportId: null, foundAt: new Date(Date.now() - 3_600_000).toISOString() },
   { id: "mc2", postId: "mock", url: "https://blog.example.net/best-photos", title: "Best photos of the year", site: "Example Blog", thumbnail: null, reason: "Lens exact match on Example Blog", status: "new", reportId: null, foundAt: new Date(Date.now() - 86_400_000).toISOString() },
+];
+const mockSpotted: SpottedCopy[] = [
+  { id: "ms1", postId: "mock", url: "https://www.tiktok.com/@clips.daily/video/7301", email: "fan@example.com", status: "new", reportId: null, createdAt: new Date(Date.now() - 2 * 3_600_000).toISOString(), updatedAt: null, thumbUrl: null },
+  { id: "ms2", postId: "mock", url: "https://www.instagram.com/reel/Cx9example/", email: null, status: "new", reportId: null, createdAt: new Date(Date.now() - 30 * 3_600_000).toISOString(), updatedAt: null, thumbUrl: null },
 ];
 const sources: ImportSource[] = [];
 const upload = mock.uploadMedia;

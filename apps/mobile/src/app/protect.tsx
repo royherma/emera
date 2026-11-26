@@ -7,7 +7,7 @@ import { Banner, Button, IconButton } from "@/components/ui";
 import { api } from "@/lib/api";
 import { radius, space, type } from "@/lib/theme";
 import { shareLink } from "@/lib/share";
-import { ApiError, FoundCopy, ProtectPlan, Takedown } from "@/lib/types";
+import { ApiError, FoundCopy, ProtectPlan, SpottedCopy, Takedown } from "@/lib/types";
 import { Icon } from "@/components/Icon";
 import { useTheme } from "@/state/theme";
 import { useToast } from "@/state/toast";
@@ -113,6 +113,56 @@ function CopyCard({ item, onChange, hasTakedown }: { item: FoundCopy; onChange: 
   );
 }
 
+const hostOf = (url: string) => {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return url;
+  }
+};
+
+const ago = (at: string) => {
+  const h = Math.max(0, Math.round((Date.now() - new Date(at).getTime()) / 3_600_000));
+  return h < 1 ? "just now" : h < 24 ? `${h}h ago` : `${Math.round(h / 24)}d ago`;
+};
+
+function SpottedCard({ item, onChange }: { item: SpottedCopy; onChange: () => void }) {
+  const { c } = useTheme();
+  const toast = useToast();
+  const router = useRouter();
+  const [busy, setBusy] = useState<"file" | "dismiss" | null>(null);
+
+  const run = async (action: "file" | "dismiss") => {
+    setBusy(action);
+    try {
+      const s = await api.handleSpotted(item.id, action);
+      onChange();
+      if (action === "file" && s.reportId) router.push({ pathname: "/report", params: { reportId: s.reportId } });
+    } catch (e) {
+      toast(e instanceof ApiError ? e.message : "Something went wrong. Try again.");
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  return (
+    <View style={{ flexDirection: "row", gap: space[3], backgroundColor: c.surface, borderRadius: radius.card, borderWidth: 1, borderColor: c.hair, padding: space[3] }}>
+      <View style={{ width: 72, height: 72, borderRadius: 10, overflow: "hidden", backgroundColor: c.hair }}>
+        {item.thumbUrl ? <Image source={{ uri: item.thumbUrl }} style={{ width: "100%", height: "100%" }} contentFit="cover" /> : null}
+      </View>
+      <View style={{ flex: 1, gap: space[1] }}>
+        <Text numberOfLines={1} style={[type.title, { color: c.ink }]}>{hostOf(item.url)}</Text>
+        <Text style={[type.meta, { color: c.ink3 }]}>{`${item.email ? `Sent by ${item.email}` : "Sent by someone who saw it"}, ${ago(item.createdAt)}`}</Text>
+        <View style={{ flexDirection: "row", gap: space[2], flexWrap: "wrap", marginTop: space[2] }}>
+          <Button label="Take it down" size="sm" busy={busy === "file"} disabled={busy !== null} onPress={() => run("file")} />
+          <Button label="Not a copy" size="sm" kind="secondary" busy={busy === "dismiss"} disabled={busy !== null} onPress={() => run("dismiss")} />
+        </View>
+        <Text style={[type.meta, { color: c.ink3, marginTop: space[1] }]} onPress={() => void Linking.openURL(item.url)}>Open the page</Text>
+      </View>
+    </View>
+  );
+}
+
 const FREE_LINES = ["We check your 10 newest posts every month", "One tap takedowns for every copy", "If we get you paid, it is split 50/50"];
 
 function FreeCard({ onTurnOn, busy, focused }: { onTurnOn: () => void; busy: boolean; focused: boolean }) {
@@ -138,6 +188,7 @@ export default function Protect() {
   const [plan, setPlan] = useState<ProtectPlan | null>(null);
   const [copies, setCopies] = useState<FoundCopy[] | null>(null);
   const [takedowns, setTakedowns] = useState<Takedown[]>([]);
+  const [spotted, setSpotted] = useState<SpottedCopy[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [scanning, setScanning] = useState(false);
   const [switching, setSwitching] = useState(false);
@@ -148,6 +199,7 @@ export default function Protect() {
       setPlan(me);
       setCopies(me.plan === "free" && !me.optedIn ? [] : await api.foundCopies());
       setTakedowns(await api.takedowns());
+      setSpotted((await api.spotted()).filter((x) => x.status === "new"));
       setError(null);
     } catch (e) {
       setError(e instanceof ApiError ? e.message : "Couldn't load this. Try again.");
@@ -193,6 +245,12 @@ export default function Protect() {
         <Text style={[type.h1, { color: c.ink }]}>Protect</Text>
       </View>
       {error && <Banner text={error} />}
+      {spotted.length > 0 && (
+        <View style={{ gap: space[3], marginBottom: space[4] }}>
+          <Text style={[type.section, { color: c.ink }]}>Copies people spotted for you</Text>
+          {spotted.map((x) => <SpottedCard key={x.id} item={x} onChange={load} />)}
+        </View>
+      )}
       {plan && offer && <FreeCard onTurnOn={() => turn(true)} busy={switching} focused={optin === "1"} />}
       {plan && !offer && (
         <View style={{ gap: space[3] }}>

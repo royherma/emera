@@ -22,6 +22,7 @@ function sentence(n: Notification) {
   const who = n.actor.displayName || n.actor.handle;
   const others = n.count - 1;
   const names = others > 0 ? `${who} and ${others} ${others === 1 ? "other" : "others"}` : who;
+  if (n.kind === "spotted") return { names: "Someone", rest: n.count > 1 ? `spotted ${n.count} copies of your post` : "spotted a copy of your post" };
   if (n.kind === "like") return { names, rest: "liked your post" };
   if (n.kind === "comment") return { names, rest: "commented on your post" };
   if (n.kind === "reply") return { names, rest: "replied to your comment" };
@@ -53,6 +54,7 @@ export default function Notifications() {
   const back = () => (router.canGoBack() ? router.back() : router.replace("/feed"));
 
   const open = (n: Notification) => {
+    if (n.kind === "spotted") return router.push("/protect");
     if (n.kind === "follow") return router.push({ pathname: "/u/[handle]", params: { handle: n.actor.handle } });
     if (!n.postId) return;
     if (n.kind === "like") return router.push({ pathname: "/p/[id]", params: { id: n.postId } });

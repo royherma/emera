@@ -1,5 +1,5 @@
 import { API_URL } from "./config";
-import { ApiError, Backend, Earnings, Fund, FundCards, FundStatement, Sponsor, Comment, Media, Notification, PickedFile, Post, User, UserPage, Channel, ChatMessage, ChatPage, ChatRoomRef, DmThread, ImportItem, ImportSource, ChatSettings, DmWith, FoundCopy, Takedown, TakedownPreview, CopyReport, PostProof } from "./types";
+import { ApiError, Backend, Earnings, Fund, FundCards, FundStatement, Sponsor, Comment, Media, Notification, PickedFile, Post, User, UserPage, Channel, ChatMessage, ChatPage, ChatRoomRef, DmThread, ImportItem, ImportSource, ChatSettings, DmWith, FoundCopy, Takedown, TakedownPreview, CopyReport, PostProof, SpottedCopy } from "./types";
 
 let token: string | null = null;
 export const setToken = (t: string | null) => {
@@ -99,6 +99,8 @@ export const http: Backend = {
   dismissCopy: async (id) => void (await send("POST", `/v1/protect/matches/${encodeURIComponent(id)}/dismiss`)),
   takedownCopy: async (id) => (await send<{ match: FoundCopy }>("POST", `/v1/protect/matches/${encodeURIComponent(id)}/takedown`)).match,
   scanNow: async () => void (await send("POST", "/v1/protect/scan-now")),
+  spotted: async () => (await send<{ spotted: SpottedCopy[] }>("GET", "/v1/me/spotted")).spotted,
+  handleSpotted: async (id, action) => (await send<{ spotted: SpottedCopy }>("POST", `/v1/me/spotted/${encodeURIComponent(id)}`, { action })).spotted,
   proof: async (postId) => (await send<{ proof: PostProof }>("GET", `/v1/posts/${encodeURIComponent(postId)}/proof`)).proof,
   reports: async () => (await send<{ reports: CopyReport[] }>("GET", "/v1/reports")).reports,
   modReports: async () => (await send<{ reports: CopyReport[] }>("GET", "/v1/mod/reports")).reports,
