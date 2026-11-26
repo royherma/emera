@@ -1,5 +1,5 @@
 import { Hono, type MiddlewareHandler } from 'hono';
-import type { AppEnv } from './env';
+import type { AppEnv, Env, UserRow } from './env';
 import { requireAuth } from './auth';
 import { fail, originOf, readJson } from './http';
 import { newId } from './crypto';
@@ -21,7 +21,7 @@ const REPORT_SELECT = `SELECT r.id, r.post_id, r.copy_url, r.note, r.status, r.c
   (SELECT COALESCE(m.poster_key, m.r2_key) FROM media m WHERE m.post_id = r.post_id ORDER BY m.position LIMIT 1) AS thumb_key
   FROM reports r JOIN users u ON u.id = r.reporter_user_id`;
 
-function parseHttpUrl(raw: unknown): string | null {
+export function parseHttpUrl(raw: unknown): string | null {
   if (typeof raw !== 'string') return null;
   const s = raw.trim();
   if (s.length < 1 || s.length > 2048) return null;
@@ -31,6 +31,21 @@ function parseHttpUrl(raw: unknown): string | null {
   } catch {
     return null;
   }
+}
+
+export async function createReport(env: Env, me: UserRow, postId: string, url: string, note: string): Promise<string> {
+  const post = await env.DB.prepare('SELECT id, user_id FROM posts WHERE id = ?').bind(postId).first<{ id: string; user_id: string }>();
+  if (!post) throw fail(404, 'not_found', 'No such post.');
+  if (post.user_id !== me.id) throw fail(403, 'forbidden', 'You can only report copies of your own posts.');
+  const id = newId(10);
+  await env.DB.prepare('INSERT INTO reports (id, post_id, reporter_user_id, copy_url, note, created_at) VALUES (?, ?, ?, ?, ?, ?)')
+    .bind(id, postId, me.id, url, note, Date.now()).run();
+  try {
+    await sendReportToTeam(env, { id, postId, url, note, reporter: me.handle ?? me.email });
+  } catch (e) {
+    console.error('[reports] team email failed', e);
+  }
+  return id;
 }
 
 export const reportRoutes = new Hono<AppEnv>();
@@ -45,19 +60,7 @@ reportRoutes.post('/v1/reports', requireAuth, async (c) => {
   const note = body.note === undefined || body.note === null ? '' : body.note;
   if (typeof note !== 'string' || note.length > 2000) throw fail(400, 'bad_note', 'Notes can be up to 2000 characters.');
 
-  const post = await c.env.DB.prepare('SELECT id, user_id FROM posts WHERE id = ?').bind(postId).first<{ id: string; user_id: string }>();
-  if (!post) throw fail(404, 'not_found', 'No such post.');
-  if (post.user_id !== me.id) throw fail(403, 'forbidden', 'You can only report copies of your own posts.');
-
-  const id = newId(10);
-  const trimmed = note.trim();
-  await c.env.DB.prepare('INSERT INTO reports (id, post_id, reporter_user_id, copy_url, note, created_at) VALUES (?, ?, ?, ?, ?, ?)')
-    .bind(id, postId, me.id, url, trimmed, Date.now()).run();
-  try {
-    await sendReportToTeam(c.env, { id, postId, url, note: trimmed, reporter: me.handle ?? me.email });
-  } catch (e) {
-    console.error('[reports] team email failed', e);
-  }
+  const id = await createReport(c.env, me, postId, url, note.trim());
   return c.json({ report: { id, status: 'sent' } }, 201);
 });
 

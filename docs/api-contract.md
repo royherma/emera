@@ -121,7 +121,27 @@ Post JSON also carries `likeCount`, `commentCount`, `viewCount` (people who watc
 
 `comment` = `{ id, postId, parentId, author: user, body, createdAt, replies: [comment] }`. `body` is 1 to 500 characters after trimming. `parentId` must be a top-level comment on the same post, so threads are one level deep (`bad_parent` otherwise). More than 10 comments in a minute from one person returns 429 `slow_down`. Errors: `bad_comment`, `comment_too_long`, `bad_parent`.
 
-`notification` = `{ id, kind: "like"|"comment"|"reply"|"follow", actor: user, count, postId, thumbUrl, commentId, preview, createdAt, read }`. Likes on the same post fold into one unread notification (`count` grows, `actor` is the latest person). Nobody is notified of their own actions. `follow` notifications are created by the follow endpoints through `notify()` in `apps/api/src/notifications.ts`.
+`notification` = `{ id, kind: "like"|"comment"|"reply"|"follow"|"spotted", actor: user, count, postId, thumbUrl, commentId, preview, createdAt, read }`. Likes on the same post fold into one unread notification (`count` grows, `actor` is the latest person). Nobody is notified of their own actions. `follow` notifications are created by the follow endpoints through `notify()` in `apps/api/src/notifications.ts`.
+
+## Spotted a copy, and the protected badge
+
+Fans are the best way to find copies inside other apps. Anyone can tell a creator where they saw a copy; nothing is filed until the creator confirms.
+
+| Method | Path | Body | Returns |
+| --- | --- | --- | --- |
+| POST | `/v1/posts/:id/spotted` | `{ url, email? }` (no sign-in needed; a signed-in caller is stored as the reporter) | `201 { spotted: { id, status: "new" }, duplicate: false }`; the same link on the same post again is `200 ... duplicate: true` and changes nothing. 400 `bad_url` (not http/https, or on emera.social), 400 `bad_email`, 404 `not_found`, 429 `too_many` (1 per network per post per hour, 20 per network per day) |
+| GET | `/v1/me/spotted` | - | `{ spotted: [{ id, postId, url, email, status: "new"\|"filed"\|"dismissed", reportId, createdAt, updatedAt, thumbUrl }] }` copies fans sent about the caller's posts, newest first |
+| POST | `/v1/me/spotted/:id` | `{ action: "file"\|"dismiss" }` | `{ spotted }`; `file` makes a normal copy report through the same code as `POST /v1/reports` (`reportId` points at it); 403 `forbidden` for anyone but the post's creator, 409 `already_handled`, 400 `bad_action` |
+
+The network is stored only as an HMAC (`ip_hash`) salted with `PROOF_SECRET`, never the raw address. Each new copy adds a `spotted` notification for the creator (`actor` is the creator, `postId` is the post), and every receive, file and dismiss is logged as `[spotted] <event> {json}`. The public form lives at `GET/POST /p/:id/spotted` (linked as "Spotted a copy?" under every post page) and uses the same code.
+
+`GET /badge/@:handle.svg` returns a small "Protected by Emera" SVG (cached 1 day) for an existing handle, 404 otherwise. Embed snippet:
+
+```html
+<a href="https://emera.social/@handle?ref=badge"><img src="https://api.emera.social/badge/@handle.svg" alt="Protected by Emera"></a>
+```
+
+The post page already shows the proof line ("Proof of origin. Uploaded by @handle on <date>, signed by Emera.").
 
 ## Search, profile edit, reports on posts and accounts
 
