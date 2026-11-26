@@ -382,6 +382,24 @@ describe('scan-now', () => {
     expect((await c.json('POST', '/v1/protect/scan-now')).status).toBe(403);
   });
 
+  it('says to turn on free protection first for a non-opted free user', async () => {
+    const { c } = await creator(null);
+    const res = await c.json('POST', '/v1/protect/scan-now');
+    expect(res.status).toBe(403);
+    expect(res.body.error.message).toBe('Turn on free protection first.');
+  });
+
+  it('allows an opted-in free user once per 30 days', async () => {
+    const { c, id } = await creator(null);
+    await db.prepare('UPDATE users SET protect_opt_in_at = ? WHERE id = ?').bind(Date.now(), id).run();
+    expect((await c.json('POST', '/v1/protect/scan-now')).status).toBe(202);
+    const second = await c.json('POST', '/v1/protect/scan-now');
+    expect(second.status).toBe(403);
+    expect(second.body.error.code).toBe('free_scan_limit');
+    await db.prepare('UPDATE scan_meta SET n = ? WHERE key = ?').bind(Date.now() - 31 * 86_400_000, `now30:${id}`).run();
+    expect((await c.json('POST', '/v1/protect/scan-now')).status).toBe(202);
+  });
+
   it('queues the posts and allows once an hour', async () => {
     const { c, id, lens } = await creator('creator');
     fakeLens(lens);
@@ -392,5 +410,32 @@ describe('scan-now', () => {
     const second = await c.json('POST', '/v1/protect/scan-now');
     expect(second.status).toBe(429);
     expect(second.body.error.code).toBe('too_soon');
+  });
+});
+
+describe('free opted-in scanning', () => {
+  it('skips free users who did not opt in', async () => {
+    const { id } = await creator(null);
+    fakeLens();
+    await runScan(env);
+    expect((await db.prepare('SELECT COUNT(*) AS n FROM scans WHERE user_id = ?').bind(id).first<any>()).n).toBe(0);
+  });
+
+  it('scans at most the 10 newest posts and waits 30 days', async () => {
+    const { id } = await creator(null);
+    await db.prepare('UPDATE users SET protect_opt_in_at = ? WHERE id = ?').bind(Date.now(), id).run();
+    const base = await db.prepare('SELECT * FROM media WHERE user_id = ?').bind(id).first<any>();
+    for (let i = 0; i < 12; i++) {
+      const pid = `fp${seq}x${i}`;
+      await db.prepare('INSERT INTO posts (id, user_id, caption, created_at) VALUES (?, ?, ?, ?)').bind(pid, id, 'x', Date.now() + (i + 1) * 1000).run();
+      await db.prepare('INSERT INTO media (id, user_id, kind, content_type, declared_bytes, status, bytes, r2_key, post_id, position, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)')
+        .bind(`fm${seq}x${i}`, id, base.kind, base.content_type, base.declared_bytes, 'done', base.bytes, base.r2_key, pid, Date.now()).run();
+    }
+    fakeLens();
+    for (let i = 0; i < 6; i++) await runScan(env);
+    const rows = (await db.prepare('SELECT post_id, next_scan_at, last_scanned_at FROM scans WHERE user_id = ?').bind(id).all<any>()).results;
+    expect(rows.length).toBe(10);
+    expect(rows.some((r) => r.post_id === base.post_id)).toBe(false);
+    for (const r of rows) expect(r.next_scan_at - r.last_scanned_at).toBeGreaterThanOrEqual(30 * 86_400_000 - 1000);
   });
 });

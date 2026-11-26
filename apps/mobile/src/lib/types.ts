@@ -85,7 +85,7 @@ export type Invite = {
   joined: { handle: string; displayName: string }[];
 };
 
-export type ProtectPlan = { plan: "free" | "creator" | "pro"; planUntil: string | null };
+export type ProtectPlan = { plan: "free" | "creator" | "pro"; planUntil: string | null; optedIn: boolean; split: 50 | 80 };
 
 export type FoundCopy = {
   id: string;
@@ -186,6 +186,8 @@ export interface Backend {
   confirmTakedown(reportId: string, authorization?: TakedownSignature): Promise<Takedown>;
   takedowns(): Promise<Takedown[]>;
   protectMe(): Promise<ProtectPlan>;
+  protectOptIn(): Promise<ProtectPlan>;
+  protectOptOut(): Promise<ProtectPlan>;
   foundCopies(): Promise<FoundCopy[]>;
   dismissCopy(id: string): Promise<void>;
   takedownCopy(id: string): Promise<FoundCopy>;

@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { Linking, Text, View } from "react-native";
 import { Image } from "expo-image";
-import { useFocusEffect, useRouter } from "expo-router";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { Screen } from "@/components/Screen";
 import { Banner, Button, IconButton } from "@/components/ui";
 import { api } from "@/lib/api";
@@ -113,7 +113,25 @@ function CopyCard({ item, onChange, hasTakedown }: { item: FoundCopy; onChange: 
   );
 }
 
+const FREE_LINES = ["We check your 10 newest posts every month", "One tap takedowns for every copy", "If we get you paid, it is split 50/50"];
+
+function FreeCard({ onTurnOn, busy, focused }: { onTurnOn: () => void; busy: boolean; focused: boolean }) {
+  const { c } = useTheme();
+  return (
+    <View style={{ gap: space[3], backgroundColor: c.surface, borderRadius: radius.card, borderWidth: focused ? 2 : 1, borderColor: focused ? c.sun : c.hair, padding: space[4] }}>
+      <Text style={[type.h1, { color: c.ink }]}>Free protection</Text>
+      <View style={{ gap: space[1] }}>
+        {FREE_LINES.map((line) => <Text key={line} style={[type.body, { color: c.ink }]}>{line}</Text>)}
+      </View>
+      <Button label="Turn on free protection" icon="shield" busy={busy} onPress={onTurnOn} style={{ alignSelf: "flex-start" }} />
+      <Text style={[type.meta, { color: c.ink3 }]}>By turning it on you let Emera send copyright notices for your posts on your behalf. You can turn it off any time.</Text>
+      <Text style={[type.bodySm, { color: c.ink2 }]} onPress={() => void Linking.openURL(PROTECT_URL)}>See paid plans</Text>
+    </View>
+  );
+}
+
 export default function Protect() {
+  const { optin } = useLocalSearchParams<{ optin?: string }>();
   const router = useRouter();
   const toast = useToast();
   const { c } = useTheme();
@@ -122,12 +140,13 @@ export default function Protect() {
   const [takedowns, setTakedowns] = useState<Takedown[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [scanning, setScanning] = useState(false);
+  const [switching, setSwitching] = useState(false);
 
   const load = useCallback(async () => {
     try {
       const me = await api.protectMe();
       setPlan(me);
-      setCopies(me.plan === "free" ? [] : await api.foundCopies());
+      setCopies(me.plan === "free" && !me.optedIn ? [] : await api.foundCopies());
       setTakedowns(await api.takedowns());
       setError(null);
     } catch (e) {
@@ -153,6 +172,20 @@ export default function Protect() {
     }
   };
 
+  const turn = async (on: boolean) => {
+    setSwitching(true);
+    try {
+      setPlan(on ? await api.protectOptIn() : await api.protectOptOut());
+      await load();
+    } catch (e) {
+      toast(e instanceof ApiError ? e.message : "Something went wrong. Try again.");
+    } finally {
+      setSwitching(false);
+    }
+  };
+
+  const offer = plan?.plan === "free" && !plan.optedIn;
+
   return (
     <Screen maxWidth={640}>
       <View style={{ flexDirection: "row", alignItems: "center", gap: space[3], marginBottom: space[4] }}>
@@ -160,30 +193,31 @@ export default function Protect() {
         <Text style={[type.h1, { color: c.ink }]}>Protect</Text>
       </View>
       {error && <Banner text={error} />}
-      {plan && (
+      {plan && offer && <FreeCard onTurnOn={() => turn(true)} busy={switching} focused={optin === "1"} />}
+      {plan && !offer && (
         <View style={{ gap: space[3] }}>
-          <Text style={[type.body, { color: c.ink2 }]}>
-            {plan.plan === "free"
-              ? "Emera Protect scans the web for copies of what you create and files takedowns for you."
-              : `${PLAN_NAME[plan.plan]} plan${plan.planUntil ? `, renews ${new Date(plan.planUntil).toLocaleDateString()}` : ""}`}
-          </Text>
-          {plan.plan === "free" ? (
-            <Button label="See Protect plans" icon="shield" onPress={() => void Linking.openURL(PROTECT_URL)} style={{ alignSelf: "flex-start" }} />
-          ) : (
-            <>
-              <Button label="Scan my posts now" kind="secondary" busy={scanning} onPress={scan} style={{ alignSelf: "flex-start" }} />
-              <Text style={[type.section, { color: c.ink, marginTop: space[3] }]}>Found copies</Text>
-              {copies && copies.length === 0 && <Text style={[type.body, { color: c.ink2 }]}>No copies found yet. We keep scanning.</Text>}
-              {copies?.map((m) => <CopyCard key={m.id} item={m} onChange={load} hasTakedown={takedowns.some((t) => t.reportId === m.reportId)} />)}
-            </>
+          {plan.plan !== "free" && (
+            <Text style={[type.body, { color: c.ink2 }]}>
+              {`${PLAN_NAME[plan.plan]} plan${plan.planUntil ? `, renews ${new Date(plan.planUntil).toLocaleDateString()}` : ""}`}
+            </Text>
           )}
-          {takedowns.length > 0 && (
-            <>
-              <Text style={[type.section, { color: c.ink, marginTop: space[3] }]}>Takedowns</Text>
-              {takedowns.map((t) => <TakedownRow key={t.id} t={t} />)}
-            </>
+          <Button label="Scan my posts now" kind="secondary" busy={scanning} onPress={scan} style={{ alignSelf: "flex-start" }} />
+          {plan.plan === "free" && (
+            <Text style={[type.bodySm, { color: c.ink2 }]} onPress={() => void Linking.openURL(PROTECT_URL)}>Creator checks weekly and you keep 80% of what we recover</Text>
           )}
+          <Text style={[type.section, { color: c.ink, marginTop: space[3] }]}>Found copies</Text>
+          {copies && copies.length === 0 && <Text style={[type.body, { color: c.ink2 }]}>No copies found yet. We keep scanning.</Text>}
+          {copies?.map((m) => <CopyCard key={m.id} item={m} onChange={load} hasTakedown={takedowns.some((t) => t.reportId === m.reportId)} />)}
         </View>
+      )}
+      {plan && takedowns.length > 0 && (
+        <View style={{ gap: space[3], marginTop: space[3] }}>
+          <Text style={[type.section, { color: c.ink }]}>Takedowns</Text>
+          {takedowns.map((t) => <TakedownRow key={t.id} t={t} />)}
+        </View>
+      )}
+      {plan && plan.plan === "free" && plan.optedIn && (
+        <Text style={[type.meta, { color: c.ink3, marginTop: space[6] }]} onPress={() => void turn(false)}>Turn off free protection</Text>
       )}
     </Screen>
   );

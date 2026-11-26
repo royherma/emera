@@ -202,20 +202,22 @@ async function lensCall(env: Env, origin: string, key: string): Promise<unknown>
   return res.json();
 }
 
+const FREE_POSTS = 10;
 const liveSql = `u.plan IN ('creator', 'pro') AND (u.plan_until IS NULL OR u.plan_until > ?)`;
+const freeSql = `u.protect_opt_in_at IS NOT NULL AND m.post_id IN (SELECT id FROM posts WHERE user_id = u.id ORDER BY created_at DESC, id DESC LIMIT ${FREE_POSTS})`;
 
-type Due = { id: string; post_id: string; user_id: string; r2_key: string; poster_key: string | null; bytes: number; kind: string; post_at: number; plan: string; handle: string | null; links: string; other_handles: string | null; ig_username: string | null };
+type Due = { id: string; post_id: string; user_id: string; r2_key: string; poster_key: string | null; bytes: number; kind: string; post_at: number; plan: string; plan_until: number | null; handle: string | null; links: string; other_handles: string | null; ig_username: string | null };
 
 export async function runScan(env: Env, now = Date.now()) {
   const stats = { scanned: 0, found: 0, failed: 0, stoppedByBudget: false, skipped: 0 };
   if (!env.SERP_API_KEY || !env.PUBLIC_ORIGIN) return { ...stats, off: true };
   const batch = Math.max(1, Number(env.SCAN_BATCH) || 5);
   const due = (await env.DB.prepare(
-    `SELECT m.id, m.post_id, m.user_id, m.r2_key, m.poster_key, m.bytes, m.kind, p.created_at AS post_at, u.plan, u.handle, u.links, u.other_handles, il.username AS ig_username
+    `SELECT m.id, m.post_id, m.user_id, m.r2_key, m.poster_key, m.bytes, m.kind, p.created_at AS post_at, u.plan, u.plan_until, u.handle, u.links, u.other_handles, il.username AS ig_username
      FROM media m JOIN posts p ON p.id = m.post_id JOIN users u ON u.id = m.user_id
      LEFT JOIN instagram_links il ON il.user_id = m.user_id
      LEFT JOIN scans s ON s.media_id = m.id
-     WHERE m.status = 'done' AND ${liveSql} AND (s.media_id IS NULL OR s.next_scan_at <= ?)
+     WHERE m.status = 'done' AND ((${liveSql}) OR (${freeSql})) AND (s.media_id IS NULL OR s.next_scan_at <= ?)
      ORDER BY COALESCE(s.next_scan_at, 0), m.id LIMIT ?`,
   ).bind(now, now, batch).all<Due>()).results;
   const origin = env.PUBLIC_ORIGIN.replace(/\/$/, '');
@@ -285,8 +287,9 @@ export async function runScan(env: Env, now = Date.now()) {
       stats.scanned++;
       break;
     }
-    const fresh = m.plan === 'pro' && now - m.post_at < 30 * DAY;
-    await setNext(now + (fresh ? DAY : 7 * DAY), true);
+    const paid = (m.plan === 'creator' || m.plan === 'pro') && (m.plan_until === null || m.plan_until > now);
+    const fresh = paid && m.plan === 'pro' && now - m.post_at < 30 * DAY;
+    await setNext(now + (!paid ? 30 * DAY : fresh ? DAY : 7 * DAY), true);
     stats.scanned++;
   }
   return stats;
@@ -343,15 +346,21 @@ scanRoutes.post('/v1/protect/matches/:id/takedown', requireAuth, async (c) => {
 scanRoutes.post('/v1/protect/scan-now', requireAuth, async (c) => {
   const me = c.get('user');
   const now = Date.now();
-  const plan = await c.env.DB.prepare('SELECT plan, plan_until FROM users WHERE id = ?').bind(me.id).first<{ plan: string; plan_until: number | null }>();
-  if (!plan || plan.plan === 'free' || (plan.plan_until !== null && plan.plan_until <= now)) {
-    throw fail(403, 'plan_required', 'Scanning is part of Emera Protect.');
+  const row = await c.env.DB.prepare('SELECT plan, plan_until, protect_opt_in_at FROM users WHERE id = ?').bind(me.id)
+    .first<{ plan: string; plan_until: number | null; protect_opt_in_at: number | null }>();
+  const paid = !!row && row.plan !== 'free' && (row.plan_until === null || row.plan_until > now);
+  if (!row || (!paid && row.protect_opt_in_at === null)) {
+    throw fail(403, 'plan_required', 'Turn on free protection first.');
   }
-  const key = `now:${me.id}`;
+  const key = paid ? `now:${me.id}` : `now30:${me.id}`;
+  const window = paid ? HOUR : 30 * DAY;
   const claimed = await c.env.DB.prepare(
     'INSERT INTO scan_meta (key, n) VALUES (?, ?) ON CONFLICT (key) DO UPDATE SET n = excluded.n WHERE n <= ?',
-  ).bind(key, now, now - HOUR).run();
-  if (!claimed.meta.changes) throw fail(429, 'too_soon', 'You can ask for a scan once an hour.');
+  ).bind(key, now, now - window).run();
+  if (!claimed.meta.changes) {
+    if (paid) throw fail(429, 'too_soon', 'You can ask for a scan once an hour.');
+    throw fail(403, 'free_scan_limit', 'Free protection scans on demand once a month. Creator checks weekly.');
+  }
   const queued = await c.env.DB.prepare('UPDATE scans SET next_scan_at = 0 WHERE user_id = ?').bind(me.id).run();
   return c.json({ queued: true, rescan: queued.meta.changes }, 202);
 });

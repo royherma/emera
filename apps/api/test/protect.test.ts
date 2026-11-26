@@ -92,7 +92,7 @@ describe('protect checkout', () => {
 describe('protect me and portal', () => {
   it('defaults to free', async () => {
     const { c } = await member();
-    expect((await c.json('GET', '/v1/protect/me')).body).toEqual({ plan: 'free', planUntil: null });
+    expect((await c.json('GET', '/v1/protect/me')).body).toEqual({ plan: 'free', planUntil: null, optedIn: false, split: 50 });
   });
 
   it('opens the billing portal only for customers', async () => {
@@ -115,7 +115,7 @@ describe('protect webhook', () => {
     const out = await hook({ type: 'checkout.session.completed', data: { object: { id: 'cs_1', mode: 'subscription', payment_status: 'paid', customer: 'cus_1', subscription: 'sub_1', metadata: meta(id, 'pro') } } });
     expect(out.result).toBe('plan_set');
     expect(await row(id)).toMatchObject({ plan: 'pro', plan_until: 1_900_000_000_000, stripe_subscription_id: 'sub_1' });
-    expect((await c.json('GET', '/v1/protect/me')).body).toEqual({ plan: 'pro', planUntil: new Date(1_900_000_000_000).toISOString() });
+    expect((await c.json('GET', '/v1/protect/me')).body).toEqual({ plan: 'pro', planUntil: new Date(1_900_000_000_000).toISOString(), optedIn: false, split: 80 });
   });
 
   it('guest checkout: pays first, plan lands on the account made later with the same email', async () => {
@@ -191,5 +191,49 @@ describe('protect webhook', () => {
     const out = await hook({ type: 'checkout.session.completed', data: { object: { id: 'cs_pay', mode: 'payment', payment_status: 'paid', amount_total: 0, payment_intent: null, metadata: { project: 'emera' } } } });
     expect(out.result).toBe('ignored');
     expect(out.received).toBe(true);
+  });
+});
+
+describe('free opt-in', () => {
+  const events = async (id: string) =>
+    (await db.prepare('SELECT plan, kind FROM plan_events WHERE user_id = ? ORDER BY id').bind(id).all<{ plan: string; kind: string }>()).results;
+
+  it('is off by default and shows split 50', async () => {
+    const { c } = await member();
+    const me = await c.json('GET', '/v1/protect/me');
+    expect(me.body).toMatchObject({ plan: 'free', optedIn: false, split: 50 });
+  });
+
+  it('opt-in is idempotent, stores terms, logs one event', async () => {
+    const { c, id } = await member();
+    expect((await c.json('POST', '/v1/protect/opt-in')).body).toMatchObject({ optedIn: true, split: 50 });
+    const first = await db.prepare('SELECT protect_opt_in_at AS at, protect_terms AS t FROM users WHERE id = ?').bind(id).first<any>();
+    expect(first.t).toBe('free-2026-11-26');
+    await c.json('POST', '/v1/protect/opt-in');
+    const again = await db.prepare('SELECT protect_opt_in_at AS at FROM users WHERE id = ?').bind(id).first<any>();
+    expect(again.at).toBe(first.at);
+    expect(await events(id)).toEqual([{ plan: 'free', kind: 'opt_in' }]);
+    expect((await c.json('GET', '/v1/protect/me')).body.optedIn).toBe(true);
+  });
+
+  it('opt-out clears both columns and logs opt_out once', async () => {
+    const { c, id } = await member();
+    await c.json('POST', '/v1/protect/opt-in');
+    expect((await c.json('POST', '/v1/protect/opt-out')).body.optedIn).toBe(false);
+    await c.json('POST', '/v1/protect/opt-out');
+    expect(await db.prepare('SELECT protect_opt_in_at AS at, protect_terms AS t FROM users WHERE id = ?').bind(id).first()).toEqual({ at: null, t: null });
+    expect((await events(id)).map((e) => e.kind)).toEqual(['opt_in', 'opt_out']);
+  });
+
+  it('split is 80 on a live paid plan, 50 once it lapsed', async () => {
+    const { c, id } = await member();
+    await db.prepare(`UPDATE users SET plan = 'creator', plan_until = ? WHERE id = ?`).bind(Date.now() + 1e6, id).run();
+    expect((await c.json('GET', '/v1/protect/me')).body).toMatchObject({ plan: 'creator', split: 80 });
+    await db.prepare('UPDATE users SET plan_until = ? WHERE id = ?').bind(Date.now() - 1000, id).run();
+    expect((await c.json('GET', '/v1/protect/me')).body).toMatchObject({ plan: 'free', split: 50 });
+  });
+
+  it('needs sign-in', async () => {
+    expect((await new Client(env).json('POST', '/v1/protect/opt-in')).status).toBe(401);
   });
 });
