@@ -75,7 +75,7 @@ test("visit opens a thread, the started sign-up lands in it with place, device a
   assert.deepEqual(await poll(h.env), { visits: 1, early: 2 });
   const [visit, own, join] = h.posted;
   assert.match(JSON.stringify(visit.blocks), /New visitor.*Bangkok, TH.*Instagram.*phone · iPhone iOS 18\.1/);
-  assert.match(JSON.stringify(own.blocks), /Test - Started sign-up/);
+  assert.match(JSON.stringify(own.blocks), /You - Started sign-up/);
   assert.equal(join.thread_ts, "ts1");
   assert.equal(join.reply_broadcast, true);
   assert.match(JSON.stringify(join.blocks), /maya@paint\.org.*Bangkok, TH.*\*1\* started so far.*Bangkok.*emera\.social\/admin/);

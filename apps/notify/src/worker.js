@@ -1,4 +1,4 @@
-import { bangkok, clockLine, connection, device, isBotVisit, isTest, networkKind, place, screenLine, screenOf, source, toMs } from "./people.js";
+import { bangkok, clockLine, connection, device, alertKind, isBotVisit, isTest, networkKind, place, screenLine, screenOf, source, toMs } from "./people.js";
 import { adminView, ledgerView, load, protectView, summaryLines } from "./stats.js";
 import { ADMIN_HTML } from "./admin-page.js";
 
@@ -33,8 +33,8 @@ export async function slackPost(env, body) {
 }
 
 export function blocks(a) {
-  const title = a.test ? `Test - ${a.title}` : a.title;
-  const head = `${a.test ? "🧪" : a.icon}  *${title}*${a.detail ? `  ·  ${a.detail}` : ""}`;
+  const title = a.test === "own" ? `You - ${a.title}` : a.test ? `Test - ${a.title}` : a.title;
+  const head = `${a.test === "own" ? "🙋" : a.test ? "🧪" : a.icon}  *${title}*${a.detail ? `  ·  ${a.detail}` : ""}`;
   const facts = (a.facts || []).filter(Boolean).join("  ·  ");
   const links = (a.links || []).filter(Boolean).map(([label, url]) => `<${url}|${label} →>`).join("     ");
   const rows = (a.rows || []).filter(Boolean);
@@ -159,7 +159,7 @@ async function sendVisit(env, r) {
 }
 
 async function sendEarly(env, r) {
-  const test = isTest(env, r.email, !!r.tester);
+  const test = alertKind(env, r.email, !!r.tester);
   const n = await realCount(env, env.SITE_DB, "SELECT email, tester FROM early_access");
   const thread = await threadFor(env, r.visitor);
   const first = r.visitor ? await env.SITE_DB.prepare("SELECT referrer, utm, ua FROM visits WHERE visitor = ? ORDER BY id LIMIT 1").bind(r.visitor).first().catch(() => null) : null;
@@ -181,7 +181,7 @@ async function sendSponsor(env, r) {
     detail: `*${esc(r.company)}*`,
     facts: [esc(r.email), r.monthly_cents ? `$${(r.monthly_cents / 100).toLocaleString("en-US")}/mo` : "no amount given", place(r), device(r.ua), stamp(toMs(r.created_at))],
     links: [r.url && ["Their site", r.url], adminLink(env)],
-    test: isTest(env, r.email, !!r.tester),
+    test: alertKind(env, r.email, !!r.tester),
   }, thread ? { ts: thread, broadcast: true } : null);
 }
 
@@ -193,7 +193,7 @@ async function sendEnterprise(env, r) {
     detail: `*${esc(r.company)}*: ${esc(r.name)}`,
     facts: [esc(r.email), r.creators ? `${Number(r.creators).toLocaleString("en-US")} creators` : "no count given", place(r), device(r.ua), stamp(toMs(r.created_at))],
     links: [adminLink(env)],
-    test: isTest(env, r.email, !!r.tester),
+    test: alertKind(env, r.email, !!r.tester),
   }, thread ? { ts: thread, broadcast: true } : null);
 }
 
@@ -205,7 +205,7 @@ async function sendCase(env, r) {
     detail: `*${esc(r.email)}*${r.note ? `: ${esc(r.note)}` : ""}`,
     facts: [esc(r.email), place(r), device(r.ua), stamp(toMs(r.created_at))],
     links: [["Copy", r.copy_url], ["Original", r.original_url], adminLink(env)],
-    test: isTest(env, r.email, !!r.tester),
+    test: alertKind(env, r.email, !!r.tester),
   }, thread ? { ts: thread, broadcast: true } : null);
 }
 
@@ -225,7 +225,7 @@ async function sendPlanEvent(env, r) {
     detail: u?.handle ? `*@${esc(u.handle)}*` : esc(email || "?"),
     facts: [!ended && r.kind !== "admin_comp" && PLAN_PRICE[r.plan], esc(email || ""), r.plan_until && `paid until ${stamp(r.plan_until)}`, `*${live?.n ?? "?"}* on a paid plan`, stamp(r.created_at)],
     links: [profileLink(env, u?.handle), adminLink(env)],
-    test: isTest(env, email),
+    test: alertKind(env, email),
   });
 }
 
@@ -241,7 +241,7 @@ async function sendScan(env, r) {
     rows: results.slice(0, 5).map((m) => `• <${m.url}|${esc(m.site)}>`),
     facts: [sites.length > 5 ? `${sites.length} sites` : sites.map(esc).join(", "), stamp(r.last_scanned_at)],
     links: [["Original", `${site(env)}/p/${r.post_id}`], adminLink(env)],
-    test: isTest(env, u?.email),
+    test: alertKind(env, u?.email),
   });
 }
 
@@ -257,7 +257,7 @@ async function sendTakedownReady(env, r) {
     rows: [`Copy: <${r.copy_url}|${esc(r.copy_url.slice(0, 80))}>`, r.recipient_note && `_${esc(r.recipient_note)}_`],
     facts: [...takedownFacts(r), `*${waiting?.n ?? "?"}* waiting`, stamp(r.created_at)],
     links: [["Open the desk", `${site(env)}/admin`], ["Original", `${site(env)}/p/${r.post_id}`]],
-    test: isTest(env, u?.email),
+    test: alertKind(env, u?.email),
   });
 }
 
@@ -270,7 +270,7 @@ async function sendTakedownSent(env, r) {
     rows: [`Copy: <${r.copy_url}|${esc(r.copy_url.slice(0, 80))}>`],
     facts: [...takedownFacts(r), "rechecked daily", stamp(r.sent_at)],
     links: [adminLink(env)],
-    test: isTest(env, u?.email),
+    test: alertKind(env, u?.email),
   });
 }
 
@@ -284,7 +284,7 @@ async function sendTakedownRemoved(env, r) {
     rows: [esc(r.check_reason || "")],
     facts: [`${ago(r.sent_at || r.created_at, r.removed_at)} after filing`, `*${total?.n ?? "?"}* removed so far`, stamp(r.removed_at)],
     links: [["Receipt", `${site(env)}/takedown/${r.id}`], profileLink(env, u?.handle)],
-    test: isTest(env, u?.email),
+    test: alertKind(env, u?.email),
   });
 }
 
@@ -297,12 +297,12 @@ async function sendTakedownStuck(env, r) {
     rows: [`Copy: <${r.copy_url}|${esc(r.copy_url.slice(0, 80))}>`, esc(r.check_reason || "")],
     facts: [...takedownFacts(r), stamp(r.last_check_at)],
     links: [["Open the desk", `${site(env)}/admin`]],
-    test: isTest(env, u?.email),
+    test: alertKind(env, u?.email),
   });
 }
 
 async function sendUser(env, r) {
-  const test = isTest(env, r.email);
+  const test = alertKind(env, r.email);
   const n = await realCount(env, env.API_DB, "SELECT email FROM users");
   const early = env.SITE_DB ? await env.SITE_DB.prepare("SELECT created_at, visitor FROM early_access WHERE email = ?").bind(r.email.toLowerCase()).first().catch(() => null) : null;
   const inviter = r.invited_by ? await env.API_DB.prepare("SELECT handle FROM users WHERE id = ?").bind(r.invited_by).first().catch(() => null) : null;
@@ -335,7 +335,7 @@ async function sendPost(env, r) {
     rows: [r.caption && `>${esc(r.caption).slice(0, 400).replace(/\n/g, "\n>")}`],
     facts: [media.map((m) => `${m.n} ${m.kind}`).join(", ") || null, `post ${mine?.n ?? "?"} for them`, `*${total?.n ?? "?"}* posts on Emera`, stamp(r.created_at)],
     links: [["Post", `${site(env)}/p/${r.id}`], profileLink(env, user?.handle), adminLink(env)],
-    test: isTest(env, user?.email),
+    test: alertKind(env, user?.email),
   });
 }
 
@@ -349,7 +349,7 @@ async function sendReport(env, r) {
     rows: [r.note && `>${esc(r.note).slice(0, 500)}`],
     facts: [esc(user?.email), `*${open?.n ?? "?"}* open`, stamp(r.created_at)],
     links: [["The copy", r.copy_url], ["Their post", `${site(env)}/p/${r.post_id}`], adminLink(env)],
-    test: isTest(env, user?.email),
+    test: alertKind(env, user?.email),
   });
 }
 
@@ -364,7 +364,7 @@ async function sendFlag(env, r) {
     rows: [r.note && `>${esc(r.note).slice(0, 500)}`],
     facts: [`${esc(r.target_id)}`, `by @${esc(user?.handle || "?")}`, `*${open?.n ?? "?"}* open`, stamp(r.created_at)],
     links: [target, adminLink(env)],
-    test: isTest(env, user?.email),
+    test: alertKind(env, user?.email),
   });
 }
 
@@ -476,7 +476,7 @@ async function sendPaid(env, r) {
     detail: `*${esc(r.name)}*${r.line ? ` - ${esc(r.line)}` : ""}`,
     facts: [`$${(r.cents / 100).toLocaleString("en-US")} for ${months}`, r.promo ? `code ${esc(r.promo)} took $${(r.discount / 100).toLocaleString("en-US")} off` : null, r.email ? esc(r.email) : null, `banner ${r.banner}`, stamp(r.cursor)],
     links: [r.url && ["Their site", r.url], adminLink(env)],
-    test: isTest(env, r.email || "", !!r.demo || !!r.tester),
+    test: alertKind(env, r.email || "", !!r.demo || !!r.tester),
   });
 }
 
