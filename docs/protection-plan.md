@@ -20,16 +20,20 @@ notice built from signed original + creator's sworn statement (signed once at si
 recheck URL daily -> Removed -> shareable receipt card -> SEO case page
 ```
 
-## Tiers
+## Tiers (updated 2026-11-26)
 
-| Plan | Price | What | Our cost / mo `[inferred]` |
+Roy, 2026-11-26 9:32 AM Bangkok: anyone gets **free protection** by signing in and turning it on (one tap, no card). Money we recover is split **50/50 on Free** and **80/20 (creator keeps 80%) on every paid plan**. This replaces the 70/30 split for everyone.
+
+| Plan | Price | What | Money recovery, creator keeps |
 | --- | --- | --- | --- |
-| Free | $0 | Report a copy you found, we file it (keeps the "free takedowns" promise) | desk time |
-| Creator | $10/mo | Unlimited works, weekly scan, one-tap takedowns | ~$1-3 scans (100-200 Lens calls at $0.015) |
-| Pro / Brand | $100/mo | Unlimited, daily scan of new work, video frames, auto-file, impersonation accounts, priority desk, monthly report | ~$15-30 scans + desk |
-| Enterprise | custom | Many creators/brands, team seats, API, Meta Rights Manager as their agent, legal escalation | quoted |
+| Free | $0, opt in after sign-in | 10 newest posts scanned every 30 days, one-tap takedowns, fan-spotted copies, own reports | 50% |
+| Creator | $10/mo | Up to 100 posts, weekly scan, unlimited takedowns | 80% |
+| Pro | $100/mo | Unlimited posts, new posts daily, whole-clip video, fake accounts on name or face, auto-filing, priority desk | 80% |
+| Enterprise | custom | Rosters for agencies, labels and brands | 80% (or as quoted) |
 
-"Unlimited" = unlimited works and takedowns; scans run on a fair-use cadence (weekly / daily). Market check: Pixsy $19-89/mo, Rulta ~$79-199/mo per username, Ceartas $39-69/mo entry (sources below, mostly vendor and affiliate pages). $10 undercuts all of them; $100 sits at Rulta's level with brand features.
+- **Opt-in** (`POST /v1/protect/opt-in`, `users.protect_opt_in_at`, `users.protect_terms = "free-2026-11-26"`, migration 0033): the tap is the creator's authorization for Emera to send copyright notices for their posts. Never opted in without the tap; `/protect?optin=1` only focuses the card. Turn off any time (`/v1/protect/opt-out`).
+- **ASSUMED: Free = 10 newest posts every 30 days** because scans cost money (Lens via SerpAPI) and Free has to stay cheap; reverse by changing the limit in `apps/api/src/scan.ts`.
+- **Route advisor** (`POST /v1/protect/advise`, `apps/api/src/advise.ts`): fixed rules rank the cheapest route that works (free takedown or impersonation report first; claim letter when they made money; US registration when unregistered; Copyright Claims Board for US claims under $30k; partner lawyer only when registered in time) and the cheapest plan that covers the case (Free, Creator for weekly posters or money cases, Pro for fake accounts or daily posters). Workers AI (`@cf/meta/llama-3.3-70b-instruct-fp8-fast`, billed to the Emera Cloudflare account, free daily allowance first) only writes the 2-3 sentence summary from those fixed facts; a template is used when AI fails or after 20 calls per hour per visitor. Every answer is logged as `[advise]`. Shown on `/tools/case-worth/`.
 
 ## What already exists (read 2026-11-23)
 
