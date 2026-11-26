@@ -103,11 +103,39 @@ protectRoutes.post('/v1/protect/start', async (c) => {
   return c.json({ url: session.url }, 201);
 });
 
-protectRoutes.get('/v1/protect/me', requireAuth, async (c) => {
-  const row = await c.env.DB.prepare('SELECT plan, plan_until FROM users WHERE id = ?').bind(c.get('user').id).first<{ plan: string; plan_until: number | null }>();
+export const FREE_TERMS = 'free-2026-11-26';
+
+async function protectState(env: Env, userId: string) {
+  const row = await env.DB.prepare('SELECT plan, plan_until, protect_opt_in_at FROM users WHERE id = ?').bind(userId)
+    .first<{ plan: string; plan_until: number | null; protect_opt_in_at: number | null }>();
   const until = row?.plan_until ?? null;
-  const live = row && row.plan !== 'free' && (until === null || until > Date.now());
-  return c.json({ plan: live ? row.plan : 'free', planUntil: live && until ? new Date(until).toISOString() : null });
+  const live = !!row && row.plan !== 'free' && (until === null || until > Date.now());
+  return {
+    plan: live ? row!.plan : 'free',
+    planUntil: live && until ? new Date(until).toISOString() : null,
+    optedIn: row?.protect_opt_in_at != null,
+    split: live ? 80 : 50,
+  };
+}
+
+protectRoutes.get('/v1/protect/me', requireAuth, async (c) => c.json(await protectState(c.env, c.get('user').id)));
+
+protectRoutes.post('/v1/protect/opt-in', requireAuth, async (c) => {
+  const me = c.get('user');
+  const res = await c.env.DB.prepare('UPDATE users SET protect_opt_in_at = ?, protect_terms = ? WHERE id = ? AND protect_opt_in_at IS NULL')
+    .bind(Date.now(), FREE_TERMS, me.id).run();
+  const state = await protectState(c.env, me.id);
+  if (res.meta.changes) await logPlanEvent(c.env, { userId: me.id, plan: state.plan, until: null, kind: 'opt_in' });
+  return c.json(state);
+});
+
+protectRoutes.post('/v1/protect/opt-out', requireAuth, async (c) => {
+  const me = c.get('user');
+  const res = await c.env.DB.prepare('UPDATE users SET protect_opt_in_at = NULL, protect_terms = NULL WHERE id = ? AND protect_opt_in_at IS NOT NULL')
+    .bind(me.id).run();
+  const state = await protectState(c.env, me.id);
+  if (res.meta.changes) await logPlanEvent(c.env, { userId: me.id, plan: state.plan, until: null, kind: 'opt_out' });
+  return c.json(state);
 });
 
 protectRoutes.post('/v1/protect/portal', requireAuth, async (c) => {

@@ -1,6 +1,6 @@
 import brand from "./brand";
 import { PUBLIC_ORIGIN } from "./config";
-import { ApiError, Backend, FoundCopy, Takedown, TakedownPreview, Comment, CopyReport, FeedMode, ImportSource, Invite, Media, Notification, PickedFile, Post, PostProof, ReportStatus, User, UserPage } from "./types";
+import { ApiError, Backend, FoundCopy, Takedown, TakedownPreview, Comment, CopyReport, FeedMode, ImportSource, Invite, Media, Notification, PickedFile, Post, PostProof, ProtectPlan, ReportStatus, User, UserPage } from "./types";
 import { HANDLE_RE } from "./format";
 import { makeMockChat } from "./mockChat";
 import { mockEarnings, mockFund, mockFundMonth, mockWatch } from "./fundMock";
@@ -419,7 +419,17 @@ export const mock: Backend & { _setToken: (t: string | null) => void; _demoSessi
   },
   async protectMe() {
     await wait();
-    return { plan: "creator" as const, planUntil: new Date(Date.now() + 20 * 86_400_000).toISOString() };
+    return mockProtect();
+  },
+  async protectOptIn() {
+    await wait();
+    mockProtectState.optedIn = true;
+    return mockProtect();
+  },
+  async protectOptOut() {
+    await wait();
+    mockProtectState.optedIn = false;
+    return mockProtect();
   },
   async foundCopies() {
     await wait();
@@ -723,6 +733,11 @@ const MOCK_FORMS = new Set(["instagram.com", "facebook.com", "tiktok.com", "yout
 const mockSite = (url: string) => (url.match(/^https?:\/\/(?:www\.)?([^/]+)/)?.[1] ?? "").split(".").slice(-2).join(".");
 const mockReportSources = new Map<string, { postId: string; url: string }>();
 let mockSigned: string | null = null;
+const mockProtectState = { optedIn: false };
+const mockProtect = (): ProtectPlan =>
+  process.env.EXPO_PUBLIC_MOCK_PLAN === "free"
+    ? { plan: "free", planUntil: null, optedIn: mockProtectState.optedIn, split: 50 }
+    : { plan: "creator", planUntil: new Date(Date.now() + 20 * 86_400_000).toISOString(), optedIn: mockProtectState.optedIn, split: 80 };
 const mockTakedowns: Takedown[] = [
   { id: "tdmock0001", reportId: "rmock1", postId: "mock", url: "https://prints.example.org/listing/88", site: "example.org", method: "email", status: "removed", rejectReason: null, createdAt: iso(60 * 24 * 6), sentAt: iso(60 * 24 * 5), removedAt: iso(60 * 24 * 3), daysToRemoval: 3, receiptUrl: `${PUBLIC_ORIGIN}/takedown/tdmock0001` },
   { id: "tdmock0002", reportId: "rmock2", postId: "mock", url: "https://www.etsy.com/listing/204", site: "etsy.com", method: "form", status: "sent", rejectReason: null, createdAt: iso(60 * 24 * 2), sentAt: iso(60 * 24), removedAt: null, daysToRemoval: null, receiptUrl: null },
