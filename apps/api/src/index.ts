@@ -17,6 +17,7 @@ import { flagRoutes } from './flags';
 import { fundRoutes, runFundCron } from './fund';
 import { stripeRoutes } from './stripe';
 import { protectRoutes } from './protect';
+import { adviseRoutes } from './advise';
 import { scanRoutes, runScan } from './scan';
 import { takedownRoutes, runTakedownRecheck } from './takedown';
 import { chatRoutes } from './chat';
@@ -84,6 +85,7 @@ app.route('/', spottedRoutes);
 app.route('/', badgeRoutes);
 app.route('/', wallRoutes);
 app.route('/', pages);
+app.route('/', adviseRoutes);
 
 app.onError((err, c) => {
   if (err instanceof ApiError) return c.json({ error: { code: err.code, message: err.message } }, err.status as 400);

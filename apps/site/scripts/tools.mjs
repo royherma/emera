@@ -321,9 +321,11 @@ function takedownPages(github) {
 
 const CW_BODY = `<div class="tool" data-cw>
 <div class="card"><form class="form" novalidate>
+<div><div class="hint" style="font-weight:600;color:var(--ink);margin-bottom:6px">What happened</div><div class="seg"><label><input type="radio" name="kind" value="repost" checked>Reposted</label><label><input type="radio" name="kind" value="merch">Sold on products</label><label><input type="radio" name="kind" value="fake">Fake account</label><label><input type="radio" name="kind" value="song">Song used</label><label><input type="radio" name="kind" value="ai">AI copy</label></div></div>
 <div><div class="hint" style="font-weight:600;color:var(--ink);margin-bottom:6px">Where are you</div><div class="seg"><label><input type="radio" name="where" value="us" checked>United States</label><label><input type="radio" name="where" value="other">Somewhere else</label></div></div>
 <div><div class="hint" style="font-weight:600;color:var(--ink);margin-bottom:6px">Did you register the work with the US Copyright Office before the copying, or within 3 months of publishing it</div><div class="seg"><label><input type="radio" name="reg" value="yes">Yes</label><label><input type="radio" name="reg" value="no">No</label><label><input type="radio" name="reg" value="unsure" checked>Not sure</label></div></div>
 <div><div class="hint" style="font-weight:600;color:var(--ink);margin-bottom:6px">Did they make money with it</div><div class="seg"><label><input type="radio" name="money" value="yes">Yes</label><label><input type="radio" name="money" value="no">No</label><label><input type="radio" name="money" value="unsure" checked>Not sure</label></div></div>
+<div><div class="hint" style="font-weight:600;color:var(--ink);margin-bottom:6px">How often you post</div><div class="seg"><label><input type="radio" name="posts" value="few" checked>Now and then</label><label><input type="radio" name="posts" value="weekly">Every week</label><label><input type="radio" name="posts" value="daily">Every day</label></div></div>
 <label>How many of your works were copied<input type="number" name="works" min="1" max="500" value="1" inputmode="numeric"></label>
 </form></div>
 <div class="out" data-out aria-live="polite"></div>
@@ -342,7 +344,13 @@ if(money==="yes")h+='<p class="small">Their profit from your work counts, so kee
 else if(money==="no")h+='<p class="small">If they made nothing, your own loss may be small. Statutory damages (if you registered in time) do not depend on profit.</p>';
 h+='<div class="rng"><b>Copyright Claims Board: up to $30,000</b><span><a href="https://ccb.gov" rel="noopener" style="color:inherit">ccb.gov</a> is the cheaper route. $30,000 per case, $15,000 per work, $100 to file. Not registered in time: $7,500 per work, $15,000 in total. The work must be registered or an application filed</span></div>';
 h+='<div class="acts"><a class="pill" href="/protect/?ref=tool-case-worth#paid">Get paid</a><span class="small" style="align-self:center">You keep up to 80%, no win no fee</span></div><p class="small">Ranges, not predictions: courts pick the number. Not legal advice.</p>';
-o.innerHTML=h}
+o.innerHTML='<div data-adv></div>'+h;advise()}
+var api=/(^|\\.)emera\\.social$/.test(location.hostname)?"https://api.emera.social":"https://emera-api-staging.techguyver1337.workers.dev",tm,last="";
+function esc(t){return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function advise(){clearTimeout(tm);tm=setTimeout(function(){var b={kind:v("kind"),where:v("where"),registered:v("reg"),madeMoney:v("money"),posts:v("posts")},k=JSON.stringify(b),box=o.querySelector("[data-adv]");if(!box)return;box.innerHTML='<p class="small">Finding your best route...</p>';last=k;
+fetch(api+"/v1/protect/advise",{method:"POST",headers:{"Content-Type":"application/json"},body:k}).then(function(r){return r.json()}).then(function(j){if(k!==last||!j.routes)return;var box2=o.querySelector("[data-adv]");if(!box2)return;
+var x='<h2>Your best route</h2><p>'+esc(j.summary)+'</p><ol class="routes">';j.routes.forEach(function(r){x+='<li><a href="'+esc(r.href)+'"><b>'+esc(r.title)+'</b></a> <span class="small">'+esc(r.cost)+' &middot; '+esc(r.time)+' &middot; '+esc(r.outcome)+'</span></li>'});
+x+='</ol><p class="small">Best plan for you: <b>'+esc(j.plan.title)+'</b>. '+esc(j.plan.why)+(j.ai?' Written by AI from the routes above.':'')+'</p>';box2.innerHTML=x}).catch(function(){var b3=o.querySelector("[data-adv]");if(b3)b3.innerHTML=""})},350)}
 f.addEventListener("input",render);f.addEventListener("change",render);render()})()</script>`;
 
 const CW_FAQ = [
