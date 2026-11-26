@@ -167,6 +167,7 @@ function html(github) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>${css}
+.pstats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}.pstats>div{border-top:1.5px solid currentColor;padding-top:14px}.pstats b{display:block;font:800 clamp(2rem,4vw,3rem)/1 Sora,sans-serif;letter-spacing:-.04em}.pstats p{margin-top:8px;opacity:.8;font-size:.98rem}@media (max-width:760px){.pstats{grid-template-columns:1fr}}
 ${HM_CSS}
 ${footerCss}</style>
 ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(/</g, "\\u003c")}</script>`).join("\n")}
@@ -187,10 +188,10 @@ ${HM}
 <section aria-labelledby="h-prob">
 <h2 class="t" id="h-prob">Copied in seconds. Fighting it takes weeks</h2>
 <p class="sub">A different form on every app, an ID check, legal wording, and nobody tells you if it worked.</p>
-<div class="steps">
-<div class="step"><h3>75%</h3><p>of creative professionals have had work stolen, copied or not credited online (<a href="https://blog.adobe.com/en/publish/2020/12/08/adobe-research-disinformation" rel="noopener">Adobe</a>)</p></div>
-<div class="step"><h3>10M</h3><p>fake profiles posing as big creators, removed by one app in six months (<a href="https://www.nbcchicago.com/news/business/money-report/meta-removes-10-million-facebook-profiles-in-effort-to-combat-spam/3788949/" rel="noopener">report</a>)</p></div>
-<div class="step"><h3>$4,000</h3><p>a month one designer pays to take down fake listings of her work (<a href="https://www.fox19.com/2025/09/08/fashion-graphic-designers-say-their-work-is-being-stolen-marketed-with-ai/" rel="noopener">FOX19</a>)</p></div>
+<div class="pstats">
+<div><b>75%</b><p>of creative professionals have had work stolen, copied or not credited online (<a href="https://blog.adobe.com/en/publish/2020/12/08/adobe-research-disinformation" rel="noopener">Adobe</a>)</p></div>
+<div><b>10M</b><p>fake profiles posing as big creators, removed by one app in six months (<a href="https://www.nbcchicago.com/news/business/money-report/meta-removes-10-million-facebook-profiles-in-effort-to-combat-spam/3788949/" rel="noopener">report</a>)</p></div>
+<div><b>$4,000</b><p>a month one designer pays to take down fake listings of her work (<a href="https://www.fox19.com/2025/09/08/fashion-graphic-designers-say-their-work-is-being-stolen-marketed-with-ai/" rel="noopener">FOX19</a>)</p></div>
 </div>
 </section>
 
