@@ -285,6 +285,7 @@ function renderReview() {
       if (!d.pick) acts.append(changeBox(card, (text) => send({ kind: 'decision-note', id: d.id, note: text }, 'Sent to Claude')));
       card.append(acts); grid.append(card); continue;
     }
+    if (it.shots) { const imgs = el('div', 'imgs many'); for (const f of it.shots) { const im = el('img'); im.src = `/file/${f}`; im.alt = ''; im.onclick = () => window.open(im.src); imgs.append(im); } card.append(imgs); }
     if (it.links) { const l = el('div', 'lks'); for (const [t, u] of it.links) { const a = el('a', '', `${t} ↗`); a.href = u; a.target = '_blank'; a.rel = 'noopener'; l.append(a); } card.append(l); }
     if (it.list) { const ol = el('ol'); for (const t of it.list) ol.append(el('li', '', t)); card.append(ol); }
     let ta;
