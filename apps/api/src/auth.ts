@@ -1,4 +1,5 @@
 import { Hono } from 'hono';
+import * as Sentry from '@sentry/cloudflare';
 import { claimPendingPlan } from './protectPending';
 import type { MiddlewareHandler } from 'hono';
 import type { AppEnv, Env, UserRow } from './env';
@@ -79,7 +80,16 @@ auth.post('/v1/auth/start', async (c) => {
   const code = review ? c.env.REVIEW_CODE! : newSixDigitCode();
   await c.env.DB.prepare('INSERT INTO login_codes (email, code_hash, invite_code, expires_at, created_at) VALUES (?, ?, ?, ?, ?)')
     .bind(email, await hmacHex(c.env.PROOF_SECRET, `code:${email}:${code}`), invite, now + CODE_TTL_MS, now).run();
-  if (!review) await sendCode(c.env, email, code);
+  if (!review) {
+    try {
+      await sendCode(c.env, email, code);
+    } catch (err) {
+      console.error('[auth] code email failed', err);
+      Sentry.captureException(err, { level: 'warning' });
+      await c.env.DB.prepare('DELETE FROM login_codes WHERE email = ? AND created_at = ?').bind(email, now).run();
+      throw fail(503, 'code_not_sent', 'We could not send your code. Try again in a minute.');
+    }
+  }
   return c.json({ ok: true });
 });
 

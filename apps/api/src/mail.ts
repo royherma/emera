@@ -4,6 +4,11 @@ import { BRAND as brand } from './brand';
 // Resend allows 10 requests a second per account, shared with every project on the key.
 const TRIES = 3;
 
+export function retryDelayMs(headers: Headers, attempt: number): number {
+  const seconds = Number(headers.get('retry-after')) || Number(headers.get('ratelimit-reset'));
+  return Math.min(2000, seconds > 0 ? seconds * 1000 : 400 * attempt);
+}
+
 export async function postResend(env: Env, body: object, wait = (ms: number) => new Promise((r) => setTimeout(r, ms))): Promise<void> {
   for (let attempt = 1; ; attempt++) {
     const res = await fetch('https://api.resend.com/emails', {
@@ -13,8 +18,7 @@ export async function postResend(env: Env, body: object, wait = (ms: number) => 
     });
     if (res.ok) return;
     if (res.status !== 429 || attempt >= TRIES) throw new Error(`resend ${res.status}: ${(await res.text()).slice(0, 200)}`);
-    const after = Number(res.headers.get('retry-after'));
-    await wait(Math.min(2000, after > 0 ? after * 1000 : 400 * attempt));
+    await wait(retryDelayMs(res.headers, attempt));
   }
 }
 
