@@ -216,6 +216,17 @@ const ago = (from, to) => { const d = Math.round((to - from) / 86400000); return
 async function sendPlanEvent(env, r) {
   const u = await userOf(env, r.user_id);
   const email = u?.email || r.email;
+  if (r.kind === "opt_in") {
+    const on = await env.API_DB.prepare("SELECT COUNT(*) AS n FROM users WHERE protect_opt_in_at IS NOT NULL").first();
+    return slack(env, {
+      icon: "🛡️",
+      title: "Turned on free protection",
+      detail: u?.handle ? `*@${esc(u.handle)}*` : esc(email || "?"),
+      facts: [esc(email || ""), `*${on?.n ?? "?"}* protected accounts`, stamp(r.created_at)],
+      links: [profileLink(env, u?.handle), adminLink(env)],
+      test: isTest(env, email),
+    });
+  }
   const live = await env.API_DB.prepare("SELECT COUNT(*) AS n FROM users WHERE plan != 'free' AND (plan_until IS NULL OR plan_until > ?)").bind(r.created_at).first();
   const ended = r.kind === "ended" || r.kind === "admin_end";
   const title = ended ? (r.kind === "admin_end" ? "Protect plan ended by admin" : "Protect plan ended") : r.kind === "admin_comp" ? `Protect ${r.plan === "pro" ? "Pro" : "Creator"} plan given by admin` : r.kind === "paid_no_account" ? "Protect paid, account not made yet" : `New Protect ${r.plan === "pro" ? "Pro" : "Creator"} plan`;

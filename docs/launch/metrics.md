@@ -10,7 +10,9 @@ Visit                    31,000
 Started sign-up           3,700   (email typed on the site)
   | 54%
 Account                   2,000   (code entered, account made)
-  | 50%
+  | 70%
+Protection on             1,400   (free protection turned on)
+  | 71%
 First post                1,000   <- the goal: 1,000 creators who posted
   | 35%
 First share                 350   (a creator shares a post link or badge off Emera)
@@ -23,6 +25,7 @@ Biggest expected drop after the first screen: account to first post (50% lost). 
 | Visit | unique visitor to emera.social or a launch landing path, bots excluded, our own traffic excluded (`X-TG-Tester: 1`) | n/a | 31,000 | site analytics |
 | Started sign-up | an email typed on the site (it goes straight to /sign-in) | 12% of visits | 3,700 | site D1 table `early_access` |
 | Account | the person enters the code and an account is created | 54% of started | 2,000 | API accounts table |
+| Protection on | `users.protect_opt_in_at` is set (the person tapped free protection on) | 70% of accounts (ASSUMED) | 1,400 | API `users.protect_opt_in_at`, #emera-events line on each opt-in, `/admin` funnel |
 | First post | the account publishes at least one post with a proof badge | 50% of accounts | 1,000 | API posts table |
 | First share | a post link or badge is opened from outside Emera, or a share-card is created, within 14 days of first post | 35% of first posts | 350 | share-card creations plus referrer on `/p/:id` |
 

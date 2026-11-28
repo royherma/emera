@@ -206,6 +206,22 @@ const FREE_POSTS = 10;
 const liveSql = `u.plan IN ('creator', 'pro') AND (u.plan_until IS NULL OR u.plan_until > ?)`;
 const freeSql = `u.protect_opt_in_at IS NOT NULL AND m.post_id IN (SELECT id FROM posts WHERE user_id = u.id ORDER BY created_at DESC, id DESC LIMIT ${FREE_POSTS})`;
 
+async function noteFreeCheck(env: Env, userId: string, now: number) {
+  const left = await env.DB.prepare(
+    `SELECT COUNT(*) AS n FROM media m JOIN users u ON u.id = m.user_id LEFT JOIN scans s ON s.media_id = m.id
+     WHERE m.user_id = ? AND m.status = 'done' AND ${freeSql} AND (s.media_id IS NULL OR s.next_scan_at <= ?)`,
+  ).bind(userId, now).first<{ n: number }>();
+  if (!left || left.n > 0) return;
+  const key = `checked:${userId}`;
+  const prev = (await env.DB.prepare('SELECT n FROM scan_meta WHERE key = ?').bind(key).first<{ n: number }>())?.n ?? now - 30 * DAY;
+  const claimed = await env.DB.prepare('INSERT INTO scan_meta (key, n) VALUES (?, ?) ON CONFLICT (key) DO UPDATE SET n = excluded.n WHERE n <= ?')
+    .bind(key, now, now - 20 * DAY).run();
+  if (!claimed.meta.changes) return;
+  const found = (await env.DB.prepare(`SELECT COUNT(*) AS n FROM matches WHERE user_id = ? AND status != 'dismissed' AND found_at > ?`).bind(userId, prev).first<{ n: number }>())?.n ?? 0;
+  await env.DB.prepare('INSERT INTO notifications (id, user_id, kind, actor_id, post_id, count, created_at) VALUES (?, ?, ?, ?, NULL, ?, ?)')
+    .bind(newId(12), userId, 'checked', userId, found, now).run();
+}
+
 type Due = { id: string; post_id: string; user_id: string; r2_key: string; poster_key: string | null; bytes: number; kind: string; post_at: number; plan: string; plan_until: number | null; handle: string | null; links: string; other_handles: string | null; ig_username: string | null };
 
 export async function runScan(env: Env, now = Date.now()) {
@@ -290,6 +306,7 @@ export async function runScan(env: Env, now = Date.now()) {
     const paid = (m.plan === 'creator' || m.plan === 'pro') && (m.plan_until === null || m.plan_until > now);
     const fresh = paid && m.plan === 'pro' && now - m.post_at < 30 * DAY;
     await setNext(now + (!paid ? 30 * DAY : fresh ? DAY : 7 * DAY), true);
+    if (!paid) await noteFreeCheck(env, m.user_id, now);
     stats.scanned++;
   }
   return stats;

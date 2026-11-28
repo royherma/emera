@@ -38,6 +38,7 @@ export type Env = {
   POSTS_PER_DAY?: string;
   UPLOADS_PER_DAY?: string;
   SIGNIN_EMAILS_PER_DAY?: string;
+  WELCOME_DELAY_MS?: string;
 };
 
 export type UserRow = {

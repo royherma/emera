@@ -297,3 +297,19 @@ test("admin protect: tiles, creators, actions write plan_events and are key-guar
   assert.equal((await act("dismiss", { id: "mt1" })).status, 200);
   assert.equal(db.prepare("SELECT status FROM matches WHERE id = 'mt1'").get().status, "dismissed");
 });
+
+test("opt-in posts a line and counts as the Protection on funnel step", async () => {
+  const h = harness();
+  await poll(h.env);
+  const t = Date.now();
+  const db = h.env.API_DB.raw;
+  db.exec("PRAGMA foreign_keys = OFF");
+  db.prepare("INSERT INTO users (id, email, handle, created_at, protect_opt_in_at) VALUES ('u5', 'lena@studio.org', 'lena', ?, ?), ('u6', 'kai@studio.org', 'kai', ?, NULL)").run(t - 1000, t, t - 1000);
+  db.prepare("INSERT INTO plan_events (user_id, plan, plan_until, kind, created_at) VALUES ('u5', 'free', NULL, 'opt_in', ?)").run(t);
+  const sent = await poll(h.env, t + 3 * 86400000);
+  assert.equal(sent.plans, 1);
+  assert.match(h.text(), /Turned on free protection.*lena.*1\* protected accounts/);
+  assert.doesNotMatch(h.text(), /New Protect/);
+  const step = adminView(await load(h.env)).funnel.find((f) => f[0] === "Protection on");
+  assert.equal(step[1], 1);
+});

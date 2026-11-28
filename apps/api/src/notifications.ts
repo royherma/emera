@@ -5,7 +5,10 @@ import { newId } from './crypto';
 import { originOf } from './http';
 import { decodeCursor, encodeCursor, iso, userJson, type PostRow } from './serialize';
 
-export type NotifyKind = 'like' | 'comment' | 'reply' | 'follow';
+export type NotifyKind = 'like' | 'comment' | 'reply' | 'follow' | 'checked';
+
+export const checkedText = (found: number, posts = 10) =>
+  found > 0 ? `We checked your ${posts} newest posts for copies. Found ${found}.` : `We checked your ${posts} newest posts. No copies found.`;
 
 type Row = {
   id: string; kind: string; actor_id: string; post_id: string | null; comment_id: string | null;
@@ -73,7 +76,7 @@ notificationRoutes.get('/v1/notifications', requireAuth, async (c) => {
       postId: r.post_id,
       thumbUrl: r.thumb_key ? `${origin}/media/${r.thumb_key}` : null,
       commentId: r.comment_id,
-      preview: r.preview,
+      preview: r.kind === 'checked' ? checkedText(r.count) : r.preview,
       createdAt: iso(r.created_at),
       read: r.read_at !== null,
     })),
