@@ -121,7 +121,7 @@ Post JSON also carries `likeCount`, `commentCount`, `viewCount` (people who watc
 
 `comment` = `{ id, postId, parentId, author: user, body, createdAt, replies: [comment] }`. `body` is 1 to 500 characters after trimming. `parentId` must be a top-level comment on the same post, so threads are one level deep (`bad_parent` otherwise). More than 10 comments in a minute from one person returns 429 `slow_down`. Errors: `bad_comment`, `comment_too_long`, `bad_parent`.
 
-`notification` = `{ id, kind: "like"|"comment"|"reply"|"follow"|"spotted", actor: user, count, postId, thumbUrl, commentId, preview, createdAt, read }`. Likes on the same post fold into one unread notification (`count` grows, `actor` is the latest person). Nobody is notified of their own actions. `follow` notifications are created by the follow endpoints through `notify()` in `apps/api/src/notifications.ts`.
+`notification` = `{ id, kind: "like"|"comment"|"reply"|"follow"|"spotted"|"checked", actor: user, count, postId, thumbUrl, commentId, preview, createdAt, read }`. Likes on the same post fold into one unread notification (`count` grows, `actor` is the latest person). Nobody is notified of their own actions. `follow` notifications are created by the follow endpoints through `notify()` in `apps/api/src/notifications.ts`. `checked` is written by the monthly free scan (`actor` is the user, `count` = copies found, `preview` = the sentence to show, no post).
 
 ## Spotted a copy, and the protected badge
 

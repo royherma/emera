@@ -5,7 +5,7 @@ import type { MiddlewareHandler } from 'hono';
 import type { AppEnv, Env, UserRow } from './env';
 import { fail, siteOrigin, readJson } from './http';
 import { hmacHex, newInviteCode, newSixDigitCode, newToken, newId, sha256Hex } from './crypto';
-import { deliveryFor, sendCode } from './mail';
+import { deliveryFor, sendCode, sendWelcomeOnce } from './mail';
 import { userJson } from './serialize';
 import { capSigninEmails } from './limits';
 import { isAdmin } from './roles';
@@ -159,6 +159,17 @@ auth.post('/v1/auth/handle', requireAuth, async (c) => {
     throw fail(409, 'handle_taken', 'That handle is taken.');
   }
   const user = (await c.env.DB.prepare('SELECT * FROM users WHERE id = ?').bind(me.id).first<UserRow>())!;
+  if (!isReviewLogin(c.env, me.email)) {
+    const delayMs = c.env.WELCOME_DELAY_MS === undefined ? 20_000 : Number(c.env.WELCOME_DELAY_MS);
+    const welcome = new Promise((r) => setTimeout(r, delayMs))
+      .then(() => sendWelcomeOnce(c.env, me.id))
+      .catch((e) => console.error('[welcome] failed', e));
+    try {
+      c.executionCtx.waitUntil(welcome);
+    } catch {
+      await welcome;
+    }
+  }
   return c.json({ user: userJson(user) });
 });
 

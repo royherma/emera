@@ -56,3 +56,30 @@ export async function sendReportToTeam(
     text,
   });
 }
+
+export async function sendWelcomeOnce(env: Env, userId: string): Promise<boolean> {
+  const u = await env.DB.prepare('SELECT email, handle, protect_opt_in_at FROM users WHERE id = ?').bind(userId)
+    .first<{ email: string; handle: string | null; protect_opt_in_at: number | null }>();
+  if (!u?.handle) return false;
+  const claim = await env.DB.prepare('INSERT OR IGNORE INTO scan_meta (key, n) VALUES (?, ?)').bind(`welcome:${userId}`, Date.now()).run();
+  if (!claim.meta.changes) return false;
+  const name = brand.name;
+  const optedIn = u.protect_opt_in_at !== null;
+  const link = optedIn ? 'https://emera.social/?ref=welcome-email' : 'https://emera.social/protect?optin=1&ref=welcome-email';
+  const subject = optedIn ? `You're protected on ${name}` : `Turn on free protection on ${name}`;
+  const line = optedIn
+    ? `You're protected on ${name}. Post your first thing and we start checking it for copies.`
+    : `Turn on free protection and we check your newest posts for copies every month, takedowns included.`;
+  if (deliveryFor(env) === 'log') {
+    console.log(`[welcome] ${u.email}: ${subject} ${link}`);
+    return true;
+  }
+  await postResend(env, {
+    from: env.MAIL_FROM || `${name} <hello@emera.social>`,
+    to: [u.email],
+    subject,
+    text: `${line}\n\n${link}`,
+    html: `<div style="font-family:system-ui,sans-serif;font-size:16px;line-height:1.5;color:#111"><p>${line}</p><p><a href="${link}">${link}</a></p></div>`,
+  });
+  return true;
+}

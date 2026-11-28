@@ -20,7 +20,7 @@ export async function load(env, { visitDays = 30 } = {}) {
   const [early, visits, users, posts, media, reports, flags, likes, comments, follows, sponsors, checkouts] = await Promise.all([
     all(env.SITE_DB, "SELECT * FROM early_access ORDER BY id"),
     all(env.SITE_DB, "SELECT * FROM visits WHERE created_at >= ? AND bot = 0 ORDER BY id LIMIT 50000", since),
-    all(env.API_DB, "SELECT id, email, handle, display_name, invited_by, created_at FROM users ORDER BY created_at"),
+    all(env.API_DB, "SELECT id, email, handle, display_name, invited_by, created_at, protect_opt_in_at FROM users ORDER BY created_at"),
     all(env.API_DB, "SELECT id, user_id, caption, created_at FROM posts ORDER BY created_at"),
     all(env.API_DB, "SELECT post_id, kind, COUNT(*) AS n FROM media WHERE post_id IS NOT NULL GROUP BY post_id, kind"),
     all(env.API_DB, "SELECT id, post_id, reporter_user_id, copy_url, note, status, created_at FROM reports ORDER BY created_at"),
@@ -108,6 +108,7 @@ export function adminView(d) {
       ["Visited", people.length],
       ["Started sign-up", real(d.early).filter((e) => toMs(e.created_at) >= since30).length],
       ["Made an account", users30.length],
+      ["Protection on", users30.filter((u) => u.protect_opt_in_at != null).length],
       ["Posted", users30.filter((u) => posters.has(u.id)).length],
     ],
     days,

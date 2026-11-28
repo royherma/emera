@@ -191,6 +191,27 @@ describe('scanner', () => {
     for (const u of [free, old]) expect((await db.prepare('SELECT COUNT(*) AS n FROM scans WHERE user_id = ?').bind(u.id).first<any>()).n).toBe(0);
   });
 
+  it('free opted-in user gets one monthly note once every post is checked, a win when empty', async () => {
+    const empty = await creator(null);
+    await db.prepare('UPDATE users SET protect_opt_in_at = ? WHERE id = ?').bind(Date.now(), empty.id).run();
+    fakeLens({});
+    await runScan(env);
+    await runScan(env);
+    const list = await empty.c.json('GET', '/v1/notifications');
+    const checked = list.body.notifications.filter((n: any) => n.kind === 'checked');
+    expect(checked).toHaveLength(1);
+    expect(checked[0].preview).toBe('We checked your 10 newest posts. No copies found.');
+
+    const hit = await creator(null);
+    await db.prepare('UPDATE users SET protect_opt_in_at = ? WHERE id = ?').bind(Date.now(), hit.id).run();
+    fakeLens(hit.lens);
+    await runScan(env);
+    const n = (await hit.c.json('GET', '/v1/notifications')).body.notifications.filter((x: any) => x.kind === 'checked');
+    expect(n).toHaveLength(1);
+    expect(n[0].count).toBe(3);
+    expect(n[0].preview).toBe('We checked your 10 newest posts for copies. Found 3.');
+  });
+
   it('stops at the monthly limit', async () => {
     fakeLens();
     await creator('creator');
