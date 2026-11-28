@@ -2,11 +2,11 @@
 
 Written 2026-11-13 (Bangkok). Replaces the one-pager as the plan; the one-pager stays as the idea record. Facts have a link. `[inferred]` = my reasoning, not read in a source. `[target]` = a goal, not a forecast. What the founder must do or decide is on the Review screen of the dashboard (`data/plan.json` `review`).
 
-**Founder decision folded in (2026-11-13):** no automatic copy-watch for now. Protection v1 is manual. A creator reports a copy they found (link + screenshot), we help file the takedown, and every report goes into a dataset that later trains and tests automatic matching. Automatic scanning is not part of M0 to M2. The ~$31k/month scan bill in `architecture.md` is out of the early milestones and comes back only when the dataset can prove a matcher works (M3 pilot, M4 at scale).
+**Founder decision folded in (2026-11-13):** no automatic copy-watch for now. Protection v1 is manual. A creator reports a copy they found (link + screenshot), we help file the takedown, and every report goes into a dataset that later trains and tests automatic matching. Automatic scanning is not part of M0 to M2 (changed 2026-11-23: open-web scanning now runs, see `protection-plan.md`). The ~$31k/month scan bill in `architecture.md` is out of the early milestones and comes back only when the dataset can prove a matcher works (M3 pilot, M4 at scale).
 
 ## What we are building
 
-Emera. Where humanity comes together. An open-source nonprofit network for everyone who makes things, as our own network, with our own accounts and our own R2 storage, phone app and web together. Four promises, none of which a network built on ad attention can truthfully copy: proof of who made it, help when your work is copied, an open algorithm, and you own your account.
+Emera. Where humanity comes together. The open source social network (`brand.line`); mission and values: [mission/mission.md](mission/mission.md). Our own network with our own accounts and our own R2 storage, phone app and web together. Four promises, none of which a network built on ad attention can truthfully copy: proof of who made it, help when your work is copied, an open algorithm, and you own your account.
 
 What exists: an API Worker (accounts, uploads, posts, profile pages, invites), an Expo app in progress, a landing page with an early-access list, both deployed to staging, and a provenance spike (C2PA signing works; the perceptual hash PDQ survives resize and recompress, tolerates about 1% crop, fails at 2% crop and on a mirror flip). Nothing public yet: no users, no press, no partners. Copy must not imply any.
 
@@ -187,6 +187,17 @@ Week 1 starts Monday 2026-11-16. M0 ends week 1. M1 target is week 7. M2 begins 
 | 11 | Jan 25 | 600 creators; fiscal-host applications sent (2 to 3); first grant applications (Open Technology Fund, Internet Society Foundation, Interledger if open) |
 | 12 | Feb 1 | Open feeds with "why this post"; contributor bounties; export-and-leave test with 10 people |
 | 13 | Feb 8 | M2 check: 1,000 creators, 300 reports, 5 outside contributors, host in writing. Decide whether to start the matcher pilot |
+
+## 8. App Review log
+
+Live state of the iOS app (app id `6834311747`). Update here, never in CLAUDE.md. Checked in App Store Connect 2026-11-28.
+
+| Build | Date | What happened |
+| --- | --- | --- |
+| 1 | 2026-11-13 | Version 1.0 rejected 2026-11-14 under 2.1 Information Needed (video, demo login, account deletion) |
+| 2 | 2026-11-14 | Resubmitted 8:20 AM Bangkok with notes, video and demo login `review@emera.social`; outcome not recorded here; `docs/ideas.md` 2026-11-17 notes a 4.3 clone rejection |
+| 3 | 2026-11-17 | Submission `fb831508` for 1.0, set A screenshots, waiting for review since 17 Nov |
+| 4 | 2026-11-24 | Uploaded, never submitted |
 
 ## Sources
 
