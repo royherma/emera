@@ -22,7 +22,8 @@ import { useResource } from "@/state/resource";
 import { useTheme } from "@/state/theme";
 import { RoleBadge } from "@/components/RoleBadge";
 import { useWatchTime } from "@/lib/useWatchTime";
-import type { Post } from "@/lib/types";
+import { useAuth } from "@/state/auth";
+import type { Post, ProtectPlan } from "@/lib/types";
 
 const BACK_GUTTER = 60;
 
@@ -44,6 +45,11 @@ export default function PostDetail() {
   const [more, setMore] = useState(false);
   const [moreError, setMoreError] = useState(false);
   const busy = useRef(false);
+  const [plan, setPlan] = useState<ProtectPlan | null>(null);
+  const protect = { plan, onPlan: setPlan };
+  useEffect(() => {
+    api.protectMe().then(setPlan, () => {});
+  }, []);
 
   const back = () => (router.canGoBack() ? router.back() : router.replace("/feed"));
 
@@ -80,10 +86,10 @@ export default function PostDetail() {
         <ErrorState message={error} onRetry={retry} />
       ) : (
         <View style={{ gap: space[7] }}>
-          <PostItem post={post ?? null} onChange={setData} onDeleted={back} />
+          <PostItem post={post ?? null} onChange={setData} onDeleted={back} protect={protect} />
           {post &&
             next?.posts.map((p) => (
-              <PostItem key={p.id} post={p} onChange={replace} onDeleted={drop} />
+              <PostItem key={p.id} post={p} onChange={replace} onDeleted={drop} protect={protect} />
             ))}
           {post && <FeedEnd cursor={next ? next.cursor : "start"} loading={more || !next} failed={moreError} onMore={() => next && fetchNext(next.cursor, next.posts)} onRefresh={() => fetchNext(null, [])} />}
         </View>
@@ -92,7 +98,30 @@ export default function PostDetail() {
   );
 }
 
-function PostItem({ post, onChange, onDeleted }: { post: Post | null; onChange: (p: Post) => void; onDeleted: (id: string) => void }) {
+function ProtectLine({ plan, onPlan }: { plan: ProtectPlan | null; onPlan: (p: ProtectPlan) => void }) {
+  const { c } = useTheme();
+  const [busy, setBusy] = useState(false);
+  if (!plan) return null;
+  if (plan.optedIn || plan.plan !== "free") return <Text style={[type.meta, { color: c.ink2 }]}>Protected. We check it for copies every month.</Text>;
+  const turnOn = async () => {
+    if (busy) return;
+    setBusy(true);
+    try {
+      onPlan(await api.protectOptIn());
+    } catch {
+      setBusy(false);
+    }
+  };
+  return (
+    <Pressable accessibilityRole="button" onPress={turnOn} disabled={busy}>
+      <Text style={[type.name, { fontSize: 14, color: c.sunInk }]}>Protect this post (free)</Text>
+    </Pressable>
+  );
+}
+
+type Protect = { plan: ProtectPlan | null; onPlan: (p: ProtectPlan) => void };
+
+function PostItem({ post, onChange, onDeleted, protect }: { post: Post | null; onChange: (p: Post) => void; onDeleted: (id: string) => void; protect: Protect }) {
   const router = useRouter();
   const { c, scheme } = useTheme();
   const { inner, wide, height } = useLayout();
@@ -103,6 +132,8 @@ function PostItem({ post, onChange, onDeleted }: { post: Post | null; onChange: 
   const first = post?.media[0];
   const { width: mediaW, height: mediaH } = fitBox(aspect(first, FULL), { width: wide ? inner - 360 - space[6] - BACK_GUTTER : inner, height: wide ? height - 100 : height - 200 });
   const proof = first?.proof;
+  const { user } = useAuth();
+  const mine = !!post && !!user && post.author.id === user.id;
 
   return (
     <View style={{ flexDirection: wide ? "row" : "column", gap: wide ? space[6] : space[4], alignItems: "flex-start", justifyContent: "center", paddingLeft: wide ? BACK_GUTTER : 0 }}>
@@ -179,6 +210,7 @@ function PostItem({ post, onChange, onDeleted }: { post: Post | null; onChange: 
                 </View>
               </View>
             )}
+            {mine && <ProtectLine plan={protect.plan} onPlan={protect.onPlan} />}
             <Thread postId={post.id} inline onCount={(n) => n !== post.commentCount && onChange({ ...post, commentCount: n })} />
           </>
         ) : (
