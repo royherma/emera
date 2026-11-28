@@ -1,8 +1,8 @@
 # Open Instagram Alternative — One-Pager
 
-Copied 2026-11-13 from the Claude doc (https://claude.ai/artifact/8ucGkttmGMA9wnoYzYZtQo), rev 17. The doc stays the live copy; re-export if it changes.
+Copied 2026-11-13 from the Claude doc, rev 17. This file is the live copy now: edit it here.
 
-Visual version: [whiteboard](https://claude.ai/artifact/S5JCoHY7nfa4H4mUkF8CyL)
+Visual version: [whiteboard](../source/whiteboard/)
 
 ## The bet
 
