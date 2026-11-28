@@ -23,7 +23,7 @@ export function costsBody() {
 <div class="tw sm"><table><thead><tr><th scope="col">Bill</th><th scope="col">A month</th><th scope="col">How we know</th></tr></thead><tbody>${rows}<tr class="tot"><th scope="row">Total</th><td class="n">${usd(total)}</td><td></td></tr></tbody></table></div>
 <h2>Who pays</h2>
 <p>${esc(costs.paidBy.who)}, the company that started Emera, pays every bill above (${src(costs.paidBy.source)}). When the network earns more than it costs to run, the surplus goes back to the people who made it worth visiting.</p>
-<p class="live">Accounts on Emera right now: <b data-accounts>...</b>, counted in the <a href="/ledger">open ledger</a>.</p>
+<p class="live">Accounts on Emera right now: <b data-accounts>...</b>, counted in the <a href="/ledger/">open ledger</a>.</p>
 <h2>${esc(m.title)}</h2>
 <p>${esc(m.note)}</p>
 ${model}
