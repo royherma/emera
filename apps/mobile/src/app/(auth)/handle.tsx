@@ -36,8 +36,14 @@ export default function Handle() {
     setError(null);
     try {
       const user = await api.setHandle({ handle, displayName: name.trim() || handle });
-      finishHandle(user);
-      if (next) router.replace(next as never);
+      const skip = next?.startsWith("/protect") || (await api.protectMe().then((m) => m.optedIn, () => true));
+      if (skip) {
+        finishHandle(user);
+        if (next) router.replace(next as never);
+      } else {
+        pendingSignup.user = user;
+        router.push({ pathname: "/protect-step", params: next ? { next } : {} });
+      }
     } catch (e) {
       setError(e instanceof ApiError ? e.message : "Something went wrong. Try again.");
     } finally {

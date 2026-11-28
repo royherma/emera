@@ -53,7 +53,7 @@ export default function Welcome() {
         The open source social network for creators and real people. We find the copies of what you create and get them taken down.
       </Text>
       <View style={{ flexDirection: wide ? "row" : "column", gap: space[3] }}>
-        <Button label="Get started" size="lg" onPress={() => router.push("/sign-in")} style={wide ? { minWidth: 190 } : undefined} />
+        <Button label="Get free protection" size="lg" onPress={() => router.push("/sign-in")} style={wide ? { minWidth: 190 } : undefined} />
         <Button label="I have an account" size="lg" kind="secondary" onPress={() => router.push("/sign-in")} style={wide ? { minWidth: 190 } : undefined} />
       </View>
     </View>
