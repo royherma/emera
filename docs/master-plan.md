@@ -198,6 +198,7 @@ Live state of the iOS app (app id `6834311747`). Update here, never in CLAUDE.md
 | 2 | 2026-11-13 | Uploaded; App Store Connect lists no submission of its own (only 3c2f646f and fb831508 exist) |
 | 3 | 2026-11-17 | Submission `fb831508` for 1.0, set A screenshots, waiting for review since 17 Nov |
 | 4 | 2026-11-24 | Uploaded, never submitted |
+| 5 | 2026-11-28 | Commit 05d9fa8. Roy 9:57 AM Bangkok: release now. Submission fb831508 (build 3) canceled, build 5 attached to 1.0, notes gained "Changes in build 5", new submission `8fadfe8e` waiting for review; releases by itself on approval |
 
 ### Submission 3c2f646f (1.0 build 1, sent 2026-11-13 14:27Z) - rejected 2026-11-14 3:29 AM Bangkok
 
