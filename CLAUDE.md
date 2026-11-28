@@ -34,7 +34,7 @@ Several sessions and their sub-agents work on this repo at once. The shared-work
 | Launch + first 1,000 creators | `docs/launch/` |
 | Name, trademark, handles | `docs/naming.md`, `docs/emera-checks.md` |
 | Roy's raw ideas, dated | `docs/ideas.md` (new ideas land here first) |
-| Original plan doc + whiteboard | `docs/one-pager.md`, `source/whiteboard/`, https://claude.ai/artifact/8ucGkttmGMA9wnoYzYZtQo, https://claude.ai/artifact/S5JCoHY7nfa4H4mUkF8CyL |
+| Original plan doc + whiteboard | `docs/one-pager.md`, `source/whiteboard/` |
 
 ## Product rules
 

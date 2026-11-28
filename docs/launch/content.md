@@ -158,3 +158,78 @@ Not for bulk use. One line of real specifics per person, then:
 - Posts: every line checked for no trailing period or comma.
 - No claim of automatic scanning, no unbuilt feature described as available. Items needing a built flow are marked NEEDS.
 - Numbers used: 40,000 to 650,000 (TechCrunch headline, linked); about 6 cents per user per month (estimate in `docs/one-pager.md`, labelled as such). No Emera user or creator count appears anywhere.
+
+## Protect pitch: mix-and-match lines (2026-11-25)
+
+Roy films every line below in ONE take, each line twice, a breath between lines. YapCut (Dani Full: Roy full frame, source card on his chest) cuts the best try of each line and assembles the versions at the bottom. Any hook fits any body, so 5 hooks x 4 bodies = 20 short videos from one take. Goal: comments and Protect sign-ups, measured per version.
+
+Cards (screens, no animation) are in `agora/.claude/artifacts/pitch-cards/` (gitignored: news screenshots are not ours to publish in the repo). Roy's own screenshots of copies on social apps go in the same folder.
+
+**No platform named, said or shown** (Roy, 2026-11-25: these post on Instagram). Cards are cropped so no app name shows (`-noplatform` files; the mock's TikTok label reads REPOST). Roy's own screenshots get the app name and logo cropped or covered before they go in.
+
+### Hooks
+
+1. Someone is posting your videos right now. And they're the ones getting the views.
+2. It's never been easier to steal from creators.
+3. This creator had to report her own AI clone thousands of times before it came down. `[card 06 LBC]`
+4. If you post online, there's a good chance someone is making money off what you made.
+5. AI can copy your face, your voice and your videos. For free.
+
+### The problem
+
+6. Your reel, reposted on some account with a million followers. `[Roy's screenshot]`
+7. Your art, printed on a shirt you've never seen. `[card 03 Shein]`
+8. Your face, in an ad you never made. `[card 02 Fox]`
+9. Doctors, deepfaked to sell pills. `[card 04 BMJ]`
+10. One company lost twenty-five million dollars to a fake video call. `[card 05 Fortune]`
+11. And when you report it? A form. And then nothing.
+12. Honestly, it's super unfair.
+
+### The turn
+
+13. So here's the thing. The same AI they use to steal, we can use to fight back.
+14. Let's point it at the scammers for once.
+
+### What Emera does
+
+15. It's called Emera. `[card 20 protect hero]`
+16. You add what you made, and we go find the copies. `[card 21 found copies]`
+17. Reposts, re-uploads, fake accounts using your face.
+18. Found one? One tap, and we file the takedown.
+19. And we follow it until it's gone. You get a receipt.
+20. And if they made money off your work, we go after that too.
+
+### Ask
+
+21. Found a copy of your stuff? Send it to us. We'll take it down, for free.
+22. Comment PROTECT and I'll send you the link.
+23. Or go to emera dot social slash protect.
+24. Has this happened to you? Tell me in the comments.
+
+### Versions
+
+| Version | Lines | About |
+| --- | --- | --- |
+| A Creator | 1, 6, 8, 11, 13, 15, 16, 18, 19, 21, 22 | 25 s |
+| B Clone | 3, 8, 12, 13, 15, 17, 18, 22 | 20 s |
+| C Everyone | 2, 6, 7, 9, 10, 13, 15, 16, 18, 20, 21, 23 | 30 s |
+| D Question | 4, 6, 11, 24 | 12 s, pure interest test, no pitch |
+
+Swap any hook (1-5) onto any body. Post link: `emera.social/protect?ref=<platform>-<version>` so #emera-events shows which version brought people.
+
+### Filming notes for Roy
+
+- Hook louder and faster than the rest; the first word lands in frame 1.
+- One idea per breath. Stop fully between lines; YapCut closes gaps to 0.1 s.
+- Read 3, 9 and 10 straight, no jokes: the cards carry them.
+- Hold the phone up to the lens on 6 if the copy is on it: a real copy beats any headline.
+- Lines to add if you have them: one copy of YOUR own work you found (who, where, how many views), and what happened when you reported it. That is the strongest line in the set.
+
+### Launch checklist for a reel with a comment keyword (used 2026-11-25 for PROTECT)
+
+1. Yap Studio: lock the approved cut (`node bin/lock-cut.mjs <version>`), sweep every 0.25 s for caption/card/title overlap (0), export once at 1.1x.
+2. Hook variants: copy the version to `<version>-hookB/C` with only `title` changed, `node bin/export-hook.mjs <variant> <export.mp4> 1.1` (head only, ~2.5 min each), make a `.jpg` still next to every mp4 (trials page thumbnails).
+3. Soulepreneur post (`src/content/posts/<slug>.md`): header = the reel, every section shows the video's own cards, "You commented KEYWORD, so here it is", links to `emera.social/protect?ref=soulepreneur-...`. `npm run check`, then deploy from a clean worktree at the commit so other sessions' untracked posts don't ship.
+4. Comment-to-DM (`../comment-dm`): copy the last keyword automation, postMode `any` for several trial reels, TikTok on, buttons: the post + `emera.social/protect?ref=ig-dm`. Live BEFORE the reels go out.
+5. Trial reels: drafts in `storyboard-lab/ideation/trials.json` (group, tag, hook, file, caption), Roy clicks Schedule on :5008.
+6. Other platforms: content board card (`ideation/captions.json` + `content/social/idea-queue.json` + `.claude/artifacts/robot-shorts/<id>-final.mp4`), every caption links emera.social/protect with its own `?ref=`, no LinkedIn unless Roy says, then `node bin/drafts.mjs <id> --now --only tiktok,youtube,facebook,threads,x` after Roy says post.

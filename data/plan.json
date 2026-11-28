@@ -316,13 +316,21 @@
           "id": "pr-page",
           "text": "/protect page: hook, $10 Creator, $100 Pro/Brand unlimited, Enterprise form to Slack",
           "who": "claude",
-        "done": {"at": "2026-11-23T04:40:00Z", "ref": "ce900bf", "note": "live on emera.social, tested with PROTECTTEST100 on live and test"}
+          "done": {
+            "at": "2026-11-23T04:40:00Z",
+            "ref": "ce900bf",
+            "note": "live on emera.social, tested with PROTECTTEST100 on live and test"
+          }
         },
         {
           "id": "pr-stripe",
           "text": "Stripe subscriptions on the Emera account ($10, $100), plan on each user",
           "who": "claude",
-        "done": {"at": "2026-11-23T04:40:00Z", "ref": "ce900bf", "note": "live on emera.social, tested with PROTECTTEST100 on live and test"}
+          "done": {
+            "at": "2026-11-23T04:40:00Z",
+            "ref": "ce900bf",
+            "note": "live on emera.social, tested with PROTECTTEST100 on live and test"
+          }
         },
         {
           "id": "pr-add",
@@ -333,19 +341,31 @@
           "id": "pr-scan",
           "text": "Weekly scan per work: Google Lens + PDQ + Claude vision judge, Found copies screen",
           "who": "claude",
-        "done": {"at": "2026-11-23T05:00:00Z", "ref": "a2b4aa6", "note": "live: cron every 30 min, Found copies in app Settings > Protect; budget 5/month until SerpAPI paid plan"}
+          "done": {
+            "at": "2026-11-23T05:00:00Z",
+            "ref": "a2b4aa6",
+            "note": "live: cron every 30 min, Found copies in app Settings > Protect; budget 5/month until SerpAPI paid plan"
+          }
         },
         {
           "id": "pr-takedown",
           "text": "Takedown engine: notice builder, email host DMCA agent, platform-form desk queue, daily recheck, receipt card",
           "who": "claude",
-        "done": {"at": "2026-11-23T05:20:00Z", "ref": "889857e", "note": "live: signed statement once, notice built, form or abuse email, daily recheck, Removed receipt at emera.social/takedown/<id>"}
+          "done": {
+            "at": "2026-11-23T05:20:00Z",
+            "ref": "889857e",
+            "note": "live: signed statement once, notice built, form or abuse email, daily recheck, Removed receipt at emera.social/takedown/<id>"
+          }
         },
         {
           "id": "pr-desk",
           "text": "Desk page in /admin: every open takedown, one-click file, status",
           "who": "claude",
-        "done": {"at": "2026-11-23T05:20:00Z", "ref": "889857e", "note": "live: Takedowns on emera.social/admin, Send / Mark filed / Reject; nothing leaves without a person"}
+          "done": {
+            "at": "2026-11-23T05:20:00Z",
+            "ref": "889857e",
+            "note": "live: Takedowns on emera.social/admin, Send / Mark filed / Reject; nothing leaves without a person"
+          }
         },
         {
           "id": "pr-roy",
@@ -742,8 +762,12 @@
     {
       "id": "appstore-shots-b3",
       "pick": "a",
-      "done": {"at": "2026-11-17T07:18:54Z", "ref": "74376b8", "note": "set A uploaded with build 3; resubmitted 2:18 PM Bangkok, submission fb831508 WAITING_FOR_REVIEW"},
-      "note": "Roy picked A 2:16 PM Bangkok 17 Nov",
+      "done": {
+        "at": "2026-11-17T07:18:54Z",
+        "ref": "74376b8",
+        "note": "set A uploaded with build 3; resubmitted 2:18 PM Bangkok, submission fb831508 WAITING_FOR_REVIEW"
+      },
+      "note": "A: the dark stage makes the white Proof sheet pop at small size; full-size frames are in .claude/artifacts/app-store/v1.0-b3/frames-a and frames-b",
       "q": "Which App Store screenshot set for Emera 1.0 build 3? (Apple 4.3(b) fix)",
       "why": "Both lead with the Proof sheet and report-a-copy so a reviewer sees creator protection, not a photo feed; the feed is last. Real @techguyver posts; the My reports rows use invented hosts. Nothing is uploaded until you pick.",
       "options": [
@@ -763,9 +787,7 @@
           "href": "/file/.claude/artifacts/app-store/v1.0-b3/compare.png"
         }
       ],
-      "mine": "a",
-      "note": "A: the dark stage makes the white Proof sheet pop at small size; full-size frames are in .claude/artifacts/app-store/v1.0-b3/frames-a and frames-b",
-      "pick": "a"
+      "mine": "a"
     }
   ],
   "names": {
@@ -1507,7 +1529,48 @@
     ]
   ],
   "review": [
-    {"id": "ios-b5-submit", "kind": "approve", "when": "morning, 1 min", "title": "iPhone build 5: Spotted copies + free protection", "why": "Build 5 from main 857b8b5 (last uploaded: 4). Adds the 'Copies people spotted for you' list on Protect (Take it down / Not a copy) and the one-tap free protection opt-in. Not uploaded yet. Screens below are the same commit in the app's preview mode at iPhone size; the simulator has no tap tool to sign in.", "list": ["What's new: Free protection. Sign in, turn it on, and we check your 10 newest posts every month for copies.", "What's new: Copies people spot for you land in Protect, with one tap to take each one down.", "On approve: apps/mobile/scripts/ios-release.sh 5 (archive, upload), then submit 1.0 build 5 for review"], "shots": [".claude/artifacts/ios-b5/1-spotted-and-optin.png", ".claude/artifacts/ios-b5/2-after-optin.png", ".claude/artifacts/ios-b5/3-take-it-down.png"], "links": [["Build log", ".claude/artifacts/ios-b5/run.log"]], "options": [{"id": "submit", "label": "submit to Apple", "primary": true}], "pick": "submit to Apple"},
+    {
+      "id": "ios-b5-submit",
+      "kind": "approve",
+      "when": "morning, 1 min",
+      "title": "iPhone build 5: Spotted copies + free protection",
+      "why": "Build 5 from main 05d9fa8, uploaded 9:47 AM Bangkok 28 Nov as version 1.0 (not submitted; App Store Connect says VALID, ready to attach). Adds: Protect what you make step after sign-up, Protected line on your posts, monthly we-checked note, Spotted copies on Protect. Plan: keep build 3 in Apple line; if 1.0 is still waiting on 1 Dec 9:00 AM Bangkok, swap to build 5 (resets the queue). If 1.0 is approved first, Claude makes build 6 as 1.0.1.",
+      "list": [
+        "What's new: Free protection. Sign in, turn it on, and we check your 10 newest posts every month for copies.",
+        "What's new: Copies people spot for you land in Protect, with one tap to take each one down.",
+        "On approve: apps/mobile/scripts/ios-release.sh 5 (archive, upload), then submit 1.0 build 5 for review"
+      ],
+      "shots": [
+        ".claude/artifacts/protect-onboarding/1-protect-step.png",
+        ".claude/artifacts/protect-onboarding/4-post-owner-protected.png",
+        ".claude/artifacts/ios-b5/1-spotted-and-optin.png"
+      ],
+      "links": [
+        [
+          "Build log",
+          ".claude/artifacts/ios-release/b5-05d9fa8.log"
+        ],
+        [
+          "Plan",
+          "/file/.claude/artifacts/plan/protect-onboarding-plan.html"
+        ]
+      ],
+      "options": [
+        {
+          "id": "submit",
+          "label": "submit to Apple",
+          "primary": true
+        }
+      ],
+      "pick": "submit to Apple",
+      "answer": "submit to Apple",
+      "at": "2026-11-28T02:58:39.750Z",
+      "done": {
+        "at": "2026-11-28T02:58:39.751Z",
+        "ref": "8fadfe8e",
+        "note": "Roy 9:57 AM: release now. Build 3 pulled, build 5 submitted, auto-release on approval"
+      }
+    },
     {
       "id": "home-subhead",
       "kind": "pick",
@@ -1532,10 +1595,22 @@
         }
       ],
       "links": [
-        ["Home, desktop light", ".claude/artifacts/site-shots/polish-home-desk-light.png"],
-        ["Home, desktop dark", ".claude/artifacts/site-shots/polish-home-desk-dark.png"],
-        ["Home, phone", ".claude/artifacts/site-shots/polish-home-phone-light.png"],
-        ["Protect, desktop", ".claude/artifacts/site-shots/polish-protect-desk-light.png"]
+        [
+          "Home, desktop light",
+          ".claude/artifacts/site-shots/polish-home-desk-light.png"
+        ],
+        [
+          "Home, desktop dark",
+          ".claude/artifacts/site-shots/polish-home-desk-dark.png"
+        ],
+        [
+          "Home, phone",
+          ".claude/artifacts/site-shots/polish-home-phone-light.png"
+        ],
+        [
+          "Protect, desktop",
+          ".claude/artifacts/site-shots/polish-protect-desk-light.png"
+        ]
       ]
     },
     {
@@ -2342,6 +2417,34 @@
         ]
       ],
       "pick": "Approve: apply 0031 and deploy the API to production"
+    },
+    {
+      "id": "protect-onboarding-plan",
+      "kind": "approve",
+      "when": "now, 5 min",
+      "title": "Plan: free protection from the first minute + repo cleanup",
+      "why": "17 changes in 7 levels (sign-up leak, onboarding step, Protected line on posts, welcome email, funnel step, App Store order, docs cleanup). Approve or change each one on the plan page; nothing is built until then.",
+      "links": [
+        [
+          "Plan page",
+          "/file/.claude/artifacts/plan/protect-onboarding-plan.html"
+        ]
+      ],
+      "options": [
+        {
+          "id": "approve",
+          "label": "approve all",
+          "primary": true
+        },
+        {
+          "id": "change",
+          "label": "change"
+        }
+      ],
+      "pick": "approve all",
+      "answer": "approve",
+      "at": "2026-11-28T02:22:36.066Z",
+      "text": "Roy 9:21 AM Bangkok in terminal: approve all, fix bugs as found"
     }
   ],
   "reviewDone": [
