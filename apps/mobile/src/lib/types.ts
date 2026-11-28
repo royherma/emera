@@ -61,7 +61,7 @@ export type ViewLedger = {
 
 export type Comment = { id: string; postId: string; parentId: string | null; author: User; body: string; createdAt: string; replies: Comment[] };
 
-export type NotificationKind = "like" | "comment" | "reply" | "follow" | "spotted";
+export type NotificationKind = "like" | "comment" | "reply" | "follow" | "spotted" | "checked";
 
 export type Notification = {
   id: string;
