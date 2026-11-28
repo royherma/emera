@@ -188,6 +188,58 @@ Week 1 starts Monday 2026-11-16. M0 ends week 1. M1 target is week 7. M2 begins 
 | 12 | Feb 1 | Open feeds with "why this post"; contributor bounties; export-and-leave test with 10 people |
 | 13 | Feb 8 | M2 check: 1,000 creators, 300 reports, 5 outside contributors, host in writing. Decide whether to start the matcher pilot |
 
+## 8. App Review log
+
+### Submission 3c2f646f (1.0 build 1, sent 2026-11-13 14:27Z) - rejected 2026-11-14 3:29 AM Bangkok
+
+Read 2026-11-28 with `ShowAndTell/bin/asc-rejection 3c2f646f-bcdc-4ffa-9447-c3fdf516879b`. Reason code: **2.1 Performance: App Completeness 2.1.0**. Apple's text, verbatim:
+
+> Guideline 2.1 - Information Needed - New App Submission
+>
+> We need additional information to better understand the app and complete the review.
+>
+> Note: Before submitting, run the submitted build through your own testing and quality assurance process on supported physical devices. App Review is intended for apps and metadata that are complete and ready for App Store customers.
+>
+> If the app is ready for review, follow the directions below.
+>
+> Next Steps
+>
+> Add all of the following information to the Notes field of the App Review Information section in App Store Connect and resubmit your app for Review:
+>
+> 1. A screen recording captured on a physical device, running the latest operating system, demonstrating the app's functionality. The recording must begin with launching the app and show the typical user flow. If the app has any of the following, include them in the recording:
+>
+> - Account registration, login, and account deletion flows. Account deletion is required in apps that support account creation.
+> - Any user-generated content, including the required content reporting and blocking mechanisms.
+> - Accessing paid content or features within the app.
+>
+> 2. A description of the app's purpose and target audience, including the problem it solves and the value it provides
+> 3. Instructions for setting up and accessing the app's main features, including any required login credentials or sample files
+> 4. A list of the external services, tools, or platforms the app uses to deliver its core functionality (for example, data providers, authentication services, payment processors, or AI services)
+> 5. Describe any regional differences in the app's features or content, or confirm that the app functions consistently across all regions
+> 6. If the app operates in a highly regulated industry or includes protected third-party material, provide any relevant documentation or credentials to demonstrate you are authorized to provide these services or protected material
+>
+> Prevent Common Issues
+>
+> - Guideline 2.1 - Bugs and crashes: Apps are reviewed on physical devices to mirror real-world conditions. Test the app on each supported device platform before submitting. Use TestFlight to distribute builds for beta testing on real devices.
+> - Guideline 2.1 - Accessing the app: If the app includes account-based features, provide up-to-date login credentials for a demo account in App Store Connect. If the app has multiple account types, provide credentials for each type in the Notes field.
+> - Guideline 2.3.3 - Screenshots: App screenshots on the App Store must show the actual app in use, and not merely the title art, login page, or splash screen.
+> - Guideline 3.1.1 - In-App Purchase: In-App Purchase products should be configured and submitted alongside the app.
+> - Guideline 3.2 - Other Business Models: If your app is intended to be used by specific businesses, organizations or employees then use one of the other distribution options available to you through the Apple Developer Program Account.
+
+Already fixed, checked against App Store Connect 2026-11-28:
+
+| Apple ask | Where it is answered now |
+| --- | --- |
+| 1 Screen recording (launch, sign-up, login, UGC report + block, delete account) | Review notes link https://api.emera.social/media/AppReview-b2.mp4 (HTTP 200); delete account shipped in build 2 |
+| 2 Purpose and audience | Notes section "1. What Emera is for" |
+| 3 Setup + login | Notes "2. How to use it" + demo login `review@emera.social` (code in key `EMERA_REVIEW_CODE`, `demoAccountRequired: true`) |
+| 4 Outside services | Notes "3. Outside services" (Cloudflare, Resend, Sentry, optional Bluesky/blog import) |
+| 5 Regions | Notes "4. Regions" |
+| 6 Regulated / third-party material | Notes "5. Regulated industry or third-party material" |
+| 2.3.3 Screenshots | Set A uploaded with build 3 (plan.json done ref 74376b8) |
+
+Superseded by submission `fb831508` (1.0 build 3, sent 2026-11-17 2:18 PM Bangkok), state WAITING_FOR_REVIEW, item READY_FOR_REVIEW. Nothing to resubmit for 3c2f646f.
+
 ## Sources
 
 Read this run (2026-11-13): [NLnet Commons Fund](https://www.nlnet.nl/commonsfund), [NLnet Open Social](https://nlnet.nl/opensocial/), [Copyright Office FAQ](https://www.copyright.gov/rulemaking/onlinesp/NPR/faq.html), [Open Source Collective fees](https://opencollective.com/opensource/updates/fees-arent-changing-but-how-we-show-them-is), [Open Collective on OCF dissolution](https://blog.opencollective.com/open-collective-official-statement-ocf-dissolution/), [HCB eligibility](https://help.hcb.hackclub.com/en/articles/15409923-who-can-apply-for-fiscal-sponsorship), [Interledger Grant for the Web](https://interledger.org/grant-web), [Interledger to Social Web Foundation](https://interledger.org/es/node/1653), [Cloudflare for Startups](https://cloudflare.com/startups/), [Cloudflare CSAM Scanning Tool](https://developers.cloudflare.com/cache/reference/csam-scanning/), [Meta IP Reporting API](https://developers.facebook.com/blog/post/2022/10/25/introducing-intellectual-property-reporting-api/), [Free Our Feeds (TechCrunch)](https://techcrunch.com/2025/01/13/a-new-campaign-aims-to-safeguard-social-media-from-billionaires-using-blueskys-underlying-tech), [Cara growth (Dataconomy)](https://dataconomy.com/2024/06/07/what-is-cara-app-and-how-to-use-it), [creator coalition (Publishers Weekly)](https://www.publishersweekly.com/pw/by-topic/industry-news/licensing/article/91920-authors-guild-meets-with-legislators-over-generative-ai-concerns.html), [Resend pricing](https://resend.com/pricing). Search results were summaries of pages, not the pages: grant amounts and deadlines need a check on the funder's own site before any application.

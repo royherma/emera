@@ -65,6 +65,24 @@ describe('Instagram', () => {
     expect((await c.json('GET', '/v1/instagram')).body.connected).toBe(false);
   });
 
+  it('imports two reels with the same caption and second only once', async () => {
+    const twin = [
+      { id: '911', media_type: 'IMAGE', media_url: 'https://cdn.ig.test/911.png', permalink: 'https://www.instagram.com/reel/A/', caption: 'Same words', timestamp: '2026-11-10T08:00:00+0000' },
+      { id: '912', media_type: 'IMAGE', media_url: 'https://cdn.ig.test/912.png', permalink: 'https://www.instagram.com/reel/B/', caption: 'Same words', timestamp: '2026-11-10T08:00:00+0000' },
+    ];
+    media.splice(0, media.length, ...twin);
+    fakeInstagram();
+    const c = new Client(makeEnv({ INSTAGRAM_STUB_TOKEN: 'stub-ig-token' }));
+    await c.signIn('twin@example.test');
+    await c.withHandle('twinmaker', 'Twin Maker');
+    const start = await c.call('GET', new URL((await c.json('GET', '/v1/instagram')).body.connectUrl).pathname + new URL((await c.json('GET', '/v1/instagram')).body.connectUrl).search);
+    const cb = new URL(start.headers.get('Location')!);
+    await c.call('GET', cb.pathname + cb.search);
+    const imp = await c.json('POST', '/v1/import', { from: 'instagram' });
+    expect(imp.body.imported).toHaveLength(1);
+    expect(imp.body.skipped[0].why).toContain('same caption and time');
+  });
+
   it('is locked with a plain sentence when Meta keys are not set', async () => {
     const c = new Client(makeEnv());
     await c.signIn('lock@example.test');

@@ -25,6 +25,11 @@ async function alreadyImported(env: Env, userId: string, ids: string[]): Promise
   return new Map(rows.results.map((r) => [r.item_id, r.post_id]));
 }
 
+async function sameMoment(env: Env, userId: string, caption: string, createdAt: string): Promise<string | null> {
+  const row = await env.DB.prepare('SELECT id FROM posts WHERE user_id = ? AND created_at = ? AND caption = ? LIMIT 1').bind(userId, Date.parse(createdAt), caption).first<{ id: string }>();
+  return row?.id ?? null;
+}
+
 type Api = (method: string, path: string, body?: unknown, raw?: BodyInit, headers?: Record<string, string>) => Promise<any>;
 function apiFor(env: Env, origin: string, token: string): Api {
   return async (method, path, body, raw, headers = {}) => {
@@ -66,6 +71,8 @@ export async function importItems(env: Env, origin: string, token: string, user:
   const out: ImportResult = { imported: [], skipped: [] };
   for (const it of items.slice(0, MAX_POSTS)) {
     if (done.has(it.id)) { out.skipped.push({ item: it.url || it.id, why: `already on Emera as ${done.get(it.id)}` }); continue; }
+    const twin = it.createdAt && Date.parse(it.createdAt) < Date.now() ? await sameMoment(env, user.id, it.caption, it.createdAt) : null;
+    if (twin) { out.skipped.push({ item: it.url || it.id, why: `same caption and time as ${twin}` }); continue; }
     const ids: string[] = []; const alt: Record<string, string> = {};
     const why: string[] = [];
     for (const m of it.media) {

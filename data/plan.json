@@ -1507,6 +1507,7 @@
     ]
   ],
   "review": [
+    {"id": "ios-b5-submit", "kind": "approve", "when": "morning, 1 min", "title": "iPhone build 5: Spotted copies + free protection", "why": "Build 5 from main 857b8b5 (last uploaded: 4). Adds the 'Copies people spotted for you' list on Protect (Take it down / Not a copy) and the one-tap free protection opt-in. Not uploaded yet. Screens below are the same commit in the app's preview mode at iPhone size; the simulator has no tap tool to sign in.", "list": ["What's new: Free protection. Sign in, turn it on, and we check your 10 newest posts every month for copies.", "What's new: Copies people spot for you land in Protect, with one tap to take each one down.", "On approve: apps/mobile/scripts/ios-release.sh 5 (archive, upload), then submit 1.0 build 5 for review"], "shots": [".claude/artifacts/ios-b5/1-spotted-and-optin.png", ".claude/artifacts/ios-b5/2-after-optin.png", ".claude/artifacts/ios-b5/3-take-it-down.png"], "links": [["Build log", ".claude/artifacts/ios-b5/run.log"]], "options": [{"id": "submit", "label": "submit to Apple", "primary": true}], "pick": "submit to Apple"},
     {
       "id": "home-subhead",
       "kind": "pick",

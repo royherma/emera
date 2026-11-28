@@ -12,6 +12,12 @@ export function isTest(env, email, flagged = false) {
   return TEST_DOMAIN.test(e) || TEST_LOCAL.test(e) || ownEmails(env).has(e);
 }
 
+export function alertKind(env, email, flagged = false) {
+  if (!isTest(env, email, flagged)) return false;
+  const e = String(email || "").trim().toLowerCase();
+  return !flagged && ownEmails(env).has(e) && !TEST_DOMAIN.test(e) && !TEST_LOCAL.test(e) ? "own" : true;
+}
+
 export const flag = (cc) => (cc && /^[A-Z]{2}$/.test(cc) ? String.fromCodePoint(...[...cc].map((c) => 0x1f1a5 + c.charCodeAt(0))) : "");
 
 export function place(r) {
