@@ -9,7 +9,8 @@
     "migrate:local": "wrangler d1 migrations apply DB --local",
     "migrate:staging": "wrangler d1 migrations apply DB --env staging --remote",
     "migrate:prod": "wrangler d1 migrations apply DB --env production --remote",
-    "index": "node scripts/index.mjs"
+    "index": "node scripts/index.mjs",
+    "test": "node --test test/bot.test.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.0.0"

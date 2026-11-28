@@ -113,17 +113,11 @@ ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(
 
 const nav = () => `<nav class="nav"><a class="mk" href="/">${mark}${esc(brand.name.toLowerCase())}</a><div class="navr">${starButton(ctx.github)}<a class="pill" href="/#join">Create your account</a></div></nav>`;
 
-const joinBox = (source) => `<section class="join" id="join">
-<h2>Put it out in the daylight</h2>
-<p>Your work, your news, your next event, each with proof of who shared it. Join the first people on ${esc(brand.name)}.</p>
-<form class="signup" data-signup data-source="${esc(source)}" novalidate><input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address" required><input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><button type="submit">Create your account</button></form>
+const joinBox = (source, c) => `<section class="join" id="join">
+<h2>${esc(c?.h || "Get protected today")}</h2>
+<p>${esc(c?.p || "Add your reels and photos and we start looking for copies.")}</p>
+<form class="signup" data-signup data-source="${esc(source)}" novalidate><input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address" required><input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><button type="submit">Get free protection</button></form>
 <p class="note" data-note role="status" aria-live="polite"></p>
-</section>`;
-
-const protectBox = (c) => `<section class="join" id="join">
-<h2>${esc(c.h)}</h2>
-<p>${esc(c.p)}</p>
-<p style="margin-top:18px"><a class="pill" href="/protect/?ref=answers">${esc(c.label)}</a></p>
 </section>`;
 
 const ctx = { github: "", year: new Date().getFullYear() };
@@ -163,9 +157,9 @@ ${related.length ? `<h2>Related</h2><div class="rel">${related.map((r) => `<a hr
 ${p.sources?.length ? `<h2>Sources</h2><ol class="src">${p.sources.map((s) => `<li><a href="${esc(s.url)}" rel="noopener">${esc(s.label)}</a></li>`).join("")}</ol>` : ""}
 <p class="checked">Checked ${esc(p.checked)}.</p>
 </div>
-${p.cta ? protectBox(p.cta) : joinBox(`${p.kind}-${p.slug}`)}
+${joinBox(`${p.kind}-${p.slug}`, p.cta)}
 </main>
-</div>${foot()}${p.cta ? "" : signupJs}</body></html>`;
+</div>${foot()}${signupJs}</body></html>`;
 }
 
 function hub(kind, name, path, intro) {
