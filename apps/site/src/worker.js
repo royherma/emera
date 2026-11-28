@@ -8,8 +8,13 @@ const json = (body, status = 200) =>
 
 const clip = (v, n) => (typeof v === "string" && v.trim() ? v.trim().slice(0, n) : null);
 
-const BOT = /bot|crawl|spider|slurp|preview|fetch|monitor|uptime|curl|wget|python|axios|node-fetch|go-http|java\/|headless|lighthouse|facebookexternalhit|whatsapp|telegram|discord|slack|scan/i;
-const CLOUD = /amazon|aws|google llc|google cloud|microsoft|digitalocean|hetzner|ovh|linode|vultr|oracle|alibaba|tencent|contabo|leaseweb|scaleway|choopa|m247|datacamp|censys|shodan|palo alto/i;
+const BOT = /bot|crawl|spider|slurp|preview|fetch|monitor|uptime|curl|wget|python|axios|node-fetch|go-http|java\/|headless|lighthouse|facebookexternalhit|whatsapp|telegram|discord|slack|scan|measurement|heritrix|dataprovider|techguyver|nomorevibe|^mozilla\/5\.0$/i;
+const CLOUD = /amazon|aws|google llc|google cloud|microsoft|digitalocean|hetzner|ovh|linode|vultr|oracle|alibaba|tencent|contabo|leaseweb|scaleway|choopa|m247|datacamp|censys|shodan|palo alto|collyer quay|custodiandc|feo prest|ucloud|datacenter|hostpapa|hostgnome|ethernet servers|fbw networks|interserver|web2objects|virtual systems|subnet digital|driftnet|tzulo|dataprovider/i;
+const FAKE_UA = /iPhone OS 13_2_3|Windows NT 10\.0.*Chrome\/117\.0\.0\.0|Android 10; K\).*Chrome\/131\.|Chrome\/\d+\.0 Safari/;
+
+export function isBot(ua, network) {
+  return !ua || BOT.test(ua) || FAKE_UA.test(ua) || !!(network && CLOUD.test(network));
+}
 
 function cookie(request, name) {
   const m = (request.headers.get("cookie") || "").match(new RegExp(`(?:^|;\\s*)${name}=([\\w-]{8,64})`));
@@ -28,7 +33,7 @@ function seen(request) {
     network,
     ua,
     lang: clip((request.headers.get("accept-language") || "").split(",")[0], 20),
-    bot: !ua || BOT.test(ua) || (network && CLOUD.test(network)) ? 1 : 0,
+    bot: isBot(ua, network) ? 1 : 0,
     tester: request.headers.get("x-tg-tester") ? 1 : 0,
   };
 }
